@@ -51,7 +51,7 @@ Red Cell Count        x10*12/L    5.9         4.2 - 6.0
   ];
   :diagnosticTime [a fhir:DateTime; fhir:value "2011-03-04T08:30:00+11:00"^^xsd:dateTime];
   :results [
-    :name [
+    :results_name [
       a fhir:Codeable;
         Codeable:coding [
           a fhir:Coding;
@@ -64,7 +64,7 @@ Red Cell Count        x10*12/L    5.9         4.2 - 6.0
           Coding:display  [a fhir:String; fhir:value "MASTER FULL BLOOD COUNT"];
         ];
       ];
-    :result [
+    :results_result [
       a fhir:Reference;
       Reference:reference _:r1
     ], [
@@ -74,7 +74,7 @@ Red Cell Count        x10*12/L    5.9         4.2 - 6.0
   ].
 
 _:r1 a fhir:Observation;
-   Resource:text [
+  Resource:text [
      a fhir:Narrative;
      Narrative:status [a fhir:Code; fhir:value "empty"];
      xml:div """Missing"""
@@ -95,6 +95,8 @@ _:r1 a fhir:Observation;
   Observation:status [a fhir:Code; fhir:value "final"];
   Observation:reliability [a fhir:Code; fhir:value "ok"];
   Observation:referenceRange [
+    # I dislike this predicate... but I think we need it
+    # given e.g. "type" @ http://www.hl7.org/implement/standards/fhir/documentreference.htm
     Observation:referenceRange_rangeRange [
       a fhir:Range;
       Range:low [
