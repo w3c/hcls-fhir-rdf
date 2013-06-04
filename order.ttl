@@ -1,41 +1,52 @@
-@prefix : <http://hl7/org/fhir/> .
+@prefix : <http://hl7/org/fhir/DiagnosticReport#> .
+@prefix fhir: <http://hl7/org/fhir/> .
+@prefix Order: <http://hl7/org/fhir/Order#> .
+@prefix Narrative: <http://hl7/org/fhir/Narrative#> .
+@prefix Resource: <http://hl7/org/fhir/Resource#> .
+@prefix Reference: <http://hl7/org/fhir/Reference#> .
+@prefix Codeable: <http://hl7/org/fhir/Codeable#> .
+@prefix Coding: <http://hl7/org/fhir/Coding#> .
 @prefix xml: <http://www.w3.org/1999/xhtml> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema> .
 @base <http://this-fhir-server/fhir/> .
 
-[] a :Order;
-  :resource_text [
-    a :Narrative;
-    :narrative_status [a :Code; :value "generated"];
+[] a fhir:Order;
+  Resource:text [
+    a fhir:Narrative;
+    Narrative:status [a fhir:Code; fhir:value "generated"];
     xml:div """Request for Prescription (on patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321)"""
   ];
-  :order_date [
-    a :DateTime;
-    :value "2012-12-28T09:03:04+11:00"^^xsd:dateTime
+  Order:date [
+    a fhir:DateTime;
+    fhir:value "2012-12-28T09:03:04+11:00"^^xsd:dateTime
   ];
-  :order_subject [
-    a :Patient;
-    :reference <patient/@pat2>
+  Order:subject [
+    a fhir:Reference;
+    Reference:reference <patient/@pat2>
   ];
-  :order_source [
-    a :Practitioner;
-    :reference <practitioner/@example>
+  Order:source [
+    a fhir:Reference;
+    Reference:reference <practitioner/@example>
   ];
-  :order_reason [
-    a :String;
-    :value "Standard admission testing"
+  Order:reason [
+    a fhir:String;
+    fhir:value "Standard admission testing"
   ];
-  :order_when [
-    :order_when_code [
-      a :CodeableConcept;
-      :codeableconcept_coding [
-	a :Coding;
-	:coding_system [a :Uri; :value <http://acme.com/codes/request-priority>];
-	:coding_code  [a :Code; :value "today"];
+  Order:when [
+    Order:code [ # I don't love this predicated...
+      a fhir:Codeable;
+      Codeable:coding [
+	a fhir:Coding;
+	Coding:system [a fhir:Uri; fhir:value <http://acme.com/codes/request-priority>];
+	Coding:code  [a fhir:Code; fhir:value "today"];
       ]
     ]
   ];
-  :order_detail [
-    a :MedicationPrescription;
-    :reference <medicationprescription/@example>
+  Order:detail [
+    a fhir:Reference;
+    Reference:reference <medicationprescription/@example>
   ].
+
+<medicationprescription/@example> a fhir:MedicationPrescription.
+<patient/@pat2> a fhir:Patient.
+<practitioner/@example> a fhir:Practitioner.

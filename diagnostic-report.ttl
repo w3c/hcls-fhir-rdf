@@ -1,12 +1,21 @@
-@prefix : <http://hl7/org/fhir/> .
+@prefix : <http://hl7/org/fhir/DiagnosticReport#> .
+@prefix fhir: <http://hl7/org/fhir/> .
+@prefix Narrative: <http://hl7/org/fhir/Narrative#> .
+@prefix Observation: <http://hl7/org/fhir/Observation#> .
+@prefix Quantity: <http://hl7/org/fhir/Quantity#> .
+@prefix Resource: <http://hl7/org/fhir/Resource#> .
+@prefix Reference: <http://hl7/org/fhir/Reference#> .
+@prefix Range: <http://hl7/org/fhir/Range#> .
+@prefix Codeable: <http://hl7/org/fhir/Codeable#> .
+@prefix Coding: <http://hl7/org/fhir/Coding#> .
 @prefix xml: <http://www.w3.org/1999/xhtml> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema> .
 @base <http://this-fhir-server/fhir/> .
 
-[] a :DiagnosticReport;
-   :resource_text [
-     a :Narrative;
-     :narrative_status [a :Code; :value "generated"];
+[] a fhir:DiagnosticReport;
+   Resource:text [
+     a fhir:Narrative;
+     Narrative:status [a fhir:Code; fhir:value "generated"];
      xml:div """<h3>CBC Report for Wile. E. COYOTE (MRN: 23453) issued 3-Mar 2011 11:45</h3>         
 <pre>
 Test                  Units       Value       Reference Range
@@ -16,136 +25,135 @@ Red Cell Count        x10*12/L    5.9         4.2 - 6.0
 <p>Acme Laboratory, Inc signed: Dr Pete Pathologist</p>"""
   ];
 
-  :diagnosticReport_status [a :Code; :value "final"];
-  :diagnosticReport_issued [a :DateTime; :value "2011-03-04T11:45:33+11:00"^^xsd:dateTime];
-  :diagnosticReport_subject [
-    a :Patient;
-    :reference <patient/@pat2>
+  :status [a fhir:Code; fhir:value "final"];
+  :issued [a fhir:DateTime; fhir:value "2011-03-04T11:45:33+11:00"^^xsd:dateTime];
+  :subject [
+    a fhir:Reference;
+    Reference:reference <patient/@pat2>
   ];
-  :diagnosticReport_performer [
-    a :Organization;
-    :reference <organization/@1832473e-2fe0-452d-abe9-3cdb9879522f>;
-    :display [a :String; :value "Acme Laboratory, Inc"]
+  :performer [
+    a fhir:Reference;
+    Reference:reference <organization/@1832473e-2fe0-452d-abe9-3cdb9879522f>;
+    Reference:display [a fhir:String; fhir:value "Acme Laboratory, Inc"]
   ];
-  :diagnosticReport_reportId [
-    a :Identifier;
-    :identifier_system [a :Uri; :value <http://acme.com/lab/reports>];
-    :identifier_key [a :String; :value "5234342"];
+  :reportId [
+    a fhir:Identifier;
+    :system [a fhir:Uri; fhir:value <http://acme.com/lab/reports>];
+    :key [a fhir:String; fhir:value "5234342"];
   ];
-  :diagnosticReport_serviceCategory [
-    a :CodeableConcept;
-    :codeableconcept_coding [
-      a :Coding;
-      :coding_system [a :Uri; :value <http://hl7.org/fhir/sid/v2-0074>];
-      :coding_code  [a :Code; :value "HM"];
+  :serviceCategory [
+    a fhir:Codeable;
+    Codeable:coding [
+      a fhir:Coding;
+      Coding:system [a fhir:Uri; fhir:value <http://hl7.org/fhir/sid/v2-0074>];
+      Coding:code  [a fhir:Code; fhir:value "HM"];
     ]
   ];
-  :diagnosticReport_diagnosticTime [a :DateTime; :value "2011-03-04T08:30:00+11:00"^^xsd:dateTime];
-  :diagnosticReport_results [
-    :diagnosticReport_results_name [
-      a :CodeableConcept;
-        :codeableconcept_coding [
-          a :Coding;
-          :coding_system [a :Uri; :value <http://loinc.org>];
-          :coding_code  [a :Code; :value "15430-2"];
-          :coding_display  [a :String; :value "FULL BLOOD EXAMINATION"];
+  :diagnosticTime [a fhir:DateTime; fhir:value "2011-03-04T08:30:00+11:00"^^xsd:dateTime];
+  :results [
+    :name [
+      a fhir:Codeable;
+        Codeable:coding [
+          a fhir:Coding;
+          Coding:system [a fhir:Uri; fhir:value <http://loinc.org>];
+          Coding:code  [a fhir:Code; fhir:value "15430-2"];
+          Coding:display  [a fhir:String; fhir:value "FULL BLOOD EXAMINATION"];
+        ],  [
+          a fhir:Coding;
+          Coding:code  [a fhir:Code; fhir:value "CBC"];
+          Coding:display  [a fhir:String; fhir:value "MASTER FULL BLOOD COUNT"];
         ];
-        :codeableconcept_coding [
-          a :Coding;
-          :coding_code  [a :Code; :value "CBC"];
-          :coding_display  [a :String; :value "MASTER FULL BLOOD COUNT"];
-        ]
       ];
-    :diagnosticReport_results_result [
-      a :Observation;
-      :reference _:r1
+    :result [
+      a fhir:Reference;
+      Reference:reference _:r1
     ], [
-      a :Observation;
-      :reference _:r2
+      a :Reference;
+      Reference:reference _:r2
     ]
   ].
 
-_:r1 a :Observation;
-   :resource_text [
-     a :Narrative;
-     :narrative_status [a :Code; :value "empty"];
+_:r1 a fhir:Observation;
+   Resource:text [
+     a fhir:Narrative;
+     Narrative:status [a fhir:Code; fhir:value "empty"];
      xml:div """Missing"""
   ];
-  :observation_name [
-    a :Coding;
-    :coding_system [a :Uri; :value <http://loinc.org/>];
-    :coding_code [a :Code; :value "718-7"];
-    :coding_display [a :String; :value "Haemoglobin"]
+  Observation:name [
+    a fhir:Coding;
+    Coding:system [a fhir:Uri; fhir:value <http://loinc.org/>];
+    Coding:code [a fhir:Code; fhir:value "718-7"];
+    Coding:display [a fhir:String; fhir:value "Haemoglobin"]
   ];
-  :observation_valueQuantity [
-     a :Quantity;
-     :quantity_value [a :Decimal; :value "176"^^xsd:decimal];
-     :quantity_units [a :String; :value "g/L"];
-     :quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
-     :quantity_code [a :Code; :value "g/L"]
+  Observation:valueQuantity [
+     a fhir:Quantity;
+     Quantity:value [a fhir:Decimal; fhir:value "176"^^xsd:decimal];
+     Quantity:units [a fhir:String; fhir:value "g/L"];
+     Quantity:system [a fhir:Uri; fhir:value <http://unitsofmeasure.org>];
+     Quantity:code [a fhir:Code; fhir:value "g/L"]
   ];
-  :observation_status [a :Code; :value "final"];
-  :observation_reliability [a :Code; :value "ok"];
-  :observation_referenceRange [
-
-    :observation_referenceRange_rangeRange [
-      a :Range;
-      :range_low [
-        a :Quantity;
-	:quantity_value [a :Decimal; :value "135"^^xsd:decimal];
-	:quantity_units [a :String; :value "g/L"];
-	:quantity_system [a :Uri; :Value <http://unitsofmeasure.org>];
-	:quantity_code [a :Code; :value "g/L"]
+  Observation:status [a fhir:Code; fhir:value "final"];
+  Observation:reliability [a fhir:Code; fhir:value "ok"];
+  Observation:referenceRange [
+    Observation:referenceRange_rangeRange [
+      a fhir:Range;
+      Range:low [
+        a fhir:Quantity;
+	Quantity:value [a fhir:Decimal; fhir:value "135"^^xsd:decimal];
+	Quantity:units [a fhir:String; fhir:value "g/L"];
+	Quantity:system [a fhir:Uri; fhir:value <http://unitsofmeasure.org>];
+	Quantity:code [a fhir:Code; fhir:value "g/L"]
       ];
-      :range_high [
-        a :Quantity;
-	:quantity_value [a :Decimal; :value "180"^^xsd:decimal];
-	:quantity_units [a :String; :value "g/L"];
-	:quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
-	:quantity_code [a :Code; :value "g/L"]
+      Range:high [
+        a fhir:Quantity;
+	Quantity:value [a fhir:Decimal; fhir:value "180"^^xsd:decimal];
+	Quantity:units [a fhir:String; fhir:value "g/L"];
+	Quantity:system [a fhir:Uri; fhir:value <http://unitsofmeasure.org>];
+	Quantity:code [a fhir:Code; fhir:value "g/L"]
       ]
     ]
   ].
 
-_:r2 a :Observation;
-   :resource_text [
-     a :Narrative;
-     :narrative_status [a :Code; :value "empty"];
+_:r2 a fhir:Observation;
+   Resource:text [
+     a fhir:Narrative;
+     Narrative:status [a fhir:Code; fhir:value "empty"];
      xml:div """Missing"""
   ];
-  :observation_name [
-    a :Coding;
-    :coding_system [a :Uri; :value <http://loinc.org/>];
-    :coding_code [a :Code; :value "789-8"];
-    :coding_display [a :String; :value "Red Cell Count"]
+  Observation:name [
+    a fhir:Coding;
+    Coding:system [a fhir:Uri; fhir:value <http://loinc.org/>];
+    Coding:code [a fhir:Code; fhir:value "789-8"];
+    Coding:display [a fhir:String; fhir:value "Red Cell Count"]
   ];
-  :observation_valueQuantity [
-     a :Quantity;
-     :quantity_value [a :Decimal; :value "5.9"^^xsd:decimal];
-     :quantity_units [a :String; :value "x10*12/L"];
-     :quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
-     :quantity_code [a :Code; :value "10*12/L"]
+  Observation:valueQuantity [
+     a fhir:Quantity;
+     Quantity:value [a fhir:Decimal; fhir:value "5.9"^^xsd:decimal];
+     Quantity:units [a fhir:String; fhir:value "x10*12/L"];
+     Quantity:system [a fhir:Uri; fhir:value <http://unitsofmeasure.org>];
+     Quantity:code [a fhir:Code; fhir:value "10*12/L"]
   ];
-  :observation_status [a :Code; :value "final"];
-  :observation_reliability [a :Code; :value "ok"];
-  :observation_referenceRange [
-
-    :observation_referenceRange_rangeRange [
-      a :Range;
-      :range_low [
-        a :Quantity;
-	:quantity_value [a :Decimal; :value "4.2"^^xsd:decimal];
-	:quantity_units [a :String; :value "x10*12/L"];
-	:quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
-	:quantity_code [a :Code; :value "10*12/L"]
+  Observation:status [a fhir:Code; fhir:value "final"];
+  Observation:reliability [a fhir:Code; fhir:value "ok"];
+  Observation:referenceRange [
+    Observation:rangeRange [
+      a fhir:Range;
+      Range:low [
+        a fhir:Quantity;
+	  Quantity:value [a fhir:Decimal; fhir:value "4.2"^^xsd:decimal];
+	  Quantity:units [a fhir:String; fhir:value "x10*12/L"];
+	  Quantity:system [a fhir:Uri; fhir:value <http://unitsofmeasure.org>];
+	  Quantity:code [a fhir:Code; fhir:value "10*12/L"]
       ];
-      :range_high [
-        a :Quantity;
-	:quantity_value [a :Decimal; :value "6"^^xsd:decimal];
-	:quantity_units [a :String; :value "x10*12/L"];
-	:quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
-	:quantity_code [a :Code; :value "10*12/L"]
+      Range:high [
+        a fhir:Quantity;
+	  Quantity:value [a fhir:Decimal; fhir:value "6"^^xsd:decimal];
+	  Quantity:units [a fhir:String; fhir:value "x10*12/L"];
+	  Quantity:system [a fhir:Uri; fhir:value <http://unitsofmeasure.org>];
+	  Quantity:code [a fhir:Code; fhir:value "10*12/L"]
       ]
     ]
   ].
- 
+
+<patient/@pat2> a fhir:Patient.
+<organization/@1832473e-2fe0-452d-abe9-3cdb9879522f> a fhir:Organization.
