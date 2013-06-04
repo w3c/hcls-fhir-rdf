@@ -1,0 +1,151 @@
+@prefix : <http://hl7/org/fhir/> .
+@prefix xml: <http://www.w3.org/1999/xhtml> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema> .
+@base <http://this-fhir-server/fhir/> .
+
+[] a :DiagnosticReport;
+   :resource_text [
+     a :Narrative;
+     :narrative_status [a :Code; :value "generated"];
+     xml:div """<h3>CBC Report for Wile. E. COYOTE (MRN: 23453) issued 3-Mar 2011 11:45</h3>         
+<pre>
+Test                  Units       Value       Reference Range
+Haemoglobin           g/L         176         135 - 180
+Red Cell Count        x10*12/L    5.9         4.2 - 6.0
+
+<p>Acme Laboratory, Inc signed: Dr Pete Pathologist</p>"""
+  ];
+
+  :diagnosticReport_status [a :Code; :value "final"];
+  :diagnosticReport_issued [a :DateTime; :value "2011-03-04T11:45:33+11:00"^^xsd:dateTime];
+  :diagnosticReport_subject [
+    a :Patient;
+    :reference <patient/@pat2>
+  ];
+  :diagnosticReport_performer [
+    a :Organization;
+    :reference <organization/@1832473e-2fe0-452d-abe9-3cdb9879522f>;
+    :display [a :String; :value "Acme Laboratory, Inc"]
+  ];
+  :diagnosticReport_reportId [
+    a :Identifier;
+    :identifier_system [a :Uri; :value <http://acme.com/lab/reports>];
+    :identifier_key [a :String; :value "5234342"];
+  ];
+  :diagnosticReport_serviceCategory [
+    a :CodeableConcept;
+    :codeableconcept_coding [
+      a :Coding;
+      :coding_system [a :Uri; :value <http://hl7.org/fhir/sid/v2-0074>];
+      :coding_code  [a :Code; :value "HM"];
+    ]
+  ];
+  :diagnosticReport_diagnosticTime [a :DateTime; :value "2011-03-04T08:30:00+11:00"^^xsd:dateTime];
+  :diagnosticReport_results [
+    :diagnosticReport_results_name [
+      a :CodeableConcept;
+        :codeableconcept_coding [
+          a :Coding;
+          :coding_system [a :Uri; :value <http://loinc.org>];
+          :coding_code  [a :Code; :value "15430-2"];
+          :coding_display  [a :String; :value "FULL BLOOD EXAMINATION"];
+        ];
+        :codeableconcept_coding [
+          a :Coding;
+          :coding_code  [a :Code; :value "CBC"];
+          :coding_display  [a :String; :value "MASTER FULL BLOOD COUNT"];
+        ]
+      ];
+    :diagnosticReport_results_result [
+      a :Observation;
+      :reference _:r1
+    ], [
+      a :Observation;
+      :reference _:r2
+    ]
+  ].
+
+_:r1 a :Observation;
+   :resource_text [
+     a :Narrative;
+     :narrative_status [a :Code; :value "empty"];
+     xml:div """Missing"""
+  ];
+  :observation_name [
+    a :Coding;
+    :coding_system [a :Uri; :value <http://loinc.org/>];
+    :coding_code [a :Code; :value "718-7"];
+    :coding_display [a :String; :value "Haemoglobin"]
+  ];
+  :observation_valueQuantity [
+     a :Quantity;
+     :quantity_value [a :Decimal; :value "176"^^xsd:decimal];
+     :quantity_units [a :String; :value "g/L"];
+     :quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
+     :quantity_code [a :Code; :value "g/L"]
+  ];
+  :observation_status [a :Code; :value "final"];
+  :observation_reliability [a :Code; :value "ok"];
+  :observation_referenceRange [
+
+    :observation_referenceRange_rangeRange [
+      a :Range;
+      :range_low [
+        a :Quantity;
+	:quantity_value [a :Decimal; :value "135"^^xsd:decimal];
+	:quantity_units [a :String; :value "g/L"];
+	:quantity_system [a :Uri; :Value <http://unitsofmeasure.org>];
+	:quantity_code [a :Code; :value "g/L"]
+      ];
+      :range_high [
+        a :Quantity;
+	:quantity_value [a :Decimal; :value "180"^^xsd:decimal];
+	:quantity_units [a :String; :value "g/L"];
+	:quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
+	:quantity_code [a :Code; :value "g/L"]
+      ]
+    ]
+  ].
+
+_:r2 a :Observation;
+   :resource_text [
+     a :Narrative;
+     :narrative_status [a :Code; :value "empty"];
+     xml:div """Missing"""
+  ];
+  :observation_name [
+    a :Coding;
+    :coding_system [a :Uri; :value <http://loinc.org/>];
+    :coding_code [a :Code; :value "789-8"];
+    :coding_display [a :String; :value "Red Cell Count"]
+  ];
+  :observation_valueQuantity [
+     a :Quantity;
+     :quantity_value [a :Decimal; :value "5.9"^^xsd:decimal];
+     :quantity_units [a :String; :value "x10*12/L"];
+     :quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
+     :quantity_code [a :Code; :value "10*12/L"]
+  ];
+  :observation_status [a :Code; :value "final"];
+  :observation_reliability [a :Code; :value "ok"];
+  :observation_referenceRange [
+
+    :observation_referenceRange_rangeRange [
+      a :Range;
+      :range_low [
+        a :Quantity;
+	:quantity_value [a :Decimal; :value "4.2"^^xsd:decimal];
+	:quantity_units [a :String; :value "x10*12/L"];
+	:quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
+	:quantity_code [a :Code; :value "10*12/L"]
+      ];
+      :range_high [
+        a :Quantity;
+	:quantity_value [a :Decimal; :value "6"^^xsd:decimal];
+	:quantity_units [a :String; :value "x10*12/L"];
+	:quantity_system [a :Uri; :value <http://unitsofmeasure.org>];
+	:quantity_code [a :Code; :value "10*12/L"]
+      ]
+    ]
+  ].
+ 
