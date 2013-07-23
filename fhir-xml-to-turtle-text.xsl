@@ -71,7 +71,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
   </xsl:template>
 
   <xsl:template name="body">
-    <xsl:param name="doc" select="'ClinicalDoc'"/>
     <xsl:call-template name="addPrefixes"/>
     <xsl:call-template name="Resource"/>
   </xsl:template>
@@ -82,8 +81,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     <xsl:for-each select="n1:text"><xsl:call-template name="Text"/></xsl:for-each>
     <xsl:if test="n1:status/@value">    :status [a fhir:Code; fhir:value "<xsl:value-of select="n1:status/@value"/>"];
 </xsl:if>
-    <xsl:if test="n1:issued/@value">    :issued [a fhir:Code; fhir:value "<xsl:value-of select="n1:issued/@value"/>"];
-</xsl:if>
+    <xsl:apply-templates select="n1:issued" mode="Date">
+      <xsl:with-param name="predicate" select="'issued'"/>
+    </xsl:apply-templates>
     <xsl:apply-templates select="n1:subject" mode="Reference">
       <xsl:with-param name="predicate" select="'subject'"/>
     </xsl:apply-templates>
@@ -96,17 +96,94 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     <xsl:apply-templates select="n1:serviceCategory" mode="Codable">
       <xsl:with-param name="predicate" select="'serviceCategory'"/>
     </xsl:apply-templates>
+    <xsl:apply-templates select="n1:diagnosticTime" mode="Date">
+      <xsl:with-param name="predicate" select="'diagnosticTime'"/>
+    </xsl:apply-templates>
+    <xsl:apply-templates select="n1:results" mode="Results">
+      <xsl:with-param name="predicate" select="'results'"/>
+    </xsl:apply-templates>
 <pre>.</pre>
+    <xsl:apply-templates select="n1:contained/*" mode="Contained"/>
     </div>
   </xsl:template>
 
-  <xsl:template name="Reference" match="*" mode="Reference">
+  <!-- get rid of whitespace in Contained element -->
+  <xsl:template name="Contained-text" match="text()" mode="Contained"/>
+
+  <xsl:template name="Contained" match="*" mode="Contained">
+    <xsl:param name="type" select="name()"/>
+&lt;<xsl:value-of select="@id"/>&gt; a fhir:<xsl:value-of select="$type"/>;<xsl:for-each select="n1:text"><xsl:call-template name="Text"/></xsl:for-each>
+    <xsl:value-of select="concat('    ', $type, ':name')"/>
+    <xsl:for-each select="n1:name"><xsl:apply-templates select="n1:coding" mode="Coding-wrapper"/>
+      <xsl:if test="following-sibling::n1:name">,</xsl:if>
+      </xsl:for-each><xsl:text>;
+</xsl:text>
+    <xsl:apply-templates select="n1:valueQuantity" mode="value">
+      <xsl:with-param name="predicate" select="'results'"/>
+      <xsl:with-param name="type" select="$type"/>
+    </xsl:apply-templates>
+    <xsl:if test="n1:status/@value">
+      <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:status [a fhir:Code; fhir:value "<xsl:value-of select="n1:status/@value"/>"];
+</xsl:if>
+    <xsl:if test="n1:reliability/@value">
+      <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:reliability [a fhir:Code; fhir:value "<xsl:value-of select="n1:reliability/@value"/>"];
+</xsl:if>
+    <xsl:for-each select="n1:referenceRange">
+      <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:referenceRange [
+      <xsl:for-each select="n1:rangeRange">
+	<xsl:value-of select="'  '"/><xsl:value-of select="$type"/>:referenceRange_rangeRange [
+            a fhir:Range;
+<xsl:apply-templates select="n1:low" mode="value">
+      <xsl:with-param name="padding" select="'            '"/>
+      <xsl:with-param name="predicate" select="'results'"/>
+      <xsl:with-param name="type" select="'Range'"/>
+    </xsl:apply-templates><xsl:apply-templates select="n1:high" mode="value">
+      <xsl:with-param name="padding" select="'            '"/>
+      <xsl:with-param name="predicate" select="'results'"/>
+      <xsl:with-param name="type" select="'Range'"/>
+    </xsl:apply-templates>        ];</xsl:for-each>
+    ];
+</xsl:for-each>
+.
+  </xsl:template>
+
+  <xsl:template name="value" match="*" mode="value">
+    <xsl:param name="padding" select="'    '"/>
+    <xsl:param name="type" select="'@@type'"/><xsl:value-of select="$padding"/><xsl:value-of select="$type"/>:<xsl:value-of select="name()"/> [
+<xsl:value-of select="$padding"/>    a fhir:Quantity;<xsl:if test="n1:value/@value">;
+<xsl:value-of select="$padding"/>    Quantity:value [a fhir:Decimal; fhir:value "<xsl:value-of select="n1:value/@value"/>"^^xsd:decimal]</xsl:if><xsl:if test="n1:units/@value">;
+<xsl:value-of select="$padding"/>    Quantity:units [a fhir:String; fhir:value "<xsl:value-of select="n1:units/@value"/>"]</xsl:if><xsl:if test="n1:system/@value">;
+<xsl:value-of select="$padding"/>    Quantity:system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:code/@value">;
+<xsl:value-of select="$padding"/>    Quantity:code [a fhir:Code; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:text>
+</xsl:text><xsl:value-of select="$padding"/>];
+</xsl:template>
+
+  <xsl:template name="Results" match="*" mode="Results">
     <xsl:param name="predicate"/>    :<xsl:value-of select="$predicate"/> [
-        a fhir:Reference; a fhir:<xsl:value-of select="n1:type/@value"/>;
-        Reference:reference &lt;<xsl:value-of select="n1:reference/@value"/>&gt;<xsl:if test="n1:display/@value">;
-        Reference:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if>
+<xsl:apply-templates select="n1:name" mode="Codable">
+      <xsl:with-param name="predicate" select="'results_name'"/>
+      <xsl:with-param name="padding" select="'        '"/>
+    </xsl:apply-templates>
+    <xsl:apply-templates select="n1:result" mode="Reference">
+      <xsl:with-param name="predicate" select="'results_result'"/>
+      <xsl:with-param name="padding" select="'        '"/>
+    </xsl:apply-templates>
     ];
 </xsl:template>
+
+  <xsl:template name="Date" match="*" mode="Date">
+    <xsl:param name="predicate"/>    :<xsl:value-of select="$predicate"/> [a fhir:DateTime; fhir:value "<xsl:value-of select="@value"/>"^^xsd:dateTime];
+</xsl:template>
+
+  <xsl:template name="Reference" match="*" mode="Reference">
+    <xsl:param name="predicate"/>
+    <xsl:param name="padding" select="'    '"/><xsl:value-of select="$padding"/>:<xsl:value-of select="$predicate"/> [
+<xsl:value-of select="$padding"/>    a fhir:Reference; a fhir:<xsl:value-of select="n1:type/@value"/>Reference;
+<xsl:value-of select="$padding"/>    Reference:reference &lt;<xsl:value-of select="n1:reference/@value"/>&gt;<xsl:if test="n1:display/@value">;
+<xsl:value-of select="$padding"/>    Reference:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if>
+<xsl:text>
+</xsl:text><xsl:value-of select="$padding"/>];<xsl:text>
+</xsl:text></xsl:template>
 
   <xsl:template name="Identifier" match="*" mode="Identifier">
     <xsl:param name="predicate"/>    :<xsl:value-of select="$predicate"/> [
@@ -120,19 +197,29 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 </xsl:template>
 
   <xsl:template name="Codable" match="*" mode="Codable">
-    <xsl:param name="predicate"/>    :<xsl:value-of select="$predicate"/> [
-        a fhir:Codable;
-	Codeable:coding [<xsl:apply-templates select="n1:coding" mode="Coding"/>
-        ]
-    ];
+    <xsl:param name="predicate"/>
+    <xsl:param name="padding" select="'    '"/><xsl:value-of select="$padding"/>:<xsl:value-of select="$predicate"/> [
+<xsl:value-of select="$padding"/>    a fhir:Codable;
+<xsl:value-of select="$padding"/>    Codeable:coding<xsl:apply-templates select="n1:coding" mode="Coding-wrapper" >
+<xsl:with-param name="padding" select="concat($padding, '    ')"/></xsl:apply-templates>
+<xsl:text>
+</xsl:text><xsl:value-of select="$padding"/>];
+</xsl:template>
+
+<xsl:template name="Coding-wrapper" match="n1:coding" mode="Coding-wrapper">
+  <xsl:param name="padding" select="'    '"/><xsl:apply-templates select="." mode="Coding">
+        <xsl:with-param name="padding" select="$padding"/>
+      </xsl:apply-templates>
+      <xsl:if test="following-sibling::n1:coding">,</xsl:if>
 </xsl:template>
 
   <xsl:template name="Coding" match="*" mode="Coding">
-            a fhir:Coding;<xsl:if test="n1:system/@value">;
-            Coding:system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:code/@value">;
-            Coding:code [a fhir:String; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:if test="n1:display/@value">;
-            Coding:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if>
-</xsl:template>
+    <xsl:param name="padding" select="'        '"/> [
+<xsl:value-of select="$padding"/>    a fhir:Coding;<xsl:if test="n1:system/@value">;
+<xsl:value-of select="$padding"/>    Coding:system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:code/@value">;
+<xsl:value-of select="$padding"/>    Coding:code [a fhir:String; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:if test="n1:display/@value">;
+<xsl:value-of select="$padding"/>    Coding:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if><xsl:text>
+</xsl:text><xsl:value-of select="$padding"/>]</xsl:template>
 
   <xsl:template name="Text">
     <div class="machine" style="font-size:small"><pre>
