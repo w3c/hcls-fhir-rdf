@@ -18,3 +18,5 @@ order-generated.ttl: fhir-xml-to-turtle-text.xsl order.xml
 t_order: order-generated.ttl
 	sparql -d order-generated.ttl -q
 
+test: t_diag t_order
+
