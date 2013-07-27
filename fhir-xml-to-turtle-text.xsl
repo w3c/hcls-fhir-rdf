@@ -81,8 +81,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
       <pre class="machine" style="font-size:small">
 [] a fhir:<xsl:value-of select="name()"/>;</pre>
     <xsl:for-each select="n1:text">
-    <xsl:apply-templates select="." mode="quote" />
-    <xsl:call-template name="Text"/></xsl:for-each>
+      <xsl:apply-templates select="." mode="quote" />
+      <xsl:call-template name="Text"/>
+    </xsl:for-each>
     <xsl:if test="n1:status/@value">
       <xsl:apply-templates select="n1:status" mode="quote" />
       <pre class="machine" style="font-size:small">    :status [a fhir:Code; fhir:value "<xsl:value-of select="n1:status/@value"/>"];
@@ -438,7 +439,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	background-color: red;
 	}
 	.orig {
-	background-color: #00ffd7;
+	display:table;
+	border: .5ex solid #00ccc6;
+	background-color: #00ddd7;
 	}
 
 	/* eye-popping RMIM colors */
@@ -466,21 +469,49 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     <xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
   </xsl:template>
   <xsl:template name="quote-element" match="*" mode="quote">
-    <xsl:if test="$output!='text'"><pre class="orig">
-      <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/><xsl:apply-templates select="@*" mode="copy-attr"/><xsl:text>&gt;</xsl:text>
-      <xsl:apply-templates select="node()" mode="copy" />
-      <xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+    <xsl:if test="$output!='text'">
+      <pre class="orig">
+	<xsl:call-template name="indent" />
+	<xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
+	<xsl:apply-templates select="@*" mode="copy-attr"/>
+	<xsl:text>&gt;</xsl:text>
+	<xsl:apply-templates select="node()" mode="copy" />
+	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
       </pre>
     </xsl:if>
   </xsl:template>
   <xsl:template name="start" match="*" mode="start">
-    <xsl:if test="$output!='text'"><pre class="orig"><xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/><xsl:apply-templates select="@*" mode="copy-attr"/><xsl:text>&gt;</xsl:text></pre></xsl:if>
+    <xsl:if test="$output!='text'">
+      <pre class="orig">
+	<xsl:call-template name="indent" />
+	<xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
+	<xsl:apply-templates select="@*" mode="copy-attr"/>
+	<xsl:text>&gt;</xsl:text>
+      </pre>
+    </xsl:if>
   </xsl:template>
   <xsl:template name="end" match="*" mode="end">
-    <xsl:if test="$output!='text'"><pre class="orig"><xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text></pre></xsl:if>
+    <xsl:if test="$output!='text'">
+      <pre class="orig">
+	<xsl:call-template name="indent" />
+	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+      </pre>
+    </xsl:if>
   </xsl:template>
   <xsl:template name="copy-attr" match="@*" mode="copy-attr">
     <xsl:text> </xsl:text><xsl:value-of select="name()"/><xsl:text>=</xsl:text><xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
+  </xsl:template>
+  <xsl:template name="indent">
+    <xsl:if test="preceding-sibling::text()[1]">
+      <xsl:choose>
+	<xsl:when test="contains(preceding-sibling::text()[1], '&#10;')">
+	  <xsl:value-of select="substring-after(preceding-sibling::text()[1], '&#10;')"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="preceding-sibling::text()[1]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>
