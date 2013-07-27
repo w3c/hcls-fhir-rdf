@@ -129,17 +129,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
       <xsl:with-param name="predicate" select="'results'"/>
     </xsl:apply-templates>
     <xsl:for-each select="n1:when">
+      <xsl:apply-templates select="." mode="start" />
       <pre class="machine" style="font-size:small">    :when [
 </pre>
+<xsl:apply-templates select="n1:code" mode="quote" />
       <xsl:apply-templates select="n1:code" mode="Codable">
 	<xsl:with-param name="predicate" select="'when_code'"/>
 	<xsl:with-param name="padding" select="'        '"/>
       </xsl:apply-templates>
+      <xsl:apply-templates select="." mode="end" />
       <pre class="machine" style="font-size:small">
     ] ;<xsl:text>
 </xsl:text>
     </pre>
     </xsl:for-each>
+    <xsl:apply-templates select="n1:detail" mode="quote" />
     <xsl:apply-templates select="n1:detail" mode="Reference">
       <xsl:with-param name="predicate" select="'detail'"/>
     </xsl:apply-templates>
