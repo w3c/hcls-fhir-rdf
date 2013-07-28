@@ -27,14 +27,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
   <!-- global variable title -->
   <xsl:variable name="title">
     <xsl:choose>
-      <xsl:when test="string-length(/n1:ClinicalDocument/n1:title)  &gt;= 1">
-	<xsl:value-of select="/n1:ClinicalDocument/n1:title"/>
-      </xsl:when>
-      <xsl:when test="/n1:ClinicalDocument/n1:code/@displayName">
-	<xsl:value-of select="/n1:ClinicalDocument/n1:code/@displayName"/>
+      <xsl:when test="string-length(/*/n1:text/xhtml:div/xhtml:*[starts-with(name(), 'h')])  &gt;= 1">
+	<xsl:value-of select="/*/n1:text/xhtml:div/xhtml:*[starts-with(name(), 'h')]"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:text>Clinical Document</xsl:text>
+	<xsl:value-of select="name(/*[1])"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -130,6 +127,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     </xsl:apply-templates>
     <xsl:for-each select="n1:when">
       <xsl:apply-templates select="." mode="start" />
+      <div>
       <pre class="machine" style="font-size:small">    :when [
 </pre>
 <xsl:apply-templates select="n1:code" mode="quote" />
@@ -137,6 +135,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	<xsl:with-param name="predicate" select="'when_code'"/>
 	<xsl:with-param name="padding" select="'        '"/>
       </xsl:apply-templates>
+      </div>
       <xsl:apply-templates select="." mode="end" />
       <pre class="machine" style="font-size:small">
     ] ;<xsl:text>
@@ -149,8 +148,8 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     </xsl:apply-templates>
 <pre>.</pre>
     <xsl:apply-templates select="n1:contained/*" mode="Contained"/>
-    <xsl:apply-templates select="." mode="end" />
     </div>
+    <xsl:apply-templates select="." mode="end" />
   </xsl:template>
 
   <!-- get rid of whitespace in Contained element -->
@@ -159,16 +158,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
   <xsl:template name="Contained" match="*" mode="Contained">
     <xsl:param name="type" select="name()"/>
     <xsl:apply-templates select="." mode="start" />
+    <div>
     <pre class="machine" style="font-size:small">
 &lt;<xsl:value-of select="@id"/>&gt; a fhir:<xsl:value-of select="$type"/>;</pre>
     <xsl:for-each select="n1:text">
-    <xsl:apply-templates select="." mode="quote" />
-    <xsl:call-template name="Text"/></xsl:for-each>
+      <xsl:apply-templates select="." mode="quote" />
+      <xsl:call-template name="Text"/>
+    </xsl:for-each>
     <xsl:apply-templates select="n1:name" mode="quote" />
-    <pre class="machine" style="font-size:small">    <xsl:value-of select="concat('    ', $type, ':name')"/>
-    <xsl:for-each select="n1:name"><xsl:apply-templates select="n1:coding" mode="Coding-wrapper"/>
-      <xsl:if test="following-sibling::n1:name">,</xsl:if>
-      </xsl:for-each><xsl:text>;
+    <pre class="machine" style="font-size:small">
+      <xsl:value-of select="concat('    ', $type, ':name')"/>
+      <xsl:for-each select="n1:name">
+	<xsl:apply-templates select="n1:coding" mode="Coding-wrapper"/>
+	<xsl:if test="following-sibling::n1:name">,</xsl:if>
+      </xsl:for-each>
+<xsl:text>;
 </xsl:text>
     </pre>
     <xsl:apply-templates select="n1:valueQuantity" mode="quote" />
@@ -190,36 +194,42 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     </xsl:if>
     <xsl:for-each select="n1:referenceRange">
       <xsl:apply-templates select="." mode="start" />
-      <pre class="machine" style="font-size:small">      <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:referenceRange [
-</pre>
-      <xsl:for-each select="n1:rangeRange">
-	<xsl:apply-templates select="." mode="start" />
+      <div>
 	<pre class="machine" style="font-size:small">
-	  <xsl:value-of select="'        '"/><xsl:value-of select="$type"/>:referenceRange_rangeRange [
+	  <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:referenceRange [
+</pre>
+        <xsl:for-each select="n1:rangeRange">
+	  <xsl:apply-templates select="." mode="start" />
+	  <div>
+	    <pre class="machine" style="font-size:small">
+	      <xsl:value-of select="'        '"/><xsl:value-of select="$type"/>:referenceRange_rangeRange [
             a fhir:Range;
 </pre>
-	<xsl:apply-templates select="n1:low" mode="quote" />
-	<xsl:apply-templates select="n1:low" mode="value">
-	  <xsl:with-param name="padding" select="'            '"/>
-	  <xsl:with-param name="predicate" select="'results'"/>
-	  <xsl:with-param name="type" select="'Range'"/>
-	</xsl:apply-templates>
-	<xsl:apply-templates select="n1:high" mode="quote" />
-	<xsl:apply-templates select="n1:high" mode="value">
-	  <xsl:with-param name="padding" select="'            '"/>
-	  <xsl:with-param name="predicate" select="'results'"/>
-	  <xsl:with-param name="type" select="'Range'"/>
-	</xsl:apply-templates>
-	<pre class="machine" style="font-size:small">        ];</pre>
+	    <xsl:apply-templates select="n1:low" mode="quote" />
+	    <xsl:apply-templates select="n1:low" mode="value">
+	      <xsl:with-param name="padding" select="'            '"/>
+	      <xsl:with-param name="predicate" select="'results'"/>
+	      <xsl:with-param name="type" select="'Range'"/>
+	    </xsl:apply-templates>
+	    <xsl:apply-templates select="n1:high" mode="quote" />
+	    <xsl:apply-templates select="n1:high" mode="value">
+	      <xsl:with-param name="padding" select="'            '"/>
+	      <xsl:with-param name="predicate" select="'results'"/>
+	      <xsl:with-param name="type" select="'Range'"/>
+	    </xsl:apply-templates>
+	    <pre class="machine" style="font-size:small">        ];</pre>
+	  </div>
 	<xsl:apply-templates select="." mode="end" />
 	</xsl:for-each>
 	<pre class="machine" style="font-size:small">
     ];
 </pre>
-	<xsl:apply-templates select="." mode="end" />
+      </div>
+      <xsl:apply-templates select="." mode="end" />
     </xsl:for-each>
 .
-<xsl:apply-templates select="." mode="end" />
+</div>
+    <xsl:apply-templates select="." mode="end" />
   </xsl:template>
 
   <xsl:template name="value" match="*" mode="value">
@@ -260,8 +270,8 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     <pre class="machine" style="font-size:small">
     ];
 </pre>
-    <xsl:apply-templates select="." mode="end" />
     </div>
+    <xsl:apply-templates select="." mode="end" />
   </xsl:template>
 
   <xsl:template name="Date" match="*" mode="Date">
