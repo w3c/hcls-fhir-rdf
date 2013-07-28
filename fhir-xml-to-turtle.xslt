@@ -468,19 +468,24 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
   </xsl:template>
 
   <xsl:template name="copy-element" match="*" mode="copy">
-    <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/><xsl:apply-templates select="@*" mode="copy-attr"/><xsl:text>&gt;</xsl:text>
-      <xsl:apply-templates select="node()" mode="copy" />
-    <xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
+    <xsl:apply-templates select="@*" mode="copy-attr"/>
+    <xsl:choose>
+      <xsl:when test="count(node()) > 0">
+	<xsl:text>&gt;</xsl:text>
+	<xsl:apply-templates select="node()" mode="copy" />
+	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:text>/&gt;</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   <xsl:template name="quote-element" match="*" mode="quote">
     <xsl:if test="$output!='text'">
       <pre class="orig">
 	<xsl:call-template name="indent" />
-	<xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
-	<xsl:apply-templates select="@*" mode="copy-attr"/>
-	<xsl:text>&gt;</xsl:text>
-	<xsl:apply-templates select="node()" mode="copy" />
-	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+	<xsl:call-template name="copy-element" />
       </pre>
     </xsl:if>
   </xsl:template>
