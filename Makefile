@@ -3,18 +3,18 @@
 
 NOW ?= -stringparam now `date +%Y-%02m-%02dT%02H:%02M:%02S%:z`
 
-fhir-xml-to-turtle-text.xsl: fhir-xml-to-turtle.xslt
+fhir-xml-to-turtle-text.xslt: fhir-xml-to-turtle.xslt
 	cp $< $@
 	perl -pi -e "s{<xsl:param name=\"output\" select=\"'html'\"/>}{<xsl:param name=\"output\" select=\"'text'\"/>};s{xsl:output method=\"html\"}{xsl:output method=\"text\"}" $@
 
-diagnostic-report-generated.ttl: fhir-xml-to-turtle-text.xsl diagnostic-report.xml
+diagnostic-report-generated.ttl: fhir-xml-to-turtle-text.xslt diagnostic-report.xml
 	xsltproc ${NOW} $^ > $@
 
 
 t_diag: diagnostic-report-generated.ttl
 	sparql -d $< -q
 
-order-generated.ttl: fhir-xml-to-turtle-text.xsl order.xml
+order-generated.ttl: fhir-xml-to-turtle-text.xslt order.xml
 	xsltproc ${NOW} $^ > $@
 
 
