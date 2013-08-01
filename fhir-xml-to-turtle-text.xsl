@@ -337,7 +337,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 
   <xsl:template name="Coding" match="*" mode="Coding">
     <xsl:param name="padding" select="'        '"/> [
-<xsl:value-of select="$padding"/>    a fhir:Coding;<xsl:if test="n1:system/@value">;
+<xsl:value-of select="$padding"/>    a fhir:Coding<xsl:if test="n1:system/@value">;
 <xsl:value-of select="$padding"/>    Coding:system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:code/@value">;
 <xsl:value-of select="$padding"/>    Coding:code [a fhir:String; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:if test="n1:display/@value">;
 <xsl:value-of select="$padding"/>    Coding:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if><xsl:text>
