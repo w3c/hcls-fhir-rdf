@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><div>Type definition for HumanName from <a href="http://hl7.org/fhir/datatypes.htm#HumanName">FHIR Specification</a></div></div>
+  </text>
+  <name value="Basic Profile for HumanName"/>
+  <publisher value="FHIR Specification"/>
+  <description value="Basic Profile for HumanName for validation support"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="HumanName"/>
+    <element>
+      <path value="HumanName"/>
+      <definition>
+        <short value="Name of a human"/>
+        <formal value="A human&#39;s name with the ability to identify parts and usage"/>
+        <comments value="Names may be changed, or repudiated, or people may have different names in different contexts. Names may be divided into parts of different type that have variable significance depending on context, though the division into parts does not always matter. With personal names, the different parts may or may not be imbued with some implicit meaning; various cultures associate different importance with the name parts, and the degree to which systems must care about name parts around the world varies widely."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Structure"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="EN"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.use"/>
+      <definition>
+        <short value="The use of this name"/>
+        <formal value="Identifies the purpose for this name"/>
+        <comments value="This is labelled as &quot;Is Modifier&quot; because applications should not mistake a temporary or old name etc for a current/permanent one. Applications can assume that a name is not temporary or old unless it explicitly says that it is"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="NameUse"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./use)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.text"/>
+      <definition>
+        <short value="Text representation of the full name"/>
+        <formal value="A full text representation of the name"/>
+        <comments value="Can provide both a text representation and structured parts."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./formatted"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.family"/>
+      <definition>
+        <short value="Family name (often called &#39;Surname&#39;)"/>
+        <formal value="Family name, this is the name that links to the genealogy. In some cultures (e.g. Eritrea) the family name of a son is the first name of his father."/>
+        <comments value="family name is allowed to repeat. A single family name with spaces is equivalent to multiple family names with the same values"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.given"/>
+      <definition>
+        <short value="Given names (not always &#39;first&#39;). Includes middle names"/>
+        <formal value="Given name. NOTE: Not to be called &quot;first name&quot; since given names do not always come first."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.prefix"/>
+      <definition>
+        <short value="Parts that come before the name"/>
+        <formal value="Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that comes at the start of the name"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.suffix"/>
+      <definition>
+        <short value="Parts that come after the name"/>
+        <formal value="Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that comes at the end of the name"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="HumanName.period"/>
+      <definition>
+        <short value="Time period when name was/is in use"/>
+        <formal value="Indicates the period of time when this name was valid for the named person."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./usablePeriod[type=&quot;IVL&lt;TS&gt;&quot;]"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="NameUse"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/name-use"/>
+    </referenceResource>
+  </binding>
+</Profile>

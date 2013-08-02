@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><div>Type definition for CodeableConcept from <a href="http://hl7.org/fhir/datatypes.htm#CodeableConcept">FHIR Specification</a></div></div>
+  </text>
+  <name value="Basic Profile for CodeableConcept"/>
+  <publisher value="FHIR Specification"/>
+  <description value="Basic Profile for CodeableConcept for validation support"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="CodeableConcept"/>
+    <element>
+      <path value="CodeableConcept"/>
+      <definition>
+        <short value="Concept - reference to a terminology or just  text"/>
+        <formal value="A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text"/>
+        <comments value="Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Type"/>
+        </type>
+        <constraint>
+          <key value="2"/>
+          <name value="Primary Reference must resolve"/>
+          <severity value="error"/>
+          <human value="If a primary reference is present, it must point to one of the codings"/>
+          <xpath value="not(exists(f:primary)) or count(f:coding[@id=current()/f:primary/@value])=1"/>
+        </constraint>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CD"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CodeableConcept.coding"/>
+      <definition>
+        <short value="Code defined by a terminology system"/>
+        <formal value="A reference to a code defined by a terminology system"/>
+        <comments value="Codes may defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED-CT - see the v3 core principles for more information.  Ordering of codings is undefined and must not be used to infer meaning."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Coding"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="union(., ./translation)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CodeableConcept.text"/>
+      <definition>
+        <short value="Plain text representation of the concept"/>
+        <formal value="A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user or concept"/>
+        <comments value="Very often the text is the same as a displayName of one of the codings"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./originalText[mediaType/code=&quot;text/plain&quot;]/data"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CodeableConcept.primary"/>
+      <definition>
+        <short value="Which code was chosen directly by the user"/>
+        <formal value="Indicates which of the codes in the codings was chosen by a user, if one was chosen directly"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="idref"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="special(&quot;The id assigned to the coding that corresponds to the root code of the CD&quot;)"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+</Profile>

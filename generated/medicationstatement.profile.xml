@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><pre>
+&lt;<a title="A record of medication being taken by a patient, or that the medication has been given to a patient where the record is the result of a report from the patient, or another clinician" class="dict" href="medicationstatement-definitions.htm#MedicationStatement"><b>MedicationStatement</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt;
+  &lt;!-- from <span class="dict"><a href="resources.htm">Resource</a>: <a href="extensibility.htm">extension</a>, <a href="formats.htm#Narrative">narrative</a>, and <a href="resources.htm#contained">contained</a></span> --&gt;
+ &lt;<a title="External identifier - FHIR will generate its own internal IDs (probably URLs) which do not need to be explicitly managed by the resource.  The identifier here is one that would be used by another non-FHIR system - for example an automated medication pump would provide a record each time it operated; an administration while the patient was off the ward might be made with a different system and entered after the event.  Particularly important if these records have to be updated. (this element must be understood)" class="dict" href="medicationstatement-definitions.htm#MedicationStatement.identifier"><span style="text-decoration: underline"><b>identifier</b></span></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">External Identifier</span><span style="color: Gray"> --&gt;</span>&lt;/identifier&gt;
+ &lt;<a title="A link to a resource representing the person to whom the medication was given." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.patient"><b>patient</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="patient.htm#Patient">Patient</a>)</span> <span style="color: navy">Patient</span><span style="color: Gray"> --&gt;</span>&lt;/patient&gt;
+ &lt;<a title="Set this to true if the record is saying that the medication was NOT administered." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.wasNotGiven"><b>wasNotGiven</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#boolean">boolean</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">True if asserting medication was not given</span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="A code indicating why the administration has been negated.
+
+Use only if isNegated is set to TRUE" class="dict" href="medicationstatement-definitions.htm#MedicationStatement.reasonNotGiven"><b>reasonNotGiven</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-reason-medication-not-given-codes.htm">True if asserting medication was not given</a></span><span style="color: Gray"> --&gt;</span>&lt;/reasonNotGiven&gt;
+ &lt;<a title="An interval of time during which the administration takes place.  For many administrations, such as swallowing a tablet the lower and upper values of the interval will be the same." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.whenGiven"><b>whenGiven</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Period">Period</a></span> <span style="color: navy">Effective time</span><span style="color: Gray"> --&gt;</span>&lt;/whenGiven&gt;
+ &lt;<a title="Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.medication"><b>medication</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="medication.htm#Medication">Medication</a>)</span> <span style="color: navy">Medication</span><span style="color: Gray"> --&gt;</span>&lt;/medication&gt;
+ &lt;<a title="An identifier or a link to a resource that identifies a device used in administering the medication to the patient." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.administrationDevice"><b>administrationDevice</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="device.htm#Device">Device</a>)</span> <span style="color: navy">Administration device</span><span style="color: Gray"> --&gt;</span>&lt;/administrationDevice&gt;
+ &lt;<a title="Indicates how the medication is to be used by the patient" class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage"><b>dosage</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Medicine administration instructions to the patient/carer --&gt;</span>
+  &lt;<a title="The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  &quot;Every  8 hours&quot;; &quot;Three times a day&quot;; &quot;1/2 an hour before breakfast for 10 days from 23-Dec 2011:&quot;;  &quot;15 Oct 2013, 17 Oct 2013 and 1 Nov 2013&quot;" class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.timing"><b>timing</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Schedule">Schedule</a></span> <span style="color: navy">Medication timing</span><span style="color: Gray"> --&gt;</span>&lt;/timing&gt;
+  &lt;<a title="A coded specification of the anatomic site where the medication first enters the body" class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.site"><b>site</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-approach-site-codes.htm">Entry site</a></span><span style="color: Gray"> --&gt;</span>&lt;/site&gt;
+  &lt;<a title="A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.route"><b>route</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-route-codes.htm">Rout of administration</a></span><span style="color: Gray"> --&gt;</span>&lt;/route&gt;
+  &lt;<a title="A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  Examples:  Slow Push; Deep IV.
+
+Terminologies used often pre-coordinate this term with the route and or form of administration." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.method"><b>method</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-administration-method-codes.htm">Administration method</a></span><span style="color: Gray"> --&gt;</span>&lt;/method&gt;
+  &lt;<a title="The amount of the therapeutic or other substance given at one administration event." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.quantity"><b>quantity</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Quantity">Quantity</a></span> <span style="color: navy">Dose quantity per dose</span><span style="color: Gray"> --&gt;</span>&lt;/quantity&gt;
+  &lt;<a title="Identifies the speed with which the substance is introduced into the subject. Typically the rate for an infusion. 200ml in 2 hours." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.rate"><b>rate</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Ratio">Ratio</a></span> <span style="color: navy">Dose quantity per unit of time</span><span style="color: Gray"> --&gt;</span>&lt;/rate&gt;
+  &lt;<a title="The maximum total quantity of a therapeutic substance that my be administered to a subject over the period of time. E.g. 1000mg in 24 hours." class="dict" href="medicationstatement-definitions.htm#MedicationStatement.dosage.maxDosePerPeriod"><b>maxDosePerPeriod</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Ratio">Ratio</a></span> <span style="color: navy">Total dose that should be consumed per unit of time</span><span style="color: Gray"> --&gt;</span>&lt;/maxDosePerPeriod&gt;
+ &lt;/dosage&gt;
+&lt;/MedicationStatement&gt;
+</pre></div>
+  </text>
+  <name value="medicationstatement"/>
+  <publisher value="todo (committee)"/>
+  <description value="Basic Profile. A record of medication being taken by a patient, or that the medication has been given to a patient where the record is the result of a report from the patient, or another clinician"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="MedicationStatement"/>
+    <publish value="true"/>
+    <element>
+      <path value="MedicationStatement"/>
+      <definition>
+        <short value="Administration of medication to a patient"/>
+        <formal value="A record of medication being taken by a patient, or that the medication has been given to a patient where the record is the result of a report from the patient, or another clinician"/>
+        <comments value="SubstanceAdministration"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that must be met as part of the definition of the extension"/>
+        <comments value="there can be no stigma
+associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone"/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal value="A human readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety"/>
+        <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative"/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope"/>
+        <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again"/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.identifier"/>
+      <definition>
+        <short value="External Identifier"/>
+        <formal value="External identifier - FHIR will generate its own internal IDs (probably URLs) which do not need to be explicitly managed by the resource.  The identifier here is one that would be used by another non-FHIR system - for example an automated medication pump would provide a record each time it operated; an administration while the patient was off the ward might be made with a different system and entered after the event.  Particularly important if these records have to be updated."/>
+        <comments value="SubstanceAdministration.id"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-25-Administered Barcode Identifier?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.patient"/>
+      <definition>
+        <short value="Patient"/>
+        <formal value="A link to a resource representing the person to whom the medication was given."/>
+        <comments value="SubstanceAdministration-&gt;subject-&gt;Patient"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Patient)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PID-3-Patient ID List"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.wasNotGiven"/>
+      <definition>
+        <short value="True if asserting medication was not given"/>
+        <formal value="Set this to true if the record is saying that the medication was NOT administered."/>
+        <comments value="SubstanceAdministration.actionNegationInd"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="boolean"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-20-Completion Status=&#39;NA&#39;"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.reasonNotGiven"/>
+      <definition>
+        <short value="True if asserting medication was not given"/>
+        <formal value="A code indicating why the administration has been negated.
+
+Use only if isNegated is set to TRUE"/>
+        <comments value="SubstanceAdministration-&gt;Reason-&gt;Observation-&gt;Value"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationAdministrationNegationReason"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-9-Administration Notes:RXA-20-Completion Status=&#39;NA&#39;"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.whenGiven"/>
+      <definition>
+        <short value="Effective time"/>
+        <formal value="An interval of time during which the administration takes place.  For many administrations, such as swallowing a tablet the lower and upper values of the interval will be the same."/>
+        <comments value="SubstanceAdministration.effectiveTime"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-3-Date/Time Start of Administration / RXA-4-Date/Time End of Administration"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.medication"/>
+      <definition>
+        <short value="Medication"/>
+        <formal value="Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Medication)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.consumable"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-5-Administered Code"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.administrationDevice"/>
+      <definition>
+        <short value="Administration device"/>
+        <formal value="An identifier or a link to a resource that identifies a device used in administering the medication to the patient."/>
+        <comments value="SubstanceAdministration-&gt;device-&gt;Access  OR SubstanceAdministration-&gt;device-&gt;AssignedDevice"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Device)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PRT-10-Participation Device"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage"/>
+      <definition>
+        <short value="Medicine administration instructions to the patient/carer"/>
+        <formal value="Indicates how the medication is to be used by the patient"/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.timing"/>
+      <definition>
+        <short value="Medication timing"/>
+        <formal value="The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  &quot;Every  8 hours&quot;; &quot;Three times a day&quot;; &quot;1/2 an hour before breakfast for 10 days from 23-Dec 2011:&quot;;  &quot;15 Oct 2013, 17 Oct 2013 and 1 Nov 2013&quot;"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Schedule"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.effectiveTime"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RAS:TQ1"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.site"/>
+      <definition>
+        <short value="Entry site"/>
+        <formal value="A coded specification of the anatomic site where the medication first enters the body"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationAdministrationSite"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.approachSiteCode"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXR-2-Administration Site"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.route"/>
+      <definition>
+        <short value="Rout of administration"/>
+        <formal value="A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="RouteOfAdministration"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.routeCode"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXR-1-Route"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.method"/>
+      <definition>
+        <short value="Administration method"/>
+        <formal value="A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  Examples:  Slow Push; Deep IV.
+
+Terminologies used often pre-coordinate this term with the route and or form of administration."/>
+        <comments value="SubstanceAdministration.methodCode"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationAdministrationMethod"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXR-4-Administration Method"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.quantity"/>
+      <definition>
+        <short value="Dose quantity per dose"/>
+        <formal value="The amount of the therapeutic or other substance given at one administration event."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.doseQuantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-6-Administered Amount / RXA-7.1-Administered Units.code / RXA-7.3-Administered Units.name of coding system"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.rate"/>
+      <definition>
+        <short value="Dose quantity per unit of time"/>
+        <formal value="Identifies the speed with which the substance is introduced into the subject. Typically the rate for an infusion. 200ml in 2 hours."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Ratio"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.rateQuantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-12-Administered Per (Time Unit)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationStatement.dosage.maxDosePerPeriod"/>
+      <definition>
+        <short value="Total dose that should be consumed per unit of time"/>
+        <formal value="The maximum total quantity of a therapeutic substance that my be administered to a subject over the period of time. E.g. 1000mg in 24 hours."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Ratio"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.SubstanceAdministrationRequest.maxDoseQuantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXE-4-Give Amount - Maximum / RXE-5-Give Units"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="MedicationAdministrationMethod"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/administration-method-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationAdministrationSite"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/approach-site-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationAdministrationNegationReason"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/reason-medication-not-given-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="RouteOfAdministration"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/route-codes"/>
+    </referenceResource>
+  </binding>
+</Profile>

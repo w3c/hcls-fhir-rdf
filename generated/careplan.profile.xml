@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><pre>
+&lt;<a title="Describes the intention of how one or more practitioners intend to deliver care for a particular patient for a period of time, possibly limited to care for a specific condition or set of conditions." class="dict" href="careplan-definitions.htm#CarePlan"><b>CarePlan</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt;
+  &lt;!-- from <span class="dict"><a href="resources.htm">Resource</a>: <a href="extensibility.htm">extension</a>, <a href="formats.htm#Narrative">narrative</a>, and <a href="resources.htm#contained">contained</a></span> --&gt;
+ &lt;<a title="Unique identifier by which the care plan is known in different business contexts." class="dict" href="careplan-definitions.htm#CarePlan.identifier"><b>identifier</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">ID for plan</span><span style="color: Gray"> --&gt;</span>&lt;/identifier&gt;
+ &lt;<a title="Identifies the patient/subject whose intended care is described by the plan." class="dict" href="careplan-definitions.htm#CarePlan.patient"><b>patient</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="patient.htm#Patient">Patient</a>)</span> <span style="color: navy">Who care plan is for</span><span style="color: Gray"> --&gt;</span>&lt;/patient&gt;
+ &lt;<a title="Indicates whether the plan is currently being acted upon, represents future intentions or is now just historical record. (this element must be understood)" class="dict" href="careplan-definitions.htm#CarePlan.status"><span style="text-decoration: underline"><b>status</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="care-plan-status.htm">planned | active | ended</a></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="Indicates when the plan did (or is intended to) come into effect and end." class="dict" href="careplan-definitions.htm#CarePlan.period"><b>period</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Period">Period</a></span> <span style="color: navy">Time period plan covers</span><span style="color: Gray"> --&gt;</span>&lt;/period&gt;
+ &lt;<a title="Identifies the most recent date on which the plan has been revised." class="dict" href="careplan-definitions.htm#CarePlan.modified"><b>modified</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#dateTime">dateTime</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">When last updated</span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation are handled by this plan." class="dict" href="careplan-definitions.htm#CarePlan.concern"><b>concern</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="condition.htm#Condition">Condition</a>)</span> <span style="color: navy">Health issues plan addresses</span><span style="color: Gray"> --&gt;</span>&lt;/concern&gt;
+ &lt;<a title="Identifies all people and organizations who are expected to be involved in the care envisioned by this plan." class="dict" href="careplan-definitions.htm#CarePlan.participant"><b>participant</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Who&#39;s involved in plan? --&gt;</span>
+  &lt;<a title="Indicates specific responsibility of an individual within the care plan.  E.g. &quot;Primary physician&quot;, &quot;Team coordinator&quot;, &quot;Caregiver&quot;, etc." class="dict" href="careplan-definitions.htm#CarePlan.participant.role"><b>role</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy">Type of involvement</span><span style="color: Gray"> --&gt;</span>&lt;/role&gt;
+  &lt;<a title="The specific person or organization who is participating/expected to participate in the care plan." class="dict" href="careplan-definitions.htm#CarePlan.participant.member"><b>member</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>|<a href="relatedperson.htm#RelatedPerson">RelatedPerson</a>|<a href="patient.htm#Patient">Patient</a>|<a href="organization.htm#Organization">Organization</a>)</span> <span style="color: navy">Who is involved</span><span style="color: Gray"> --&gt;</span>&lt;/member&gt;
+ &lt;/participant&gt;
+ &lt;<a title="Describes the intended objective(s) of carrying out the Care Plan." class="dict" href="careplan-definitions.htm#CarePlan.goal"><b>goal</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Desired outcome of plan --&gt;</span>
+  &lt;<a title="Human readable description of a specific desired objective of the care plan." class="dict" href="careplan-definitions.htm#CarePlan.goal.description"><b>description</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">What&#39;s the desired outcome?</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Indicates whether the goal has been reached and is still considered relevant" class="dict" href="careplan-definitions.htm#CarePlan.goal.status"><b>status</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="care-plan-goal-status.htm">in progress|achieved|sustaining | abandoned</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Any comments related to the goal" class="dict" href="careplan-definitions.htm#CarePlan.goal.notes"><b>notes</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Comments about the goal</span><span style="color: Gray"> --&gt;</span>
+ &lt;/goal&gt;
+ &lt;<a title="Identifies a planned action to occur as part of the plan.  For example, a medication to be used, lab tests to perform, self-monitoring, education, etc." class="dict" href="careplan-definitions.htm#CarePlan.activity"><b>activity</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Action to occur as part of plan --&gt;</span>
+  &lt;<a title="High-level categorization of the type of activity in a care plan." class="dict" href="careplan-definitions.htm#CarePlan.activity.category"><b>category</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="care-plan-activity-category.htm">encounter | procedure | observation | +</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Detailed description of the type of activity.  E.g. What lab test, what procedure, what kind of encounter." class="dict" href="careplan-definitions.htm#CarePlan.activity.code"><b>code</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy">Detail type of activity</span><span style="color: Gray"> --&gt;</span>&lt;/code&gt;
+  &lt;<a title="Identifies what progress is being made for the specific activity." class="dict" href="careplan-definitions.htm#CarePlan.activity.status"><b>status</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="care-plan-activity-status.htm">not started | ongoing | suspended | completed | abandoned</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="If true, indicates that the described activity is one that must NOT be engaged in when following the plan. (this element must be understood)" class="dict" href="careplan-definitions.htm#CarePlan.activity.prohibited"><span style="text-decoration: underline"><b>prohibited</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#boolean">boolean</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Do NOT do</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="The period, timing or frequency upon which the described activity is to occur." class="dict" href="careplan-definitions.htm#CarePlan.activity.timing_x_"><b>timing[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Schedule">Schedule</a>|<a href="datatypes.htm#Period">Period</a>|<a href="datatypes.htm#string">string</a></span> <span style="color: navy">When activity is to occur</span><span style="color: Gray"> --&gt;</span>&lt;/timing[x]&gt;
+  &lt;<a title="Identifies the facility where the activity will occur.  E.g. home, hospital, specific clinic, etc." class="dict" href="careplan-definitions.htm#CarePlan.activity.location"><b>location</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="location.htm#Location">Location</a>)</span> <span style="color: navy">Where it should happen</span><span style="color: Gray"> --&gt;</span>&lt;/location&gt;
+  &lt;<a title="Identifies who&#39;s expected to be involved in the activity." class="dict" href="careplan-definitions.htm#CarePlan.activity.performer"><b>performer</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>|<a href="organization.htm#Organization">Organization</a>|<a href="relatedperson.htm#RelatedPerson">RelatedPerson</a>|<a href="patient.htm#Patient">Patient</a>)</span> <span style="color: navy">Who&#39;s responsible?</span><span style="color: Gray"> --&gt;</span>&lt;/performer&gt;
+  &lt;<a title="Identifies the food, drug or other product being consumed or supplied in the activity." class="dict" href="careplan-definitions.htm#CarePlan.activity.product"><b>product</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="medication.htm#Medication">Medication</a>|<a href="substance.htm#Substance">Substance</a>)</span> <span style="color: navy">What&#39;s administered/supplied</span><span style="color: Gray"> --&gt;</span>&lt;/product&gt;
+  &lt;<a title="Identifies the quantity expected to be consumed in a given day." class="dict" href="careplan-definitions.htm#CarePlan.activity.dailyAmount"><b>dailyAmount</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span title="Inv-1: DailyDose can only be specified if activity category is drug or food" style="color: deeppink"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Quantity">Quantity</a></span> <span style="color: navy">How much consumed/day?</span><span style="color: Gray"> --&gt;</span>&lt;/dailyAmount&gt;
+  &lt;<a title="Identifies the quantity expected to be supplied." class="dict" href="careplan-definitions.htm#CarePlan.activity.quantity"><b>quantity</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span title="Inv-2: Quantity can only be specified if activity category is supply" style="color: deeppink"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Quantity">Quantity</a></span> <span style="color: navy">How much is administered/supplied/consumed</span><span style="color: Gray"> --&gt;</span>&lt;/quantity&gt;
+  &lt;<a title="This provides a textual description of constraints on the activity occurrence, including relation to other activities.  It may also include objectives, pre-conditions and end-conditions.  Finally, it may convey specifics about the activity such as body site, method, route, etc." class="dict" href="careplan-definitions.htm#CarePlan.activity.details"><b>details</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Extra info on activity occurrence</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Resources that describe follow-on actions resulting from the plan, such as drug prescriptions, encounter records, appointments, etc." class="dict" href="careplan-definitions.htm#CarePlan.activity.actionTaken"><b>actionTaken</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="resources.htm">Any</a>)</span> <span style="color: navy">Appointments, orders, etc.</span><span style="color: Gray"> --&gt;</span>&lt;/actionTaken&gt;
+  &lt;<a title="Notes about the execution of the activity" class="dict" href="careplan-definitions.htm#CarePlan.activity.notes"><b>notes</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Comments about the activity</span><span style="color: Gray"> --&gt;</span>
+ &lt;/activity&gt;
+ &lt;<a title="General notes about the care plan not covered elsewhere" class="dict" href="careplan-definitions.htm#CarePlan.notes"><b>notes</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Comments about the plan</span><span style="color: Gray"> --&gt;</span>
+&lt;/CarePlan&gt;
+</pre></div>
+  </text>
+  <name value="careplan"/>
+  <publisher value="todo (committee)"/>
+  <description value="Basic Profile. Describes the intention of how one or more practitioners intend to deliver care for a particular patient for a period of time, possibly limited to care for a specific condition or set of conditions."/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="CarePlan"/>
+    <publish value="true"/>
+    <element>
+      <path value="CarePlan"/>
+      <definition>
+        <short value="Healthcare plan for patient"/>
+        <formal value="Describes the intention of how one or more practitioners intend to deliver care for a particular patient for a period of time, possibly limited to care for a specific condition or set of conditions."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that must be met as part of the definition of the extension"/>
+        <comments value="there can be no stigma
+associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone"/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal value="A human readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety"/>
+        <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative"/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope"/>
+        <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again"/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.identifier"/>
+      <definition>
+        <short value="ID for plan"/>
+        <formal value="Unique identifier by which the care plan is known in different business contexts."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PTH-3-pathway instance ID"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.patient"/>
+      <definition>
+        <short value="Who care plan is for"/>
+        <formal value="Identifies the patient/subject whose intended care is described by the plan."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Patient)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PID-3-patient ID list"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.status"/>
+      <definition>
+        <short value="planned | active | ended"/>
+        <formal value="Indicates whether the plan is currently being acted upon, represents future intentions or is now just historical record."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="CarePlanStatus"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PTH-5-pathway life cycle status"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.period"/>
+      <definition>
+        <short value="Time period plan covers"/>
+        <formal value="Indicates when the plan did (or is intended to) come into effect and end."/>
+        <comments value="Any activities scheduled as part of the plan should be constrained to the specified period."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="GOL-7-goal established date/time / GOL-8-expected goal achieve date/time"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.modified"/>
+      <definition>
+        <short value="When last updated"/>
+        <formal value="Identifies the most recent date on which the plan has been revised."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PTH-6-change pathway life cycle status date/time"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.concern"/>
+      <definition>
+        <short value="Health issues plan addresses"/>
+        <formal value="Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation are handled by this plan."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Condition)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PRB-4-Problem instance ID"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.participant"/>
+      <definition>
+        <short value="Who&#39;s involved in plan?"/>
+        <formal value="Identifies all people and organizations who are expected to be involved in the care envisioned by this plan."/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="REL (REL.4 is always the Patient) ( or PRT?)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.participant.role"/>
+      <definition>
+        <short value="Type of involvement"/>
+        <formal value="Indicates specific responsibility of an individual within the care plan.  E.g. &quot;Primary physician&quot;, &quot;Team coordinator&quot;, &quot;Caregiver&quot;, etc."/>
+        <comments value="Roles may sometimes be inferred by type of Practitioner.  These are relationships that hold only within the context of the care plan.  General relationships should be handled as properties of the Patient resource directly."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="CarePlanParticipantRole"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="REL.2 (or PRT-4-participation?)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.participant.member"/>
+      <definition>
+        <short value="Who is involved"/>
+        <formal value="The specific person or organization who is participating/expected to participate in the care plan."/>
+        <comments value="Patient only needs to be listed if they have a role other than &quot;subject of care&quot;"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Practitioner|RelatedPerson|Patient|Organization)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="REL.5 (or PRT-5-participation person : ( PRV-4 e {provider participations} ) / PRT-5-participation person : ( PRV-4 e {non-provider person participations} ) / PRT-5-participation person : ( PRV-4 = (patient non-subject of care) ) / PRT-8-participation organization?)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.goal"/>
+      <definition>
+        <short value="Desired outcome of plan"/>
+        <formal value="Describes the intended objective(s) of carrying out the Care Plan."/>
+        <comments value="Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline."/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="GOL.1"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.goal.description"/>
+      <definition>
+        <short value="What&#39;s the desired outcome?"/>
+        <formal value="Human readable description of a specific desired objective of the care plan."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="GOL-3.2-goal ID.text"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.goal.status"/>
+      <definition>
+        <short value="in progress|achieved|sustaining | abandoned"/>
+        <formal value="Indicates whether the goal has been reached and is still considered relevant"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="CarePlanGoalStatus"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="GOL-18-goal life cycle status"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.goal.notes"/>
+      <definition>
+        <short value="Comments about the goal"/>
+        <formal value="Any comments related to the goal"/>
+        <comments value="May be used for progress notes, concerns or other related information that doesn&#39;t actually describe the goal itself."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="GOL-16-goal evaluation + NTE?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity"/>
+      <definition>
+        <short value="Action to occur as part of plan"/>
+        <formal value="Identifies a planned action to occur as part of the plan.  For example, a medication to be used, lab tests to perform, self-monitoring, education, etc."/>
+        <min value="0"/>
+        <max value="*"/>
+        <constraint>
+          <key value="2"/>
+          <name value="quantity for supply"/>
+          <severity value="error"/>
+          <human value="Quantity can only be specified if activity category is supply"/>
+          <xpath value="(f:category/@value=(&#39;supply&#39;)) = exists(f:quantity)"/>
+        </constraint>
+        <constraint>
+          <key value="1"/>
+          <name value="dose for food or drug"/>
+          <severity value="error"/>
+          <human value="DailyDose can only be specified if activity category is drug or food"/>
+          <xpath value="(f:category/@value=(&#39;drug&#39;,&#39;diet&#39;)) = exists(f:dailyAmount)"/>
+        </constraint>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.category"/>
+      <definition>
+        <short value="encounter | procedure | observation | +"/>
+        <formal value="High-level categorization of the type of activity in a care plan."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="CarePlanActivityCategory"/>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.code"/>
+      <definition>
+        <short value="Detail type of activity"/>
+        <formal value="Detailed description of the type of activity.  E.g. What lab test, what procedure, what kind of encounter."/>
+        <comments value="Tends to be less relevant for activities involving particular products.  Codes should not convey negation - use &quot;prohibited&quot; instead."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="CarePlanActivityCode"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-4-universal service ID / RXE-2-Give Code / RXO-1-Requested Give Code / RXD-2-Dispense/Give Code"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.status"/>
+      <definition>
+        <short value="not started | ongoing | suspended | completed | abandoned"/>
+        <formal value="Identifies what progress is being made for the specific activity."/>
+        <comments value="Some aspects of Status can be inferred based on the resources linked in actionTaken.  Note that &quot;status&quot; is only as current as the plan was most recently updated."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="CarePlanActivityStatus"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="ORC-5-order status?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.prohibited"/>
+      <definition>
+        <short value="Do NOT do"/>
+        <formal value="If true, indicates that the described activity is one that must NOT be engaged in when following the plan."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="boolean"/>
+        </type>
+        <mustUnderstand value="true"/>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.timing[x]"/>
+      <definition>
+        <short value="When activity is to occur"/>
+        <formal value="The period, timing or frequency upon which the described activity is to occur."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Schedule"/>
+        </type>
+        <type>
+          <code value="Period"/>
+        </type>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="TQ1"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.location"/>
+      <definition>
+        <short value="Where it should happen"/>
+        <formal value="Identifies the facility where the activity will occur.  E.g. home, hospital, specific clinic, etc."/>
+        <comments value="May reference a specific clinical location or may just identify a type of location."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Location)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-24-diagnostic service section ID (???!!)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.performer"/>
+      <definition>
+        <short value="Who&#39;s responsible?"/>
+        <formal value="Identifies who&#39;s expected to be involved in the activity."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Practitioner|Organization|RelatedPerson|Patient)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PRT-5-participation person : ( PRV-4 e {provider participations} ) / PRT-5-participation person : ( PRV-4 e {non-provider person participations} ) / PRT-5-participation person : ( PRV-4 = (patient non-subject of care) ) / PRT-8-participation organization"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.product"/>
+      <definition>
+        <short value="What&#39;s administered/supplied"/>
+        <formal value="Identifies the food, drug or other product being consumed or supplied in the activity."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Medication|Substance)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXE-2-Give Code / RXO-1-Requested Give Code / RXD-2-Dispense/Give Code"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.dailyAmount"/>
+      <definition>
+        <short value="How much consumed/day?"/>
+        <formal value="Identifies the quantity expected to be consumed in a given day."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXO-23-total daily dose / RXE-19-total daily dose / RXD-12-total daily dose"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.quantity"/>
+      <definition>
+        <short value="How much is administered/supplied/consumed"/>
+        <formal value="Identifies the quantity expected to be supplied."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXO-11-requested dispense amount / RXE-10-dispense amount / RXD-4-actual dispense amount / RXG-5-give amount-minumum / RXA-6-administered amount /  TQ1-2.1-quantity.quantity  *and*  RXO-12-requested dispense units /  RXE-11-dispense units / RXD-5-actual dispense units / RXG-7-give units / RXA-7-administered units / TQ1-2.2-quantity.units"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.details"/>
+      <definition>
+        <short value="Extra info on activity occurrence"/>
+        <formal value="This provides a textual description of constraints on the activity occurrence, including relation to other activities.  It may also include objectives, pre-conditions and end-conditions.  Finally, it may convey specifics about the activity such as body site, method, route, etc."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="NTE?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.actionTaken"/>
+      <definition>
+        <short value="Appointments, orders, etc."/>
+        <formal value="Resources that describe follow-on actions resulting from the plan, such as drug prescriptions, encounter records, appointments, etc."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Any)"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.activity.notes"/>
+      <definition>
+        <short value="Comments about the activity"/>
+        <formal value="Notes about the execution of the activity"/>
+        <comments value="Doesn&#39;t describe the activity - that goes in details."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="NTE?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="CarePlan.notes"/>
+      <definition>
+        <short value="Comments about the plan"/>
+        <formal value="General notes about the care plan not covered elsewhere"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="NTE?"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="CarePlanActivityCode"/>
+    <isExtensible value="true"/>
+    <conformance value="preferred"/>
+    <description value="Detailed description of the type of activity.  E.g. What lab test, what procedure, what kind of encounter."/>
+  </binding>
+  <binding>
+    <name value="CarePlanStatus"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/care-plan-status"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="CarePlanActivityCategory"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/care-plan-activity-category"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="CarePlanGoalStatus"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/care-plan-goal-status"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="CarePlanParticipantRole"/>
+    <isExtensible value="true"/>
+    <conformance value="preferred"/>
+    <description value="Indicates specific responsibility of an individual within the care plan.  E.g. &quot;Primary physician&quot;, &quot;Team coordinator&quot;, &quot;Caregiver&quot;, etc."/>
+  </binding>
+  <binding>
+    <name value="CarePlanActivityStatus"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/care-plan-activity-status"/>
+    </referenceResource>
+  </binding>
+</Profile>

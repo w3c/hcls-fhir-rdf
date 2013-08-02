@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><pre>
+&lt;<a title="Dispensing a medication to a named patient.  This includes a description of the supply provided and the instructions for administering the medication." class="dict" href="medicationdispense-definitions.htm#MedicationDispense"><b>MedicationDispense</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt;
+  &lt;!-- from <span class="dict"><a href="resources.htm">Resource</a>: <a href="extensibility.htm">extension</a>, <a href="formats.htm#Narrative">narrative</a>, and <a href="resources.htm#contained">contained</a></span> --&gt;
+ &lt;<a title="Identifier assigned by the dispensing facility - this is an identifier assigned outside FHIR. (this element must be understood)" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.identifier"><span style="text-decoration: underline"><b>identifier</b></span></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">External identifier</span><span style="color: Gray"> --&gt;</span>&lt;/identifier&gt;
+ &lt;<a title="A code specifying the state of the set of dispense events. (this element must be understood)" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.status"><span style="text-decoration: underline"><b>status</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="medication-dispense-status.htm">active | paused | completed | nullified</a></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="A link to a resource representing the person to whom the medication will be given." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.patient"><b>patient</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="patient.htm#Patient">Patient</a>)</span> <span style="color: navy">Patient</span><span style="color: Gray"> --&gt;</span>&lt;/patient&gt;
+ &lt;<a title="The individual reponsible for dispensing the medication" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispenser"><b>dispenser</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>)</span> <span style="color: navy">Dispenser</span><span style="color: Gray"> --&gt;</span>&lt;/dispenser&gt;
+ &lt;<a title="Indicates the medication order that is being dispensed against." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.authorizingPrescription"><b>authorizingPrescription</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="medicationprescription.htm#MedicationPrescription">MedicationPrescription</a>)</span> <span style="color: navy">Medication order that authorises the dispense</span><span style="color: Gray"> --&gt;</span>&lt;/authorizingPrescription&gt;
+ &lt;<a title="Indicates the details of the dispense event such as the days supply and quantity of medication dispensed." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense"><b>dispense</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Medicine supply details --&gt;</span>
+  &lt;<a title="Identifier assigned by the dispensing facility.   This is an identifier assigned outside FHIR." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.identifier"><b>identifier</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">External identifier</span><span style="color: Gray"> --&gt;</span>&lt;/identifier&gt;
+  &lt;<a title="A code specifying the state of the dispense event. (this element must be understood)" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.status"><span style="text-decoration: underline"><b>status</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="medication-dispense-status.htm">Active/Completed/Aborted</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Indicates the type of dispensing event that is performed. Examples include: Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.type"><b>type</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-medication-dispense-type-codes.htm">Type of dispense</a></span><span style="color: Gray"> --&gt;</span>&lt;/type&gt;
+  &lt;<a title="The amount of medication that has been dispensed. Includes unit of measure." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.quantity"><b>quantity</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Quantity">Quantity</a></span> <span style="color: navy">Amount dispensed</span><span style="color: Gray"> --&gt;</span>&lt;/quantity&gt;
+  &lt;<a title="Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.medication"><b>medication</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="medication.htm#Medication">Medication</a>)</span> <span style="color: navy">Medication</span><span style="color: Gray"> --&gt;</span>&lt;/medication&gt;
+  &lt;<a title="The time the dispense event occurred." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.whenPrepared"><b>whenPrepared</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Period">Period</a></span> <span style="color: navy">Dispensing time</span><span style="color: Gray"> --&gt;</span>&lt;/whenPrepared&gt;
+  &lt;<a title="The time the dispense event occurred." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.whenHandedOver"><b>whenHandedOver</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Period">Period</a></span> <span style="color: navy">Handover time</span><span style="color: Gray"> --&gt;</span>&lt;/whenHandedOver&gt;
+  &lt;<a title="Identification of the facility/location where the medication was shipped to, as part of the dispense event." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.destination"><b>destination</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="location.htm#Location">Location</a>)</span> <span style="color: navy">Where the medication was sent</span><span style="color: Gray"> --&gt;</span>&lt;/destination&gt;
+  &lt;<a title="Identifies the person who picked up the medication." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.receiver"><b>receiver</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>)</span> <span style="color: navy">Who collected the medication</span><span style="color: Gray"> --&gt;</span>&lt;/receiver&gt;
+  &lt;<a title="Indicates how the medication is to be used by the patient" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage"><b>dosage</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Medicine administration instructions to the patient/carer --&gt;</span>
+   &lt;<a title="Additional instructions such as &quot;Swallow with plenty of water&quot; which may or may not be coded." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.additionalInstructions_x_"><b>additionalInstructions[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#string">string</a>|<a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy">Additional dosage instructions</span><span style="color: Gray"> --&gt;</span>&lt;/additionalInstructions[x]&gt;
+   &lt;<a title="The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  &quot;Every  8 hours&quot;; &quot;Three times a day&quot;; &quot;1/2 an hour before breakfast for 10 days from 23-Dec 2011:&quot;;  &quot;15 Oct 2013, 17 Oct 2013 and 1 Nov 2013&quot;" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.timing_x_"><b>timing[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#dateTime">dateTime</a>|<a href="datatypes.htm#Period">Period</a>|<a href="datatypes.htm#Schedule">Schedule</a></span> <span style="color: navy">Medication timing</span><span style="color: Gray"> --&gt;</span>&lt;/timing[x]&gt;
+   &lt;<a title="A coded specification of the anatomic site where the medication first enters the body" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.site"><b>site</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-approach-site-codes.htm">Entry site</a></span><span style="color: Gray"> --&gt;</span>&lt;/site&gt;
+   &lt;<a title="A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.route"><b>route</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-route-codes.htm">Rout of administration</a></span><span style="color: Gray"> --&gt;</span>&lt;/route&gt;
+   &lt;<a title="A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  Examples:  Slow Push; Deep IV.
+
+Terminologies used often pre-coordinate this term with the route and or form of administration." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.method"><b>method</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-administration-method-codes.htm">Administration method</a></span><span style="color: Gray"> --&gt;</span>&lt;/method&gt;
+   &lt;<a title="The amount of the therapeutic or other substance given at one administration event." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.quantity"><b>quantity</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Quantity">Quantity</a></span> <span style="color: navy">Dose quantity per dose</span><span style="color: Gray"> --&gt;</span>&lt;/quantity&gt;
+   &lt;<a title="Identifies the speed with which the substance is introduced into the subject. Typically the rate for an infusion. 200ml in 2 hours." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.rate"><b>rate</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Ratio">Ratio</a></span> <span style="color: navy">Dose quantity per unit of time</span><span style="color: Gray"> --&gt;</span>&lt;/rate&gt;
+   &lt;<a title="The maximum total quantity of a therapeutic substance that my be administered to a subject over the period of time. E.g. 1000mg in 24 hours." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.dispense.dosage.maxDosePerPeriod"><b>maxDosePerPeriod</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Ratio">Ratio</a></span> <span style="color: navy">Total dose that should be consumed per unit of time</span><span style="color: Gray"> --&gt;</span>&lt;/maxDosePerPeriod&gt;
+  &lt;/dosage&gt;
+ &lt;/dispense&gt;
+ &lt;<a title="Indicates whether or not substitution was made as part of the dispense.  In some cases substitution will be expected but doesn&#39;t happen, in other cases substitution is not expected but does happen.  This block explains what substitition did or did not happen and why." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.substitution"><b>substitution</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..1</b></span> Deals with substitution of one medicine for another --&gt;</span>
+  &lt;<a title="A code signifying whether a different drug was dispensed from what was prescribed." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.substitution.type"><b>type</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-intended-medication-substitution-type-codes.htm">Type of substitiution</a></span><span style="color: Gray"> --&gt;</span>&lt;/type&gt;
+  &lt;<a title="Indicates the reason for the substitution of (or lack of substitution) from what was prescribed." class="dict" href="medicationdispense-definitions.htm#MedicationDispense.substitution.reason"><b>reason</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-intended-medication-substitution-reason-codes.htm">Why was substitution made</a></span><span style="color: Gray"> --&gt;</span>&lt;/reason&gt;
+  &lt;<a title="The person or organization that has primary responsibility for the substitution" class="dict" href="medicationdispense-definitions.htm#MedicationDispense.substitution.responsibleParty"><b>responsibleParty</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>)</span> <span style="color: navy">Who is responsible for the substitution</span><span style="color: Gray"> --&gt;</span>&lt;/responsibleParty&gt;
+ &lt;/substitution&gt;
+&lt;/MedicationDispense&gt;
+</pre></div>
+  </text>
+  <name value="medicationdispense"/>
+  <publisher value="todo (committee)"/>
+  <description value="Basic Profile. Dispensing a medication to a named patient.  This includes a description of the supply provided and the instructions for administering the medication."/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="MedicationDispense"/>
+    <publish value="true"/>
+    <element>
+      <path value="MedicationDispense"/>
+      <definition>
+        <short value="Dispensing a medication to a named patient"/>
+        <formal value="Dispensing a medication to a named patient.  This includes a description of the supply provided and the instructions for administering the medication."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that must be met as part of the definition of the extension"/>
+        <comments value="there can be no stigma
+associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone"/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal value="A human readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety"/>
+        <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative"/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope"/>
+        <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again"/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.identifier"/>
+      <definition>
+        <short value="External identifier"/>
+        <formal value="Identifier assigned by the dispensing facility - this is an identifier assigned outside FHIR."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.id"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXA-25-Administered Barcode Identifier? (no unique dispense ID provided in RXD segment; V2 def&#39;n of RXA-25 refers to the &#39;give&#39; occurrence; appears not to discuss &#39;dispense&#39; cardinality which would seem to be 0..*)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.status"/>
+      <definition>
+        <short value="active | paused | completed | nullified"/>
+        <formal value="A code specifying the state of the set of dispense events."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="MedicationDispenseStatus"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.statusCode"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="(Not clear whether or how V2 provides for a snapshot of dispense status)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.patient"/>
+      <definition>
+        <short value="Patient"/>
+        <formal value="A link to a resource representing the person to whom the medication will be given."/>
+        <comments value="SubstanceAdministration-&gt;subject-&gt;Patient"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Patient)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PID-3-Patient ID List"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispenser"/>
+      <definition>
+        <short value="Dispenser"/>
+        <formal value="The individual reponsible for dispensing the medication"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Practitioner)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-10-Dispensing Provider / PRT-5-Participation Person: PRT-4-Participation=&#39;DP&#39; (RXD-10 is deprecated)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.authorizingPrescription"/>
+      <definition>
+        <short value="Medication order that authorises the dispense"/>
+        <formal value="Indicates the medication order that is being dispensed against."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(MedicationPrescription)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.inFulfillmentOf"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="ORC-3-Filler Order Number / ORC-2-Placer Order Number"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense"/>
+      <definition>
+        <short value="Medicine supply details"/>
+        <formal value="Indicates the details of the dispense event such as the days supply and quantity of medication dispensed."/>
+        <min value="0"/>
+        <max value="*"/>
+        <constraint>
+          <key value="1"/>
+          <name value="Timing"/>
+          <severity value="error"/>
+          <human value="whenHandedOver cannot be before whenPrepared"/>
+          <xpath value="not(exists(f:whenHandedOver/@value)) or not(exists(f:whenPrepared/@value)) or ( f:whenHandedOver/@value &gt;= f:whenPrepared/@value)"/>
+        </constraint>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.identifier"/>
+      <definition>
+        <short value="External identifier"/>
+        <formal value="Identifier assigned by the dispensing facility.   This is an identifier assigned outside FHIR."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.id"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.status"/>
+      <definition>
+        <short value="Active/Completed/Aborted"/>
+        <formal value="A code specifying the state of the dispense event."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="MedicationDispenseStatus"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.statusCode"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.type"/>
+      <definition>
+        <short value="Type of dispense"/>
+        <formal value="Indicates the type of dispensing event that is performed. Examples include: Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationDispenseType"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.code"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-33-Dispense Type"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.quantity"/>
+      <definition>
+        <short value="Amount dispensed"/>
+        <formal value="The amount of medication that has been dispensed. Includes unit of measure."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.quantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-4-Actual Dispense Amount / RXD-5.1-Actual Dispense Units.code / RXD-5.3-Actual Dispense Units.name of coding system"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.medication"/>
+      <definition>
+        <short value="Medication"/>
+        <formal value="Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Medication)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.consumable"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-2-Dispense/Give Code"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.whenPrepared"/>
+      <definition>
+        <short value="Dispensing time"/>
+        <formal value="The time the dispense event occurred."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.effectiveTime"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-3-Date/Time Dispensed"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.whenHandedOver"/>
+      <definition>
+        <short value="Handover time"/>
+        <formal value="The time the dispense event occurred."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.effectiveTime"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-3-Date/Time Dispensed"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.destination"/>
+      <definition>
+        <short value="Where the medication was sent"/>
+        <formal value="Identification of the facility/location where the medication was shipped to, as part of the dispense event."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Location)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.destination"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXD-13-Dispense-to Location; RXD-30-Dispense to Pharmacy; RXD-31-Dispense to Pharmacy Address (V2 (in definition of RXD-13, RXD-30 and RXD-31) directs use of the PRT segment but there doesn&#39;t appear to be a standard code in Table 0912 suitable for PRT-4-Participation)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.receiver"/>
+      <definition>
+        <short value="Who collected the medication"/>
+        <formal value="Identifies the person who picked up the medication."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Practitioner)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.SupplyEvent.receiver"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage"/>
+      <definition>
+        <short value="Medicine administration instructions to the patient/carer"/>
+        <formal value="Indicates how the medication is to be used by the patient"/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.additionalInstructions[x]"/>
+      <definition>
+        <short value="Additional dosage instructions"/>
+        <formal value="Additional instructions such as &quot;Swallow with plenty of water&quot; which may or may not be coded."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="RXE-7.2-Provider&#39;s Administration Instructions.text / RXO-7.2-Provider&#39;s Administration Instructions.text / TQ1-10-Condition Text / TQ1-11-Text Instruction ?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.timing[x]"/>
+      <definition>
+        <short value="Medication timing"/>
+        <formal value="The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  &quot;Every  8 hours&quot;; &quot;Three times a day&quot;; &quot;1/2 an hour before breakfast for 10 days from 23-Dec 2011:&quot;;  &quot;15 Oct 2013, 17 Oct 2013 and 1 Nov 2013&quot;"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <type>
+          <code value="Period"/>
+        </type>
+        <type>
+          <code value="Schedule"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.effectiveTime"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RDS:TQ1"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.site"/>
+      <definition>
+        <short value="Entry site"/>
+        <formal value="A coded specification of the anatomic site where the medication first enters the body"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationAdministrationSite"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.approachSiteCode"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXR-2-Administration Site"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.route"/>
+      <definition>
+        <short value="Rout of administration"/>
+        <formal value="A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="RouteOfAdministration"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.routeCode"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXR-1-Route"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.method"/>
+      <definition>
+        <short value="Administration method"/>
+        <formal value="A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  Examples:  Slow Push; Deep IV.
+
+Terminologies used often pre-coordinate this term with the route and or form of administration."/>
+        <comments value="SubstanceAdministration.methodCode"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationAdministrationMethod"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXR-4-Administration Method"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.quantity"/>
+      <definition>
+        <short value="Dose quantity per dose"/>
+        <formal value="The amount of the therapeutic or other substance given at one administration event."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.doseQuantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXE-23-Give Rate Amount / RXE-24.1-Give Rate Units.code / RXE-24.3-Give Rate Units.name of coding system"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.rate"/>
+      <definition>
+        <short value="Dose quantity per unit of time"/>
+        <formal value="Identifies the speed with which the substance is introduced into the subject. Typically the rate for an infusion. 200ml in 2 hours."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Ratio"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.rateQuantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXE-22-Give Per (Time Unit)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.dispense.dosage.maxDosePerPeriod"/>
+      <definition>
+        <short value="Total dose that should be consumed per unit of time"/>
+        <formal value="The maximum total quantity of a therapeutic substance that my be administered to a subject over the period of time. E.g. 1000mg in 24 hours."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Ratio"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationRequest.component1.AdministrationRequest.maxDoseQuantity"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXE-4-Give Amount - Maximum / RXE-5-Give Units"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.substitution"/>
+      <definition>
+        <short value="Deals with substitution of one medicine for another"/>
+        <formal value="Indicates whether or not substitution was made as part of the dispense.  In some cases substitution will be expected but doesn&#39;t happen, in other cases substitution is not expected but does happen.  This block explains what substitition did or did not happen and why."/>
+        <min value="0"/>
+        <max value="1"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.substitutionMade"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.substitution.type"/>
+      <definition>
+        <short value="Type of substitiution"/>
+        <formal value="A code signifying whether a different drug was dispensed from what was prescribed."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationIntendedSubstitutionType"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.substitutionMade.code"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="RXE-9-Substitution Status? (perhaps RXO-9-Allow Substitutions?)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.substitution.reason"/>
+      <definition>
+        <short value="Why was substitution made"/>
+        <formal value="Indicates the reason for the substitution of (or lack of substitution) from what was prescribed."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="MedicationIntendedSubstitutionReason"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.substitutionMade.reasonCode"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="MedicationDispense.substitution.responsibleParty"/>
+      <definition>
+        <short value="Who is responsible for the substitution"/>
+        <formal value="The person or organization that has primary responsibility for the substitution"/>
+        <comments value="rename"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Practitioner)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CombinedMedicationDispense.substitutionMade.ResponsibleParty"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="MedicationAdministrationMethod"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/administration-method-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationDispenseStatus"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/medication-dispense-status"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationAdministrationSite"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/approach-site-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationDispenseType"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/medication-dispense-type-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationIntendedSubstitutionType"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/intended-medication-substitution-type-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="RouteOfAdministration"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/route-codes"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="MedicationIntendedSubstitutionReason"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/intended-medication-substitution-reason-codes"/>
+    </referenceResource>
+  </binding>
+</Profile>

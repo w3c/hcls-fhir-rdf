@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><pre>
+&lt;<a title="Significant health events and conditions for people related to the subject relevant in the context of care for the subject" class="dict" href="familyhistory-definitions.htm#FamilyHistory"><b>FamilyHistory</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt;
+  &lt;!-- from <span class="dict"><a href="resources.htm">Resource</a>: <a href="extensibility.htm">extension</a>, <a href="formats.htm#Narrative">narrative</a>, and <a href="resources.htm#contained">contained</a></span> --&gt;
+ &lt;<a title="The person who this history concerns" class="dict" href="familyhistory-definitions.htm#FamilyHistory.subject"><b>subject</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="patient.htm#Patient">Patient</a>)</span> <span style="color: navy">Subject of this history<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>&lt;/subject&gt;
+ &lt;<a title="Conveys information about family history not specific to individual relations." class="dict" href="familyhistory-definitions.htm#FamilyHistory.note"><b>note</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Additional details</span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="The related person. Each FamilyHistory resource contains the entire family history for a single person." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation"><b>relation</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> The relation --&gt;</span>
+  &lt;<a title="This will either be a name or a description.  E.g. &quot;Aunt Susan&quot;, &quot;my cousin with the red hair&quot;" class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.name"><b>name</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">The family member who had the condition<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="The type of relationship this person has to the patient (father, mother, brother etc.) At the moment this is a code linking to a fixed set of values. I&#39;m not sure if there is an international standard for this. A fixed (possibly extensible) set of codes feels better than a codeable concept for somehting like this..." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.relationship"><b>relationship</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="familial-relationship.htm">Relationship to the subject<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></a></span><span style="color: Gray"> --&gt;</span>&lt;/relationship&gt;
+  &lt;<a title="If this resource is indicating that the related person is deceased, then an indicator of whether the person is deceased (yes) or not (no) or the age or age range or description of age at death - can be indicated here. If the reason for death is known, then it can be indicated in the outomce code of the condition - in this case the deceased property should still be set." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.deceased_x_"><b>deceased[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#boolean">boolean</a>|<a href="datatypes.htm#Age">Age</a>|<a href="datatypes.htm#Range">Range</a>|<a href="datatypes.htm#string">string</a></span> <span style="color: navy">Is the person deceased</span><span style="color: Gray"> --&gt;</span>&lt;/deceased[x]&gt;
+  &lt;<a title="This property allows a non condition-specific note to the made about the related person. Ideally, the note would be in the condition property, but this is not always possible." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.note"><b>note</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">General note about the related person</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.condition"><b>condition</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> The Condition that the related person had --&gt;</span>
+   &lt;<a title="The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less specific string like &#39;cancer&#39; depending on how much is known about the condition and the capabilities of the creating system" class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.condition.type"><b>type</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy">The condition</span><span style="color: Gray"> --&gt;</span>&lt;/type&gt;
+   &lt;<a title="Indicates what happened as a result of this condition.  If the condition resulted in death, deceased date is captured on the relation." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.condition.outcome"><b>outcome</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy">deceased | permanent disability | etc.</span><span style="color: Gray"> --&gt;</span>&lt;/outcome&gt;
+   &lt;<a title="Either the age of onset, range of approximate age or descriptive string can be recorded." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.condition.onset_x_"><b>onset[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Age">Age</a>|<a href="datatypes.htm#Range">Range</a>|<a href="datatypes.htm#string">string</a></span> <span style="color: navy">How old the person was when the condition manifested</span><span style="color: Gray"> --&gt;</span>&lt;/onset[x]&gt;
+   &lt;<a title="An area where general notes can be placed about this specific condition." class="dict" href="familyhistory-definitions.htm#FamilyHistory.relation.condition.note"><b>note</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">General notes</span><span style="color: Gray"> --&gt;</span>
+  &lt;/condition&gt;
+ &lt;/relation&gt;
+&lt;/FamilyHistory&gt;
+</pre></div>
+  </text>
+  <name value="familyhistory"/>
+  <publisher value="todo (committee)"/>
+  <description value="Basic Profile. Significant health events and conditions for people related to the subject relevant in the context of care for the subject"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="FamilyHistory"/>
+    <publish value="true"/>
+    <element>
+      <path value="FamilyHistory"/>
+      <definition>
+        <short value="Family History"/>
+        <formal value="Significant health events and conditions for people related to the subject relevant in the context of care for the subject"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="Not in scope for v2"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that must be met as part of the definition of the extension"/>
+        <comments value="there can be no stigma
+associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone"/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal value="A human readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety"/>
+        <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative"/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope"/>
+        <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again"/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.subject"/>
+      <definition>
+        <short value="Subject of this history"/>
+        <formal value="The person who this history concerns"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Patient)"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.note"/>
+      <definition>
+        <short value="Additional details"/>
+        <formal value="Conveys information about family history not specific to individual relations."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation"/>
+      <definition>
+        <short value="The relation"/>
+        <formal value="The related person. Each FamilyHistory resource contains the entire family history for a single person."/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.name"/>
+      <definition>
+        <short value="The family member who had the condition"/>
+        <formal value="This will either be a name or a description.  E.g. &quot;Aunt Susan&quot;, &quot;my cousin with the red hair&quot;"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.relationship"/>
+      <definition>
+        <short value="Relationship to the subject"/>
+        <formal value="The type of relationship this person has to the patient (father, mother, brother etc.) At the moment this is a code linking to a fixed set of values. I&#39;m not sure if there is an international standard for this. A fixed (possibly extensible) set of codes feels better than a codeable concept for somehting like this..."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="FamilialRelationship"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.deceased[x]"/>
+      <definition>
+        <short value="Is the person deceased"/>
+        <formal value="If this resource is indicating that the related person is deceased, then an indicator of whether the person is deceased (yes) or not (no) or the age or age range or description of age at death - can be indicated here. If the reason for death is known, then it can be indicated in the outomce code of the condition - in this case the deceased property should still be set."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="boolean"/>
+        </type>
+        <type>
+          <code value="Age"/>
+        </type>
+        <type>
+          <code value="Range"/>
+        </type>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.note"/>
+      <definition>
+        <short value="General note about the related person"/>
+        <formal value="This property allows a non condition-specific note to the made about the related person. Ideally, the note would be in the condition property, but this is not always possible."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.condition"/>
+      <definition>
+        <short value="The Condition that the related person had"/>
+        <formal value="The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition."/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.condition.type"/>
+      <definition>
+        <short value="The condition"/>
+        <formal value="The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less specific string like &#39;cancer&#39; depending on how much is known about the condition and the capabilities of the creating system"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.condition.outcome"/>
+      <definition>
+        <short value="deceased | permanent disability | etc."/>
+        <formal value="Indicates what happened as a result of this condition.  If the condition resulted in death, deceased date is captured on the relation."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="ConditionOutcome"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.condition.onset[x]"/>
+      <definition>
+        <short value="How old the person was when the condition manifested"/>
+        <formal value="Either the age of onset, range of approximate age or descriptive string can be recorded."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Age"/>
+        </type>
+        <type>
+          <code value="Range"/>
+        </type>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="FamilyHistory.relation.condition.note"/>
+      <definition>
+        <short value="General notes"/>
+        <formal value="An area where general notes can be placed about this specific condition."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="FamilialRelationship"/>
+    <isExtensible value="true"/>
+    <conformance value="preferred"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/familial-relationship"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="ConditionOutcome"/>
+    <isExtensible value="true"/>
+    <conformance value="preferred"/>
+    <description value="The result of the condition for the patient.  E.g. death, permanent disability, temporary disability, etc."/>
+  </binding>
+</Profile>

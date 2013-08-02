@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><div>Type definition for Quantity from <a href="http://hl7.org/fhir/datatypes.htm#Quantity">FHIR Specification</a></div></div>
+  </text>
+  <name value="Profile for Age on Quantity"/>
+  <publisher value="FHIR Specification"/>
+  <description value="Basic Profile for Age on Quantity for validation support"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="Quantity"/>
+    <name value="Age"/>
+    <element>
+      <path value="Quantity"/>
+      <definition>
+        <short value="A measured or measurable amount"/>
+        <formal value="A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies"/>
+        <comments value="The context of use may frequently define what kind of quantity this is and therefore what kind of units can be used. The context of use may also restrict the values for status"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Type"/>
+        </type>
+        <constraint>
+          <key value="3"/>
+          <name value="Must have a system"/>
+          <severity value="error"/>
+          <human value="If a code for the units is present, the system must also be present"/>
+          <xpath value="not(exists(f:code)) or exists(f:system)"/>
+        </constraint>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="PQ, IVL&lt;PQ&gt;, MO, CO, depending on the values"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Quantity.value"/>
+      <definition>
+        <short value="Numerical value (with implicit precision)"/>
+        <formal value="The value of the measured amount. The value includes an implicit precision in the presentation of the value"/>
+        <comments value="The implicit precision should always be honored. Currency has its own rules for handling precision"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="decimal"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="PQ.value, CO.value, MO.value, IVL.high or IVL.low depending on the value"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Quantity.comparator"/>
+      <definition>
+        <short value="Relationship of stated value to actual value"/>
+        <formal value="How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues. E.g. if the comparator is &quot;&lt;&quot; , then the real value is &lt; stated value"/>
+        <comments value="This is labelled as &quot;Is Modifier&quot; because the comparator modifies the interpretation of the value significantly. If there is no comparator, then there is no impact"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="QuantityCompararator"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="IVL properties"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Quantity.units"/>
+      <definition>
+        <short value="Unit representation"/>
+        <formal value="A human readable form of the units"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Quantity.system"/>
+      <definition>
+        <short value="System that defines coded unit form"/>
+        <formal value="The identification of the system that provides the coded form of the unit"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="uri"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="CO.codeSystem, PQ.translation.codeSystem"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Quantity.code"/>
+      <definition>
+        <short value="Coded form of the unit"/>
+        <formal value="A computer processable form of the units in some unit representation system"/>
+        <comments value="The preferred system is UCUM, but SNOMED-CT can also be used (for customary units) or ISO 4217 for currency.
+
+The context of use may additionally require a code from a particular system (Unless the Quantity element has a dataAbsentReason flag)"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="PQ.code, MO.currency, PQ.translation.code"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="QuantityCompararator"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/quantity-comparator"/>
+    </referenceResource>
+  </binding>
+</Profile>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><MedicationPrescription xmlns="http://hl7.org/fhir">
+ <!-- No identifier could be provided -->
+ <dateWritten value="2013-03-11"/>
+  <status value="completed"/> 
+ <patient>
+    <type value="Patient"/>
+    <reference value="patient/@f201"/>
+    <display value="Roel"/>
+ </patient>
+ <prescriber>
+    <type value="Practitioner"/>
+    <reference value="practitioner/@f201"/>
+ </prescriber>
+ <encounter><!-- TODO <encounter> is not expected... -->
+    <type value="Encounter"/>
+    <reference value="encounter/@f203"/>
+    <display value="Roel&#39;s encounter on March eleventh 2013"/>
+ </encounter>
+ <reasonForPrescribingString value="condtition/@f203"/>
+ <medication>
+    <type value="Medication"/>
+    <reference value="medication/@f202"/>
+    <display value="Flucloxacilline"/>
+ </medication>
+ <dosageInstruction>  
+  <dosageInstructionsText value="Flucloxacilline 12g/24h"/>
+  <timingSchedule>
+      <event>
+          <start value="2013-03-11"/>
+          <end value="2013-03-21"/>
+      </event>
+  </timingSchedule>
+  <route><!-- Medication follows the respiratory tract -->
+    <coding>
+       <system value="http://snomed.info/id"/>
+       <code value="47625008"/>
+       <display value="Intravenous route"/>
+    </coding>
+  </route>
+  <method>
+    <coding>
+       <system value="http://snomed.info/id"/>
+       <code value="323493005"/>
+       <display value="Injected floxacillin"/><!-- SNOMED code maps to 1 gram whilst the patient receives 12 grams -->
+    </coding>
+  </method>
+  <maxDosePerPeriod><!-- 12g/24h -->
+    <numerator>
+        <value value="12"/>
+        <units value="gram"/>
+        <system value="http://snomed.info/id"/>
+        <code value="258682000"/>
+    </numerator>
+    <denominator>
+        <value value="24"/>
+        <units value="hours"/>
+        <system value="http://snomed.info/id"/>
+        <code value="258702006"/>
+    </denominator>
+  </maxDosePerPeriod>
+ </dosageInstruction>
+ <!-- <dispense> and <substitution> are not available for this patient --> 
+</MedicationPrescription>

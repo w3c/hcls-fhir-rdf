@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><pre>
+&lt;<a title="A transmission requesting action on a bundle of one or more resources or a response to such a request" class="dict" href="message-definitions.htm#Message"><b>Message</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt;
+  &lt;!-- from <span class="dict"><a href="resources.htm">Resource</a>: <a href="extensibility.htm">extension</a>, <a href="formats.htm#Narrative">narrative</a>, and <a href="resources.htm#contained">contained</a></span> --&gt;
+ &lt;<a title="The identifier of this message" class="dict" href="message-definitions.htm#Message.identifier"><b>identifier</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#id">id</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Id of this message</span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="The time that the message was sent" class="dict" href="message-definitions.htm#Message.timestamp"><b>timestamp</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#instant">instant</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Time that the message was sent</span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="Code that identifies the event this message represents and connects it with the event definition in the FHIR specification (this element must be understood)" class="dict" href="message-definitions.htm#Message.event"><span style="text-decoration: underline"><b>event</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="message-events.htm">Code for the event his message represents</a></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="Information about the message that this message is a response to.  Only present if this message is a response. (this element must be understood)" class="dict" href="message-definitions.htm#Message.response"><span style="text-decoration: underline"><b>response</b></span></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..1</b></span> If this is a reply to prior message --&gt;</span>
+  &lt;<a title="The id of the message that this a response to" class="dict" href="message-definitions.htm#Message.response.identifier"><b>identifier</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#id">id</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Id of original message</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Code that identifies the type of response to the message - whether it was successful or not, and whether it should be resent or not (this element must be understood)" class="dict" href="message-definitions.htm#Message.response.code"><span style="text-decoration: underline"><b>code</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="response-code.htm">Type of response to the message</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Full details of any issues found in the message" class="dict" href="message-definitions.htm#Message.response.details"><b>details</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="operationoutcome.htm#OperationOutcome">OperationOutcome</a>)</span> <span style="color: navy">Specific list of hints/warnings/errors</span><span style="color: Gray"> --&gt;</span>&lt;/details&gt;
+ &lt;/response&gt;
+ &lt;<a title="The source application from which this message originated" class="dict" href="message-definitions.htm#Message.source"><b>source</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>1..1</b></span> Message Source Application --&gt;</span>
+  &lt;<a title="Human readable name for the target system" class="dict" href="message-definitions.htm#Message.source.name"><b>name</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Name of system</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="May include configuration or other information useful in debugging." class="dict" href="message-definitions.htm#Message.source.software"><b>software</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Name of software running the system</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Can convey versions of multiple systems in situations where a message passes through multiple hands." class="dict" href="message-definitions.htm#Message.source.version"><b>version</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Version of software running</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="An e-mail, phone, website or other contact point to use to resolve issues with message communications." class="dict" href="message-definitions.htm#Message.source.contact"><b>contact</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Contact">Contact</a></span> <span style="color: navy">Human contact for problems</span><span style="color: Gray"> --&gt;</span>&lt;/contact&gt;
+  &lt;<a title="Identifies the routing target to send acknowledgements to." class="dict" href="message-definitions.htm#Message.source.endpoint"><b>endpoint</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#uri">uri</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Actual message source address or id</span><span style="color: Gray"> --&gt;</span>
+ &lt;/source&gt;
+ &lt;<a title="The destination application which the message is intended for" class="dict" href="message-definitions.htm#Message.destination"><b>destination</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>1..1</b></span> Message Destination Application --&gt;</span>
+  &lt;<a title="Human readable name for the source system" class="dict" href="message-definitions.htm#Message.destination.name"><b>name</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Name of system</span><span style="color: Gray"> --&gt;</span>
+  &lt;<a title="Identifies the target end system in situations where the initial message transmission is to an intermediary system." class="dict" href="message-definitions.htm#Message.destination.target"><b>target</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="device.htm#Device">Device</a>)</span> <span style="color: navy">Particular delivery destination within the destination</span><span style="color: Gray"> --&gt;</span>&lt;/target&gt;
+  &lt;<a title="Indicates where the message should be routed to." class="dict" href="message-definitions.htm#Message.destination.endpoint"><b>endpoint</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#uri">uri</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Actual destination address or id</span><span style="color: Gray"> --&gt;</span>
+ &lt;/destination&gt;
+ &lt;<a title="The person or device that performed the data entry leading to this Message. Where there is more than one candidate, pick the most proximal to the Message. Can provide other enterers in extensions" class="dict" href="message-definitions.htm#Message.enterer"><b>enterer</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>)</span> <span style="color: navy">The source of the data entry</span><span style="color: Gray"> --&gt;</span>&lt;/enterer&gt;
+ &lt;<a title="The logical author of the message - the person or device that decided the described event should happen. Where there is more than one candidate, pick the most proximal to the Message. Can provide other authors in extensions" class="dict" href="message-definitions.htm#Message.author"><b>author</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>)</span> <span style="color: navy">The source of the decision</span><span style="color: Gray"> --&gt;</span>&lt;/author&gt;
+ &lt;<a title="Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn&#39;t sufficient." class="dict" href="message-definitions.htm#Message.receiver"><b>receiver</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>|<a href="organization.htm#Organization">Organization</a>)</span> <span style="color: navy">Intended &quot;real-world&quot; recipient for the data</span><span style="color: Gray"> --&gt;</span>&lt;/receiver&gt;
+ &lt;<a title="The person or organization that accepts overall responsibility for the contents of the Message. The implication is that the message event happened under the policies of the responsible party" class="dict" href="message-definitions.htm#Message.responsible"><b>responsible</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="practitioner.htm#Practitioner">Practitioner</a>|<a href="organization.htm#Organization">Organization</a>)</span> <span style="color: navy">Final responsibility for event</span><span style="color: Gray"> --&gt;</span>&lt;/responsible&gt;
+ &lt;<a title="The effective time - the real world time of the event that the message represents. Usually this is just a starting time, but some message events also have an end time (do x for period y)" class="dict" href="message-definitions.htm#Message.effective"><b>effective</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Period">Period</a></span> <span style="color: navy">Time of effect</span><span style="color: Gray"> --&gt;</span>&lt;/effective&gt;
+ &lt;<a title="The cause of the event - a reason for the event that is a focus of this message occurred" class="dict" href="message-definitions.htm#Message.reason"><b>reason</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-message-reason-encounter.htm">Cause of event</a></span><span style="color: Gray"> --&gt;</span>&lt;/reason&gt;
+ &lt;<a title="The actual data of the message - a reference to the root/focus class of the event." class="dict" href="message-definitions.htm#Message.data"><b>data</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="resources.htm">Any</a>)</span> <span style="color: navy">The actual content of the message</span><span style="color: Gray"> --&gt;</span>&lt;/data&gt;
+&lt;/Message&gt;
+</pre></div>
+  </text>
+  <name value="message"/>
+  <publisher value="todo (committee)"/>
+  <description value="Basic Profile. A transmission requesting action on a bundle of one or more resources or a response to such a request"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="Message"/>
+    <publish value="true"/>
+    <element>
+      <path value="Message"/>
+      <definition>
+        <short value="A message that contains resources"/>
+        <formal value="A transmission requesting action on a bundle of one or more resources or a response to such a request"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="Message"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH / MSA / ERR"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that must be met as part of the definition of the extension"/>
+        <comments value="there can be no stigma
+associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone"/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal value="A human readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety"/>
+        <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative"/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope"/>
+        <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again"/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.identifier"/>
+      <definition>
+        <short value="Id of this message"/>
+        <formal value="The identifier of this message"/>
+        <comments value="This must be unique within the scope of this stream of messages"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="id"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="Message.id"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-10-message control ID"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.timestamp"/>
+      <definition>
+        <short value="Time that the message was sent"/>
+        <formal value="The time that the message was sent"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="instant"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./creationTime[isNormalDatatype()]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-7-message date/time"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.event"/>
+      <definition>
+        <short value="Code for the event his message represents"/>
+        <formal value="Code that identifies the event this message represents and connects it with the event definition in the FHIR specification"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="MessageEvent"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./payload[classCode=&quot;CACT&quot; and moodCode=&quot;EVN&quot; and isNormalAct()]/code[isNormalDatatype()]/code"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-9.2-message type.trigger event"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.response"/>
+      <definition>
+        <short value="If this is a reply to prior message"/>
+        <formal value="Information about the message that this message is a response to.  Only present if this message is a response."/>
+        <min value="0"/>
+        <max value="1"/>
+        <mustUnderstand value="true"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./conveyedAcknowledgement"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSA"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.response.identifier"/>
+      <definition>
+        <short value="Id of original message"/>
+        <formal value="The id of the message that this a response to"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="id"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./acknowledges.id[isNormalDatatype()]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSA-2-message control ID"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.response.code"/>
+      <definition>
+        <short value="Type of response to the message"/>
+        <formal value="Code that identifies the type of response to the message - whether it was successful or not, and whether it should be resent or not"/>
+        <comments value="This is a generic response to the request Message. Specific data for the response will be found in Message.data"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="ResponseCode"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./typeCode[isNormalDatatype()]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSA-1-acknowledgment code"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.response.details"/>
+      <definition>
+        <short value="Specific list of hints/warnings/errors"/>
+        <formal value="Full details of any issues found in the message"/>
+        <comments value="This must be contained in the bundle. If any of the issues are errors, the response code must be an error"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(OperationOutcome)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="AcknowledgementDetail or Observation[classCode=&quot;ALRT&quot; and moodCode=&quot;EVN&quot;]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="ERR"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.source"/>
+      <definition>
+        <short value="Message Source Application"/>
+        <formal value="The source application from which this message originated"/>
+        <min value="1"/>
+        <max value="1"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./communicationFunction[typeCode=&quot;SND&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="NA"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.source.name"/>
+      <definition>
+        <short value="Name of system"/>
+        <formal value="Human readable name for the target system"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./entity[determinerCode=&quot;INST&quot; and classCode=&quot;DEV&quot;]/name[type=&#39;ST&#39; and isNormalDatatype()])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-3-sending application"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.source.software"/>
+      <definition>
+        <short value="Name of software running the system"/>
+        <formal value="May include configuration or other information useful in debugging."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./entity[determinerCode=&quot;INST&quot; and classCode=&quot;DEV&quot;]/softwareName[isNormalDatatype()])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="SFT-3-software product name ( +SFT-1-software vendor organization)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.source.version"/>
+      <definition>
+        <short value="Version of software running"/>
+        <formal value="Can convey versions of multiple systems in situations where a message passes through multiple hands."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="(Not supported)"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="SFT-2-software certified version or release number"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.source.contact"/>
+      <definition>
+        <short value="Human contact for problems"/>
+        <formal value="An e-mail, phone, website or other contact point to use to resolve issues with message communications."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Contact"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./entity[determinerCode=&quot;INST&quot; and classCode=&quot;DEV&quot;]/scopesRole[normalRole() and classCode=&quot;CON&quot; and layer[classCode=&quot;PSN&quot;]/telecom[isNormalDatatype()])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="(MSH-22?)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.source.endpoint"/>
+      <definition>
+        <short value="Actual message source address or id"/>
+        <formal value="Identifies the routing target to send acknowledgements to."/>
+        <comments value="The id may be a non-resolvable URI for systems that do not use standard network-based addresses"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="uri"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./telecom[isNormalDatatype()]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-24-sending network address"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.destination"/>
+      <definition>
+        <short value="Message Destination Application"/>
+        <formal value="The destination application which the message is intended for"/>
+        <min value="1"/>
+        <max value="1"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./communicationFunction[typeCode=&quot;RCV&quot;]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="NA"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.destination.name"/>
+      <definition>
+        <short value="Name of system"/>
+        <formal value="Human readable name for the source system"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./entity[determinerCode=&quot;INST&quot; and (classCode=(&quot;DEV&quot;, &quot;PSN&quot;, &quot;ORG&quot;]/name[type=&#39;ST&#39; and isNormalDatatype()])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-5-receiving application"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.destination.target"/>
+      <definition>
+        <short value="Particular delivery destination within the destination"/>
+        <formal value="Identifies the target end system in situations where the initial message transmission is to an intermediary system."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Device)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./entity[determinerCode=&quot;INST&quot; and (classCode=(&quot;DEV&quot;, &quot;PSN&quot;, &quot;ORG&quot;]"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.destination.endpoint"/>
+      <definition>
+        <short value="Actual destination address or id"/>
+        <formal value="Indicates where the message should be routed to."/>
+        <comments value="The id may be a non-resolvable URI for systems that do not use standard network-based addresses"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="uri"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./telecom"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="MSH-25-receiving network address (or MSH-6-receiving facility by implication)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.enterer"/>
+      <definition>
+        <short value="The source of the data entry"/>
+        <formal value="The person or device that performed the data entry leading to this Message. Where there is more than one candidate, pick the most proximal to the Message. Can provide other enterers in extensions"/>
+        <comments value="Usually only for the request, but can be used in a response"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Practitioner)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/participation[typeCode=&quot;ENT&quot; and isNormalParticipation]/role[classCode=&quot;ASSIGNED&quot; and isNormalRole()]/player[isNormalEntity() and classCode=(&quot;DEV&quot;, &quot;PSN&quot;) and determinerCode=&quot;INST&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="EVN-5-operator ID / ORC-10-entered by / PRT-5-Participation Person:PRT-4-Participation=&#39;EP&#39; / ROL where ROL.3 is EP or ORC.10"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.author"/>
+      <definition>
+        <short value="The source of the decision"/>
+        <formal value="The logical author of the message - the person or device that decided the described event should happen. Where there is more than one candidate, pick the most proximal to the Message. Can provide other authors in extensions"/>
+        <comments value="Usually only for the request, but can be used in a response"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Practitioner)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=&quot;AUT&quot; and isNormalParticipation]/role[classCode=&quot;ASSIGNED&quot; and isNormalRole()]/player[isNormalEntity() and classCode=(&quot;DEV&quot;, &quot;PSN&quot;) and determinerCode=&quot;INST&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="ORC-19-action by / PRT-5-Participation Person:PRT-4-Participation=&#39;AUT&#39; / ROL where ROL.3 is IP or ORC.12"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.receiver"/>
+      <definition>
+        <short value="Intended &quot;real-world&quot; recipient for the data"/>
+        <formal value="Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn&#39;t sufficient."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Practitioner|Organization)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PRT-5-Participation Person:PRT-4-Participation=&#39;WAYR&#39; / PRT-8-Participation Organization:PRT-4-Participation=&#39;WAYR&#39;"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.responsible"/>
+      <definition>
+        <short value="Final responsibility for event"/>
+        <formal value="The person or organization that accepts overall responsibility for the contents of the Message. The implication is that the message event happened under the policies of the responsible party"/>
+        <comments value="Usually only for the request, but can be used in a response"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Practitioner|Organization)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=&quot;RESP&quot; and isNormalParticipation]/role[classCode=&quot;ASSIGNED&quot; and isNormalRole()]/player[isNormalEntity() and classCode=&quot;PSN&quot; and determinerCode=&quot;INST&quot;] or ./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=&quot;RESP&quot; and isNormalParticipation]/role[classCode=&quot;ASSIGNED&quot; and isNormalRole()]/scoper[isNormalEntity() and classCode=&quot;ORG&quot; and determinerCode=&quot;INST&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="ORC-12-ordering provider / 
+PRT-5-Participation Person:PRT-4-Participation=&#39;OP&#39; / 
+PRT-8-Participation Organization:PRT-4-Participation=&#39;OP&#39;
+/ ROL where ROL.3 is RO or ORC.11"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.effective"/>
+      <definition>
+        <short value="Time of effect"/>
+        <formal value="The effective time - the real world time of the event that the message represents. Usually this is just a starting time, but some message events also have an end time (do x for period y)"/>
+        <comments value="Usually only for the request, but can be used in a response"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/effectiveTime[isNormalDatatype() and type=&quot;IVL_TS&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="EVN.3 or EVN.6 or ORC.15 / TQ1-7-start date/time + TQ1-8-end date/time"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.reason"/>
+      <definition>
+        <short value="Cause of event"/>
+        <formal value="The cause of the event - a reason for the event that is a focus of this message occurred"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="EventReason"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/reasonCode[isNormalDatatype()])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="EVN.4 / ORC.16 / OBR-31-reason for study / BPO-13-BP indication for use / RXO-20-indication / RXE-27-give indication / RXD-21-indication / RXG-22-indication / RXA-19-indication"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Message.data"/>
+      <definition>
+        <short value="The actual content of the message"/>
+        <formal value="The actual data of the message - a reference to the root/focus class of the event."/>
+        <comments value="The data is defined where the transaction type is defined. The transaction data is always included in the bundle that is the full message.  Only the root resource is specified.  The tree of referenced resources conveyed in the atom feed is determined by navigating the tree and consulting the &quot;bundled&quot; property of the profile, not by listing all resources here.  Multiple repetitions are provided for merges and other situations with multiple focal targets"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Any)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/participation[typeCode=&quot;SUBJ&quot; and isNormalParticipation]/role or ./controlAct[classCode=&quot;CACT&quot; and classCode=&quot;EVN&quot; and isNormalAct()]/outboundRelationship[typeCode=&quot;SBJ&quot; and isNormalActRelatoinship]/target)"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="MessageEvent"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/message-events"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="EventReason"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/message-reason-encounter"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="ResponseCode"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/response-code"/>
+    </referenceResource>
+  </binding>
+</Profile>

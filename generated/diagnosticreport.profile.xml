@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><pre>
+&lt;<a title="The findings and interpretation of diagnostic  tests performed on patients and/or specimens. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretation, and formatted representation of diagnostic reports" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport"><b>DiagnosticReport</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt;
+  &lt;!-- from <span class="dict"><a href="resources.htm">Resource</a>: <a href="extensibility.htm">extension</a>, <a href="formats.htm#Narrative">narrative</a>, and <a href="resources.htm#contained">contained</a></span> --&gt;
+ &lt;<a title="The status of the diagnostic report as a whole (this element must be understood)" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.status"><span style="text-decoration: underline"><b>status</b></span></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#code">code</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="observation-status.htm">registered|interim|final|amended|cancelled|withdrawn<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></a></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="The date and/or time that this version of the report was released from the source diagnostic service" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.issued"><b>issued</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#dateTime">dateTime</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Date this version was released<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="The subject of the report. Usually, but not always, this is a patient. However diagnostic services also perform analyses on specimens collected from a variety of other sources" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.subject"><b>subject</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="patient.htm#Patient">Patient</a>|<a href="group.htm#Group">Group</a>|<a href="device.htm#Device">Device</a>)</span> <span style="color: navy">The subject of the report<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>&lt;/subject&gt;
+ &lt;<a title="The diagnostic service that is responsible for issuing the report" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.performer"><b>performer</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="organization.htm#Organization">Organization</a>)</span> <span style="color: navy">Responsible Diagnostic Service<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>&lt;/performer&gt;
+ &lt;<a title="The local ID assigned to the report by the order filler, usually by the Information System of the diagnostic service provider" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.reportId"><b>reportId</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">Id for external references to this report<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>&lt;/reportId&gt;
+ &lt;<a title="Details concerning a single pathology test requested." class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail"><b>requestDetail</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> What was requested --&gt;</span>
+  &lt;<a title="The encounter that this diagnostic investigation is associated with" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.encounter"><b>encounter</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="encounter.htm#Encounter">Encounter</a>)</span> <span style="color: navy">Context where request was made</span><span style="color: Gray"> --&gt;</span>&lt;/encounter&gt;
+  &lt;<a title="The local ID assigned to the order by the order requester." class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.requestOrderId"><b>requestOrderId</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">Id assigned by requester</span><span style="color: Gray"> --&gt;</span>&lt;/requestOrderId&gt;
+  &lt;<a title="The local ID assigned to the test order by the diagnostic service provider" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.receiverOrderId"><b>receiverOrderId</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Identifier">Identifier</a></span> <span style="color: navy">Receiver&#39;s Id for the request</span><span style="color: Gray"> --&gt;</span>&lt;/receiverOrderId&gt;
+  &lt;<a title="Identification of pathology test requested," class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.requestTest"><b>requestTest</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-diagnostic-requests.htm">Test Requested</a></span><span style="color: Gray"> --&gt;</span>&lt;/requestTest&gt;
+  &lt;<a title="Anatomical location where the request test should be performed" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.bodySite"><b>bodySite</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-body-site.htm">Location of requested test (if applicable)</a></span><span style="color: Gray"> --&gt;</span>&lt;/bodySite&gt;
+  &lt;<a title="Details of the clinician or organisation requesting the diagnostic service" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.requester"><b>requester</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="organization.htm#Organization">Organization</a>|<a href="practitioner.htm#Practitioner">Practitioner</a>)</span> <span style="color: navy">Responsible for request</span><span style="color: Gray"> --&gt;</span>&lt;/requester&gt;
+  &lt;<a title="Details of the clinical information provided to the diagnostic service along with the original request" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.requestDetail.clinicalInfo"><b>clinicalInfo</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Clinical information provided</span><span style="color: Gray"> --&gt;</span>
+ &lt;/requestDetail&gt;
+ &lt;<a title="The section of the diagnostic service that performs the examination e.g. biochemistry, haematology, MRI" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.serviceCategory"><b>serviceCategory</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-diagnostic-service-sections.htm">Biochemistry, Haematology etc.<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></a></span><span style="color: Gray"> --&gt;</span>&lt;/serviceCategory&gt;
+ &lt;<a title="The diagnostically relevant time for this report" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.diagnosticTime"><b>diagnosticTime</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#dateTime">dateTime</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy">Effective time of diagnostic report<span title="This element is included in a summary view (See Search/Query)" style="color: Navy"> �</span></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="A group of results. Results may be grouped by specimen, or by some value in DiagnosticReport.resultGroup.name to describe what binds all the results together." class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.results"><b>results</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>1..1</b></span> Results grouped by specimen/kind/category --&gt;</span>
+  &lt;<a title="A code or name that describes this group of results. For the base group, this is the report name" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.results.name"><b>name</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-report-names.htm">Name/Code for this group of results</a></span><span style="color: Gray"> --&gt;</span>&lt;/name&gt;
+  &lt;<a title="Details about the individual specimen to which these &#39;Result group&#39; test results refer" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.results.specimen"><b>specimen</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="specimen.htm#Specimen">Specimen</a>)</span> <span style="color: navy">Specimen details for this group</span><span style="color: Gray"> --&gt;</span>&lt;/specimen&gt;
+  &lt;<a title="A sub-group in a report group. Sub groups can be grouped in arbitrary ways. The group.name defines the purpose and interpretation of the grouping" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.results.group"><b>group</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen">Content as for DiagnosticReport.results</span> <span style="color: navy">Nested Report Group</span><span style="color: Gray"> --&gt;</span>&lt;/group&gt;
+  &lt;<a title="Specific detailed result, including both the value of the result item and additional information that may be useful for clinical interpretation. Results include whatever specific data items pathology labs report as part of the clinical service; it is not confined to measurements." class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.results.result"><b>result</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="observation.htm#Observation">Observation</a>)</span> <span style="color: navy">An atomic data result</span><span style="color: Gray"> --&gt;</span>&lt;/result&gt;
+ &lt;/results&gt;
+ &lt;<a title="A list of key images associated with this report. The images are generally created during the diagnostic process, and maybe directly of the patient, or of treated specimens (i.e. slides of interest)" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.image"><b>image</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="resources.htm#Resource">Resource</a>(<a href="picture.htm#Picture">Picture</a>|<a href="imagingstudy.htm#ImagingStudy">ImagingStudy</a>)</span> <span style="color: navy">Key images associated with this report</span><span style="color: Gray"> --&gt;</span>&lt;/image&gt;
+ &lt;<a title="Concise and clinically contextualised narrative interpretation of the diagnostic report" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.conclusion"><b>conclusion</b></a> value=&quot;[<span style="color: darkgreen"><a href="datatypes.htm#string">string</a></span>]&quot;/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy">Clinical Interpretation of test results</span><span style="color: Gray"> --&gt;</span>
+ &lt;<a title="Codes for the conclusion" class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.codedDiagnosis"><b>codedDiagnosis</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="datatypes.htm#CodeableConcept">CodeableConcept</a></span> <span style="color: navy"><a style="color: navy" href="valueset-clinical-findings.htm">Codes for the conclusion</a></span><span style="color: Gray"> --&gt;</span>&lt;/codedDiagnosis&gt;
+ &lt;<a title="Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they must be semantically equivalent." class="dict" href="diagnosticreport-definitions.htm#DiagnosticReport.representation"><b>representation</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="datatypes.htm#Attachment">Attachment</a></span> <span style="color: navy">Entire Report as issued</span><span style="color: Gray"> --&gt;</span>&lt;/representation&gt;
+&lt;/DiagnosticReport&gt;
+</pre></div>
+  </text>
+  <name value="diagnosticreport"/>
+  <publisher value="todo (committee)"/>
+  <description value="Basic Profile. The findings and interpretation of diagnostic  tests performed on patients and/or specimens. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretation, and formatted representation of diagnostic reports"/>
+  <status value="draft"/>
+  <date value="2013-08-01"/>
+  <structure>
+    <type value="DiagnosticReport"/>
+    <publish value="true"/>
+    <element>
+      <path value="DiagnosticReport"/>
+      <definition>
+        <short value="A Diagnostic report - a combination of request information, atomic results, images, interpretation, and formatted reports"/>
+        <formal value="The findings and interpretation of diagnostic  tests performed on patients and/or specimens. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretation, and formatted representation of diagnostic reports"/>
+        <comments value="This is intended to capture a single report,and is not suitable for use in displaying summary information that covers multiple reports. A typical example is a laboratory cumulative report format"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="Observation[isNormalAct() and subsumesCode(&quot;ActClass#OBS&quot;, classCode) and moodCode=&quot;EVN&quot; and domainMember(&quot;LabObservationType&quot;, code)]"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that must be met as part of the definition of the extension"/>
+        <comments value="there can be no stigma
+associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone"/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal value="A human readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety"/>
+        <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative"/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope"/>
+        <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again"/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.status"/>
+      <definition>
+        <short value="registered|interim|final|amended|cancelled|withdrawn"/>
+        <formal value="The status of the diagnostic report as a whole"/>
+        <comments value="This is labelled as &quot;Is Modifier&quot; because applications need to take appropriate action if a report is withdrawn"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <mustUnderstand value="true"/>
+        <binding value="ObservationStatus"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="registered: ./statusCode[isNormalDatatype()]=&quot;new&quot;;
+
+interim: ./statusCode[isNormalDatatype()]=&quot;active&quot;;
+
+final: ./statusCode[isNormalDatatype()]=&quot;complete&quot; and not(./inboundRelationship[typeCode=&quot;SUBJ&quot; and isNormalActRelationship()]/source[subsumesCode(&quot;ActClass#CACT&quot;) and moodCode=&quot;EVN&quot; and domainMember(&quot;ReviseLabOrder&quot;, code) and isNormalAct()]);
+
+amended: ./statusCode[isNormalDatatype()]=&quot;complete&quot; and ./inboundRelationship[typeCode=&quot;SUBJ&quot; and isNormalActRelationship()]/source[subsumesCode(&quot;ActClass#CACT&quot;) and moodCode=&quot;EVN&quot; and domainMember(&quot;ReviseLabOrder&quot;, code) and isNormalAct() and statusCode=&quot;completed&quot;];
+
+cancelled: 
+./statusCode[isNormalDatatype()]=&quot;aborted&quot;;
+
+withdrawn: ./statusCode[isNormalDatatype()]=&quot;obsolete&quot;"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-25-Result Status (not 1:1 mapping)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.issued"/>
+      <definition>
+        <short value="Date this version was released"/>
+        <formal value="The date and/or time that this version of the report was released from the source diagnostic service"/>
+        <comments value="May be different from the update time of the resource itself, because that is the status of the record (potentially a secondary copy), not the actual release time of the report"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="firstOf(unique(./participation[isHighest(priorityCode) and typeCode=&quot;VRF&quot; and isNormalParticipation()]/time[type=&quot;TS&quot;]), 
+unique(./participation[isHighest(priorityCode) and typeCode=&quot;AUT&quot; and isNormalParticipation()]/time[type=&quot;TS&quot;]))"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-22-Results Rpt/Status Chng - Date/Time"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.subject"/>
+      <definition>
+        <short value="The subject of the report"/>
+        <formal value="The subject of the report. Usually, but not always, this is a patient. However diagnostic services also perform analyses on specimens collected from a variety of other sources"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Patient|Group|Device)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./participation[isHighest(priorityCode) and typeCode=&quot;SBJ&quot; and isNormalParticipation()]/role[classCode=&quot;PAT&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PID-3-Patient ID List (no V2 mapping for Group or Device)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.performer"/>
+      <definition>
+        <short value="Responsible Diagnostic Service"/>
+        <formal value="The diagnostic service that is responsible for issuing the report"/>
+        <comments value="This is not necessarily the source of the atomic data items - it&#39;s the entity that takes responsibility for the clinical report"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Organization)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./participation[isHighest(priorityCode) and typeCode=&quot;AUT&quot; and isNormalParticipation()]/role[subsumesCode(&quot;RoleClass#ASSIGN&quot;, classCode)]/scoper[subsumesCode(&quot;EntityClass#ORG&quot;, classCode) and determinerCode=&quot;INSTANCE&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PRT-8-Participation Organization (where this PRT-4-Participation = &quot;PO&quot;)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.reportId"/>
+      <definition>
+        <short value="Id for external references to this report"/>
+        <formal value="The local ID assigned to the report by the order filler, usually by the Information System of the diagnostic service provider"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./id[displayable=&quot;true&quot; and scope=&quot;OBJ&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-51-Observation Group ID (todo: check semantic intent of OBR-51 with OOWG)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail"/>
+      <definition>
+        <short value="What was requested"/>
+        <formal value="Details concerning a single pathology test requested."/>
+        <comments value="Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single Pathology test result resource. Note that there are also cases where one request leads to multiple reports"/>
+        <min value="0"/>
+        <max value="*"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./outboundRelationship[typeCode=&quot;FLFS&quot; and isNormalActRelationship()]/target[subsumesCode(&quot;ActClass#OBS&quot;, classCode) and subsumes(&quot;ActMood#PRMS&quot;, moodCode) and isNormalAct()])"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.encounter"/>
+      <definition>
+        <short value="Context where request was made"/>
+        <formal value="The encounter that this diagnostic investigation is associated with"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Encounter)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./inboundRelationship[isHighest(priorityCode) and typeCode=&quot;SUBJ&quot; and isNormalActRelationship()]/source[subsumesCode(&quot;ActClass#ENC&quot;, code) and moodCode=&quot;EVN&quot; and isNormalAct()])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="PV1-19-Visit Number"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.requestOrderId"/>
+      <definition>
+        <short value="Id assigned by requester"/>
+        <formal value="The local ID assigned to the order by the order requester."/>
+        <comments value="Equivalent to the Placer Order Identifier"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./outboundRelationship[typeCode=&quot;FLFS&quot; and isNormalActRelationship()]/target[subsumesCode(&quot;ActClass#OBS&quot;, classCode) and subsumes(&quot;ActMood#RQO&quot;, moodCode) and isNormalAct()]/id[scope=&quot;OBJ&quot; and displayable=&quot;true&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-2-Placer Order Number"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.receiverOrderId"/>
+      <definition>
+        <short value="Receiver&#39;s Id for the request"/>
+        <formal value="The local ID assigned to the test order by the diagnostic service provider"/>
+        <comments value="Usually equivalent to the DICOM Accession Number and the Filler Order Identifier."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./id[scope=&quot;OBJ&quot; and displayable=&quot;true&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-3-Filler Order Number"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.requestTest"/>
+      <definition>
+        <short value="Test Requested"/>
+        <formal value="Identification of pathology test requested,"/>
+        <comments value="Useful where the test requested differs from the test actually performed."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="DiagnosticRequests"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./code"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-4-Universal Service ID"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.bodySite"/>
+      <definition>
+        <short value="Location of requested test (if applicable)"/>
+        <formal value="Anatomical location where the request test should be performed"/>
+        <comments value="This is often implicit or explicit in the requested test, and doesn&#39;t need to be specified if so"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="BodySite"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBX-20-Observation Site (need to distinguish requested site from site actually performed at)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.requester"/>
+      <definition>
+        <short value="Responsible for request"/>
+        <formal value="Details of the clinician or organisation requesting the diagnostic service"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Organization|Practitioner)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="Practitioner: unique(./participation[isHighest(priorityCode) and typeCode=&quot;AUT&quot; and isNormalParticipation()]/role[subsumesCode(&quot;RoleClass#ASSIGN&quot;, classCode)]
+
+Organization: unique(./participation[isHighest(priorityCode) and typeCode=&quot;AUT&quot; and isNormalParticipation()]/role[subsumesCode(&quot;RoleClass#ASSIGN&quot;, classCode)]/scoper[subsumesCode(&quot;EntityClass#ORG&quot;, classCode) and determinerCode=&quot;INSTANCE&quot; and code[isNormalDatatype]])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-16-Ordering Provider"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.requestDetail.clinicalInfo"/>
+      <definition>
+        <short value="Clinical information provided"/>
+        <formal value="Details of the clinical information provided to the diagnostic service along with the original request"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./outboundRelationship[typeCode=&quot;PERT&quot; and isNormalActRelationship()]/target.text"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-13-Relevant Clinical Information (could also be in NTE-3 or OBR-18, 19, 20, 21)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.serviceCategory"/>
+      <definition>
+        <short value="Biochemistry, Haematology etc."/>
+        <formal value="The section of the diagnostic service that performs the examination e.g. biochemistry, haematology, MRI"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="DiagnosticServiceSection"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./inboundRelationship[typeCode=&quot;COMP&quot; and isNormalActRelationship()]/source[subsumesCode(&quot;ActClass#LIST&quot;, classCode) and moodCode=&quot;EVN&quot; and inDomain(code,&quot;Lab Service&quot;) and isNormalAct()]/code"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-24-Diagnostic Service Section ID"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.diagnosticTime"/>
+      <definition>
+        <short value="Effective time of diagnostic report"/>
+        <formal value="The diagnostically relevant time for this report"/>
+        <comments value="If the diagnostic procedure was performed on the patient, this is the time it was peformed. If there is specimens, the diagnostically relevant time can be derived from the specimen collection times, but the specimen information is not always available, and nor is the exact relationship is not always automatic"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./effectiveTime[type=&quot;TS&quot;]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-7-Observation Date/Time"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.results"/>
+      <definition>
+        <short value="Results grouped by specimen/kind/category"/>
+        <formal value="A group of results. Results may be grouped by specimen, or by some value in DiagnosticReport.resultGroup.name to describe what binds all the results together."/>
+        <min value="1"/>
+        <max value="1"/>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./outboundRelationship[typeCode=&quot;COMP&quot; and isNormalActRelationship()]/target[isNormalAct() and subsumesCode(&quot;ActClass#OBS&quot;, classCode) and moodCode=&quot;EVN&quot; and fromDomain(code, &quot;LabObservationBattery&quot;)]"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.results.name"/>
+      <definition>
+        <short value="Name/Code for this group of results"/>
+        <formal value="A code or name that describes this group of results. For the base group, this is the report name"/>
+        <comments value="Examples of nested report groups: the antibody code for a goup of antibody related test, or the organism code for a group of isolate/sensitivities, or a set of perinatal measurements on a single fetus."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="DiagnosticResultGroupNames"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./code"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBR-4-Universal Service ID (V2 doesn&#39;t provide an easy way to indicate both the ordered test and the performed panel)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.results.specimen"/>
+      <definition>
+        <short value="Specimen details for this group"/>
+        <formal value="Details about the individual specimen to which these &#39;Result group&#39; test results refer"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource(Specimen)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./participation[typeCode=&quot;SBJ&quot; and isNormalParticipation()]/role[subsumesCode(&quot;RoleClass#SPEC&quot;, classCode)])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="SPM"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.results.group"/>
+      <definition>
+        <short value="Nested Report Group"/>
+        <formal value="A sub-group in a report group. Sub groups can be grouped in arbitrary ways. The group.name defines the purpose and interpretation of the grouping"/>
+        <comments value="Nested report groups beyond the first level are not used often, but arise in structured pathology reports, and where there is more than one sensitivity assessment per discovered organism"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="@DiagnosticReport.results"/>
+        </type>
+        <mustUnderstand value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.results.result"/>
+      <definition>
+        <short value="An atomic data result"/>
+        <formal value="Specific detailed result, including both the value of the result item and additional information that may be useful for clinical interpretation. Results include whatever specific data items pathology labs report as part of the clinical service; it is not confined to measurements."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Observation)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./outboundRelationship[typeCode=&quot;COMP&quot; and isNormalActRelationship()]/target[subsumesCode(&quot;ActClass#OBS&quot;, classCode) and moodCode=&quot;EVN&quot; and isNormalAct() and fromDomain(code, &quot;LabObservationResult&quot;)]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBX"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.image"/>
+      <definition>
+        <short value="Key images associated with this report"/>
+        <formal value="A list of key images associated with this report. The images are generally created during the diagnostic process, and maybe directly of the patient, or of treated specimens (i.e. slides of interest)"/>
+        <comments value="An imaging study is a list of images following a DICOM specification - only list one of these, or multiple images"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource(Picture|ImagingStudy)"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBX?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.conclusion"/>
+      <definition>
+        <short value="Clinical Interpretation of test results"/>
+        <formal value="Concise and clinically contextualised narrative interpretation of the diagnostic report"/>
+        <comments value="Typically, a report is either [all data, no narrative (e.g. Core lab)] or [a mix of data with some concluding narrative (e.g. Structured Pathology Report, Bone Density)], or [all narative (e.g. typical imaging report, histopathology)]. In all these cases, the narrative goes in &quot;text&quot;"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./inboundRelationship[typeCode=&quot;SPRT&quot; and isNormalActRelationship()]/source[subsumesCode(&quot;ActClass#OBS&quot;, classCode) and moodCode=&quot;EVN&quot; and mapsTo(code, &quot;LOINC#
+48767-8&quot;) and isNormalAct()]/value[type=&quot;ST&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBX"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.codedDiagnosis"/>
+      <definition>
+        <short value="Codes for the conclusion"/>
+        <formal value="Codes for the conclusion"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <binding value="DiagnosisCodes"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="unique(./inboundRelationship[typeCode=&quot;SPRT&quot; and isNormalActRelationship()]/source[subsumesCode(&quot;ActClass#OBS&quot;, classCode) and moodCode=&quot;EVN&quot; and subsumesCode(code, &quot;LOINC#
+54531-9&quot;) and isNormalAct()]/value[type=&quot;CD&quot;])"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBX"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="DiagnosticReport.representation"/>
+      <definition>
+        <short value="Entire Report as issued"/>
+        <formal value="Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they must be semantically equivalent."/>
+        <comments value="Possible formats: text/html, text/plain, text/rtf, application/msword, application/pdf, application/rtf, application/vnd.oasis.opendocument.text, application/vnd.openxmlformats-officedocument.wordprocessingml.document. Application/pdf is recommended as the most reliable and interoperable in this context"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Attachment"/>
+        </type>
+        <mustUnderstand value="false"/>
+        <mapping>
+          <target value="http://hl7.org/v3"/>
+          <map value="./text[type=&quot;ED&quot;]"/>
+        </mapping>
+        <mapping>
+          <target value="http://hl7.org/v2"/>
+          <map value="OBX"/>
+        </mapping>
+      </definition>
+    </element>
+  </structure>
+  <binding>
+    <name value="DiagnosticRequests"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/diagnostic-requests"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="BodySite"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/body-site"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="DiagnosisCodes"/>
+    <isExtensible value="true"/>
+    <conformance value="example"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/clinical-findings"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="DiagnosticServiceSection"/>
+    <isExtensible value="true"/>
+    <conformance value="preferred"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/diagnostic-service-sections"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="DiagnosticResultGroupNames"/>
+    <isExtensible value="true"/>
+    <conformance value="preferred"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/report-names"/>
+    </referenceResource>
+  </binding>
+  <binding>
+    <name value="ObservationStatus"/>
+    <conformance value="required"/>
+    <referenceResource>
+      <type value="ValueSet"/>
+      <reference value="http://hl7.org/fhir/vs/observation-status"/>
+    </referenceResource>
+  </binding>
+</Profile>
