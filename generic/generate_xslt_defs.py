@@ -13,7 +13,7 @@ def tree(FILES):
             v = v['definition']['type'][0]['code']['value']  if 'type' in v['definition']  else None
             if v: 
                 v =  re.sub("\(.*\)", "", v).replace("@", "").replace("*", "")
-            if v == "Resource" and len(p.split(".")) == 1: v = p
+            if len(p.split(".")) == 1: v = p
             parent = ".".join(p.split(".")[:-1])
             predicate =  p.replace(".", ":", 1).replace(".","_")
             paths[p] = {
@@ -31,12 +31,11 @@ def tree(FILES):
     for f in FILES: process(f)
     return {'fhirdefs': paths.values()}
 
-t = tree(glob.glob("./publish/*.profile.json"))
+t = tree(glob.glob("/home/jmandel/smart/fhir/build/publish/*.profile.json"))
 #print json.dumps(t, sort_keys=True,indent=2)
 v = ElementTree.tostring(dict2et(t, None, listnames = {'fhirdefs': 'path', 'subs': 'sub'}))
 import pprint
 #pp = pprint.PrettyPrinter(indent=4)
 #pp.pprint(t)
 dom = parseString(v)
-print("\n".join(dom.toprettyxml().split("\n")[1:]))
-
+print("\n".join(dom.toprettyxml().split("\n")[1:])).replace("fhirdefs", "l:fhirdefs")
