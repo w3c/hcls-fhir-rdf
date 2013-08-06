@@ -10,6 +10,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		xmlns:xhtml="http://www.w3.org/1999/xhtml"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:l="http://local-mods">
+
+<xsl:strip-space elements="*" />
+    <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 <l:fhirdefs>
 	<path>
 		<fhir_path>Media.type</fhir_path>
@@ -130,9 +133,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>ImmunizationProfile.recommendation.forecastStatus</fhir_path>
+		<fhir_path>Questionnaire.question.optionsuri</fhir_path>
 		<subs/>
-		<type>code</type>
+		<type>uri</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.define.concept.code</fhir_path>
@@ -360,6 +363,29 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
+		<fhir_path>Procedure.indication</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Specimen.source</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Specimen.source.relationship</fhir_path>
+				<predicate>Specimen:source_relationship</predicate>
+				<relative_xpath>f:relationship</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.source.target</fhir_path>
+				<predicate>Specimen:source_target</predicate>
+				<relative_xpath>f:target</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
+	</path>
+	<path>
 		<fhir_path>Provenance.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -532,6 +558,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
+		<fhir_path>FamilyHistory.relation.condition.onsetRange</fhir_path>
+		<subs/>
+		<type>Range</type>
+	</path>
+	<path>
 		<fhir_path>MedicationPrescription.dispense</fhir_path>
 		<subs>
 			<sub>
@@ -648,10 +679,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>Duration</type>
 			</sub>
 			<sub>
-				<fhir_path>Encounter.reasonX</fhir_path>
-				<predicate>Encounter:reasonX</predicate>
-				<relative_xpath>f:reasonX</relative_xpath>
+				<fhir_path>Encounter.reasonstring</fhir_path>
+				<predicate>Encounter:reasonstring</predicate>
+				<relative_xpath>f:reasonstring</relative_xpath>
 				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Encounter.reasonCodeableConcept</fhir_path>
+				<predicate>Encounter:reasonCodeableConcept</predicate>
+				<relative_xpath>f:reasonCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
 			</sub>
 			<sub>
 				<fhir_path>Encounter.indication</fhir_path>
@@ -755,6 +792,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>DiagnosticOrder.specimen</fhir_path>
 		<subs/>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>RelatedPerson.gender</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>List.code</fhir_path>
@@ -932,9 +974,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Supply</type>
 	</path>
 	<path>
-		<fhir_path>Order.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>DeviceLog.item</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceLog.item.key</fhir_path>
+				<predicate>DeviceLog:item_key</predicate>
+				<relative_xpath>f:key</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceLog.item.value</fhir_path>
+				<predicate>DeviceLog:item_value</predicate>
+				<relative_xpath>f:value</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceLog.item.flag</fhir_path>
+				<predicate>DeviceLog:item_flag</predicate>
+				<relative_xpath>f:flag</relative_xpath>
+				<type>code</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription</fhir_path>
@@ -994,10 +1055,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>Resource</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.reasonForPrescribingX</fhir_path>
-				<predicate>MedicationPrescription:reasonForPrescribingX</predicate>
-				<relative_xpath>f:reasonForPrescribingX</relative_xpath>
+				<fhir_path>MedicationPrescription.reasonForPrescribingstring</fhir_path>
+				<predicate>MedicationPrescription:reasonForPrescribingstring</predicate>
+				<relative_xpath>f:reasonForPrescribingstring</relative_xpath>
 				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.reasonForPrescribingCodeableConcept</fhir_path>
+				<predicate>MedicationPrescription:reasonForPrescribingCodeableConcept</predicate>
+				<relative_xpath>f:reasonForPrescribingCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
 			</sub>
 			<sub>
 				<fhir_path>MedicationPrescription.medication</fhir_path>
@@ -1032,9 +1099,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Supply.dispense.quantity</fhir_path>
+		<fhir_path>MedicationPrescription.reasonForPrescribingCodeableConcept</fhir_path>
 		<subs/>
-		<type>Quantity</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>RelatedPerson.contained</fhir_path>
@@ -1042,9 +1109,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.container.type</fhir_path>
+		<fhir_path>Observation.component.valueAttachment</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>Attachment</type>
 	</path>
 	<path>
 		<fhir_path>Coding.system</fhir_path>
@@ -1166,14 +1233,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Picture.method</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Questionnaire.name</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dosageInstruction.timingX</fhir_path>
+		<fhir_path>SecurityEvent.participant.network.identifier</fhir_path>
 		<subs/>
-		<type>dateTime</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.requestDetail</fhir_path>
@@ -1244,9 +1316,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>Profile.extensionDefn.contextType</fhir_path>
+		<fhir_path>Group.characteristic.valueCodeableConcept</fhir_path>
 		<subs/>
-		<type>code</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.type</fhir_path>
@@ -1376,9 +1448,22 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Observation.valueX</fhir_path>
-		<subs/>
-		<type>Quantity</type>
+		<fhir_path>AdverseReaction.symptom</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>AdverseReaction.symptom.code</fhir_path>
+				<predicate>AdverseReaction:symptom_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>AdverseReaction.symptom.severity</fhir_path>
+				<predicate>AdverseReaction:symptom_severity</predicate>
+				<relative_xpath>f:severity</relative_xpath>
+				<type>code</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.text</fhir_path>
@@ -1437,10 +1522,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>dateTime</type>
 			</sub>
 			<sub>
-				<fhir_path>Patient.deceasedX</fhir_path>
-				<predicate>Patient:deceasedX</predicate>
-				<relative_xpath>f:deceasedX</relative_xpath>
+				<fhir_path>Patient.deceasedboolean</fhir_path>
+				<predicate>Patient:deceasedboolean</predicate>
+				<relative_xpath>f:deceasedboolean</relative_xpath>
 				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.deceaseddateTime</fhir_path>
+				<predicate>Patient:deceaseddateTime</predicate>
+				<relative_xpath>f:deceaseddateTime</relative_xpath>
+				<type>dateTime</type>
 			</sub>
 			<sub>
 				<fhir_path>Patient.address</fhir_path>
@@ -1455,10 +1546,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Patient.multipleBirthX</fhir_path>
-				<predicate>Patient:multipleBirthX</predicate>
-				<relative_xpath>f:multipleBirthX</relative_xpath>
+				<fhir_path>Patient.multipleBirthboolean</fhir_path>
+				<predicate>Patient:multipleBirthboolean</predicate>
+				<relative_xpath>f:multipleBirthboolean</relative_xpath>
 				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.multipleBirthinteger</fhir_path>
+				<predicate>Patient:multipleBirthinteger</predicate>
+				<relative_xpath>f:multipleBirthinteger</relative_xpath>
+				<type>integer</type>
 			</sub>
 			<sub>
 				<fhir_path>Patient.photo</fhir_path>
@@ -1612,11 +1709,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.additionalInstructionsX</fhir_path>
-		<subs/>
-		<type>string</type>
-	</path>
-	<path>
 		<fhir_path>DiagnosticReport.requestDetail.bodySite</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
@@ -1699,10 +1791,22 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>boolean</type>
 			</sub>
 			<sub>
-				<fhir_path>CarePlan.activity.timingX</fhir_path>
-				<predicate>CarePlan:activity_timingX</predicate>
-				<relative_xpath>f:timingX</relative_xpath>
+				<fhir_path>CarePlan.activity.timingSchedule</fhir_path>
+				<predicate>CarePlan:activity_timingSchedule</predicate>
+				<relative_xpath>f:timingSchedule</relative_xpath>
 				<type>Schedule</type>
+			</sub>
+			<sub>
+				<fhir_path>CarePlan.activity.timingPeriod</fhir_path>
+				<predicate>CarePlan:activity_timingPeriod</predicate>
+				<relative_xpath>f:timingPeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>CarePlan.activity.timingstring</fhir_path>
+				<predicate>CarePlan:activity_timingstring</predicate>
+				<relative_xpath>f:timingstring</relative_xpath>
+				<type>string</type>
 			</sub>
 			<sub>
 				<fhir_path>CarePlan.activity.location</fhir_path>
@@ -1769,16 +1873,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>MedicationDispense.dispense.dosage</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationDispense.dispense.dosage.additionalInstructionsX</fhir_path>
-				<predicate>MedicationDispense:dispense_dosage_additionalInstructionsX</predicate>
-				<relative_xpath>f:additionalInstructionsX</relative_xpath>
+				<fhir_path>MedicationDispense.dispense.dosage.additionalInstructionsstring</fhir_path>
+				<predicate>MedicationDispense:dispense_dosage_additionalInstructionsstring</predicate>
+				<relative_xpath>f:additionalInstructionsstring</relative_xpath>
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationDispense.dispense.dosage.timingX</fhir_path>
-				<predicate>MedicationDispense:dispense_dosage_timingX</predicate>
-				<relative_xpath>f:timingX</relative_xpath>
+				<fhir_path>MedicationDispense.dispense.dosage.additionalInstructionsCodeableConcept</fhir_path>
+				<predicate>MedicationDispense:dispense_dosage_additionalInstructionsCodeableConcept</predicate>
+				<relative_xpath>f:additionalInstructionsCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.dosage.timingdateTime</fhir_path>
+				<predicate>MedicationDispense:dispense_dosage_timingdateTime</predicate>
+				<relative_xpath>f:timingdateTime</relative_xpath>
 				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.dosage.timingPeriod</fhir_path>
+				<predicate>MedicationDispense:dispense_dosage_timingPeriod</predicate>
+				<relative_xpath>f:timingPeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.dosage.timingSchedule</fhir_path>
+				<predicate>MedicationDispense:dispense_dosage_timingSchedule</predicate>
+				<relative_xpath>f:timingSchedule</relative_xpath>
+				<type>Schedule</type>
 			</sub>
 			<sub>
 				<fhir_path>MedicationDispense.dispense.dosage.site</fhir_path>
@@ -1825,9 +1947,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Substance.status</fhir_path>
+		<fhir_path>CarePlan.activity.timingstring</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Range.low</fhir_path>
@@ -1855,28 +1977,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>DeviceLog.item</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceLog.item.key</fhir_path>
-				<predicate>DeviceLog:item_key</predicate>
-				<relative_xpath>f:key</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceLog.item.value</fhir_path>
-				<predicate>DeviceLog:item_value</predicate>
-				<relative_xpath>f:value</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceLog.item.flag</fhir_path>
-				<predicate>DeviceLog:item_flag</predicate>
-				<relative_xpath>f:flag</relative_xpath>
-				<type>code</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Group.characteristic.valueRange</fhir_path>
+		<subs/>
+		<type>Range</type>
 	</path>
 	<path>
 		<fhir_path>Supply.patient</fhir_path>
@@ -1912,6 +2015,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Conformance.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
+	</path>
+	<path>
+		<fhir_path>FamilyHistory.relation.deceasedAge</fhir_path>
+		<subs/>
+		<type>Age</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.treatment.additive</fhir_path>
@@ -2009,6 +2117,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type/>
+	</path>
+	<path>
+		<fhir_path>Substance.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>Group.contained</fhir_path>
@@ -2299,10 +2412,46 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>Questionnaire.question.answerX</fhir_path>
-				<predicate>Questionnaire:question_answerX</predicate>
-				<relative_xpath>f:answerX</relative_xpath>
+				<fhir_path>Questionnaire.question.answerdecimal</fhir_path>
+				<predicate>Questionnaire:question_answerdecimal</predicate>
+				<relative_xpath>f:answerdecimal</relative_xpath>
 				<type>decimal</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.answerinteger</fhir_path>
+				<predicate>Questionnaire:question_answerinteger</predicate>
+				<relative_xpath>f:answerinteger</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.answerboolean</fhir_path>
+				<predicate>Questionnaire:question_answerboolean</predicate>
+				<relative_xpath>f:answerboolean</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.answerdate</fhir_path>
+				<predicate>Questionnaire:question_answerdate</predicate>
+				<relative_xpath>f:answerdate</relative_xpath>
+				<type>date</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.answerstring</fhir_path>
+				<predicate>Questionnaire:question_answerstring</predicate>
+				<relative_xpath>f:answerstring</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.answerdateTime</fhir_path>
+				<predicate>Questionnaire:question_answerdateTime</predicate>
+				<relative_xpath>f:answerdateTime</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.answerinstant</fhir_path>
+				<predicate>Questionnaire:question_answerinstant</predicate>
+				<relative_xpath>f:answerinstant</relative_xpath>
+				<type>instant</type>
 			</sub>
 			<sub>
 				<fhir_path>Questionnaire.question.choice</fhir_path>
@@ -2311,15 +2460,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>Coding</type>
 			</sub>
 			<sub>
-				<fhir_path>Questionnaire.question.optionsX</fhir_path>
-				<predicate>Questionnaire:question_optionsX</predicate>
-				<relative_xpath>f:optionsX</relative_xpath>
+				<fhir_path>Questionnaire.question.optionsuri</fhir_path>
+				<predicate>Questionnaire:question_optionsuri</predicate>
+				<relative_xpath>f:optionsuri</relative_xpath>
 				<type>uri</type>
 			</sub>
 			<sub>
-				<fhir_path>Questionnaire.question.dataX</fhir_path>
-				<predicate>Questionnaire:question_dataX</predicate>
-				<relative_xpath>f:dataX</relative_xpath>
+				<fhir_path>Questionnaire.question.optionsResource(ValueSet)</fhir_path>
+				<predicate>Questionnaire:question_optionsResource(ValueSet)</predicate>
+				<relative_xpath>f:optionsResource(ValueSet)</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Questionnaire.question.data*</fhir_path>
+				<predicate>Questionnaire:question_data*</predicate>
+				<relative_xpath>f:data*</relative_xpath>
 				<type/>
 			</sub>
 			<sub>
@@ -2342,9 +2497,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Contact</type>
 	</path>
 	<path>
-		<fhir_path>Identifier.period</fhir_path>
+		<fhir_path>Questionnaire.question.answerdateTime</fhir_path>
 		<subs/>
-		<type>Period</type>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>Schedule.repeat.when</fhir_path>
@@ -2375,6 +2530,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Encounter.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Procedure.outcome</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Patient.deceaseddateTime</fhir_path>
+		<subs/>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.define</fhir_path>
@@ -2469,11 +2634,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Condition.abatementX</fhir_path>
-		<subs/>
-		<type>date</type>
-	</path>
-	<path>
 		<fhir_path>Practitioner.qualification.code</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
@@ -2556,70 +2716,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.identifier</fhir_path>
-				<predicate>MedicationDispense:dispense_identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.status</fhir_path>
-				<predicate>MedicationDispense:dispense_status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.type</fhir_path>
-				<predicate>MedicationDispense:dispense_type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.quantity</fhir_path>
-				<predicate>MedicationDispense:dispense_quantity</predicate>
-				<relative_xpath>f:quantity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.medication</fhir_path>
-				<predicate>MedicationDispense:dispense_medication</predicate>
-				<relative_xpath>f:medication</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.whenPrepared</fhir_path>
-				<predicate>MedicationDispense:dispense_whenPrepared</predicate>
-				<relative_xpath>f:whenPrepared</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.whenHandedOver</fhir_path>
-				<predicate>MedicationDispense:dispense_whenHandedOver</predicate>
-				<relative_xpath>f:whenHandedOver</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.destination</fhir_path>
-				<predicate>MedicationDispense:dispense_destination</predicate>
-				<relative_xpath>f:destination</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.receiver</fhir_path>
-				<predicate>MedicationDispense:dispense_receiver</predicate>
-				<relative_xpath>f:receiver</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationDispense.dispense.dosage</fhir_path>
-				<predicate>MedicationDispense:dispense_dosage</predicate>
-				<relative_xpath>f:dosage</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Observation.component.valueChoice</fhir_path>
+		<subs/>
+		<type>Choice</type>
 	</path>
 	<path>
 		<fhir_path>ImmunizationProfile.recommendation.supportingImmunization</fhir_path>
@@ -2664,10 +2763,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>Profile.binding.referenceX</fhir_path>
-				<predicate>Profile:binding_referenceX</predicate>
-				<relative_xpath>f:referenceX</relative_xpath>
+				<fhir_path>Profile.binding.referenceuri</fhir_path>
+				<predicate>Profile:binding_referenceuri</predicate>
+				<relative_xpath>f:referenceuri</relative_xpath>
 				<type>uri</type>
+			</sub>
+			<sub>
+				<fhir_path>Profile.binding.referenceResource(ValueSet)</fhir_path>
+				<predicate>Profile:binding_referenceResource(ValueSet)</predicate>
+				<relative_xpath>f:referenceResource(ValueSet)</relative_xpath>
+				<type>Resource</type>
 			</sub>
 		</subs>
 		<type/>
@@ -2913,11 +3018,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.exampleX</fhir_path>
-		<subs/>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>DeviceCapabilities.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -3090,6 +3190,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
+		<fhir_path>Picture.bits</fhir_path>
+		<subs/>
+		<type>integer</type>
+	</path>
+	<path>
 		<fhir_path>ImagingStudy.subject</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -3106,6 +3211,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.whenGiven</fhir_path>
+		<subs/>
+		<type>Period</type>
+	</path>
+	<path>
+		<fhir_path>Observation.component.valuePeriod</fhir_path>
 		<subs/>
 		<type>Period</type>
 	</path>
@@ -3130,9 +3240,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.identifier</fhir_path>
+		<fhir_path>FamilyHistory.relation.note</fhir_path>
 		<subs/>
-		<type>Identifier</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.vaccinationProtocol.authority</fhir_path>
@@ -3425,6 +3535,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Medication.product.form</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Profile.binding.referenceResource(ValueSet)</fhir_path>
+		<subs/>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>DeviceObservation.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.text</fhir_path>
@@ -3869,9 +3989,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.contained</fhir_path>
+		<fhir_path>MedicationPrescription.dosageInstruction.timingdateTime</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>List.ordered</fhir_path>
@@ -3884,9 +4004,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>AdverseReaction.exposure.exposureDate</fhir_path>
+		<fhir_path>Condition.abatementAge</fhir_path>
 		<subs/>
-		<type>dateTime</type>
+		<type>Age</type>
 	</path>
 	<path>
 		<fhir_path>Query.response.identifier</fhir_path>
@@ -3902,11 +4022,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>List.entry.flag</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.status</fhir_path>
-		<subs/>
-		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.extension</fhir_path>
@@ -3990,11 +4105,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Questionnaire.encounter</fhir_path>
 		<subs/>
 		<type>Resource</type>
-	</path>
-	<path>
-		<fhir_path>Questionnaire.question.optionsX</fhir_path>
-		<subs/>
-		<type>uri</type>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info.type</fhir_path>
@@ -4151,16 +4261,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Condition.onsetX</fhir_path>
-				<predicate>Condition:onsetX</predicate>
-				<relative_xpath>f:onsetX</relative_xpath>
+				<fhir_path>Condition.onsetdate</fhir_path>
+				<predicate>Condition:onsetdate</predicate>
+				<relative_xpath>f:onsetdate</relative_xpath>
 				<type>date</type>
 			</sub>
 			<sub>
-				<fhir_path>Condition.abatementX</fhir_path>
-				<predicate>Condition:abatementX</predicate>
-				<relative_xpath>f:abatementX</relative_xpath>
+				<fhir_path>Condition.onsetAge</fhir_path>
+				<predicate>Condition:onsetAge</predicate>
+				<relative_xpath>f:onsetAge</relative_xpath>
+				<type>Age</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.abatementdate</fhir_path>
+				<predicate>Condition:abatementdate</predicate>
+				<relative_xpath>f:abatementdate</relative_xpath>
 				<type>date</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.abatementAge</fhir_path>
+				<predicate>Condition:abatementAge</predicate>
+				<relative_xpath>f:abatementAge</relative_xpath>
+				<type>Age</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.abatementboolean</fhir_path>
+				<predicate>Condition:abatementboolean</predicate>
+				<relative_xpath>f:abatementboolean</relative_xpath>
+				<type>boolean</type>
 			</sub>
 			<sub>
 				<fhir_path>Condition.stage</fhir_path>
@@ -4374,6 +4502,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
+		<fhir_path>Observation.component.valueSampledData</fhir_path>
+		<subs/>
+		<type>SampledData</type>
+	</path>
+	<path>
 		<fhir_path>Query.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -4457,11 +4590,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.subject</fhir_path>
-		<subs/>
-		<type>Resource</type>
-	</path>
-	<path>
 		<fhir_path>Encounter.priority</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
@@ -4522,9 +4650,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.subject</fhir_path>
+		<fhir_path>MedicationPrescription.reasonForPrescribingstring</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.extension</fhir_path>
@@ -4680,11 +4808,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Extension.valueX</fhir_path>
-		<subs/>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>Condition.notes</fhir_path>
 		<subs/>
 		<type>string</type>
@@ -4793,9 +4916,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>List.contained</fhir_path>
+		<fhir_path>Observation.appliesdateTime</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>dateTime</type>
+	</path>
+	<path>
+		<fhir_path>Order.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Ratio.denominator</fhir_path>
+		<subs/>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>Provenance.contained</fhir_path>
@@ -4838,8 +4971,57 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>ValueSet.define.concept</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.dataX</fhir_path>
-		<subs/>
+		<fhir_path>FamilyHistory.relation</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>FamilyHistory.relation.name</fhir_path>
+				<predicate>FamilyHistory:relation_name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.relationship</fhir_path>
+				<predicate>FamilyHistory:relation_relationship</predicate>
+				<relative_xpath>f:relationship</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.deceasedboolean</fhir_path>
+				<predicate>FamilyHistory:relation_deceasedboolean</predicate>
+				<relative_xpath>f:deceasedboolean</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.deceasedAge</fhir_path>
+				<predicate>FamilyHistory:relation_deceasedAge</predicate>
+				<relative_xpath>f:deceasedAge</relative_xpath>
+				<type>Age</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.deceasedRange</fhir_path>
+				<predicate>FamilyHistory:relation_deceasedRange</predicate>
+				<relative_xpath>f:deceasedRange</relative_xpath>
+				<type>Range</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.deceasedstring</fhir_path>
+				<predicate>FamilyHistory:relation_deceasedstring</predicate>
+				<relative_xpath>f:deceasedstring</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.note</fhir_path>
+				<predicate>FamilyHistory:relation_note</predicate>
+				<relative_xpath>f:note</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.condition</fhir_path>
+				<predicate>FamilyHistory:relation_condition</predicate>
+				<relative_xpath>f:condition</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
 		<type/>
 	</path>
 	<path>
@@ -4853,37 +5035,24 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.reasonX</fhir_path>
-		<subs/>
-		<type>string</type>
-	</path>
-	<path>
 		<fhir_path>SecurityEvent.participant.role</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.source</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.source.relationship</fhir_path>
-				<predicate>Specimen:source_relationship</predicate>
-				<relative_xpath>f:relationship</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.source.target</fhir_path>
-				<predicate>Specimen:source_target</predicate>
-				<relative_xpath>f:target</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Supply.identifier</fhir_path>
+		<subs/>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>Condition.subject</fhir_path>
 		<subs/>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>FamilyHistory.relation.condition.onsetstring</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.reaction.date</fhir_path>
@@ -4924,9 +5093,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>AdverseReaction.exposure.exposureType</fhir_path>
+		<fhir_path>Questionnaire.question.data*</fhir_path>
 		<subs/>
-		<type>code</type>
+		<type/>
+	</path>
+	<path>
+		<fhir_path>Specimen.collection.comment</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.contained</fhir_path>
@@ -4962,6 +5136,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>MedicationDispense.dispense.destination</fhir_path>
 		<subs/>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>Group.characteristic.valueQuantity</fhir_path>
+		<subs/>
+		<type>Quantity</type>
+	</path>
+	<path>
+		<fhir_path>Supply.dispense.quantity</fhir_path>
+		<subs/>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.slicing.discriminator</fhir_path>
@@ -5115,9 +5299,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.outcome</fhir_path>
+		<fhir_path>Substance.status</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Patient.contact.gender</fhir_path>
@@ -5170,9 +5354,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>instant</type>
 	</path>
 	<path>
-		<fhir_path>Picture.method</fhir_path>
+		<fhir_path>Questionnaire.question.answerinteger</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>integer</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.patient</fhir_path>
@@ -5308,10 +5492,52 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Observation.valueX</fhir_path>
-				<predicate>Observation:valueX</predicate>
-				<relative_xpath>f:valueX</relative_xpath>
+				<fhir_path>Observation.valueQuantity</fhir_path>
+				<predicate>Observation:valueQuantity</predicate>
+				<relative_xpath>f:valueQuantity</relative_xpath>
 				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueCodeableConcept</fhir_path>
+				<predicate>Observation:valueCodeableConcept</predicate>
+				<relative_xpath>f:valueCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueAttachment</fhir_path>
+				<predicate>Observation:valueAttachment</predicate>
+				<relative_xpath>f:valueAttachment</relative_xpath>
+				<type>Attachment</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueRatio</fhir_path>
+				<predicate>Observation:valueRatio</predicate>
+				<relative_xpath>f:valueRatio</relative_xpath>
+				<type>Ratio</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueChoice</fhir_path>
+				<predicate>Observation:valueChoice</predicate>
+				<relative_xpath>f:valueChoice</relative_xpath>
+				<type>Choice</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valuePeriod</fhir_path>
+				<predicate>Observation:valuePeriod</predicate>
+				<relative_xpath>f:valuePeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueSampledData</fhir_path>
+				<predicate>Observation:valueSampledData</predicate>
+				<relative_xpath>f:valueSampledData</relative_xpath>
+				<type>SampledData</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valuestring</fhir_path>
+				<predicate>Observation:valuestring</predicate>
+				<relative_xpath>f:valuestring</relative_xpath>
+				<type>string</type>
 			</sub>
 			<sub>
 				<fhir_path>Observation.interpretation</fhir_path>
@@ -5326,10 +5552,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>Observation.appliesX</fhir_path>
-				<predicate>Observation:appliesX</predicate>
-				<relative_xpath>f:appliesX</relative_xpath>
+				<fhir_path>Observation.appliesPeriod</fhir_path>
+				<predicate>Observation:appliesPeriod</predicate>
+				<relative_xpath>f:appliesPeriod</relative_xpath>
 				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.appliesdateTime</fhir_path>
+				<predicate>Observation:appliesdateTime</predicate>
+				<relative_xpath>f:appliesdateTime</relative_xpath>
+				<type>dateTime</type>
 			</sub>
 			<sub>
 				<fhir_path>Observation.issued</fhir_path>
@@ -5410,13 +5642,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>boolean</type>
 			</sub>
 			<sub>
-				<fhir_path>Extension.valueX</fhir_path>
-				<predicate>Extension:valueX</predicate>
-				<relative_xpath>f:valueX</relative_xpath>
+				<fhir_path>Extension.value*</fhir_path>
+				<predicate>Extension:value*</predicate>
+				<relative_xpath>f:value*</relative_xpath>
 				<type/>
 			</sub>
 		</subs>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Specimen.container.description</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.resource.operation.code</fhir_path>
@@ -5736,14 +5973,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.group.name</fhir_path>
+		<fhir_path>MedicationDispense.dispense.dosage.timingdateTime</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>FamilyHistory.relation.note</fhir_path>
+		<fhir_path>Encounter.contained</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.document</fhir_path>
@@ -5790,9 +6027,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.text</fhir_path>
+		<fhir_path>Profile.structure.element.definition.value*</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Device.assignedId</fhir_path>
@@ -5800,9 +6037,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Identifier</type>
 	</path>
 	<path>
-		<fhir_path>Substance.text</fhir_path>
+		<fhir_path>Profile.binding.referenceuri</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type>uri</type>
 	</path>
 	<path>
 		<fhir_path>Document.section</fhir_path>
@@ -5917,9 +6154,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Ratio.denominator</fhir_path>
+		<fhir_path>Condition.abatementdate</fhir_path>
 		<subs/>
-		<type>Quantity</type>
+		<type>date</type>
 	</path>
 	<path>
 		<fhir_path>OrderResponse.text</fhir_path>
@@ -5928,6 +6165,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>Address.period</fhir_path>
+		<subs/>
+		<type>Period</type>
+	</path>
+	<path>
+		<fhir_path>Encounter.hospitalization.period</fhir_path>
 		<subs/>
 		<type>Period</type>
 	</path>
@@ -6139,6 +6381,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>HumanName</type>
 	</path>
 	<path>
+		<fhir_path>MedicationDispense.dispense.dosage.additionalInstructionsstring</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>DiagnosticOrder.event.actor</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -6294,11 +6541,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.answerX</fhir_path>
-		<subs/>
-		<type>decimal</type>
-	</path>
-	<path>
 		<fhir_path>Observation.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
@@ -6357,9 +6599,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>SecurityEvent</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.participant.network.identifier</fhir_path>
+		<fhir_path>AdverseReaction.reactionDate</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>Substance.quantityMode</fhir_path>
@@ -6412,9 +6654,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>List.mode</fhir_path>
+		<fhir_path>Patient.multipleBirthboolean</fhir_path>
 		<subs/>
-		<type>code</type>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.hospitalization.specialCourtesy</fhir_path>
@@ -6566,9 +6808,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection.method</fhir_path>
+		<fhir_path>Condition.onsetdate</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>date</type>
 	</path>
 	<path>
 		<fhir_path>Organization.partOf</fhir_path>
@@ -6738,14 +6980,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.extension</fhir_path>
+		<fhir_path>Profile.extensionDefn.contextType</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Observation.component.valueX</fhir_path>
+		<fhir_path>Group.characteristic.valueboolean</fhir_path>
 		<subs/>
-		<type>Quantity</type>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Message.author</fhir_path>
@@ -6788,9 +7030,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.expansion.contains.system</fhir_path>
+		<fhir_path>Patient.multipleBirthinteger</fhir_path>
 		<subs/>
-		<type>uri</type>
+		<type>integer</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.referrer</fhir_path>
@@ -7121,11 +7363,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Patient.multipleBirthX</fhir_path>
-		<subs/>
-		<type>boolean</type>
-	</path>
-	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info</fhir_path>
 		<subs>
 			<sub>
@@ -7218,14 +7455,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
+		<fhir_path>List.mode</fhir_path>
+		<subs/>
+		<type>code</type>
+	</path>
+	<path>
 		<fhir_path>Device.model</fhir_path>
 		<subs/>
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Contact.use</fhir_path>
+		<fhir_path>Observation.component.valueQuantity</fhir_path>
 		<subs/>
-		<type>code</type>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.slicing.rules</fhir_path>
@@ -7236,6 +7478,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>MedicationStatement.administrationDevice</fhir_path>
 		<subs/>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>Observation.valueChoice</fhir_path>
+		<subs/>
+		<type>Choice</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.uid</fhir_path>
@@ -7268,9 +7515,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Identifier</type>
 	</path>
 	<path>
+		<fhir_path>DeviceObservation.code</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>SecurityEvent.event.outcome</fhir_path>
 		<subs/>
 		<type>code</type>
+	</path>
+	<path>
+		<fhir_path>Questionnaire.question.answerdecimal</fhir_path>
+		<subs/>
+		<type>decimal</type>
 	</path>
 	<path>
 		<fhir_path>Range.high</fhir_path>
@@ -7283,9 +7540,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
-		<fhir_path>Provenance.period</fhir_path>
+		<fhir_path>Condition.abatementboolean</fhir_path>
 		<subs/>
-		<type>Period</type>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>OperationOutcome.issue.type</fhir_path>
@@ -7313,6 +7570,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Questionnaire.group.name</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Conformance.rest.documentation</fhir_path>
 		<subs/>
 		<type>string</type>
@@ -7326,11 +7588,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Encounter.length</fhir_path>
 		<subs/>
 		<type>Duration</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.fulfills</fhir_path>
-		<subs/>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.sensitivityTest</fhir_path>
@@ -7446,9 +7703,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Picture.bits</fhir_path>
+		<fhir_path>AdverseReaction.exposure.exposureDate</fhir_path>
 		<subs/>
-		<type>integer</type>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.type</fhir_path>
@@ -7553,10 +7810,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Group.characteristic.valueX</fhir_path>
-				<predicate>Group:characteristic_valueX</predicate>
-				<relative_xpath>f:valueX</relative_xpath>
+				<fhir_path>Group.characteristic.valueCodeableConcept</fhir_path>
+				<predicate>Group:characteristic_valueCodeableConcept</predicate>
+				<relative_xpath>f:valueCodeableConcept</relative_xpath>
 				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Group.characteristic.valuestring</fhir_path>
+				<predicate>Group:characteristic_valuestring</predicate>
+				<relative_xpath>f:valuestring</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Group.characteristic.valueboolean</fhir_path>
+				<predicate>Group:characteristic_valueboolean</predicate>
+				<relative_xpath>f:valueboolean</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Group.characteristic.valueQuantity</fhir_path>
+				<predicate>Group:characteristic_valueQuantity</predicate>
+				<relative_xpath>f:valueQuantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Group.characteristic.valueRange</fhir_path>
+				<predicate>Group:characteristic_valueRange</predicate>
+				<relative_xpath>f:valueRange</relative_xpath>
+				<type>Range</type>
 			</sub>
 			<sub>
 				<fhir_path>Group.characteristic.exclude</fhir_path>
@@ -7602,10 +7883,22 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Observation.referenceRange.rangeX</fhir_path>
-				<predicate>Observation:referenceRange_rangeX</predicate>
-				<relative_xpath>f:rangeX</relative_xpath>
+				<fhir_path>Observation.referenceRange.rangeQuantity</fhir_path>
+				<predicate>Observation:referenceRange_rangeQuantity</predicate>
+				<relative_xpath>f:rangeQuantity</relative_xpath>
 				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange.rangeRange</fhir_path>
+				<predicate>Observation:referenceRange_rangeRange</predicate>
+				<relative_xpath>f:rangeRange</relative_xpath>
+				<type>Range</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange.rangestring</fhir_path>
+				<predicate>Observation:referenceRange_rangestring</predicate>
+				<relative_xpath>f:rangestring</relative_xpath>
+				<type>string</type>
 			</sub>
 		</subs>
 		<type/>
@@ -7655,16 +7948,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructionsX</fhir_path>
-				<predicate>MedicationPrescription:dosageInstruction_additionalInstructionsX</predicate>
-				<relative_xpath>f:additionalInstructionsX</relative_xpath>
+				<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructionsstring</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_additionalInstructionsstring</predicate>
+				<relative_xpath>f:additionalInstructionsstring</relative_xpath>
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.dosageInstruction.timingX</fhir_path>
-				<predicate>MedicationPrescription:dosageInstruction_timingX</predicate>
-				<relative_xpath>f:timingX</relative_xpath>
+				<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructionsCodeableConcept</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_additionalInstructionsCodeableConcept</predicate>
+				<relative_xpath>f:additionalInstructionsCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.dosageInstruction.timingdateTime</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_timingdateTime</predicate>
+				<relative_xpath>f:timingdateTime</relative_xpath>
 				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.dosageInstruction.timingPeriod</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_timingPeriod</predicate>
+				<relative_xpath>f:timingPeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.dosageInstruction.timingSchedule</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_timingSchedule</predicate>
+				<relative_xpath>f:timingSchedule</relative_xpath>
+				<type>Schedule</type>
 			</sub>
 			<sub>
 				<fhir_path>MedicationPrescription.dosageInstruction.site</fhir_path>
@@ -8186,6 +8497,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>CarePlan.activity.timingSchedule</fhir_path>
+		<subs/>
+		<type>Schedule</type>
+	</path>
+	<path>
 		<fhir_path>OrderResponse.authority</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -8259,9 +8575,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Supply.identifier</fhir_path>
+		<fhir_path>Patient.deceasedboolean</fhir_path>
 		<subs/>
-		<type>Identifier</type>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.text</fhir_path>
@@ -8347,6 +8663,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
+		<fhir_path>Specimen.collection.method</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Condition.certainty</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
@@ -8386,9 +8707,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.code</fhir_path>
+		<fhir_path>Observation.valuestring</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.reported</fhir_path>
@@ -8531,6 +8852,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>FamilyHistory.relation.deceasedstring</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>MedicationPrescription.dispense.medication</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -8615,9 +8941,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.extension</fhir_path>
+		<fhir_path>Group.characteristic.valuestring</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticOrder.item.status</fhir_path>
@@ -8633,6 +8959,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Device.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
+	</path>
+	<path>
+		<fhir_path>Observation.valueAttachment</fhir_path>
+		<subs/>
+		<type>Attachment</type>
 	</path>
 	<path>
 		<fhir_path>Coverage.text</fhir_path>
@@ -8743,14 +9074,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>AdverseReaction.recorder</fhir_path>
+		<fhir_path>Observation.valueCodeableConcept</fhir_path>
 		<subs/>
-		<type>Resource</type>
-	</path>
-	<path>
-		<fhir_path>FamilyHistory.relation.deceasedX</fhir_path>
-		<subs/>
-		<type>boolean</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.identifier</fhir_path>
@@ -8939,6 +9265,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>instant</type>
 	</path>
 	<path>
+		<fhir_path>Observation.valueRatio</fhir_path>
+		<subs/>
+		<type>Ratio</type>
+	</path>
+	<path>
 		<fhir_path>ResourceReference</fhir_path>
 		<subs>
 			<sub>
@@ -8966,6 +9297,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Patient.gender</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Order.detail</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Immunization</fhir_path>
@@ -9176,6 +9512,24 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Contact</type>
 	</path>
 	<path>
+		<fhir_path>DeviceCapabilities.virtualDevice</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceCapabilities.virtualDevice.code</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel</predicate>
+				<relative_xpath>f:channel</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type/>
+	</path>
+	<path>
 		<fhir_path>Procedure.performer.person</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -9278,6 +9632,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Conformance.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>DiagnosticReport.serviceCategory</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
@@ -9343,6 +9702,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
+		<fhir_path>Extension.value*</fhir_path>
+		<subs/>
+		<type/>
+	</path>
+	<path>
 		<fhir_path>Immunization.vaccinationProtocol.seriesDoses</fhir_path>
 		<subs/>
 		<type>integer</type>
@@ -9353,12 +9717,17 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Observation.referenceRange.rangeX</fhir_path>
+		<fhir_path>Substance.extension</fhir_path>
 		<subs/>
-		<type>Quantity</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.name</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Questionnaire.question.answerstring</fhir_path>
 		<subs/>
 		<type>string</type>
 	</path>
@@ -9444,6 +9813,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>MedicationDispense.dispense.dosage.timingSchedule</fhir_path>
+		<subs/>
+		<type>Schedule</type>
+	</path>
+	<path>
 		<fhir_path>MedicationStatement.dosage.site</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
@@ -9504,6 +9878,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Observation.component.valuestring</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>CarePlan.contained</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -9519,9 +9898,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection.comment</fhir_path>
+		<fhir_path>Observation.valueSampledData</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>SampledData</type>
+	</path>
+	<path>
+		<fhir_path>Attachment.data</fhir_path>
+		<subs/>
+		<type>base64Binary</type>
 	</path>
 	<path>
 		<fhir_path>FamilyHistory.relation.condition.note</fhir_path>
@@ -9544,6 +9928,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Order.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
+	</path>
+	<path>
 		<fhir_path>Observation.component</fhir_path>
 		<subs>
 			<sub>
@@ -9553,10 +9942,52 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Observation.component.valueX</fhir_path>
-				<predicate>Observation:component_valueX</predicate>
-				<relative_xpath>f:valueX</relative_xpath>
+				<fhir_path>Observation.component.valueQuantity</fhir_path>
+				<predicate>Observation:component_valueQuantity</predicate>
+				<relative_xpath>f:valueQuantity</relative_xpath>
 				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valueCodeableConcept</fhir_path>
+				<predicate>Observation:component_valueCodeableConcept</predicate>
+				<relative_xpath>f:valueCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valueAttachment</fhir_path>
+				<predicate>Observation:component_valueAttachment</predicate>
+				<relative_xpath>f:valueAttachment</relative_xpath>
+				<type>Attachment</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valueRatio</fhir_path>
+				<predicate>Observation:component_valueRatio</predicate>
+				<relative_xpath>f:valueRatio</relative_xpath>
+				<type>Ratio</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valueChoice</fhir_path>
+				<predicate>Observation:component_valueChoice</predicate>
+				<relative_xpath>f:valueChoice</relative_xpath>
+				<type>Choice</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valuePeriod</fhir_path>
+				<predicate>Observation:component_valuePeriod</predicate>
+				<relative_xpath>f:valuePeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valueSampledData</fhir_path>
+				<predicate>Observation:component_valueSampledData</predicate>
+				<relative_xpath>f:valueSampledData</relative_xpath>
+				<type>SampledData</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component.valuestring</fhir_path>
+				<predicate>Observation:component_valuestring</predicate>
+				<relative_xpath>f:valuestring</relative_xpath>
+				<type>string</type>
 			</sub>
 		</subs>
 		<type/>
@@ -9653,6 +10084,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
+		<fhir_path>ValueSet.expansion.contains.system</fhir_path>
+		<subs/>
+		<type>uri</type>
+	</path>
+	<path>
 		<fhir_path>Specimen.collection</fhir_path>
 		<subs>
 			<sub>
@@ -9695,7 +10131,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>RelatedPerson.gender</fhir_path>
+		<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructionsCodeableConcept</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
 	</path>
@@ -9703,6 +10139,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Encounter.participant.type</fhir_path>
 		<subs/>
 		<type>code</type>
+	</path>
+	<path>
+		<fhir_path>FamilyHistory.relation.condition.onsetAge</fhir_path>
+		<subs/>
+		<type>Age</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.define.concept.display</fhir_path>
@@ -9769,11 +10210,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type/>
-	</path>
-	<path>
-		<fhir_path>Message.enterer</fhir_path>
-		<subs/>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Alert.subject</fhir_path>
@@ -10044,22 +10480,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CarePlan</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.participant</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Encounter.participant.type</fhir_path>
-				<predicate>Encounter:participant_type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Encounter.participant.practitioner</fhir_path>
-				<predicate>Encounter:participant_practitioner</predicate>
-				<relative_xpath>f:practitioner</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>AdverseReaction.exposure.exposureType</fhir_path>
+		<subs/>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Location.extension</fhir_path>
@@ -10152,6 +10575,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Query.response.previous</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>List.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.name</fhir_path>
@@ -10363,9 +10791,22 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Group.characteristic.valueX</fhir_path>
-		<subs/>
-		<type>CodeableConcept</type>
+		<fhir_path>Encounter.participant</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Encounter.participant.type</fhir_path>
+				<predicate>Encounter:participant_type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Encounter.participant.practitioner</fhir_path>
+				<predicate>Encounter:participant_practitioner</predicate>
+				<relative_xpath>f:practitioner</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Observation.referenceRange.meaning</fhir_path>
@@ -10470,11 +10911,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Patient.deceasedX</fhir_path>
-		<subs/>
-		<type>boolean</type>
-	</path>
-	<path>
 		<fhir_path>Device.contained</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -10577,9 +11013,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Attachment.data</fhir_path>
+		<fhir_path>Questionnaire.subject</fhir_path>
 		<subs/>
-		<type>base64Binary</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Profile.text</fhir_path>
@@ -10660,9 +11096,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Observation.bodySite</fhir_path>
+		<fhir_path>Condition.onsetAge</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>Age</type>
+	</path>
+	<path>
+		<fhir_path>MedicationDispense.dispense.dosage.timingPeriod</fhir_path>
+		<subs/>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.object.reference</fhir_path>
@@ -10695,14 +11136,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Observation.appliesX</fhir_path>
+		<fhir_path>Observation.bodySite</fhir_path>
 		<subs/>
-		<type>Period</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Condition.onsetX</fhir_path>
+		<fhir_path>Message.enterer</fhir_path>
 		<subs/>
-		<type>date</type>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>FamilyHistory.relation.deceasedboolean</fhir_path>
+		<subs/>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Query.text</fhir_path>
@@ -10745,6 +11191,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>oid</type>
 	</path>
 	<path>
+		<fhir_path>Observation.valuePeriod</fhir_path>
+		<subs/>
+		<type>Period</type>
+	</path>
+	<path>
 		<fhir_path>DocumentReference.service.parameter.name</fhir_path>
 		<subs/>
 		<type>string</type>
@@ -10753,6 +11204,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Specimen.collection.sourceSite</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Questionnaire.question.answerinstant</fhir_path>
+		<subs/>
+		<type>instant</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.define.concept</fhir_path>
@@ -10816,6 +11272,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>MedicationPrescription.dosageInstruction.timingPeriod</fhir_path>
+		<subs/>
+		<type>Period</type>
+	</path>
+	<path>
 		<fhir_path>MedicationDispense.dispense.medication</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -10827,6 +11288,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>Practitioner.organization</fhir_path>
+		<subs/>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>Supply.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
+	</path>
+	<path>
+		<fhir_path>ImmunizationProfile.recommendation.supportingPatientObservation</fhir_path>
 		<subs/>
 		<type>Resource</type>
 	</path>
@@ -10978,14 +11449,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.hospitalization.period</fhir_path>
+		<fhir_path>MedicationPrescription.dosageInstruction.timingSchedule</fhir_path>
 		<subs/>
-		<type>Period</type>
+		<type>Schedule</type>
 	</path>
 	<path>
-		<fhir_path>DeviceLog.contained</fhir_path>
+		<fhir_path>Encounter.reasonstring</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.participant.member</fhir_path>
@@ -11062,12 +11533,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Substance.extension</fhir_path>
+		<fhir_path>Practitioner.gender</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.gender</fhir_path>
+		<fhir_path>Encounter.reasonCodeableConcept</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
 	</path>
@@ -11217,9 +11688,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>Supply.text</fhir_path>
+		<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructionsstring</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Questionnaire.question.answerboolean</fhir_path>
+		<subs/>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense</fhir_path>
@@ -11293,6 +11769,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>DeviceObservation.identifier</fhir_path>
+		<subs/>
+		<type>Identifier</type>
+	</path>
+	<path>
 		<fhir_path>Contact.period</fhir_path>
 		<subs/>
 		<type>Period</type>
@@ -11346,14 +11827,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Specimen.container.description</fhir_path>
+		<fhir_path>Identifier.period</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.period</fhir_path>
 		<subs/>
 		<type>Period</type>
+	</path>
+	<path>
+		<fhir_path>ImmunizationProfile.recommendation.forecastStatus</fhir_path>
+		<subs/>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Media.contained</fhir_path>
@@ -11371,7 +11857,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.mapping.map</fhir_path>
+		<fhir_path>Profile.structure.element.definition.example*</fhir_path>
+		<subs/>
+		<type/>
+	</path>
+	<path>
+		<fhir_path>Observation.referenceRange.rangestring</fhir_path>
 		<subs/>
 		<type>string</type>
 	</path>
@@ -11424,6 +11915,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Attachment</type>
 	</path>
 	<path>
+		<fhir_path>ImmunizationProfile.recommendation.dateCriterion.code</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Device.identity.serialNumber</fhir_path>
 		<subs/>
 		<type>string</type>
@@ -11458,9 +11954,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Profile.binding.referenceX</fhir_path>
+		<fhir_path>Encounter.status</fhir_path>
 		<subs/>
-		<type>uri</type>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.description</fhir_path>
@@ -11468,9 +11964,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructionsX</fhir_path>
+		<fhir_path>Encounter.fulfills</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.series.instance.attachment</fhir_path>
@@ -11545,15 +12041,15 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>Profile.structure.element.definition.valueX</fhir_path>
-				<predicate>Profile:structure_element_definition_valueX</predicate>
-				<relative_xpath>f:valueX</relative_xpath>
+				<fhir_path>Profile.structure.element.definition.value*</fhir_path>
+				<predicate>Profile:structure_element_definition_value*</predicate>
+				<relative_xpath>f:value*</relative_xpath>
 				<type/>
 			</sub>
 			<sub>
-				<fhir_path>Profile.structure.element.definition.exampleX</fhir_path>
-				<predicate>Profile:structure_element_definition_exampleX</predicate>
-				<relative_xpath>f:exampleX</relative_xpath>
+				<fhir_path>Profile.structure.element.definition.example*</fhir_path>
+				<predicate>Profile:structure_element_definition_example*</predicate>
+				<relative_xpath>f:example*</relative_xpath>
 				<type/>
 			</sub>
 			<sub>
@@ -11790,9 +12286,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.timingX</fhir_path>
+		<fhir_path>Specimen.subject</fhir_path>
 		<subs/>
-		<type>dateTime</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.results</fhir_path>
@@ -11825,9 +12321,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.performer</fhir_path>
+		<fhir_path>CarePlan.activity.timingPeriod</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.document.profile</fhir_path>
@@ -12091,32 +12587,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Range</type>
 	</path>
 	<path>
-		<fhir_path>FamilyHistory.relation.condition.onsetX</fhir_path>
-		<subs/>
-		<type>Age</type>
-	</path>
-	<path>
 		<fhir_path>Medication.code</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.code</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel</predicate>
-				<relative_xpath>f:channel</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Profile.structure.element.definition.mapping.map</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Group.characteristic.exclude</fhir_path>
@@ -12261,6 +12739,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Observation.valueQuantity</fhir_path>
+		<subs/>
+		<type>Quantity</type>
+	</path>
+	<path>
 		<fhir_path>ImagingStudy.series</fhir_path>
 		<subs>
 			<sub>
@@ -12392,6 +12875,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Specimen.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>Schedule.repeat.end</fhir_path>
 		<subs/>
 		<type>dateTime</type>
@@ -12417,9 +12905,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.valueX</fhir_path>
+		<fhir_path>Specimen.container.type</fhir_path>
 		<subs/>
-		<type/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Provenance.period</fhir_path>
+		<subs/>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.participant.name</fhir_path>
@@ -12462,10 +12955,22 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>FamilyHistory.relation.condition.onsetX</fhir_path>
-				<predicate>FamilyHistory:relation_condition_onsetX</predicate>
-				<relative_xpath>f:onsetX</relative_xpath>
+				<fhir_path>FamilyHistory.relation.condition.onsetAge</fhir_path>
+				<predicate>FamilyHistory:relation_condition_onsetAge</predicate>
+				<relative_xpath>f:onsetAge</relative_xpath>
 				<type>Age</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.condition.onsetRange</fhir_path>
+				<predicate>FamilyHistory:relation_condition_onsetRange</predicate>
+				<relative_xpath>f:onsetRange</relative_xpath>
+				<type>Range</type>
+			</sub>
+			<sub>
+				<fhir_path>FamilyHistory.relation.condition.onsetstring</fhir_path>
+				<predicate>FamilyHistory:relation_condition_onsetstring</predicate>
+				<relative_xpath>f:onsetstring</relative_xpath>
+				<type>string</type>
 			</sub>
 			<sub>
 				<fhir_path>FamilyHistory.relation.condition.note</fhir_path>
@@ -12485,42 +12990,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Group.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>FamilyHistory.relation</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>FamilyHistory.relation.name</fhir_path>
-				<predicate>FamilyHistory:relation_name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>FamilyHistory.relation.relationship</fhir_path>
-				<predicate>FamilyHistory:relation_relationship</predicate>
-				<relative_xpath>f:relationship</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>FamilyHistory.relation.deceasedX</fhir_path>
-				<predicate>FamilyHistory:relation_deceasedX</predicate>
-				<relative_xpath>f:deceasedX</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>FamilyHistory.relation.note</fhir_path>
-				<predicate>FamilyHistory:relation_note</predicate>
-				<relative_xpath>f:note</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>FamilyHistory.relation.condition</fhir_path>
-				<predicate>FamilyHistory:relation_condition</predicate>
-				<relative_xpath>f:condition</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type/>
 	</path>
 	<path>
 		<fhir_path>CarePlan.activity.dailyAmount</fhir_path>
@@ -12611,14 +13080,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>OperationOutcome</type>
 	</path>
 	<path>
+		<fhir_path>Observation.appliesPeriod</fhir_path>
+		<subs/>
+		<type>Period</type>
+	</path>
+	<path>
 		<fhir_path>MedicationAdministration.dosage.route</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Order.detail</fhir_path>
+		<fhir_path>Contact.use</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.dateTime</fhir_path>
@@ -12654,6 +13128,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Extension.url</fhir_path>
 		<subs/>
 		<type>uri</type>
+	</path>
+	<path>
+		<fhir_path>Observation.component.valueRatio</fhir_path>
+		<subs/>
+		<type>Ratio</type>
 	</path>
 	<path>
 		<fhir_path>Coverage</fhir_path>
@@ -12901,14 +13380,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.timingX</fhir_path>
+		<fhir_path>DeviceLog.contained</fhir_path>
 		<subs/>
-		<type>Schedule</type>
+		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationProfile.recommendation.dateCriterion.code</fhir_path>
+		<fhir_path>Questionnaire.question.optionsResource(ValueSet)</fhir_path>
 		<subs/>
-		<type>CodeableConcept</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.facet.info</fhir_path>
@@ -13073,22 +13552,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>DiagnosticOrder.event</type>
 	</path>
 	<path>
-		<fhir_path>AdverseReaction.symptom</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>AdverseReaction.symptom.code</fhir_path>
-				<predicate>AdverseReaction:symptom_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>AdverseReaction.symptom.severity</fhir_path>
-				<predicate>AdverseReaction:symptom_severity</predicate>
-				<relative_xpath>f:severity</relative_xpath>
-				<type>code</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Observation.referenceRange.rangeRange</fhir_path>
+		<subs/>
+		<type>Range</type>
 	</path>
 	<path>
 		<fhir_path>Address.use</fhir_path>
@@ -13159,6 +13625,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Ratio</type>
 	</path>
 	<path>
+		<fhir_path>Observation.component.valueCodeableConcept</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Provenance.agent.display</fhir_path>
 		<subs/>
 		<type>string</type>
@@ -13184,6 +13655,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
+		<fhir_path>MedicationDispense.dispense.dosage.additionalInstructionsCodeableConcept</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Supply.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -13192,11 +13668,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>DocumentReference.created</fhir_path>
 		<subs/>
 		<type>dateTime</type>
-	</path>
-	<path>
-		<fhir_path>MedicationPrescription.reasonForPrescribingX</fhir_path>
-		<subs/>
-		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Procedure.relatedItem</fhir_path>
@@ -13227,9 +13698,70 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.indication</fhir_path>
-		<subs/>
-		<type>string</type>
+		<fhir_path>MedicationDispense.dispense</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.identifier</fhir_path>
+				<predicate>MedicationDispense:dispense_identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.status</fhir_path>
+				<predicate>MedicationDispense:dispense_status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.type</fhir_path>
+				<predicate>MedicationDispense:dispense_type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.quantity</fhir_path>
+				<predicate>MedicationDispense:dispense_quantity</predicate>
+				<relative_xpath>f:quantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.medication</fhir_path>
+				<predicate>MedicationDispense:dispense_medication</predicate>
+				<relative_xpath>f:medication</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.whenPrepared</fhir_path>
+				<predicate>MedicationDispense:dispense_whenPrepared</predicate>
+				<relative_xpath>f:whenPrepared</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.whenHandedOver</fhir_path>
+				<predicate>MedicationDispense:dispense_whenHandedOver</predicate>
+				<relative_xpath>f:whenHandedOver</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.destination</fhir_path>
+				<predicate>MedicationDispense:dispense_destination</predicate>
+				<relative_xpath>f:destination</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.receiver</fhir_path>
+				<predicate>MedicationDispense:dispense_receiver</predicate>
+				<relative_xpath>f:receiver</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationDispense.dispense.dosage</fhir_path>
+				<predicate>MedicationDispense:dispense_dosage</predicate>
+				<relative_xpath>f:dosage</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>OrderResponse.description</fhir_path>
@@ -13262,7 +13794,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Contact</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationProfile.recommendation.supportingPatientObservation</fhir_path>
+		<fhir_path>Substance.ingredient</fhir_path>
 		<subs/>
 		<type>Resource</type>
 	</path>
@@ -13290,9 +13822,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
+		<fhir_path>FamilyHistory.relation.deceasedRange</fhir_path>
+		<subs/>
+		<type>Range</type>
+	</path>
+	<path>
 		<fhir_path>RelatedPerson.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
+	</path>
+	<path>
+		<fhir_path>Observation.referenceRange.rangeQuantity</fhir_path>
+		<subs/>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>Alert.note</fhir_path>
@@ -13816,7 +14358,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Substance.ingredient</fhir_path>
+		<fhir_path>CarePlan.activity.performer</fhir_path>
 		<subs/>
 		<type>Resource</type>
 	</path>
@@ -13892,14 +14434,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>AdverseReaction.reactionDate</fhir_path>
+		<fhir_path>AdverseReaction.recorder</fhir_path>
 		<subs/>
-		<type>dateTime</type>
+		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Order.text</fhir_path>
+		<fhir_path>Questionnaire.question.answerdate</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type>date</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.explanation.reason</fhir_path>
@@ -13923,568 +14465,176 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 </l:fhirdefs>
 
-  <xsl:param name="now" select="''"/>
-  <xsl:param name="output" select="'text'"/>
-  <xsl:param name="newline">
-    <xsl:choose>
-      <xsl:when test="$output='text'"><xsl:value-of select="'&#x0a;'"/></xsl:when>
-      <xsl:otherwise><xsl:value-of select="'&#x0d;&#x0a;'"/></xsl:otherwise>
-    </xsl:choose>
-  </xsl:param>
-  <xsl:output method="text" indent="yes" version="4.01" encoding="UTF-8" doctype-system="http://www.w3.org/TR/html4/strict.dtd" doctype-public="-//W3C//DTD HTML 4.01//EN"/>
-  <!-- global variable title -->
-  <!-- Main -->
-  <xsl:template match="/">
-    <xsl:apply-templates select="*"/>
-  </xsl:template>
-  <!-- produce browser rendered, human readable clinical document -->
-  <xsl:template name="FhirIndent">
+
+<!-- We'll traverse the FHIR instance XML data ($this param) while
+     simultanously hopping around a build-in XML structure describing
+     each FHIR path and its associated types + sub-propeties ($context param)
+     We kick things off from the XML root element... -->
+<xsl:template match="*">
+    <xsl:call-template name="FhirElement">
+        <xsl:with-param name="depth" select="0"/>
+        <xsl:with-param name="this" select="."/>
+        <xsl:with-param name="context" select="name()"/>
+    </xsl:call-template>
+</xsl:template>
+
+<!-- This should be relaced with something less verbose to call -->
+<xsl:template name="FhirIndent">
     <xsl:param name="depth" />
-<xsl:text>  </xsl:text>
-	  <xsl:if test="$depth > 0">
-	    <xsl:call-template name="FhirIndent">
-	      <xsl:with-param name="depth" select="number($depth)-1"/>
-	    </xsl:call-template>
-      </xsl:if>
-  </xsl:template>
+    <xsl:text>   </xsl:text>
+    <xsl:if test="$depth > 0">
+        <xsl:call-template name="FhirIndent">
+            <xsl:with-param name="depth" select="number($depth)-1"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
 
 <xsl:template name="FhirElement">
-<xsl:param name="depth" />
-<xsl:param name="this" />
-<xsl:param name="context" />
-<!--
-GOT CONTEXT: <xsl:value-of select="$context"/>
-	   <path>
-	<fhir_path>ImmunizationProfile.recommendation</fhir_path>
-	<subs>
-		<sub>
-			<fhir_path>ImmunizationProfile.recommendation.recommendationDate</fhir_path>
-			<predicate>ImmunizationProfile:recommendation_recommendationDate</predicate>
-			<relative_xpath>f:recommendationDate</relative_xpath>
-			<type>dateTime</type>
-		</sub>
-		<sub>
-			<fhir_path>ImmunizationProfile.recommendation.vaccineType</fhir_path>
-			<predicate>ImmunizationProfile:recommendation_vaccineType</pr
-    context: <xsl:value-of select="$context"/>
--->
-  <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[.=$context]/.."/>
-  <xsl:variable name="def.type" select="$def/type"/>
-  <xsl:variable name="def.subs" select="$def/subs/sub"/> 
-  <xsl:choose>
 
-	  <!-- TODO custom handlers for the basic tpyes: uri, string, code-->
-	  <!-- TODO possibly handlers for (some) datatyes: e.g. text-->
-	  <xsl:when test="not($def)"> [a fhir-data:<xsl:value-of select="$context"/>; <xsl:if test="$this/@value"> fhir:value "<xsl:value-of select="$this/@value"  />"; </xsl:if> <xsl:if test="normalize-space($this/text()) != ''">fhir:text "<xsl:value-of select="$this/text()"/>"; </xsl:if>
-]
+    <!-- mainly just indentation bookkeeping -->
+    <xsl:param name="depth" />
 
-</xsl:when>
-	  <xsl:when test="$def.type and not($def.subs)">
-		<xsl:call-template name="FhirElement">
-		    <xsl:with-param name="depth" select="$depth"/>
-		    <xsl:with-param name="this" select="$this"/>
-		    <xsl:with-param name="context" select="$def.type"/>
-		</xsl:call-template>
-	  </xsl:when>
+    <!-- where we are in the FHIR instance XML payload -->
+    <xsl:param name="this" />
 
-	  <xsl:otherwise>
+    <!-- path into the accompanying FHIR definitions (built in to this XSLT) -->
+    <xsl:param name="context" />
 
-[<xsl:if test="$depth=0">]</xsl:if>  <xsl:if test="$def.type != ''"> a :<xsl:value-of select="$def.type"/>;</xsl:if>
-<!--
-    def: <xsl:value-of select="$def"/>
-    context: <xsl:value-of select="$context"/>
-	  source """<xsl:apply-templates select="$def" mode="copy" />"""
-    subs: <xsl:value-of select="$def.subs"/>
--->
+    <!-- XSLT makes meta-programming a drag.  But here, we look up the relevant node in our FHIR 
+         definitions, keying off of the $context param (which is a fhir_path value) --> 
+    <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[.=$context]/.."/>
 
-    <xsl:text>&#10;</xsl:text>
+    <!-- Type of the current element. Type can be null (for internal nodes) -->
+    <xsl:variable name="def.type" select="$def/type"/>
 
-<xsl:for-each select="$def.subs">
-    <xsl:variable name="sub" select="."/>
-    <xsl:variable name="predicate" select="./predicate"/>
-    <xsl:variable name="fhir_path" select="./fhir_path"/>
-    <xsl:variable name="xpath" select="substring-after(./relative_xpath, ':')"/>
-    <!--searching on  <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/>-->
-    <xsl:for-each select="$this/*[name()=$xpath]">
-<xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template><xsl:value-of select="$predicate"/>  
-    <xsl:call-template name="FhirElement">
-	    <xsl:with-param name="depth" select="$depth+1"/>
-	    <xsl:with-param name="this" select="."/>
-	    <xsl:with-param name="context" select="$fhir_path"/>
-    </xsl:call-template>
-   
-</xsl:for-each>
-</xsl:for-each>
-    <xsl:text>&#10;</xsl:text>
-<xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth"/></xsl:call-template>]
- 	  </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-  <xsl:template name="Resource">
-    <div>
-      <xsl:apply-templates select="." mode="start" />
-      <pre class="machine" style="font-size:small">
-[] a fhir:<xsl:value-of select="name()"/>;</pre>
-    <xsl:for-each select="n1:text">
-      <xsl:apply-templates select="." mode="quote" />
-      <xsl:call-template name="Text"/>
-    </xsl:for-each>
-    <xsl:if test="n1:status/@value">
-      <xsl:apply-templates select="n1:status" mode="quote" />
-      <pre class="machine" style="font-size:small">    :status [a fhir:Code; fhir:value "<xsl:value-of select="n1:status/@value"/>"];
-</pre>
-    </xsl:if>
+    <!-- Sub-elemenets that are defined for this type.  Each sub includes 
+           * an xpath fragment (e.g. 'f:detail')
+           * FHIR path (e.g. Order.detail)
+           * target type (e.g. CodeableConcept; or blank if the target is an internal node) -->
+    <xsl:variable name="def.subs" select="$def/subs/sub"/> 
 
-    <xsl:apply-templates select="./n1:*"  mode="fhirProperty"/>
-
-    <xsl:apply-templates select="n1:issued" mode="quote" />
-    <xsl:apply-templates select="n1:issued" mode="Date">
-      <xsl:with-param name="predicate" select="'issued'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:date" mode="quote" />
-    <xsl:apply-templates select="n1:date" mode="Date">
-      <xsl:with-param name="predicate" select="'date'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:subject" mode="quote" />
-    <xsl:apply-templates select="n1:subject" mode="Reference">
-      <xsl:with-param name="predicate" select="'subject'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:source" mode="quote" />
-    <xsl:apply-templates select="n1:source" mode="Reference">
-      <xsl:with-param name="predicate" select="'source'"/>
-    </xsl:apply-templates>
-    <xsl:if test="n1:reason/@value">
-      <xsl:apply-templates select="n1:reason" mode="quote" />
-      <pre class="machine" style="font-size:small">    :reason [a fhir:String; fhir:value "<xsl:value-of select="n1:reason/@value"/>"];
-</pre></xsl:if>
-    <xsl:apply-templates select="n1:performer" mode="quote" />
-    <xsl:apply-templates select="n1:performer" mode="Reference">
-      <xsl:with-param name="predicate" select="'performer'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:reportId" mode="quote" />
-    <xsl:apply-templates select="n1:reportId" mode="Identifier">
-      <xsl:with-param name="predicate" select="'reportId'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:serviceCategory" mode="quote" />
-    <xsl:apply-templates select="n1:serviceCategory" mode="Codable">
-      <xsl:with-param name="predicate" select="'serviceCategory'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:diagnosticTime" mode="quote" />
-    <xsl:apply-templates select="n1:diagnosticTime" mode="Date">
-      <xsl:with-param name="predicate" select="'diagnosticTime'"/>
-    </xsl:apply-templates>
-    <xsl:apply-templates select="n1:results" mode="Results">
-      <xsl:with-param name="predicate" select="'results'"/>
-    </xsl:apply-templates>
-    <xsl:for-each select="n1:when">
-      <xsl:apply-templates select="." mode="start" />
-      <div>
-      <pre class="machine" style="font-size:small">    :when [
-</pre>
-<xsl:apply-templates select="n1:code" mode="quote" />
-      <xsl:apply-templates select="n1:code" mode="Codable">
-	<xsl:with-param name="predicate" select="'when_code'"/>
-	<xsl:with-param name="padding" select="'        '"/>
-      </xsl:apply-templates>
-      </div>
-      <xsl:apply-templates select="." mode="end" />
-      <pre class="machine" style="font-size:small">
-    ] ;<xsl:text>
-</xsl:text>
-    </pre>
-    </xsl:for-each>
-    <xsl:apply-templates select="n1:detail" mode="quote" />
-    <xsl:apply-templates select="n1:detail" mode="Reference">
-      <xsl:with-param name="predicate" select="'detail'"/>
-    </xsl:apply-templates>
-<pre>.</pre>
-    <xsl:apply-templates select="n1:contained/*" mode="Contained"/>
-    </div>
-    <xsl:apply-templates select="." mode="end" />
-  </xsl:template>
-
-  <!-- get rid of whitespace in Contained element -->
-  <xsl:template name="Contained-text" match="text()" mode="Contained"/>
-
-  <xsl:template name="Contained" match="*" mode="Contained">
-    <xsl:param name="type" select="name()"/>
-    <xsl:apply-templates select="." mode="start" />
-    <div>
-    <pre class="machine" style="font-size:small">
-&lt;<xsl:value-of select="@id"/>&gt; a fhir:<xsl:value-of select="$type"/>;</pre>
-    <xsl:for-each select="n1:text">
-      <xsl:apply-templates select="." mode="quote" />
-      <xsl:call-template name="Text"/>
-    </xsl:for-each>
-    <xsl:apply-templates select="n1:name" mode="quote" />
-    <pre class="machine" style="font-size:small">
-      <xsl:value-of select="concat('    ', $type, ':name')"/>
-      <xsl:for-each select="n1:name">
-	<xsl:apply-templates select="n1:coding" mode="Coding-wrapper"/>
-	<xsl:if test="following-sibling::n1:name">,</xsl:if>
-      </xsl:for-each>
-<xsl:text>;
-</xsl:text>
-    </pre>
-    <xsl:apply-templates select="n1:valueQuantity" mode="quote" />
-    <xsl:apply-templates select="n1:valueQuantity" mode="value">
-      <xsl:with-param name="predicate" select="'results'"/>
-      <xsl:with-param name="type" select="$type"/>
-    </xsl:apply-templates>
-    <xsl:if test="n1:status/@value">
-      <xsl:apply-templates select="n1:status" mode="quote" />
-      <pre class="machine" style="font-size:small">
-      <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:status [a fhir:Code; fhir:value "<xsl:value-of select="n1:status/@value"/>"];
-</pre>
-    </xsl:if>
-    <xsl:if test="n1:reliability/@value">
-      <xsl:apply-templates select="n1:reliability" mode="quote" />
-      <pre class="machine" style="font-size:small">
-      <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:reliability [a fhir:Code; fhir:value "<xsl:value-of select="n1:reliability/@value"/>"];
-</pre>
-    </xsl:if>
-    <xsl:for-each select="n1:referenceRange">
-      <xsl:apply-templates select="." mode="start" />
-      <div>
-	<pre class="machine" style="font-size:small">
-	  <xsl:value-of select="'    '"/><xsl:value-of select="$type"/>:referenceRange [
-</pre>
-        <xsl:for-each select="n1:rangeRange">
-	  <xsl:apply-templates select="." mode="start" />
-	  <div>
-	    <pre class="machine" style="font-size:small">
-	      <xsl:value-of select="'        '"/><xsl:value-of select="$type"/>:referenceRange_rangeRange [
-            a fhir:Range;
-</pre>
-	    <xsl:apply-templates select="n1:low" mode="quote" />
-	    <xsl:apply-templates select="n1:low" mode="value">
-	      <xsl:with-param name="padding" select="'            '"/>
-	      <xsl:with-param name="predicate" select="'results'"/>
-	      <xsl:with-param name="type" select="'Range'"/>
-	    </xsl:apply-templates>
-	    <xsl:apply-templates select="n1:high" mode="quote" />
-	    <xsl:apply-templates select="n1:high" mode="value">
-	      <xsl:with-param name="padding" select="'            '"/>
-	      <xsl:with-param name="predicate" select="'results'"/>
-	      <xsl:with-param name="type" select="'Range'"/>
-	    </xsl:apply-templates>
-	    <pre class="machine" style="font-size:small">        ];</pre>
-	  </div>
-	<xsl:apply-templates select="." mode="end" />
-	</xsl:for-each>
-	<pre class="machine" style="font-size:small">
-    ];
-</pre>
-      </div>
-      <xsl:apply-templates select="." mode="end" />
-    </xsl:for-each>
-.
-</div>
-    <xsl:apply-templates select="." mode="end" />
-  </xsl:template>
-
-  <xsl:template name="value" match="*" mode="value">
-    <xsl:param name="padding" select="'    '"/>
-    <xsl:param name="type" select="'@@type'"/>
-    <pre class="machine" style="font-size:small">
-      <xsl:value-of select="$padding"/>
-      <xsl:value-of select="$type"/>:<xsl:value-of select="name()"/> [
-<xsl:value-of select="$padding"/>    a fhir:Quantity;<xsl:if test="n1:value/@value">;
-<xsl:value-of select="$padding"/>    Quantity:value [a fhir:Decimal; fhir:value "<xsl:value-of select="n1:value/@value"/>"^^xsd:decimal]</xsl:if><xsl:if test="n1:units/@value">;
-<xsl:value-of select="$padding"/>    Quantity:units [a fhir:String; fhir:value "<xsl:value-of select="n1:units/@value"/>"]</xsl:if><xsl:if test="n1:system/@value">;
-<xsl:value-of select="$padding"/>    Quantity:system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:code/@value">;
-<xsl:value-of select="$padding"/>    Quantity:code [a fhir:Code; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:text>
-</xsl:text><xsl:value-of select="$padding"/>];
-</pre>
-  </xsl:template>
-
-  <xsl:template name="Results" match="*" mode="Results">
-    <xsl:param name="predicate"/>
-    <div>
-      <xsl:apply-templates select="." mode="start" />
-      <pre class="machine" style="font-size:small">    :<xsl:value-of select="$predicate"/> [
-</pre>
-    <div>
-    <xsl:apply-templates select="n1:name" mode="quote" />
-    <xsl:apply-templates select="n1:name" mode="Codable">
-      <xsl:with-param name="predicate" select="'results_name'"/>
-      <xsl:with-param name="padding" select="'        '"/>
-    </xsl:apply-templates>
-    </div>
-    <div>
-      <xsl:apply-templates select="n1:result" mode="quote" />
-      <xsl:apply-templates select="n1:result" mode="Reference">
-	<xsl:with-param name="predicate" select="'results_result'"/>
-	<xsl:with-param name="padding" select="'        '"/>
-	</xsl:apply-templates>
-    </div>
-    <pre class="machine" style="font-size:small">
-    ];
-</pre>
-    </div>
-    <xsl:apply-templates select="." mode="end" />
-  </xsl:template>
-
-  <xsl:template name="Date" match="*" mode="Date">
-    <xsl:param name="predicate"/>
-    <pre class="machine" style="font-size:small">    :<xsl:value-of select="$predicate"/> [a fhir:DateTime; fhir:value "<xsl:value-of select="@value"/>"^^xsd:dateTime];
-</pre>
-  </xsl:template>
-
-  <xsl:template name="Reference" match="*" mode="Reference">
-    <xsl:param name="predicate"/>
-    <xsl:param name="padding" select="'    '"/>
-    <pre class="machine" style="font-size:small">
-      <xsl:value-of select="$padding"/>:<xsl:value-of select="$predicate"/> [
-<xsl:value-of select="$padding"/>    a fhir:Reference; a fhir:<xsl:value-of select="n1:type/@value"/>Reference;
-<xsl:value-of select="$padding"/>    Reference:reference &lt;<xsl:value-of select="n1:reference/@value"/>&gt;<xsl:if test="n1:display/@value">;
-<xsl:value-of select="$padding"/>    Reference:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if>
-<xsl:text>
-</xsl:text>
-<xsl:value-of select="$padding"/>];<xsl:text>
-</xsl:text>
-    </pre>
-  </xsl:template>
-
-  <xsl:template name="Identifier" match="*" mode="Identifier">
-    <xsl:param name="predicate"/>
-    <pre class="machine" style="font-size:small">    :<xsl:value-of select="$predicate"/> [
-        a fhir:Identifier;<xsl:if test="n1:system/@value">;
-        :system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:coding/@value">;
-        :coding [a fhir:String; fhir:value "<xsl:value-of select="n1:coding/@value"/>"]</xsl:if><xsl:if test="n1:code/@value">;
-        :code [a fhir:String; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:if test="n1:key/@value">;
-        :key [a fhir:String; fhir:value "<xsl:value-of select="n1:key/@value"/>"]</xsl:if><xsl:if test="n1:display/@value">;
-        :display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if>
-    ];
-</pre>
-  </xsl:template>
-
-  <xsl:template name="Codable" match="*" mode="Codable">
-    <xsl:param name="predicate"/>
-    <xsl:param name="padding" select="'    '"/>
-    <pre class="machine" style="font-size:small">
-      <xsl:value-of select="$padding"/>:<xsl:value-of select="$predicate"/> [
-<xsl:value-of select="$padding"/>    a fhir:Codable;
-<xsl:value-of select="$padding"/>    Codeable:coding<xsl:apply-templates select="n1:coding" mode="Coding-wrapper" >
-<xsl:with-param name="padding" select="concat($padding, '    ')"/></xsl:apply-templates>
-<xsl:text>
-</xsl:text><xsl:value-of select="$padding"/>];
-</pre>
-  </xsl:template>
-
-<xsl:template name="Coding-wrapper" match="n1:coding" mode="Coding-wrapper">
-  <xsl:param name="padding" select="'    '"/><xsl:apply-templates select="." mode="Coding">
-        <xsl:with-param name="padding" select="$padding"/>
-      </xsl:apply-templates>
-      <xsl:if test="following-sibling::n1:coding">,</xsl:if>
-</xsl:template>
-
-  <xsl:template name="Coding" match="*" mode="Coding">
-    <xsl:param name="padding" select="'        '"/> [
-<xsl:value-of select="$padding"/>    a fhir:Coding<xsl:if test="n1:system/@value">;
-<xsl:value-of select="$padding"/>    Coding:system [a fhir:Uri; fhir:value &lt;<xsl:value-of select="n1:system/@value"/>&gt;]</xsl:if><xsl:if test="n1:code/@value">;
-<xsl:value-of select="$padding"/>    Coding:code [a fhir:String; fhir:value "<xsl:value-of select="n1:code/@value"/>"]</xsl:if><xsl:if test="n1:display/@value">;
-<xsl:value-of select="$padding"/>    Coding:display [a fhir:String; fhir:value "<xsl:value-of select="n1:display/@value"/>"]</xsl:if><xsl:text>
-</xsl:text><xsl:value-of select="$padding"/>]</xsl:template>
-
-  <xsl:template name="Text">
-    <div>
-      <pre class="machine" style="font-size:small">
-    Resource:text [
-        a fhir:Narrative;
-<xsl:if test="n1:status[@value]">        Narrative:status [a fhir:Code; fhir:value "<xsl:value-of select="n1:status/@value"/>"];
-</xsl:if>
-        <xsl:apply-templates select="xhtml:div"/>    ];
-</pre>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="xhtml:div">        xhtml:div """<xsl:apply-templates select="*|text()" mode="copy" />"""
-</xsl:template>
-
-  <xsl:template name="addPrefixes">
-    <div>
-      <pre class="machine" style="font-size:small">@prefix : &lt;http://hl7/org/fhir/<xsl:value-of select="name()"/>#&gt; .
-@prefix fhir: &lt;http://hl7/org/fhir/&gt; .
-@prefix Narrative: &lt;http://hl7/org/fhir/Narrative#&gt; .
-@prefix Observation: &lt;http://hl7/org/fhir/Observation#&gt; .
-@prefix Quantity: &lt;http://hl7/org/fhir/Quantity#&gt; .
-@prefix Resource: &lt;http://hl7/org/fhir/Resource#&gt; .
-@prefix Reference: &lt;http://hl7/org/fhir/Reference#&gt; .
-@prefix Range: &lt;http://hl7/org/fhir/Range#&gt; .
-@prefix Codeable: &lt;http://hl7/org/fhir/Codeable#&gt; .
-@prefix Coding: &lt;http://hl7/org/fhir/Coding#&gt; .
-@prefix xhtml: &lt;http://www.w3.org/1999/xhtml&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema&gt; .
-@base &lt;http://this-fhir-server/fhir/&gt; .
-</pre>
-    </div>
-  </xsl:template>
-
-  <xsl:template name="addCSS">
-    <style type="text/css">
-      <xsl:text>
-	body {
-	background-color: #FFFFFF;
-	font-family: Verdana, Tahoma, sans-serif;
-	font-size: 11px;
-	}
-
-	h1 {
-	font-size: 12pt;
-	font-weight: bold;
-	}
-
-	h2 {
-	font-size: 11pt;
-	font-weight: bold;
-	}
-
-	h3 {
-	font-size: 10pt;
-	font-weight: bold;
-	}
-
-	h4 {
-	font-size: 8pt;
-	font-weight: bold;
-	}
-
-	div {
-	width: 80%;
-	}
-
-	table {
-	line-height: 10pt;
-	width: 80%;
-	}
-
-	tr {
-	background-color: #ccccff;
-	}
-
-	td {
-	padding: 0.1cm 0.2cm;
-	vertical-align: top;
-	}
-
-	.h1center {
-	font-size: 12pt;
-	font-weight: bold;
-	text-align: center;
-	width: 80%;
-	}
-
-	.header_table{
-	border: 1pt inset #00008b;
-	}
-
-	.narr_table {
-	width: 100%;
-	}
-
-	.narr_tr {
-	background-color: #ffffcc;
-	}
-
-	.narr_th {
-	background-color: #ffd700;
-	}
-
-	.td_label{
-	font-weight: bold;
-	color: white;
-	}
-	div {
-	border: .5ex solid #aaaaff;
-	}
-	.error {
-	background-color: red;
-	}
-	.orig {
-	display:table;
-	border: .5ex solid #00ccc6;
-	background-color: #00ddd7;
-	}
-
-	/* eye-popping RMIM colors */
-	.Act                       { background-color: #ff7f7f }
-	.ActRelationship           { background-color: #ffbaba }
-	.ActRelationship a:visited { background-color: #efaaaa; }
-	.ActRelationship a:hover   { background-color: #ffcaca; }
-	.Entity                    { background-color: #7fff7f }
-	.Role                      { background-color: #ffff7f }
-	.Role            a:visited { background-color: #eeee6f; }
-	.Role            a:hover   { background-color: #ffffbf; }
-	.Participation             { background-color: #7fffff }
-	.Participation   a:visited { background-color: #6fefef; }
-	.Participation   a:hover   { background-color: #afffff; }
-	.anchor { font-weight:bold; }
-
-	.comment { color: #f43; }
-      </xsl:text>
-    </style>
-  </xsl:template>
-
-  <xsl:template name="copy-element" match="*" mode="copy">
-    <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
-    <xsl:apply-templates select="@*" mode="copy-attr"/>
     <xsl:choose>
-      <xsl:when test="count(node()) > 0">
-	<xsl:text>&gt;</xsl:text>
-	<xsl:apply-templates select="node()" mode="copy" />
-	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:text>/&gt;</xsl:text>
-      </xsl:otherwise>
+        <!-- TODO custom handlers for the basic tpyes: uri, string, code-->
+        <!-- TODO possibly handlers for (some) datatyes: e.g. text-->
+
+        <!-- This first branch represents a leaf node for which no further properties are defined in FHIR Spreadsheets -->
+        <xsl:when test="not($def)">
+
+            <xsl:text>&#10;</xsl:text>
+            <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+            <xsl:text>a fhir:</xsl:text>
+            <xsl:value-of select="$context"/>
+            <xsl:text>;&#10;</xsl:text>
+            <xsl:if test="$context = 'Resource'">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>a fhir:</xsl:text>
+                <xsl:value-of select="$this/f:type/@value"/>
+                <xsl:text>Reference;&#10;</xsl:text>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>Reference:reference &lt;</xsl:text>
+                <xsl:value-of select="$this/f:reference/@value"/>
+                <xsl:text>&gt;;&#10;</xsl:text>
+                <xsl:if test="$this/f:display/@value">
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                    <xsl:text>Reference:display [&#10;</xsl:text>
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="2+$depth"/> </xsl:call-template>
+                    <xsl:text>a fhir:String; fhir:value "</xsl:text>
+                    <xsl:value-of select="$this/f:display/@value"/>
+                    <xsl:text>"&#10;</xsl:text>
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                    <xsl:text>]&#10;</xsl:text>
+                </xsl:if>
+            </xsl:if>
+            <xsl:if test="$this/@value">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>fhir:value "</xsl:text><xsl:value-of select="$this/@value"  />
+                <xsl:text>";&#10;</xsl:text>
+            </xsl:if>
+            <xsl:if test="normalize-space($this/text()) != ''">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>fhir:text """</xsl:text>
+                <xsl:value-of select="$this/text()"/>
+                <xsl:text>""";&#10;</xsl:text>
+            </xsl:if>
+        </xsl:when>
+
+        <!-- This second branch represents a node with subproperties defined in FHIR Spreadsheets -->
+        <xsl:otherwise>
+            <xsl:if test="$depth=0">[] </xsl:if>
+            <xsl:if test="$depth>0"><xsl:text>&#10;</xsl:text></xsl:if>
+
+            <!-- If this is a type (non-internal) node, output the type -->
+            <xsl:if test="$def.type != ''">
+                <xsl:if test="$depth>0">
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+                </xsl:if>
+                <xsl:text>a :</xsl:text>
+                <xsl:value-of select="$def.type"/>
+                <xsl:text>;&#10;</xsl:text>
+            </xsl:if>
+
+            <!-- Iterate over defined subproperties, making a recursive application of FhirElement -->
+            <xsl:for-each select="$def.subs">
+
+                <xsl:variable name="last_property_p">
+                    <xsl:choose>
+                        <xsl:when test="position() = last()"><xsl:value-of select="true()"/></xsl:when>
+                        <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="sub" select="."/>
+                <xsl:variable name="predicate" select="./predicate"/>
+                <xsl:variable name="fhir_path" select="./fhir_path"/>
+                <xsl:variable name="type" select="./type"/>
+                <xsl:variable name="xpath" select="substring-after(./relative_xpath, ':')"/>
+                <!--searching on  <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/>-->
+
+                <!-- for a given property, look for its occurence(s) in instance data -->
+                <xsl:for-each select="$this/*[name()=$xpath]">
+
+                    <xsl:variable name="last_instance_p">
+                        <xsl:choose>
+                            <xsl:when test="position() = last()"><xsl:value-of select="true()"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
+
+                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+                    <xsl:value-of select="$predicate"/>
+                    <xsl:text> </xsl:text> 
+                    <xsl:variable name="subcontext">
+                        <xsl:choose>
+                            <xsl:when test="$type != ''">
+                                <xsl:value-of select="$type"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$fhir_path"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:text>[</xsl:text>
+                    <xsl:call-template name="FhirElement">
+                        <xsl:with-param name="depth" select="$depth+1"/>
+                        <xsl:with-param name="this" select="."/>
+                        <xsl:with-param name="context" select="$subcontext"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+
+                    <xsl:choose>
+                        <xsl:when test="$last_property_p='true' and $last_instance_p='true'">
+                            <xsl:text>]&#10;</xsl:text> 
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>];&#10;</xsl:text> 
+                        </xsl:otherwise>
+                    </xsl:choose>
+
+                </xsl:for-each>
+            </xsl:for-each>
+            <xsl:if test="$depth=0">.</xsl:if>
+        </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
-  <xsl:template name="quote-element" match="*" mode="quote">
-    <xsl:if test="$output!='text'">
-      <pre class="orig">
-	<xsl:call-template name="indent" />
-	<xsl:call-template name="copy-element" />
-      </pre>
-    </xsl:if>
-  </xsl:template>
-  <xsl:template name="start" match="*" mode="start">
-    <xsl:if test="$output!='text'">
-      <pre class="orig">
-	<xsl:call-template name="indent" />
-	<xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
-	<xsl:apply-templates select="@*" mode="copy-attr"/>
-	<xsl:text>&gt;</xsl:text>
-      </pre>
-    </xsl:if>
-  </xsl:template>
-  <xsl:template name="end" match="*" mode="end">
-    <xsl:if test="$output!='text'">
-      <pre class="orig">
-	<xsl:call-template name="indent" />
-	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-      </pre>
-    </xsl:if>
-  </xsl:template>
-  <xsl:template name="copy-attr" match="@*" mode="copy-attr">
-    <xsl:text> </xsl:text><xsl:value-of select="name()"/><xsl:text>=</xsl:text><xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
-  </xsl:template>
-  <xsl:template name="indent">
-    <xsl:if test="preceding-sibling::text()[1]">
-      <xsl:choose>
-	<xsl:when test="contains(preceding-sibling::text()[1], '&#10;')">
-	  <xsl:value-of select="substring-after(preceding-sibling::text()[1], '&#10;')"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="preceding-sibling::text()[1]"/>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:if>
-  </xsl:template>
-  <xsl:template match="*" mode="fhirProperty">
-  <xsl:variable name="e" select="local-name()"/>
-  :<xsl:value-of select="$e"/> [
-    <xsl:call-template name="Resource"/>
-  ]
-  </xsl:template>
+</xsl:template>
 </xsl:stylesheet>
