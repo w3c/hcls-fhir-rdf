@@ -3,6 +3,8 @@ from xml.dom.minidom import parseString
 import glob, json, re
 from huTools.structured import dict2xml, dict2et
 
+FHIR_DIR = "/home/jmandel/smart/fhir"
+
 def tree(FILES):
     paths = {}
     def process(file):
@@ -37,7 +39,7 @@ def tree(FILES):
     for f in FILES: process(f)
     return {'fhirdefs': paths.values()}
 
-t = tree(glob.glob("/home/jmandel/smart/fhir/build/publish/*.profile.json"))
+t = tree(glob.glob(FHIR_DIR + "/build/publish/*.profile.json"))
 #print json.dumps(t, sort_keys=True,indent=2)
 v = ElementTree.tostring(dict2et(t, None, listnames = {'fhirdefs': 'path', 'subs': 'sub'}))
 import pprint
