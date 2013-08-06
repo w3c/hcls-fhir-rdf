@@ -14545,14 +14545,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
                     <xsl:text>]&#10;</xsl:text>
                 </xsl:if>
             </xsl:if>
+
             <xsl:if test="$this/@value">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>fhir:value "</xsl:text><xsl:value-of select="$this/@value"  />
                 <xsl:text>";&#10;</xsl:text>
             </xsl:if>
-            <xsl:if test="normalize-space($this/text()) != ''">
+            <xsl:if test="$context='xhtml'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>fhir:text """</xsl:text>
+		<xsl:for-each select="$this">
+		    <xsl:call-template name="copy-element" />
+	        </xsl:for-each>
                 <xsl:value-of select="$this/text()"/>
                 <xsl:text>""";&#10;</xsl:text>
             </xsl:if>
@@ -14622,6 +14626,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
                     </xsl:call-template>
                     <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
 
+                    <!-- This test only works because FHIR's examples are all serialized with propertiese
+                         in the same order as in the defining spreadsheets.  It will sometimes think a
+                         terminal entry is non-terminal, e.g. if the last property has no instance. -->
                     <xsl:choose>
                         <xsl:when test="$last_property_p='true' and $last_instance_p='true'">
                             <xsl:text>]&#10;</xsl:text> 
@@ -14637,4 +14644,36 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
+  <xsl:template name="copy-element" match="*" mode="copy">
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
+    <xsl:apply-templates select="@*" mode="copy-attr"/>
+    <xsl:choose>
+      <xsl:when test="count(node()) > 0">
+	<xsl:text>&gt;</xsl:text>
+	<xsl:apply-templates select="node()" mode="copy" />
+	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:text>/&gt;</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="copy-attr" match="@*" mode="copy-attr">
+    <xsl:text> </xsl:text><xsl:value-of select="name()"/><xsl:text>=</xsl:text><xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
+  </xsl:template>
+
+  <xsl:template name="indent">
+    <xsl:if test="preceding-sibling::text()[1]">
+      <xsl:choose>
+	<xsl:when test="contains(preceding-sibling::text()[1], '&#10;')">
+	  <xsl:value-of select="substring-after(preceding-sibling::text()[1], '&#10;')"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="preceding-sibling::text()[1]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+
 </xsl:stylesheet>
