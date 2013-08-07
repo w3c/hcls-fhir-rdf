@@ -1,0 +1,210 @@
+[] a :CarePlan;
+      CarePlan:text [
+         a :Narrative;
+         Narrative:status [
+            a fhir:code;
+            fhir:value "additional";
+         ];
+         Narrative:div [
+            a fhir:xhtml;
+            fhir:text """<div><p>  Represents the flow of a patient within a practice. The plan is created when
+        they arrive and represents the 'care' of the patient over the course of that encounter.
+        They first see the nurse for basic observations (BP, pulse, temp) then the doctor for
+        the consultation and finally the nurse again for a tetanus immunization. As the plan is
+        updated (eg a new activity added), different versions of the plan exist, and workflow timings
+        for reporting can be gained by examining the plan history. This example is the version after
+        seeing the doctor, and waiting for the nurse.The plan can either be created 'ad hoc' and modified as
+        the parient progresses, or start with a standard template (which can, of course, be altered to suit the patient.</p></div>""";
+         ]
+      ];
+      CarePlan:contained [
+         a fhir:Resource;
+         a fhir:Reference;
+         Reference:reference <>;
+      ];
+      CarePlan:patient [
+         a fhir:Resource;
+         a fhir:PatientReference;
+         Reference:reference <patient/@100>;
+         Reference:display [
+            a fhir:String; fhir:value "Peter James Chalmers"
+         ]
+      ];
+      CarePlan:status [
+         a fhir:code;
+         fhir:value "active";
+      ];
+      CarePlan:period [
+         a :Period;
+         Period:start [
+            a fhir:dateTime;
+            fhir:value "2013-01-01T10:30:00+00:00";
+         ];
+      ];
+      CarePlan:concern [
+         a fhir:Resource;
+         a fhir:ConditionReference;
+         Reference:reference <#p1>;
+         Reference:display [
+            a fhir:String; fhir:value "obesity"
+         ]
+      ];
+      CarePlan:participant [
+         CarePlan:participant_role [
+            a :CodeableConcept;
+            CodeableConcept:coding [
+               a :Coding;
+               Coding:system [
+                  a fhir:uri;
+                  fhir:value "local";
+               ];
+               Coding:code [
+                  a fhir:code;
+                  fhir:value "nur";
+               ];
+            ];
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "nurse";
+            ];
+         ];
+         CarePlan:participant_member [
+            a fhir:Resource;
+            a fhir:PractitionerReference;
+            Reference:reference <practitioner/@13>;
+            Reference:display [
+               a fhir:String; fhir:value "Nurse Nancy"
+            ]
+         ]
+      ];
+      CarePlan:participant [
+         CarePlan:participant_role [
+            a :CodeableConcept;
+            CodeableConcept:coding [
+               a :Coding;
+               Coding:system [
+                  a fhir:uri;
+                  fhir:value "local";
+               ];
+               Coding:code [
+                  a fhir:code;
+                  fhir:value "doc";
+               ];
+            ];
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "doctor";
+            ];
+         ];
+         CarePlan:participant_member [
+            a fhir:Resource;
+            a fhir:PractitionerReference;
+            Reference:reference <practitioner/@14>;
+            Reference:display [
+               a fhir:String; fhir:value "Doctor Dave"
+            ]
+         ]
+      ];
+      CarePlan:goal [
+         CarePlan:goal_description [
+            a fhir:string;
+            fhir:value "Complete consultation";
+         ];
+      ];
+      CarePlan:activity [
+         CarePlan:activity_category [
+            a fhir:code;
+            fhir:value "encounter";
+         ];
+         CarePlan:activity_code [
+            a :CodeableConcept;
+            CodeableConcept:coding [
+               a :Coding;
+               Coding:system [
+                  a fhir:uri;
+                  fhir:value "local";
+               ];
+               Coding:code [
+                  a fhir:code;
+                  fhir:value "nursecon";
+               ];
+            ];
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "Nurse Consultation";
+            ];
+         ];
+         CarePlan:activity_status [
+            a fhir:code;
+            fhir:value "completed";
+         ];
+         CarePlan:activity_prohibited [
+            a fhir:boolean;
+            fhir:value "false";
+         ];
+         CarePlan:activity_timingPeriod [
+            a :Period;
+            Period:start [
+               a fhir:dateTime;
+               fhir:value "2013-01-01T10:38:00+00:00";
+            ];
+            Period:end [
+               a fhir:dateTime;
+               fhir:value "2013-01-01T10:50:00+00:00";
+            ]
+         ];
+         CarePlan:activity_performer [
+            a fhir:Resource;
+            a fhir:PractitionerReference;
+            Reference:reference <practitioner/@13>;
+            Reference:display [
+               a fhir:String; fhir:value "Nurse Nancy"
+            ]
+         ];
+         CarePlan:activity_actionTaken [
+            a fhir:Resource;
+            a fhir:EncounterReference;
+            Reference:reference <encounter/@example>;
+         ];
+      ];
+      CarePlan:activity [
+         CarePlan:activity_category [
+            a fhir:code;
+            fhir:value "encounter";
+         ];
+         CarePlan:activity_code [
+            a :CodeableConcept;
+            CodeableConcept:coding [
+               a :Coding;
+               Coding:system [
+                  a fhir:uri;
+                  fhir:value "local";
+               ];
+               Coding:code [
+                  a fhir:code;
+                  fhir:value "doccon";
+               ];
+            ];
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "Doctor Consultation";
+            ];
+         ];
+         CarePlan:activity_status [
+            a fhir:code;
+            fhir:value "scheduled";
+         ];
+         CarePlan:activity_prohibited [
+            a fhir:boolean;
+            fhir:value "false";
+         ];
+         CarePlan:activity_performer [
+            a fhir:Resource;
+            a fhir:PractitionerReference;
+            Reference:reference <practitioner/@14>;
+            Reference:display [
+               a fhir:String; fhir:value "Doctor Dave"
+            ]
+         ];
+      ];
+.

@@ -1,0 +1,212 @@
+
+<!-- We'll traverse the FHIR instance XML data ($this param) while
+     simultanously hopping around a build-in XML structure describing
+     each FHIR path and its associated types + sub-propeties ($context param)
+     We kick things off from the XML root element... -->
+<xsl:template match="*">
+    <xsl:call-template name="FhirElement">
+        <xsl:with-param name="depth" select="0"/>
+        <xsl:with-param name="this" select="."/>
+        <xsl:with-param name="context" select="name()"/>
+    </xsl:call-template>
+</xsl:template>
+
+<!-- This should be relaced with something less verbose to call -->
+<xsl:template name="FhirIndent">
+    <xsl:param name="depth" />
+    <xsl:text>   </xsl:text>
+    <xsl:if test="$depth > 0">
+        <xsl:call-template name="FhirIndent">
+            <xsl:with-param name="depth" select="number($depth)-1"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
+
+<xsl:template name="FhirElement">
+
+    <!-- mainly just indentation bookkeeping -->
+    <xsl:param name="depth" />
+
+    <!-- where we are in the FHIR instance XML payload -->
+    <xsl:param name="this" />
+
+    <!-- path into the accompanying FHIR definitions (built in to this XSLT) -->
+    <xsl:param name="context" />
+
+    <!-- XSLT makes meta-programming a drag.  But here, we look up the relevant node in our FHIR 
+         definitions, keying off of the $context param (which is a fhir_path value) --> 
+    <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[.=$context]/.."/>
+
+    <!-- Type of the current element. Type can be null (for internal nodes) -->
+    <xsl:variable name="def.type" select="$def/type"/>
+
+    <!-- Sub-elemenets that are defined for this type.  Each sub includes 
+           * an xpath fragment (e.g. 'f:detail')
+           * FHIR path (e.g. Order.detail)
+           * target type (e.g. CodeableConcept; or blank if the target is an internal node) -->
+    <xsl:variable name="def.subs" select="$def/subs/sub"/> 
+
+    <xsl:choose>
+        <!-- TODO custom handlers for the basic tpyes: uri, string, code-->
+        <!-- TODO possibly handlers for (some) datatyes: e.g. text-->
+
+        <!-- This first branch represents a leaf node for which no further properties are defined in FHIR Spreadsheets -->
+        <xsl:when test="not($def)">
+
+            <xsl:text>&#10;</xsl:text>
+            <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+            <xsl:text>a fhir:</xsl:text>
+            <xsl:value-of select="$context"/>
+            <xsl:text>;&#10;</xsl:text>
+            <xsl:if test="$context = 'Resource'">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>a fhir:</xsl:text>
+                <xsl:value-of select="$this/f:type/@value"/>
+                <xsl:text>Reference;&#10;</xsl:text>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>Reference:reference &lt;</xsl:text>
+                <xsl:value-of select="$this/f:reference/@value"/>
+                <xsl:text>&gt;;&#10;</xsl:text>
+                <xsl:if test="$this/f:display/@value">
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                    <xsl:text>Reference:display [&#10;</xsl:text>
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="2+$depth"/> </xsl:call-template>
+                    <xsl:text>a fhir:String; fhir:value "</xsl:text>
+                    <xsl:value-of select="$this/f:display/@value"/>
+                    <xsl:text>"&#10;</xsl:text>
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                    <xsl:text>]&#10;</xsl:text>
+                </xsl:if>
+            </xsl:if>
+
+            <xsl:if test="$this/@value">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>fhir:value "</xsl:text><xsl:value-of select="$this/@value"  />
+                <xsl:text>";&#10;</xsl:text>
+            </xsl:if>
+            <xsl:if test="$context='xhtml'">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>fhir:text """</xsl:text>
+		<xsl:for-each select="$this">
+		    <xsl:call-template name="copy-element" />
+	        </xsl:for-each>
+                <xsl:value-of select="$this/text()"/>
+                <xsl:text>""";&#10;</xsl:text>
+            </xsl:if>
+        </xsl:when>
+
+        <!-- This second branch represents a node with subproperties defined in FHIR Spreadsheets -->
+        <xsl:otherwise>
+            <xsl:if test="$depth=0">[] </xsl:if>
+            <xsl:if test="$depth>0"><xsl:text>&#10;</xsl:text></xsl:if>
+
+            <!-- If this is a type (non-internal) node, output the type -->
+            <xsl:if test="$def.type != ''">
+                <xsl:if test="$depth>0">
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+                </xsl:if>
+                <xsl:text>a :</xsl:text>
+                <xsl:value-of select="$def.type"/>
+                <xsl:text>;&#10;</xsl:text>
+            </xsl:if>
+
+            <!-- Iterate over defined subproperties, making a recursive application of FhirElement -->
+            <xsl:for-each select="$def.subs">
+
+                <xsl:variable name="last_property_p">
+                    <xsl:choose>
+                        <xsl:when test="position() = last()"><xsl:value-of select="true()"/></xsl:when>
+                        <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="sub" select="."/>
+                <xsl:variable name="predicate" select="./predicate"/>
+                <xsl:variable name="fhir_path" select="./fhir_path"/>
+                <xsl:variable name="type" select="./type"/>
+                <xsl:variable name="xpath" select="substring-after(./relative_xpath, ':')"/>
+                <!--searching on  <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/>-->
+
+                <!-- for a given property, look for its occurence(s) in instance data -->
+                <xsl:for-each select="$this/*[name()=$xpath]">
+
+                    <xsl:variable name="last_instance_p">
+                        <xsl:choose>
+                            <xsl:when test="position() = last()"><xsl:value-of select="true()"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
+
+                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+                    <xsl:value-of select="$predicate"/>
+                    <xsl:text> </xsl:text> 
+                    <xsl:variable name="subcontext">
+                        <xsl:choose>
+                            <xsl:when test="$type != ''">
+                                <xsl:value-of select="$type"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$fhir_path"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:text>[</xsl:text>
+                    <xsl:call-template name="FhirElement">
+                        <xsl:with-param name="depth" select="$depth+1"/>
+                        <xsl:with-param name="this" select="."/>
+                        <xsl:with-param name="context" select="$subcontext"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+
+                    <!-- This test only works because FHIR's examples are all serialized with propertiese
+                         in the same order as in the defining spreadsheets.  It will sometimes think a
+                         terminal entry is non-terminal, e.g. if the last property has no instance. -->
+                    <xsl:choose>
+                        <xsl:when test="$last_property_p='true' and $last_instance_p='true'">
+                            <xsl:text>]&#10;</xsl:text> 
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>];&#10;</xsl:text> 
+                        </xsl:otherwise>
+                    </xsl:choose>
+
+                </xsl:for-each>
+            </xsl:for-each>
+            <xsl:if test="$depth=0">.</xsl:if>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+  <xsl:template name="copy-element" match="*" mode="copy">
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
+    <xsl:apply-templates select="@*" mode="copy-attr"/>
+    <xsl:choose>
+      <xsl:when test="count(node()) > 0">
+	<xsl:text>&gt;</xsl:text>
+	<xsl:apply-templates select="node()" mode="copy" />
+	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:text>/&gt;</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="copy-attr" match="@*" mode="copy-attr">
+    <xsl:text> </xsl:text><xsl:value-of select="name()"/><xsl:text>=</xsl:text><xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
+  </xsl:template>
+
+  <xsl:template name="indent">
+    <xsl:if test="preceding-sibling::text()[1]">
+      <xsl:choose>
+	<xsl:when test="contains(preceding-sibling::text()[1], '&#10;')">
+	  <xsl:value-of select="substring-after(preceding-sibling::text()[1], '&#10;')"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="preceding-sibling::text()[1]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+
+</xsl:stylesheet>

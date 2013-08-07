@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><MedicationPrescription xmlns="http://hl7.org/fhir">
+ <!-- No identifier could be provided -->
+ <dateWritten value="2013-03-11"/>
+ <status value="active"/> 
+ <patient>
+    <type value="Patient"/>
+    <reference value="patient/@f201"/>
+    <display value="Roel"/>
+ </patient>
+ <prescriber>
+    <type value="Practitioner"/>
+    <reference value="practitioner/@f201"/>
+    <display value="Dokter Bonsig"/>
+ </prescriber>
+ <encounter><!-- TODO <encounter> is not expected -->
+    <type value="Encounter"/>
+    <reference value="encounter/@f203"/>
+    <display value="Roel&#39;s encounter on March eleventh 2013"/>
+ </encounter>
+ <reasonForPrescribingString value="condition/@f203"/><!-- TODO Why isn't this Resource (any)? -->
+ <medication>
+    <type value="Medication"/>
+    <reference value="medication/@f201"/>
+    <display value="Flutacisone + Salmeterol"/>
+ </medication>
+ <dosageInstruction>  
+  <dosageInstructionsText value="aerosol 25/250ug/do 120do 2x - 1 dose - daily"/>
+  <timingSchedule><!-- 2 months -->
+      <event>
+          <start value="2013-03-11"/>
+          <end value="2013-05-11"/>
+      </event>
+  </timingSchedule>
+  <site><!-- Medication enters the oral cavity -->
+    <coding>
+       <system value="http://snomed.info/id"/>
+       <code value="74262004"/>
+       <display value="Oral cavity"/>
+    </coding>
+  </site>
+  <route><!-- Medication follows the respiratory tract -->
+    <coding>
+       <system value="http://snomed.info/id"/>
+       <code value="321667001"/>
+       <display value="Respiratory tract"/>
+    </coding>
+  </route>
+  <method><!-- Medication is administered with a specific inhaler -->
+    <coding>
+       <system value="http://snomed.info/id"/>
+       <code value="320276009"/>
+       <display value="Salmeterol+fluticasone 25/250ug inhaler"/>
+    </coding>
+  </method>
+  <doseQuantity><!-- TODO Cardinality is not sufficient: 25ug salmeterol + 250ug fluticasone can only be coded with 275ug... -->
+    <value value="275"/>
+    <units value="microgram"/>
+    <system value="http://snomed.info/id"/>
+    <code value="258685003"/>
+  </doseQuantity>
+  <!-- TODO EK: <rate> and <maxDosePerPeriod> are not sufficient for this specific patient: 
+  a max dose is higher than a daily amount and rate is intended for (e.g. infuus-)rates, 
+  whilst prescribed amount needs to be expressed... -->
+  <maxDosePerPeriod><!-- 2 puffs per day -->
+    <numerator>
+        <value value="2"/>
+        <units value="puffs"/>
+        <system value="http://snomed.info/id"/>
+        <code value="415215001"/>
+    </numerator>
+    <denominator>
+        <value value="1"/>
+        <units value="daily"/>
+        <system value="http://snomed.info/id"/>
+        <code value="259032004"/>
+    </denominator>
+  </maxDosePerPeriod>
+ </dosageInstruction>
+ <!-- <dispense> and <substitution> are not available for this patient --> 
+</MedicationPrescription>

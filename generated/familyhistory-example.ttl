@@ -1,0 +1,68 @@
+[] a :FamilyHistory;
+      FamilyHistory:text [
+         a :Narrative;
+         Narrative:status [
+            a fhir:code;
+            fhir:value "generated";
+         ];
+         Narrative:div [
+            a fhir:xhtml;
+            fhir:text """<div>Father died of a heart attack aged 74</div>Father died of a heart attack aged 74""";
+         ]
+      ];
+      FamilyHistory:subject [
+         a fhir:Resource;
+         a fhir:PatientReference;
+         Reference:reference <patient/@example>;
+         Reference:display [
+            a fhir:String; fhir:value "Peter Patient"
+         ]
+      ];
+      FamilyHistory:relation [
+         FamilyHistory:relation_relationship [
+            a :CodeableConcept;
+            CodeableConcept:coding [
+               a :Coding;
+               Coding:system [
+                  a fhir:uri;
+                  fhir:value "http://hl7.org/fhir/familial-relationship";
+               ];
+               Coding:code [
+                  a fhir:code;
+                  fhir:value "father";
+               ];
+            ];
+         ];
+         FamilyHistory:relation_condition [
+            FamilyHistory:relation_condition_type [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "http://snomed.info/id";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "315619001";
+                  ];
+                  Coding:display [
+                     a fhir:string;
+                     fhir:value "Myocardial Infarction";
+                  ]
+               ];
+               CodeableConcept:text [
+                  a fhir:string;
+                  fhir:value "Heart Attack";
+               ];
+            ];
+            FamilyHistory:relation_condition_onsetAge [
+               a fhir:Age;
+            ];
+            FamilyHistory:relation_condition_note [
+               a fhir:string;
+               fhir:value "Was fishing at the time. At least he went doing someting he loved.";
+            ]
+         ]
+      ]
+.

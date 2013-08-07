@@ -1,0 +1,133 @@
+[] a :CarePlan;
+      CarePlan:text [
+         a :Narrative;
+         Narrative:status [
+            a fhir:code;
+            fhir:value "additional";
+         ];
+         Narrative:div [
+            a fhir:xhtml;
+            fhir:text """<div><p> A simple care plan to indicate a patient taking their weight once a day because of obesity.
+            Some Notes: </p><ul><li>It would be good to have some way of specifying/coding a goal. eg what the target weight is</li><li>In the codeable concepts I've been lazy and just put the text. There should, of course, be a code behind these</li></ul></div>""";
+         ]
+      ];
+      CarePlan:contained [
+         a fhir:Resource;
+         a fhir:Reference;
+         Reference:reference <>;
+      ];
+      CarePlan:contained [
+         a fhir:Resource;
+         a fhir:Reference;
+         Reference:reference <>;
+      ];
+      CarePlan:patient [
+         a fhir:Resource;
+         a fhir:PatientReference;
+         Reference:reference <patient/@example>;
+         Reference:display [
+            a fhir:String; fhir:value "Peter James Chalmers"
+         ]
+      ];
+      CarePlan:status [
+         a fhir:code;
+         fhir:value "active";
+      ];
+      CarePlan:period [
+         a :Period;
+         Period:end [
+            a fhir:dateTime;
+            fhir:value "2013-01-01";
+         ]
+      ];
+      CarePlan:concern [
+         a fhir:Resource;
+         a fhir:ConditionReference;
+         Reference:reference <#p1>;
+         Reference:display [
+            a fhir:String; fhir:value "obesity"
+         ]
+      ];
+      CarePlan:participant [
+         CarePlan:participant_role [
+            a :CodeableConcept;
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "responsiblePerson";
+            ];
+         ];
+         CarePlan:participant_member [
+            a fhir:Resource;
+            a fhir:PatientReference;
+            Reference:reference <patient/@example>;
+            Reference:display [
+               a fhir:String; fhir:value "Peter James Chalmers"
+            ]
+         ]
+      ];
+      CarePlan:participant [
+         CarePlan:participant_role [
+            a :CodeableConcept;
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "adviser";
+            ];
+         ];
+         CarePlan:participant_member [
+            a fhir:Resource;
+            a fhir:PractitionerReference;
+            Reference:reference <#pr1>;
+            Reference:display [
+               a fhir:String; fhir:value "Dorothy Dietition"
+            ]
+         ]
+      ];
+      CarePlan:goal [
+         CarePlan:goal_description [
+            a fhir:string;
+            fhir:value "Target weight is 80 kg. Note: be nice if this could be coded";
+         ];
+      ];
+      CarePlan:activity [
+         CarePlan:activity_category [
+            a fhir:code;
+            fhir:value "observation";
+         ];
+         CarePlan:activity_code [
+            a :CodeableConcept;
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "a code for weight measurement";
+            ];
+         ];
+         CarePlan:activity_prohibited [
+            a fhir:boolean;
+            fhir:value "false";
+         ];
+         CarePlan:activity_timingSchedule [
+            a :Schedule;
+            Schedule:repeat [
+               Schedule:repeat_frequency [
+                  a fhir:integer;
+                  fhir:value "1";
+               ];
+               Schedule:repeat_duration [
+                  a fhir:decimal;
+                  fhir:value "1";
+               ];
+               Schedule:repeat_units [
+                  a fhir:code;
+                  fhir:value "d";
+               ];
+            ]
+         ];
+         CarePlan:activity_performer [
+            a fhir:Resource;
+            a fhir:PatientReference;
+            Reference:reference <patient/@example>;
+            Reference:display [
+               a fhir:String; fhir:value "Peter James Chalmers"
+            ]
+         ];
+      ];
+.

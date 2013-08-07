@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><CarePlan xmlns="http://hl7.org/fhir">
+   <contained>
+      <Medication id="tpf"><!-- TPF consists of Docetaxel, Cisplatin and Fluorouracil -->
+         <contained>
+            <Medication id="doce">
+               <name value="Docetaxel"/>
+               <code>
+                  <coding>
+                     <system value="http://snomed.info/id"/>
+                     <code value="108806006"/>
+                  </coding>
+               </code>
+            </Medication>
+         </contained>
+         <contained>
+            <Medication id="cisp">
+               <name value="Cisplatin"/>
+               <code>
+                  <coding>
+                     <system value="http://snomed.info/id"/>
+                     <code value="57066004"/>
+                  </coding>
+               </code>               
+            </Medication>
+         </contained>
+         <contained>
+            <Medication id="fluo">
+               <name value="5-Fluorouracil"/>
+               <code>
+                  <coding>
+                     <system value="http://snomed.info/id"/>
+                     <code value="3127006"/>
+                  </coding>
+               </code>
+            </Medication>
+         </contained>
+         <name value="TPF"/>
+         <product>
+            <ingredient>
+               <item>
+                  <type value="Medication"/>
+                  <reference value="#doce"/>
+               </item>
+            </ingredient>
+            <ingredient>
+               <item>
+                  <type value="Medication"/>
+                  <reference value="#cisp"/>
+               </item>               
+            </ingredient>
+            <ingredient>
+               <item>
+                  <type value="Medication"/>
+                  <reference value="#fluo"/>
+               </item>
+            </ingredient>
+         </product>
+      </Medication>
+   </contained>
+   <patient>
+      <!-- It entails Roel's careplan -->
+      <type value="Patient"/>
+      <reference value="patient/@f201"/>
+      <display value="Roel"/>
+   </patient>
+   <status value="active"/>
+   <concern>
+      <type value="Condition"/>
+      <reference value="condition/@f202"/>
+      <display value="Roel&#39;s head-neck tumor"/>
+   </concern>
+   <participant>
+      <role>
+         <coding>
+            <system value="http://snomed.info/id"/>
+            <code value="28995006"/>
+            <display value="Treated by"/>
+         </coding>
+      </role>
+      <member>
+         <type value="Practitioner"/>
+         <reference value="practitioner/@f201"/>
+         <display value="Dokter Bronsig"/>
+      </member>
+   </participant>
+   <goal>
+      <description value="Elimination of the spenoid bone tumor"/>
+      <status value="in progress"/>
+   </goal>
+   <activity>
+      <category value="procedure"/>
+      <code>
+         <coding>
+            <system value="http://snomed.info/id"/>
+            <code value="367336001"/>
+            <display value="Chemotherapy"/>
+         </coding>
+      </code>
+      <status value="ongoing"/>
+      <prohibited value="false"/>
+      <product>
+         <type value="Medication"/>
+         <reference value="#tpf"/>
+      </product>
+      <actionTaken>
+         <type value="Procedure"/>
+         <reference value="procedure/@f201"/>
+         <display value="Roel&#39;s Chemotherapy"/>
+      </actionTaken>
+   </activity>
+</CarePlan>

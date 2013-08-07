@@ -1,0 +1,62 @@
+[] a :List;
+      List:text [
+         a :Narrative;
+         Narrative:status [
+            a fhir:code;
+            fhir:value "generated";
+         ];
+         Narrative:div [
+            a fhir:xhtml;
+            fhir:text """<div><table><thead><tr><th>Condition</th><th>Severity</th><th>Date</th><th>Location</th><th>Status</th></tr></thead><tbody><tr><td>Burnt Ear</td><td>Severe</td><td>24-May 2012</td><td>Left Ear</td><td>deleted</td></tr><tr><td>Asthma</td><td>Mild</td><td>21-Nov 2012</td><td>--</td><td>added</td></tr></tbody></table></div>""";
+         ]
+      ];
+      List:source [
+         a fhir:Resource;
+         a fhir:PatientReference;
+         Reference:reference <patient/@example>;
+      ];
+      List:date [
+         a fhir:dateTime;
+         fhir:value "2012-11-25T22:17:00+11:00";
+      ];
+      List:ordered [
+         a fhir:boolean;
+         fhir:value "false";
+      ];
+      List:mode [
+         a fhir:code;
+         fhir:value "changes";
+      ];
+      List:entry [
+         List:entry_flag [
+            a :CodeableConcept;
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "Deleted due to error";
+            ];
+         ];
+         List:entry_deleted [
+            a fhir:boolean;
+            fhir:value "true";
+         ];
+         List:entry_item [
+            a fhir:Resource;
+            a fhir:ConditionReference;
+            Reference:reference <condition/@example>;
+         ]
+      ];
+      List:entry [
+         List:entry_flag [
+            a :CodeableConcept;
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "Added";
+            ];
+         ];
+         List:entry_item [
+            a fhir:Resource;
+            a fhir:ConditionReference;
+            Reference:reference <condition/@example2>;
+         ]
+      ];
+.

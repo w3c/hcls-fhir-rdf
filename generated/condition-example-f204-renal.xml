@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><Condition xmlns="http://hl7.org/fhir">
+ <subject><!-- It entails Roel's problem -->
+     <type value="Patient"/>
+     <reference value="patient/@f201"/>
+     <display value="Roel"/>
+ </subject>
+ <encounter>
+     <type value="Encounter"/>
+     <reference value="encounter/@f203"/>
+     <display value="Roel&#39;s encounter on March eleventh"/>
+ </encounter>
+ <asserter>
+     <type value="Practitioner"/>
+     <reference value="practitioner/@f201"/>
+ </asserter>
+ <dateAsserted value="2013-03-11"/>
+ <code>
+     <coding>
+       <system value="http://snomed.info/id"/>
+       <code value="36225005"/>
+       <display value="Renal insufficiency due to procedure"/>
+     </coding>
+ </code>
+ <category><!-- Renal insufficiency could become a severe problem -->
+     <coding>
+        <system value="http://snomed.info/id"/>
+        <code value="55607006"/>
+        <display value="Problem"/> 
+     </coding>
+     <coding>
+         <system value="http://hl7.org/fhir/condition-category"/>
+         <code value="condition"/>
+     </coding>
+ </category>
+ <status value="working"/><!-- The patient is being treated on the basis that this is the problem, but it is still not confirmed (<certainty> is therewith also working) -->
+ <severity>
+    <coding>
+        <system value="http://snomed.info/id"/>
+        <code value="24484000"/>
+        <display value="Severe"/> 
+    </coding>
+ </severity>
+ <onsetDate value="2013-03-11"/>
+ <abatementDate value="2013-03-20"/><!-- After the nine days of inpatient admission, the problem went in remission -->
+ <stage><!-- The problem is temporary and will not become permanent renal insufficiency -->
+  <summary>
+    <coding>
+        <system value="http://snomed.info/id"/>
+        <code value="14803004"/>
+        <display value="Temporary"/> 
+    </coding>
+  </summary>
+ </stage>
+ <location> 
+  <code>
+    <coding>
+        <system value="http://snomed.info/id"/>
+        <code value="181414000"/>
+        <display value="Kidney"/> 
+    </coding>
+  </code>
+ </location>
+ <relatedItem>  
+  <type value="due-to"/><!-- TODO the difference between "due-to" and "follows" is very unclear in the current documentation -->
+  <target>    
+     <type value="Procedure"/>
+     <reference value="procedure/@f201"/>
+     <display value="TPF chemotherapy for the sphenoid bone"/>
+  </target>
+ </relatedItem>
+</Condition>
