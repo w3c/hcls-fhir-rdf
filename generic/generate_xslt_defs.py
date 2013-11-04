@@ -1,23 +1,26 @@
 from xml.etree import ElementTree
 from xml.dom.minidom import parseString
 import glob, json, re
+import os
 from huTools.structured import dict2xml, dict2et
 
-FHIR_DIR = "/home/jmandel/smart/fhir"
+FHIR_DIR = os.environ.get('FHIR_DIR')
+if FHIR_DIR == None:
+    FHIR_DIR = "/home/jmandel/smart/fhir"
 
 def tree(FILES):
     paths = {}
     def process(file):
         f = json.load(open(file))
-        for v in f['Profile']['structure'][0]['element']:
+        for v in f['structure'][0]['element']:
             #split a given property into multiple strands if it has multiple types like value[X] (dateTime|String)
-            praw = v['path']['value']
+            praw = v['path']
             count = 0
             if 'type' in v['definition']: types = v['definition']['type']
             else: types = [None]
             for possibleValue in types:
                 count += 1
-                v = possibleValue['code']['value']  if possibleValue else None
+                v = possibleValue['code']  if possibleValue else None
                 p = praw.replace("[x]", v or "" )
                 if v: 
                     v =  re.sub("\(.*\)", "", v).replace("@", "").replace("*", "")
@@ -38,6 +41,8 @@ def tree(FILES):
                         })
     for f in FILES: process(f)
     return {'fhirdefs': paths.values()}
+
+PROFILE_DIR = FHIR_DIR + "/build/publish/*.profile.json"
 
 t = tree(glob.glob(FHIR_DIR + "/build/publish/*.profile.json"))
 #print json.dumps(t, sort_keys=True,indent=2)
