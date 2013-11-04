@@ -4,9 +4,12 @@ import glob, json, re
 import os
 from huTools.structured import dict2xml, dict2et
 
-FHIR_DIR = os.environ.get('FHIR_DIR')
-if FHIR_DIR == None:
-    FHIR_DIR = "/home/jmandel/smart/fhir"
+PROFILE_DIR = os.environ.get('PROFILE_DIR')
+if PROFILE_DIR == None:
+    FHIR_DIR = os.environ.get('FHIR_DIR')
+    if FHIR_DIR == None:
+        FHIR_DIR = "/home/jmandel/smart/fhir"
+        PROFILE_DIR = FHIR_DIR + "/build/publish"
 
 def tree(FILES):
     paths = {}
@@ -42,9 +45,7 @@ def tree(FILES):
     for f in FILES: process(f)
     return {'fhirdefs': paths.values()}
 
-PROFILE_DIR = FHIR_DIR + "/build/publish/*.profile.json"
-
-t = tree(glob.glob(FHIR_DIR + "/build/publish/*.profile.json"))
+t = tree(glob.glob(PROFILE_DIR + "/*.profile.json"))
 #print json.dumps(t, sort_keys=True,indent=2)
 v = ElementTree.tostring(dict2et(t, None, listnames = {'fhirdefs': 'path', 'subs': 'sub'}))
 import pprint
