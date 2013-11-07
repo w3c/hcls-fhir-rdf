@@ -15,6 +15,8 @@ if PROFILE_DIR == None:
 def tree(FILES):
     paths = {}
     def process(file):
+        if file.endswith(".xml.profile.json"): return
+        if file.endswith("iso-21090.profile.json"): return
         f = json.load(open(file))
         for v in f['structure'][0]['element']:
             #split a given property into multiple strands if it has multiple types like value[X] (dateTime|String)
@@ -45,7 +47,6 @@ def tree(FILES):
                         })
     for f in FILES: process(f)
     return {'fhirdefs': paths.values()}
-
 t = tree(glob.glob(PROFILE_DIR + "/*.profile.json"))
 #print json.dumps(t, sort_keys=True,indent=2)
 v = ElementTree.tostring(dict2et(t, None, listnames = {'fhirdefs': 'path', 'subs': 'sub'}))
