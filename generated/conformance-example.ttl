@@ -8,7 +8,7 @@
          Narrative:div [
             a fhir:xhtml;
             fhir:text """<div><p>The EHR Server supports the following transactions for the resource Person: read, vread, 
-        update, history, search(name,gender), create and updates.</p><p>The EHR System supports the following message: admin-notify::Person.</p><p>The EHR Application has a <a href="http://fhir.hl7.org/base/profile/@bc054d23-75e1-4dc6-aca5-838b6b1ac81d/history/@b5fdd9fc-b021-4ea1-911a-721a60663796">general document profile</a>.</p></div>""";
+        update, history, search(name,gender), create and updates.</p><p>The EHR System supports the following message: admin-notify::Person.</p><p>The EHR Application has a <a href="http://fhir.hl7.org/base/Profilebc054d23-75e1-4dc6-aca5-838b6b1ac81d/history/b5fdd9fc-b021-4ea1-911a-721a60663796">general document profile</a>.</p></div>""";
          ]
       ];
       Conformance:identifier [
@@ -18,6 +18,10 @@
       Conformance:version [
          a fhir:string;
          fhir:value "20130510";
+      ];
+      Conformance:name [
+         a fhir:string;
+         fhir:value "ACME EHR Conformance statement";
       ];
       Conformance:publisher [
          a fhir:string;
@@ -33,6 +37,10 @@
             a fhir:string;
             fhir:value "wile@acme.org";
          ];
+      ];
+      Conformance:description [
+         a fhir:string;
+         fhir:value "This is the FHIR conformance statement for the main EHR at ACME for the private interface - it does not describe the public interface";
       ];
       Conformance:date [
          a fhir:dateTime;
@@ -76,8 +84,8 @@
             ];
             Conformance:rest_resource_profile [
                a fhir:Resource;
-               a fhir:ProfileReference;
-               Reference:reference <http://fhir.hl7.org/base/profile/@7896271d-57f6-4231-89dc-dcc91eab2416>;
+               a fhir:Reference;
+               Reference:reference <http://fhir.hl7.org/base/Profile7896271d-57f6-4231-89dc-dcc91eab2416>;
             ];
             Conformance:rest_resource_operation [
                Conformance:rest_resource_operation_code [
@@ -116,20 +124,31 @@
                ];
             ];
          ];
-         Conformance:rest_batch [
-            a fhir:boolean;
-            fhir:value "true";
+         Conformance:rest_operation [
+            Conformance:rest_operation_code [
+               a fhir:code;
+               fhir:value "transaction";
+            ];
          ];
-         Conformance:rest_history [
-            a fhir:boolean;
-            fhir:value "true";
+         Conformance:rest_operation [
+            Conformance:rest_operation_code [
+               a fhir:code;
+               fhir:value "history-system";
+            ];
          ];
       ];
       Conformance:messaging [
          Conformance:messaging_event [
             Conformance:messaging_event_code [
-               a fhir:code;
-               fhir:value "admin-notify";
+               a :Coding;
+               Coding:system [
+                  a fhir:uri;
+                  fhir:value "http://hl7.org/fhir/message-type";
+               ];
+               Coding:code [
+                  a fhir:code;
+                  fhir:value "admin-notify";
+               ];
             ];
             Conformance:messaging_event_mode [
                a fhir:code;
@@ -141,13 +160,13 @@
             ];
             Conformance:messaging_event_request [
                a fhir:Resource;
-               a fhir:ProfileReference;
-               Reference:reference <profile/@101>;
+               a fhir:Reference;
+               Reference:reference <Profile/101>;
             ];
             Conformance:messaging_event_response [
                a fhir:Resource;
-               a fhir:ProfileReference;
-               Reference:reference <profile/@101>;
+               a fhir:Reference;
+               Reference:reference <Profile/101>;
             ];
          ]
       ];
@@ -162,8 +181,8 @@
          ];
          Conformance:document_profile [
             a fhir:Resource;
-            a fhir:ProfileReference;
-            Reference:reference <http://fhir.hl7.org/base/profile/@bc054d23-75e1-4dc6-aca5-838b6b1ac81d/history/@b5fdd9fc-b021-4ea1-911a-721a60663796>;
+            a fhir:Reference;
+            Reference:reference <http://fhir.hl7.org/base/Profilebc054d23-75e1-4dc6-aca5-838b6b1ac81d/history/b5fdd9fc-b021-4ea1-911a-721a60663796>;
          ]
       ]
 .

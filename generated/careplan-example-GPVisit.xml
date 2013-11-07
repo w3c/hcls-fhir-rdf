@@ -16,8 +16,7 @@
         <!--  This is the reason for the encounter. It is referenced by the concern  -->
         <Condition id="p1">
             <subject>
-                <type value="Patient"/>
-                <reference value="patient/@100"/>
+                <reference value="Patient/100"/>
                 <display value="Peter James Chalmers"/>
             </subject>
             <code>
@@ -28,8 +27,7 @@
     </Condition>
     </contained>
     <patient>
-        <type value="Patient"/>
-        <reference value="patient/@100"/>
+        <reference value="Patient/100"/>
         <display value="Peter James Chalmers"/>
     </patient>
     <status value="active"/>
@@ -39,7 +37,6 @@
         <!--  No end yet as the encounter is still in progress. -->
     </period>
     <concern>
-        <type value="Condition"/>
         <reference value="#p1"/>
         <display value="obesity"/>
     </concern>
@@ -52,8 +49,7 @@
             <text value="nurse"/>
         </role>
         <member>
-            <type value="Practitioner"/>
-            <reference value="practitioner/@13"/>
+            <reference value="Practitioner/13"/>
             <display value="Nurse Nancy"/>
         </member>
     </participant>
@@ -66,8 +62,7 @@
             <text value="doctor"/>
         </role>
         <member>
-            <type value="Practitioner"/>
-            <reference value="practitioner/@14"/>
+            <reference value="Practitioner/14"/>
             <display value="Doctor Dave"/>
         </member>
     </participant>
@@ -76,58 +71,59 @@
       <description value="Complete consultation"/>
     </goal>
     <activity>
-        <!--  This activity is for the initial nurse encounter where vitals are taken. It has been completed. -->
-        <category value="encounter"/>
-        <code>
-            <coding>
-                <system value="local"/>
-                <code value="nursecon"/>
-            </coding>
-            <text value="Nurse Consultation"/>
-        </code>
         <status value="completed"/>
         <prohibited value="false"/>
-        <timingPeriod>
-            <!--  the nurse saw the patient between 10:38 and 10:50  -->
-            <start value="2013-01-01T10:38:00+00:00"/>
-            <end value="2013-01-01T10:50:00+00:00"/>            
-        </timingPeriod>
-        <performer>
-            <!--  refer to the participant (the nurse) in this resource -->
-          <type value="Practitioner"/>
-            <reference value="practitioner/@13"/>
-          <display value="Nurse Nancy"/>
-        </performer>
-        <actionTaken>
+        <actionResulting>
             <!--  This is a link to the nurse encounter. The assumption is that all contacts with practitioners
             are modelled as separate encounters. Ideally, there will be  a 'master/parent' encounter that ties them together.
             If there is a single encounter, then all participants will be linked to that encounter. -->
-            <type value="Encounter"/>
-            <reference value="encounter/@example"/>
-        </actionTaken>
+            <reference value="Encounter/example"/>
+        </actionResulting>
+        <simple>
+          <!--  This activity is for the initial nurse encounter where vitals are taken. It has been completed. -->
+          <category value="encounter"/>
+          <code>
+              <coding>
+                  <system value="local"/>
+                  <code value="nursecon"/>
+              </coding>
+              <text value="Nurse Consultation"/>
+          </code>
+          <timingPeriod>
+              <!--  the nurse saw the patient between 10:38 and 10:50  -->
+              <start value="2013-01-01T10:38:00+00:00"/>
+              <end value="2013-01-01T10:50:00+00:00"/>            
+          </timingPeriod>
+          <performer>
+              <!--  refer to the participant (the nurse) in this resource -->
+              <reference value="Practitioner/13"/>
+            <display value="Nurse Nancy"/>
+          </performer>
+        </simple>
     </activity>
     <activity>
-        <!--  This activity is for the encounter with the doctor. It is scheduled, but not yet started,
-            so there is no timing[x]  or actionTaken element yet  -->
-        <category value="encounter"/>
-        <code>
-            <coding>
-                <system value="local"/>
-                <code value="doccon"/>
-            </coding>
-            <text value="Doctor Consultation"/>
-        </code>
-        
-        <!--  The status is 'scheduled' so the doctor knows the patient is waiting.   --> 
-        
         <status value="scheduled"/>
         <prohibited value="false"/>
-
-        <performer>
-            <!--  refer to the participant (the nurse) in this resource -->
-            <type value="Practitioner"/>
-            <reference value="practitioner/@14"/>
-            <display value="Doctor Dave"/>
-        </performer>
+        <simple>
+          <!--  This activity is for the encounter with the doctor. It is scheduled, but not yet started,
+              so there is no timing[x]  or actionTaken element yet  -->
+          <category value="encounter"/>
+          <code>
+              <coding>
+                  <system value="local"/>
+                  <code value="doccon"/>
+              </coding>
+              <text value="Doctor Consultation"/>
+          </code>
+          
+          <!--  The status is 'scheduled' so the doctor knows the patient is waiting.   --> 
+          
+  
+          <performer>
+              <!--  refer to the participant (the nurse) in this resource -->
+              <reference value="Practitioner/14"/>
+              <display value="Doctor Dave"/>
+          </performer>
+        </simple>
     </activity>
 </CarePlan>

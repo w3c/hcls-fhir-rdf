@@ -1,10 +1,6 @@
 [] a :Patient;
       Patient:extension [
          a :Extension;
-         Extension:url [
-            a fhir:uri;
-            fhir:value "http://hl7.org/fhir/example-do-not-use#Patient.picture";
-         ];
       ];
       Patient:text [
          a :Narrative;
@@ -36,7 +32,7 @@
             a fhir:uri;
             fhir:value "urn:oid:0.1.2.3.4.5.6.7";
          ];
-         Identifier:key [
+         Identifier:value [
             a fhir:string;
             fhir:value "654321";
          ];
@@ -71,7 +67,7 @@
             Coding:display [
                a fhir:string;
                fhir:value "Male";
-            ]
+            ];
          ];
       ];
       Patient:contact [
@@ -91,25 +87,31 @@
          ];
          Patient:contact_organization [
             a fhir:Resource;
-            a fhir:OrganizationReference;
-            Reference:reference <organization/@1>;
+            a fhir:Reference;
+            Reference:reference <Organization/1>;
             Reference:display [
                a fhir:String; fhir:value "Walt Disney Corporation"
             ]
          ]
       ];
-      Patient:provider [
+      Patient:managingOrganization [
          a fhir:Resource;
-         a fhir:OrganizationReference;
-         Reference:reference <organization/@1>;
+         a fhir:Reference;
+         Reference:reference <Organization/1>;
          Reference:display [
             a fhir:String; fhir:value "ACME Healthcare, Inc"
          ]
       ];
       Patient:link [
-         a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@pat2>;
+         Patient:link_other [
+            a fhir:Resource;
+            a fhir:Reference;
+            Reference:reference <Patient/pat2>;
+         ];
+         Patient:link_type [
+            a fhir:code;
+            fhir:value "seealso";
+         ]
       ];
       Patient:active [
          a fhir:boolean;
