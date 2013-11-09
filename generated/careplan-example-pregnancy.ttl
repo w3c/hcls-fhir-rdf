@@ -1,10 +1,6 @@
 [] a :CarePlan;
       CarePlan:extension [
          a :Extension;
-         Extension:url [
-            a fhir:uri;
-            fhir:value "http://exampleDoNotUse/careplan#lmp";
-         ];
       ];
       CarePlan:text [
          a :Narrative;
@@ -35,8 +31,8 @@
       ];
       CarePlan:patient [
          a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@1>;
+         a fhir:Reference;
+         Reference:reference <Patient/1>;
          Reference:display [
             a fhir:String; fhir:value "Eve Everywoman"
          ]
@@ -58,7 +54,7 @@
       ];
       CarePlan:concern [
          a fhir:Resource;
-         a fhir:ConditionReference;
+         a fhir:Reference;
          Reference:reference <#p1>;
          Reference:display [
             a fhir:String; fhir:value "pregnancy"
@@ -80,12 +76,12 @@
             ];
             CodeableConcept:text [
                a fhir:string;
-               fhir:value "Mid Wife";
-            ];
+               fhir:value "Midwife";
+            ]
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
+            a fhir:Reference;
             Reference:reference <#pr1>;
             Reference:display [
                a fhir:String; fhir:value "Mavis Midwife"
@@ -109,11 +105,11 @@
             CodeableConcept:text [
                a fhir:string;
                fhir:value "Obstretitian";
-            ];
+            ]
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
+            a fhir:Reference;
             Reference:reference <#pr2>;
             Reference:display [
                a fhir:String; fhir:value "Oscar Obstetrician"
@@ -127,28 +123,6 @@
          ];
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "encounter";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "mySystem";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "1an";
-               ];
-            ];
-            CodeableConcept:text [
-               a fhir:string;
-               fhir:value "First Antenatal encounter";
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "scheduled";
@@ -157,56 +131,58 @@
             a fhir:boolean;
             fhir:value "false";
          ];
-         CarePlan:activity_timingSchedule [
-            a :Schedule;
-            Schedule:event [
-               a :Period;
-               Period:start [
-                  a fhir:dateTime;
-                  fhir:value "2013-02-14";
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "encounter";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "mySystem";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "1an";
+                  ];
                ];
-               Period:end [
-                  a fhir:dateTime;
-                  fhir:value "2013-02-28";
+               CodeableConcept:text [
+                  a fhir:string;
+                  fhir:value "First Antenatal encounter";
                ]
             ];
-         ];
-         CarePlan:activity_performer [
-            a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <#pr1>;
-            Reference:display [
-               a fhir:String; fhir:value "Mavis Midwife"
+            CarePlan:activity_simple_timingSchedule [
+               a :Schedule;
+               Schedule:event [
+                  a :Period;
+                  Period:start [
+                     a fhir:dateTime;
+                     fhir:value "2013-02-14";
+                  ];
+                  Period:end [
+                     a fhir:dateTime;
+                     fhir:value "2013-02-28";
+                  ]
+               ];
+            ];
+            CarePlan:activity_simple_performer [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <#pr1>;
+               Reference:display [
+                  a fhir:String; fhir:value "Mavis Midwife"
+               ]
+            ];
+            CarePlan:activity_simple_details [
+               a fhir:string;
+               fhir:value "The first antenatal encounter. This is where a detailed physical examination is performed.             and the pregnanacy discussed with the mother-to-be.";
             ]
-         ];
-         CarePlan:activity_details [
-            a fhir:string;
-            fhir:value "The first antenatal encounter. This is where a detailed physical examination is performed.             and the pregnanacy discussed with the mother-to-be.";
-         ];
+         ]
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "encounter";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "mySystem";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "an";
-               ];
-            ];
-            CodeableConcept:text [
-               a fhir:string;
-               fhir:value "Follow-up Antenatal encounter";
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "not started";
@@ -215,56 +191,58 @@
             a fhir:boolean;
             fhir:value "false";
          ];
-         CarePlan:activity_timingSchedule [
-            a :Schedule;
-            Schedule:event [
-               a :Period;
-               Period:start [
-                  a fhir:dateTime;
-                  fhir:value "2013-03-01";
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "encounter";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "mySystem";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "an";
+                  ];
                ];
-               Period:end [
-                  a fhir:dateTime;
-                  fhir:value "2013-03-14";
+               CodeableConcept:text [
+                  a fhir:string;
+                  fhir:value "Follow-up Antenatal encounter";
                ]
             ];
-         ];
-         CarePlan:activity_performer [
-            a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <#pr1>;
-            Reference:display [
-               a fhir:String; fhir:value "Mavis Midwife"
+            CarePlan:activity_simple_timingSchedule [
+               a :Schedule;
+               Schedule:event [
+                  a :Period;
+                  Period:start [
+                     a fhir:dateTime;
+                     fhir:value "2013-03-01";
+                  ];
+                  Period:end [
+                     a fhir:dateTime;
+                     fhir:value "2013-03-14";
+                  ]
+               ];
+            ];
+            CarePlan:activity_simple_performer [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <#pr1>;
+               Reference:display [
+                  a fhir:String; fhir:value "Mavis Midwife"
+               ]
+            ];
+            CarePlan:activity_simple_details [
+               a fhir:string;
+               fhir:value "The second antenatal encounter. Discuss any issues that arose from the first antenatal encounter";
             ]
-         ];
-         CarePlan:activity_details [
-            a fhir:string;
-            fhir:value "The second antenatal encounter. Discuss any issues that arose from the first antenatal encounter";
-         ];
+         ]
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "encounter";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "mySystem";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "del";
-               ];
-            ];
-            CodeableConcept:text [
-               a fhir:string;
-               fhir:value "Delivery";
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "not started";
@@ -273,31 +251,55 @@
             a fhir:boolean;
             fhir:value "false";
          ];
-         CarePlan:activity_timingSchedule [
-            a :Schedule;
-            Schedule:event [
-               a :Period;
-               Period:start [
-                  a fhir:dateTime;
-                  fhir:value "2013-09-01";
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "encounter";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "mySystem";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "del";
+                  ];
                ];
-               Period:end [
-                  a fhir:dateTime;
-                  fhir:value "2013-09-14";
+               CodeableConcept:text [
+                  a fhir:string;
+                  fhir:value "Delivery";
                ]
             ];
-         ];
-         CarePlan:activity_performer [
-            a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <#pr1>;
-            Reference:display [
-               a fhir:String; fhir:value "Mavis Midwife"
+            CarePlan:activity_simple_timingSchedule [
+               a :Schedule;
+               Schedule:event [
+                  a :Period;
+                  Period:start [
+                     a fhir:dateTime;
+                     fhir:value "2013-09-01";
+                  ];
+                  Period:end [
+                     a fhir:dateTime;
+                     fhir:value "2013-09-14";
+                  ]
+               ];
+            ];
+            CarePlan:activity_simple_performer [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <#pr1>;
+               Reference:display [
+                  a fhir:String; fhir:value "Mavis Midwife"
+               ]
+            ];
+            CarePlan:activity_simple_details [
+               a fhir:string;
+               fhir:value "The delivery.";
             ]
-         ];
-         CarePlan:activity_details [
-            a fhir:string;
-            fhir:value "The delivery.";
-         ];
+         ]
       ];
 .

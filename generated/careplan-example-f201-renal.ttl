@@ -1,8 +1,8 @@
 [] a :CarePlan;
       CarePlan:patient [
          a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@f201>;
+         a fhir:Reference;
+         Reference:reference <Patient/f201>;
          Reference:display [
             a fhir:String; fhir:value "Roel"
          ]
@@ -28,8 +28,8 @@
       ];
       CarePlan:concern [
          a fhir:Resource;
-         a fhir:ConditionReference;
-         Reference:reference <condition/@f204>;
+         a fhir:Reference;
+         Reference:reference <Condition/f204>;
          Reference:display [
             a fhir:String; fhir:value "Roel's renal insufficiency"
          ]
@@ -50,13 +50,13 @@
                Coding:display [
                   a fhir:string;
                   fhir:value "Review of care plan";
-               ]
+               ];
             ];
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <practitioner/@f201>;
+            a fhir:Reference;
+            Reference:reference <Practitioner/f201>;
             Reference:display [
                a fhir:String; fhir:value "Dokter Bronsig"
             ]
@@ -78,13 +78,13 @@
                Coding:display [
                   a fhir:string;
                   fhir:value "Carer";
-               ]
+               ];
             ];
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <practitioner/@f204>;
+            a fhir:Reference;
+            Reference:reference <Practitioner/f204>;
             Reference:display [
                a fhir:String; fhir:value "Nurse Carla Espinosa"
             ]
@@ -101,28 +101,6 @@
          ];
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "diet";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "http://snomed.info/id";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "284093001";
-               ];
-               Coding:display [
-                  a fhir:string;
-                  fhir:value "Potassium supplement";
-               ]
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "completed";
@@ -131,57 +109,59 @@
             a fhir:boolean;
             fhir:value "false";
          ];
-         CarePlan:activity_product [
-            a fhir:Resource;
-            a fhir:SubstanceReference;
-            Reference:reference <substance/@f203>;
-            Reference:display [
-               a fhir:String; fhir:value "Potassium"
-            ]
-         ];
-         CarePlan:activity_dailyAmount [
-            a :Quantity;
-            Quantity:value [
-               a fhir:decimal;
-               fhir:value "80";
-            ];
-            Quantity:units [
-               a fhir:string;
-               fhir:value "mmol";
-            ];
-            Quantity:system [
-               a fhir:uri;
-               fhir:value "http://snomed.info/id";
-            ];
-            Quantity:code [
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
                a fhir:code;
-               fhir:value "258718000";
-            ]
-         ];
+               fhir:value "diet";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "http://snomed.info/id";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "284093001";
+                  ];
+                  Coding:display [
+                     a fhir:string;
+                     fhir:value "Potassium supplement";
+                  ];
+               ];
+            ];
+            CarePlan:activity_simple_product [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <Substance/f203>;
+               Reference:display [
+                  a fhir:String; fhir:value "Potassium"
+               ]
+            ];
+            CarePlan:activity_simple_dailyAmount [
+               a :Quantity;
+               Quantity:value [
+                  a fhir:decimal;
+                  fhir:value "80";
+               ];
+               Quantity:units [
+                  a fhir:string;
+                  fhir:value "mmol";
+               ];
+               Quantity:system [
+                  a fhir:uri;
+                  fhir:value "http://snomed.info/id";
+               ];
+               Quantity:code [
+                  a fhir:code;
+                  fhir:value "258718000";
+               ]
+            ];
+         ]
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "observation";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "http://snomed.info/id";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "306005";
-               ];
-               Coding:display [
-                  a fhir:string;
-                  fhir:value "Echography of the kidney";
-               ]
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "completed";
@@ -190,5 +170,29 @@
             a fhir:boolean;
             fhir:value "false";
          ];
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "observation";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "http://snomed.info/id";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "306005";
+                  ];
+                  Coding:display [
+                     a fhir:string;
+                     fhir:value "Echography of the kidney";
+                  ];
+               ];
+            ];
+         ]
       ];
 .

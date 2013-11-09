@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><CarePlan xmlns="http://hl7.org/fhir">
     <!--  an extension to record the LMP, which is required at the plan level...  -->
-    <extension>
-        <url value="http://exampleDoNotUse/careplan#lmp"/>
+    <extension url="http://exampleDoNotUse/careplan#lmp">
         <valueDateTime value="2013-01-01"/>
     </extension>
  
@@ -17,8 +16,7 @@
     <contained>
       <Condition id="p1">
         <subject>
-          <type value="Patient"/>
-          <reference value="patient/@1"/>
+          <reference value="Patient/1"/>
           <display value="Eve Everywoman"/>
         </subject>
         <code>
@@ -50,8 +48,7 @@
       </Practitioner>
     </contained>
     <patient>
-        <type value="Patient"/>
-        <reference value="patient/@1"/>
+        <reference value="Patient/1"/>
         <display value="Eve Everywoman"/>
     </patient>
     <status value="active"/>
@@ -61,7 +58,6 @@
         <end value="2013-10-01"/>
     </period>
     <concern>
-        <type value="Condition"/>
         <reference value="#p1"/>
         <display value="pregnancy"/>
     </concern>
@@ -73,11 +69,10 @@
                 <system value="mySys"/>
                 <code value="lmc"/>
             </coding>
-            <text value="Mid Wife"/>
+            <text value="Midwife"/>
         </role>
         <member>
             <!--  This links to the clincian resource, so we get all the stuff related to that like address, contact etc...  -->
-            <type value="Practitioner"/>
             <reference value="#pr1"/>
             <display value="Mavis Midwife"/>
         </member>
@@ -93,7 +88,6 @@
         </role>
         <member>
             <!--  This links to the clincian resource, so we get all tha stuff related to that like address, contact etc...  -->
-            <type value="Practitioner"/>
             <reference value="#pr2"/>
             <display value="Oscar Obstetrician"/>
         </member>
@@ -105,11 +99,13 @@
         <!--  This will be the first antenatal encounter  -->
         
         <!--  a link to further details about the first antenatal details  -->
-        <extension>
-            <url value="http://exampleDoNotUse/careplan#andetails"/>
+        <extension url="http://exampleDoNotUse/careplan#andetails">
             <valueUri value="http://orionhealth.com/fhir/careplan/1andetails"/>
         </extension>
         
+        <status value="scheduled"/>
+        <prohibited value="false"/>
+        <simple>
         <category value="encounter"/>
         <code>
             <coding>
@@ -118,8 +114,6 @@
             </coding>
             <text value="First Antenatal encounter"/>
         </code>
-        <status value="scheduled"/>
-        <prohibited value="false"/>
         <timingSchedule>
             <!--  The encounter should occur between 14 feb and 28 feb  -->
             <event>
@@ -128,7 +122,6 @@
             </event>
         </timingSchedule>
         <performer>
-            <type value="Practitioner"/>
             <reference value="#pr1"/>
             <display value="Mavis Midwife"/>
         </performer>
@@ -137,13 +130,16 @@
         This entry is only made after the appointment (a planned encounter) has been made.
         Commented out for now because Encounter hasn't been defined yet
         <actionTaken>
-            <type value="Encounter"></type>
             <url value="xxx"/>
             <display value="Appointment with Mavis midwife @12.30pm, 112 St albans Ave"/>
         </actionTaken> -->
+        </simple>
     </activity>
     
     <activity>
+        <status value="not started"/>
+        <prohibited value="false"/>
+        <simple>
         <!--  This will be the second antenatal encounter - 3 months after LMP. It is not yet scheduled.  -->
         <category value="encounter"/>
         <code>
@@ -154,8 +150,6 @@
             </coding>
             <text value="Follow-up Antenatal encounter"/>           
         </code>
-        <status value="not started"/>
-        <prohibited value="false"/>
         <timingSchedule>
             <!--  The encounter should occur between 1 march and 14 march  -->
             <event>
@@ -165,11 +159,11 @@
         </timingSchedule>
         <performer>
             <!--  The performer is known, but the actual appointment is not yet made, hence there is no action element...  -->
-            <type value="Practitioner"/>
             <reference value="#pr1"/>
             <display value="Mavis Midwife"/>
         </performer>
         <details value="The second antenatal encounter. Discuss any issues that arose from the first antenatal encounter"/>
+        </simple>
     </activity>
     <!--  
         There would be a number of other encounters to be scheduled here... 
@@ -179,6 +173,9 @@
      -->
     
     <activity>
+        <status value="not started"/>
+        <prohibited value="false"/>
+        <simple>
         <!--  This will be the delivery. It is not yet scheduled.  -->
         <category value="encounter"/>
         <code>
@@ -189,8 +186,6 @@
             <text value="Delivery"/>
             
         </code>
-        <status value="not started"/>
-        <prohibited value="false"/>
         <timingSchedule>
             <!--  The delivery should occur between 1 september and 14 september  -->
             <event>
@@ -201,17 +196,16 @@
         <!--  Where the delivery is to occur... 
           Commented out for now because location resource isn't defined
         <location>
-            <type value="Location"></type>
             <url value="loc100"/>
             <display value="St Albans delivery suite"/>
         </location> -->
         <performer>
             <!--  The intention is that Maris will be perfroming the delivery...  -->
-            <type value="Practitioner"/>
             <reference value="#pr1"/>
             <display value="Mavis Midwife"/>
         </performer>
         <details value="The delivery."/>
+        </simple>
     </activity>
     
     

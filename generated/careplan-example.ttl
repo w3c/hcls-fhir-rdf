@@ -23,8 +23,8 @@
       ];
       CarePlan:patient [
          a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@example>;
+         a fhir:Reference;
+         Reference:reference <Patient/example>;
          Reference:display [
             a fhir:String; fhir:value "Peter James Chalmers"
          ]
@@ -42,7 +42,7 @@
       ];
       CarePlan:concern [
          a fhir:Resource;
-         a fhir:ConditionReference;
+         a fhir:Reference;
          Reference:reference <#p1>;
          Reference:display [
             a fhir:String; fhir:value "obesity"
@@ -54,12 +54,12 @@
             CodeableConcept:text [
                a fhir:string;
                fhir:value "responsiblePerson";
-            ];
+            ]
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PatientReference;
-            Reference:reference <patient/@example>;
+            a fhir:Reference;
+            Reference:reference <Patient/example>;
             Reference:display [
                a fhir:String; fhir:value "Peter James Chalmers"
             ]
@@ -71,11 +71,11 @@
             CodeableConcept:text [
                a fhir:string;
                fhir:value "adviser";
-            ];
+            ]
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
+            a fhir:Reference;
             Reference:reference <#pr1>;
             Reference:display [
                a fhir:String; fhir:value "Dorothy Dietition"
@@ -89,45 +89,47 @@
          ];
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "observation";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:text [
-               a fhir:string;
-               fhir:value "a code for weight measurement";
-            ];
-         ];
          CarePlan:activity_prohibited [
             a fhir:boolean;
             fhir:value "false";
          ];
-         CarePlan:activity_timingSchedule [
-            a :Schedule;
-            Schedule:repeat [
-               Schedule:repeat_frequency [
-                  a fhir:integer;
-                  fhir:value "1";
-               ];
-               Schedule:repeat_duration [
-                  a fhir:decimal;
-                  fhir:value "1";
-               ];
-               Schedule:repeat_units [
-                  a fhir:code;
-                  fhir:value "d";
-               ];
-            ]
-         ];
-         CarePlan:activity_performer [
-            a fhir:Resource;
-            a fhir:PatientReference;
-            Reference:reference <patient/@example>;
-            Reference:display [
-               a fhir:String; fhir:value "Peter James Chalmers"
-            ]
-         ];
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "observation";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:text [
+                  a fhir:string;
+                  fhir:value "a code for weight measurement";
+               ]
+            ];
+            CarePlan:activity_simple_timingSchedule [
+               a :Schedule;
+               Schedule:repeat [
+                  Schedule:repeat_frequency [
+                     a fhir:integer;
+                     fhir:value "1";
+                  ];
+                  Schedule:repeat_duration [
+                     a fhir:decimal;
+                     fhir:value "1";
+                  ];
+                  Schedule:repeat_units [
+                     a fhir:code;
+                     fhir:value "d";
+                  ];
+               ]
+            ];
+            CarePlan:activity_simple_performer [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <Patient/example>;
+               Reference:display [
+                  a fhir:String; fhir:value "Peter James Chalmers"
+               ]
+            ];
+         ]
       ];
 .

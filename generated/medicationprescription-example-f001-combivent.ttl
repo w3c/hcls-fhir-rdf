@@ -9,7 +9,7 @@
             a fhir:uri;
             fhir:value "http://www.bmc/portal/prescriptions";
          ];
-         Identifier:key [
+         Identifier:value [
             a fhir:string;
             fhir:value "order9837293";
          ];
@@ -24,29 +24,29 @@
       ];
       MedicationPrescription:patient [
          a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@f001>;
+         a fhir:Reference;
+         Reference:reference <Patient/f001>;
          Reference:display [
             a fhir:String; fhir:value "P. van den Heuvel"
          ]
       ];
       MedicationPrescription:prescriber [
          a fhir:Resource;
-         a fhir:PractitionerReference;
-         Reference:reference <practitioner/@f006>;
+         a fhir:Reference;
+         Reference:reference <Practitioner/f006>;
          Reference:display [
             a fhir:String; fhir:value "R.A. van den Berk"
          ]
       ];
       MedicationPrescription:encounter [
          a fhir:Resource;
-         a fhir:EncounterReference;
-         Reference:reference <encounter/@f001>;
+         a fhir:Reference;
+         Reference:reference <Encounter/f001>;
          Reference:display [
             a fhir:String; fhir:value "visit who leads to this priscription"
          ]
       ];
-      MedicationPrescription:reasonForPrescribingCodeableConcept [
+      MedicationPrescription:reasonForPrescribing [
          a :CodeableConcept;
          CodeableConcept:coding [
             a :Coding;
@@ -61,13 +61,13 @@
             Coding:display [
                a fhir:string;
                fhir:value "Chronic obstructive pulmonary disease";
-            ]
+            ];
          ];
       ];
       MedicationPrescription:medication [
          a fhir:Resource;
-         a fhir:MedicationReference;
-         Reference:reference <medication/@f001>;
+         a fhir:Reference;
+         Reference:reference <Medication/f001>;
          Reference:display [
             a fhir:String; fhir:value "prescribed medication"
          ]
@@ -76,6 +76,13 @@
          MedicationPrescription:dosageInstruction_dosageInstructionsText [
             a fhir:string;
             fhir:value "3 tot 4 maal daags 1 flacon";
+         ];
+         MedicationPrescription:dosageInstruction_additionalInstructions [
+            a :CodeableConcept;
+            CodeableConcept:text [
+               a fhir:string;
+               fhir:value "for use during pregnancy, contact physician";
+            ]
          ];
          MedicationPrescription:dosageInstruction_timingSchedule [
             a :Schedule;
@@ -120,7 +127,7 @@
                Coding:display [
                   a fhir:string;
                   fhir:value "Entire oral cavity";
-               ]
+               ];
             ];
          ];
          MedicationPrescription:dosageInstruction_route [
@@ -138,7 +145,7 @@
                Coding:display [
                   a fhir:string;
                   fhir:value "oral administration of treatment";
-               ]
+               ];
             ];
          ];
          MedicationPrescription:dosageInstruction_doseQuantity [

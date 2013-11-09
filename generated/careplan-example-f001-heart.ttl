@@ -9,15 +9,15 @@
             a fhir:uri;
             fhir:value "http://www.bmc.nl/zorgportal/identifiers/careplans";
          ];
-         Identifier:key [
+         Identifier:value [
             a fhir:string;
             fhir:value "CP2903";
          ];
       ];
       CarePlan:patient [
          a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@f001>;
+         a fhir:Reference;
+         Reference:reference <Patient/f001>;
          Reference:display [
             a fhir:String; fhir:value "P. van de Heuvel"
          ]
@@ -43,8 +43,8 @@
       ];
       CarePlan:concern [
          a fhir:Resource;
-         a fhir:ConditionReference;
-         Reference:reference <condition/@f201>;
+         a fhir:Reference;
+         Reference:reference <Condition/f201>;
          Reference:display [
             a fhir:String; fhir:value "?????"
          ]
@@ -52,8 +52,8 @@
       CarePlan:participant [
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <practitioner/@f002>;
+            a fhir:Reference;
+            Reference:reference <Practitioner/f002>;
             Reference:display [
                a fhir:String; fhir:value "P. Voigt"
             ]
@@ -71,31 +71,9 @@
          CarePlan:goal_notes [
             a fhir:string;
             fhir:value "goal accomplished without complications";
-         ]
+         ];
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "procedure";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "http://snomed.info/id";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "64915003";
-               ];
-               Coding:display [
-                  a fhir:string;
-                  fhir:value " Operative procedure on heart";
-               ]
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "completed";
@@ -104,13 +82,37 @@
             a fhir:boolean;
             fhir:value "true";
          ];
-         CarePlan:activity_performer [
-            a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <practitioner/@f002>;
-            Reference:display [
-               a fhir:String; fhir:value "P. Voigt"
-            ]
-         ];
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "procedure";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "http://snomed.info/id";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "64915003";
+                  ];
+                  Coding:display [
+                     a fhir:string;
+                     fhir:value " Operative procedure on heart";
+                  ];
+               ];
+            ];
+            CarePlan:activity_simple_performer [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <Practitioner/f002>;
+               Reference:display [
+                  a fhir:String; fhir:value "P. Voigt"
+               ]
+            ];
+         ]
       ];
 .

@@ -6,8 +6,8 @@
       ];
       CarePlan:patient [
          a fhir:Resource;
-         a fhir:PatientReference;
-         Reference:reference <patient/@f201>;
+         a fhir:Reference;
+         Reference:reference <Patient/f201>;
          Reference:display [
             a fhir:String; fhir:value "Roel"
          ]
@@ -18,8 +18,8 @@
       ];
       CarePlan:concern [
          a fhir:Resource;
-         a fhir:ConditionReference;
-         Reference:reference <condition/@f202>;
+         a fhir:Reference;
+         Reference:reference <Condition/f202>;
          Reference:display [
             a fhir:String; fhir:value "Roel's head-neck tumor"
          ]
@@ -40,13 +40,13 @@
                Coding:display [
                   a fhir:string;
                   fhir:value "Treated by";
-               ]
+               ];
             ];
          ];
          CarePlan:participant_member [
             a fhir:Resource;
-            a fhir:PractitionerReference;
-            Reference:reference <practitioner/@f201>;
+            a fhir:Reference;
+            Reference:reference <Practitioner/f201>;
             Reference:display [
                a fhir:String; fhir:value "Dokter Bronsig"
             ]
@@ -63,28 +63,6 @@
          ];
       ];
       CarePlan:activity [
-         CarePlan:activity_category [
-            a fhir:code;
-            fhir:value "procedure";
-         ];
-         CarePlan:activity_code [
-            a :CodeableConcept;
-            CodeableConcept:coding [
-               a :Coding;
-               Coding:system [
-                  a fhir:uri;
-                  fhir:value "http://snomed.info/id";
-               ];
-               Coding:code [
-                  a fhir:code;
-                  fhir:value "367336001";
-               ];
-               Coding:display [
-                  a fhir:string;
-                  fhir:value "Chemotherapy";
-               ]
-            ];
-         ];
          CarePlan:activity_status [
             a fhir:code;
             fhir:value "ongoing";
@@ -93,18 +71,42 @@
             a fhir:boolean;
             fhir:value "false";
          ];
-         CarePlan:activity_product [
+         CarePlan:activity_actionResulting [
             a fhir:Resource;
-            a fhir:MedicationReference;
-            Reference:reference <#tpf>;
-         ];
-         CarePlan:activity_actionTaken [
-            a fhir:Resource;
-            a fhir:ProcedureReference;
-            Reference:reference <procedure/@f201>;
+            a fhir:Reference;
+            Reference:reference <Procedure/f201>;
             Reference:display [
                a fhir:String; fhir:value "Roel's Chemotherapy"
             ]
          ];
+         CarePlan:activity_simple [
+            CarePlan:activity_simple_category [
+               a fhir:code;
+               fhir:value "procedure";
+            ];
+            CarePlan:activity_simple_code [
+               a :CodeableConcept;
+               CodeableConcept:coding [
+                  a :Coding;
+                  Coding:system [
+                     a fhir:uri;
+                     fhir:value "http://snomed.info/id";
+                  ];
+                  Coding:code [
+                     a fhir:code;
+                     fhir:value "367336001";
+                  ];
+                  Coding:display [
+                     a fhir:string;
+                     fhir:value "Chemotherapy";
+                  ];
+               ];
+            ];
+            CarePlan:activity_simple_product [
+               a fhir:Resource;
+               a fhir:Reference;
+               Reference:reference <#tpf>;
+            ];
+         ]
       ];
 .
