@@ -3,7 +3,10 @@
      simultanously hopping around a build-in XML structure describing
      each FHIR path and its associated types + sub-propeties ($context param)
      We kick things off from the XML root element... -->
-<xsl:template match="*">
+<xsl:template match="/*">
+    <xsl:call-template name="addPrefixes">
+        <xsl:with-param name="name" select="name()"/>
+    </xsl:call-template>
     <xsl:call-template name="FhirElement">
         <xsl:with-param name="depth" select="0"/>
         <xsl:with-param name="this" select="."/>
@@ -22,6 +25,54 @@
     </xsl:if>
 </xsl:template>
 
+<!-- called with any f:extension elements anywhere, anytime, you name it, buddy.
+change
+      from:                                    to:
+  <extension isModifier="true">           <http://...plus> [
+    <url value="http://...plus"/>            a fhir:modified_integer;
+    <valueInteger value="2"/>                <http://...times> [
+    <extension isModifier="true">               a fhir:modified_integer;
+      <url value="http://...times"/>            fhir:value "5";
+      <valueInteger value="5"/>              ];
+    </extension>                             fhir:modifiedBy <http://...times>;
+  </extension>                               fhir:value "2";
+                                          ];
+                                          fhir:modifiedBy <http://...plus>;
+ -->
+<xsl:template name="extension">
+  <xsl:param name="depth"/>
+  <xsl:param name="this"/>
+
+  <!-- find the (one) value element, e.g. f:valueInteger -->
+  <xsl:for-each select="*[substring(name(), 1, 5)='value']">
+
+    <!-- change 'f:valueInteger' into 'integer' -->
+    <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1),
+				                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+				                       'abcdefghijklmnopqrstuvwxyz'),
+				             substring(name(), 7))"/>
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+
+    <!-- <http://...plus> [ -->
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="../f:url/@value"/><xsl:text>&gt; [</xsl:text>
+    <xsl:call-template name="FhirElement">
+      <xsl:with-param name="depth" select="$depth+1"/>
+      <xsl:with-param name="this" select="."/>
+      <xsl:with-param name="context" select="$type"/>
+    </xsl:call-template>
+    <!-- ]; -->
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:text>];&#10;</xsl:text>
+  </xsl:for-each>
+
+  <xsl:if test="@isModifier='true'">
+    <!-- fhir:modifiedBy <http://...plus>; -->
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:value-of select="'fhir:modifiedBy '"/>
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt;;&#10;</xsl:text>
+  </xsl:if>
+</xsl:template>
+
 <xsl:template name="FhirElement">
 
     <!-- mainly just indentation bookkeeping -->
@@ -35,7 +86,7 @@
 
     <!-- XSLT makes meta-programming a drag.  But here, we look up the relevant node in our FHIR 
          definitions, keying off of the $context param (which is a fhir_path value) --> 
-    <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[.=$context]/.."/>
+    <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[text()=$context]/.."/>
 
     <!-- Type of the current element. Type can be null (for internal nodes) -->
     <xsl:variable name="def.type" select="$def/type"/>
@@ -56,8 +107,17 @@
             <xsl:text>&#10;</xsl:text>
             <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
             <xsl:text>a fhir:</xsl:text>
+	    <xsl:if test="../@isModifier='true'">
+	      <xsl:text>modifying_</xsl:text> <!-- a modifying_integer -->
+	    </xsl:if>
             <xsl:value-of select="$context"/>
             <xsl:text>;&#10;</xsl:text>
+	    <xsl:for-each select="../f:extension">
+	      <xsl:call-template name="extension">
+		<xsl:with-param name="depth" select="$depth"/>
+		<xsl:with-param name="this" select="."/>
+	      </xsl:call-template>
+	    </xsl:for-each>		
             <xsl:if test="$context = 'Resource'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
@@ -110,6 +170,12 @@
                 <xsl:text>;&#10;</xsl:text>
             </xsl:if>
 
+	    <xsl:for-each select="f:extension">
+	      <xsl:call-template name="extension">
+		<xsl:with-param name="depth" select="$depth"/>
+		<xsl:with-param name="this" select="."/>
+	      </xsl:call-template>
+	    </xsl:for-each>		
             <!-- Iterate over defined subproperties, making a recursive application of FhirElement -->
             <xsl:for-each select="$def.subs">
 
@@ -139,7 +205,15 @@
 
 
                     <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
-                    <xsl:value-of select="$predicate"/>
+		    <xsl:choose>
+		      <xsl:when test="f:extension//@isModifier='true'">
+			<!-- <Resource>:modified_<Property>  -->
+			<xsl:value-of select="concat(substring-before($predicate, ':'),
+					      ':modified_',
+					      substring-after($predicate, ':'))"/>
+		      </xsl:when>
+		      <xsl:otherwise><xsl:value-of select="$predicate"/></xsl:otherwise>
+		    </xsl:choose>
                     <xsl:text> </xsl:text> 
                     <xsl:variable name="subcontext">
                         <xsl:choose>
@@ -207,6 +281,27 @@
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:if>
+  </xsl:template>
+
+  <!-- prefix for this resource plus library types. -->
+  <xsl:template name="addPrefixes">
+    <xsl:param name="name"/>
+    <div>
+      <pre class="machine" style="font-size:small">@prefix <xsl:value-of select="$name"/>: &lt;http://hl7/org/fhir/<xsl:value-of select="$name"/>#&gt; .
+@prefix fhir: &lt;http://hl7/org/fhir/&gt; .
+@prefix Narrative: &lt;http://hl7/org/fhir/Narrative#&gt; .
+@prefix Observation: &lt;http://hl7/org/fhir/Observation#&gt; .
+@prefix Quantity: &lt;http://hl7/org/fhir/Quantity#&gt; .
+@prefix Resource: &lt;http://hl7/org/fhir/Resource#&gt; .
+@prefix Reference: &lt;http://hl7/org/fhir/Reference#&gt; .
+@prefix Range: &lt;http://hl7/org/fhir/Range#&gt; .
+@prefix Codeable: &lt;http://hl7/org/fhir/Codeable#&gt; .
+@prefix Coding: &lt;http://hl7/org/fhir/Coding#&gt; .
+@prefix xhtml: &lt;http://www.w3.org/1999/xhtml&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema&gt; .
+@base &lt;http://this-fhir-server/fhir/&gt; .
+</pre>
+    </div>
   </xsl:template>
 
 </xsl:stylesheet>

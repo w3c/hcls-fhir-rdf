@@ -27,7 +27,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Profile.extensionDefn.modifierExtension</fhir_path>
+		<fhir_path>Order.reason.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -44,7 +44,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.reported.extension</fhir_path>
+		<fhir_path>Location.active.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -81,7 +81,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Location.active.extension</fhir_path>
+		<fhir_path>Immunization.reported.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -91,7 +91,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.messaging.reliableCache.extension</fhir_path>
+		<fhir_path>Conformance.rest.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -159,54 +159,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.container</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.container.modifierExtension</fhir_path>
-				<predicate>Specimen:container_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container.identifier</fhir_path>
-				<predicate>Specimen:container_identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container.description</fhir_path>
-				<predicate>Specimen:container_description</predicate>
-				<relative_xpath>f:description</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container.type</fhir_path>
-				<predicate>Specimen:container_type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container.capacity</fhir_path>
-				<predicate>Specimen:container_capacity</predicate>
-				<relative_xpath>f:capacity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container.specimenQuantity</fhir_path>
-				<predicate>Specimen:container_specimenQuantity</predicate>
-				<relative_xpath>f:specimenQuantity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container.additive</fhir_path>
-				<predicate>Specimen:container_additive</predicate>
-				<relative_xpath>f:additive</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>Group.characteristic.code</fhir_path>
 		<subs>
 			<sub>
@@ -224,7 +176,37 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.formal.extension</fhir_path>
+		<fhir_path>Message.response</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.response.modifierExtension</fhir_path>
+				<predicate>Message:response_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Message.response.identifier</fhir_path>
+				<predicate>Message:response_identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>id</type>
+			</sub>
+			<sub>
+				<fhir_path>Message.response.code</fhir_path>
+				<predicate>Message:response_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Message.response.details</fhir_path>
+				<predicate>Message:response_details</predicate>
+				<relative_xpath>f:details</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
+	</path>
+	<path>
+		<fhir_path>SecurityEvent.participant.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -367,15 +349,8 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.compose.include.version</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ValueSet.compose.include.version.extension</fhir_path>
-				<predicate>ValueSet:compose_include_version_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
+		<fhir_path>Address.city</fhir_path>
+		<subs/>
 		<type>string</type>
 	</path>
 	<path>
@@ -384,16 +359,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.define.version</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ValueSet.define.version.extension</fhir_path>
-				<predicate>ValueSet:define_version_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>Specimen.container.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.treatment.description</fhir_path>
@@ -459,7 +427,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.binding.modifierExtension</fhir_path>
+		<fhir_path>MedicationDispense.substitution.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -488,28 +456,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.text</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Questionnaire.question.text.extension</fhir_path>
-				<predicate>Questionnaire:question_text_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.participant.type</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Encounter.participant.type.extension</fhir_path>
-				<predicate>Encounter:participant_type_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>ValueSet.define.version.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DeviceLog.modifierExtension</fhir_path>
@@ -537,16 +486,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.container.type</fhir_path>
+		<fhir_path>SecurityEvent.event.outcomeDesc</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Specimen.container.type.extension</fhir_path>
-				<predicate>Specimen:container_type_extension</predicate>
+				<fhir_path>SecurityEvent.event.outcomeDesc.extension</fhir_path>
+				<predicate>SecurityEvent:event_outcomeDesc_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Coding.system</fhir_path>
@@ -559,18 +508,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.measurement</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceObservation.measurement.extension</fhir_path>
-				<predicate>DeviceObservation:measurement_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
-	</path>
-	<path>
 		<fhir_path>ConceptMap.concept.name.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -581,14 +518,26 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
+		<fhir_path>Conformance.fhirVersion</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.fhirVersion.extension</fhir_path>
+				<predicate>Conformance:fhirVersion_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>id</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.answerinteger</fhir_path>
+		<fhir_path>Profile.extensionDefn.modifierExtension</fhir_path>
 		<subs/>
-		<type>integer</type>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Profile.extensionDefn.code.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.group.header.extension</fhir_path>
@@ -596,19 +545,123 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Observation.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
+		<fhir_path>DeviceLog.item.value</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceLog.item.value.extension</fhir_path>
+				<predicate>DeviceLog:item_value_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Observation.referenceRange.rangeExtension.extension</fhir_path>
+		<fhir_path>ImagingStudy.url.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Identifier.system</fhir_path>
-		<subs/>
-		<type>uri</type>
+		<fhir_path>MedicationAdministration</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationAdministration.extension</fhir_path>
+				<predicate>MedicationAdministration:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.modifierExtension</fhir_path>
+				<predicate>MedicationAdministration:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.text</fhir_path>
+				<predicate>MedicationAdministration:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.contained</fhir_path>
+				<predicate>MedicationAdministration:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.identifier</fhir_path>
+				<predicate>MedicationAdministration:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.status</fhir_path>
+				<predicate>MedicationAdministration:status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.patient</fhir_path>
+				<predicate>MedicationAdministration:patient</predicate>
+				<relative_xpath>f:patient</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.practitioner</fhir_path>
+				<predicate>MedicationAdministration:practitioner</predicate>
+				<relative_xpath>f:practitioner</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.encounter</fhir_path>
+				<predicate>MedicationAdministration:encounter</predicate>
+				<relative_xpath>f:encounter</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.prescription</fhir_path>
+				<predicate>MedicationAdministration:prescription</predicate>
+				<relative_xpath>f:prescription</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.wasNotGiven</fhir_path>
+				<predicate>MedicationAdministration:wasNotGiven</predicate>
+				<relative_xpath>f:wasNotGiven</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.reasonNotGiven</fhir_path>
+				<predicate>MedicationAdministration:reasonNotGiven</predicate>
+				<relative_xpath>f:reasonNotGiven</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.whenGiven</fhir_path>
+				<predicate>MedicationAdministration:whenGiven</predicate>
+				<relative_xpath>f:whenGiven</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.medication</fhir_path>
+				<predicate>MedicationAdministration:medication</predicate>
+				<relative_xpath>f:medication</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.administrationDevice</fhir_path>
+				<predicate>MedicationAdministration:administrationDevice</predicate>
+				<relative_xpath>f:administrationDevice</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationAdministration.dosage</fhir_path>
+				<predicate>MedicationAdministration:dosage</predicate>
+				<relative_xpath>f:dosage</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type>MedicationAdministration</type>
 	</path>
 	<path>
 		<fhir_path>Alert.status.extension</fhir_path>
@@ -856,14 +909,33 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Condition.dateAsserted.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>DeviceObservation.measurement</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceObservation.measurement.extension</fhir_path>
+				<predicate>DeviceObservation:measurement_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Identifier.value</fhir_path>
 		<subs/>
 		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>ValueSet.expansion.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ValueSet.expansion.identifier.extension</fhir_path>
+				<predicate>ValueSet:expansion_identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel.code.extension</fhir_path>
@@ -886,9 +958,112 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Medication.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ConceptMap</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ConceptMap.extension</fhir_path>
+				<predicate>ConceptMap:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.modifierExtension</fhir_path>
+				<predicate>ConceptMap:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.text</fhir_path>
+				<predicate>ConceptMap:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.contained</fhir_path>
+				<predicate>ConceptMap:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.identifier</fhir_path>
+				<predicate>ConceptMap:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.version</fhir_path>
+				<predicate>ConceptMap:version</predicate>
+				<relative_xpath>f:version</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.name</fhir_path>
+				<predicate>ConceptMap:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.publisher</fhir_path>
+				<predicate>ConceptMap:publisher</predicate>
+				<relative_xpath>f:publisher</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.telecom</fhir_path>
+				<predicate>ConceptMap:telecom</predicate>
+				<relative_xpath>f:telecom</relative_xpath>
+				<type>Contact</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.description</fhir_path>
+				<predicate>ConceptMap:description</predicate>
+				<relative_xpath>f:description</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.copyright</fhir_path>
+				<predicate>ConceptMap:copyright</predicate>
+				<relative_xpath>f:copyright</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.status</fhir_path>
+				<predicate>ConceptMap:status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.experimental</fhir_path>
+				<predicate>ConceptMap:experimental</predicate>
+				<relative_xpath>f:experimental</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.date</fhir_path>
+				<predicate>ConceptMap:date</predicate>
+				<relative_xpath>f:date</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.source</fhir_path>
+				<predicate>ConceptMap:source</predicate>
+				<relative_xpath>f:source</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.target</fhir_path>
+				<predicate>ConceptMap:target</predicate>
+				<relative_xpath>f:target</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>ConceptMap.concept</fhir_path>
+				<predicate>ConceptMap:concept</predicate>
+				<relative_xpath>f:concept</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type>ConceptMap</type>
 	</path>
 	<path>
 		<fhir_path>Other.author.extension</fhir_path>
@@ -906,14 +1081,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.simple.details.extension</fhir_path>
+		<fhir_path>List.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.period.extension</fhir_path>
+		<fhir_path>Group.contained</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.subject.extension</fhir_path>
@@ -1010,7 +1185,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>DeviceCapabilities</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.results.group.extension</fhir_path>
+		<fhir_path>Order.authority.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -1154,23 +1329,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.status</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Encounter.status.extension</fhir_path>
-				<predicate>Encounter:status_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
-	</path>
-	<path>
-		<fhir_path>AllergyIntolerance.recorder.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Procedure.performer.role</fhir_path>
 		<subs>
 			<sub>
@@ -1234,154 +1392,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Condition</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Condition.extension</fhir_path>
-				<predicate>Condition:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.modifierExtension</fhir_path>
-				<predicate>Condition:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.text</fhir_path>
-				<predicate>Condition:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.contained</fhir_path>
-				<predicate>Condition:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.identifier</fhir_path>
-				<predicate>Condition:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.subject</fhir_path>
-				<predicate>Condition:subject</predicate>
-				<relative_xpath>f:subject</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.encounter</fhir_path>
-				<predicate>Condition:encounter</predicate>
-				<relative_xpath>f:encounter</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.asserter</fhir_path>
-				<predicate>Condition:asserter</predicate>
-				<relative_xpath>f:asserter</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.dateAsserted</fhir_path>
-				<predicate>Condition:dateAsserted</predicate>
-				<relative_xpath>f:dateAsserted</relative_xpath>
-				<type>date</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.code</fhir_path>
-				<predicate>Condition:code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.category</fhir_path>
-				<predicate>Condition:category</predicate>
-				<relative_xpath>f:category</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.status</fhir_path>
-				<predicate>Condition:status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.certainty</fhir_path>
-				<predicate>Condition:certainty</predicate>
-				<relative_xpath>f:certainty</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.severity</fhir_path>
-				<predicate>Condition:severity</predicate>
-				<relative_xpath>f:severity</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.onsetdate</fhir_path>
-				<predicate>Condition:onsetdate</predicate>
-				<relative_xpath>f:onsetdate</relative_xpath>
-				<type>date</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.onsetAge</fhir_path>
-				<predicate>Condition:onsetAge</predicate>
-				<relative_xpath>f:onsetAge</relative_xpath>
-				<type>Age</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.abatementdate</fhir_path>
-				<predicate>Condition:abatementdate</predicate>
-				<relative_xpath>f:abatementdate</relative_xpath>
-				<type>date</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.abatementAge</fhir_path>
-				<predicate>Condition:abatementAge</predicate>
-				<relative_xpath>f:abatementAge</relative_xpath>
-				<type>Age</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.abatementboolean</fhir_path>
-				<predicate>Condition:abatementboolean</predicate>
-				<relative_xpath>f:abatementboolean</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>Condition.stage</fhir_path>
-				<predicate>Condition:stage</predicate>
-				<relative_xpath>f:stage</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Condition.evidence</fhir_path>
-				<predicate>Condition:evidence</predicate>
-				<relative_xpath>f:evidence</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Condition.location</fhir_path>
-				<predicate>Condition:location</predicate>
-				<relative_xpath>f:location</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Condition.relatedItem</fhir_path>
-				<predicate>Condition:relatedItem</predicate>
-				<relative_xpath>f:relatedItem</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Condition.notes</fhir_path>
-				<predicate>Condition:notes</predicate>
-				<relative_xpath>f:notes</relative_xpath>
-				<type>string</type>
-			</sub>
-		</subs>
-		<type>Condition</type>
+		<fhir_path>ValueSet.date.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.dispense.whenHandedOver</fhir_path>
@@ -1425,34 +1438,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Message.response</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.response.modifierExtension</fhir_path>
-				<predicate>Message:response_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Message.response.identifier</fhir_path>
-				<predicate>Message:response_identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>id</type>
-			</sub>
-			<sub>
-				<fhir_path>Message.response.code</fhir_path>
-				<predicate>Message:response_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Message.response.details</fhir_path>
-				<predicate>Message:response_details</predicate>
-				<relative_xpath>f:details</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Profile.structure.element.definition.formal.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Location.description.extension</fhir_path>
@@ -1516,70 +1504,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Coding</type>
 	</path>
 	<path>
-		<fhir_path>Supply</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Supply.extension</fhir_path>
-				<predicate>Supply:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.modifierExtension</fhir_path>
-				<predicate>Supply:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.text</fhir_path>
-				<predicate>Supply:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.contained</fhir_path>
-				<predicate>Supply:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.name</fhir_path>
-				<predicate>Supply:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.identifier</fhir_path>
-				<predicate>Supply:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.status</fhir_path>
-				<predicate>Supply:status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.orderedItem</fhir_path>
-				<predicate>Supply:orderedItem</predicate>
-				<relative_xpath>f:orderedItem</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.patient</fhir_path>
-				<predicate>Supply:patient</predicate>
-				<relative_xpath>f:patient</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Supply.dispense</fhir_path>
-				<predicate>Supply:dispense</predicate>
-				<relative_xpath>f:dispense</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type>Supply</type>
+		<fhir_path>Substance.ingredient.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Media.width.extension</fhir_path>
@@ -1668,21 +1595,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.mode</fhir_path>
+		<fhir_path>DeviceData.virtualDevice.code</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Conformance.rest.mode.extension</fhir_path>
-				<predicate>Conformance:rest_mode_extension</predicate>
+				<fhir_path>DeviceData.virtualDevice.code.extension</fhir_path>
+				<predicate>DeviceData:virtualDevice_code_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>code</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Media.dateTime.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Questionnaire.source</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Questionnaire.source.extension</fhir_path>
+				<predicate>Questionnaire:source_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.slicing.discriminator.extension</fhir_path>
@@ -1767,20 +1701,20 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.hospitalization.accomodation.period</fhir_path>
+		<fhir_path>Condition.relatedItem.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ValueSet.compose.include.version</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Encounter.hospitalization.accomodation.period.extension</fhir_path>
-				<predicate>Encounter:hospitalization_accomodation_period_extension</predicate>
+				<fhir_path>ValueSet.compose.include.version.extension</fhir_path>
+				<predicate>ValueSet:compose_include_version_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Period</type>
-	</path>
-	<path>
-		<fhir_path>Address.city</fhir_path>
-		<subs/>
 		<type>string</type>
 	</path>
 	<path>
@@ -1928,9 +1862,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.container.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ValueSet.define.version</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ValueSet.define.version.extension</fhir_path>
+				<predicate>ValueSet:define_version_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.hospitalization.diet.extension</fhir_path>
@@ -1948,9 +1889,88 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.forecastStatus.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Specimen</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Specimen.extension</fhir_path>
+				<predicate>Specimen:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.modifierExtension</fhir_path>
+				<predicate>Specimen:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.text</fhir_path>
+				<predicate>Specimen:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.contained</fhir_path>
+				<predicate>Specimen:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.identifier</fhir_path>
+				<predicate>Specimen:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.type</fhir_path>
+				<predicate>Specimen:type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.source</fhir_path>
+				<predicate>Specimen:source</predicate>
+				<relative_xpath>f:source</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.subject</fhir_path>
+				<predicate>Specimen:subject</predicate>
+				<relative_xpath>f:subject</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.accessionIdentifier</fhir_path>
+				<predicate>Specimen:accessionIdentifier</predicate>
+				<relative_xpath>f:accessionIdentifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.receivedTime</fhir_path>
+				<predicate>Specimen:receivedTime</predicate>
+				<relative_xpath>f:receivedTime</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection</fhir_path>
+				<predicate>Specimen:collection</predicate>
+				<relative_xpath>f:collection</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.treatment</fhir_path>
+				<predicate>Specimen:treatment</predicate>
+				<relative_xpath>f:treatment</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.container</fhir_path>
+				<predicate>Specimen:container</predicate>
+				<relative_xpath>f:container</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type>Specimen</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.messaging.event</fhir_path>
@@ -2007,11 +2027,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Procedure.performer.role.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>ImagingStudy.series.description.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -2053,21 +2068,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Encounter.priority</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Encounter.priority.extension</fhir_path>
-				<predicate>Encounter:priority_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>Message.source.version.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Observation.component.valueCodeableConcept</fhir_path>
 		<subs/>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info.units.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.created</fhir_path>
@@ -2080,18 +2093,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>dateTime</type>
-	</path>
-	<path>
-		<fhir_path>Order.authority</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Order.authority.extension</fhir_path>
-				<predicate>Order:authority_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.documentation.extension</fhir_path>
@@ -2145,9 +2146,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.protocol.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Organization.telecom</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Organization.telecom.extension</fhir_path>
+				<predicate>Organization:telecom_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Contact</type>
 	</path>
 	<path>
 		<fhir_path>Media.modifierExtension</fhir_path>
@@ -2167,7 +2175,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Profile.telecom.extension</fhir_path>
+		<fhir_path>MedicationDispense.status.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -2177,7 +2185,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.event.outcomeDesc.extension</fhir_path>
+		<fhir_path>Conformance.rest.security.description.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -2206,7 +2214,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Patient.contact.address.extension</fhir_path>
+		<fhir_path>Conformance.rest.resource.searchParam.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -2226,7 +2234,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>AdverseReaction.exposure.exposureDate.extension</fhir_path>
+		<fhir_path>Patient.contact.organization.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -2248,9 +2256,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.resource.updateCreate.extension</fhir_path>
+		<fhir_path>DeviceData.contained</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.length.extension</fhir_path>
@@ -2329,7 +2337,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.substitution.type.extension</fhir_path>
+		<fhir_path>Profile.structure.element.definition.binding.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -2351,9 +2359,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient.link.other.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>SecurityEvent.object.sensitivity</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>SecurityEvent.object.sensitivity.extension</fhir_path>
+				<predicate>SecurityEvent:object_sensitivity_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.copyright.extension</fhir_path>
@@ -2373,9 +2388,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.object.identifier.extension</fhir_path>
+		<fhir_path>Extension.value*</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.identifier.extension</fhir_path>
@@ -2383,52 +2398,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.collection.modifierExtension</fhir_path>
-				<predicate>Specimen:collection_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection.collector</fhir_path>
-				<predicate>Specimen:collection_collector</predicate>
-				<relative_xpath>f:collector</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection.comment</fhir_path>
-				<predicate>Specimen:collection_comment</predicate>
-				<relative_xpath>f:comment</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection.collectedTime</fhir_path>
-				<predicate>Specimen:collection_collectedTime</predicate>
-				<relative_xpath>f:collectedTime</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection.quantity</fhir_path>
-				<predicate>Specimen:collection_quantity</predicate>
-				<relative_xpath>f:quantity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection.method</fhir_path>
-				<predicate>Specimen:collection_method</predicate>
-				<relative_xpath>f:method</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection.sourceSite</fhir_path>
-				<predicate>Specimen:collection_sourceSite</predicate>
-				<relative_xpath>f:sourceSite</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Immunization.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.container.capacity.extension</fhir_path>
@@ -2501,36 +2473,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Conformance.document</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.document.modifierExtension</fhir_path>
-				<predicate>Conformance:document_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.document.mode</fhir_path>
-				<predicate>Conformance:document_mode</predicate>
-				<relative_xpath>f:mode</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.document.documentation</fhir_path>
-				<predicate>Conformance:document_documentation</predicate>
-				<relative_xpath>f:documentation</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.document.profile</fhir_path>
-				<predicate>Conformance:document_profile</predicate>
-				<relative_xpath>f:profile</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>Questionnaire.question.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -2558,6 +2500,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Patient.careProvider</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Patient.careProvider.extension</fhir_path>
+				<predicate>Patient:careProvider_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
+	</path>
+	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.reaction</fhir_path>
 		<subs>
 			<sub>
@@ -2570,21 +2524,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Order.source.extension</fhir_path>
+		<fhir_path>Message.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>CarePlan.goal.description</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>CarePlan.goal.description.extension</fhir_path>
-				<predicate>CarePlan:goal_description_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>MedicationStatement</fhir_path>
@@ -2665,14 +2607,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>MedicationStatement</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.resource.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>SampledData.origin</fhir_path>
-		<subs/>
-		<type>Quantity</type>
+		<fhir_path>Immunization.manufacturer</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Immunization.manufacturer.extension</fhir_path>
+				<predicate>Immunization:manufacturer_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.group.question.extension</fhir_path>
@@ -2702,11 +2646,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.facet.code.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>ValueSet.define.concept.concept</fhir_path>
 		<subs>
 			<sub>
@@ -2724,6 +2663,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Media.deviceName</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Media.deviceName.extension</fhir_path>
+				<predicate>Media:deviceName_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>Condition.subject</fhir_path>
 		<subs>
 			<sub>
@@ -2737,11 +2688,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription.dosageInstruction.timingExtension.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice.channel.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -2788,16 +2734,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentReference.indexed</fhir_path>
+		<fhir_path>Message.event</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DocumentReference.indexed.extension</fhir_path>
-				<predicate>DocumentReference:indexed_extension</predicate>
+				<fhir_path>Message.event.extension</fhir_path>
+				<predicate>Message:event_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>instant</type>
+		<type>Coding</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.definition.valueExtension.extension</fhir_path>
@@ -2808,6 +2754,36 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Encounter.hospitalization.admitSource.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticOrder.event</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DiagnosticOrder.event.modifierExtension</fhir_path>
+				<predicate>DiagnosticOrder:event_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticOrder.event.status</fhir_path>
+				<predicate>DiagnosticOrder:event_status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticOrder.event.date</fhir_path>
+				<predicate>DiagnosticOrder:event_date</predicate>
+				<relative_xpath>f:date</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticOrder.event.actor</fhir_path>
+				<predicate>DiagnosticOrder:event_actor</predicate>
+				<relative_xpath>f:actor</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.key</fhir_path>
@@ -2844,9 +2820,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.followUp.extension</fhir_path>
+		<fhir_path>Profile.text</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>DeviceLog.instant</fhir_path>
@@ -2901,9 +2877,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection.sourceSite.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>SecurityEvent.participant.network.type</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>SecurityEvent.participant.network.type.extension</fhir_path>
+				<predicate>SecurityEvent:participant_network_type_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.partOf.extension</fhir_path>
@@ -2940,28 +2923,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.prohibited</fhir_path>
+		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.code</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>CarePlan.activity.prohibited.extension</fhir_path>
-				<predicate>CarePlan:activity_prohibited_extension</predicate>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.code.extension</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel_metric_code_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>boolean</type>
-	</path>
-	<path>
-		<fhir_path>Message.receiver</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.receiver.extension</fhir_path>
-				<predicate>Message:receiver_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>DeviceObservation.identifier</fhir_path>
@@ -2988,21 +2959,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection.method.extension</fhir_path>
+		<fhir_path>Questionnaire.question.data*</fhir_path>
 		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Patient.animal.breed</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Patient.animal.breed.extension</fhir_path>
-				<predicate>Patient:animal_breed_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.contained</fhir_path>
@@ -3015,46 +2974,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Schedule.repeat</fhir_path>
+		<fhir_path>DeviceData.instant</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Schedule.repeat.frequency</fhir_path>
-				<predicate>Schedule:repeat_frequency</predicate>
-				<relative_xpath>f:frequency</relative_xpath>
-				<type>integer</type>
-			</sub>
-			<sub>
-				<fhir_path>Schedule.repeat.when</fhir_path>
-				<predicate>Schedule:repeat_when</predicate>
-				<relative_xpath>f:when</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Schedule.repeat.duration</fhir_path>
-				<predicate>Schedule:repeat_duration</predicate>
-				<relative_xpath>f:duration</relative_xpath>
-				<type>decimal</type>
-			</sub>
-			<sub>
-				<fhir_path>Schedule.repeat.units</fhir_path>
-				<predicate>Schedule:repeat_units</predicate>
-				<relative_xpath>f:units</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Schedule.repeat.count</fhir_path>
-				<predicate>Schedule:repeat_count</predicate>
-				<relative_xpath>f:count</relative_xpath>
-				<type>integer</type>
-			</sub>
-			<sub>
-				<fhir_path>Schedule.repeat.end</fhir_path>
-				<predicate>Schedule:repeat_end</predicate>
-				<relative_xpath>f:end</relative_xpath>
-				<type>dateTime</type>
+				<fhir_path>DeviceData.instant.extension</fhir_path>
+				<predicate>DeviceData:instant_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
 			</sub>
 		</subs>
-		<type/>
+		<type>instant</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.context.modifierExtension</fhir_path>
@@ -3072,9 +3001,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Message.response.details.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Document.event</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Document.event.modifierExtension</fhir_path>
+				<predicate>Document:event_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Document.event.code</fhir_path>
+				<predicate>Document:event_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Document.event.period</fhir_path>
+				<predicate>Document:event_period</predicate>
+				<relative_xpath>f:period</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Document.event.detail</fhir_path>
+				<predicate>Document:event_detail</predicate>
+				<relative_xpath>f:detail</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.performer.extension</fhir_path>
@@ -3172,11 +3126,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>CarePlan.goal.description.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>List.entry.date</fhir_path>
 		<subs>
 			<sub>
@@ -3218,7 +3167,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>DeviceLog.extension</fhir_path>
+		<fhir_path>Profile.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -3267,9 +3216,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Observation.text</fhir_path>
+		<fhir_path>Encounter.hospitalization.accomodation.period</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Encounter.hospitalization.accomodation.period.extension</fhir_path>
+				<predicate>Encounter:hospitalization_accomodation_period_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Period</type>
+	</path>
+	<path>
+		<fhir_path>Procedure.extension</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.dispense.quantity.extension</fhir_path>
@@ -3282,11 +3243,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.practitioner</fhir_path>
+		<fhir_path>ValueSet.compose.include.system.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Encounter.serviceProvider</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationAdministration.practitioner.extension</fhir_path>
-				<predicate>MedicationAdministration:practitioner_extension</predicate>
+				<fhir_path>Encounter.serviceProvider.extension</fhir_path>
+				<predicate>Encounter:serviceProvider_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
@@ -3362,18 +3328,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection.method</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.collection.method.extension</fhir_path>
-				<predicate>Specimen:collection_method_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
 		<fhir_path>Patient.contact.telecom.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -3435,17 +3389,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.practitioner.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Group.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.expirationDate.extension</fhir_path>
+		<fhir_path>Specimen.source.target.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -3486,14 +3435,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Order.reason.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.dateCriterion.code.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>MedicationStatement.medication</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationStatement.medication.extension</fhir_path>
+				<predicate>MedicationStatement:medication_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Media.extension</fhir_path>
@@ -3506,6 +3457,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			<sub>
 				<fhir_path>Profile.publisher.extension</fhir_path>
 				<predicate>Profile:publisher_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Profile.structure.element.definition.formal</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.formal.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_formal_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
@@ -3542,7 +3505,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.expansion.contains.display.extension</fhir_path>
+		<fhir_path>Profile.structure.element.definition.maxLength.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -3572,6 +3535,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Observation.component.valueQuantity</fhir_path>
 		<subs/>
 		<type>Quantity</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.uid</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.uid.extension</fhir_path>
+				<predicate>ImagingStudy:uid_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>oid</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.definition.nameReference</fhir_path>
@@ -3613,9 +3588,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Address.state</fhir_path>
+		<fhir_path>Conformance.implementation.description.extension</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Practitioner.address.extension</fhir_path>
@@ -3635,16 +3610,148 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Coding</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.hospitalization.specialArrangement</fhir_path>
+		<fhir_path>Patient</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Encounter.hospitalization.specialArrangement.extension</fhir_path>
-				<predicate>Encounter:hospitalization_specialArrangement_extension</predicate>
+				<fhir_path>Patient.extension</fhir_path>
+				<predicate>Patient:extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>Patient.modifierExtension</fhir_path>
+				<predicate>Patient:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.text</fhir_path>
+				<predicate>Patient:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.contained</fhir_path>
+				<predicate>Patient:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.identifier</fhir_path>
+				<predicate>Patient:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.name</fhir_path>
+				<predicate>Patient:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>HumanName</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.telecom</fhir_path>
+				<predicate>Patient:telecom</predicate>
+				<relative_xpath>f:telecom</relative_xpath>
+				<type>Contact</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.gender</fhir_path>
+				<predicate>Patient:gender</predicate>
+				<relative_xpath>f:gender</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.birthDate</fhir_path>
+				<predicate>Patient:birthDate</predicate>
+				<relative_xpath>f:birthDate</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.deceasedboolean</fhir_path>
+				<predicate>Patient:deceasedboolean</predicate>
+				<relative_xpath>f:deceasedboolean</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.deceaseddateTime</fhir_path>
+				<predicate>Patient:deceaseddateTime</predicate>
+				<relative_xpath>f:deceaseddateTime</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.address</fhir_path>
+				<predicate>Patient:address</predicate>
+				<relative_xpath>f:address</relative_xpath>
+				<type>Address</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.maritalStatus</fhir_path>
+				<predicate>Patient:maritalStatus</predicate>
+				<relative_xpath>f:maritalStatus</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.multipleBirthboolean</fhir_path>
+				<predicate>Patient:multipleBirthboolean</predicate>
+				<relative_xpath>f:multipleBirthboolean</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.multipleBirthinteger</fhir_path>
+				<predicate>Patient:multipleBirthinteger</predicate>
+				<relative_xpath>f:multipleBirthinteger</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.photo</fhir_path>
+				<predicate>Patient:photo</predicate>
+				<relative_xpath>f:photo</relative_xpath>
+				<type>Attachment</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.contact</fhir_path>
+				<predicate>Patient:contact</predicate>
+				<relative_xpath>f:contact</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Patient.animal</fhir_path>
+				<predicate>Patient:animal</predicate>
+				<relative_xpath>f:animal</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Patient.communication</fhir_path>
+				<predicate>Patient:communication</predicate>
+				<relative_xpath>f:communication</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.careProvider</fhir_path>
+				<predicate>Patient:careProvider</predicate>
+				<relative_xpath>f:careProvider</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.managingOrganization</fhir_path>
+				<predicate>Patient:managingOrganization</predicate>
+				<relative_xpath>f:managingOrganization</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Patient.link</fhir_path>
+				<predicate>Patient:link</predicate>
+				<relative_xpath>f:link</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Patient.active</fhir_path>
+				<predicate>Patient:active</predicate>
+				<relative_xpath>f:active</relative_xpath>
+				<type>boolean</type>
+			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>Patient</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.version.extension</fhir_path>
@@ -3739,21 +3846,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ConceptMap.concept.map.code</fhir_path>
+		<fhir_path>ImagingStudy.series.instance.sopclass</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ConceptMap.concept.map.code.extension</fhir_path>
-				<predicate>ConceptMap:concept_map_code_extension</predicate>
+				<fhir_path>ImagingStudy.series.instance.sopclass.extension</fhir_path>
+				<predicate>ImagingStudy:series_instance_sopclass_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>oid</type>
 	</path>
 	<path>
-		<fhir_path>Supply.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>DeviceObservation.device</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceObservation.device.extension</fhir_path>
+				<predicate>DeviceObservation:device_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.experimental</fhir_path>
@@ -3804,7 +3918,17 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.concern.extension</fhir_path>
+		<fhir_path>Observation.valuestring</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Profile.mapping.comments.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>MedicationAdministration.dosage.rate.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -3819,21 +3943,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Quantity.comparator</fhir_path>
+		<fhir_path>MedicationDispense.dispense.whenHandedOver.extension</fhir_path>
 		<subs/>
-		<type>code</type>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization.contact.name</fhir_path>
+		<fhir_path>DiagnosticReport.results.result</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Organization.contact.name.extension</fhir_path>
-				<predicate>Organization:contact_name_extension</predicate>
+				<fhir_path>DiagnosticReport.results.result.extension</fhir_path>
+				<predicate>DiagnosticReport:results_result_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>HumanName</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Location.position</fhir_path>
@@ -3929,7 +4053,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.event.type.extension</fhir_path>
+		<fhir_path>Document.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -3944,82 +4068,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Organization.extension</fhir_path>
-				<predicate>Organization:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.modifierExtension</fhir_path>
-				<predicate>Organization:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.text</fhir_path>
-				<predicate>Organization:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.contained</fhir_path>
-				<predicate>Organization:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.identifier</fhir_path>
-				<predicate>Organization:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.name</fhir_path>
-				<predicate>Organization:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.type</fhir_path>
-				<predicate>Organization:type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.telecom</fhir_path>
-				<predicate>Organization:telecom</predicate>
-				<relative_xpath>f:telecom</relative_xpath>
-				<type>Contact</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.address</fhir_path>
-				<predicate>Organization:address</predicate>
-				<relative_xpath>f:address</relative_xpath>
-				<type>Address</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.partOf</fhir_path>
-				<predicate>Organization:partOf</predicate>
-				<relative_xpath>f:partOf</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Organization.contact</fhir_path>
-				<predicate>Organization:contact</predicate>
-				<relative_xpath>f:contact</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Organization.active</fhir_path>
-				<predicate>Organization:active</predicate>
-				<relative_xpath>f:active</relative_xpath>
-				<type>boolean</type>
-			</sub>
-		</subs>
-		<type>Organization</type>
+		<fhir_path>ValueSet.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.dispense.type</fhir_path>
@@ -4037,11 +4088,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Provenance.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>Contact.value</fhir_path>
-		<subs/>
-		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Condition.notes</fhir_path>
@@ -4184,21 +4230,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.type.code</fhir_path>
+		<fhir_path>Location.address.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Specimen.accessionIdentifier</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Profile.structure.element.definition.type.code.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_type_code_extension</predicate>
+				<fhir_path>Specimen.accessionIdentifier.extension</fhir_path>
+				<predicate>Specimen:accessionIdentifier_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>code</type>
-	</path>
-	<path>
-		<fhir_path>Address.text</fhir_path>
-		<subs/>
-		<type>string</type>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>Document.custodian</fhir_path>
@@ -4320,16 +4366,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>RelatedPerson.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>RelatedPerson.identifier.extension</fhir_path>
-				<predicate>RelatedPerson:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
+		<fhir_path>MedicationDispense.dispense.destination.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.modifierExtension</fhir_path>
@@ -4378,16 +4417,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.series.dateTime</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.series.dateTime.extension</fhir_path>
-				<predicate>ImagingStudy:series_dateTime_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>dateTime</type>
+		<fhir_path>CarePlan.goal.description.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Observation.referenceRange.rangeQuantity</fhir_path>
@@ -4429,7 +4461,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.object.detail.modifierExtension</fhir_path>
+		<fhir_path>Medication.package.container.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -4475,16 +4507,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>OrderResponse.who</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>OrderResponse.who.extension</fhir_path>
-				<predicate>OrderResponse:who_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>MedicationDispense.dispense.dosage.timingSchedule</fhir_path>
+		<subs/>
+		<type>Schedule</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.concept.modifierExtension</fhir_path>
@@ -4529,34 +4554,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Contact</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Contact.system</fhir_path>
-				<predicate>Contact:system</predicate>
-				<relative_xpath>f:system</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Contact.value</fhir_path>
-				<predicate>Contact:value</predicate>
-				<relative_xpath>f:value</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Contact.use</fhir_path>
-				<predicate>Contact:use</predicate>
-				<relative_xpath>f:use</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Contact.period</fhir_path>
-				<predicate>Contact:period</predicate>
-				<relative_xpath>f:period</relative_xpath>
-				<type>Period</type>
-			</sub>
-		</subs>
-		<type>Contact</type>
+		<fhir_path>Condition.dateAsserted.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Observation.interpretation</fhir_path>
@@ -4624,19 +4624,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.messaging.event.mode</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.messaging.event.mode.extension</fhir_path>
-				<predicate>Conformance:messaging_event_mode_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>Order.source.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.expansion.contains.system.extension</fhir_path>
+		<fhir_path>Conformance.rest.operation.code.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -4767,7 +4760,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.dosage.rate.extension</fhir_path>
+		<fhir_path>CarePlan.goal.concern.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -4782,16 +4775,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.comments</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.comments.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_comments_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>Questionnaire.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Profile.experimental.extension</fhir_path>
@@ -4799,7 +4785,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.simple.performer.extension</fhir_path>
+		<fhir_path>Questionnaire.question.choice.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -4816,9 +4802,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.document.documentation.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>CarePlan.participant.member</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>CarePlan.participant.member.extension</fhir_path>
+				<predicate>CarePlan:participant_member_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>MedicationStatement.contained</fhir_path>
@@ -4850,7 +4843,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.url.extension</fhir_path>
+		<fhir_path>DeviceData.identifier.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -4860,9 +4853,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.name.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ImagingStudy.referrer</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.referrer.extension</fhir_path>
+				<predicate>ImagingStudy:referrer_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.collection.modifierExtension</fhir_path>
@@ -4882,16 +4882,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>MedicationStatement.dosage.maxDosePerPeriod</fhir_path>
+		<fhir_path>DeviceObservation.subject</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationStatement.dosage.maxDosePerPeriod.extension</fhir_path>
-				<predicate>MedicationStatement:dosage_maxDosePerPeriod_extension</predicate>
+				<fhir_path>DeviceObservation.subject.extension</fhir_path>
+				<predicate>DeviceObservation:subject_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Ratio</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>FamilyHistory.relation.name</fhir_path>
@@ -4987,112 +4987,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ConceptMap</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ConceptMap.extension</fhir_path>
-				<predicate>ConceptMap:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.modifierExtension</fhir_path>
-				<predicate>ConceptMap:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.text</fhir_path>
-				<predicate>ConceptMap:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.contained</fhir_path>
-				<predicate>ConceptMap:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.identifier</fhir_path>
-				<predicate>ConceptMap:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.version</fhir_path>
-				<predicate>ConceptMap:version</predicate>
-				<relative_xpath>f:version</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.name</fhir_path>
-				<predicate>ConceptMap:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.publisher</fhir_path>
-				<predicate>ConceptMap:publisher</predicate>
-				<relative_xpath>f:publisher</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.telecom</fhir_path>
-				<predicate>ConceptMap:telecom</predicate>
-				<relative_xpath>f:telecom</relative_xpath>
-				<type>Contact</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.description</fhir_path>
-				<predicate>ConceptMap:description</predicate>
-				<relative_xpath>f:description</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.copyright</fhir_path>
-				<predicate>ConceptMap:copyright</predicate>
-				<relative_xpath>f:copyright</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.status</fhir_path>
-				<predicate>ConceptMap:status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.experimental</fhir_path>
-				<predicate>ConceptMap:experimental</predicate>
-				<relative_xpath>f:experimental</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.date</fhir_path>
-				<predicate>ConceptMap:date</predicate>
-				<relative_xpath>f:date</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.source</fhir_path>
-				<predicate>ConceptMap:source</predicate>
-				<relative_xpath>f:source</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.target</fhir_path>
-				<predicate>ConceptMap:target</predicate>
-				<relative_xpath>f:target</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>ConceptMap.concept</fhir_path>
-				<predicate>ConceptMap:concept</predicate>
-				<relative_xpath>f:concept</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type>ConceptMap</type>
+		<fhir_path>Medication.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Organization.contact.telecom.extension</fhir_path>
@@ -5176,33 +5073,26 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>DeviceLog</type>
 	</path>
 	<path>
-		<fhir_path>DeviceData.virtualDevice.code</fhir_path>
+		<fhir_path>Conformance.rest.mode</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DeviceData.virtualDevice.code.extension</fhir_path>
-				<predicate>DeviceData:virtualDevice_code_extension</predicate>
+				<fhir_path>Conformance.rest.mode.extension</fhir_path>
+				<predicate>Conformance:rest_mode_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Group.contained</fhir_path>
+		<fhir_path>CarePlan.period.extension</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization.telecom</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Organization.telecom.extension</fhir_path>
-				<predicate>Organization:telecom_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Contact</type>
+		<fhir_path>ImmunizationRecommendation.recommendation.protocol.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.modifierExtension</fhir_path>
@@ -5210,9 +5100,124 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.treatment.additive.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Profile.structure.element.definition.condition</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.condition.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_condition_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>id</type>
+	</path>
+	<path>
+		<fhir_path>Practitioner</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Practitioner.extension</fhir_path>
+				<predicate>Practitioner:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.modifierExtension</fhir_path>
+				<predicate>Practitioner:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.text</fhir_path>
+				<predicate>Practitioner:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.contained</fhir_path>
+				<predicate>Practitioner:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.identifier</fhir_path>
+				<predicate>Practitioner:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.name</fhir_path>
+				<predicate>Practitioner:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>HumanName</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.telecom</fhir_path>
+				<predicate>Practitioner:telecom</predicate>
+				<relative_xpath>f:telecom</relative_xpath>
+				<type>Contact</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.address</fhir_path>
+				<predicate>Practitioner:address</predicate>
+				<relative_xpath>f:address</relative_xpath>
+				<type>Address</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.gender</fhir_path>
+				<predicate>Practitioner:gender</predicate>
+				<relative_xpath>f:gender</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.birthDate</fhir_path>
+				<predicate>Practitioner:birthDate</predicate>
+				<relative_xpath>f:birthDate</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.photo</fhir_path>
+				<predicate>Practitioner:photo</predicate>
+				<relative_xpath>f:photo</relative_xpath>
+				<type>Attachment</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.organization</fhir_path>
+				<predicate>Practitioner:organization</predicate>
+				<relative_xpath>f:organization</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.role</fhir_path>
+				<predicate>Practitioner:role</predicate>
+				<relative_xpath>f:role</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.specialty</fhir_path>
+				<predicate>Practitioner:specialty</predicate>
+				<relative_xpath>f:specialty</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.period</fhir_path>
+				<predicate>Practitioner:period</predicate>
+				<relative_xpath>f:period</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.qualification</fhir_path>
+				<predicate>Practitioner:qualification</predicate>
+				<relative_xpath>f:qualification</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Practitioner.communication</fhir_path>
+				<predicate>Practitioner:communication</predicate>
+				<relative_xpath>f:communication</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+		</subs>
+		<type>Practitioner</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.event.action.extension</fhir_path>
@@ -5248,6 +5253,84 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>code</type>
+	</path>
+	<path>
+		<fhir_path>Organization</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Organization.extension</fhir_path>
+				<predicate>Organization:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.modifierExtension</fhir_path>
+				<predicate>Organization:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.text</fhir_path>
+				<predicate>Organization:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.contained</fhir_path>
+				<predicate>Organization:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.identifier</fhir_path>
+				<predicate>Organization:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.name</fhir_path>
+				<predicate>Organization:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.type</fhir_path>
+				<predicate>Organization:type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.telecom</fhir_path>
+				<predicate>Organization:telecom</predicate>
+				<relative_xpath>f:telecom</relative_xpath>
+				<type>Contact</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.address</fhir_path>
+				<predicate>Organization:address</predicate>
+				<relative_xpath>f:address</relative_xpath>
+				<type>Address</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.partOf</fhir_path>
+				<predicate>Organization:partOf</predicate>
+				<relative_xpath>f:partOf</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Organization.contact</fhir_path>
+				<predicate>Organization:contact</predicate>
+				<relative_xpath>f:contact</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Organization.active</fhir_path>
+				<predicate>Organization:active</predicate>
+				<relative_xpath>f:active</relative_xpath>
+				<type>boolean</type>
+			</sub>
+		</subs>
+		<type>Organization</type>
 	</path>
 	<path>
 		<fhir_path>Device.contained</fhir_path>
@@ -5301,21 +5384,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Profile.text</fhir_path>
+		<fhir_path>Procedure.followUp.extension</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.participant.network.type</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>SecurityEvent.participant.network.type.extension</fhir_path>
-				<predicate>SecurityEvent:participant_network_type_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>Profile.structure.element.slicing.rules.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.participant.modifierExtension</fhir_path>
@@ -5333,19 +5409,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.code</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.code.extension</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel_metric_code_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>Profile.modifierExtension</fhir_path>
+		<fhir_path>DeviceLog.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -5467,9 +5531,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.implementation.description.extension</fhir_path>
+		<fhir_path>Address.state</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Procedure.indication.extension</fhir_path>
@@ -5477,16 +5541,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.series.instance.sopclass</fhir_path>
+		<fhir_path>ConceptMap.concept.map.code</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ImagingStudy.series.instance.sopclass.extension</fhir_path>
-				<predicate>ImagingStudy:series_instance_sopclass_extension</predicate>
+				<fhir_path>ConceptMap.concept.map.code.extension</fhir_path>
+				<predicate>ConceptMap:concept_map_code_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>oid</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.telecom</fhir_path>
@@ -5506,7 +5570,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Order.authority.extension</fhir_path>
+		<fhir_path>DiagnosticReport.results.group.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -5514,6 +5578,66 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>AllergyIntolerance.reaction.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>SecurityEvent.participant</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>SecurityEvent.participant.modifierExtension</fhir_path>
+				<predicate>SecurityEvent:participant_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.role</fhir_path>
+				<predicate>SecurityEvent:participant_role</predicate>
+				<relative_xpath>f:role</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.reference</fhir_path>
+				<predicate>SecurityEvent:participant_reference</predicate>
+				<relative_xpath>f:reference</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.userId</fhir_path>
+				<predicate>SecurityEvent:participant_userId</predicate>
+				<relative_xpath>f:userId</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.authId</fhir_path>
+				<predicate>SecurityEvent:participant_authId</predicate>
+				<relative_xpath>f:authId</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.name</fhir_path>
+				<predicate>SecurityEvent:participant_name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.requestor</fhir_path>
+				<predicate>SecurityEvent:participant_requestor</predicate>
+				<relative_xpath>f:requestor</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.media</fhir_path>
+				<predicate>SecurityEvent:participant_media</predicate>
+				<relative_xpath>f:media</relative_xpath>
+				<type>Coding</type>
+			</sub>
+			<sub>
+				<fhir_path>SecurityEvent.participant.network</fhir_path>
+				<predicate>SecurityEvent:participant_network</predicate>
+				<relative_xpath>f:network</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.contained</fhir_path>
@@ -5706,28 +5830,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.performer</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Procedure.performer.modifierExtension</fhir_path>
-				<predicate>Procedure:performer_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Procedure.performer.person</fhir_path>
-				<predicate>Procedure:performer_person</predicate>
-				<relative_xpath>f:person</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Procedure.performer.role</fhir_path>
-				<predicate>Procedure:performer_role</predicate>
-				<relative_xpath>f:role</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Media.identifier.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>FamilyHistory.relation.relationship.extension</fhir_path>
@@ -5735,7 +5840,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Condition.evidence.detail.extension</fhir_path>
+		<fhir_path>Specimen.collection.method.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -5762,9 +5867,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.answerboolean</fhir_path>
-		<subs/>
-		<type>boolean</type>
+		<fhir_path>Conformance.implementation</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.implementation.modifierExtension</fhir_path>
+				<predicate>Conformance:implementation_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.implementation.description</fhir_path>
+				<predicate>Conformance:implementation_description</predicate>
+				<relative_xpath>f:description</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.implementation.url</fhir_path>
+				<predicate>Conformance:implementation_url</predicate>
+				<relative_xpath>f:url</relative_xpath>
+				<type>uri</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.requestDetail.bodySite.extension</fhir_path>
@@ -5880,26 +6004,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.participant.role.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Media.contained</fhir_path>
 		<subs/>
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Device.model</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Device.model.extension</fhir_path>
-				<predicate>Device:model_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>CarePlan.activity.simple.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Quantity.system</fhir_path>
@@ -5973,18 +6085,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.subject</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceObservation.subject.extension</fhir_path>
-				<predicate>DeviceObservation:subject_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
-	</path>
-	<path>
 		<fhir_path>Patient.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -6017,21 +6117,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>SampledData.data</fhir_path>
-		<subs/>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>Conformance.fhirVersion</fhir_path>
+		<fhir_path>CarePlan.period</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Conformance.fhirVersion.extension</fhir_path>
-				<predicate>Conformance:fhirVersion_extension</predicate>
+				<fhir_path>CarePlan.period.extension</fhir_path>
+				<predicate>CarePlan:period_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>id</type>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.vaccinationProtocol.doseStatusReason</fhir_path>
@@ -6090,7 +6185,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.modifierExtension</fhir_path>
+		<fhir_path>ImmunizationRecommendation.recommendation.protocol.description.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -6100,9 +6195,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Range.high</fhir_path>
+		<fhir_path>Immunization.manufacturer.extension</fhir_path>
 		<subs/>
-		<type>Quantity</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Other.extension</fhir_path>
@@ -6149,28 +6244,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.group.name</fhir_path>
+		<fhir_path>OperationOutcome.issue.type</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Questionnaire.group.name.extension</fhir_path>
-				<predicate>Questionnaire:group_name_extension</predicate>
+				<fhir_path>OperationOutcome.issue.type.extension</fhir_path>
+				<predicate>OperationOutcome:issue_type_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>Coding</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.format</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.format.extension</fhir_path>
-				<predicate>Conformance:format_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>MedicationDispense.dispense.dosage.additionalInstructions.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.messaging.event.response.extension</fhir_path>
@@ -6202,17 +6290,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Condition.status.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Conformance.date.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.additionalInstructions.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -6345,88 +6423,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Provenance</fhir_path>
+		<fhir_path>DocumentReference.description</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Provenance.extension</fhir_path>
-				<predicate>Provenance:extension</predicate>
+				<fhir_path>DocumentReference.description.extension</fhir_path>
+				<predicate>DocumentReference:description_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>Provenance.modifierExtension</fhir_path>
-				<predicate>Provenance:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.text</fhir_path>
-				<predicate>Provenance:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.contained</fhir_path>
-				<predicate>Provenance:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.target</fhir_path>
-				<predicate>Provenance:target</predicate>
-				<relative_xpath>f:target</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.period</fhir_path>
-				<predicate>Provenance:period</predicate>
-				<relative_xpath>f:period</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.recorded</fhir_path>
-				<predicate>Provenance:recorded</predicate>
-				<relative_xpath>f:recorded</relative_xpath>
-				<type>instant</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.reason</fhir_path>
-				<predicate>Provenance:reason</predicate>
-				<relative_xpath>f:reason</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.location</fhir_path>
-				<predicate>Provenance:location</predicate>
-				<relative_xpath>f:location</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.policy</fhir_path>
-				<predicate>Provenance:policy</predicate>
-				<relative_xpath>f:policy</relative_xpath>
-				<type>uri</type>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.agent</fhir_path>
-				<predicate>Provenance:agent</predicate>
-				<relative_xpath>f:agent</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.entity</fhir_path>
-				<predicate>Provenance:entity</predicate>
-				<relative_xpath>f:entity</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Provenance.signature</fhir_path>
-				<predicate>Provenance:signature</predicate>
-				<relative_xpath>f:signature</relative_xpath>
-				<type>string</type>
-			</sub>
 		</subs>
-		<type>Provenance</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.requestDetail.requester</fhir_path>
@@ -6446,50 +6452,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.optionsResource(ValueSet)</fhir_path>
-		<subs/>
-		<type>Resource</type>
-	</path>
-	<path>
 		<fhir_path>Medication.product.ingredient.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.mapping</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.mapping.modifierExtension</fhir_path>
-				<predicate>Profile:structure_element_definition_mapping_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.mapping.identity</fhir_path>
-				<predicate>Profile:structure_element_definition_mapping_identity</predicate>
-				<relative_xpath>f:identity</relative_xpath>
-				<type>id</type>
-			</sub>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.mapping.map</fhir_path>
-				<predicate>Profile:structure_element_definition_mapping_map</predicate>
-				<relative_xpath>f:map</relative_xpath>
-				<type>string</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Encounter.hospitalization.specialCourtesy.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.group.group</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Questionnaire.group.group.extension</fhir_path>
-				<predicate>Questionnaire:group_group_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Questionnaire.group</type>
+		<fhir_path>Document.author.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>OperationOutcome.issue.location</fhir_path>
@@ -6550,7 +6525,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.mapping.comments.extension</fhir_path>
+		<fhir_path>AllergyIntolerance.recorder.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>CarePlan.participant.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -6668,6 +6648,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Organization.contact.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>Practitioner.telecom</fhir_path>
 		<subs>
 			<sub>
@@ -6685,7 +6670,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentReference.indexed.extension</fhir_path>
+		<fhir_path>MedicationDispense.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -6729,21 +6714,58 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>RelatedPerson.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ConceptMap.concept.map.equivalence</fhir_path>
+		<fhir_path>Query.response.parameter</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ConceptMap.concept.map.equivalence.extension</fhir_path>
-				<predicate>ConceptMap:concept_map_equivalence_extension</predicate>
+				<fhir_path>Query.response.parameter.extension</fhir_path>
+				<predicate>Query:response_parameter_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>code</type>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Schedule.repeat</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Schedule.repeat.frequency</fhir_path>
+				<predicate>Schedule:repeat_frequency</predicate>
+				<relative_xpath>f:frequency</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>Schedule.repeat.when</fhir_path>
+				<predicate>Schedule:repeat_when</predicate>
+				<relative_xpath>f:when</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Schedule.repeat.duration</fhir_path>
+				<predicate>Schedule:repeat_duration</predicate>
+				<relative_xpath>f:duration</relative_xpath>
+				<type>decimal</type>
+			</sub>
+			<sub>
+				<fhir_path>Schedule.repeat.units</fhir_path>
+				<predicate>Schedule:repeat_units</predicate>
+				<relative_xpath>f:units</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Schedule.repeat.count</fhir_path>
+				<predicate>Schedule:repeat_count</predicate>
+				<relative_xpath>f:count</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>Schedule.repeat.end</fhir_path>
+				<predicate>Schedule:repeat_end</predicate>
+				<relative_xpath>f:end</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>CarePlan.activity.simple.code</fhir_path>
@@ -6770,16 +6792,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Ratio</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.identifier.extension</fhir_path>
-				<predicate>ImagingStudy:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
+		<fhir_path>MedicationStatement.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>Identifier.use</fhir_path>
@@ -6792,24 +6807,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.synonym</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.synonym.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_synonym_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>Conformance.description.extension</fhir_path>
+		<fhir_path>DeviceCapabilities.virtualDevice.channel.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Provenance.agent.reference.extension</fhir_path>
+		<fhir_path>Conformance.description.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -6839,6 +6842,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>DocumentManifest.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>CarePlan.activity.prohibited</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>CarePlan.activity.prohibited.extension</fhir_path>
+				<predicate>CarePlan:activity_prohibited_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.extension</fhir_path>
@@ -6928,6 +6943,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
+		<fhir_path>DiagnosticOrder.item.specimen.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>ConceptMap.concept.map.system</fhir_path>
 		<subs>
 			<sub>
@@ -6940,9 +6960,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.series.instance.url.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Specimen.receivedTime</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Specimen.receivedTime.extension</fhir_path>
+				<predicate>Specimen:receivedTime_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>Document.encounter</fhir_path>
@@ -7068,45 +7095,213 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Coding.primary</fhir_path>
+		<fhir_path>Media.subject.extension</fhir_path>
 		<subs/>
-		<type>boolean</type>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Quantity</fhir_path>
+		<fhir_path>MedicationPrescription.dispense</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Quantity.value</fhir_path>
-				<predicate>Quantity:value</predicate>
-				<relative_xpath>f:value</relative_xpath>
-				<type>decimal</type>
+				<fhir_path>MedicationPrescription.dispense.modifierExtension</fhir_path>
+				<predicate>MedicationPrescription:dispense_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
 			</sub>
 			<sub>
-				<fhir_path>Quantity.comparator</fhir_path>
-				<predicate>Quantity:comparator</predicate>
-				<relative_xpath>f:comparator</relative_xpath>
-				<type>code</type>
+				<fhir_path>MedicationPrescription.dispense.medication</fhir_path>
+				<predicate>MedicationPrescription:dispense_medication</predicate>
+				<relative_xpath>f:medication</relative_xpath>
+				<type>Resource</type>
 			</sub>
 			<sub>
-				<fhir_path>Quantity.units</fhir_path>
-				<predicate>Quantity:units</predicate>
-				<relative_xpath>f:units</relative_xpath>
+				<fhir_path>MedicationPrescription.dispense.validityPeriod</fhir_path>
+				<predicate>MedicationPrescription:dispense_validityPeriod</predicate>
+				<relative_xpath>f:validityPeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.dispense.numberOfRepeatsAllowed</fhir_path>
+				<predicate>MedicationPrescription:dispense_numberOfRepeatsAllowed</predicate>
+				<relative_xpath>f:numberOfRepeatsAllowed</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.dispense.quantity</fhir_path>
+				<predicate>MedicationPrescription:dispense_quantity</predicate>
+				<relative_xpath>f:quantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>MedicationPrescription.dispense.expectedSupplyDuration</fhir_path>
+				<predicate>MedicationPrescription:dispense_expectedSupplyDuration</predicate>
+				<relative_xpath>f:expectedSupplyDuration</relative_xpath>
+				<type>Duration</type>
+			</sub>
+		</subs>
+		<type/>
+	</path>
+	<path>
+		<fhir_path>Observation</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Observation.extension</fhir_path>
+				<predicate>Observation:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.modifierExtension</fhir_path>
+				<predicate>Observation:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.text</fhir_path>
+				<predicate>Observation:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.contained</fhir_path>
+				<predicate>Observation:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.name</fhir_path>
+				<predicate>Observation:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueQuantity</fhir_path>
+				<predicate>Observation:valueQuantity</predicate>
+				<relative_xpath>f:valueQuantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueCodeableConcept</fhir_path>
+				<predicate>Observation:valueCodeableConcept</predicate>
+				<relative_xpath>f:valueCodeableConcept</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueAttachment</fhir_path>
+				<predicate>Observation:valueAttachment</predicate>
+				<relative_xpath>f:valueAttachment</relative_xpath>
+				<type>Attachment</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueRatio</fhir_path>
+				<predicate>Observation:valueRatio</predicate>
+				<relative_xpath>f:valueRatio</relative_xpath>
+				<type>Ratio</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valuePeriod</fhir_path>
+				<predicate>Observation:valuePeriod</predicate>
+				<relative_xpath>f:valuePeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valueSampledData</fhir_path>
+				<predicate>Observation:valueSampledData</predicate>
+				<relative_xpath>f:valueSampledData</relative_xpath>
+				<type>SampledData</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.valuestring</fhir_path>
+				<predicate>Observation:valuestring</predicate>
+				<relative_xpath>f:valuestring</relative_xpath>
 				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>Quantity.system</fhir_path>
-				<predicate>Quantity:system</predicate>
-				<relative_xpath>f:system</relative_xpath>
-				<type>uri</type>
+				<fhir_path>Observation.interpretation</fhir_path>
+				<predicate>Observation:interpretation</predicate>
+				<relative_xpath>f:interpretation</relative_xpath>
+				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>Quantity.code</fhir_path>
-				<predicate>Quantity:code</predicate>
-				<relative_xpath>f:code</relative_xpath>
+				<fhir_path>Observation.comments</fhir_path>
+				<predicate>Observation:comments</predicate>
+				<relative_xpath>f:comments</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.appliesPeriod</fhir_path>
+				<predicate>Observation:appliesPeriod</predicate>
+				<relative_xpath>f:appliesPeriod</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.appliesdateTime</fhir_path>
+				<predicate>Observation:appliesdateTime</predicate>
+				<relative_xpath>f:appliesdateTime</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.issued</fhir_path>
+				<predicate>Observation:issued</predicate>
+				<relative_xpath>f:issued</relative_xpath>
+				<type>instant</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.status</fhir_path>
+				<predicate>Observation:status</predicate>
+				<relative_xpath>f:status</relative_xpath>
 				<type>code</type>
 			</sub>
+			<sub>
+				<fhir_path>Observation.reliability</fhir_path>
+				<predicate>Observation:reliability</predicate>
+				<relative_xpath>f:reliability</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.bodySite</fhir_path>
+				<predicate>Observation:bodySite</predicate>
+				<relative_xpath>f:bodySite</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.method</fhir_path>
+				<predicate>Observation:method</predicate>
+				<relative_xpath>f:method</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.identifier</fhir_path>
+				<predicate>Observation:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.subject</fhir_path>
+				<predicate>Observation:subject</predicate>
+				<relative_xpath>f:subject</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.performer</fhir_path>
+				<predicate>Observation:performer</predicate>
+				<relative_xpath>f:performer</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange</fhir_path>
+				<predicate>Observation:referenceRange</predicate>
+				<relative_xpath>f:referenceRange</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Observation.component</fhir_path>
+				<predicate>Observation:component</predicate>
+				<relative_xpath>f:component</relative_xpath>
+				<type/>
+			</sub>
 		</subs>
-		<type>Quantity</type>
+		<type>Observation</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.experimental</fhir_path>
@@ -7133,34 +7328,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticOrder.event</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DiagnosticOrder.event.modifierExtension</fhir_path>
-				<predicate>DiagnosticOrder:event_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticOrder.event.status</fhir_path>
-				<predicate>DiagnosticOrder:event_status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticOrder.event.date</fhir_path>
-				<predicate>DiagnosticOrder:event_date</predicate>
-				<relative_xpath>f:date</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticOrder.event.actor</fhir_path>
-				<predicate>DiagnosticOrder:event_actor</predicate>
-				<relative_xpath>f:actor</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>DeviceCapabilities.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.date.extension</fhir_path>
@@ -7231,42 +7401,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Observation.referenceRange</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Observation.referenceRange.modifierExtension</fhir_path>
-				<predicate>Observation:referenceRange_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.referenceRange.meaning</fhir_path>
-				<predicate>Observation:referenceRange_meaning</predicate>
-				<relative_xpath>f:meaning</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.referenceRange.rangeQuantity</fhir_path>
-				<predicate>Observation:referenceRange_rangeQuantity</predicate>
-				<relative_xpath>f:rangeQuantity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.referenceRange.rangeRange</fhir_path>
-				<predicate>Observation:referenceRange_rangeRange</predicate>
-				<relative_xpath>f:rangeRange</relative_xpath>
-				<type>Range</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.referenceRange.rangestring</fhir_path>
-				<predicate>Observation:referenceRange_rangestring</predicate>
-				<relative_xpath>f:rangestring</relative_xpath>
-				<type>string</type>
-			</sub>
-		</subs>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>Media.width</fhir_path>
 		<subs>
 			<sub>
@@ -7289,9 +7423,70 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Substance.ingredient.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Supply</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Supply.extension</fhir_path>
+				<predicate>Supply:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.modifierExtension</fhir_path>
+				<predicate>Supply:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.text</fhir_path>
+				<predicate>Supply:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.contained</fhir_path>
+				<predicate>Supply:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.name</fhir_path>
+				<predicate>Supply:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.identifier</fhir_path>
+				<predicate>Supply:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.status</fhir_path>
+				<predicate>Supply:status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.orderedItem</fhir_path>
+				<predicate>Supply:orderedItem</predicate>
+				<relative_xpath>f:orderedItem</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.patient</fhir_path>
+				<predicate>Supply:patient</predicate>
+				<relative_xpath>f:patient</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Supply.dispense</fhir_path>
+				<predicate>Supply:dispense</predicate>
+				<relative_xpath>f:dispense</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type>Supply</type>
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription</fhir_path>
@@ -7395,9 +7590,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Quantity.value</fhir_path>
+		<fhir_path>Encounter.contained</fhir_path>
 		<subs/>
-		<type>decimal</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.referrer.extension</fhir_path>
@@ -7415,9 +7610,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.copyright.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Questionnaire.status</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Questionnaire.status.extension</fhir_path>
+				<predicate>Questionnaire:status_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.participant.network.identifier</fhir_path>
@@ -7454,6 +7656,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Organization.contact.name</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Organization.contact.name.extension</fhir_path>
+				<predicate>Organization:contact_name_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>HumanName</type>
+	</path>
+	<path>
 		<fhir_path>Order.when.code</fhir_path>
 		<subs>
 			<sub>
@@ -7464,6 +7678,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>ValueSet.compose.include.filter.op</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ValueSet.compose.include.filter.op.extension</fhir_path>
+				<predicate>ValueSet:compose_include_filter_op_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.telecom</fhir_path>
@@ -7478,6 +7704,120 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Contact</type>
 	</path>
 	<path>
+		<fhir_path>ValueSet</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ValueSet.extension</fhir_path>
+				<predicate>ValueSet:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.modifierExtension</fhir_path>
+				<predicate>ValueSet:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.text</fhir_path>
+				<predicate>ValueSet:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.contained</fhir_path>
+				<predicate>ValueSet:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.identifier</fhir_path>
+				<predicate>ValueSet:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.version</fhir_path>
+				<predicate>ValueSet:version</predicate>
+				<relative_xpath>f:version</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.name</fhir_path>
+				<predicate>ValueSet:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.publisher</fhir_path>
+				<predicate>ValueSet:publisher</predicate>
+				<relative_xpath>f:publisher</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.telecom</fhir_path>
+				<predicate>ValueSet:telecom</predicate>
+				<relative_xpath>f:telecom</relative_xpath>
+				<type>Contact</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.description</fhir_path>
+				<predicate>ValueSet:description</predicate>
+				<relative_xpath>f:description</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.copyright</fhir_path>
+				<predicate>ValueSet:copyright</predicate>
+				<relative_xpath>f:copyright</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.status</fhir_path>
+				<predicate>ValueSet:status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.experimental</fhir_path>
+				<predicate>ValueSet:experimental</predicate>
+				<relative_xpath>f:experimental</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.extensible</fhir_path>
+				<predicate>ValueSet:extensible</predicate>
+				<relative_xpath>f:extensible</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.date</fhir_path>
+				<predicate>ValueSet:date</predicate>
+				<relative_xpath>f:date</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.define</fhir_path>
+				<predicate>ValueSet:define</predicate>
+				<relative_xpath>f:define</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.compose</fhir_path>
+				<predicate>ValueSet:compose</predicate>
+				<relative_xpath>f:compose</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.expansion</fhir_path>
+				<predicate>ValueSet:expansion</predicate>
+				<relative_xpath>f:expansion</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type>ValueSet</type>
+	</path>
+	<path>
 		<fhir_path>SecurityEvent.object.role</fhir_path>
 		<subs>
 			<sub>
@@ -7490,7 +7830,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.expansion.timestamp.extension</fhir_path>
+		<fhir_path>Message.event.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -7517,7 +7857,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.period.extension</fhir_path>
+		<fhir_path>ConceptMap.concept.map.code.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -7559,6 +7899,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>DocumentReference.service.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Query.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.requestDetail.modifierExtension</fhir_path>
@@ -7608,7 +7953,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.resource.readHistory.extension</fhir_path>
+		<fhir_path>Message.receiver.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -7623,11 +7968,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>integer</type>
-	</path>
-	<path>
-		<fhir_path>ImmunizationRecommendation.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.location.location.extension</fhir_path>
@@ -7681,16 +8021,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.source</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Questionnaire.source.extension</fhir_path>
-				<predicate>Questionnaire:source_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>Media.dateTime.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Substance.type</fhir_path>
@@ -7838,118 +8171,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet</fhir_path>
+		<fhir_path>Immunization.explanation</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ValueSet.extension</fhir_path>
-				<predicate>ValueSet:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.modifierExtension</fhir_path>
-				<predicate>ValueSet:modifierExtension</predicate>
+				<fhir_path>Immunization.explanation.modifierExtension</fhir_path>
+				<predicate>Immunization:explanation_modifierExtension</predicate>
 				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 			<sub>
-				<fhir_path>ValueSet.text</fhir_path>
-				<predicate>ValueSet:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
+				<fhir_path>Immunization.explanation.reason</fhir_path>
+				<predicate>Immunization:explanation_reason</predicate>
+				<relative_xpath>f:reason</relative_xpath>
+				<type>CodeableConcept</type>
 			</sub>
 			<sub>
-				<fhir_path>ValueSet.contained</fhir_path>
-				<predicate>ValueSet:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.identifier</fhir_path>
-				<predicate>ValueSet:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.version</fhir_path>
-				<predicate>ValueSet:version</predicate>
-				<relative_xpath>f:version</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.name</fhir_path>
-				<predicate>ValueSet:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.publisher</fhir_path>
-				<predicate>ValueSet:publisher</predicate>
-				<relative_xpath>f:publisher</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.telecom</fhir_path>
-				<predicate>ValueSet:telecom</predicate>
-				<relative_xpath>f:telecom</relative_xpath>
-				<type>Contact</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.description</fhir_path>
-				<predicate>ValueSet:description</predicate>
-				<relative_xpath>f:description</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.copyright</fhir_path>
-				<predicate>ValueSet:copyright</predicate>
-				<relative_xpath>f:copyright</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.status</fhir_path>
-				<predicate>ValueSet:status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.experimental</fhir_path>
-				<predicate>ValueSet:experimental</predicate>
-				<relative_xpath>f:experimental</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.extensible</fhir_path>
-				<predicate>ValueSet:extensible</predicate>
-				<relative_xpath>f:extensible</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.date</fhir_path>
-				<predicate>ValueSet:date</predicate>
-				<relative_xpath>f:date</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.define</fhir_path>
-				<predicate>ValueSet:define</predicate>
-				<relative_xpath>f:define</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.compose</fhir_path>
-				<predicate>ValueSet:compose</predicate>
-				<relative_xpath>f:compose</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.expansion</fhir_path>
-				<predicate>ValueSet:expansion</predicate>
-				<relative_xpath>f:expansion</relative_xpath>
-				<type/>
+				<fhir_path>Immunization.explanation.refusalReason</fhir_path>
+				<predicate>Immunization:explanation_refusalReason</predicate>
+				<relative_xpath>f:refusalReason</relative_xpath>
+				<type>CodeableConcept</type>
 			</sub>
 		</subs>
-		<type>ValueSet</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Patient.photo</fhir_path>
@@ -7976,7 +8219,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.protocol.description.extension</fhir_path>
+		<fhir_path>Profile.structure.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -8006,6 +8249,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Organization.contact.name.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>DocumentManifest.description.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -8023,16 +8271,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>integer</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.detail</fhir_path>
+		<fhir_path>Medication.package.container</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>CarePlan.activity.detail.extension</fhir_path>
-				<predicate>CarePlan:activity_detail_extension</predicate>
+				<fhir_path>Medication.package.container.extension</fhir_path>
+				<predicate>Medication:package_container_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Resource</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.software.releaseDate</fhir_path>
@@ -8047,14 +8295,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>Observation.reliability.extension</fhir_path>
+		<fhir_path>Specimen.container.specimenQuantity.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Questionnaire.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.contained</fhir_path>
@@ -8217,21 +8460,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Document.attester.time</fhir_path>
+		<fhir_path>Order.source</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Document.attester.time.extension</fhir_path>
-				<predicate>Document:attester_time_extension</predicate>
+				<fhir_path>Order.source.extension</fhir_path>
+				<predicate>Order:source_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>dateTime</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticOrder.orderer</fhir_path>
@@ -8251,9 +8489,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Condition.relatedItem.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Message.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.identifier.extension</fhir_path>
+				<predicate>Message:identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>id</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.text</fhir_path>
@@ -8332,6 +8577,23 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>ValueSet.expansion.contains.system.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.subject</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.subject.extension</fhir_path>
+				<predicate>ImagingStudy:subject_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
+	</path>
+	<path>
 		<fhir_path>DeviceLog.subject</fhir_path>
 		<subs>
 			<sub>
@@ -8345,11 +8607,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>DeviceData.virtualDevice.channel.metric.observation.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Specimen.source.target.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -8378,16 +8635,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.messaging.event.request</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.messaging.event.request.extension</fhir_path>
-				<predicate>Conformance:messaging_event_request_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>SecurityEvent.source.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Media</fhir_path>
@@ -8515,16 +8765,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Message.reason</fhir_path>
+		<fhir_path>MedicationPrescription.dispense.quantity</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Message.reason.extension</fhir_path>
-				<predicate>Message:reason_extension</predicate>
+				<fhir_path>MedicationPrescription.dispense.quantity.extension</fhir_path>
+				<predicate>MedicationPrescription:dispense_quantity_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.requestDetail.receiverOrderId</fhir_path>
@@ -8544,16 +8794,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.requestDetail.encounter</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DiagnosticReport.requestDetail.encounter.extension</fhir_path>
-				<predicate>DiagnosticReport:requestDetail_encounter_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>DiagnosticReport.diagnosticPeriod</fhir_path>
+		<subs/>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>Supply.orderedItem.extension</fhir_path>
@@ -8712,16 +8955,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>base64Binary</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.vaccinationProtocol.doseStatus</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Immunization.vaccinationProtocol.doseStatus.extension</fhir_path>
-				<predicate>Immunization:vaccinationProtocol_doseStatus_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>Conformance.document.documentation.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.question.name.extension</fhir_path>
@@ -8729,16 +8965,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Condition.stage.summary</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Condition.stage.summary.extension</fhir_path>
-				<predicate>Condition:stage_summary_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>Ratio.denominator</fhir_path>
+		<subs/>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>FamilyHistory.contained</fhir_path>
@@ -8802,88 +9031,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Specimen</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.extension</fhir_path>
-				<predicate>Specimen:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.modifierExtension</fhir_path>
-				<predicate>Specimen:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.text</fhir_path>
-				<predicate>Specimen:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.contained</fhir_path>
-				<predicate>Specimen:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.identifier</fhir_path>
-				<predicate>Specimen:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.type</fhir_path>
-				<predicate>Specimen:type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.source</fhir_path>
-				<predicate>Specimen:source</predicate>
-				<relative_xpath>f:source</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.subject</fhir_path>
-				<predicate>Specimen:subject</predicate>
-				<relative_xpath>f:subject</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.accessionIdentifier</fhir_path>
-				<predicate>Specimen:accessionIdentifier</predicate>
-				<relative_xpath>f:accessionIdentifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.receivedTime</fhir_path>
-				<predicate>Specimen:receivedTime</predicate>
-				<relative_xpath>f:receivedTime</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.collection</fhir_path>
-				<predicate>Specimen:collection</predicate>
-				<relative_xpath>f:collection</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.treatment</fhir_path>
-				<predicate>Specimen:treatment</predicate>
-				<relative_xpath>f:treatment</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.container</fhir_path>
-				<predicate>Specimen:container</predicate>
-				<relative_xpath>f:container</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type>Specimen</type>
+		<fhir_path>ImmunizationRecommendation.recommendation.forecastStatus.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Attachment.url</fhir_path>
@@ -8907,6 +9057,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>Patient.contact.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Patient.link.other.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -8935,6 +9090,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
+		<fhir_path>Observation.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
+	</path>
+	<path>
 		<fhir_path>Encounter.participant.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -8957,16 +9117,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization.type</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Organization.type.extension</fhir_path>
-				<predicate>Organization:type_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>Profile.structure.purpose.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.recordedDate.extension</fhir_path>
@@ -9018,14 +9171,33 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Message.source.version.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Encounter.priority</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Encounter.priority.extension</fhir_path>
+				<predicate>Encounter:priority_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.event.subtype.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Questionnaire.group.name</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Questionnaire.group.name.extension</fhir_path>
+				<predicate>Questionnaire:group_name_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.text</fhir_path>
@@ -9072,16 +9244,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.series.uid</fhir_path>
+		<fhir_path>Other.code</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ImagingStudy.series.uid.extension</fhir_path>
-				<predicate>ImagingStudy:series_uid_extension</predicate>
+				<fhir_path>Other.code.extension</fhir_path>
+				<predicate>Other:code_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>oid</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Other.subject.extension</fhir_path>
@@ -9135,29 +9307,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.protocol.authority.extension</fhir_path>
+		<fhir_path>DiagnosticOrder.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceData.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>Other.subject</fhir_path>
+		<fhir_path>DocumentReference.status</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Other.subject.extension</fhir_path>
-				<predicate>Other:subject_extension</predicate>
+				<fhir_path>DocumentReference.status.extension</fhir_path>
+				<predicate>DocumentReference:status_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Resource</type>
+		<type>code</type>
+	</path>
+	<path>
+		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.facet.code.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Query.response.reference.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>SecurityEvent.object.detail.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -9278,30 +9455,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.accessionIdentifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.accessionIdentifier.extension</fhir_path>
-				<predicate>Specimen:accessionIdentifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
-	</path>
-	<path>
-		<fhir_path>Message.response.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.response.identifier.extension</fhir_path>
-				<predicate>Message:response_identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>id</type>
-	</path>
-	<path>
 		<fhir_path>Practitioner.birthDate</fhir_path>
 		<subs>
 			<sub>
@@ -9377,184 +9530,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationAdministration.extension</fhir_path>
-				<predicate>MedicationAdministration:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.modifierExtension</fhir_path>
-				<predicate>MedicationAdministration:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.text</fhir_path>
-				<predicate>MedicationAdministration:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.contained</fhir_path>
-				<predicate>MedicationAdministration:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.identifier</fhir_path>
-				<predicate>MedicationAdministration:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.status</fhir_path>
-				<predicate>MedicationAdministration:status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.patient</fhir_path>
-				<predicate>MedicationAdministration:patient</predicate>
-				<relative_xpath>f:patient</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.practitioner</fhir_path>
-				<predicate>MedicationAdministration:practitioner</predicate>
-				<relative_xpath>f:practitioner</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.encounter</fhir_path>
-				<predicate>MedicationAdministration:encounter</predicate>
-				<relative_xpath>f:encounter</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.prescription</fhir_path>
-				<predicate>MedicationAdministration:prescription</predicate>
-				<relative_xpath>f:prescription</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.wasNotGiven</fhir_path>
-				<predicate>MedicationAdministration:wasNotGiven</predicate>
-				<relative_xpath>f:wasNotGiven</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.reasonNotGiven</fhir_path>
-				<predicate>MedicationAdministration:reasonNotGiven</predicate>
-				<relative_xpath>f:reasonNotGiven</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.whenGiven</fhir_path>
-				<predicate>MedicationAdministration:whenGiven</predicate>
-				<relative_xpath>f:whenGiven</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.medication</fhir_path>
-				<predicate>MedicationAdministration:medication</predicate>
-				<relative_xpath>f:medication</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.administrationDevice</fhir_path>
-				<predicate>MedicationAdministration:administrationDevice</predicate>
-				<relative_xpath>f:administrationDevice</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationAdministration.dosage</fhir_path>
-				<predicate>MedicationAdministration:dosage</predicate>
-				<relative_xpath>f:dosage</relative_xpath>
-				<type/>
-			</sub>
-		</subs>
-		<type>MedicationAdministration</type>
+		<fhir_path>Identifier.system</fhir_path>
+		<subs/>
+		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>List</fhir_path>
+		<fhir_path>Profile.structure.element.definition.requirements</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>List.extension</fhir_path>
-				<predicate>List:extension</predicate>
+				<fhir_path>Profile.structure.element.definition.requirements.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_requirements_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>List.modifierExtension</fhir_path>
-				<predicate>List:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>List.text</fhir_path>
-				<predicate>List:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>List.contained</fhir_path>
-				<predicate>List:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>List.code</fhir_path>
-				<predicate>List:code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>List.subject</fhir_path>
-				<predicate>List:subject</predicate>
-				<relative_xpath>f:subject</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>List.source</fhir_path>
-				<predicate>List:source</predicate>
-				<relative_xpath>f:source</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>List.date</fhir_path>
-				<predicate>List:date</predicate>
-				<relative_xpath>f:date</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>List.ordered</fhir_path>
-				<predicate>List:ordered</predicate>
-				<relative_xpath>f:ordered</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>List.mode</fhir_path>
-				<predicate>List:mode</predicate>
-				<relative_xpath>f:mode</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>List.entry</fhir_path>
-				<predicate>List:entry</predicate>
-				<relative_xpath>f:entry</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>List.emptyReason</fhir_path>
-				<predicate>List:emptyReason</predicate>
-				<relative_xpath>f:emptyReason</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
 		</subs>
-		<type>List</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.code</fhir_path>
@@ -9569,21 +9559,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.detail.extension</fhir_path>
+		<fhir_path>ValueSet.compose.exclude.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.length</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Encounter.length.extension</fhir_path>
-				<predicate>Encounter:length_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Duration</type>
+		<fhir_path>CarePlan.activity.detail.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.security.service</fhir_path>
@@ -9680,9 +9663,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
-		<fhir_path>Medication.package.container.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Order.authority</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Order.authority.extension</fhir_path>
+				<predicate>Order:authority_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.vaccineType.extension</fhir_path>
@@ -9702,9 +9692,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>DeviceData.contained</fhir_path>
+		<fhir_path>Conformance.rest.resource.updateCreate.extension</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Message.timestamp.extension</fhir_path>
@@ -9712,16 +9702,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.object.sensitivity</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>SecurityEvent.object.sensitivity.extension</fhir_path>
-				<predicate>SecurityEvent:object_sensitivity_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>OrderResponse.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>Document.confidentiality</fhir_path>
@@ -9792,34 +9775,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Document.event</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Document.event.modifierExtension</fhir_path>
-				<predicate>Document:event_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Document.event.code</fhir_path>
-				<predicate>Document:event_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Document.event.period</fhir_path>
-				<predicate>Document:event_period</predicate>
-				<relative_xpath>f:period</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>Document.event.detail</fhir_path>
-				<predicate>Document:event_detail</predicate>
-				<relative_xpath>f:detail</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Message.response.details.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Observation.valueExtension.extension</fhir_path>
@@ -9844,11 +9802,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>HumanName</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.serviceProvider</fhir_path>
+		<fhir_path>MedicationAdministration.practitioner</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Encounter.serviceProvider.extension</fhir_path>
-				<predicate>Encounter:serviceProvider_extension</predicate>
+				<fhir_path>MedicationAdministration.practitioner.extension</fhir_path>
+				<predicate>MedicationAdministration:practitioner_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
@@ -9856,16 +9814,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Patient.address</fhir_path>
+		<fhir_path>Specimen.collection.method</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Patient.address.extension</fhir_path>
-				<predicate>Patient:address_extension</predicate>
+				<fhir_path>Specimen.collection.method.extension</fhir_path>
+				<predicate>Specimen:collection_method_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Address</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.participant.userId.extension</fhir_path>
@@ -9878,19 +9836,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.formal</fhir_path>
+		<fhir_path>List.emptyReason</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Profile.structure.element.definition.formal.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_formal_extension</predicate>
+				<fhir_path>List.emptyReason.extension</fhir_path>
+				<predicate>List:emptyReason_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.maxLength.extension</fhir_path>
+		<fhir_path>OperationOutcome.issue.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -9919,7 +9877,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.status.extension</fhir_path>
+		<fhir_path>Profile.telecom.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -9929,9 +9887,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ConceptMap.description.extension</fhir_path>
+		<fhir_path>SecurityEvent.object.detail.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Organization.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Organization.identifier.extension</fhir_path>
+				<predicate>Organization:identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>List.ordered</fhir_path>
@@ -9990,16 +9960,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient.careProvider</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Patient.careProvider.extension</fhir_path>
-				<predicate>Patient:careProvider_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>SecurityEvent.event.outcomeDesc.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Message.author</fhir_path>
@@ -10043,18 +10006,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.define.system</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ValueSet.define.system.extension</fhir_path>
-				<predicate>ValueSet:define_system_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>uri</type>
-	</path>
-	<path>
 		<fhir_path>Questionnaire.question.remarks</fhir_path>
 		<subs>
 			<sub>
@@ -10079,16 +10030,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.referrer</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.referrer.extension</fhir_path>
-				<predicate>ImagingStudy:referrer_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>Conformance.name.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.resource.searchParam.chain</fhir_path>
@@ -10108,11 +10052,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
-	</path>
-	<path>
 		<fhir_path>AllergyIntolerance.sensitivityType</fhir_path>
 		<subs>
 			<sub>
@@ -10125,26 +10064,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.wasNotGiven.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Document.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Order.source</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Order.source.extension</fhir_path>
-				<predicate>Order:source_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Document.identifier.extension</fhir_path>
@@ -10223,6 +10145,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>FamilyHistory.relation.condition.type</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>FamilyHistory.relation.condition.type.extension</fhir_path>
+				<predicate>FamilyHistory:relation_condition_type_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>Conformance.rest.query.documentation.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -10269,28 +10203,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.implementation</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.implementation.modifierExtension</fhir_path>
-				<predicate>Conformance:implementation_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.implementation.description</fhir_path>
-				<predicate>Conformance:implementation_description</predicate>
-				<relative_xpath>f:description</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.implementation.url</fhir_path>
-				<predicate>Conformance:implementation_url</predicate>
-				<relative_xpath>f:url</relative_xpath>
-				<type>uri</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Questionnaire.question.answerboolean</fhir_path>
+		<subs/>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.contained</fhir_path>
@@ -10337,9 +10252,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.manufacturer.extension</fhir_path>
+		<fhir_path>Range.high</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>Patient.deceasedExtension.extension</fhir_path>
@@ -10369,16 +10284,52 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>OperationOutcome.issue.type</fhir_path>
+		<fhir_path>Specimen.container</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>OperationOutcome.issue.type.extension</fhir_path>
-				<predicate>OperationOutcome:issue_type_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
+				<fhir_path>Specimen.container.modifierExtension</fhir_path>
+				<predicate>Specimen:container_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>Specimen.container.identifier</fhir_path>
+				<predicate>Specimen:container_identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.container.description</fhir_path>
+				<predicate>Specimen:container_description</predicate>
+				<relative_xpath>f:description</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.container.type</fhir_path>
+				<predicate>Specimen:container_type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.container.capacity</fhir_path>
+				<predicate>Specimen:container_capacity</predicate>
+				<relative_xpath>f:capacity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.container.specimenQuantity</fhir_path>
+				<predicate>Specimen:container_specimenQuantity</predicate>
+				<relative_xpath>f:specimenQuantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.container.additive</fhir_path>
+				<predicate>Specimen:container_additive</predicate>
+				<relative_xpath>f:additive</relative_xpath>
+				<type>Resource</type>
+			</sub>
 		</subs>
-		<type>Coding</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Medication.isBrand.extension</fhir_path>
@@ -10386,7 +10337,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.resource.searchParam.modifierExtension</fhir_path>
+		<fhir_path>Patient.contact.address.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -10396,16 +10347,40 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.status</fhir_path>
+		<fhir_path>Profile.structure.element.definition.mapping</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>CarePlan.activity.status.extension</fhir_path>
-				<predicate>CarePlan:activity_status_extension</predicate>
+				<fhir_path>Profile.structure.element.definition.mapping.modifierExtension</fhir_path>
+				<predicate>Profile:structure_element_definition_mapping_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.mapping.identity</fhir_path>
+				<predicate>Profile:structure_element_definition_mapping_identity</predicate>
+				<relative_xpath>f:identity</relative_xpath>
+				<type>id</type>
+			</sub>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.mapping.map</fhir_path>
+				<predicate>Profile:structure_element_definition_mapping_map</predicate>
+				<relative_xpath>f:map</relative_xpath>
+				<type>string</type>
+			</sub>
+		</subs>
+		<type/>
+	</path>
+	<path>
+		<fhir_path>RelatedPerson.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>RelatedPerson.identifier.extension</fhir_path>
+				<predicate>RelatedPerson:identifier_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>code</type>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.subject</fhir_path>
@@ -10567,21 +10542,45 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Condition.severity</fhir_path>
+		<fhir_path>Observation.referenceRange</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Condition.severity.extension</fhir_path>
-				<predicate>Condition:severity_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
+				<fhir_path>Observation.referenceRange.modifierExtension</fhir_path>
+				<predicate>Observation:referenceRange_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange.meaning</fhir_path>
+				<predicate>Observation:referenceRange_meaning</predicate>
+				<relative_xpath>f:meaning</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange.rangeQuantity</fhir_path>
+				<predicate>Observation:referenceRange_rangeQuantity</predicate>
+				<relative_xpath>f:rangeQuantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange.rangeRange</fhir_path>
+				<predicate>Observation:referenceRange_rangeRange</predicate>
+				<relative_xpath>f:rangeRange</relative_xpath>
+				<type>Range</type>
+			</sub>
+			<sub>
+				<fhir_path>Observation.referenceRange.rangestring</fhir_path>
+				<predicate>Observation:referenceRange_rangestring</predicate>
+				<relative_xpath>f:rangestring</relative_xpath>
+				<type>string</type>
+			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type/>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.extension</fhir_path>
+		<fhir_path>Quantity.value</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>decimal</type>
 	</path>
 	<path>
 		<fhir_path>Order.when.code.extension</fhir_path>
@@ -10613,16 +10612,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>Observation.component.name</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Observation.component.name.extension</fhir_path>
-				<predicate>Observation:component_name_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>ResourceReference.display</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.author</fhir_path>
@@ -10642,16 +10634,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.compose.include.filter.op</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ValueSet.compose.include.filter.op.extension</fhir_path>
-				<predicate>ValueSet:compose_include_filter_op_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>MedicationDispense.dispenser.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>AdverseReaction.exposure.substance.extension</fhir_path>
@@ -10686,15 +10671,8 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.subject</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.subject.extension</fhir_path>
-				<predicate>ImagingStudy:subject_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
+		<fhir_path>AdverseReaction.contained</fhir_path>
+		<subs/>
 		<type>Resource</type>
 	</path>
 	<path>
@@ -10756,69 +10734,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.source.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>SecurityEvent.participant</fhir_path>
+		<fhir_path>Conformance.messaging.event.request</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>SecurityEvent.participant.modifierExtension</fhir_path>
-				<predicate>SecurityEvent:participant_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
+				<fhir_path>Conformance.messaging.event.request.extension</fhir_path>
+				<predicate>Conformance:messaging_event_request_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.role</fhir_path>
-				<predicate>SecurityEvent:participant_role</predicate>
-				<relative_xpath>f:role</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.reference</fhir_path>
-				<predicate>SecurityEvent:participant_reference</predicate>
-				<relative_xpath>f:reference</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.userId</fhir_path>
-				<predicate>SecurityEvent:participant_userId</predicate>
-				<relative_xpath>f:userId</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.authId</fhir_path>
-				<predicate>SecurityEvent:participant_authId</predicate>
-				<relative_xpath>f:authId</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.name</fhir_path>
-				<predicate>SecurityEvent:participant_name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.requestor</fhir_path>
-				<predicate>SecurityEvent:participant_requestor</predicate>
-				<relative_xpath>f:requestor</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.media</fhir_path>
-				<predicate>SecurityEvent:participant_media</predicate>
-				<relative_xpath>f:media</relative_xpath>
-				<type>Coding</type>
-			</sub>
-			<sub>
-				<fhir_path>SecurityEvent.participant.network</fhir_path>
-				<predicate>SecurityEvent:participant_network</predicate>
-				<relative_xpath>f:network</relative_xpath>
-				<type/>
-			</sub>
 		</subs>
-		<type/>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticReport.diagnosticExtension.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Message.response.code.extension</fhir_path>
@@ -10872,9 +10802,58 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Schedule</type>
 	</path>
 	<path>
-		<fhir_path>Condition.relatedItem.target.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ImagingStudy.series.instance</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.modifierExtension</fhir_path>
+				<predicate>ImagingStudy:series_instance_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.number</fhir_path>
+				<predicate>ImagingStudy:series_instance_number</predicate>
+				<relative_xpath>f:number</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.uid</fhir_path>
+				<predicate>ImagingStudy:series_instance_uid</predicate>
+				<relative_xpath>f:uid</relative_xpath>
+				<type>oid</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.sopclass</fhir_path>
+				<predicate>ImagingStudy:series_instance_sopclass</predicate>
+				<relative_xpath>f:sopclass</relative_xpath>
+				<type>oid</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.type</fhir_path>
+				<predicate>ImagingStudy:series_instance_type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.title</fhir_path>
+				<predicate>ImagingStudy:series_instance_title</predicate>
+				<relative_xpath>f:title</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.url</fhir_path>
+				<predicate>ImagingStudy:series_instance_url</predicate>
+				<relative_xpath>f:url</relative_xpath>
+				<type>uri</type>
+			</sub>
+			<sub>
+				<fhir_path>ImagingStudy.series.instance.attachment</fhir_path>
+				<predicate>ImagingStudy:series_instance_attachment</predicate>
+				<relative_xpath>f:attachment</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Conformance.implementation.modifierExtension</fhir_path>
@@ -10993,28 +10972,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>boolean</type>
-	</path>
-	<path>
-		<fhir_path>List.emptyReason</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>List.emptyReason.extension</fhir_path>
-				<predicate>List:emptyReason_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>Group.actual.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>AdverseReaction</fhir_path>
@@ -11163,16 +11120,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Organization.identifier.extension</fhir_path>
-				<predicate>Organization:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
+		<fhir_path>ConceptMap.description.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.definition.constraint.modifierExtension</fhir_path>
@@ -11280,11 +11230,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.resource.type.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Substance.status.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -11425,7 +11370,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>instant</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.modality.extension</fhir_path>
+		<fhir_path>Practitioner.qualification.code.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -11574,7 +11519,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.type.extension</fhir_path>
+		<fhir_path>Medication.manufacturer.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -11621,6 +11566,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Identifier</type>
 	</path>
 	<path>
+		<fhir_path>ValueSet.copyright.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>Specimen.collection.comment.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -11639,11 +11589,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>ConceptMap.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>Media.subtype.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Provenance.location</fhir_path>
@@ -11697,9 +11642,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Ratio</type>
 	</path>
 	<path>
-		<fhir_path>Extension.value*</fhir_path>
+		<fhir_path>SecurityEvent.object.identifier.extension</fhir_path>
 		<subs/>
-		<type/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.requestDetail.receiverOrderId.extension</fhir_path>
@@ -11707,16 +11652,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Query.response.total</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Query.response.total.extension</fhir_path>
-				<predicate>Query:response_total_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>integer</type>
+		<fhir_path>DeviceData.virtualDevice.channel.metric.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Provenance.agent.modifierExtension</fhir_path>
@@ -11748,16 +11686,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>Message.response.code</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.response.code.extension</fhir_path>
-				<predicate>Message:response_code_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>Observation.referenceRange.meaning.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.dispense.whenPrepared.extension</fhir_path>
@@ -11809,16 +11740,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.identifier.extension</fhir_path>
-				<predicate>Profile:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>Medication.name.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.query.name</fhir_path>
@@ -11848,7 +11772,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentManifest.identifier.extension</fhir_path>
+		<fhir_path>Condition.evidence.detail.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -11858,34 +11782,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceLog.item</fhir_path>
+		<fhir_path>Profile.structure.element.definition.isModifier</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DeviceLog.item.modifierExtension</fhir_path>
-				<predicate>DeviceLog:item_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
+				<fhir_path>Profile.structure.element.definition.isModifier.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_isModifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>DeviceLog.item.key</fhir_path>
-				<predicate>DeviceLog:item_key</predicate>
-				<relative_xpath>f:key</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceLog.item.value</fhir_path>
-				<predicate>DeviceLog:item_value</predicate>
-				<relative_xpath>f:value</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceLog.item.flag</fhir_path>
-				<predicate>DeviceLog:item_flag</predicate>
-				<relative_xpath>f:flag</relative_xpath>
-				<type>code</type>
-			</sub>
 		</subs>
-		<type/>
+		<type>boolean</type>
+	</path>
+	<path>
+		<fhir_path>ValueSet.compose.include.filter.value.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.criticality</fhir_path>
@@ -11900,7 +11811,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.reaction.date.extension</fhir_path>
+		<fhir_path>MedicationDispense.dispense.dosage.timingPeriod</fhir_path>
+		<subs/>
+		<type>Period</type>
+	</path>
+	<path>
+		<fhir_path>Profile.structure.element.definition.constraint.severity.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -12160,7 +12076,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CarePlan</type>
 	</path>
 	<path>
-		<fhir_path>Profile.extensionDefn.display.extension</fhir_path>
+		<fhir_path>Encounter.hospitalization.accomodation.period.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -12194,75 +12110,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization.contact.name.extension</fhir_path>
+		<fhir_path>OrderResponse.authority.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.modifierExtension</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.recommendationDate</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_recommendationDate</predicate>
-				<relative_xpath>f:recommendationDate</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.vaccineType</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_vaccineType</predicate>
-				<relative_xpath>f:vaccineType</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.doseNumber</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_doseNumber</predicate>
-				<relative_xpath>f:doseNumber</relative_xpath>
-				<type>integer</type>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.forecastStatus</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_forecastStatus</predicate>
-				<relative_xpath>f:forecastStatus</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.dateCriterion</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_dateCriterion</predicate>
-				<relative_xpath>f:dateCriterion</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.protocol</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_protocol</predicate>
-				<relative_xpath>f:protocol</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.supportingImmunization</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_supportingImmunization</predicate>
-				<relative_xpath>f:supportingImmunization</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_supportingAdverseEventReport</predicate>
-				<relative_xpath>f:supportingAdverseEventReport</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.supportingPatientObservation</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_supportingPatientObservation</predicate>
-				<relative_xpath>f:supportingPatientObservation</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>DiagnosticOrder.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Profile</fhir_path>
@@ -12396,40 +12251,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Message.destination.endpoint</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.destination.endpoint.extension</fhir_path>
-				<predicate>Message:destination_endpoint_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>uri</type>
-	</path>
-	<path>
-		<fhir_path>CarePlan.notes</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>CarePlan.notes.extension</fhir_path>
-				<predicate>CarePlan:notes_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>Conformance.rest.security.cors</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.rest.security.cors.extension</fhir_path>
-				<predicate>Conformance:rest_security_cors_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>boolean</type>
+		<fhir_path>Order.when.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.group.header</fhir_path>
@@ -12459,16 +12283,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentReference.mimeType</fhir_path>
+		<fhir_path>Specimen.collection.comment</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DocumentReference.mimeType.extension</fhir_path>
-				<predicate>DocumentReference:mimeType_extension</predicate>
+				<fhir_path>Specimen.collection.comment.extension</fhir_path>
+				<predicate>Specimen:collection_comment_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>code</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>SecurityEvent.event.dateTime</fhir_path>
@@ -12519,16 +12343,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.subject</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Questionnaire.subject.extension</fhir_path>
-				<predicate>Questionnaire:subject_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>DocumentManifest.status.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.document.modifierExtension</fhir_path>
@@ -12704,7 +12521,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.extension</fhir_path>
+		<fhir_path>DocumentReference.indexed.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -12750,11 +12567,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Location.type.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Specimen.treatment.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -12770,112 +12582,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Practitioner.extension</fhir_path>
-				<predicate>Practitioner:extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.modifierExtension</fhir_path>
-				<predicate>Practitioner:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.text</fhir_path>
-				<predicate>Practitioner:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.contained</fhir_path>
-				<predicate>Practitioner:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.identifier</fhir_path>
-				<predicate>Practitioner:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.name</fhir_path>
-				<predicate>Practitioner:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>HumanName</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.telecom</fhir_path>
-				<predicate>Practitioner:telecom</predicate>
-				<relative_xpath>f:telecom</relative_xpath>
-				<type>Contact</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.address</fhir_path>
-				<predicate>Practitioner:address</predicate>
-				<relative_xpath>f:address</relative_xpath>
-				<type>Address</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.gender</fhir_path>
-				<predicate>Practitioner:gender</predicate>
-				<relative_xpath>f:gender</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.birthDate</fhir_path>
-				<predicate>Practitioner:birthDate</predicate>
-				<relative_xpath>f:birthDate</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.photo</fhir_path>
-				<predicate>Practitioner:photo</predicate>
-				<relative_xpath>f:photo</relative_xpath>
-				<type>Attachment</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.organization</fhir_path>
-				<predicate>Practitioner:organization</predicate>
-				<relative_xpath>f:organization</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.role</fhir_path>
-				<predicate>Practitioner:role</predicate>
-				<relative_xpath>f:role</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.specialty</fhir_path>
-				<predicate>Practitioner:specialty</predicate>
-				<relative_xpath>f:specialty</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.period</fhir_path>
-				<predicate>Practitioner:period</predicate>
-				<relative_xpath>f:period</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.qualification</fhir_path>
-				<predicate>Practitioner:qualification</predicate>
-				<relative_xpath>f:qualification</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Practitioner.communication</fhir_path>
-				<predicate>Practitioner:communication</predicate>
-				<relative_xpath>f:communication</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-		</subs>
-		<type>Practitioner</type>
+		<fhir_path>MedicationDispense.dispense.dosage.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.query.name.extension</fhir_path>
@@ -12937,16 +12646,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Observation.referenceRange.meaning</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Observation.referenceRange.meaning.extension</fhir_path>
-				<predicate>Observation:referenceRange_meaning_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>OperationOutcome.issue.location.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Provenance.agent.type.extension</fhir_path>
@@ -12991,26 +12693,33 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.patient</fhir_path>
+		<fhir_path>Specimen.treatment.procedure</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationDispense.patient.extension</fhir_path>
-				<predicate>MedicationDispense:patient_extension</predicate>
+				<fhir_path>Specimen.treatment.procedure.extension</fhir_path>
+				<predicate>Specimen:treatment_procedure_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Resource</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>DeviceData.virtualDevice.channel.metric.modifierExtension</fhir_path>
+		<fhir_path>CarePlan.goal.status.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Query.response.total</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Query.response.total.extension</fhir_path>
+				<predicate>Query:response_total_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>integer</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.codedDiagnosis</fhir_path>
@@ -13237,9 +12946,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.constraint.severity.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Immunization.lotNumber</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Immunization.lotNumber.extension</fhir_path>
+				<predicate>Immunization:lotNumber_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Group.characteristic.valueExtension.extension</fhir_path>
@@ -13269,11 +12985,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.requester</fhir_path>
+		<fhir_path>OrderResponse.fulfillment</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Immunization.requester.extension</fhir_path>
-				<predicate>Immunization:requester_extension</predicate>
+				<fhir_path>OrderResponse.fulfillment.extension</fhir_path>
+				<predicate>OrderResponse:fulfillment_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
@@ -13286,40 +13002,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.results</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DiagnosticReport.results.modifierExtension</fhir_path>
-				<predicate>DiagnosticReport:results_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticReport.results.name</fhir_path>
-				<predicate>DiagnosticReport:results_name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticReport.results.specimen</fhir_path>
-				<predicate>DiagnosticReport:results_specimen</predicate>
-				<relative_xpath>f:specimen</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticReport.results.group</fhir_path>
-				<predicate>DiagnosticReport:results_group</predicate>
-				<relative_xpath>f:group</relative_xpath>
-				<type>DiagnosticReport.results</type>
-			</sub>
-			<sub>
-				<fhir_path>DiagnosticReport.results.result</fhir_path>
-				<predicate>DiagnosticReport:results_result</predicate>
-				<relative_xpath>f:result</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Location.type.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Order.text</fhir_path>
@@ -13368,16 +13053,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Media.frames</fhir_path>
+		<fhir_path>Encounter.hospitalization.accomodation</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Media.frames.extension</fhir_path>
-				<predicate>Media:frames_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
+				<fhir_path>Encounter.hospitalization.accomodation.modifierExtension</fhir_path>
+				<predicate>Encounter:hospitalization_accomodation_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>Encounter.hospitalization.accomodation.bed</fhir_path>
+				<predicate>Encounter:hospitalization_accomodation_bed</predicate>
+				<relative_xpath>f:bed</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Encounter.hospitalization.accomodation.period</fhir_path>
+				<predicate>Encounter:hospitalization_accomodation_period</predicate>
+				<relative_xpath>f:period</relative_xpath>
+				<type>Period</type>
+			</sub>
 		</subs>
-		<type>integer</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Profile.mapping.identity.extension</fhir_path>
@@ -13520,19 +13217,40 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
+		<fhir_path>Conformance.implementation.description</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.implementation.description.extension</fhir_path>
+				<predicate>Conformance:implementation_description_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.accessionNo.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Media.subtype</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Media.subtype.extension</fhir_path>
+				<predicate>Media:subtype_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>MedicationStatement.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
+		<fhir_path>ImagingStudy.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.identifier.extension</fhir_path>
+				<predicate>ImagingStudy:identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.indication</fhir_path>
@@ -13649,7 +13367,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Message</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.site.extension</fhir_path>
+		<fhir_path>Condition.location.code.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -13676,9 +13394,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Medication.name.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Profile.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.identifier.extension</fhir_path>
+				<predicate>Profile:identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Patient.active</fhir_path>
@@ -13722,12 +13447,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.goal.concern.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Message.event.extension</fhir_path>
+		<fhir_path>Specimen.collection.sourceSite.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -13768,7 +13488,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.diagnosticExtension.extension</fhir_path>
+		<fhir_path>SecurityEvent.event.type.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>CarePlan.activity.simple.category.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -13809,16 +13534,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>OperationOutcome</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.dosage.route</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationAdministration.dosage.route.extension</fhir_path>
-				<predicate>MedicationAdministration:dosage_route_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>Questionnaire.authored.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Patient.contact.address</fhir_path>
@@ -13857,9 +13575,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
-		<fhir_path>Group.characteristic.valueboolean</fhir_path>
+		<fhir_path>HumanName.prefix</fhir_path>
 		<subs/>
-		<type>boolean</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.concept.map</fhir_path>
@@ -13932,18 +13650,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>RelatedPerson.photo</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>RelatedPerson.photo.extension</fhir_path>
-				<predicate>RelatedPerson:photo_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Attachment</type>
-	</path>
-	<path>
 		<fhir_path>Conformance.messaging.event.mode.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -13971,7 +13677,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.security.description.extension</fhir_path>
+		<fhir_path>DocumentManifest.identifier.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -14020,19 +13726,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.dosage.rate</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationAdministration.dosage.rate.extension</fhir_path>
-				<predicate>MedicationAdministration:dosage_rate_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Ratio</type>
+		<fhir_path>MedicationDispense.dispense.dosage.rate.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>List.modifierExtension</fhir_path>
+		<fhir_path>Query.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -14122,9 +13821,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.timingPeriod</fhir_path>
+		<fhir_path>Immunization.reaction.date.extension</fhir_path>
 		<subs/>
-		<type>Period</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.publish</fhir_path>
@@ -14208,6 +13907,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>SecurityEvent.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>Conformance.messaging.event.protocol.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -14242,12 +13946,17 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.identifier.extension</fhir_path>
+		<fhir_path>Device.lotNumber.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>FamilyHistory.subject.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Profile.structure.element.definition.constraint.xpath.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -14269,11 +13978,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>OperationOutcome.issue.type.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>DiagnosticReport.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -14284,9 +13988,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Observation.valueCodeableConcept</fhir_path>
-		<subs/>
-		<type>CodeableConcept</type>
+		<fhir_path>Specimen.subject</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Specimen.subject.extension</fhir_path>
+				<predicate>Specimen:subject_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.expansion.contains.contains.extension</fhir_path>
@@ -14340,9 +14051,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>integer</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticOrder.item.specimen.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Specimen.source</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Specimen.source.modifierExtension</fhir_path>
+				<predicate>Specimen:source_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.source.relationship</fhir_path>
+				<predicate>Specimen:source_relationship</predicate>
+				<relative_xpath>f:relationship</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.source.target</fhir_path>
+				<predicate>Specimen:source_target</predicate>
+				<relative_xpath>f:target</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel</fhir_path>
@@ -14381,11 +14111,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>ValueSet.define.concept.code</fhir_path>
 		<subs>
 			<sub>
@@ -14403,16 +14128,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Message.event</fhir_path>
+		<fhir_path>DocumentReference.indexed</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Message.event.extension</fhir_path>
-				<predicate>Message:event_extension</predicate>
+				<fhir_path>DocumentReference.indexed.extension</fhir_path>
+				<predicate>DocumentReference:indexed_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Coding</type>
+		<type>instant</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.concept.concept.extension</fhir_path>
@@ -14457,14 +14182,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Profile.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
+		<fhir_path>Message.reason</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.reason.extension</fhir_path>
+				<predicate>Message:reason_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.status.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Patient.contact.gender</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Patient.contact.gender.extension</fhir_path>
+				<predicate>Patient:contact_gender_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.series.bodySite</fhir_path>
@@ -14489,11 +14228,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.quantity.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.series.instance.attachment.extension</fhir_path>
@@ -14535,7 +14269,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Patient.contact.organization.extension</fhir_path>
+		<fhir_path>AdverseReaction.exposure.exposureDate.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -14552,9 +14286,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Message.receiver</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.receiver.extension</fhir_path>
+				<predicate>Message:receiver_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>AdverseReaction.identifier.extension</fhir_path>
@@ -14562,28 +14303,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.manufacturer</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Immunization.manufacturer.extension</fhir_path>
-				<predicate>Immunization:manufacturer_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>Conformance.rest.resource.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.encounter</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Procedure.encounter.extension</fhir_path>
-				<predicate>Procedure:encounter_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>MedicationStatement.dosage.timing.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.telecom.extension</fhir_path>
@@ -14711,9 +14438,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Order.contained</fhir_path>
+		<fhir_path>ImagingStudy.interpreter.extension</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Condition.dateAsserted</fhir_path>
@@ -14755,166 +14482,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Identifier</type>
 	</path>
 	<path>
-		<fhir_path>Observation</fhir_path>
+		<fhir_path>DeviceData.virtualDevice.channel.metric.observation</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Observation.extension</fhir_path>
-				<predicate>Observation:extension</predicate>
+				<fhir_path>DeviceData.virtualDevice.channel.metric.observation.extension</fhir_path>
+				<predicate>DeviceData:virtualDevice_channel_metric_observation_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>Observation.modifierExtension</fhir_path>
-				<predicate>Observation:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.text</fhir_path>
-				<predicate>Observation:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.contained</fhir_path>
-				<predicate>Observation:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.name</fhir_path>
-				<predicate>Observation:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valueQuantity</fhir_path>
-				<predicate>Observation:valueQuantity</predicate>
-				<relative_xpath>f:valueQuantity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valueCodeableConcept</fhir_path>
-				<predicate>Observation:valueCodeableConcept</predicate>
-				<relative_xpath>f:valueCodeableConcept</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valueAttachment</fhir_path>
-				<predicate>Observation:valueAttachment</predicate>
-				<relative_xpath>f:valueAttachment</relative_xpath>
-				<type>Attachment</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valueRatio</fhir_path>
-				<predicate>Observation:valueRatio</predicate>
-				<relative_xpath>f:valueRatio</relative_xpath>
-				<type>Ratio</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valuePeriod</fhir_path>
-				<predicate>Observation:valuePeriod</predicate>
-				<relative_xpath>f:valuePeriod</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valueSampledData</fhir_path>
-				<predicate>Observation:valueSampledData</predicate>
-				<relative_xpath>f:valueSampledData</relative_xpath>
-				<type>SampledData</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.valuestring</fhir_path>
-				<predicate>Observation:valuestring</predicate>
-				<relative_xpath>f:valuestring</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.interpretation</fhir_path>
-				<predicate>Observation:interpretation</predicate>
-				<relative_xpath>f:interpretation</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.comments</fhir_path>
-				<predicate>Observation:comments</predicate>
-				<relative_xpath>f:comments</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.appliesPeriod</fhir_path>
-				<predicate>Observation:appliesPeriod</predicate>
-				<relative_xpath>f:appliesPeriod</relative_xpath>
-				<type>Period</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.appliesdateTime</fhir_path>
-				<predicate>Observation:appliesdateTime</predicate>
-				<relative_xpath>f:appliesdateTime</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.issued</fhir_path>
-				<predicate>Observation:issued</predicate>
-				<relative_xpath>f:issued</relative_xpath>
-				<type>instant</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.status</fhir_path>
-				<predicate>Observation:status</predicate>
-				<relative_xpath>f:status</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.reliability</fhir_path>
-				<predicate>Observation:reliability</predicate>
-				<relative_xpath>f:reliability</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.bodySite</fhir_path>
-				<predicate>Observation:bodySite</predicate>
-				<relative_xpath>f:bodySite</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.method</fhir_path>
-				<predicate>Observation:method</predicate>
-				<relative_xpath>f:method</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.identifier</fhir_path>
-				<predicate>Observation:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.subject</fhir_path>
-				<predicate>Observation:subject</predicate>
-				<relative_xpath>f:subject</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.performer</fhir_path>
-				<predicate>Observation:performer</predicate>
-				<relative_xpath>f:performer</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Observation.referenceRange</fhir_path>
-				<predicate>Observation:referenceRange</predicate>
-				<relative_xpath>f:referenceRange</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Observation.component</fhir_path>
-				<predicate>Observation:component</predicate>
-				<relative_xpath>f:component</relative_xpath>
-				<type/>
-			</sub>
 		</subs>
-		<type>Observation</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.location.modifierExtension</fhir_path>
@@ -14922,148 +14499,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient</fhir_path>
+		<fhir_path>Encounter.hospitalization.specialArrangement</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Patient.extension</fhir_path>
-				<predicate>Patient:extension</predicate>
+				<fhir_path>Encounter.hospitalization.specialArrangement.extension</fhir_path>
+				<predicate>Encounter:hospitalization_specialArrangement_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>Patient.modifierExtension</fhir_path>
-				<predicate>Patient:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.text</fhir_path>
-				<predicate>Patient:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.contained</fhir_path>
-				<predicate>Patient:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.identifier</fhir_path>
-				<predicate>Patient:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.name</fhir_path>
-				<predicate>Patient:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>HumanName</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.telecom</fhir_path>
-				<predicate>Patient:telecom</predicate>
-				<relative_xpath>f:telecom</relative_xpath>
-				<type>Contact</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.gender</fhir_path>
-				<predicate>Patient:gender</predicate>
-				<relative_xpath>f:gender</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.birthDate</fhir_path>
-				<predicate>Patient:birthDate</predicate>
-				<relative_xpath>f:birthDate</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.deceasedboolean</fhir_path>
-				<predicate>Patient:deceasedboolean</predicate>
-				<relative_xpath>f:deceasedboolean</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.deceaseddateTime</fhir_path>
-				<predicate>Patient:deceaseddateTime</predicate>
-				<relative_xpath>f:deceaseddateTime</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.address</fhir_path>
-				<predicate>Patient:address</predicate>
-				<relative_xpath>f:address</relative_xpath>
-				<type>Address</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.maritalStatus</fhir_path>
-				<predicate>Patient:maritalStatus</predicate>
-				<relative_xpath>f:maritalStatus</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.multipleBirthboolean</fhir_path>
-				<predicate>Patient:multipleBirthboolean</predicate>
-				<relative_xpath>f:multipleBirthboolean</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.multipleBirthinteger</fhir_path>
-				<predicate>Patient:multipleBirthinteger</predicate>
-				<relative_xpath>f:multipleBirthinteger</relative_xpath>
-				<type>integer</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.photo</fhir_path>
-				<predicate>Patient:photo</predicate>
-				<relative_xpath>f:photo</relative_xpath>
-				<type>Attachment</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.contact</fhir_path>
-				<predicate>Patient:contact</predicate>
-				<relative_xpath>f:contact</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Patient.animal</fhir_path>
-				<predicate>Patient:animal</predicate>
-				<relative_xpath>f:animal</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Patient.communication</fhir_path>
-				<predicate>Patient:communication</predicate>
-				<relative_xpath>f:communication</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.careProvider</fhir_path>
-				<predicate>Patient:careProvider</predicate>
-				<relative_xpath>f:careProvider</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.managingOrganization</fhir_path>
-				<predicate>Patient:managingOrganization</predicate>
-				<relative_xpath>f:managingOrganization</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Patient.link</fhir_path>
-				<predicate>Patient:link</predicate>
-				<relative_xpath>f:link</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>Patient.active</fhir_path>
-				<predicate>Patient:active</predicate>
-				<relative_xpath>f:active</relative_xpath>
-				<type>boolean</type>
-			</sub>
 		</subs>
-		<type>Patient</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.collection.collector.extension</fhir_path>
@@ -15098,25 +14543,25 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Condition.location</fhir_path>
+		<fhir_path>Procedure.relatedItem</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Condition.location.modifierExtension</fhir_path>
-				<predicate>Condition:location_modifierExtension</predicate>
+				<fhir_path>Procedure.relatedItem.modifierExtension</fhir_path>
+				<predicate>Procedure:relatedItem_modifierExtension</predicate>
 				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 			<sub>
-				<fhir_path>Condition.location.code</fhir_path>
-				<predicate>Condition:location_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>CodeableConcept</type>
+				<fhir_path>Procedure.relatedItem.type</fhir_path>
+				<predicate>Procedure:relatedItem_type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>code</type>
 			</sub>
 			<sub>
-				<fhir_path>Condition.location.detail</fhir_path>
-				<predicate>Condition:location_detail</predicate>
-				<relative_xpath>f:detail</relative_xpath>
-				<type>string</type>
+				<fhir_path>Procedure.relatedItem.target</fhir_path>
+				<predicate>Procedure:relatedItem_target</predicate>
+				<relative_xpath>f:target</relative_xpath>
+				<type>Resource</type>
 			</sub>
 		</subs>
 		<type/>
@@ -15194,18 +14639,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Substance.status</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Substance.status.extension</fhir_path>
-				<predicate>Substance:status_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
 		<fhir_path>Range.low</fhir_path>
 		<subs/>
 		<type>Quantity</type>
@@ -15221,16 +14654,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Range</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.name</fhir_path>
+		<fhir_path>Contact</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Profile.structure.name.extension</fhir_path>
-				<predicate>Profile:structure_name_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
+				<fhir_path>Contact.system</fhir_path>
+				<predicate>Contact:system</predicate>
+				<relative_xpath>f:system</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Contact.value</fhir_path>
+				<predicate>Contact:value</predicate>
+				<relative_xpath>f:value</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Contact.use</fhir_path>
+				<predicate>Contact:use</predicate>
+				<relative_xpath>f:use</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Contact.period</fhir_path>
+				<predicate>Contact:period</predicate>
+				<relative_xpath>f:period</relative_xpath>
+				<type>Period</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>Contact</type>
 	</path>
 	<path>
 		<fhir_path>RelatedPerson.gender.extension</fhir_path>
@@ -15260,7 +14711,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>RelatedPerson.telecom.extension</fhir_path>
+		<fhir_path>SecurityEvent.object.detail.value.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -15299,6 +14750,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Patient.animal.species.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>ImagingStudy.series.availability</fhir_path>
 		<subs>
 			<sub>
@@ -15311,33 +14767,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.condition</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.condition.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_condition_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>id</type>
+		<fhir_path>Specimen.treatment.additive.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.series.instance.sopclass.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>DeviceObservation.issued</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceObservation.issued.extension</fhir_path>
-				<predicate>DeviceObservation:issued_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>instant</type>
 	</path>
 	<path>
 		<fhir_path>HumanName.family</fhir_path>
@@ -15362,16 +14799,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.receivedTime</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.receivedTime.extension</fhir_path>
-				<predicate>Specimen:receivedTime_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>dateTime</type>
+		<fhir_path>ImagingStudy.series.instance.url.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.context.code</fhir_path>
@@ -15430,14 +14860,64 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Document.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ImagingStudy.series.dateTime</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.series.dateTime.extension</fhir_path>
+				<predicate>ImagingStudy:series_dateTime_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.hospitalization.accomodation.period.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Specimen.collection</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Specimen.collection.modifierExtension</fhir_path>
+				<predicate>Specimen:collection_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection.collector</fhir_path>
+				<predicate>Specimen:collection_collector</predicate>
+				<relative_xpath>f:collector</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection.comment</fhir_path>
+				<predicate>Specimen:collection_comment</predicate>
+				<relative_xpath>f:comment</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection.collectedTime</fhir_path>
+				<predicate>Specimen:collection_collectedTime</predicate>
+				<relative_xpath>f:collectedTime</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection.quantity</fhir_path>
+				<predicate>Specimen:collection_quantity</predicate>
+				<relative_xpath>f:quantity</relative_xpath>
+				<type>Quantity</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection.method</fhir_path>
+				<predicate>Specimen:collection_method</predicate>
+				<relative_xpath>f:method</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Specimen.collection.sourceSite</fhir_path>
+				<predicate>Specimen:collection_sourceSite</predicate>
+				<relative_xpath>f:sourceSite</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Other.contained</fhir_path>
@@ -15460,34 +14940,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>integer</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.reaction</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Immunization.reaction.modifierExtension</fhir_path>
-				<predicate>Immunization:reaction_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Immunization.reaction.date</fhir_path>
-				<predicate>Immunization:reaction_date</predicate>
-				<relative_xpath>f:date</relative_xpath>
-				<type>dateTime</type>
-			</sub>
-			<sub>
-				<fhir_path>Immunization.reaction.detail</fhir_path>
-				<predicate>Immunization:reaction_detail</predicate>
-				<relative_xpath>f:detail</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Immunization.reaction.reported</fhir_path>
-				<predicate>Immunization:reaction_reported</predicate>
-				<relative_xpath>f:reported</relative_xpath>
-				<type>boolean</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>Document.custodian.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.activity.goal.extension</fhir_path>
@@ -15495,9 +14950,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.hospitalization.specialCourtesy.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Immunization.vaccinationProtocol.doseStatus</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Immunization.vaccinationProtocol.doseStatus.extension</fhir_path>
+				<predicate>Immunization:vaccinationProtocol_doseStatus_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Condition.severity</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Condition.severity.extension</fhir_path>
+				<predicate>Condition:severity_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.reaction.extension</fhir_path>
@@ -15510,9 +14984,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.participant.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>MedicationStatement.patient</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationStatement.patient.extension</fhir_path>
+				<predicate>MedicationStatement:patient_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Procedure.subject.extension</fhir_path>
@@ -15592,14 +15073,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Organization.contact.modifierExtension</fhir_path>
+		<fhir_path>Questionnaire.author.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Query.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
+		<fhir_path>Substance.status</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Substance.status.extension</fhir_path>
+				<predicate>Substance:status_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>RelatedPerson.name</fhir_path>
@@ -15665,46 +15153,40 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Contact</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dispense</fhir_path>
+		<fhir_path>Quantity</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationPrescription.dispense.modifierExtension</fhir_path>
-				<predicate>MedicationPrescription:dispense_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
+				<fhir_path>Quantity.value</fhir_path>
+				<predicate>Quantity:value</predicate>
+				<relative_xpath>f:value</relative_xpath>
+				<type>decimal</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.dispense.medication</fhir_path>
-				<predicate>MedicationPrescription:dispense_medication</predicate>
-				<relative_xpath>f:medication</relative_xpath>
-				<type>Resource</type>
+				<fhir_path>Quantity.comparator</fhir_path>
+				<predicate>Quantity:comparator</predicate>
+				<relative_xpath>f:comparator</relative_xpath>
+				<type>code</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.dispense.validityPeriod</fhir_path>
-				<predicate>MedicationPrescription:dispense_validityPeriod</predicate>
-				<relative_xpath>f:validityPeriod</relative_xpath>
-				<type>Period</type>
+				<fhir_path>Quantity.units</fhir_path>
+				<predicate>Quantity:units</predicate>
+				<relative_xpath>f:units</relative_xpath>
+				<type>string</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.dispense.numberOfRepeatsAllowed</fhir_path>
-				<predicate>MedicationPrescription:dispense_numberOfRepeatsAllowed</predicate>
-				<relative_xpath>f:numberOfRepeatsAllowed</relative_xpath>
-				<type>integer</type>
+				<fhir_path>Quantity.system</fhir_path>
+				<predicate>Quantity:system</predicate>
+				<relative_xpath>f:system</relative_xpath>
+				<type>uri</type>
 			</sub>
 			<sub>
-				<fhir_path>MedicationPrescription.dispense.quantity</fhir_path>
-				<predicate>MedicationPrescription:dispense_quantity</predicate>
-				<relative_xpath>f:quantity</relative_xpath>
-				<type>Quantity</type>
-			</sub>
-			<sub>
-				<fhir_path>MedicationPrescription.dispense.expectedSupplyDuration</fhir_path>
-				<predicate>MedicationPrescription:dispense_expectedSupplyDuration</predicate>
-				<relative_xpath>f:expectedSupplyDuration</relative_xpath>
-				<type>Duration</type>
+				<fhir_path>Quantity.code</fhir_path>
+				<predicate>Quantity:code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>code</type>
 			</sub>
 		</subs>
-		<type/>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>MedicationStatement.dosage.site.extension</fhir_path>
@@ -15837,7 +15319,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>OrderResponse.authority.extension</fhir_path>
+		<fhir_path>DeviceCapabilities.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -15891,9 +15373,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.reportType</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.reportType.extension</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_supportingAdverseEventReport_reportType_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>AdverseReaction.modifierExtension</fhir_path>
@@ -15921,82 +15410,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>integer</type>
 	</path>
 	<path>
-		<fhir_path>RelatedPerson</fhir_path>
+		<fhir_path>SecurityEvent.event.subtype</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>RelatedPerson.extension</fhir_path>
-				<predicate>RelatedPerson:extension</predicate>
+				<fhir_path>SecurityEvent.event.subtype.extension</fhir_path>
+				<predicate>SecurityEvent:event_subtype_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.modifierExtension</fhir_path>
-				<predicate>RelatedPerson:modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.text</fhir_path>
-				<predicate>RelatedPerson:text</predicate>
-				<relative_xpath>f:text</relative_xpath>
-				<type>Narrative</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.contained</fhir_path>
-				<predicate>RelatedPerson:contained</predicate>
-				<relative_xpath>f:contained</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.identifier</fhir_path>
-				<predicate>RelatedPerson:identifier</predicate>
-				<relative_xpath>f:identifier</relative_xpath>
-				<type>Identifier</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.patient</fhir_path>
-				<predicate>RelatedPerson:patient</predicate>
-				<relative_xpath>f:patient</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.relationship</fhir_path>
-				<predicate>RelatedPerson:relationship</predicate>
-				<relative_xpath>f:relationship</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.name</fhir_path>
-				<predicate>RelatedPerson:name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>HumanName</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.telecom</fhir_path>
-				<predicate>RelatedPerson:telecom</predicate>
-				<relative_xpath>f:telecom</relative_xpath>
-				<type>Contact</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.gender</fhir_path>
-				<predicate>RelatedPerson:gender</predicate>
-				<relative_xpath>f:gender</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.address</fhir_path>
-				<predicate>RelatedPerson:address</predicate>
-				<relative_xpath>f:address</relative_xpath>
-				<type>Address</type>
-			</sub>
-			<sub>
-				<fhir_path>RelatedPerson.photo</fhir_path>
-				<predicate>RelatedPerson:photo</predicate>
-				<relative_xpath>f:photo</relative_xpath>
-				<type>Attachment</type>
-			</sub>
 		</subs>
-		<type>RelatedPerson</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.text</fhir_path>
@@ -16033,16 +15456,94 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.requirements</fhir_path>
+		<fhir_path>ImagingStudy.series.instance.url</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Profile.structure.element.definition.requirements.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_requirements_extension</predicate>
+				<fhir_path>ImagingStudy.series.instance.url.extension</fhir_path>
+				<predicate>ImagingStudy:series_instance_url_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>uri</type>
+	</path>
+	<path>
+		<fhir_path>List</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>List.extension</fhir_path>
+				<predicate>List:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>List.modifierExtension</fhir_path>
+				<predicate>List:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>List.text</fhir_path>
+				<predicate>List:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>List.contained</fhir_path>
+				<predicate>List:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>List.code</fhir_path>
+				<predicate>List:code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>List.subject</fhir_path>
+				<predicate>List:subject</predicate>
+				<relative_xpath>f:subject</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>List.source</fhir_path>
+				<predicate>List:source</predicate>
+				<relative_xpath>f:source</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>List.date</fhir_path>
+				<predicate>List:date</predicate>
+				<relative_xpath>f:date</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>List.ordered</fhir_path>
+				<predicate>List:ordered</predicate>
+				<relative_xpath>f:ordered</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>List.mode</fhir_path>
+				<predicate>List:mode</predicate>
+				<relative_xpath>f:mode</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>List.entry</fhir_path>
+				<predicate>List:entry</predicate>
+				<relative_xpath>f:entry</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>List.emptyReason</fhir_path>
+				<predicate>List:emptyReason</predicate>
+				<relative_xpath>f:emptyReason</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+		</subs>
+		<type>List</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.reaction</fhir_path>
@@ -16079,16 +15580,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceData.instant</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceData.instant.extension</fhir_path>
-				<predicate>DeviceData:instant_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>instant</type>
+		<fhir_path>MedicationAdministration.wasNotGiven.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Substance.contained</fhir_path>
@@ -16096,9 +15590,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Order.when.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Conformance.rest.security.cors</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.rest.security.cors.extension</fhir_path>
+				<predicate>Conformance:rest_security_cors_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.definition.constraint.human.extension</fhir_path>
@@ -16152,6 +15653,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
+		<fhir_path>ImagingStudy.description.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>ConceptMap.version</fhir_path>
 		<subs>
 			<sub>
@@ -16176,9 +15682,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Observation.referenceRange.meaning.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Message.response.code</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.response.code.extension</fhir_path>
+				<predicate>Message:response_code_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Location.position.longitude.extension</fhir_path>
@@ -16198,21 +15711,44 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Period</type>
 	</path>
 	<path>
+		<fhir_path>Patient.address.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>Document.event.period.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.isModifier</fhir_path>
+		<fhir_path>DeviceLog.item</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Profile.structure.element.definition.isModifier.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_isModifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
+				<fhir_path>DeviceLog.item.modifierExtension</fhir_path>
+				<predicate>DeviceLog:item_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>DeviceLog.item.key</fhir_path>
+				<predicate>DeviceLog:item_key</predicate>
+				<relative_xpath>f:key</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceLog.item.value</fhir_path>
+				<predicate>DeviceLog:item_value</predicate>
+				<relative_xpath>f:value</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceLog.item.flag</fhir_path>
+				<predicate>DeviceLog:item_flag</predicate>
+				<relative_xpath>f:flag</relative_xpath>
+				<type>code</type>
+			</sub>
 		</subs>
-		<type>boolean</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.text</fhir_path>
@@ -16266,9 +15802,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentManifest.status.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Questionnaire.subject</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Questionnaire.subject.extension</fhir_path>
+				<predicate>Questionnaire:subject_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.compose.modifierExtension</fhir_path>
@@ -16300,26 +15843,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.collection.comment</fhir_path>
+		<fhir_path>DocumentReference.mimeType</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Specimen.collection.comment.extension</fhir_path>
-				<predicate>Specimen:collection_comment_extension</predicate>
+				<fhir_path>DocumentReference.mimeType.extension</fhir_path>
+				<predicate>DocumentReference:mimeType_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Address.country</fhir_path>
-		<subs/>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>OperationOutcome.issue.location.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>DeviceObservation.issued</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceObservation.issued.extension</fhir_path>
+				<predicate>DeviceObservation:issued_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>instant</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.type</fhir_path>
@@ -16411,9 +15956,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>MedicationDispense</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.goal.status.extension</fhir_path>
+		<fhir_path>Specimen.text</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.activity.status.extension</fhir_path>
@@ -16472,7 +16017,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Condition.location.code.extension</fhir_path>
+		<fhir_path>MedicationDispense.dispense.dosage.site.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -16549,30 +16094,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.source</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.source.modifierExtension</fhir_path>
-				<predicate>Specimen:source_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.source.relationship</fhir_path>
-				<predicate>Specimen:source_relationship</predicate>
-				<relative_xpath>f:relationship</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Specimen.source.target</fhir_path>
-				<predicate>Specimen:source_target</predicate>
-				<relative_xpath>f:target</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>Other.text</fhir_path>
 		<subs/>
 		<type>Narrative</type>
@@ -16615,12 +16136,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.contained</fhir_path>
+		<fhir_path>MedicationPrescription.identifier.extension</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Device.lotNumber.extension</fhir_path>
+		<fhir_path>MedicationAdministration.practitioner.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -16642,16 +16163,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Patient.contact.gender</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Patient.contact.gender.extension</fhir_path>
-				<predicate>Patient:contact_gender_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>MedicationDispense.dispense.status.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Condition.code</fhir_path>
@@ -16683,21 +16197,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Attachment</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.interpreter.extension</fhir_path>
+		<fhir_path>Order.contained</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>DeviceData.virtualDevice.channel.metric.observation</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceData.virtualDevice.channel.metric.observation.extension</fhir_path>
-				<predicate>DeviceData:virtualDevice_channel_metric_observation_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>MedicationDispense.dispense.dosage.quantity.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.reaction.reported</fhir_path>
@@ -16717,46 +16224,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient.contact.organization</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Patient.contact.organization.extension</fhir_path>
-				<predicate>Patient:contact_organization_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>Group.actual.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.query</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.rest.query.modifierExtension</fhir_path>
-				<predicate>Conformance:rest_query_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.rest.query.name</fhir_path>
-				<predicate>Conformance:rest_query_name</predicate>
-				<relative_xpath>f:name</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.rest.query.documentation</fhir_path>
-				<predicate>Conformance:rest_query_documentation</predicate>
-				<relative_xpath>f:documentation</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>Conformance.rest.query.parameter</fhir_path>
-				<predicate>Conformance:rest_query_parameter</predicate>
-				<relative_xpath>f:parameter</relative_xpath>
-				<type>Conformance.rest.resource.searchParam</type>
-			</sub>
-		</subs>
-		<type/>
+		<fhir_path>OperationOutcome.issue.severity.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.telecom</fhir_path>
@@ -16815,9 +16290,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.compose.include.filter.value.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Conformance.document</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.document.modifierExtension</fhir_path>
+				<predicate>Conformance:document_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.document.mode</fhir_path>
+				<predicate>Conformance:document_mode</predicate>
+				<relative_xpath>f:mode</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.document.documentation</fhir_path>
+				<predicate>Conformance:document_documentation</predicate>
+				<relative_xpath>f:documentation</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.document.profile</fhir_path>
+				<predicate>Conformance:document_profile</predicate>
+				<relative_xpath>f:profile</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>SampledData</fhir_path>
@@ -16868,9 +16368,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>SampledData</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.value*</fhir_path>
+		<fhir_path>DeviceObservation.text</fhir_path>
 		<subs/>
-		<type/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>ConceptMap.name.extension</fhir_path>
@@ -17064,6 +16564,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Profile.structure.element.definition.binding.description</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.binding.description.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_binding_description_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.protocol.series</fhir_path>
 		<subs>
 			<sub>
@@ -17115,6 +16627,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Patient.contact.organization</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Patient.contact.organization.extension</fhir_path>
+				<predicate>Patient:contact_organization_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.patient.extension</fhir_path>
@@ -17231,18 +16755,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Immunization.lotNumber</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Immunization.lotNumber.extension</fhir_path>
-				<predicate>Immunization:lotNumber_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
 		<fhir_path>Condition.relatedItem.code.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -17325,9 +16837,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.extension</fhir_path>
+		<fhir_path>Observation.text</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.identifier.extension</fhir_path>
@@ -17367,6 +16879,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>integer</type>
 	</path>
 	<path>
+		<fhir_path>Conformance.rest.resource.operation.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>DiagnosticReport.requestDetail.requester.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -17377,9 +16894,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.requestDetail.requestOrderId.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>DeviceCapabilities.type</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceCapabilities.type.extension</fhir_path>
+				<predicate>DeviceCapabilities:type_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Profile.extensionDefn.contextType</fhir_path>
@@ -17438,16 +16962,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>integer</type>
 	</path>
 	<path>
-		<fhir_path>Query.response.previous</fhir_path>
+		<fhir_path>RelatedPerson.photo</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Query.response.previous.extension</fhir_path>
-				<predicate>Query:response_previous_extension</predicate>
+				<fhir_path>RelatedPerson.photo.extension</fhir_path>
+				<predicate>RelatedPerson:photo_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Extension</type>
+		<type>Attachment</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.status</fhir_path>
@@ -17467,16 +16991,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Provenance.reason</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Provenance.reason.extension</fhir_path>
-				<predicate>Provenance:reason_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>Contact.value</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Query.response.next.extension</fhir_path>
@@ -17560,9 +17077,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Profile.structure.element.definition</type>
 	</path>
 	<path>
-		<fhir_path>Supply.text</fhir_path>
+		<fhir_path>Profile.structure.element.definition.binding.referenceuri</fhir_path>
 		<subs/>
-		<type>Narrative</type>
+		<type>uri</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.location</fhir_path>
@@ -17589,21 +17106,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.constraint.xpath.extension</fhir_path>
+		<fhir_path>DeviceLog.item.value.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.slicing.rules</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.slicing.rules.extension</fhir_path>
-				<predicate>Profile:structure_element_slicing_rules_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>Conformance.implementation.url.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>MedicationStatement.administrationDevice</fhir_path>
@@ -17645,7 +17155,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Range</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.simple.dailyAmount.extension</fhir_path>
+		<fhir_path>Conformance.rest.query.parameter.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -17677,9 +17187,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dosageInstruction.timingSchedule</fhir_path>
-		<subs/>
-		<type>Schedule</type>
+		<fhir_path>DiagnosticReport.requestDetail.requestOrderId</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DiagnosticReport.requestDetail.requestOrderId.extension</fhir_path>
+				<predicate>DiagnosticReport:requestDetail_requestOrderId_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>Provenance.target.extension</fhir_path>
@@ -17707,6 +17224,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>boolean</type>
+	</path>
+	<path>
+		<fhir_path>Observation.component.name</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Observation.component.name.extension</fhir_path>
+				<predicate>Observation:component_name_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.dosage.site</fhir_path>
@@ -17798,18 +17327,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>DiagnosticOrder.event.date.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Message.response.details</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.response.details.extension</fhir_path>
-				<predicate>Message:response_details_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.messaging.reliableCache</fhir_path>
@@ -18095,14 +17612,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Group.identifier.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Substance.ingredient.substance</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Substance.ingredient.substance.extension</fhir_path>
+				<predicate>Substance:ingredient_substance_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.telecom.extension</fhir_path>
+		<fhir_path>DeviceCapabilities.contained</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.activity.notes.extension</fhir_path>
@@ -18110,16 +17634,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.address</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Practitioner.address.extension</fhir_path>
-				<predicate>Practitioner:address_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Address</type>
+		<fhir_path>Coding.version</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.participant</fhir_path>
@@ -18146,21 +17663,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>FamilyHistory.relation.condition.type</fhir_path>
+		<fhir_path>Specimen.source.target</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>FamilyHistory.relation.condition.type.extension</fhir_path>
-				<predicate>FamilyHistory:relation_condition_type_extension</predicate>
+				<fhir_path>Specimen.source.target.extension</fhir_path>
+				<predicate>Specimen:source_target_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>Message.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.explanation.refusalReason.extension</fhir_path>
@@ -18188,6 +17700,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>Identifier</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.dateTime</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.dateTime.extension</fhir_path>
+				<predicate>ImagingStudy:dateTime_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>dateTime</type>
 	</path>
 	<path>
 		<fhir_path>MedicationAdministration.reasonNotGiven</fhir_path>
@@ -18302,7 +17826,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient.contact.gender.extension</fhir_path>
+		<fhir_path>Profile.structure.element.definition.synonym</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.synonym.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_synonym_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Encounter.fulfills.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -18363,16 +17899,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.object.detail.value</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>SecurityEvent.object.detail.value.extension</fhir_path>
-				<predicate>SecurityEvent:object_detail_value_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>base64Binary</type>
+		<fhir_path>Profile.structure.element.definition.exampleExtension.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticReport.results.name.extension</fhir_path>
@@ -18385,16 +17914,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.followUp</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Procedure.followUp.extension</fhir_path>
-				<predicate>Procedure:followUp_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>Conformance.messaging.event.documentation.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DeviceObservation.issued.extension</fhir_path>
@@ -18414,9 +17936,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>date</type>
 	</path>
 	<path>
-		<fhir_path>OrderResponse.date.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Conformance.rest.resource.searchParam.xpath</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.rest.resource.searchParam.xpath.extension</fhir_path>
+				<predicate>Conformance:rest_resource_searchParam_xpath_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Location.modifierExtension</fhir_path>
@@ -18436,16 +17965,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Quantity</type>
 	</path>
 	<path>
-		<fhir_path>Profile.mapping.identity</fhir_path>
+		<fhir_path>Other.author</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Profile.mapping.identity.extension</fhir_path>
-				<predicate>Profile:mapping_identity_extension</predicate>
+				<fhir_path>Other.author.extension</fhir_path>
+				<predicate>Other:author_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>id</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Observation.valueRatio</fhir_path>
@@ -18458,9 +17987,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.compose.include.version.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Device.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Device.identifier.extension</fhir_path>
+				<predicate>Device:identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Identifier</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.author</fhir_path>
@@ -18475,7 +18011,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.modifierExtension</fhir_path>
+		<fhir_path>Procedure.performer.role.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -18519,50 +18055,38 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.code</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceObservation.code.extension</fhir_path>
-				<predicate>DeviceObservation:code_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
 		<fhir_path>Media.height.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.telecom.extension</fhir_path>
+		<fhir_path>Document.attester.mode</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Document.attester.mode.extension</fhir_path>
+				<predicate>Document:attester_mode_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticReport.requestDetail.requestOrderId.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.type</fhir_path>
+		<fhir_path>Procedure.date</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DeviceCapabilities.type.extension</fhir_path>
-				<predicate>DeviceCapabilities:type_extension</predicate>
+				<fhir_path>Procedure.date.extension</fhir_path>
+				<predicate>Procedure:date_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>Condition.encounter</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Condition.encounter.extension</fhir_path>
-				<predicate>Condition:encounter_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>DiagnosticOrder.text</fhir_path>
@@ -18628,6 +18152,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Immunization.expirationDate.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>DeviceLog.capabilities.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -18667,6 +18196,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>Quantity</type>
+	</path>
+	<path>
+		<fhir_path>Profile.extensionDefn.display.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Immunization.vaccinationProtocol.seriesDoses</fhir_path>
@@ -18771,9 +18305,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.remarks.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Query.response.outcome</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Query.response.outcome.extension</fhir_path>
+				<predicate>Query:response_outcome_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.authorizingPrescription</fhir_path>
@@ -18909,12 +18450,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.resource.operation.modifierExtension</fhir_path>
+		<fhir_path>Substance.status.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Message.receiver.extension</fhir_path>
+		<fhir_path>Conformance.rest.resource.readHistory.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -18941,9 +18482,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.define.version.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Encounter.participant.type</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Encounter.participant.type.extension</fhir_path>
+				<predicate>Encounter:participant_type_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.source</fhir_path>
@@ -19048,12 +18596,24 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.date.extension</fhir_path>
-		<subs/>
+		<fhir_path>Query.response.previous</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Query.response.previous.extension</fhir_path>
+				<predicate>Query:response_previous_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.modifierExtension</fhir_path>
+		<fhir_path>Practitioner.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>Location.name.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -19070,9 +18630,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Quantity</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info.units.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Message.response.details</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.response.details.extension</fhir_path>
+				<predicate>Message:response_details_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Condition.location.modifierExtension</fhir_path>
@@ -19100,6 +18667,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Conformance.version.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Observation.referenceRange.meaning</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Observation.referenceRange.meaning.extension</fhir_path>
+				<predicate>Observation:referenceRange_meaning_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.security.certificate</fhir_path>
@@ -19284,16 +18863,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Media.deviceName</fhir_path>
+		<fhir_path>Provenance.reason</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Media.deviceName.extension</fhir_path>
-				<predicate>Media:deviceName_extension</predicate>
+				<fhir_path>Provenance.reason.extension</fhir_path>
+				<predicate>Provenance:reason_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.expansion</fhir_path>
@@ -19331,9 +18910,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.clinicalInformation.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Patient.animal.breed</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Patient.animal.breed.extension</fhir_path>
+				<predicate>Patient:animal_breed_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Query.response.modifierExtension</fhir_path>
@@ -19439,16 +19025,46 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.uid</fhir_path>
+		<fhir_path>ValueSet.define.concept</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ImagingStudy.uid.extension</fhir_path>
-				<predicate>ImagingStudy:uid_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
+				<fhir_path>ValueSet.define.concept.modifierExtension</fhir_path>
+				<predicate>ValueSet:define_concept_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>ValueSet.define.concept.code</fhir_path>
+				<predicate>ValueSet:define_concept_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.define.concept.abstract</fhir_path>
+				<predicate>ValueSet:define_concept_abstract</predicate>
+				<relative_xpath>f:abstract</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.define.concept.display</fhir_path>
+				<predicate>ValueSet:define_concept_display</predicate>
+				<relative_xpath>f:display</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.define.concept.definition</fhir_path>
+				<predicate>ValueSet:define_concept_definition</predicate>
+				<relative_xpath>f:definition</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>ValueSet.define.concept.concept</fhir_path>
+				<predicate>ValueSet:define_concept_concept</predicate>
+				<relative_xpath>f:concept</relative_xpath>
+				<type>ValueSet.define.concept</type>
+			</sub>
 		</subs>
-		<type>oid</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>ValueSet.status.extension</fhir_path>
@@ -19457,6 +19073,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>DocumentReference.service.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>MedicationStatement.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -19481,6 +19102,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>MedicationStatement.dosage.maxDosePerPeriod</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationStatement.dosage.maxDosePerPeriod.extension</fhir_path>
+				<predicate>MedicationStatement:dosage_maxDosePerPeriod_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Ratio</type>
 	</path>
 	<path>
 		<fhir_path>AdverseReaction.symptom.severity</fhir_path>
@@ -19524,18 +19157,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Message.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Message.identifier.extension</fhir_path>
-				<predicate>Message:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>id</type>
-	</path>
-	<path>
 		<fhir_path>ConceptMap.telecom.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -19546,16 +19167,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.participant.member</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>CarePlan.participant.member.extension</fhir_path>
-				<predicate>CarePlan:participant_member_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>MedicationDispense.dispense.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.authorizingPrescription.extension</fhir_path>
@@ -19661,16 +19275,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.url</fhir_path>
+		<fhir_path>MedicationPrescription.dateWritten</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ImagingStudy.url.extension</fhir_path>
-				<predicate>ImagingStudy:url_extension</predicate>
+				<fhir_path>MedicationPrescription.dateWritten.extension</fhir_path>
+				<predicate>MedicationPrescription:dateWritten_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>uri</type>
+		<type>dateTime</type>
+	</path>
+	<path>
+		<fhir_path>Supply.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.definition.constraint.name.extension</fhir_path>
@@ -19688,6 +19307,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>MedicationDispense.patient</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationDispense.patient.extension</fhir_path>
+				<predicate>MedicationDispense:patient_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
+	</path>
+	<path>
 		<fhir_path>Encounter.hospitalization.destination.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -19698,26 +19329,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.period</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>CarePlan.period.extension</fhir_path>
-				<predicate>CarePlan:period_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Period</type>
-	</path>
-	<path>
-		<fhir_path>Specimen.source.relationship.extension</fhir_path>
+		<fhir_path>SampledData.data</fhir_path>
 		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Questionnaire.question.answerExtension.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Observation.referenceRange.rangestring</fhir_path>
@@ -19797,26 +19411,136 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>DeviceData</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.implementation.url.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>DocumentReference.description</fhir_path>
+		<fhir_path>Profile.structure.element.slicing.rules</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DocumentReference.description.extension</fhir_path>
-				<predicate>DocumentReference:description_extension</predicate>
+				<fhir_path>Profile.structure.element.slicing.rules.extension</fhir_path>
+				<predicate>Profile:structure_element_slicing_rules_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Document.author.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Provenance</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Provenance.extension</fhir_path>
+				<predicate>Provenance:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.modifierExtension</fhir_path>
+				<predicate>Provenance:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.text</fhir_path>
+				<predicate>Provenance:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.contained</fhir_path>
+				<predicate>Provenance:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.target</fhir_path>
+				<predicate>Provenance:target</predicate>
+				<relative_xpath>f:target</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.period</fhir_path>
+				<predicate>Provenance:period</predicate>
+				<relative_xpath>f:period</relative_xpath>
+				<type>Period</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.recorded</fhir_path>
+				<predicate>Provenance:recorded</predicate>
+				<relative_xpath>f:recorded</relative_xpath>
+				<type>instant</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.reason</fhir_path>
+				<predicate>Provenance:reason</predicate>
+				<relative_xpath>f:reason</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.location</fhir_path>
+				<predicate>Provenance:location</predicate>
+				<relative_xpath>f:location</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.policy</fhir_path>
+				<predicate>Provenance:policy</predicate>
+				<relative_xpath>f:policy</relative_xpath>
+				<type>uri</type>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.agent</fhir_path>
+				<predicate>Provenance:agent</predicate>
+				<relative_xpath>f:agent</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.entity</fhir_path>
+				<predicate>Provenance:entity</predicate>
+				<relative_xpath>f:entity</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Provenance.signature</fhir_path>
+				<predicate>Provenance:signature</predicate>
+				<relative_xpath>f:signature</relative_xpath>
+				<type>string</type>
+			</sub>
+		</subs>
+		<type>Provenance</type>
+	</path>
+	<path>
+		<fhir_path>Questionnaire.group.group</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Questionnaire.group.group.extension</fhir_path>
+				<predicate>Questionnaire:group_group_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Questionnaire.group</type>
+	</path>
+	<path>
+		<fhir_path>Condition.location</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Condition.location.modifierExtension</fhir_path>
+				<predicate>Condition:location_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.location.code</fhir_path>
+				<predicate>Condition:location_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.location.detail</fhir_path>
+				<predicate>Condition:location_detail</predicate>
+				<relative_xpath>f:detail</relative_xpath>
+				<type>string</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Media.operator</fhir_path>
@@ -19872,16 +19596,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>Query.response.parameter</fhir_path>
+		<fhir_path>ConceptMap.concept.map.equivalence</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Query.response.parameter.extension</fhir_path>
-				<predicate>Query:response_parameter_extension</predicate>
+				<fhir_path>ConceptMap.concept.map.equivalence.extension</fhir_path>
+				<predicate>ConceptMap:concept_map_equivalence_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Extension</type>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.series.url.extension</fhir_path>
@@ -19918,9 +19642,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Media.subject.extension</fhir_path>
+		<fhir_path>Coding.primary</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Patient.deceaseddateTime</fhir_path>
@@ -20046,6 +19770,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Query.response.first</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Query.response.first.extension</fhir_path>
+				<predicate>Query:response_first_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>AllergyIntolerance.sensitivityTest.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -20087,7 +19823,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>boolean</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.query.parameter.extension</fhir_path>
+		<fhir_path>CarePlan.activity.simple.dailyAmount.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -20109,28 +19845,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Immunization.explanation</fhir_path>
+		<fhir_path>Conformance.rest.documentation</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Immunization.explanation.modifierExtension</fhir_path>
-				<predicate>Immunization:explanation_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
+				<fhir_path>Conformance.rest.documentation.extension</fhir_path>
+				<predicate>Conformance:rest_documentation_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>Immunization.explanation.reason</fhir_path>
-				<predicate>Immunization:explanation_reason</predicate>
-				<relative_xpath>f:reason</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>Immunization.explanation.refusalReason</fhir_path>
-				<predicate>Immunization:explanation_refusalReason</predicate>
-				<relative_xpath>f:refusalReason</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
 		</subs>
-		<type/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Condition.evidence.detail</fhir_path>
@@ -20162,7 +19886,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.operation.code.extension</fhir_path>
+		<fhir_path>Specimen.container.additive.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -20248,14 +19972,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>OrderResponse.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>SecurityEvent.object.detail.type.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Encounter.length</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Encounter.length.extension</fhir_path>
+				<predicate>Encounter:length_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Duration</type>
 	</path>
 	<path>
 		<fhir_path>OperationOutcome.issue.modifierExtension</fhir_path>
@@ -20328,21 +20054,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.requestDetail.requestOrderId</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DiagnosticReport.requestDetail.requestOrderId.extension</fhir_path>
-				<predicate>DiagnosticReport:requestDetail_requestOrderId_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
+		<fhir_path>MedicationPrescription.dosageInstruction.timingSchedule</fhir_path>
+		<subs/>
+		<type>Schedule</type>
 	</path>
 	<path>
-		<fhir_path>MedicationStatement.modifierExtension</fhir_path>
+		<fhir_path>Address.country</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Document.event.modifierExtension</fhir_path>
@@ -20372,16 +20091,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.dateTime</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.dateTime.extension</fhir_path>
-				<predicate>ImagingStudy:dateTime_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>dateTime</type>
+		<fhir_path>Profile.structure.element.definition.type.aggregation.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.created.extension</fhir_path>
@@ -20404,7 +20116,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.description.extension</fhir_path>
+		<fhir_path>Profile.structure.element.slicing.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -20579,63 +20291,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>OrderResponse</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.slicing.rules.extension</fhir_path>
+		<fhir_path>Condition.relatedItem.target.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ImagingStudy.series.instance</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.modifierExtension</fhir_path>
-				<predicate>ImagingStudy:series_instance_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.number</fhir_path>
-				<predicate>ImagingStudy:series_instance_number</predicate>
-				<relative_xpath>f:number</relative_xpath>
-				<type>integer</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.uid</fhir_path>
-				<predicate>ImagingStudy:series_instance_uid</predicate>
-				<relative_xpath>f:uid</relative_xpath>
-				<type>oid</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.sopclass</fhir_path>
-				<predicate>ImagingStudy:series_instance_sopclass</predicate>
-				<relative_xpath>f:sopclass</relative_xpath>
-				<type>oid</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.type</fhir_path>
-				<predicate>ImagingStudy:series_instance_type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.title</fhir_path>
-				<predicate>ImagingStudy:series_instance_title</predicate>
-				<relative_xpath>f:title</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.url</fhir_path>
-				<predicate>ImagingStudy:series_instance_url</predicate>
-				<relative_xpath>f:url</relative_xpath>
-				<type>uri</type>
-			</sub>
-			<sub>
-				<fhir_path>ImagingStudy.series.instance.attachment</fhir_path>
-				<predicate>ImagingStudy:series_instance_attachment</predicate>
-				<relative_xpath>f:attachment</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription.dosageInstruction.method.extension</fhir_path>
@@ -20716,16 +20374,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Provenance.agent.role</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Provenance.agent.role.extension</fhir_path>
-				<predicate>Provenance:agent_role_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Coding</type>
+		<fhir_path>Organization.partOf.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticReport.requestDetail.encounter.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Location.position.latitude</fhir_path>
@@ -20750,11 +20406,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>Resource</type>
-	</path>
-	<path>
-		<fhir_path>RelatedPerson.relationship.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.service.type</fhir_path>
@@ -20801,14 +20452,21 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>DeviceLog.item.value.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>Message.contained</fhir_path>
 		<subs/>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.description</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.description.extension</fhir_path>
+				<predicate>ImagingStudy:description_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info.units</fhir_path>
@@ -20821,11 +20479,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>AdverseReaction.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Order.when.schedule.extension</fhir_path>
@@ -20855,39 +20508,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentReference.service</fhir_path>
+		<fhir_path>Questionnaire.question.text</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DocumentReference.service.modifierExtension</fhir_path>
-				<predicate>DocumentReference:service_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
+				<fhir_path>Questionnaire.question.text.extension</fhir_path>
+				<predicate>Questionnaire:question_text_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>DocumentReference.service.type</fhir_path>
-				<predicate>DocumentReference:service_type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>DocumentReference.service.address</fhir_path>
-				<predicate>DocumentReference:service_address</predicate>
-				<relative_xpath>f:address</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>DocumentReference.service.parameter</fhir_path>
-				<predicate>DocumentReference:service_parameter</predicate>
-				<relative_xpath>f:parameter</relative_xpath>
-				<type/>
-			</sub>
 		</subs>
-		<type/>
-	</path>
-	<path>
-		<fhir_path>MedicationAdministration.dosage.route.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.participant.role.extension</fhir_path>
@@ -20955,11 +20585,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>OrderResponse.fulfillment</fhir_path>
+		<fhir_path>Immunization.requester</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>OrderResponse.fulfillment.extension</fhir_path>
-				<predicate>OrderResponse:fulfillment_extension</predicate>
+				<fhir_path>Immunization.requester.extension</fhir_path>
+				<predicate>Immunization:requester_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
@@ -20967,9 +20597,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.simple.category.extension</fhir_path>
+		<fhir_path>Profile.structure.element.definition.value*</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>ValueSet.publisher</fhir_path>
@@ -20994,16 +20624,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Medication.package.container</fhir_path>
+		<fhir_path>CarePlan.activity.detail</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Medication.package.container.extension</fhir_path>
-				<predicate>Medication:package_container_extension</predicate>
+				<fhir_path>CarePlan.activity.detail.extension</fhir_path>
+				<predicate>CarePlan:activity_detail_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.messaging.event.focus</fhir_path>
@@ -21030,9 +20660,40 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Ratio</type>
 	</path>
 	<path>
-		<fhir_path>Query.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>DiagnosticReport.results</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DiagnosticReport.results.modifierExtension</fhir_path>
+				<predicate>DiagnosticReport:results_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticReport.results.name</fhir_path>
+				<predicate>DiagnosticReport:results_name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticReport.results.specimen</fhir_path>
+				<predicate>DiagnosticReport:results_specimen</predicate>
+				<relative_xpath>f:specimen</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticReport.results.group</fhir_path>
+				<predicate>DiagnosticReport:results_group</predicate>
+				<relative_xpath>f:group</relative_xpath>
+				<type>DiagnosticReport.results</type>
+			</sub>
+			<sub>
+				<fhir_path>DiagnosticReport.results.result</fhir_path>
+				<predicate>DiagnosticReport:results_result</predicate>
+				<relative_xpath>f:result</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Profile.mapping.comments</fhir_path>
@@ -21071,9 +20732,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.identifier.extension</fhir_path>
+		<fhir_path>ImmunizationRecommendation.contained</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Practitioner.qualification.period.extension</fhir_path>
@@ -21081,7 +20742,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.container.specimenQuantity.extension</fhir_path>
+		<fhir_path>Observation.reliability.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -21098,9 +20759,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Identifier</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.container.additive.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Organization.type</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Organization.type.extension</fhir_path>
+				<predicate>Organization:type_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Questionnaire.question.optionsuri</fhir_path>
@@ -21108,9 +20776,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>uri</type>
 	</path>
 	<path>
-		<fhir_path>MedicationStatement.dosage.timing.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Procedure.encounter</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Procedure.encounter.extension</fhir_path>
+				<predicate>Procedure:encounter_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>HumanName.suffix</fhir_path>
@@ -21118,16 +20793,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>DeviceLog.item.value</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceLog.item.value.extension</fhir_path>
-				<predicate>DeviceLog:item_value_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>ImagingStudy.modality.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Condition.extension</fhir_path>
@@ -21152,28 +20820,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.hospitalization.accomodation</fhir_path>
+		<fhir_path>Media.frames</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Encounter.hospitalization.accomodation.modifierExtension</fhir_path>
-				<predicate>Encounter:hospitalization_accomodation_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
+				<fhir_path>Media.frames.extension</fhir_path>
+				<predicate>Media:frames_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
-			<sub>
-				<fhir_path>Encounter.hospitalization.accomodation.bed</fhir_path>
-				<predicate>Encounter:hospitalization_accomodation_bed</predicate>
-				<relative_xpath>f:bed</relative_xpath>
-				<type>Resource</type>
-			</sub>
-			<sub>
-				<fhir_path>Encounter.hospitalization.accomodation.period</fhir_path>
-				<predicate>Encounter:hospitalization_accomodation_period</predicate>
-				<relative_xpath>f:period</relative_xpath>
-				<type>Period</type>
-			</sub>
 		</subs>
-		<type/>
+		<type>integer</type>
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription.text</fhir_path>
@@ -21193,7 +20849,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.object.detail.value.extension</fhir_path>
+		<fhir_path>RelatedPerson.telecom.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -21225,6 +20881,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>SecurityEvent.object.name.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Profile.publisher.extension</fhir_path>
@@ -21328,16 +20989,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.device</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DeviceObservation.device.extension</fhir_path>
-				<predicate>DeviceObservation:device_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>Supply.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.supercedes</fhir_path>
@@ -21364,6 +21018,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Quantity</type>
 	</path>
 	<path>
+		<fhir_path>DiagnosticReport.issued</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DiagnosticReport.issued.extension</fhir_path>
+				<predicate>DiagnosticReport:issued_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>dateTime</type>
+	</path>
+	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.protocol.doseSequence</fhir_path>
 		<subs>
 			<sub>
@@ -21388,9 +21054,34 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Attachment</type>
 	</path>
 	<path>
-		<fhir_path>OperationOutcome.issue.severity.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Conformance.rest.query</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Conformance.rest.query.modifierExtension</fhir_path>
+				<predicate>Conformance:rest_query_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.rest.query.name</fhir_path>
+				<predicate>Conformance:rest_query_name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.rest.query.documentation</fhir_path>
+				<predicate>Conformance:rest_query_documentation</predicate>
+				<relative_xpath>f:documentation</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>Conformance.rest.query.parameter</fhir_path>
+				<predicate>Conformance:rest_query_parameter</predicate>
+				<relative_xpath>f:parameter</relative_xpath>
+				<type>Conformance.rest.resource.searchParam</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Conformance.software.modifierExtension</fhir_path>
@@ -21586,12 +21277,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.dateTime.extension</fhir_path>
+		<fhir_path>Provenance.agent.reference.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.extension</fhir_path>
+		<fhir_path>Conformance.telecom.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -21640,9 +21331,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.messaging.event.documentation.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Procedure.followUp</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Procedure.followUp.extension</fhir_path>
+				<predicate>Procedure:followUp_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Media.type.extension</fhir_path>
@@ -21672,6 +21370,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>ImagingStudy.dateTime.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>ValueSet.compose.include.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -21682,7 +21385,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Location.name.extension</fhir_path>
+		<fhir_path>Conformance.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -21794,16 +21497,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dateWritten</fhir_path>
+		<fhir_path>Message.response.identifier</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationPrescription.dateWritten.extension</fhir_path>
-				<predicate>MedicationPrescription:dateWritten_extension</predicate>
+				<fhir_path>Message.response.identifier.extension</fhir_path>
+				<predicate>Message:response_identifier_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>dateTime</type>
+		<type>id</type>
 	</path>
 	<path>
 		<fhir_path>Identifier.period</fhir_path>
@@ -21838,9 +21541,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.type.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>MedicationPrescription.dosageInstruction.maxDosePerPeriod</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationPrescription.dosageInstruction.maxDosePerPeriod.extension</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_maxDosePerPeriod_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Ratio</type>
 	</path>
 	<path>
 		<fhir_path>MedicationDispense.identifier</fhir_path>
@@ -21860,9 +21570,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.whenHandedOver.extension</fhir_path>
+		<fhir_path>Quantity.comparator</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription.identifier</fhir_path>
@@ -21882,9 +21592,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.requestDetail.encounter.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Provenance.agent.role</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Provenance.agent.role.extension</fhir_path>
+				<predicate>Provenance:agent_role_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Coding</type>
 	</path>
 	<path>
 		<fhir_path>Address.zip</fhir_path>
@@ -21909,16 +21626,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.results.result</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DiagnosticReport.results.result.extension</fhir_path>
-				<predicate>DiagnosticReport:results_result_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>MedicationAdministration.dosage.route.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>MedicationPrescription.modifierExtension</fhir_path>
@@ -21956,6 +21666,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</path>
 	<path>
 		<fhir_path>Media.view.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Observation.referenceRange.rangeExtension.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -22044,16 +21759,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Substance.ingredient.substance</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Substance.ingredient.substance.extension</fhir_path>
-				<predicate>Substance:ingredient_substance_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>Group.identifier.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Observation.component.valuePeriod</fhir_path>
@@ -22107,16 +21815,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.implementation.description</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.implementation.description.extension</fhir_path>
-				<predicate>Conformance:implementation_description_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>Patient.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>List.source</fhir_path>
@@ -22131,26 +21832,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
-	</path>
-	<path>
 		<fhir_path>ValueSet.compose.include.filter.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Media.subtype</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Media.subtype.extension</fhir_path>
-				<predicate>Media:subtype_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
+		<fhir_path>ImagingStudy.accessionNo.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Provenance.entity.display</fhir_path>
@@ -22199,9 +21888,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Coding.version</fhir_path>
-		<subs/>
-		<type>string</type>
+		<fhir_path>Practitioner.address</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Practitioner.address.extension</fhir_path>
+				<predicate>Practitioner:address_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Address</type>
 	</path>
 	<path>
 		<fhir_path>DocumentReference.description.extension</fhir_path>
@@ -22282,16 +21978,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Age</type>
 	</path>
 	<path>
-		<fhir_path>ConceptMap.description</fhir_path>
+		<fhir_path>MedicationAdministration.whenGiven</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ConceptMap.description.extension</fhir_path>
-				<predicate>ConceptMap:description_extension</predicate>
+				<fhir_path>MedicationAdministration.whenGiven.extension</fhir_path>
+				<predicate>MedicationAdministration:whenGiven_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>Period</type>
 	</path>
 	<path>
 		<fhir_path>AllergyIntolerance.extension</fhir_path>
@@ -22311,16 +22007,40 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.reportId</fhir_path>
+		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DiagnosticReport.reportId.extension</fhir_path>
-				<predicate>DiagnosticReport:reportId_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.modifierExtension</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel_metric_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.code</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel_metric_code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.key</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel_metric_key</predicate>
+				<relative_xpath>f:key</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel_metric_info</predicate>
+				<relative_xpath>f:info</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.facet</fhir_path>
+				<predicate>DeviceCapabilities:virtualDevice_channel_metric_facet</predicate>
+				<relative_xpath>f:facet</relative_xpath>
+				<type/>
+			</sub>
 		</subs>
-		<type>Identifier</type>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Media.view</fhir_path>
@@ -22404,11 +22124,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Practitioner.qualification.code.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>SecurityEvent.object.detail</fhir_path>
 		<subs>
 			<sub>
@@ -22472,6 +22187,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
+		<fhir_path>Patient.address</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Patient.address.extension</fhir_path>
+				<predicate>Patient:address_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Address</type>
+	</path>
+	<path>
 		<fhir_path>Schedule</fhir_path>
 		<subs>
 			<sub>
@@ -22512,6 +22239,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
+		<fhir_path>CarePlan.concern.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>Specimen.collection.collector</fhir_path>
 		<subs>
 			<sub>
@@ -22541,9 +22273,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Profile.mapping.modifierExtension</fhir_path>
+		<fhir_path>Location.contained</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>OperationOutcome.text</fhir_path>
@@ -22800,11 +22532,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.question.data*</fhir_path>
-		<subs/>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>MedicationAdministration.contained</fhir_path>
 		<subs/>
 		<type>Resource</type>
@@ -22987,7 +22714,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.modifierExtension</fhir_path>
+		<fhir_path>Conformance.messaging.reliableCache.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -23029,21 +22756,26 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.event.outcomeDesc</fhir_path>
+		<fhir_path>ImagingStudy.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Specimen.container.type</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>SecurityEvent.event.outcomeDesc.extension</fhir_path>
-				<predicate>SecurityEvent:event_outcomeDesc_extension</predicate>
+				<fhir_path>Specimen.container.type.extension</fhir_path>
+				<predicate>Specimen:container_type_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Profile.extensionDefn.code.extension</fhir_path>
+		<fhir_path>Questionnaire.question.answerinteger</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>integer</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.extensible.extension</fhir_path>
@@ -23073,11 +22805,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.author.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
 		<fhir_path>AllergyIntolerance.criticality.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -23088,7 +22815,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info.type.extension</fhir_path>
+		<fhir_path>Specimen.source.relationship.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -23295,18 +23022,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.treatment.procedure</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.treatment.procedure.extension</fhir_path>
-				<predicate>Specimen:treatment_procedure_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
 		<fhir_path>DocumentReference.primaryLanguage</fhir_path>
 		<subs>
 			<sub>
@@ -23331,9 +23046,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.authored.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>MedicationAdministration.dosage.route</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationAdministration.dosage.route.extension</fhir_path>
+				<predicate>MedicationAdministration:dosage_route_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.extension</fhir_path>
@@ -23406,9 +23128,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Ratio.denominator</fhir_path>
-		<subs/>
-		<type>Quantity</type>
+		<fhir_path>Condition.stage.summary</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Condition.stage.summary.extension</fhir_path>
+				<predicate>Condition:stage_summary_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Medication.product.form.extension</fhir_path>
@@ -23457,9 +23186,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Location.address.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Profile.structure.element.definition.type.code</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.type.code.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_type_code_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.software.releaseDate.extension</fhir_path>
@@ -23489,16 +23225,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.issued</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DiagnosticReport.issued.extension</fhir_path>
-				<predicate>DiagnosticReport:issued_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>dateTime</type>
+		<fhir_path>Address.text</fhir_path>
+		<subs/>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Group.member.extension</fhir_path>
@@ -23580,16 +23309,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationStatement.medication</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationStatement.medication.extension</fhir_path>
-				<predicate>MedicationStatement:medication_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
+		<fhir_path>ImmunizationRecommendation.recommendation.dateCriterion.code.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.treatment</fhir_path>
@@ -23891,9 +23613,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>HumanName.prefix</fhir_path>
+		<fhir_path>Group.characteristic.valueboolean</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>boolean</type>
 	</path>
 	<path>
 		<fhir_path>Organization.telecom.extension</fhir_path>
@@ -23901,19 +23623,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationAdministration.whenGiven</fhir_path>
+		<fhir_path>ConceptMap.description</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationAdministration.whenGiven.extension</fhir_path>
-				<predicate>MedicationAdministration:whenGiven_extension</predicate>
+				<fhir_path>ConceptMap.description.extension</fhir_path>
+				<predicate>ConceptMap:description_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Period</type>
+		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Encounter.fulfills.extension</fhir_path>
+		<fhir_path>Patient.contact.gender.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -24038,57 +23760,45 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.description</fhir_path>
+		<fhir_path>Questionnaire.question.answerExtension.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticReport.reportId</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ImagingStudy.description.extension</fhir_path>
-				<predicate>ImagingStudy:description_extension</predicate>
+				<fhir_path>DiagnosticReport.reportId.extension</fhir_path>
+				<predicate>DiagnosticReport:reportId_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>string</type>
+		<type>Identifier</type>
 	</path>
 	<path>
-		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric</fhir_path>
+		<fhir_path>Procedure.performer</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.modifierExtension</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel_metric_modifierExtension</predicate>
+				<fhir_path>Procedure.performer.modifierExtension</fhir_path>
+				<predicate>Procedure:performer_modifierExtension</predicate>
 				<relative_xpath>f:modifierExtension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.code</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel_metric_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
+				<fhir_path>Procedure.performer.person</fhir_path>
+				<predicate>Procedure:performer_person</predicate>
+				<relative_xpath>f:person</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Procedure.performer.role</fhir_path>
+				<predicate>Procedure:performer_role</predicate>
+				<relative_xpath>f:role</relative_xpath>
 				<type>CodeableConcept</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.key</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel_metric_key</predicate>
-				<relative_xpath>f:key</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel_metric_info</predicate>
-				<relative_xpath>f:info</relative_xpath>
-				<type/>
-			</sub>
-			<sub>
-				<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.facet</fhir_path>
-				<predicate>DeviceCapabilities:virtualDevice_channel_metric_facet</predicate>
-				<relative_xpath>f:facet</relative_xpath>
-				<type/>
 			</sub>
 		</subs>
 		<type/>
-	</path>
-	<path>
-		<fhir_path>Media.identifier.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Alert.status</fhir_path>
@@ -24103,9 +23813,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>CarePlan.activity.simple.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Device.model</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Device.model.extension</fhir_path>
+				<predicate>Device:model_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>ImagingStudy.numberOfInstances.extension</fhir_path>
@@ -24133,16 +23850,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ImagingStudy.series.instance.url</fhir_path>
+		<fhir_path>Conformance.format</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ImagingStudy.series.instance.url.extension</fhir_path>
-				<predicate>ImagingStudy:series_instance_url_extension</predicate>
+				<fhir_path>Conformance.format.extension</fhir_path>
+				<predicate>Conformance:format_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>uri</type>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Group.text</fhir_path>
@@ -24155,38 +23872,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.documentation</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.rest.documentation.extension</fhir_path>
-				<predicate>Conformance:rest_documentation_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
 		<fhir_path>HumanName.text</fhir_path>
 		<subs/>
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Questionnaire.status</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Questionnaire.status.extension</fhir_path>
-				<predicate>Questionnaire:status_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
-	</path>
-	<path>
-		<fhir_path>ResourceReference.display</fhir_path>
+		<fhir_path>ValueSet.expansion.contains.display.extension</fhir_path>
 		<subs/>
-		<type>string</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.resource.searchInclude.extension</fhir_path>
@@ -24199,7 +23892,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.object.name.extension</fhir_path>
+		<fhir_path>RelatedPerson.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -24494,9 +24187,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Document</type>
 	</path>
 	<path>
-		<fhir_path>ConceptMap.concept.map.code.extension</fhir_path>
+		<fhir_path>Questionnaire.question.optionsResource(ValueSet)</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.define.concept.modifierExtension</fhir_path>
@@ -24509,7 +24202,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.destination.extension</fhir_path>
+		<fhir_path>ImmunizationRecommendation.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -24531,9 +24224,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.exampleExtension.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>SecurityEvent.object.detail.value</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>SecurityEvent.object.detail.value.extension</fhir_path>
+				<predicate>SecurityEvent:object_detail_value_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>base64Binary</type>
 	</path>
 	<path>
 		<fhir_path>Patient.contact.relationship.extension</fhir_path>
@@ -24541,14 +24241,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.participant.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Document.attester.time</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Document.attester.time.extension</fhir_path>
+				<predicate>Document:attester_time_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>dateTime</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticReport.diagnosticPeriod</fhir_path>
-		<subs/>
-		<type>Period</type>
+		<fhir_path>DiagnosticReport.requestDetail.encounter</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DiagnosticReport.requestDetail.encounter.extension</fhir_path>
+				<predicate>DiagnosticReport:requestDetail_encounter_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Procedure.identifier.extension</fhir_path>
@@ -24636,7 +24350,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticOrder.modifierExtension</fhir_path>
+		<fhir_path>ImmunizationRecommendation.recommendation.protocol.authority.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -24646,9 +24360,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>Observation.valuestring</fhir_path>
-		<subs/>
-		<type>string</type>
+		<fhir_path>DeviceObservation.code</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DeviceObservation.code.extension</fhir_path>
+				<predicate>DeviceObservation:code_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>DeviceData.virtualDevice.channel.code</fhir_path>
@@ -24680,7 +24401,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Narrative</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.compose.exclude.extension</fhir_path>
+		<fhir_path>DeviceCapabilities.virtualDevice.channel.metric.info.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -24707,16 +24428,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Conformance.rest.resource.searchParam.xpath</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Conformance.rest.resource.searchParam.xpath.extension</fhir_path>
-				<predicate>Conformance:rest_resource_searchParam_xpath_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
+		<fhir_path>OrderResponse.date.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Medication.package.content.item</fhir_path>
@@ -24758,14 +24472,33 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>Profile.structure.element.definition.comments</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.comments.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_comments_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>ValueSet.expansion.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Patient.address.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>ValueSet.define.system</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ValueSet.define.system.extension</fhir_path>
+				<predicate>ValueSet:define_system_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>uri</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.identifier</fhir_path>
@@ -24797,35 +24530,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Specimen.source.target</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.source.target.extension</fhir_path>
-				<predicate>Specimen:source_target_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
-	</path>
-	<path>
-		<fhir_path>MedicationDispense.dispenser.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.text</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.text.extension</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_supportingAdverseEventReport_text_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
 		<fhir_path>MedicationPrescription.dispense.validityPeriod</fhir_path>
 		<subs>
 			<sub>
@@ -24850,16 +24554,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Other.author</fhir_path>
+		<fhir_path>CarePlan.activity.status</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Other.author.extension</fhir_path>
-				<predicate>Other:author_extension</predicate>
+				<fhir_path>CarePlan.activity.status.extension</fhir_path>
+				<predicate>CarePlan:activity_status_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Resource</type>
+		<type>code</type>
+	</path>
+	<path>
+		<fhir_path>Profile.mapping.identity</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.mapping.identity.extension</fhir_path>
+				<predicate>Profile:mapping_identity_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>id</type>
 	</path>
 	<path>
 		<fhir_path>Narrative.div</fhir_path>
@@ -24872,6 +24588,18 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>SecurityEvent.object.query</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>SecurityEvent.object.query.extension</fhir_path>
+				<predicate>SecurityEvent:object_query_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>base64Binary</type>
+	</path>
+	<path>
 		<fhir_path>Observation.component.name.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
@@ -24882,54 +24610,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.define.concept</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ValueSet.define.concept.modifierExtension</fhir_path>
-				<predicate>ValueSet:define_concept_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.define.concept.code</fhir_path>
-				<predicate>ValueSet:define_concept_code</predicate>
-				<relative_xpath>f:code</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.define.concept.abstract</fhir_path>
-				<predicate>ValueSet:define_concept_abstract</predicate>
-				<relative_xpath>f:abstract</relative_xpath>
-				<type>boolean</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.define.concept.display</fhir_path>
-				<predicate>ValueSet:define_concept_display</predicate>
-				<relative_xpath>f:display</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.define.concept.definition</fhir_path>
-				<predicate>ValueSet:define_concept_definition</predicate>
-				<relative_xpath>f:definition</relative_xpath>
-				<type>string</type>
-			</sub>
-			<sub>
-				<fhir_path>ValueSet.define.concept.concept</fhir_path>
-				<predicate>ValueSet:define_concept_concept</predicate>
-				<relative_xpath>f:concept</relative_xpath>
-				<type>ValueSet.define.concept</type>
-			</sub>
-		</subs>
-		<type/>
-	</path>
-	<path>
 		<fhir_path>Practitioner.qualification.issuer.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Medication.manufacturer.extension</fhir_path>
+		<fhir_path>Specimen.type.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -24983,14 +24669,82 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DiagnosticOrder.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
+		<fhir_path>ImmunizationRecommendation.recommendation</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.modifierExtension</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.recommendationDate</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_recommendationDate</predicate>
+				<relative_xpath>f:recommendationDate</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.vaccineType</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_vaccineType</predicate>
+				<relative_xpath>f:vaccineType</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.doseNumber</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_doseNumber</predicate>
+				<relative_xpath>f:doseNumber</relative_xpath>
+				<type>integer</type>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.forecastStatus</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_forecastStatus</predicate>
+				<relative_xpath>f:forecastStatus</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.dateCriterion</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_dateCriterion</predicate>
+				<relative_xpath>f:dateCriterion</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.protocol</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_protocol</predicate>
+				<relative_xpath>f:protocol</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.supportingImmunization</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_supportingImmunization</predicate>
+				<relative_xpath>f:supportingImmunization</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_supportingAdverseEventReport</predicate>
+				<relative_xpath>f:supportingAdverseEventReport</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.supportingPatientObservation</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_supportingPatientObservation</predicate>
+				<relative_xpath>f:supportingPatientObservation</relative_xpath>
+				<type>Resource</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.purpose.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>CarePlan.notes</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>CarePlan.notes.extension</fhir_path>
+				<predicate>CarePlan:notes_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Specimen.collection.quantity.extension</fhir_path>
@@ -25008,16 +24762,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Device.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Device.identifier.extension</fhir_path>
-				<predicate>Device:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
+		<fhir_path>ValueSet.compose.include.version.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Organization.contained</fhir_path>
@@ -25040,9 +24787,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.rate.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>MedicationAdministration.dosage.rate</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationAdministration.dosage.rate.extension</fhir_path>
+				<predicate>MedicationAdministration:dosage_rate_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Ratio</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest.query.documentation</fhir_path>
@@ -25094,14 +24848,26 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
+		<fhir_path>ValueSet.expansion.timestamp.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.identifier.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationDispense.dispense.dosage.timingSchedule</fhir_path>
-		<subs/>
-		<type>Schedule</type>
+		<fhir_path>OrderResponse.who</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>OrderResponse.who.extension</fhir_path>
+				<predicate>OrderResponse:who_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>MedicationStatement.wasNotGiven.extension</fhir_path>
@@ -25170,9 +24936,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Location.contained</fhir_path>
+		<fhir_path>Profile.mapping.modifierExtension</fhir_path>
 		<subs/>
-		<type>Resource</type>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Procedure.notes.extension</fhir_path>
@@ -25501,14 +25267,44 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Document.custodian.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Immunization.reaction</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Immunization.reaction.modifierExtension</fhir_path>
+				<predicate>Immunization:reaction_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Immunization.reaction.date</fhir_path>
+				<predicate>Immunization:reaction_date</predicate>
+				<relative_xpath>f:date</relative_xpath>
+				<type>dateTime</type>
+			</sub>
+			<sub>
+				<fhir_path>Immunization.reaction.detail</fhir_path>
+				<predicate>Immunization:reaction_detail</predicate>
+				<relative_xpath>f:detail</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Immunization.reaction.reported</fhir_path>
+				<predicate>Immunization:reaction_reported</predicate>
+				<relative_xpath>f:reported</relative_xpath>
+				<type>boolean</type>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Medication.product.ingredient.amount.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Profile.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Organization.contact</fhir_path>
@@ -25553,16 +25349,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Document.attester.mode</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Document.attester.mode.extension</fhir_path>
-				<predicate>Document:attester_mode_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>Practitioner.telecom.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>Media.content</fhir_path>
@@ -25589,16 +25378,82 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>SecurityEvent.event.subtype</fhir_path>
+		<fhir_path>RelatedPerson</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>SecurityEvent.event.subtype.extension</fhir_path>
-				<predicate>SecurityEvent:event_subtype_extension</predicate>
+				<fhir_path>RelatedPerson.extension</fhir_path>
+				<predicate>RelatedPerson:extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.modifierExtension</fhir_path>
+				<predicate>RelatedPerson:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.text</fhir_path>
+				<predicate>RelatedPerson:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.contained</fhir_path>
+				<predicate>RelatedPerson:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.identifier</fhir_path>
+				<predicate>RelatedPerson:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.patient</fhir_path>
+				<predicate>RelatedPerson:patient</predicate>
+				<relative_xpath>f:patient</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.relationship</fhir_path>
+				<predicate>RelatedPerson:relationship</predicate>
+				<relative_xpath>f:relationship</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.name</fhir_path>
+				<predicate>RelatedPerson:name</predicate>
+				<relative_xpath>f:name</relative_xpath>
+				<type>HumanName</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.telecom</fhir_path>
+				<predicate>RelatedPerson:telecom</predicate>
+				<relative_xpath>f:telecom</relative_xpath>
+				<type>Contact</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.gender</fhir_path>
+				<predicate>RelatedPerson:gender</predicate>
+				<relative_xpath>f:gender</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.address</fhir_path>
+				<predicate>RelatedPerson:address</predicate>
+				<relative_xpath>f:address</relative_xpath>
+				<type>Address</type>
+			</sub>
+			<sub>
+				<fhir_path>RelatedPerson.photo</fhir_path>
+				<predicate>RelatedPerson:photo</predicate>
+				<relative_xpath>f:photo</relative_xpath>
+				<type>Attachment</type>
+			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>RelatedPerson</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.patient</fhir_path>
@@ -25613,21 +25468,28 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>Procedure.date</fhir_path>
+		<fhir_path>Condition.encounter</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Procedure.date.extension</fhir_path>
-				<predicate>Procedure:date_extension</predicate>
+				<fhir_path>Condition.encounter.extension</fhir_path>
+				<predicate>Condition:encounter_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Period</type>
+		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>ImmunizationRecommendation.subject.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>OrderResponse.description</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>OrderResponse.description.extension</fhir_path>
+				<predicate>OrderResponse:description_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>Supply.dispense.receiver.extension</fhir_path>
@@ -25698,6 +25560,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>CarePlan.activity.simple.details.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>ValueSet.compose.include.filter</fhir_path>
@@ -25779,11 +25646,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DeviceObservation.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
-	</path>
-	<path>
 		<fhir_path>Order</fhir_path>
 		<subs>
 			<sub>
@@ -25862,6 +25724,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Order</type>
 	</path>
 	<path>
+		<fhir_path>Practitioner.period.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
 		<fhir_path>SecurityEvent.object.reference</fhir_path>
 		<subs>
 			<sub>
@@ -25879,16 +25746,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>string</type>
 	</path>
 	<path>
-		<fhir_path>Other.code</fhir_path>
+		<fhir_path>ImagingStudy.series.uid</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Other.code.extension</fhir_path>
-				<predicate>Other:code_extension</predicate>
+				<fhir_path>ImagingStudy.series.uid.extension</fhir_path>
+				<predicate>ImagingStudy:series_uid_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>CodeableConcept</type>
+		<type>oid</type>
 	</path>
 	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.recommendationDate</fhir_path>
@@ -26010,16 +25877,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Document.section</type>
 	</path>
 	<path>
-		<fhir_path>Query.response.outcome</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Query.response.outcome.extension</fhir_path>
-				<predicate>Query:response_outcome_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>Questionnaire.question.remarks.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>CarePlan.activity.goal</fhir_path>
@@ -26051,16 +25911,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dispense.quantity</fhir_path>
+		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.text</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>MedicationPrescription.dispense.quantity.extension</fhir_path>
-				<predicate>MedicationPrescription:dispense_quantity_extension</predicate>
+				<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.text.extension</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_supportingAdverseEventReport_text_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Quantity</type>
+		<type>string</type>
 	</path>
 	<path>
 		<fhir_path>ImmunizationRecommendation.recommendation.dateCriterion</fhir_path>
@@ -26087,16 +25947,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>ValueSet.expansion.identifier</fhir_path>
+		<fhir_path>Conformance.messaging.event.mode</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>ValueSet.expansion.identifier.extension</fhir_path>
-				<predicate>ValueSet:expansion_identifier_extension</predicate>
+				<fhir_path>Conformance.messaging.event.mode.extension</fhir_path>
+				<predicate>Conformance:messaging_event_mode_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Identifier</type>
+		<type>code</type>
 	</path>
 	<path>
 		<fhir_path>Supply.dispense.status.extension</fhir_path>
@@ -26246,16 +26106,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>DocumentReference.status</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DocumentReference.status.extension</fhir_path>
-				<predicate>DocumentReference:status_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>code</type>
+		<fhir_path>DeviceData.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
+	</path>
+	<path>
+		<fhir_path>Observation.valueCodeableConcept</fhir_path>
+		<subs/>
+		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Conformance.rest</fhir_path>
@@ -26306,16 +26164,16 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Query.response.first</fhir_path>
+		<fhir_path>Other.subject</fhir_path>
 		<subs>
 			<sub>
-				<fhir_path>Query.response.first.extension</fhir_path>
-				<predicate>Query:response_first_extension</predicate>
+				<fhir_path>Other.subject.extension</fhir_path>
+				<predicate>Other:subject_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
 		</subs>
-		<type>Extension</type>
+		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>DeviceCapabilities.virtualDevice</fhir_path>
@@ -26431,12 +26289,19 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.type.aggregation.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Encounter.status</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Encounter.status.extension</fhir_path>
+				<predicate>Encounter:status_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>code</type>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.slicing.modifierExtension</fhir_path>
+		<fhir_path>Condition.status.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -26500,26 +26365,39 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type/>
 	</path>
 	<path>
-		<fhir_path>Profile.structure.element.definition.binding.referenceuri</fhir_path>
-		<subs/>
-		<type>uri</type>
+		<fhir_path>DocumentReference.service</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DocumentReference.service.modifierExtension</fhir_path>
+				<predicate>DocumentReference:service_modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>DocumentReference.service.type</fhir_path>
+				<predicate>DocumentReference:service_type</predicate>
+				<relative_xpath>f:type</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>DocumentReference.service.address</fhir_path>
+				<predicate>DocumentReference:service_address</predicate>
+				<relative_xpath>f:address</relative_xpath>
+				<type>string</type>
+			</sub>
+			<sub>
+				<fhir_path>DocumentReference.service.parameter</fhir_path>
+				<predicate>DocumentReference:service_parameter</predicate>
+				<relative_xpath>f:parameter</relative_xpath>
+				<type/>
+			</sub>
+		</subs>
+		<type/>
 	</path>
 	<path>
 		<fhir_path>Patient.active.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Specimen.subject</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Specimen.subject.extension</fhir_path>
-				<predicate>Specimen:subject_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
 	</path>
 	<path>
 		<fhir_path>Document.section.content.extension</fhir_path>
@@ -26542,6 +26420,11 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 			</sub>
 		</subs>
 		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>Practitioner.identifier.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DocumentManifest.text</fhir_path>
@@ -26579,18 +26462,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<fhir_path>Profile.identifier.extension</fhir_path>
 		<subs/>
 		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.reportType</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.supportingAdverseEventReport.reportType.extension</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_supportingAdverseEventReport_reportType_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
 	</path>
 	<path>
 		<fhir_path>Encounter.hospitalization.reAdmission.extension</fhir_path>
@@ -26727,9 +26598,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>Organization.partOf.extension</fhir_path>
+		<fhir_path>SampledData.origin</fhir_path>
 		<subs/>
-		<type>Extension</type>
+		<type>Quantity</type>
 	</path>
 	<path>
 		<fhir_path>Range</fhir_path>
@@ -26755,16 +26626,9 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>MedicationPrescription.dosageInstruction.maxDosePerPeriod</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationPrescription.dosageInstruction.maxDosePerPeriod.extension</fhir_path>
-				<predicate>MedicationPrescription:dosageInstruction_maxDosePerPeriod_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Ratio</type>
+		<fhir_path>MedicationDispense.dispense.type.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
 	</path>
 	<path>
 		<fhir_path>DeviceData.instant.extension</fhir_path>
@@ -27007,18 +26871,6 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
-		<fhir_path>MedicationStatement.patient</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationStatement.patient.extension</fhir_path>
-				<predicate>MedicationStatement:patient_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
-	</path>
-	<path>
 		<fhir_path>Observation.appliesPeriod</fhir_path>
 		<subs/>
 		<type>Period</type>
@@ -27058,9 +26910,154 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Extension</type>
 	</path>
 	<path>
-		<fhir_path>ValueSet.compose.include.system.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
+		<fhir_path>Condition</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Condition.extension</fhir_path>
+				<predicate>Condition:extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.modifierExtension</fhir_path>
+				<predicate>Condition:modifierExtension</predicate>
+				<relative_xpath>f:modifierExtension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.text</fhir_path>
+				<predicate>Condition:text</predicate>
+				<relative_xpath>f:text</relative_xpath>
+				<type>Narrative</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.contained</fhir_path>
+				<predicate>Condition:contained</predicate>
+				<relative_xpath>f:contained</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.identifier</fhir_path>
+				<predicate>Condition:identifier</predicate>
+				<relative_xpath>f:identifier</relative_xpath>
+				<type>Identifier</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.subject</fhir_path>
+				<predicate>Condition:subject</predicate>
+				<relative_xpath>f:subject</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.encounter</fhir_path>
+				<predicate>Condition:encounter</predicate>
+				<relative_xpath>f:encounter</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.asserter</fhir_path>
+				<predicate>Condition:asserter</predicate>
+				<relative_xpath>f:asserter</relative_xpath>
+				<type>Resource</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.dateAsserted</fhir_path>
+				<predicate>Condition:dateAsserted</predicate>
+				<relative_xpath>f:dateAsserted</relative_xpath>
+				<type>date</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.code</fhir_path>
+				<predicate>Condition:code</predicate>
+				<relative_xpath>f:code</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.category</fhir_path>
+				<predicate>Condition:category</predicate>
+				<relative_xpath>f:category</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.status</fhir_path>
+				<predicate>Condition:status</predicate>
+				<relative_xpath>f:status</relative_xpath>
+				<type>code</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.certainty</fhir_path>
+				<predicate>Condition:certainty</predicate>
+				<relative_xpath>f:certainty</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.severity</fhir_path>
+				<predicate>Condition:severity</predicate>
+				<relative_xpath>f:severity</relative_xpath>
+				<type>CodeableConcept</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.onsetdate</fhir_path>
+				<predicate>Condition:onsetdate</predicate>
+				<relative_xpath>f:onsetdate</relative_xpath>
+				<type>date</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.onsetAge</fhir_path>
+				<predicate>Condition:onsetAge</predicate>
+				<relative_xpath>f:onsetAge</relative_xpath>
+				<type>Age</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.abatementdate</fhir_path>
+				<predicate>Condition:abatementdate</predicate>
+				<relative_xpath>f:abatementdate</relative_xpath>
+				<type>date</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.abatementAge</fhir_path>
+				<predicate>Condition:abatementAge</predicate>
+				<relative_xpath>f:abatementAge</relative_xpath>
+				<type>Age</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.abatementboolean</fhir_path>
+				<predicate>Condition:abatementboolean</predicate>
+				<relative_xpath>f:abatementboolean</relative_xpath>
+				<type>boolean</type>
+			</sub>
+			<sub>
+				<fhir_path>Condition.stage</fhir_path>
+				<predicate>Condition:stage</predicate>
+				<relative_xpath>f:stage</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Condition.evidence</fhir_path>
+				<predicate>Condition:evidence</predicate>
+				<relative_xpath>f:evidence</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Condition.location</fhir_path>
+				<predicate>Condition:location</predicate>
+				<relative_xpath>f:location</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Condition.relatedItem</fhir_path>
+				<predicate>Condition:relatedItem</predicate>
+				<relative_xpath>f:relatedItem</relative_xpath>
+				<type/>
+			</sub>
+			<sub>
+				<fhir_path>Condition.notes</fhir_path>
+				<predicate>Condition:notes</predicate>
+				<relative_xpath>f:notes</relative_xpath>
+				<type>string</type>
+			</sub>
+		</subs>
+		<type>Condition</type>
 	</path>
 	<path>
 		<fhir_path>Profile.structure.element.definition.max</fhir_path>
@@ -27080,285 +27077,23 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>Resource</type>
 	</path>
 	<path>
+		<fhir_path>Profile.structure.name</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.name.extension</fhir_path>
+				<predicate>Profile:structure_name_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
 		<fhir_path>ImagingStudy.series.instance.attachment</fhir_path>
 		<subs>
 			<sub>
 				<fhir_path>ImagingStudy.series.instance.attachment.extension</fhir_path>
 				<predicate>ImagingStudy:series_instance_attachment_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Resource</type>
-	</path>
-	<path>
-		<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructions</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructions.extension</fhir_path>
-				<predicate>MedicationPrescription:dosageInstruction_additionalInstructions_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>ConceptMap.target.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Organization.contact.address.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Profile.structure.element.definition.constraint.key.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>MedicationPrescription.dispense.numberOfRepeatsAllowed.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Profile.structure.element.definition.binding.isExtensible</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.binding.isExtensible.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_binding_isExtensible_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>boolean</type>
-	</path>
-	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.protocol.description</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImmunizationRecommendation.recommendation.protocol.description.extension</fhir_path>
-				<predicate>ImmunizationRecommendation:recommendation_protocol_description_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>DiagnosticOrder.event.actor.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ImmunizationRecommendation.recommendation.doseNumber.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.hospitalization.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Observation.referenceRange.rangeRange</fhir_path>
-		<subs/>
-		<type>Range</type>
-	</path>
-	<path>
-		<fhir_path>AdverseReaction.identifier</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>AdverseReaction.identifier.extension</fhir_path>
-				<predicate>AdverseReaction:identifier_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>Identifier</type>
-	</path>
-	<path>
-		<fhir_path>SecurityEvent.object.query</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>SecurityEvent.object.query.extension</fhir_path>
-				<predicate>SecurityEvent:object_query_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>base64Binary</type>
-	</path>
-	<path>
-		<fhir_path>Condition.contained</fhir_path>
-		<subs/>
-		<type>Resource</type>
-	</path>
-	<path>
-		<fhir_path>Immunization.route.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Questionnaire.question.choice.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.hospitalization.origin.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>MedicationPrescription.dosageInstruction.site.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Attachment.hash</fhir_path>
-		<subs/>
-		<type>base64Binary</type>
-	</path>
-	<path>
-		<fhir_path>Procedure.relatedItem</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Procedure.relatedItem.modifierExtension</fhir_path>
-				<predicate>Procedure:relatedItem_modifierExtension</predicate>
-				<relative_xpath>f:modifierExtension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-			<sub>
-				<fhir_path>Procedure.relatedItem.type</fhir_path>
-				<predicate>Procedure:relatedItem_type</predicate>
-				<relative_xpath>f:type</relative_xpath>
-				<type>code</type>
-			</sub>
-			<sub>
-				<fhir_path>Procedure.relatedItem.target</fhir_path>
-				<predicate>Procedure:relatedItem_target</predicate>
-				<relative_xpath>f:target</relative_xpath>
-				<type>Resource</type>
-			</sub>
-		</subs>
-		<type/>
-	</path>
-	<path>
-		<fhir_path>OrderResponse.description</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>OrderResponse.description.extension</fhir_path>
-				<predicate>OrderResponse:description_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>Profile.structure.element.definition.binding.description</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Profile.structure.element.definition.binding.description.extension</fhir_path>
-				<predicate>Profile:structure_element_definition_binding_description_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>SecurityEvent.participant.network.identifier.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ValueSet.define.concept.code.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Patient.animal.species.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Practitioner.specialty.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Alert.note</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>Alert.note.extension</fhir_path>
-				<predicate>Alert:note_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>OperationOutcome.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Profile.structure.element.definition.binding.referenceExtension.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>DocumentManifest.type</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>DocumentManifest.type.extension</fhir_path>
-				<predicate>DocumentManifest:type_extension</predicate>
-				<relative_xpath>f:extension</relative_xpath>
-				<type>Extension</type>
-			</sub>
-		</subs>
-		<type>CodeableConcept</type>
-	</path>
-	<path>
-		<fhir_path>Coding.display</fhir_path>
-		<subs/>
-		<type>string</type>
-	</path>
-	<path>
-		<fhir_path>Media.text</fhir_path>
-		<subs/>
-		<type>Narrative</type>
-	</path>
-	<path>
-		<fhir_path>DiagnosticOrder.item.status.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>Encounter.modifierExtension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>MedicationDispense.dispense.identifier.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ConceptMap.extension</fhir_path>
-		<subs/>
-		<type>Extension</type>
-	</path>
-	<path>
-		<fhir_path>ImagingStudy.interpreter</fhir_path>
-		<subs>
-			<sub>
-				<fhir_path>ImagingStudy.interpreter.extension</fhir_path>
-				<predicate>ImagingStudy:interpreter_extension</predicate>
 				<relative_xpath>f:extension</relative_xpath>
 				<type>Extension</type>
 			</sub>
@@ -27540,6 +27275,271 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>DocumentReference</type>
 	</path>
 	<path>
+		<fhir_path>ConceptMap.target.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Organization.contact.address.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Profile.structure.element.definition.constraint.key.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>MedicationPrescription.dispense.numberOfRepeatsAllowed.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Profile.structure.element.definition.binding.isExtensible</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Profile.structure.element.definition.binding.isExtensible.extension</fhir_path>
+				<predicate>Profile:structure_element_definition_binding_isExtensible_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>boolean</type>
+	</path>
+	<path>
+		<fhir_path>ImmunizationRecommendation.recommendation.protocol.description</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImmunizationRecommendation.recommendation.protocol.description.extension</fhir_path>
+				<predicate>ImmunizationRecommendation:recommendation_protocol_description_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticOrder.event.actor.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.clinicalInformation.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ImmunizationRecommendation.recommendation.doseNumber.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Encounter.hospitalization.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Observation.referenceRange.rangeRange</fhir_path>
+		<subs/>
+		<type>Range</type>
+	</path>
+	<path>
+		<fhir_path>AdverseReaction.identifier</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>AdverseReaction.identifier.extension</fhir_path>
+				<predicate>AdverseReaction:identifier_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Identifier</type>
+	</path>
+	<path>
+		<fhir_path>SecurityEvent.participant.role.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Condition.contained</fhir_path>
+		<subs/>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>Immunization.route.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>CarePlan.goal.description</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>CarePlan.goal.description.extension</fhir_path>
+				<predicate>CarePlan:goal_description_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>CarePlan.activity.simple.performer.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Encounter.hospitalization.origin.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>MedicationPrescription.dosageInstruction.site.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Attachment.hash</fhir_path>
+		<subs/>
+		<type>base64Binary</type>
+	</path>
+	<path>
+		<fhir_path>ImmunizationRecommendation.subject.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Message.destination.endpoint</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Message.destination.endpoint.extension</fhir_path>
+				<predicate>Message:destination_endpoint_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>uri</type>
+	</path>
+	<path>
+		<fhir_path>SecurityEvent.participant.network.identifier.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ValueSet.define.concept.code.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Media.subtype.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Practitioner.specialty.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Alert.note</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>Alert.note.extension</fhir_path>
+				<predicate>Alert:note_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>RelatedPerson.relationship.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Profile.structure.element.definition.binding.referenceExtension.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>DocumentManifest.type</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>DocumentManifest.type.extension</fhir_path>
+				<predicate>DocumentManifest:type_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
+		<fhir_path>Coding.display</fhir_path>
+		<subs/>
+		<type>string</type>
+	</path>
+	<path>
+		<fhir_path>Media.text</fhir_path>
+		<subs/>
+		<type>Narrative</type>
+	</path>
+	<path>
+		<fhir_path>DiagnosticOrder.item.status.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>Encounter.modifierExtension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>MedicationDispense.dispense.identifier.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ConceptMap.extension</fhir_path>
+		<subs/>
+		<type>Extension</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.interpreter</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.interpreter.extension</fhir_path>
+				<predicate>ImagingStudy:interpreter_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>Resource</type>
+	</path>
+	<path>
+		<fhir_path>ImagingStudy.url</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>ImagingStudy.url.extension</fhir_path>
+				<predicate>ImagingStudy:url_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>uri</type>
+	</path>
+	<path>
+		<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructions</fhir_path>
+		<subs>
+			<sub>
+				<fhir_path>MedicationPrescription.dosageInstruction.additionalInstructions.extension</fhir_path>
+				<predicate>MedicationPrescription:dosageInstruction_additionalInstructions_extension</predicate>
+				<relative_xpath>f:extension</relative_xpath>
+				<type>Extension</type>
+			</sub>
+		</subs>
+		<type>CodeableConcept</type>
+	</path>
+	<path>
 		<fhir_path>DocumentReference.context.facilityType</fhir_path>
 		<subs>
 			<sub>
@@ -27552,7 +27552,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		<type>CodeableConcept</type>
 	</path>
 	<path>
-		<fhir_path>DeviceData.identifier.extension</fhir_path>
+		<fhir_path>OperationOutcome.modifierExtension</fhir_path>
 		<subs/>
 		<type>Extension</type>
 	</path>
@@ -27568,7 +27568,10 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
      simultanously hopping around a build-in XML structure describing
      each FHIR path and its associated types + sub-propeties ($context param)
      We kick things off from the XML root element... -->
-<xsl:template match="*">
+<xsl:template match="/*">
+    <xsl:call-template name="addPrefixes">
+        <xsl:with-param name="name" select="name()"/>
+    </xsl:call-template>
     <xsl:call-template name="FhirElement">
         <xsl:with-param name="depth" select="0"/>
         <xsl:with-param name="this" select="."/>
@@ -27587,6 +27590,54 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
     </xsl:if>
 </xsl:template>
 
+<!-- called with any f:extension elements anywhere, anytime, you name it, buddy.
+change
+      from:                                    to:
+  <extension isModifier="true">           <http://...plus> [
+    <url value="http://...plus"/>            a fhir:modified_integer;
+    <valueInteger value="2"/>                <http://...times> [
+    <extension isModifier="true">               a fhir:modified_integer;
+      <url value="http://...times"/>            fhir:value "5";
+      <valueInteger value="5"/>              ];
+    </extension>                             fhir:modifiedBy <http://...times>;
+  </extension>                               fhir:value "2";
+                                          ];
+                                          fhir:modifiedBy <http://...plus>;
+ -->
+<xsl:template name="extension">
+  <xsl:param name="depth"/>
+  <xsl:param name="this"/>
+
+  <!-- find the (one) value element, e.g. f:valueInteger -->
+  <xsl:for-each select="*[substring(name(), 1, 5)='value']">
+
+    <!-- change 'f:valueInteger' into 'integer' -->
+    <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1),
+				                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+				                       'abcdefghijklmnopqrstuvwxyz'),
+				             substring(name(), 7))"/>
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+
+    <!-- <http://...plus> [ -->
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="../f:url/@value"/><xsl:text>&gt; [</xsl:text>
+    <xsl:call-template name="FhirElement">
+      <xsl:with-param name="depth" select="$depth+1"/>
+      <xsl:with-param name="this" select="."/>
+      <xsl:with-param name="context" select="$type"/>
+    </xsl:call-template>
+    <!-- ]; -->
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:text>];&#10;</xsl:text>
+  </xsl:for-each>
+
+  <xsl:if test="@isModifier='true'">
+    <!-- fhir:modifiedBy <http://...plus>; -->
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:value-of select="'fhir:modifiedBy '"/>
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt;;&#10;</xsl:text>
+  </xsl:if>
+</xsl:template>
+
 <xsl:template name="FhirElement">
 
     <!-- mainly just indentation bookkeeping -->
@@ -27600,7 +27651,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 
     <!-- XSLT makes meta-programming a drag.  But here, we look up the relevant node in our FHIR 
          definitions, keying off of the $context param (which is a fhir_path value) --> 
-    <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[.=$context]/.."/>
+    <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[text()=$context]/.."/>
 
     <!-- Type of the current element. Type can be null (for internal nodes) -->
     <xsl:variable name="def.type" select="$def/type"/>
@@ -27621,8 +27672,17 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
             <xsl:text>&#10;</xsl:text>
             <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
             <xsl:text>a fhir:</xsl:text>
+	    <xsl:if test="../@isModifier='true'">
+	      <xsl:text>modifying_</xsl:text> <!-- a modifying_integer -->
+	    </xsl:if>
             <xsl:value-of select="$context"/>
             <xsl:text>;&#10;</xsl:text>
+	    <xsl:for-each select="../f:extension">
+	      <xsl:call-template name="extension">
+		<xsl:with-param name="depth" select="$depth"/>
+		<xsl:with-param name="this" select="."/>
+	      </xsl:call-template>
+	    </xsl:for-each>		
             <xsl:if test="$context = 'Resource'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
@@ -27675,6 +27735,12 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
                 <xsl:text>;&#10;</xsl:text>
             </xsl:if>
 
+	    <xsl:for-each select="f:extension">
+	      <xsl:call-template name="extension">
+		<xsl:with-param name="depth" select="$depth"/>
+		<xsl:with-param name="this" select="."/>
+	      </xsl:call-template>
+	    </xsl:for-each>		
             <!-- Iterate over defined subproperties, making a recursive application of FhirElement -->
             <xsl:for-each select="$def.subs">
 
@@ -27704,7 +27770,15 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 
 
                     <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
-                    <xsl:value-of select="$predicate"/>
+		    <xsl:choose>
+		      <xsl:when test="f:extension//@isModifier='true'">
+			<!-- <Resource>:modified_<Property>  -->
+			<xsl:value-of select="concat(substring-before($predicate, ':'),
+					      ':modified_',
+					      substring-after($predicate, ':'))"/>
+		      </xsl:when>
+		      <xsl:otherwise><xsl:value-of select="$predicate"/></xsl:otherwise>
+		    </xsl:choose>
                     <xsl:text> </xsl:text> 
                     <xsl:variable name="subcontext">
                         <xsl:choose>
@@ -27772,6 +27846,27 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:if>
+  </xsl:template>
+
+  <!-- prefix for this resource plus library types. -->
+  <xsl:template name="addPrefixes">
+    <xsl:param name="name"/>
+    <div>
+      <pre class="machine" style="font-size:small">@prefix <xsl:value-of select="$name"/>: &lt;http://hl7/org/fhir/<xsl:value-of select="$name"/>#&gt; .
+@prefix fhir: &lt;http://hl7/org/fhir/&gt; .
+@prefix Narrative: &lt;http://hl7/org/fhir/Narrative#&gt; .
+@prefix Observation: &lt;http://hl7/org/fhir/Observation#&gt; .
+@prefix Quantity: &lt;http://hl7/org/fhir/Quantity#&gt; .
+@prefix Resource: &lt;http://hl7/org/fhir/Resource#&gt; .
+@prefix Reference: &lt;http://hl7/org/fhir/Reference#&gt; .
+@prefix Range: &lt;http://hl7/org/fhir/Range#&gt; .
+@prefix Codeable: &lt;http://hl7/org/fhir/Codeable#&gt; .
+@prefix Coding: &lt;http://hl7/org/fhir/Coding#&gt; .
+@prefix xhtml: &lt;http://www.w3.org/1999/xhtml&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema&gt; .
+@base &lt;http://this-fhir-server/fhir/&gt; .
+</pre>
+    </div>
   </xsl:template>
 
 </xsl:stylesheet>
