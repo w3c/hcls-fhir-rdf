@@ -10,7 +10,7 @@ XSLT		?=  xsltproc # iirc, Batik uses args in the other order
 	${XSLT} ${NOW} $^ > $@
 
 # test the integrity of a generated Turtle file.
-t_%: %-generated.ttl %.ttl
+t_%: %.ttl %-generated.ttl
 # 	sparql -d $< -q
 	diff $^
 
