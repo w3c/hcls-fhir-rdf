@@ -47,10 +47,26 @@ change
   <xsl:for-each select="*[substring(name(), 1, 5)='value']">
 
     <!-- change 'f:valueInteger' into 'integer' -->
-    <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1),
-				                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-				                       'abcdefghijklmnopqrstuvwxyz'),
-				             substring(name(), 7))"/>
+    <xsl:variable name="type1" select="substring(name(), 6)"/>
+    <xsl:variable name="type">
+      <xsl:choose> <!-- Fix cases in narrow minority of supported type names.-->
+	<xsl:when test="$type1='Integer'"     ><xsl:value-of select="'integer'"     /></xsl:when>
+	<xsl:when test="$type1='Decimal'"     ><xsl:value-of select="'decimal'"     /></xsl:when>
+	<xsl:when test="$type1='DateTime'"    ><xsl:value-of select="'dateTime'"    /></xsl:when>
+	<xsl:when test="$type1='Date'"        ><xsl:value-of select="'date'"        /></xsl:when>
+	<xsl:when test="$type1='Instant'"     ><xsl:value-of select="'instant'"     /></xsl:when>
+	<xsl:when test="$type1='String'"      ><xsl:value-of select="'string'"      /></xsl:when>
+	<xsl:when test="$type1='Uri'"         ><xsl:value-of select="'uri'"         /></xsl:when>
+	<xsl:when test="$type1='Boolean'"     ><xsl:value-of select="'boolean'"     /></xsl:when>
+	<xsl:when test="$type1='Code'"        ><xsl:value-of select="'code'"        /></xsl:when>
+	<xsl:when test="$type1='Base64Binary'"><xsl:value-of select="'base64Binary'"/></xsl:when>
+	<xsl:otherwise><xsl:value-of select="$type1"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <!-- <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1), -->
+    <!-- 				                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', -->
+    <!-- 				                       'abcdefghijklmnopqrstuvwxyz'), -->
+    <!-- 				             substring(name(), 7))"/> -->
     <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
 
     <!-- <http://...plus> [ -->
@@ -118,7 +134,7 @@ change
 		<xsl:with-param name="this" select="."/>
 	      </xsl:call-template>
 	    </xsl:for-each>		
-            <xsl:if test="$context = 'Resource'">
+            <xsl:if test="$context = 'Resource'"> <!--  or $context = 'resource'" -->
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:value-of select="$this/f:type/@value"/>
