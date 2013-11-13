@@ -27635,6 +27635,8 @@ change
 	<xsl:otherwise><xsl:value-of select="$type1"/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+
+    <!-- Chatty translation of 6th char to lowercase: -->
     <!-- <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1), -->
     <!-- 				                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', -->
     <!-- 				                       'abcdefghijklmnopqrstuvwxyz'), -->
@@ -27688,11 +27690,11 @@ change
     <!-- Sub-elemenets that are defined for this type.  Each sub includes 
            * an xpath fragment (e.g. 'f:detail')
            * FHIR path (e.g. Order.detail)
-           * target type (e.g. CodeableConcept; or blank if the target is an internal node) -->
-    <xsl:variable name="def.subs" select="$def/subs/sub"/> 
+           * target type (e.g. CodeableConcept; or blank if the target is an internal node)
+         !! sub-elements of type Extension are handled separately (is this an exhaustive list of them?) -->
+    <xsl:variable name="def.subs" select="$def/subs/sub"/> <!-- !! [type!='Extension'] -->
 
     <xsl:choose>
-        <!-- TODO custom handlers for the basic tpyes: uri, string, code-->
         <!-- TODO possibly handlers for (some) datatyes: e.g. text-->
 
         <!-- This first branch represents a leaf node for which no further properties are defined in FHIR Spreadsheets -->
@@ -27723,13 +27725,9 @@ change
                 <xsl:text>&gt;;&#10;</xsl:text>
                 <xsl:if test="$this/f:display/@value">
                     <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
-                    <xsl:text>Reference:display [&#10;</xsl:text>
-                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="2+$depth"/> </xsl:call-template>
-                    <xsl:text>a fhir:String; fhir:value "</xsl:text>
+                    <xsl:text>Reference:display "</xsl:text>
                     <xsl:value-of select="$this/f:display/@value"/>
                     <xsl:text>"&#10;</xsl:text>
-                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
-                    <xsl:text>]&#10;</xsl:text>
                 </xsl:if>
             </xsl:if>
 
@@ -27825,23 +27823,82 @@ change
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
-                    <xsl:text>[</xsl:text>
-                    <xsl:call-template name="FhirElement">
-                        <xsl:with-param name="depth" select="$depth+1"/>
-                        <xsl:with-param name="this" select="."/>
-                        <xsl:with-param name="context" select="$subcontext"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
-
-                    <!-- This test only works because FHIR's examples are all serialized with propertiese
-                         in the same order as in the defining spreadsheets.  It will sometimes think a
-                         terminal entry is non-terminal, e.g. if the last property has no instance. -->
                     <xsl:choose>
-                        <xsl:when test="$last_property_p='true' and $last_instance_p='true'">
-                            <xsl:text>]&#10;</xsl:text> 
+                        <!-- perform the mappings to xsd types per
+                             http://www.hl7.org/implement/standards/fhir/datatypes.html#string -->
+                        <xsl:when test="$subcontext='boolean' and not(name(..)='modifierExtension')">
+                            <xsl:value-of select="@value"/>
+                            <xsl:text>;&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$subcontext='integer' and not(name(..)='modifierExtension')">
+                            <!-- <xsl:text>"</xsl:text> -->
+                            <xsl:value-of select="@value"/>
+                            <!-- <xsl:text>;^^xsd:int&#10;</xsl:text> -->
+                            <xsl:text>;&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="($subcontext='decimal' or $subcontext='boolean') and not(name(..)='modifierExtension')">
+                            <xsl:value-of select="@value"/>
+			    <xsl:if test="not(contains(@value,'.'))">
+			      <xsl:text>.0</xsl:text>
+			    </xsl:if>
+                            <xsl:text>;&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$subcontext='base64Binary' and not(name(..)='modifierExtension')">
+                            <xsl:text>"</xsl:text>
+                            <xsl:value-of select="@value"/> <!-- @@ need to backslashify -->
+                            <xsl:text>"^^xsd:base64Binary;&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$subcontext='instant' and not(name(..)='modifierExtension')">
+                            <xsl:text>"</xsl:text>
+                            <xsl:value-of select="@value"/>
+                            <xsl:text>"^^xsd:dateTime;&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$subcontext='string' and not(name(..)='modifierExtension')">
+                            <xsl:text>"</xsl:text>
+                            <xsl:value-of select="@value"/> <!-- @@ need to backslashify -->
+                            <xsl:text>";&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$subcontext='uri' and not(name(..)='modifierExtension')">
+                            <xsl:text>&lt;</xsl:text>
+                            <xsl:value-of select="@value"/>
+                            <xsl:text>&gt;;&#10;</xsl:text>
+                        </xsl:when>
+                        <!-- @@ date and dateTime get mapped to unions -->
+                        <!-- <xsl:when test="$subcontext='dateTime' and not(name(..)='modifierExtension')"> -->
+                        <!--     <xsl:text>"</xsl:text> -->
+                        <!--     <xsl:value-of select="@value"/> -->
+                        <!--     <xsl:text>"^^xsd:dateTime;&#10;</xsl:text> -->
+                        <!-- </xsl:when> -->
+
+                        <!-- a code is a string per
+                             http://www.hl7.org/implement/standards/fhir/datatypes.html#code -->
+                        <xsl:when test="($subcontext='code' or $subcontext='id') and not(name(..)='modifierExtension')">
+                            <xsl:text>"</xsl:text>
+                            <xsl:value-of select="@value"/> <!-- @@ need to backslashify -->
+                            <xsl:text>"^^fhir:</xsl:text>
+                            <xsl:value-of select="$subcontext"/>
+                            <xsl:text>;&#10;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>];&#10;</xsl:text> 
+                            <xsl:text>[</xsl:text>
+                            <xsl:call-template name="FhirElement">
+                                <xsl:with-param name="depth" select="$depth+1"/>
+                                <xsl:with-param name="this" select="."/>
+                                <xsl:with-param name="context" select="$subcontext"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+        
+                            <!-- This test only works because FHIR's examples are all serialized with propertiese
+                                 in the same order as in the defining spreadsheets.  It will sometimes think a
+                                 terminal entry is non-terminal, e.g. if the last property has no instance. -->
+                            <xsl:choose>
+                                <xsl:when test="$last_property_p='true' and $last_instance_p='true'">
+                                    <xsl:text>]&#10;</xsl:text> 
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>];&#10;</xsl:text> 
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
 
