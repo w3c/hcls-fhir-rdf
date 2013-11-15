@@ -11,7 +11,42 @@
         <xsl:with-param name="depth" select="0"/>
         <xsl:with-param name="this" select="."/>
         <xsl:with-param name="context" select="name()"/>
+        <xsl:with-param name="subject" select="'[] '"/>
     </xsl:call-template>
+    <xsl:for-each select="//f:contained/*">
+        <xsl:call-template name="FhirElement">
+            <xsl:with-param name="depth" select="0"/>
+            <xsl:with-param name="this" select="."/>
+            <xsl:with-param name="context" select="name()"/>
+            <xsl:with-param name="subject" select="concat('&lt;#', @id, '&gt; ')"/>
+        </xsl:call-template>
+    </xsl:for-each>
+
+        <xsl:for-each select="//f:reference[../f:display]">
+	  <xsl:value-of select="concat('&lt;', @value, '&gt;')"/>
+	  <xsl:text> Reference:display </xsl:text>
+	  <xsl:value-of select="concat('&quot;', ../f:display/@value, '&quot;')"/>
+	  <xsl:text> .&#10;</xsl:text>
+        </xsl:for-each>
+    <!-- @@ delme if the above rule is sufficient.
+    <xsl:variable name="root" select="."/>
+    <xsl:for-each select="document('')/*/l:fhirdefs/path/type[text()='Resource']/../fhir_path/text()">
+      <xsl:if test=".='Other.subject'">
+        <xsl:for-each select="$root/../f:Other/f:subject">
+
+        <xsl:call-template name="FhirElement">
+            <xsl:with-param name="depth" select="0"/>
+            <xsl:with-param name="this" select="."/>
+            <xsl:with-param name="context" select="name()"/>
+            <xsl:with-param name="subject" select="concat('&lt;#', f:reference/@value, '&gt; ')"/>
+        </xsl:call-template>
+
+        </xsl:for-each>
+      </xsl:if>
+    </xsl:for-each>
+    -->
+    <!--     [[<xsl:value-of select="name(//*)"/>]] -->
+    <!-- {{<xsl:value-of select="name($root)"/>}} -->
 </xsl:template>
 
 <!-- This should be relaced with something less verbose to call -->
@@ -115,6 +150,8 @@ change
     <!-- path into the accompanying FHIR definitions (built in to this XSLT) -->
     <xsl:param name="context" />
 
+    <xsl:param name="subject" />
+
     <!-- XSLT makes meta-programming a drag.  But here, we look up the relevant node in our FHIR 
          definitions, keying off of the $context param (which is a fhir_path value) --> 
     <xsl:variable name="def" select="document('')/*/l:fhirdefs/path/fhir_path[text()=$context]/.."/>
@@ -126,7 +163,8 @@ change
            * an xpath fragment (e.g. 'f:detail')
            * FHIR path (e.g. Order.detail)
            * target type (e.g. CodeableConcept; or blank if the target is an internal node)
-         sub-elements of type Extension are handled separately (is this an exhaustive list of them?) -->
+         (Resource) sub-elements of type Extension are handled separately.
+	 Properties appear to have no sub-elements for Extensions. -->
     <xsl:variable name="def.subs" select="$def/subs/sub[type!='Extension']"/>
 
     <xsl:choose>
@@ -136,13 +174,15 @@ change
         <xsl:when test="not($def)">
 
             <xsl:text>&#10;</xsl:text>
-            <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
-            <xsl:text>a fhir:</xsl:text>
-	    <xsl:if test="name(..)='modifierExtension'">
-	      <xsl:text>modifying_</xsl:text> <!-- a modifying_integer -->
+	    <xsl:if test="$context!='Resource'">
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:text>a fhir:</xsl:text>
+                <xsl:if test="name(..)='modifierExtension'">
+                    <xsl:text>modifying_</xsl:text> <!-- a modifying_integer -->
+                </xsl:if>
+                <xsl:value-of select="$context"/>
+                <xsl:text>;&#10;</xsl:text>
 	    </xsl:if>
-            <xsl:value-of select="$context"/>
-            <xsl:text>;&#10;</xsl:text>
 	    <xsl:for-each select="../f:extension|../f:modifierExtension">
 	      <xsl:call-template name="extension">
 		<xsl:with-param name="depth" select="$depth"/>
@@ -184,7 +224,7 @@ change
 
         <!-- This second branch represents a node with subproperties defined in FHIR Spreadsheets -->
         <xsl:otherwise>
-            <xsl:if test="$depth=0">[] </xsl:if>
+	    <xsl:value-of select="$subject"/>
             <xsl:if test="$depth>0"><xsl:text>&#10;</xsl:text></xsl:if>
 
             <!-- If this is a type (non-internal) node, output the type -->
@@ -227,7 +267,7 @@ change
                 <!--searching on  <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/>-->
 
                 <!-- for a given property, look for its occurence(s) in instance data -->
-                <xsl:for-each select="$this/*[name()=$xpath]">
+                <xsl:for-each select="$this/*[name()=$xpath and name()!='contained']">
 
                     <xsl:variable name="last_instance_p">
                         <xsl:choose>
@@ -314,6 +354,16 @@ change
                             <xsl:value-of select="$subcontext"/>
                             <xsl:text>;&#10;</xsl:text>
                         </xsl:when>
+                        <xsl:when test="$type='Resource'">
+                            <xsl:text>&lt;</xsl:text>
+                            <xsl:value-of select="f:reference/@value"/>
+                            <xsl:text>&gt;;&#10;</xsl:text>
+                            <!-- <xsl:text># skip a resource of type Resource on path: </xsl:text> -->
+                            <!-- <xsl:value-of select="$fhir_path"/> -->
+                            <!-- <xsl:text>  xpath: </xsl:text> -->
+                            <!-- <xsl:value-of select="$xpath"/> -->
+                            <!-- <xsl:text>?&#10;</xsl:text> -->
+                        </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>[</xsl:text>
                             <xsl:call-template name="FhirElement">
@@ -339,7 +389,7 @@ change
 
                 </xsl:for-each>
             </xsl:for-each>
-            <xsl:if test="$depth=0">.</xsl:if>
+            <xsl:if test="$depth=0"><xsl:text>.&#10;</xsl:text></xsl:if>
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
