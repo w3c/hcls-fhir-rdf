@@ -54,4 +54,4 @@ import pprint
 #pp = pprint.PrettyPrinter(indent=4)
 #pp.pprint(t)
 dom = parseString(v)
-print("\n".join(dom.toprettyxml().split("\n")[1:])).replace("fhirdefs", "l:fhirdefs")
+print("\n".join(dom.toprettyxml().split("\n")[1:])).replace("<fhirdefs>", "<l:fhirdefs xmlns:l=\"http://local-mods\">").replace("</fhirdefs>", "</l:fhirdefs>")
