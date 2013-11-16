@@ -267,7 +267,7 @@ change
                 <!--searching on  <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/>-->
 
                 <!-- for a given property, look for its occurence(s) in instance data -->
-                <xsl:for-each select="$this/*[name()=$xpath and name()!='contained']">
+                <xsl:for-each select="$this/*[name()=$xpath]"> <!-- include contained arcs -->
 
                     <xsl:variable name="last_instance_p">
                         <xsl:choose>
@@ -285,6 +285,9 @@ change
                                                   ':modified_',
                                                   substring-after($predicate, ':'))"/>
 			</xsl:when>
+			<xsl:when test="name()='contained'"> <!-- include contained arcs -->
+			    <xsl:text>fhir:contained</xsl:text>
+			</xsl:when>
 			<xsl:otherwise><xsl:value-of select="$predicate"/></xsl:otherwise>
                     </xsl:choose>
                     <xsl:text> </xsl:text> 
@@ -299,6 +302,12 @@ change
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:choose>
+                        <xsl:when test="name()='contained'"> <!-- include contained arcs -->
+                            <xsl:text>&lt;#</xsl:text>
+                            <xsl:value-of select="*/@id"/>
+                            <xsl:text>&gt;;&#10;</xsl:text>
+                        </xsl:when>
+
                         <!-- perform the mappings to xsd types per
                              http://www.hl7.org/implement/standards/fhir/datatypes.html#string -->
                         <xsl:when test="$subcontext='boolean' and not(name(..)='modifierExtension')">
