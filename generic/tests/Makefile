@@ -8,7 +8,7 @@ XSLT		?=  xsltproc # iirc, Batik uses args in the other order
 
 # generate a Turtle version of a given XML file
 %-generated.ttl: %.xml ../transform.xsl
-	${XSLT} ${NOW} ${DOCP} $< ../transform.xsl $< > $@
+	${XSLT} ${NOW} ${DOCP} $(patsubst %.xml,%,$<) ../transform.xsl $< > $@
 
 # test the integrity of a generated Turtle file.
 t_%: %.ttl %-generated.ttl

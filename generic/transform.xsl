@@ -9,7 +9,10 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 		xmlns:n1="http://hl7.org/fhir"
 		xmlns:xhtml="http://www.w3.org/1999/xhtml"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:l="http://local-mods">
+		xmlns:l="http://local-mods"
+        xmlns:atom="http://www.w3.org/2005/Atom">
+  <xsl:param name="now" select="''"/>
+  <xsl:param name="docParam" select="'./'"/>
 
 <xsl:strip-space elements="*" />
     <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
@@ -27564,35 +27567,131 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
 </l:fhirdefs>
 
 
+<xsl:template match="/">
+    <!-- <xsl:text># generated </xsl:text><xsl:value-of select="$now"/><xsl:text>&#10;&#10;</xsl:text> -->
+    <xsl:apply-templates select="*" mode="root"/>
+</xsl:template>
+
+<xsl:template match="atom:feed" mode="root">
+    <xsl:text>@prefix atom: &lt;http://www.w3.org/2005/Atom&gt; .&#10;</xsl:text>
+    <xsl:call-template name="addPrefixes">
+        <xsl:with-param name="name" select="name(//atom:content/*[1])"/>
+    </xsl:call-template>
+    <xsl:apply-templates select="*" mode="atomFeed"/>
+    <xsl:text>.&#10;</xsl:text>
+    <xsl:for-each select="atom:entry">
+	<xsl:text>&lt;</xsl:text>
+	<xsl:value-of select="atom:id/text()"/>
+	<xsl:text>&gt; a atom:entry ;&#10;</xsl:text>
+	<xsl:apply-templates select="*" mode="atomEntry"/>
+	<xsl:text>.&#10;</xsl:text>
+    </xsl:for-each>
+    <xsl:for-each select="atom:entry/atom:content/*">
+	<xsl:call-template name="ResourceRoot">
+	    <xsl:with-param name="subject" select="concat('&lt;', ../../atom:link/@href , '&gt;')"/>
+	    <xsl:with-param name="doc" select="../../atom:link/@href"/>
+	</xsl:call-template>
+    </xsl:for-each>
+</xsl:template>
+
+<xsl:template match="atom:id" mode="atomFeed">
+    <xsl:text>&lt;</xsl:text>
+    <xsl:value-of select="text()"/>
+    <xsl:text>&gt; a atom:Feed ;&#10;</xsl:text>
+    <xsl:apply-templates select="*" mode="atomEntry"/>
+</xsl:template>
+
+<xsl:template match="atom:link" mode="atomFeed">
+    <xsl:text>    atom:link &lt;</xsl:text> <!-- @@ need dc: prefix -->
+    <xsl:value-of select="@href"/> <!-- @@ need escape -->
+    <xsl:text>&gt; ;&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="atom:entry" mode="atomFeed">
+    <xsl:text>    atom:entry &lt;</xsl:text>
+    <xsl:value-of select="atom:id/text()"/>
+    <xsl:text>&gt; ;&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="atom:title" mode="atomEntry">
+    <xsl:text>    dc:title "</xsl:text> <!-- @@ need dc: prefix -->
+    <xsl:value-of select="text()"/> <!-- @@ need escape -->
+    <xsl:text>" ;&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="atom:id" mode="atomEntry">
+</xsl:template>
+
+<xsl:template match="atom:link" mode="atomEntry">
+    <xsl:text>    atom:link &lt;</xsl:text> <!-- @@ need dc: prefix -->
+    <xsl:value-of select="@href"/> <!-- @@ need escape -->
+    <xsl:text>&gt; ;&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="atom:updated" mode="atomEntry">
+    <xsl:text>    atom:updated "</xsl:text> <!-- @@ need dc: prefix -->
+    <xsl:value-of select="text()"/> <!-- @@ need escape -->
+    <xsl:text>"^^xsd:dateTime ;&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="atom:author" mode="atomEntry">
+    <xsl:text>    dc:author "</xsl:text> <!-- @@ need dc: prefix -->
+    <xsl:value-of select="atom:name/text()"/> <!-- @@ need escape -->
+    <xsl:text>" ;&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="atom:content" mode="atomEntry">
+</xsl:template>
+
+<xsl:template match="atom:summary" mode="atomEntry">
+    <xsl:text>    atom:summary """</xsl:text>
+    <xsl:for-each select="*">
+	<xsl:call-template name="copy-element" />
+    </xsl:for-each>
+    <xsl:text>""";&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="*" mode="root">
+    <xsl:call-template name="addPrefixes">
+        <xsl:with-param name="name" select="name(.)"/>
+    </xsl:call-template>
+    <xsl:text>@base &lt;http://this-fhir-server/fhir/&gt; .&#10;</xsl:text>
+    <xsl:call-template name="ResourceRoot">
+        <xsl:with-param name="subject" select="concat('&lt;', $docParam, '&gt;')"/>
+	<xsl:with-param name="doc" select="$docParam"/>
+    </xsl:call-template>
+</xsl:template>
+
 <!-- We'll traverse the FHIR instance XML data ($this param) while
      simultanously hopping around a build-in XML structure describing
      each FHIR path and its associated types + sub-propeties ($context param)
      We kick things off from the XML root element... -->
-<xsl:template match="/*">
-    <xsl:call-template name="addPrefixes">
-        <xsl:with-param name="name" select="name()"/>
-    </xsl:call-template>
+<xsl:template name="ResourceRoot">
+    <xsl:param name="subject"/>
+    <xsl:param name="doc"/>
     <xsl:call-template name="FhirElement">
         <xsl:with-param name="depth" select="0"/>
         <xsl:with-param name="this" select="."/>
         <xsl:with-param name="context" select="name()"/>
-        <xsl:with-param name="subject" select="'[] '"/>
+        <xsl:with-param name="subject" select="$subject"/>
+	<xsl:with-param name="doc" select="$doc"/>
     </xsl:call-template>
-    <xsl:for-each select="//f:contained/*">
+    <xsl:for-each select=".//f:contained/*">
         <xsl:call-template name="FhirElement">
             <xsl:with-param name="depth" select="0"/>
             <xsl:with-param name="this" select="."/>
             <xsl:with-param name="context" select="name()"/>
-            <xsl:with-param name="subject" select="concat('&lt;#', @id, '&gt; ')"/>
+            <xsl:with-param name="subject" select="concat('&lt;', $doc, '#', @id, '&gt;')"/>
+	    <xsl:with-param name="doc" select="$doc"/>
         </xsl:call-template>
     </xsl:for-each>
 
-        <xsl:for-each select="//f:reference[../f:display]">
-	  <xsl:value-of select="concat('&lt;', @value, '&gt;')"/>
-	  <xsl:text> Reference:display </xsl:text>
-	  <xsl:value-of select="concat('&quot;', ../f:display/@value, '&quot;')"/>
-	  <xsl:text> .&#10;</xsl:text>
-        </xsl:for-each>
+    <xsl:for-each select=".//f:reference[../f:display]">
+	<xsl:value-of select="concat('&lt;', @value, '&gt;')"/>
+	<xsl:text> Reference:display </xsl:text>
+	<xsl:value-of select="concat('&quot;', ../f:display/@value, '&quot;')"/>
+	<xsl:text> .&#10;</xsl:text>
+    </xsl:for-each>
     <!-- @@ delme if the above rule is sufficient.
     <xsl:variable name="root" select="."/>
     <xsl:for-each select="document('')/*/l:fhirdefs/path/type[text()='Resource']/../fhir_path/text()">
@@ -27604,6 +27703,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
             <xsl:with-param name="this" select="."/>
             <xsl:with-param name="context" select="name()"/>
             <xsl:with-param name="subject" select="concat('&lt;#', f:reference/@value, '&gt; ')"/>
+	    <xsl:with-param name="doc" select="$doc"/>
         </xsl:call-template>
 
         </xsl:for-each>
@@ -27640,68 +27740,71 @@ change
                                           fhir:modifiedBy <http://...plus>;
  -->
 <xsl:template name="extension">
-  <xsl:param name="depth"/>
-  <xsl:param name="this"/>
+    <xsl:param name="depth"/>
+    <xsl:param name="this"/>
+    <xsl:param name="doc"/>
 
-  <!-- <http://...plus> [ -->
-  <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
-  <xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt; [</xsl:text>
-  <xsl:if test="not(*[substring(name(), 1, 5)='value'])"><!-- ugh, why do i need this? -->
-    <xsl:text>&#10;</xsl:text>
-  </xsl:if>
-
-  <!-- find the (one) value element, e.g. f:valueInteger -->
-  <xsl:for-each select="*[substring(name(), 1, 5)='value']">
-
-    <!-- change 'f:valueInteger' into 'integer' -->
-    <xsl:variable name="type1" select="substring(name(), 6)"/>
-    <xsl:variable name="type">
-      <xsl:choose> <!-- Fix cases in narrow minority of supported type names.-->
-	<xsl:when test="$type1='Integer'"     ><xsl:value-of select="'integer'"     /></xsl:when>
-	<xsl:when test="$type1='Decimal'"     ><xsl:value-of select="'decimal'"     /></xsl:when>
-	<xsl:when test="$type1='DateTime'"    ><xsl:value-of select="'dateTime'"    /></xsl:when>
-	<xsl:when test="$type1='Date'"        ><xsl:value-of select="'date'"        /></xsl:when>
-	<xsl:when test="$type1='Instant'"     ><xsl:value-of select="'instant'"     /></xsl:when>
-	<xsl:when test="$type1='String'"      ><xsl:value-of select="'string'"      /></xsl:when>
-	<xsl:when test="$type1='Uri'"         ><xsl:value-of select="'uri'"         /></xsl:when>
-	<xsl:when test="$type1='Boolean'"     ><xsl:value-of select="'boolean'"     /></xsl:when>
-	<xsl:when test="$type1='Code'"        ><xsl:value-of select="'code'"        /></xsl:when>
-	<xsl:when test="$type1='Base64Binary'"><xsl:value-of select="'base64Binary'"/></xsl:when>
-	<xsl:otherwise><xsl:value-of select="$type1"/></xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
-    <!-- Chatty translation of 6th char to lowercase: -->
-    <!-- <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1), -->
-    <!-- 				                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', -->
-    <!-- 				                       'abcdefghijklmnopqrstuvwxyz'), -->
-    <!-- 				             substring(name(), 7))"/> -->
-
-    <xsl:call-template name="FhirElement">
-      <xsl:with-param name="depth" select="$depth+1"/>
-      <xsl:with-param name="this" select="."/>
-      <xsl:with-param name="context" select="$type"/>
-    </xsl:call-template>
-  </xsl:for-each>
-
-  <!-- or find the n extensions -->
-  <xsl:for-each select="f:extension|f:modifierExtension">
-    <xsl:call-template name="extension">
-      <xsl:with-param name="depth" select="$depth+1"/>
-      <xsl:with-param name="this" select="."/>
-    </xsl:call-template>
-  </xsl:for-each>
-
-  <!-- ]; -->
-  <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
-  <xsl:text>];&#10;</xsl:text>
-
-  <xsl:if test="name(.)='modifierExtension'">
-    <!-- fhir:modifiedBy <http://...plus>; -->
+    <!-- <http://...plus> [ -->
     <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
-    <xsl:value-of select="'fhir:modifiedBy '"/>
-    <xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt;;&#10;</xsl:text>
-  </xsl:if>
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt; [</xsl:text>
+    <xsl:if test="not(*[substring(name(), 1, 5)='value'])"><!-- ugh, why do i need this? -->
+	<xsl:text>&#10;</xsl:text>
+    </xsl:if>
+
+    <!-- find the (one) value element, e.g. f:valueInteger -->
+    <xsl:for-each select="*[substring(name(), 1, 5)='value']">
+
+	<!-- change 'f:valueInteger' into 'integer' -->
+	<xsl:variable name="type1" select="substring(name(), 6)"/>
+	<xsl:variable name="type">
+	    <xsl:choose> <!-- Fix cases in narrow minority of supported type names.-->
+		<xsl:when test="$type1='Integer'"     ><xsl:value-of select="'integer'"     /></xsl:when>
+		<xsl:when test="$type1='Decimal'"     ><xsl:value-of select="'decimal'"     /></xsl:when>
+		<xsl:when test="$type1='DateTime'"    ><xsl:value-of select="'dateTime'"    /></xsl:when>
+		<xsl:when test="$type1='Date'"        ><xsl:value-of select="'date'"        /></xsl:when>
+		<xsl:when test="$type1='Instant'"     ><xsl:value-of select="'instant'"     /></xsl:when>
+		<xsl:when test="$type1='String'"      ><xsl:value-of select="'string'"      /></xsl:when>
+		<xsl:when test="$type1='Uri'"         ><xsl:value-of select="'uri'"         /></xsl:when>
+		<xsl:when test="$type1='Boolean'"     ><xsl:value-of select="'boolean'"     /></xsl:when>
+		<xsl:when test="$type1='Code'"        ><xsl:value-of select="'code'"        /></xsl:when>
+		<xsl:when test="$type1='Base64Binary'"><xsl:value-of select="'base64Binary'"/></xsl:when>
+		<xsl:otherwise><xsl:value-of select="$type1"/></xsl:otherwise>
+	    </xsl:choose>
+	</xsl:variable>
+
+	<!-- Chatty translation of 6th char to lowercase: -->
+	<!-- <xsl:variable name="type" select="concat(translate(substring(name(), 6, 1), -->
+	<!--                                                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', -->
+	<!--                                                       'abcdefghijklmnopqrstuvwxyz'), -->
+	<!--                                             substring(name(), 7))"/> -->
+
+	<xsl:call-template name="FhirElement">
+	    <xsl:with-param name="depth" select="$depth+1"/>
+	    <xsl:with-param name="this" select="."/>
+	    <xsl:with-param name="context" select="$type"/>
+	    <xsl:with-param name="doc" select="$doc"/>
+	</xsl:call-template>
+    </xsl:for-each>
+
+    <!-- or find the n extensions -->
+    <xsl:for-each select="f:extension|f:modifierExtension">
+	<xsl:call-template name="extension">
+	    <xsl:with-param name="depth" select="$depth+1"/>
+	    <xsl:with-param name="this" select="."/>
+	    <xsl:with-param name="doc" select="$doc"/>
+	</xsl:call-template>
+    </xsl:for-each>
+
+    <!-- ]; -->
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:text>];&#10;</xsl:text>
+
+    <xsl:if test="name(.)='modifierExtension'">
+	<!-- fhir:modifiedBy <http://...plus>; -->
+	<xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+	<xsl:value-of select="'fhir:modifiedBy '"/>
+	<xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt;;&#10;</xsl:text>
+    </xsl:if>
 </xsl:template>
 
 <xsl:template name="FhirElement">
@@ -27716,6 +27819,7 @@ change
     <xsl:param name="context" />
 
     <xsl:param name="subject" />
+    <xsl:param name="doc" />
 
     <!-- XSLT makes meta-programming a drag.  But here, we look up the relevant node in our FHIR 
          definitions, keying off of the $context param (which is a fhir_path value) --> 
@@ -27729,7 +27833,7 @@ change
            * FHIR path (e.g. Order.detail)
            * target type (e.g. CodeableConcept; or blank if the target is an internal node)
          (Resource) sub-elements of type Extension are handled separately.
-	 Properties appear to have no sub-elements for Extensions. -->
+         Properties appear to have no sub-elements for Extensions. -->
     <xsl:variable name="def.subs" select="$def/subs/sub[type!='Extension']"/>
 
     <xsl:choose>
@@ -27739,7 +27843,7 @@ change
         <xsl:when test="not($def)">
 
             <xsl:text>&#10;</xsl:text>
-	    <xsl:if test="$context!='Resource'">
+            <xsl:if test="$context!='Resource'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:if test="name(..)='modifierExtension'">
@@ -27747,13 +27851,14 @@ change
                 </xsl:if>
                 <xsl:value-of select="$context"/>
                 <xsl:text>;&#10;</xsl:text>
-	    </xsl:if>
-	    <xsl:for-each select="../f:extension|../f:modifierExtension">
-	      <xsl:call-template name="extension">
-		<xsl:with-param name="depth" select="$depth"/>
-		<xsl:with-param name="this" select="."/>
-	      </xsl:call-template>
-	    </xsl:for-each>		
+            </xsl:if>
+            <xsl:for-each select="../f:extension|../f:modifierExtension">
+		<xsl:call-template name="extension">
+		    <xsl:with-param name="depth" select="$depth"/>
+		    <xsl:with-param name="this" select="."/>
+		    <xsl:with-param name="doc" select="$doc"/>
+		</xsl:call-template>
+            </xsl:for-each>             
             <xsl:if test="$context = 'Resource'"> <!--  or $context = 'resource'" -->
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
@@ -27779,9 +27884,9 @@ change
             <xsl:if test="$context='xhtml'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>fhir:text """</xsl:text>
-		<xsl:for-each select="$this">
-		    <xsl:call-template name="copy-element" />
-	        </xsl:for-each>
+                <xsl:for-each select="$this">
+                    <xsl:call-template name="copy-element" />
+                </xsl:for-each>
                 <xsl:value-of select="$this/text()"/>
                 <xsl:text>""";&#10;</xsl:text>
             </xsl:if>
@@ -27789,7 +27894,9 @@ change
 
         <!-- This second branch represents a node with subproperties defined in FHIR Spreadsheets -->
         <xsl:otherwise>
-	    <xsl:value-of select="$subject"/>
+	    <xsl:if test="$subject">
+		<xsl:value-of select="$subject"/><xsl:text> </xsl:text>
+	    </xsl:if>
             <xsl:if test="$depth>0"><xsl:text>&#10;</xsl:text></xsl:if>
 
             <!-- If this is a type (non-internal) node, output the type -->
@@ -27798,22 +27905,23 @@ change
                     <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
                 </xsl:if>
                 <xsl:text>a :</xsl:text>
-		<xsl:choose>
-		  <xsl:when test="f:modifierExtension">
-		    <!-- <Resource>:modified_<Property>  -->
-		    <xsl:value-of select="concat('modified_', $def.type)"/>
-		  </xsl:when>
-		  <xsl:otherwise><xsl:value-of select="$def.type"/></xsl:otherwise>
-		</xsl:choose>
+                <xsl:choose>
+		    <xsl:when test="f:modifierExtension">
+			<!-- <Resource>:modified_<Property>  -->
+			<xsl:value-of select="concat('modified_', $def.type)"/>
+		    </xsl:when>
+		    <xsl:otherwise><xsl:value-of select="$def.type"/></xsl:otherwise>
+                </xsl:choose>
                 <xsl:text>;&#10;</xsl:text>
             </xsl:if>
 
-	    <xsl:for-each select="f:extension|f:modifierExtension">
-	      <xsl:call-template name="extension">
-		<xsl:with-param name="depth" select="$depth"/>
-		<xsl:with-param name="this" select="."/>
-	      </xsl:call-template>
-	    </xsl:for-each>		
+            <xsl:for-each select="f:extension|f:modifierExtension">
+		<xsl:call-template name="extension">
+		    <xsl:with-param name="depth" select="$depth"/>
+		    <xsl:with-param name="this" select="."/>
+		    <xsl:with-param name="doc" select="$doc"/>
+		</xsl:call-template>
+            </xsl:for-each>             
             <!-- Iterate over defined subproperties, making a recursive application of FhirElement -->
             <xsl:for-each select="$def.subs">
 
@@ -27832,7 +27940,7 @@ change
                 <!--searching on  <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/>-->
 
                 <!-- for a given property, look for its occurence(s) in instance data -->
-                <xsl:for-each select="$this/*[name()=$xpath and name()!='contained']">
+                <xsl:for-each select="$this/*[name()=$xpath]"> <!-- include contained arcs -->
 
                     <xsl:variable name="last_instance_p">
                         <xsl:choose>
@@ -27843,15 +27951,18 @@ change
 
 
                     <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
-		    <xsl:choose>
-		      <xsl:when test="f:modifierExtension">
-			<!-- <Resource>:modified_<Property>  -->
-			<xsl:value-of select="concat(substring-before($predicate, ':'),
-					      ':modified_',
-					      substring-after($predicate, ':'))"/>
-		      </xsl:when>
-		      <xsl:otherwise><xsl:value-of select="$predicate"/></xsl:otherwise>
-		    </xsl:choose>
+                    <xsl:choose>
+			<xsl:when test="f:modifierExtension">
+			    <!-- <Resource>:modified_<Property>  -->
+                            <xsl:value-of select="concat(substring-before($predicate, ':'),
+                                                  ':modified_',
+                                                  substring-after($predicate, ':'))"/>
+			</xsl:when>
+			<xsl:when test="name()='contained'"> <!-- include contained arcs -->
+			    <xsl:text>fhir:contained</xsl:text>
+			</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$predicate"/></xsl:otherwise>
+                    </xsl:choose>
                     <xsl:text> </xsl:text> 
                     <xsl:variable name="subcontext">
                         <xsl:choose>
@@ -27864,6 +27975,11 @@ change
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:choose>
+                        <xsl:when test="name()='contained'"> <!-- include contained arcs -->
+                            <xsl:value-of select="concat('&lt;', $doc, '#', */@id, '&gt;')"/>
+                            <xsl:text>;&#10;</xsl:text>
+                        </xsl:when>
+
                         <!-- perform the mappings to xsd types per
                              http://www.hl7.org/implement/standards/fhir/datatypes.html#string -->
                         <xsl:when test="$subcontext='boolean' and not(name(..)='modifierExtension')">
@@ -27878,9 +27994,9 @@ change
                         </xsl:when>
                         <xsl:when test="($subcontext='decimal' or $subcontext='boolean') and not(name(..)='modifierExtension')">
                             <xsl:value-of select="@value"/>
-			    <xsl:if test="not(contains(@value,'.'))">
-			      <xsl:text>.0</xsl:text>
-			    </xsl:if>
+                            <xsl:if test="not(contains(@value,'.'))">
+				<xsl:text>.0</xsl:text>
+                            </xsl:if>
                             <xsl:text>;&#10;</xsl:text>
                         </xsl:when>
                         <xsl:when test="$subcontext='base64Binary' and not(name(..)='modifierExtension')">
@@ -27920,9 +28036,18 @@ change
                             <xsl:text>;&#10;</xsl:text>
                         </xsl:when>
                         <xsl:when test="$type='Resource'">
-                            <xsl:text>&lt;</xsl:text>
-                            <xsl:value-of select="f:reference/@value"/>
-                            <xsl:text>&gt;;&#10;</xsl:text>
+			    <xsl:choose>
+				<xsl:when test="contains(f:reference/@value, '#')">
+				    <xsl:value-of select="concat('&lt;', $doc, f:reference/@value, '&gt;')"/>
+				</xsl:when>
+				<xsl:otherwise>
+				    <xsl:value-of select="concat('&lt;', f:reference/@value, '&gt;')"/>
+				</xsl:otherwise>
+			    </xsl:choose>
+                            <!-- <xsl:text>&lt;</xsl:text> -->
+                            <!-- <xsl:value-of select="f:reference/@value"/> -->
+                            <!-- <xsl:text>&gt;;&#10;</xsl:text> -->
+                            <xsl:text>;&#10;</xsl:text>
                             <!-- <xsl:text># skip a resource of type Resource on path: </xsl:text> -->
                             <!-- <xsl:value-of select="$fhir_path"/> -->
                             <!-- <xsl:text>  xpath: </xsl:text> -->
@@ -27935,9 +28060,10 @@ change
                                 <xsl:with-param name="depth" select="$depth+1"/>
                                 <xsl:with-param name="this" select="."/>
                                 <xsl:with-param name="context" select="$subcontext"/>
+				<xsl:with-param name="doc" select="$doc"/>
                             </xsl:call-template>
                             <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
-        
+			    
                             <!-- This test only works because FHIR's examples are all serialized with propertiese
                                  in the same order as in the defining spreadsheets.  It will sometimes think a
                                  terminal entry is non-terminal, e.g. if the last property has no instance. -->
@@ -27958,43 +28084,43 @@ change
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
-  <xsl:template name="copy-element" match="*" mode="copy">
+<xsl:template name="copy-element" match="*" mode="copy">
     <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/>
     <xsl:apply-templates select="@*" mode="copy-attr"/>
     <xsl:choose>
-      <xsl:when test="count(node()) > 0">
-	<xsl:text>&gt;</xsl:text>
-	<xsl:apply-templates select="node()" mode="copy" />
-	<xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:text>/&gt;</xsl:text>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template name="copy-attr" match="@*" mode="copy-attr">
-    <xsl:text> </xsl:text><xsl:value-of select="name()"/><xsl:text>=</xsl:text><xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
-  </xsl:template>
-
-  <xsl:template name="indent">
-    <xsl:if test="preceding-sibling::text()[1]">
-      <xsl:choose>
-	<xsl:when test="contains(preceding-sibling::text()[1], '&#10;')">
-	  <xsl:value-of select="substring-after(preceding-sibling::text()[1], '&#10;')"/>
+	<xsl:when test="count(node()) > 0">
+	    <xsl:text>&gt;</xsl:text>
+	    <xsl:apply-templates select="node()" mode="copy" />
+	    <xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
 	</xsl:when>
 	<xsl:otherwise>
-	  <xsl:value-of select="preceding-sibling::text()[1]"/>
+	    <xsl:text>/&gt;</xsl:text>
 	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:if>
-  </xsl:template>
+    </xsl:choose>
+</xsl:template>
 
-  <!-- prefix for this resource plus library types. -->
-  <xsl:template name="addPrefixes">
+<xsl:template name="copy-attr" match="@*" mode="copy-attr">
+    <xsl:text> </xsl:text><xsl:value-of select="name()"/><xsl:text>=</xsl:text><xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
+</xsl:template>
+
+<xsl:template name="indent">
+    <xsl:if test="preceding-sibling::text()[1]">
+	<xsl:choose>
+	    <xsl:when test="contains(preceding-sibling::text()[1], '&#10;')">
+		<xsl:value-of select="substring-after(preceding-sibling::text()[1], '&#10;')"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+		<xsl:value-of select="preceding-sibling::text()[1]"/>
+	    </xsl:otherwise>
+	</xsl:choose>
+    </xsl:if>
+</xsl:template>
+
+<!-- prefix for this resource plus library types. -->
+<xsl:template name="addPrefixes">
     <xsl:param name="name"/>
     <div>
-      <pre class="machine" style="font-size:small">@prefix <xsl:value-of select="$name"/>: &lt;http://hl7/org/fhir/<xsl:value-of select="$name"/>#&gt; .
+	<pre class="machine" style="font-size:small">@prefix <xsl:value-of select="$name"/>: &lt;http://hl7/org/fhir/<xsl:value-of select="$name"/>#&gt; .
 @prefix fhir: &lt;http://hl7/org/fhir/&gt; .
 @prefix Narrative: &lt;http://hl7/org/fhir/Narrative#&gt; .
 @prefix Observation: &lt;http://hl7/org/fhir/Observation#&gt; .
@@ -28006,9 +28132,8 @@ change
 @prefix Coding: &lt;http://hl7/org/fhir/Coding#&gt; .
 @prefix xhtml: &lt;http://www.w3.org/1999/xhtml&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema&gt; .
-@base &lt;http://this-fhir-server/fhir/&gt; .
 </pre>
     </div>
-  </xsl:template>
+</xsl:template>
 
 </xsl:stylesheet>
