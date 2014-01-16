@@ -10,3 +10,8 @@ order-generated.ttl: transform.xsl ../order.xml
 test: transform.xsl
 	(cd tests && make test)
 
+jsdefs: generate_js_client.py
+	python generate_js_client.py > definitions.json
+
+shex: jsdefs 
+	python genshex.py > fhir-shapes.shex
