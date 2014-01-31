@@ -87,7 +87,7 @@
     <xsl:call-template name="addPrefixes">
         <xsl:with-param name="name" select="name(.)"/>
     </xsl:call-template>
-    <xsl:text>@base &lt;http://this-fhir-server/fhir/&gt; .&#10;</xsl:text>
+    <xsl:value-of select="concat('@base &lt;', $baseParam, '&gt; .&#10;')"/>
     <xsl:call-template name="ResourceRoot">
         <xsl:with-param name="subject" select="concat('&lt;', $docParam, '&gt;')"/>
 	<xsl:with-param name="doc" select="$docParam"/>
@@ -313,15 +313,16 @@ change
                 <xsl:text>fhir:value "</xsl:text><xsl:value-of select="$this/@value"  />
                 <xsl:text>";&#10;</xsl:text>
             </xsl:if>
+<!-- Narrative:div [ a fhir:xhtml; fhir:text """...""" ] - constrast with Narrative:div """...""" -->
             <xsl:if test="$context='xhtml'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>fhir:text """</xsl:text>
                 <xsl:for-each select="$this">
-                    <xsl:call-template name="copy-element" />
+                    <xsl:apply-templates mode="copy" />
                 </xsl:for-each>
-                <xsl:value-of select="$this/text()"/>
-                <xsl:text>""";&#10;</xsl:text>
+                <xsl:text>"""^^fhir:xhtml;&#10;</xsl:text>
             </xsl:if>
+<!-- /Narrative:div [ a fhir:xhtml; fhir:text """...""" ] -->
         </xsl:when>
 
         <!-- This second branch represents a node with subproperties defined in FHIR Spreadsheets -->
@@ -336,7 +337,7 @@ change
                 <xsl:if test="$depth>0">
                     <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
                 </xsl:if>
-                <xsl:text>a :</xsl:text>
+                <xsl:text>a </xsl:text>
                 <xsl:choose>
 		    <xsl:when test="f:modifierExtension">
 			<!-- <Resource>:modified_<Property>  -->
@@ -344,7 +345,7 @@ change
 		    </xsl:when>
 		    <xsl:otherwise><xsl:value-of select="$def.type"/></xsl:otherwise>
                 </xsl:choose>
-                <xsl:text>;&#10;</xsl:text>
+                <xsl:text>: ;&#10;</xsl:text>
             </xsl:if>
 
             <xsl:for-each select="f:extension|f:modifierExtension">
@@ -407,6 +408,16 @@ change
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:choose>
+<!-- Narrative:div """..."""  - contrast with Narrative:div [ a fhir:xhtml; fhir:text """...""" ] -->
+            <xsl:when test="$subcontext='xhtml'"> <!-- fail test to enable the bnode text form. -->
+                <!-- <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template> -->
+                <xsl:text>"""</xsl:text>
+                <xsl:for-each select="$this/xhtml:div">
+                    <xsl:apply-templates mode="copy" />
+                </xsl:for-each>
+                <xsl:text>"""^^fhir:xhtml;&#10;</xsl:text>
+            </xsl:when>
+<!-- /Narrative:div """...""" -->
                         <xsl:when test="name()='contained'"> <!-- include contained arcs -->
                             <xsl:value-of select="concat('&lt;', $doc, '#', */@id, '&gt;')"/>
                             <xsl:text>;&#10;</xsl:text>
@@ -560,10 +571,12 @@ change
 @prefix Resource: &lt;http://hl7/org/fhir/Resource#&gt; .
 @prefix Reference: &lt;http://hl7/org/fhir/Reference#&gt; .
 @prefix Range: &lt;http://hl7/org/fhir/Range#&gt; .
+@prefix CodeableConcept: &lt;http://hl7/org/fhir/CodeableConcept#&gt; .
+@prefix Identifier: &lt;http://hl7/org/fhir/Identifier#&gt; .
 @prefix Codeable: &lt;http://hl7/org/fhir/Codeable#&gt; .
 @prefix Coding: &lt;http://hl7/org/fhir/Coding#&gt; .
 @prefix xhtml: &lt;http://www.w3.org/1999/xhtml&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 </pre>
     </div>
 </xsl:template>

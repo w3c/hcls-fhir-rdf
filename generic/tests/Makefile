@@ -3,12 +3,13 @@
 
 NOW		?= -stringparam now `date +%Y-%02m-%02dT%02H:%02M:%02S%:z`
 DOCP		?= -stringparam docParam
+BASE		?= -stringparam baseParam http://fhir.example/system/base
 TESTNAMELIST	?=  $(patsubst %.xml,t_%,$(wildcard *.xml))
 XSLT		?=  xsltproc # iirc, Batik uses args in the other order
 
 # generate a Turtle version of a given XML file
 %-generated.ttl: %.xml ../transform.xsl
-	${XSLT} ${NOW} ${DOCP} $(patsubst %.xml,%,$<) ../transform.xsl $< > $@
+	${XSLT} ${NOW} ${DOCP} $(patsubst %.xml,%,$<) ${BASE} ../transform.xsl $< > $@
 
 # test the integrity of a generated Turtle file.
 t_%: %.ttl %-generated.ttl
