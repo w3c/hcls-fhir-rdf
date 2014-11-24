@@ -3,7 +3,7 @@ from xml.dom.minidom import parseString
 import glob, json, re
 from huTools.structured import dict2xml, dict2et
 
-FHIR_DIR = "/home/jmandel/smart/fhir"
+FHIR_DIR = "site"
 
 def tree(FILES):
     paths = {}

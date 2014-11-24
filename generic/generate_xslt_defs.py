@@ -7,10 +7,7 @@ from huTools.structured import dict2xml, dict2et
 # the directory with e.g. alert.profile.json and a bazillion others in it
 PROFILE_DIR = os.environ.get('PROFILE_DIR')
 if PROFILE_DIR == None:
-    FHIR_DIR = os.environ.get('FHIR_DIR')
-    if FHIR_DIR == None:
-        FHIR_DIR = "/home/jmandel/smart/fhir"
-    PROFILE_DIR = FHIR_DIR + "/build/publish"
+    PROFILE_DIR = "site"
 
 def tree(FILES):
     paths = {}
@@ -18,11 +15,12 @@ def tree(FILES):
         if file.endswith(".xml.profile.json"): return
         if file.endswith("iso-21090.profile.json"): return
         f = json.load(open(file))
+        if 'structure' not in f.keys(): return
         for v in f['structure'][0]['element']:
             #split a given property into multiple strands if it has multiple types like value[X] (dateTime|String)
             praw = v['path']
             count = 0
-            if 'type' in v['definition']: types = v['definition']['type']
+            if 'definition' in v and 'type' in v['definition']: types = v['definition']['type']
             else: types = [None]
             for possibleValue in types:
                 count += 1

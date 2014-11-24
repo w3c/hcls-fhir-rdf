@@ -1,3 +1,6 @@
+#fhir-spec.zip:
+#       	wget http://hl7.org/documentcenter/public/standards/FHIR/fhir-spec.zip
+
 xslt_defs.xml: generate_xslt_defs.py
 	python generate_xslt_defs.py > xslt_defs.xml
 
