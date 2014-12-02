@@ -1,6 +1,6 @@
 from xml.etree import ElementTree
 from xml.dom.minidom import parseString
-import glob, json, re
+import glob, json, re, sys
 from huTools.structured import dict2xml, dict2et
 
 FHIR_DIR = "site"
@@ -15,7 +15,7 @@ def tree(FILES):
         if file.endswith("iso-21090.profile.json"): return
         f = json.load(open(file))
         if 'structure' not in f:
-            print "NOT IN", file
+            print >> sys.stderr, "didn't find structure in ", file
             return
         for v in f['structure'][0]['element']:
 
@@ -49,5 +49,5 @@ def tree(FILES):
         if len(v['properties'].keys()) >  0: paths[k]=v
     return paths
 
-t = tree(glob.glob(FHIR_DIR + "/build/publish/*.profile.json"))
+t = tree(glob.glob(FHIR_DIR + "/*.profile.json"))
 print json.dumps(t, sort_keys=True,indent=2)
