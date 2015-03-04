@@ -1,4 +1,4 @@
-@prefix DeviceObservation: <http://hl7/org/fhir/DeviceObservation#> .
+@prefix DeviceObservationReport: <http://hl7/org/fhir/DeviceObservationReport#> .
 @prefix fhir: <http://hl7/org/fhir/> .
 @prefix Narrative: <http://hl7/org/fhir/Narrative#> .
 @prefix Observation: <http://hl7/org/fhir/Observation#> .
@@ -11,13 +11,13 @@
 @prefix xhtml: <http://www.w3.org/1999/xhtml> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema> .
 @base <http://this-fhir-server/fhir/> .
-<deviceobservation-referencesToContained> a :DeviceObservation;
-      DeviceObservation:text [
+<deviceobservation-referencesToContained> a :DeviceObservationReport;
+      DeviceObservationReport:text [
          a :Narrative;
          Narrative:status "generated"^^fhir:code;
          Narrative:div [
             a fhir:xhtml;
-            fhir:text """<div>[Put rendering here]</div>[Put rendering here]""";
+            fhir:text """<div><p>example</p></div>""";
          ]
       ];
       fhir:contained <deviceobservation-referencesToContained#o1>;
@@ -71,7 +71,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "/min"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o2> a :Observation;
@@ -91,7 +91,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "/min"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o3> a :Observation;
@@ -100,7 +100,7 @@
          CodeableConcept:coding [
             a :Coding;
             Coding:system <urn:std:iso:11073:10101>;
-            Coding:code "147842"^^fhir:code;
+            Coding:code "150035"^^fhir:code;
             Coding:display "MDC_ECG_HEART_RATE";
          ];
       ];
@@ -111,7 +111,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "/min"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o4> a :Observation;
@@ -131,7 +131,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "mm[Hg]"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o5> a :Observation;
@@ -151,7 +151,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "mm[Hg]"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o6> a :Observation;
@@ -171,7 +171,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "/min"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o7> a :Observation;
@@ -191,7 +191,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "mm[Hg]"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o8> a :Observation;
@@ -211,7 +211,7 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "mm[Hg]"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
 .
 <deviceobservation-referencesToContained#o9> a :Observation;
@@ -231,6 +231,45 @@
          Quantity:system <http://unitsofmeasure.org>;
          Quantity:code "mm[Hg]"^^fhir:code;
       ];
-      Observation:status "interim"^^fhir:code;
+      Observation:status "preliminary"^^fhir:code;
       Observation:reliability "ok"^^fhir:code;
+.
+<deviceobservation-referencesToContained#d1> a :Device;
+      Device:identifier [
+         a :Identifier;
+         Identifier:system <http://goodcare.org/devices/id>;
+         Identifier:value "A23-352";
+      ];
+      Device:identifier [
+         a :Identifier;
+         Identifier:system <http://gs1.org/gtin>;
+         Identifier:value "04012313012313";
+      ];
+      Device:identifier [
+         a :Identifier;
+         Identifier:label "serial number";
+         Identifier:system <http://acme.org/au>;
+         Identifier:value "080019FFFF4F6AFE20081211144657";
+      ];
+      Device:identifier [
+         a :Identifier;
+         Identifier:system <http://standards.ieee.org/develop/regauth/tut/eui64.pdf>;
+         Identifier:value "080019FFFF4F6AFE20081211144657";
+      ];
+      Device:type [
+         a :CodeableConcept;
+         CodeableConcept:coding [
+            a :Coding;
+            Coding:system <urn:std:iso:11073:10101>;
+            Coding:code "2000"^^fhir:code;
+         ];
+      ];
+      Device:manufacturer "Aware";
+      Device:model "AB 45-J";
+      Device:lotNumber "43453424";
+      Device:contact [
+         a :Contact;
+         Contact:system "phone"^^fhir:code;
+         Contact:value "ext 4352";
+      ];
 .
