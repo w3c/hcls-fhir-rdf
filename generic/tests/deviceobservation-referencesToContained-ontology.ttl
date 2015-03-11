@@ -10,7 +10,7 @@
 @prefix CodeableConcept: <http://hl7/org/fhir/CodeableConcept#> .
 @prefix Coding: <http://hl7/org/fhir/Coding#> .
 @prefix xhtml: <http://www.w3.org/1999/xhtml> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
@@ -35,8 +35,10 @@ fhir:Narrative
     [ owl:onProperty Narrative:status ; owl:cardinality 1 ],
     [ owl:onProperty Narrative:div ;    owl:minCardinality 1 ] .
 
+# Narrative:status a owl:DatatypeProperty ; rdfs:range fhir:NarrativeStatus .
+# fhir:NarrativeStatus owl:oneOf ("generated"^^fhir:code) .
 Narrative:status a owl:ObjectProperty ; rdfs:range fhir:NarrativeStatus .
-fhir:NarrativeStatus owl:oneOf ("generated"^^fhir:code) .
+fhir:NarrativeStatus owl:oneOf (fhir:generated) .
 
 Narrative:div a owl:ObjectProperty ; rdfs:range fhir:xhtml .
 fhir:xhtml a owl:Class ;
@@ -85,7 +87,11 @@ fhir:Quantity a owl:Class ;
     [ owl:onProperty fhir:system    ; owl:minCardinality 0 ],
     [ owl:onProperty Quantity:code  ; owl:minCardinality 0 ].
 
-Quantity:value a owl:DatatypeProperty ; rdfs:range xsd:float .
+#Quantity:value a owl:DatatypeProperty ; rdfs:range xsd:float .
+Quantity:value rdf:type owl:DatatypeProperty ;
+       
+       rdfs:range xsd:float .
+
 Quantity:units a owl:DatatypeProperty ; rdfs:range xsd:string .
 Quantity:code  a owl:DatatypeProperty ; rdfs:range fhir:code .
 Observation:status a owl:DatatypeProperty ; rdfs:range fhir:code .
@@ -119,3 +125,17 @@ fhir:Contact a owl:Class ;
 
 Contact:system a owl:DatatypeProperty ; rdfs:range fhir:code .
 Contact:value  a owl:DatatypeProperty ; rdfs:range xsd:string .
+
+[] a owl:AllDisjointClasses ;
+  owl:members  (
+    fhir:DeviceObservationReport
+    fhir:xhtml
+    fhir:CodeableConcept
+    fhir:Coding
+    fhir:Identifier
+    fhir:Quantity
+    fhir:Observation
+    fhir:Device
+    fhir:Contact
+  ) . 
+
