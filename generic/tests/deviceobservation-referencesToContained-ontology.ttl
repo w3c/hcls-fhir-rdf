@@ -16,10 +16,23 @@
 
 @base <http://this-fhir-server/fhir/> .
 
-DeviceObservationReport:text a owl:ObjectProperty ; rdfs:range fhir:Narrative . # @@ fhir:ResourceText ?
-fhir:contained a owl:ObjectOroperty .
+fhir:Resource a owl:Class ;
+  owl:equivalentClass [ owl:unionOf (
+    fhir:DeviceObservationReport
+    fhir:xhtml
+    fhir:CodeableConcept
+    fhir:Coding
+    fhir:Identifier
+    fhir:Quantity
+    fhir:Observation
+    fhir:Device
+    fhir:Contact
+  ) ] .
 
-fhir:DeviceObservationReport a owl:Class ;
+DeviceObservationReport:text a owl:ObjectProperty ; rdfs:range fhir:Narrative . # @@ fhir:ResourceText ?
+fhir:contained a owl:ObjectProperty .
+
+fhir:DeviceObservationReport rdfs:subClassOf fhir:Resource ;
   rdfs:subClassOf
     [ owl:onProperty DeviceObservationReport:text  ; owl:minCardinality 0 ] ,
     [ owl:onProperty fhir:contained                ; owl:allValuesFrom fhir:Observation ] ,
@@ -87,16 +100,13 @@ fhir:Quantity a owl:Class ;
     [ owl:onProperty fhir:system    ; owl:minCardinality 0 ],
     [ owl:onProperty Quantity:code  ; owl:minCardinality 0 ].
 
-#Quantity:value a owl:DatatypeProperty ; rdfs:range xsd:float .
-Quantity:value rdf:type owl:DatatypeProperty ;
-       
-       rdfs:range xsd:float .
+Quantity:value a owl:DatatypeProperty ; rdfs:range xsd:float .
 
 Quantity:units a owl:DatatypeProperty ; rdfs:range xsd:string .
 Quantity:code  a owl:DatatypeProperty ; rdfs:range fhir:code .
 Observation:status a owl:DatatypeProperty ; rdfs:range fhir:code .
 Observation:reliability a owl:DatatypeProperty ; rdfs:range fhir:code .
-fhir:Observation a owl:Class ;
+fhir:Observation rdfs:subClassOf fhir:Resource ;
   rdfs:subClassOf
     [ owl:onProperty Observation:name          ; owl:minCardinality 0 ],
     [ owl:onProperty Observation:valueQuantity ; owl:minCardinality 0 ],
@@ -108,7 +118,7 @@ Device:manufacturer a owl:DatatypeProperty ; rdfs:range xsd:string .
 Device:model        a owl:DatatypeProperty ; rdfs:range xsd:string .
 Device:lotNumber    a owl:DatatypeProperty ; rdfs:range xsd:string .
 
-fhir:Device a owl:Class ; # @@ orphaned
+fhir:Device rdfs:subClassOf fhir:Resource ; # @@ orphaned
   rdfs:subClassOf
     [ owl:onProperty fhir:identifier     ; owl:minCardinality 0 ],
     [ owl:onProperty Device:type         ; owl:minCardinality 0 ],
@@ -118,7 +128,7 @@ fhir:Device a owl:Class ; # @@ orphaned
     [ owl:onProperty fhir:contact        ; owl:minCardinality 0 ].
 
 fhir:contact a owl:ObjectProperty ; rdfs:range fhir:Contact .
-fhir:Contact a owl:Class ;
+fhir:Contact rdfs:subClassOf fhir:Resource ;
   rdfs:subClassOf
     [ owl:onProperty Contact:system ; owl:minCardinality 0 ],
     [ owl:onProperty Contact:value  ; owl:minCardinality 0 ].
