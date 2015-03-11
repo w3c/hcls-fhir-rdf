@@ -1,5 +1,11 @@
-@prefix DeviceObservationReport: <http://hl7/org/fhir/DeviceObservationReport#> .
+# DeviceObservationReport
+
 @prefix fhir: <http://hl7/org/fhir/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+@prefix DeviceObservationReport: <http://hl7/org/fhir/DeviceObservationReport#> .
 @prefix Narrative: <http://hl7/org/fhir/Narrative#> .
 @prefix DeviceObservation: <http://hl7/org/fhir/DeviceObservation#> .
 @prefix Observation: <http://hl7/org/fhir/Observation#> .
@@ -9,40 +15,29 @@
 @prefix Identifier: <http://hl7/org/fhir/Identifier#> .
 @prefix CodeableConcept: <http://hl7/org/fhir/CodeableConcept#> .
 @prefix Coding: <http://hl7/org/fhir/Coding#> .
-@prefix xhtml: <http://www.w3.org/1999/xhtml> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 @base <http://this-fhir-server/fhir/> .
 
+# <Resource>
 fhir:Resource a owl:Class ;
   owl:equivalentClass [ owl:unionOf (
     fhir:DeviceObservationReport
-    fhir:xhtml
-    fhir:CodeableConcept
-    fhir:Coding
-    fhir:Identifier
-    fhir:Quantity
     fhir:Observation
     fhir:Device
     fhir:Contact
   ) ] .
 
-DeviceObservationReport:text a owl:ObjectProperty ; rdfs:range fhir:Narrative . # @@ fhir:ResourceText ?
-fhir:contained a owl:ObjectProperty .
+DeviceObservationReport:text a owl:ObjectProperty   ; rdfs:range fhir:Narrative . # @@ fhir:ResourceText ?
+fhir:contained               a owl:ObjectProperty   .
+fhir:text                    a owl:DatatypeProperty ; rdfs:range xsd:string .
+fhir:system                  a owl:DatatypeProperty ; rdfs:range xsd:anyURI .
+fhir:display                 a owl:DatatypeProperty ; rdfs:range xsd:string .
+fhir:identifier              a owl:ObjectProperty   ; rdfs:range fhir:Identifier .
+fhir:issued                  a owl:DatatypeProperty . # @@ ; rdfs:range xsd:dateTime .
+fhir:contact                 a owl:ObjectProperty   ; rdfs:range fhir:Contact .
+# </Resource>
 
-fhir:DeviceObservationReport rdfs:subClassOf fhir:Resource ;
-  rdfs:subClassOf
-    [ owl:onProperty DeviceObservationReport:text  ; owl:minCardinality 0 ] ,
-    [ owl:onProperty fhir:contained                ; owl:allValuesFrom fhir:Observation ] ,
-#    [ owl:onProperty fhir:contained                ; owl:minCardinality 0 ] ,
-    [ owl:onProperty DeviceObservation:code        ; owl:minCardinality 0 ] ,
-    [ owl:onProperty fhir:identifier               ; owl:minCardinality 0 ] ,
-    [ owl:onProperty DeviceObservation:subject     ; owl:minCardinality 0 ] ,
-    [ owl:onProperty DeviceObservation:device      ; owl:minCardinality 0 ] ,
-    [ owl:onProperty DeviceObservation:measurement ; owl:minCardinality 0 ] .
-
+# <Narrative>
 fhir:Narrative
   rdfs:subClassOf
     [ owl:onProperty Narrative:status ; owl:cardinality 1 ],
@@ -57,9 +52,9 @@ Narrative:div a owl:ObjectProperty ; rdfs:range fhir:xhtml .
 fhir:xhtml a owl:Class ;
   rdfs:subClassOf
     [ owl:onProperty fhir:text ; owl:minCardinality 0 ].
+# </Narrative>
 
-fhir:text a owl:DatatypeProperty ; rdfs:range xsd:string .
-
+# <Code stuff>
 DeviceObservation:code rdfs:range fhir:CodeableConcept .
 fhir:CodeableConcept a owl:Class ;
   rdfs:subClassOf
@@ -72,11 +67,10 @@ fhir:Coding a owl:Class ;
     [ owl:onProperty Coding:code ; owl:minCardinality 1 ] ,
     [ owl:onProperty fhir:display ; owl:minCardinality 1 ] .
 
-fhir:system  a owl:DatatypeProperty ; rdfs:range xsd:anyURI .
 Coding:code  a owl:DatatypeProperty ; rdfs:range fhir:code .
-fhir:display a owl:DatatypeProperty ; rdfs:range xsd:string .
+# </Code stuff>
 
-fhir:identifier a owl:ObjectProperty ; rdfs:range fhir:Identifier .
+# <Identifier>
 fhir:Identifier a owl:Class ;
   rdfs:subClassOf
     [ owl:onProperty fhir:display ; owl:minCardinality 1 ] ,
@@ -84,15 +78,9 @@ fhir:Identifier a owl:Class ;
     [ owl:onProperty Identifier:value ; owl:minCardinality 1 ] .
 
 Identifier:value              a owl:DatatypeProperty ; rdfs:range xsd:string .
-fhir:issued                   a owl:DatatypeProperty . # @@ ; rdfs:range xsd:dateTime .
-DeviceObservation:subject     a owl:DatatypeProperty ; rdfs:range rdfs:Resource .
-DeviceObservation:device      a owl:DatatypeProperty ; rdfs:range rdfs:Resource .
-DeviceObservation:measurement a owl:DatatypeProperty ; rdfs:range fhir:Observation .
+# </Identifier>
 
-Observation:name a owl:ObjectProperty ; rdfs:range fhir:CodeableConcept . # @@ same as DeviceObservation:code?
-
-Observation:valueQuantity a owl:ObjectProperty ; rdfs:range fhir:Quantity .
-
+# <Quantity>
 fhir:Quantity a owl:Class ;
   rdfs:subClassOf
     [ owl:onProperty Quantity:value ; owl:minCardinality 0 ],
@@ -101,9 +89,39 @@ fhir:Quantity a owl:Class ;
     [ owl:onProperty Quantity:code  ; owl:minCardinality 0 ].
 
 Quantity:value a owl:DatatypeProperty ; rdfs:range xsd:float .
-
 Quantity:units a owl:DatatypeProperty ; rdfs:range xsd:string .
 Quantity:code  a owl:DatatypeProperty ; rdfs:range fhir:code .
+# </Quantity>
+
+# <Contact>
+fhir:Contact rdfs:subClassOf fhir:Resource ;
+  rdfs:subClassOf
+    [ owl:onProperty Contact:system ; owl:minCardinality 0 ],
+    [ owl:onProperty Contact:value  ; owl:minCardinality 0 ].
+
+Contact:system a owl:DatatypeProperty ; rdfs:range fhir:code .
+Contact:value  a owl:DatatypeProperty ; rdfs:range xsd:string .
+# </Contact>
+
+# <DeviceObservationReport>
+fhir:DeviceObservationReport rdfs:subClassOf fhir:Resource ;
+  rdfs:subClassOf
+    [ owl:onProperty DeviceObservationReport:text  ; owl:minCardinality 0 ] ,
+    [ owl:onProperty fhir:contained                ; owl:allValuesFrom fhir:Observation ] ,
+#    [ owl:onProperty fhir:contained                ; owl:minCardinality 0 ] ,
+    [ owl:onProperty DeviceObservation:code        ; owl:minCardinality 0 ] ,
+    [ owl:onProperty fhir:identifier               ; owl:minCardinality 0 ] ,
+    [ owl:onProperty DeviceObservation:subject     ; owl:minCardinality 0 ] ,
+    [ owl:onProperty DeviceObservation:device      ; owl:minCardinality 0 ] ,
+    [ owl:onProperty DeviceObservation:measurement ; owl:minCardinality 0 ] .
+# </DeviceObservationReport>
+
+DeviceObservation:subject     a owl:DatatypeProperty ; rdfs:range rdfs:Resource .
+DeviceObservation:device      a owl:DatatypeProperty ; rdfs:range rdfs:Resource .
+DeviceObservation:measurement a owl:DatatypeProperty ; rdfs:range fhir:Observation .
+
+Observation:name a owl:ObjectProperty ; rdfs:range fhir:CodeableConcept . # @@ same as DeviceObservation:code?
+Observation:valueQuantity a owl:ObjectProperty ; rdfs:range fhir:Quantity .
 Observation:status a owl:DatatypeProperty ; rdfs:range fhir:code .
 Observation:reliability a owl:DatatypeProperty ; rdfs:range fhir:code .
 fhir:Observation rdfs:subClassOf fhir:Resource ;
@@ -127,15 +145,7 @@ fhir:Device rdfs:subClassOf fhir:Resource ; # @@ orphaned
     [ owl:onProperty Device:lotNumber    ; owl:minCardinality 0 ],
     [ owl:onProperty fhir:contact        ; owl:minCardinality 0 ].
 
-fhir:contact a owl:ObjectProperty ; rdfs:range fhir:Contact .
-fhir:Contact rdfs:subClassOf fhir:Resource ;
-  rdfs:subClassOf
-    [ owl:onProperty Contact:system ; owl:minCardinality 0 ],
-    [ owl:onProperty Contact:value  ; owl:minCardinality 0 ].
-
-Contact:system a owl:DatatypeProperty ; rdfs:range fhir:code .
-Contact:value  a owl:DatatypeProperty ; rdfs:range xsd:string .
-
+# <general axioms>
 [] a owl:AllDisjointClasses ;
   owl:members  (
     fhir:DeviceObservationReport
@@ -148,4 +158,5 @@ Contact:value  a owl:DatatypeProperty ; rdfs:range xsd:string .
     fhir:Device
     fhir:Contact
   ) . 
+# </general axioms>
 
