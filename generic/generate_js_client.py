@@ -14,15 +14,15 @@ def tree(FILES):
         if file.endswith(".xml.profile.json"): return
         if file.endswith("iso-21090.profile.json"): return
         f = json.load(open(file))
-        if 'structure' not in f:
-            print >> sys.stderr, "didn't find structure in ", file
+        if 'snapshot' not in f:
+            print >> sys.stderr, "didn't find snapshot in", file
             return
-        for v in f['structure'][0]['element']:
+        for v in f['snapshot']['element']:
 
             #split a given property into multiple strands when it's like:
             # value[X] (dateTime|String)
             propertyName = v['path']
-            if 'definition' in v and 'type' in v['definition']: types = v['definition']['type']
+            if 'type' in v: types = v['type']
             else: types = [None]
 
             for possibleValue in types:
