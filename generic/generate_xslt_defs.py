@@ -15,12 +15,12 @@ def tree(FILES):
         if file.endswith(".xml.profile.json"): return
         if file.endswith("iso-21090.profile.json"): return
         f = json.load(open(file))
-        if 'structure' not in f.keys(): return
-        for v in f['structure'][0]['element']:
+        if 'snapshot' not in f.keys(): return
+        for v in f['snapshot']['element']:
             #split a given property into multiple strands if it has multiple types like value[X] (dateTime|String)
             praw = v['path']
             count = 0
-            if 'definition' in v and 'type' in v['definition']: types = v['definition']['type']
+            if 'type' in v: types = v['type']
             else: types = [None]
             for possibleValue in types:
                 count += 1
