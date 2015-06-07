@@ -1,6 +1,8 @@
-site:
+fhir-spec.zip:
 	# wget http://hl7.org/documentcenter/public/standards/FHIR/fhir-spec.zip
-	wget http://www.hl7.org/implement/standards/fhir/2015May/fhir-spec.zip
+	curl -o fhir-spec.zip http://www.hl7.org/implement/standards/fhir/2015May/fhir-spec.zip
+
+site: fhir-spec.zip
 	unzip -qo fhir-spec.zip
 
 xslt_defs.xml: generate_xslt_defs.py site
@@ -15,8 +17,8 @@ order-generated.ttl: transform.xsl ../order.xml
 test: transform.xsl
 	(cd tests && make test)
 
-jsdefs: generate_js_client.py site
+definitions.json: generate_js_client.py site
 	python generate_js_client.py > definitions.json
 
-shex: jsdefs 
+shex: definitions.json
 	python genshex.py > fhir-shapes.shex
