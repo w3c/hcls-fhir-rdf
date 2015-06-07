@@ -108,15 +108,18 @@
         <xsl:with-param name="subject" select="$subject"/>
 	<xsl:with-param name="doc" select="$doc"/>
     </xsl:call-template>
-    <xsl:for-each select=".//f:contained/*">
+    <xsl:if test="$contained = 'reference'">
+      <!-- Reference contained elements by id -->
+      <xsl:for-each select=".//f:contained/*">
         <xsl:call-template name="FhirElement">
-            <xsl:with-param name="depth" select="0"/>
-            <xsl:with-param name="this" select="."/>
-            <xsl:with-param name="context" select="name()"/>
-            <xsl:with-param name="subject" select="concat('&lt;', $doc, '#', @id, '&gt;')"/>
-	    <xsl:with-param name="doc" select="$doc"/>
+          <xsl:with-param name="depth" select="0"/>
+          <xsl:with-param name="this" select="."/>
+          <xsl:with-param name="context" select="name()"/>
+          <xsl:with-param name="subject" select="concat('&lt;', $doc, '#', f:id/@value, '&gt;')"/>
+	        <xsl:with-param name="doc" select="$doc"/>
         </xsl:call-template>
-    </xsl:for-each>
+      </xsl:for-each>
+    </xsl:if>
 
     <xsl:for-each select=".//f:reference[../f:display]">
 	<xsl:value-of select="concat('&lt;', @value, '&gt;')"/>
@@ -407,10 +410,34 @@ change
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:choose>
-                        <xsl:when test="name()='contained'"> <!-- include contained arcs -->
-                            <xsl:value-of select="concat('&lt;', $doc, '#', */@id, '&gt;')"/>
-                            <xsl:text>;&#10;</xsl:text>
-                        </xsl:when>
+                      <xsl:when test="name()='contained'">
+                        <!-- Reference contained elements by id: -->
+                        <xsl:for-each select="*">
+                          <xsl:if test="$contained = 'reference'">
+                            <xsl:value-of select="concat('&lt;', $doc, '#', f:id/@value, '&gt;')"/>
+                          </xsl:if>
+                          <xsl:if test="$contained = 'inline'">
+                            <xsl:text>[</xsl:text>
+                            <xsl:call-template name="FhirElement">
+                              <xsl:with-param name="depth" select="$depth+1"/>
+                              <xsl:with-param name="this" select="."/>
+                              <xsl:with-param name="context" select="name()"/>
+                              <!--xsl:with-param name="subject" select="concat('&lt;', $doc, '#', @id, '&gt;')"/ -->
+	                            <xsl:with-param name="doc" select="$doc"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+                            <xsl:text>]</xsl:text>
+                          </xsl:if>
+                          <xsl:choose>
+                            <xsl:when test="following-sibling::*">
+                              <xsl:text>,</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:text>;&#10;</xsl:text>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:for-each>
+                      </xsl:when>
 
                         <!-- perform the mappings to xsd types per
                              http://www.hl7.org/implement/standards/fhir/datatypes.html#string -->
