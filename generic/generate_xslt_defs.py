@@ -30,7 +30,7 @@ def tree(FILES):
                     v =  re.sub("\(.*\)", "", v).replace("@", "").replace("*", "")
                 if len(p.split(".")) == 1: v = p
                 parent = ".".join(p.split(".")[:-1])
-                predicate =  p.replace(".", ":", 1).replace(".","_")
+                predicate =  "fhir:"+p
                 paths[p] = {
                     'fhir_path': p,
                     'type': v,
