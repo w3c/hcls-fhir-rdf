@@ -2,6 +2,9 @@
 <!-- LICENSE INFORMATION
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-2.0 
+
+invocation (remove zero-wdith spaces (U+200B) from "-​-"s):
+xsltproc -​-stringparam contained inline -​-stringparam docParam "adsf" ../transform.xsl MedicationPrescription.xml 
 -->
 <xsl:stylesheet version="1.0"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -13,7 +16,8 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
         xmlns:atom="http://www.w3.org/2005/Atom">
   <xsl:param name="now" select="''"/>
   <xsl:param name="docParam" select="'./'"/>
-  <xsl:param name="contained" select="'reference'"/>
+  <xsl:param name="contained" select="'ref'"/>
+  <xsl:param name="reference" select="'ref'"/>
 
 <xsl:strip-space elements="*" />
     <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
@@ -44926,7 +44930,7 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
         <xsl:with-param name="subject" select="$subject"/>
 	<xsl:with-param name="doc" select="$doc"/>
     </xsl:call-template>
-    <xsl:if test="$contained = 'reference'">
+    <xsl:if test="$contained = 'ref'">
       <!-- Reference contained elements by id -->
       <xsl:for-each select=".//f:contained/*">
         <xsl:call-template name="FhirElement">
@@ -44939,12 +44943,14 @@ You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-
       </xsl:for-each>
     </xsl:if>
 
+    <xsl:if test="$reference = 'ref'">
     <xsl:for-each select=".//f:reference[../f:display]">
 	<xsl:value-of select="concat('&lt;', @value, '&gt;')"/>
 	<xsl:text> Reference:display </xsl:text>
 	<xsl:value-of select="concat('&quot;', ../f:display/@value, '&quot;')"/>
 	<xsl:text> .&#10;</xsl:text>
     </xsl:for-each>
+    </xsl:if>
     <!-- @@ delme if the above rule is sufficient.
     <xsl:variable name="root" select="."/>
     <xsl:for-each select="document('')/*/l:fhirdefs/path/type[text()='Resource']/../fhir_path/text()">
@@ -45093,10 +45099,10 @@ change
         <!-- TODO possibly handlers for (some) datatyes: e.g. text-->
 
         <!-- This first branch represents a leaf node for which no further properties are defined in FHIR Spreadsheets -->
-        <xsl:when test="not($def)">
+        <xsl:when test="not($def) or $def/fhir_path = 'Reference'">
 
             <xsl:text>&#10;</xsl:text>
-            <xsl:if test="$context!='Resource'">
+            <xsl:if test="$context!='Reference'"> <!-- @@ $reference = 'ref' and ? -->
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:if test="name(..)='modifierExtension'">
@@ -45112,7 +45118,7 @@ change
 		    <xsl:with-param name="doc" select="$doc"/>
 		</xsl:call-template>
             </xsl:for-each>             
-            <xsl:if test="$context = 'Resource'"> <!--  or $context = 'resource'" -->
+            <xsl:if test="$context = 'Reference'"> <!--  or $context = 'resource'" --> <!-- @@ $reference = 'ref' and ? -->
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:value-of select="$this/f:type/@value"/>
@@ -45231,7 +45237,7 @@ change
                       <xsl:when test="name()='contained'">
                         <!-- Reference contained elements by id: -->
                         <xsl:for-each select="*">
-                          <xsl:if test="$contained = 'reference'">
+                          <xsl:if test="$contained = 'ref'">
                             <xsl:value-of select="concat('&lt;', $doc, '#', f:id/@value, '&gt;')"/>
                           </xsl:if>
                           <xsl:if test="$contained = 'inline'">
@@ -45312,7 +45318,7 @@ change
                             <xsl:value-of select="$subcontext"/>
                             <xsl:text>;&#10;</xsl:text>
                         </xsl:when>
-                        <xsl:when test="$type='Resource'">
+                        <xsl:when test="$reference = 'ref' and $type='Reference'">
 			    <xsl:choose>
 				<xsl:when test="contains(f:reference/@value, '#')">
 				    <xsl:value-of select="concat('&lt;', $doc, f:reference/@value, '&gt;')"/>
