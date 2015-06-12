@@ -18,6 +18,7 @@ xsltproc -​-stringparam contained inline -​-stringparam docParam "adsf" ../t
   <xsl:param name="docParam" select="'./'"/>
   <xsl:param name="contained" select="'ref'"/>
   <xsl:param name="reference" select="'inline'"/>
+  <xsl:param name="literals" select="'nest'"/>
 
 <xsl:strip-space elements="*" />
     <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
@@ -44909,7 +44910,7 @@ xsltproc -​-stringparam contained inline -​-stringparam docParam "adsf" ../t
     <xsl:call-template name="addPrefixes">
         <xsl:with-param name="name" select="name(.)"/>
     </xsl:call-template>
-    <xsl:text>@base &lt;http://this-fhir-server/fhir/&gt; .&#10;</xsl:text>
+    <!-- xsl:text>@base &lt;http://this-fhir-server/fhir/&gt; .&#10;</xsl:text -->
     <xsl:call-template name="ResourceRoot">
         <xsl:with-param name="subject" select="concat('&lt;', $docParam, '&gt;')"/>
 	<xsl:with-param name="doc" select="$docParam"/>
@@ -44947,7 +44948,9 @@ xsltproc -​-stringparam contained inline -​-stringparam docParam "adsf" ../t
     <xsl:for-each select=".//f:reference[../f:display]">
 	<xsl:value-of select="concat('&lt;', @value, '&gt;')"/>
 	<xsl:text> fhir:Reference.display </xsl:text>
-	<xsl:value-of select="concat('&quot;', ../f:display/@value, '&quot;')"/>
+  <xsl:call-template name="LeafNode">
+    <xsl:with-param name="value" select="concat('&quot;', ../f:display/@value, '&quot;')"/>
+  </xsl:call-template>
 	<xsl:text> .&#10;</xsl:text>
     </xsl:for-each>
     </xsl:if>
@@ -45129,30 +45132,39 @@ change
                 <xsl:text>&gt;;&#10;</xsl:text>
                 <xsl:if test="$this/f:display/@value">
                     <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
-                    <xsl:text>fhir:Reference.display "</xsl:text>
-                    <xsl:value-of select="$this/f:display/@value"/>
-                    <xsl:text>"&#10;</xsl:text>
+                    <xsl:text>fhir:Reference.display </xsl:text>
+                    <xsl:call-template name="LeafNode">
+                      <xsl:with-param name="value" select="concat('&quot;', $this/f:display/@value, '&quot;')"/>
+                    </xsl:call-template>
+                    <xsl:text>&#10;</xsl:text>
                 </xsl:if>
             </xsl:if>
 
             <xsl:if test="$this/@value">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
-                <xsl:text>fhir:value "</xsl:text><xsl:value-of select="$this/@value"  />
-                <xsl:text>";&#10;</xsl:text>
+                <xsl:text>fhir:value </xsl:text>
+                <xsl:call-template name="LeafNodeEOL">
+                  <xsl:with-param name="value" select="concat('&quot;', $this/@value, '&quot;')"/>
+                </xsl:call-template>
             </xsl:if>
             <xsl:if test="$context='xhtml'">
                 <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
-                <xsl:text>fhir:text """</xsl:text>
-                <xsl:for-each select="$this">
+                <xsl:variable name="xml">
+                  <xsl:for-each select="$this">
                     <xsl:call-template name="copy-element" />
-                </xsl:for-each>
-                <xsl:value-of select="$this/text()"/>
-                <xsl:text>""";&#10;</xsl:text>
+                  </xsl:for-each>
+                </xsl:variable>
+                <xsl:text>fhir:text </xsl:text>
+                <xsl:call-template name="LeafNodeEOL">
+                  <xsl:with-param name="value" select="concat('&quot;&quot;&quot;', $xml, '&quot;&quot;&quot;')"/>
+                </xsl:call-template>
+                <!-- xsl:value-of select="$this/text()"/ @@ what was this? -->
             </xsl:if>
         </xsl:when>
 
         <!-- This second branch represents a node with subproperties defined in FHIR Spreadsheets -->
         <xsl:otherwise>
+
 	    <xsl:if test="$subject">
 		<xsl:value-of select="$subject"/><xsl:text> </xsl:text>
 	    </xsl:if>
@@ -45266,41 +45278,49 @@ change
                         <!-- perform the mappings to xsd types per
                              http://www.hl7.org/implement/standards/fhir/datatypes.html#string -->
                         <xsl:when test="$subcontext='boolean' and not(name(..)='modifierExtension')">
-                            <xsl:value-of select="@value"/>
-                            <xsl:text>;&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="@value"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$subcontext='integer' and not(name(..)='modifierExtension')">
-                            <!-- <xsl:text>"</xsl:text> -->
-                            <xsl:value-of select="@value"/>
-                            <!-- <xsl:text>;^^xsd:int&#10;</xsl:text> -->
-                            <xsl:text>;&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="@value"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="($subcontext='decimal' or $subcontext='boolean') and not(name(..)='modifierExtension')">
-                            <xsl:value-of select="@value"/>
-                            <xsl:if test="not(contains(@value,'.'))">
-				<xsl:text>.0</xsl:text>
-                            </xsl:if>
-                            <xsl:text>;&#10;</xsl:text>
+                          <xsl:variable name="lexicalValue">
+                            <xsl:choose>
+                              <xsl:when test="contains(@value,'.')">
+                                <xsl:value-of select="@value"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of select="concat(@value, '.0')"/>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:variable>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="$lexicalValue"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$subcontext='base64Binary' and not(name(..)='modifierExtension')">
-                            <xsl:text>"</xsl:text>
-                            <xsl:value-of select="@value"/> <!-- @@ need to backslashify -->
-                            <xsl:text>"^^xsd:base64Binary;&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="concat('&quot;', @value, '&quot;^^xsd:base64Binary')"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$subcontext='instant' and not(name(..)='modifierExtension')">
-                            <xsl:text>"</xsl:text>
-                            <xsl:value-of select="@value"/>
-                            <xsl:text>"^^xsd:dateTime;&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="concat('&quot;', @value, '&quot;^^xsd:dateTime')"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$subcontext='string' and not(name(..)='modifierExtension')">
-                            <xsl:text>"</xsl:text>
-                            <xsl:value-of select="@value"/> <!-- @@ need to backslashify -->
-                            <xsl:text>";&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="concat('&quot;', @value, '&quot;')"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$subcontext='uri' and not(name(..)='modifierExtension')">
-                            <xsl:text>&lt;</xsl:text>
-                            <xsl:value-of select="@value"/>
-                            <xsl:text>&gt;;&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="concat('&lt;', @value, '&gt;')"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <!-- @@ date and dateTime get mapped to unions -->
                         <!-- <xsl:when test="$subcontext='dateTime' and not(name(..)='modifierExtension')"> -->
@@ -45312,11 +45332,9 @@ change
                         <!-- a code is a string per
                              http://www.hl7.org/implement/standards/fhir/datatypes.html#code -->
                         <xsl:when test="($subcontext='code' or $subcontext='id') and not(name(..)='modifierExtension')">
-                            <xsl:text>"</xsl:text>
-                            <xsl:value-of select="@value"/> <!-- @@ need to backslashify -->
-                            <xsl:text>"^^fhir:</xsl:text>
-                            <xsl:value-of select="$subcontext"/>
-                            <xsl:text>;&#10;</xsl:text>
+                            <xsl:call-template name="LeafNodeEOL">
+                                <xsl:with-param name="value" select="concat('&quot;', @value, '&quot;^^fhir:', $subcontext)"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$reference = 'ref' and $type='Reference'">
 			    <xsl:choose>
@@ -45409,6 +45427,27 @@ change
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema&gt; .
 </pre>
     </div>
+</xsl:template>
+
+<!-- optionally write a literal value directly or as a bnode with fhir:value -->
+<xsl:template name="LeafNode">
+  <xsl:param name="value"/>
+  <xsl:if test="$literals = 'nest'">
+    <xsl:text>[ fhir:value </xsl:text>
+  </xsl:if>
+  <xsl:value-of select="$value"/> <!-- @@ need to backslashify -->
+  <xsl:if test="$literals = 'nest'">
+    <xsl:text> ]</xsl:text>
+  </xsl:if>
+</xsl:template>
+
+<!-- convenience macro to do add EOL -->
+<xsl:template name="LeafNodeEOL">
+  <xsl:param name="value"/>
+  <xsl:call-template name="LeafNode">
+    <xsl:with-param name="value" select="$value"/>
+  </xsl:call-template>
+  <xsl:text>;&#10;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>
