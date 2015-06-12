@@ -45007,7 +45007,7 @@ change
     <xsl:param name="doc"/>
 
     <!-- <http://...plus> [ -->
-    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
     <xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt; [</xsl:text>
     <xsl:if test="not(*[substring(name(), 1, 5)='value'])"><!-- ugh, why do i need this? -->
 	<xsl:text>&#10;</xsl:text>
@@ -45058,12 +45058,12 @@ change
     </xsl:for-each>
 
     <!-- ]; -->
-    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
     <xsl:text>];&#10;</xsl:text>
 
     <xsl:if test="name(.)='modifierExtension'">
 	<!-- fhir:modifiedBy <http://...plus>; -->
-	<xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+	<xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
 	<xsl:value-of select="'fhir:modifiedBy '"/>
 	<xsl:text>&lt;</xsl:text><xsl:value-of select="f:url/@value"/><xsl:text>&gt;;&#10;</xsl:text>
     </xsl:if>
@@ -45106,7 +45106,7 @@ change
 
             <xsl:text>&#10;</xsl:text>
             <xsl:if test="$context!='Reference'"> <!-- @@ $reference = 'ref' and ? -->
-                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:if test="name(..)='modifierExtension'">
                     <xsl:text>modifying_</xsl:text> <!-- a modifying_integer -->
@@ -45122,16 +45122,16 @@ change
 		</xsl:call-template>
             </xsl:for-each>             
             <xsl:if test="$context = 'Reference'"> <!--  or $context = 'resource'" --> <!-- @@ $reference = 'ref' and ? -->
-                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:value-of select="$this/f:type/@value"/>
                 <xsl:text>Reference;&#10;</xsl:text>
-                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                 <xsl:text>fhir:Reference.reference &lt;</xsl:text>
                 <xsl:value-of select="$this/f:reference/@value"/>
                 <xsl:text>&gt;;&#10;</xsl:text>
                 <xsl:if test="$this/f:display/@value">
-                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                     <xsl:text>fhir:Reference.display </xsl:text>
                     <xsl:call-template name="LeafNode">
                       <xsl:with-param name="value" select="concat('&quot;', $this/f:display/@value, '&quot;')"/>
@@ -45141,14 +45141,14 @@ change
             </xsl:if>
 
             <xsl:if test="$this/@value">
-                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                 <xsl:text>fhir:value </xsl:text>
                 <xsl:call-template name="LeafNodeEOL">
                   <xsl:with-param name="value" select="concat('&quot;', $this/@value, '&quot;')"/>
                 </xsl:call-template>
             </xsl:if>
             <xsl:if test="$context='xhtml'">
-                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="1+$depth"/> </xsl:call-template>
+                <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                 <xsl:variable name="xml">
                   <xsl:for-each select="$this">
                     <xsl:call-template name="copy-element" />
@@ -45173,7 +45173,7 @@ change
             <!-- If this is a type (non-internal) node, output the type -->
             <xsl:if test="$def.type != ''">
                 <xsl:if test="$depth>0">
-                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+                    <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                 </xsl:if>
                 <xsl:text>a fhir:</xsl:text>
                 <xsl:choose>
@@ -45221,7 +45221,7 @@ change
                     </xsl:variable>
 
 
-                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+                    <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth"/></xsl:call-template>
                     <xsl:choose>
 			<xsl:when test="f:modifierExtension">
 			    <!-- <Resource>:modified_<Property>  -->
@@ -45261,7 +45261,7 @@ change
                               <!--xsl:with-param name="subject" select="concat('&lt;', $doc, '#', @id, '&gt;')"/ -->
 	                            <xsl:with-param name="doc" select="$doc"/>
                             </xsl:call-template>
-                            <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth+1"/> </xsl:call-template>
+                            <xsl:call-template name="FhirIndent"> <xsl:with-param name="depth" select="$depth"/> </xsl:call-template>
                             <xsl:text>]</xsl:text>
                           </xsl:if>
                           <xsl:choose>
@@ -45363,7 +45363,7 @@ change
                                 <xsl:with-param name="context" select="$subcontext"/>
 				<xsl:with-param name="doc" select="$doc"/>
                             </xsl:call-template>
-                            <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth+1"/></xsl:call-template>
+                            <xsl:call-template name="FhirIndent"><xsl:with-param name="depth" select="$depth"/></xsl:call-template>
 			    
                             <!-- This test only works because FHIR's examples are all serialized with propertiese
                                  in the same order as in the defining spreadsheets.  It will sometimes think a
