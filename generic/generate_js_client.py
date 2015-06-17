@@ -24,6 +24,18 @@ def tree(FILES):
             #split a given property into multiple strands when it's like:
             # value[X] (dateTime|String)
             propertyName = v['path']
+            if 'name' in v:
+                name = v['name']
+                if name not in paths:
+                    paths[name] = {
+                        'sources': [file],
+                        'constraints': {}
+                    }
+                elif "constraints" not in paths[name]:
+                    paths[name]['constraints'] = {}
+                    paths[name]['sources'].append(file)
+                else:
+                    print >> sys.stderr, file, " ", name, " restricts ", v['path']
             if 'type' in v: types = v['type']
             else: types = [None]
             min = v['min']
@@ -35,14 +47,31 @@ def tree(FILES):
                 if (valueType.startswith("Resource(")): valueType = "ResourceReference"
                 p = propertyName.replace("[x]", valueType.capitalize())
                 parent = ".".join(p.split(".")[:-1])
-                paths[p] = {
-                    'source': file,
-                    'properties': {}
-                }
+                if p not in paths:
+                    paths[p] = {
+                        'sources': [file],
+                        'properties': {}
+                    }
+                elif "properties" not in paths[p]:
+                    paths[p]['properties'] = {}
+                    paths[p]['sources'].append(file)
+                elif file not in paths[p]['sources'] and f['type'] != "constraint":
+                    print >> sys.stderr, file, " ", p, " already in paths from ", paths[p]['sources']
 
                 if parent in paths:
                     step =  p.replace(parent+".", "")
-                    paths[parent]['properties'][step] = edge = {}
+                    if f['type'] == "constraint":
+                        try:
+                            if (parent not in paths[name]['constraints']):
+                                paths[name]['constraints'][parent] = {}
+                            paths[name]['constraints'][parent][step] = edge = {}
+                        except NameError:
+                            edge = {} # throw it away
+                        except:
+                            print >> sys.stderr, "Error in "+file+" \""+name+"\" not in paths:"
+                            raise
+                    else:
+                        paths[parent]['properties'][step] = edge = {}
                     if len(valueType) and valueType[0] == valueType[0].lower(): edge['primitiveType'] = valueType
                     elif valueType != "":  edge['type'] = valueType
                     else:  edge['type'] = p
@@ -54,7 +83,7 @@ def tree(FILES):
     paths = {}
     for k,v in oldpaths.iteritems():
         if 'properties' in v and len(v['properties'].keys()) >  0: paths[k]=v
-        ### if 'constraints' in v and len(v['constraints'].keys()) >  0: paths[k]=v
+        if 'constraints' in v and len(v['constraints'].keys()) >  0: paths[k]=v
     return paths
 
 t = tree(glob.glob(FHIR_DIR + "/*.profile.json"))
