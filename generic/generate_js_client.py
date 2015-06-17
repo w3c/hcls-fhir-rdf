@@ -18,8 +18,8 @@ def tree(FILES):
         if 'snapshot' not in f:
             print >> sys.stderr, "didn't find snapshot in", file
             return
-        if f['type'] == "constraint":
-            print >> sys.stderr, file, " ", f['id'], " extends ", f['base']
+        # if f['type'] == "constraint":
+        #     print >> sys.stderr, file, " ", f['id'], " extends ", f['base']
         for v in f['snapshot']['element']:
 
             #split a given property into multiple strands when it's like:
@@ -35,8 +35,8 @@ def tree(FILES):
                 elif "constraints" not in paths[name]:
                     paths[name]['constraints'] = {}
                     paths[name]['sources'].append(file)
-                else:
-                    print >> sys.stderr, file, " ", name, " restricts ", v['path']
+                # else:
+                #     print >> sys.stderr, file, " ", name, " restricts ", v['path']
             if 'type' in v: types = v['type']
             else: types = [None]
             min = v['min']
@@ -56,8 +56,8 @@ def tree(FILES):
                 elif "properties" not in paths[p]:
                     paths[p]['properties'] = {}
                     paths[p]['sources'].append(file)
-                elif file not in paths[p]['sources'] and f['type'] != "constraint":
-                    print >> sys.stderr, file, " ", p, " already in paths from ", paths[p]['sources']
+                # elif file not in paths[p]['sources'] and f['type'] != "constraint":
+                #     print >> sys.stderr, file, " ", p, " already in paths from ", paths[p]['sources']
 
                 if parent in paths:
                     step =  p.replace(parent+".", "")
