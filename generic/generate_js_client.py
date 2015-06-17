@@ -9,6 +9,7 @@ def tree(FILES):
     paths = {}
     def process(file):
 
+        if file.find('-') != -1: return # strip out specialised profiles
         if file.endswith("-extensions.profile.json"): return
         if file.endswith("extensions-spreadsheet.profile.json"): return
         if file.endswith(".xml.profile.json"): return
