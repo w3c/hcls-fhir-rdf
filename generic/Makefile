@@ -20,5 +20,7 @@ test: transform.xsl
 definitions.json: generate_js_client.py site
 	python generate_js_client.py > definitions.json
 
-shex: definitions.json
+fhir-shapes.shex: definitions.json genshex.py
 	python genshex.py > fhir-shapes.shex
+
+shex: fhir-shapes.shex
