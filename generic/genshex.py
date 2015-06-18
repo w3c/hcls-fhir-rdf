@@ -66,5 +66,5 @@ for shapeName in defs:
 
 print """<LitShape> {
   fhir:value LITERAL %GenX{ @value %},
-  fhir:id LITERAL %GenX{ @id %}?
+  fhir:id LITERAL? %GenX{ @id %}
 }"""
