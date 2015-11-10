@@ -1,0 +1,274 @@
+@prefix : <http://hl7.org/fhir/Practitioner#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sct: <http://snomed.info/id/> .
+@prefix urn: <http://www.w3.org/urn> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix base: <http://hl7.org/fhir/base/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix term: <http://www.semanticweb.org/ontologies/2014/0/Ontology1390749558203.owl#> .
+@prefix xhtml: <http://www.w3.org/1999/xhtml/> .
+@prefix record: <http://record/Practitioner/> .
+@base <http://record/Practitioner> .
+
+<http://record/Practitioner> rdf:type owl:Ontology ;
+                             
+                             rdfs:comment "This file represents FHIR concepts as types and objectproperties. It defines datatypes including primitive datatypes."^^xsd:anyURI ;
+                             
+                             <http://hl7.org/fhir/e-mail> "amallia@edmondsci.com"^^xsd:anyURI ;
+                             
+                             <http://hl7.org/fhir/experimental> "true"^^xsd:boolean ;
+                             
+                             <http://hl7.org/fhir/publisher> "Tony Mallia" ;
+                             
+                             owl:imports <http://hl7.org/fhir> .
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+###  http://hl7.org/fhir/base64Binary-primitive
+
+<http://hl7.org/fhir/base64Binary-primitive> rdf:type rdfs:Datatype ;
+                                             
+                                             owl:equivalentClass xsd:base64Binary .
+
+
+
+###  http://hl7.org/fhir/boolean-primitive
+
+<http://hl7.org/fhir/boolean-primitive> rdf:type rdfs:Datatype ;
+                                        
+                                        owl:equivalentClass xsd:boolean ,
+                                                            [ rdf:type rdfs:Datatype ;
+                                                              owl:oneOf [ rdf:type rdf:List ;
+                                                                          rdf:first "false" ;
+                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                     rdf:first "true" ;
+                                                                                     rdf:rest rdf:nil
+                                                                                   ]
+                                                                        ]
+                                                            ] .
+
+
+
+###  http://hl7.org/fhir/code-primitive
+
+<http://hl7.org/fhir/code-primitive> rdf:type rdfs:Datatype ;
+                                     
+                                     owl:equivalentClass xsd:string .
+
+
+
+###  http://hl7.org/fhir/date-primitive
+
+<http://hl7.org/fhir/date-primitive> rdf:type rdfs:Datatype ;
+                                     
+                                     owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                           owl:intersectionOf ( [ rdf:type rdfs:Datatype ;
+                                                                                  owl:unionOf ( xsd:date
+                                                                                                xsd:gYear
+                                                                                                xsd:gYearMonth
+                                                                                              )
+                                                                                ]
+                                                                                [ rdf:type rdfs:Datatype ;
+                                                                                  owl:onDatatype xsd:string ;
+                                                                                  owl:withRestrictions ( [ xsd:pattern "\\d{4}(\\-\\d{2}(\\-\\d{2})?)?(Z|(\\+|\\-)\\d{2}:\\d{2})?"
+                                                                                                         ]
+                                                                                                       )
+                                                                                ]
+                                                                              )
+                                                         ] .
+
+
+
+###  http://hl7.org/fhir/dateTime-primitive
+
+<http://hl7.org/fhir/dateTime-primitive> rdf:type rdfs:Datatype ;
+                                         
+                                         owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                               owl:intersectionOf ( [ rdf:type rdfs:Datatype ;
+                                                                                      owl:unionOf ( xsd:date
+                                                                                                    xsd:dateTime
+                                                                                                    xsd:gYear
+                                                                                                    xsd:gYearMonth
+                                                                                                  )
+                                                                                    ]
+                                                                                    [ rdf:type rdfs:Datatype ;
+                                                                                      owl:onDatatype xsd:string ;
+                                                                                      owl:withRestrictions ( [ xsd:pattern "\\d{4}(\\-\\d{2}(\\-\\d{2}(T\\d{2}(:\\d{2}(:\\d{2}(\\.\\d+)?)?)?)?)?)?(Z|(\\+|\\-)\\d{2}:\\d{2})?"
+                                                                                                             ]
+                                                                                                           )
+                                                                                    ]
+                                                                                  )
+                                                             ] .
+
+
+
+###  http://hl7.org/fhir/decimal-primitive
+
+<http://hl7.org/fhir/decimal-primitive> rdf:type rdfs:Datatype ;
+                                        
+                                        owl:equivalentClass xsd:decimal .
+
+
+
+###  http://hl7.org/fhir/id-primitive
+
+<http://hl7.org/fhir/id-primitive> rdf:type rdfs:Datatype ;
+                                   
+                                   owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                         owl:intersectionOf ( [ rdf:type rdfs:Datatype ;
+                                                                                owl:onDatatype xsd:string ;
+                                                                                owl:withRestrictions ( [ xsd:minLength 1
+                                                                                                       ]
+                                                                                                     )
+                                                                              ]
+                                                                              [ rdf:type rdfs:Datatype ;
+                                                                                owl:onDatatype xsd:string ;
+                                                                                owl:withRestrictions ( [ xsd:pattern "[a-z0-9\\-\\.]{1,36}"
+                                                                                                       ]
+                                                                                                     )
+                                                                              ]
+                                                                            )
+                                                       ] .
+
+
+
+###  http://hl7.org/fhir/instant-primitive
+
+<http://hl7.org/fhir/instant-primitive> rdf:type rdfs:Datatype ;
+                                        
+                                        owl:equivalentClass xsd:dateTime .
+
+
+
+###  http://hl7.org/fhir/integer-primitive
+
+<http://hl7.org/fhir/integer-primitive> rdf:type rdfs:Datatype ;
+                                        
+                                        owl:equivalentClass xsd:int .
+
+
+
+###  http://hl7.org/fhir/oid-primitive
+
+<http://hl7.org/fhir/oid-primitive> rdf:type rdfs:Datatype ;
+                                    
+                                    owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                          owl:intersectionOf ( [ rdf:type rdfs:Datatype ;
+                                                                                 owl:onDatatype xsd:anyURI ;
+                                                                                 owl:withRestrictions ( [ xsd:minLength 1
+                                                                                                        ]
+                                                                                                      )
+                                                                               ]
+                                                                               [ rdf:type rdfs:Datatype ;
+                                                                                 owl:onDatatype xsd:anyURI ;
+                                                                                 owl:withRestrictions ( [ xsd:pattern "(0|[1-9][0-9]*)(\\.(0|[1-9][0-9]*))*"
+                                                                                                        ]
+                                                                                                      )
+                                                                               ]
+                                                                             )
+                                                        ] .
+
+
+
+###  http://hl7.org/fhir/string-primitive
+
+<http://hl7.org/fhir/string-primitive> rdf:type rdfs:Datatype .
+
+
+
+###  http://hl7.org/fhir/uri-primitive
+
+<http://hl7.org/fhir/uri-primitive> rdf:type rdfs:Datatype .
+
+
+
+###  http://hl7.org/fhir/uuid-primitive
+
+<http://hl7.org/fhir/uuid-primitive> rdf:type rdfs:Datatype .
+
+
+
+###  http://www.w3.org/2001/XMLSchema#anyURI
+
+xsd:anyURI owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                 owl:onDatatype xsd:string ;
+                                 owl:withRestrictions ( [ xsd:minLength 1
+                                                        ]
+                                                      )
+                               ] .
+
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+
+xsd:date rdf:type rdfs:Datatype .
+
+
+
+###  http://www.w3.org/2001/XMLSchema#gYear
+
+xsd:gYear rdf:type rdfs:Datatype .
+
+
+
+###  http://www.w3.org/2001/XMLSchema#gYearMonth
+
+xsd:gYearMonth rdf:type rdfs:Datatype .
+
+
+
+###  http://www.w3.org/urn:oid
+
+<http://www.w3.org/urn:oid> rdf:type rdfs:Datatype .
+
+
+
+###  http://www.w3.org/urn:uuid
+
+<http://www.w3.org/urn:uuid> rdf:type rdfs:Datatype ;
+                             
+                             owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                   owl:intersectionOf ( [ rdf:type rdfs:Datatype ;
+                                                                          owl:onDatatype xsd:anyURI ;
+                                                                          owl:withRestrictions ( [ xsd:minLength 1
+                                                                                                 ]
+                                                                                               )
+                                                                        ]
+                                                                        [ rdf:type rdfs:Datatype ;
+                                                                          owl:onDatatype xsd:anyURI ;
+                                                                          owl:withRestrictions ( [ xsd:pattern "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                                                                                 ]
+                                                                                               )
+                                                                        ]
+                                                                      )
+                                                 ] .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://record/Practitioner/PaulPractitioner
+
+record:PaulPractitioner rdf:type <http://hl7.org/fhir/Practitioner> ,
+                                 owl:NamedIndividual .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+

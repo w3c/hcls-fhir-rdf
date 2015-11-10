@@ -1,0 +1,230 @@
+@prefix : <http://PatientSafetyProfile#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sct: <http://snomed.info/id/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fhir: <http://hl7.org/fhir/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix profile: <http://PatientSafetyProfile/> .
+@base <http://PatientSafetyProfile> .
+
+<http://PatientSafetyProfile> rdf:type owl:Ontology ;
+                              
+                              <http://hl7.org/fhir/base/publisher> "Tony Mallia" ;
+                              
+                              owl:imports <http://hl7.org/fhirSCTBridge> .
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+###  http://hl7.org/fhir/base/uri-primitive
+
+<http://hl7.org/fhir/base/uri-primitive> rdf:type rdfs:Datatype .
+
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://PatientSafetyProfile/AllergyIntolerance.substancehasConcept
+
+profile:AllergyIntolerance.substancehasConcept rdf:type owl:ObjectProperty ;
+                                               
+                                               owl:propertyChainAxiom ( <http://hl7.org/fhir/AllergyIntolerance/AllergyIntolerance.substance>
+                                                                        fhir:CodeableThingy.coding
+                                                                        profile:Coding.concept
+                                                                      ) .
+
+
+
+###  http://PatientSafetyProfile/Coding.concept
+
+profile:Coding.concept rdf:type owl:ObjectProperty .
+
+
+
+###  http://PatientSafetyProfile/MedicationOrderhasMedicationCoding
+
+profile:MedicationOrderhasMedicationCoding rdf:type owl:ObjectProperty ;
+                                           
+                                           owl:propertyChainAxiom ( <http://www.hl7.org/fhir/MedicationOrder/MedicationOrder.medication>
+                                                                    <http://www.hl7.org/fhir/Medication/Medication.code>
+                                                                    <http://hl7.org/fhir/base/CodeableConcept.coding>
+                                                                  ) .
+
+
+
+###  http://hl7.org/fhir/AllergyIntolerance.status
+
+fhir:AllergyIntolerance.status rdf:type owl:ObjectProperty .
+
+
+
+###  http://hl7.org/fhir/CodeableThingy.coding
+
+fhir:CodeableThingy.coding rdf:type owl:ObjectProperty .
+
+
+
+###  http://hl7.org/fhir/AllergyIntolerance/AllergyIntolerance.substance
+
+<http://hl7.org/fhir/AllergyIntolerance/AllergyIntolerance.substance> rdf:type owl:ObjectProperty .
+
+
+
+###  http://hl7.org/fhir/base/CodeableConcept.coding
+
+<http://hl7.org/fhir/base/CodeableConcept.coding> rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.hl7.org/fhir/Medication/Medication.code
+
+<http://www.hl7.org/fhir/Medication/Medication.code> rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.hl7.org/fhir/MedicationOrder/MedicationOrder.medication
+
+<http://www.hl7.org/fhir/MedicationOrder/MedicationOrder.medication> rdf:type owl:ObjectProperty .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://hl7.org/fhir/tag
+
+fhir:tag rdf:type owl:DatatypeProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://PatientSafetyProfile/AllergyIntolerance
+
+profile:AllergyIntolerance rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf fhir:AllergyIntolerance ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://hl7.org/fhir/AllergyIntolerance/AllergyIntolerance.substance> ;
+                                             owl:allValuesFrom profile:substance-type
+                                           ] .
+
+
+
+###  http://PatientSafetyProfile/DomainResource
+
+profile:DomainResource rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf fhir:DomainResource .
+
+
+
+###  http://PatientSafetyProfile/MedicationOrder
+
+profile:MedicationOrder rdf:type owl:Class ;
+                        
+                        owl:equivalentClass [ rdf:type owl:Class ;
+                                              owl:intersectionOf ( profile:DomainResource
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty fhir:tag ;
+                                                                     owl:hasValue "MedicationPrescription"
+                                                                   ]
+                                                                 )
+                                            ] ;
+                        
+                        rdfs:subClassOf fhir:MedicationOrder .
+
+
+
+###  http://PatientSafetyProfile/substance-type
+
+profile:substance-type rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf fhir:Valueset .
+
+
+
+###  http://hl7.org/fhir/AllergyIntolerance
+
+fhir:AllergyIntolerance rdf:type owl:Class .
+
+
+
+###  http://hl7.org/fhir/DomainResource
+
+fhir:DomainResource rdf:type owl:Class .
+
+
+
+###  http://hl7.org/fhir/Null
+
+fhir:Null rdf:type owl:Class .
+
+
+
+###  http://hl7.org/fhir/Valueset
+
+fhir:Valueset rdf:type owl:Class .
+
+
+
+###  http://snomed.info/id/105590001
+
+<http://snomed.info/id/105590001> rdf:type owl:Class .
+
+
+
+###  http://snomed.info/id/373873005
+
+<http://snomed.info/id/373873005> rdf:type owl:Class .
+
+
+
+
+
+#################################################################
+#
+#    General axioms
+#
+#################################################################
+
+
+[ rdf:type owl:Class ;
+  rdfs:subClassOf profile:substance-type ;
+  owl:unionOf ( fhir:Null
+                <http://snomed.info/id/373873005>
+              )
+] .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
