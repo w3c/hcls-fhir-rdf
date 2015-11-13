@@ -1419,15 +1419,15 @@ fhir:Element.id rdf:type owl:DatatypeProperty ;
                 
                 rdfs:domain fhir:Element ;
                 
-                fhir:hasFlag [ rdf:type <http://hl7.org/fhir/flag-item#isXmlAtribute>
-                             ] ;
-                
                 rdfs:range [ rdf:type rdfs:Datatype ;
                              owl:onDatatype xsd:string ;
                              owl:withRestrictions ( [ xsd:pattern "[A-Za-z0-9\\-\\.]{1,64}"
                                                     ]
                                                   )
-                           ] .
+                           ] ;
+                
+                fhir:hasFlag [ rdf:type <http://hl7.org/fhir/flag-item#isXmlAtribute>
+                             ] .
 
 
 
@@ -1525,12 +1525,20 @@ fhir-metamodel:ValueSet.Concept rdf:type owl:Class ;
                                 
                                 rdfs:subClassOf fhir:BackboneElement ,
                                                 [ rdf:type owl:Restriction ;
+                                                  owl:onProperty fhir-metamodel:ValueSet.Concept.definition ;
+                                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
                                                   owl:onProperty fhir-metamodel:ValueSet.Concept.display ;
                                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                                 ] ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty fhir-metamodel:ValueSet.Concept.display ;
                                                   owl:allValuesFrom fhir:string
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty fhir-metamodel:ValueSet.Concept.code ;
+                                                  owl:cardinality "1"^^xsd:nonNegativeInteger
                                                 ] ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty fhir-metamodel:ValueSet.Concept.code ;
@@ -1538,15 +1546,7 @@ fhir-metamodel:ValueSet.Concept rdf:type owl:Class ;
                                                 ] ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty fhir-metamodel:ValueSet.Concept.definition ;
-                                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty fhir-metamodel:ValueSet.Concept.definition ;
                                                   owl:allValuesFrom fhir:string
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty fhir-metamodel:ValueSet.Concept.code ;
-                                                  owl:cardinality "1"^^xsd:nonNegativeInteger
                                                 ] .
 
 
@@ -1557,16 +1557,16 @@ fhir-metamodel:ValueSet.Define rdf:type owl:Class ;
                                
                                rdfs:subClassOf fhir:BackboneElement ,
                                                [ rdf:type owl:Restriction ;
-                                                 owl:onProperty fhir-metamodel:ValueSet.Define.concept ;
-                                                 owl:allValuesFrom fhir-metamodel:ValueSet.Concept
+                                                 owl:onProperty fhir-metamodel:ValueSet.Define.system ;
+                                                 owl:allValuesFrom fhir:uri
                                                ] ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty fhir-metamodel:ValueSet.Define.system ;
                                                  owl:cardinality "1"^^xsd:nonNegativeInteger
                                                ] ,
                                                [ rdf:type owl:Restriction ;
-                                                 owl:onProperty fhir-metamodel:ValueSet.Define.system ;
-                                                 owl:allValuesFrom fhir:uri
+                                                 owl:onProperty fhir-metamodel:ValueSet.Define.concept ;
+                                                 owl:allValuesFrom fhir-metamodel:ValueSet.Concept
                                                ] .
 
 
@@ -1595,19 +1595,48 @@ fhir:AllergyIntolerance rdf:type owl:Class ;
                         
                         rdfs:subClassOf fhir:DomainResource ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.status ;
+                                          owl:onProperty fhir:AllergyIntolerance.recorder ;
+                                          owl:allValuesFrom fhir:Reference
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.comment ;
+                                          owl:allValuesFrom fhir:string
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:allValuesFrom fhir:CodeableConcept
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.reporter ;
                                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.recordedDate ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.identifier ;
+                                          owl:allValuesFrom fhir:Identifier
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.lastOccurence ;
                                           owl:allValuesFrom fhir:dateTime
                                         ] ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.substance ;
-                                          owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                              owl:onProperty fhir:ConceptBase.coding ;
-                                                              owl:someValuesFrom fhirvs:allergyintolerance-substance-code
-                                                            ]
+                                          owl:onProperty fhir:AllergyIntolerance.patient ;
+                                          owl:allValuesFrom fhir:Reference
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.comment ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.recorder ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.recordedDate ;
+                                          owl:allValuesFrom fhir:dateTime
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.type ;
@@ -1618,23 +1647,10 @@ fhir:AllergyIntolerance rdf:type owl:Class ;
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.criticality ;
-                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.lastOccurence ;
-                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.recordedDate ;
-                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.reporter ;
-                                          owl:allValuesFrom fhir:Reference
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.substance ;
-                                          owl:cardinality "1"^^xsd:nonNegativeInteger
+                                          owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                              owl:onProperty fhir:ConceptBase.coding ;
+                                                              owl:someValuesFrom fhirvs:allergy-intolerance-criticality
+                                                            ]
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.patient ;
@@ -1642,25 +1658,10 @@ fhir:AllergyIntolerance rdf:type owl:Class ;
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.reporter ;
-                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.criticality ;
-                                          owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                              owl:onProperty fhir:ConceptBase.coding ;
-                                                              owl:someValuesFrom fhirvs:allergy-intolerance-criticality
-                                                            ]
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.type ;
-                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                          owl:allValuesFrom fhir:Reference
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.category ;
-                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.recorder ;
                                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                         ] ,
                                         [ rdf:type owl:Restriction ;
@@ -1671,24 +1672,20 @@ fhir:AllergyIntolerance rdf:type owl:Class ;
                                                             ]
                                         ] ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.comment ;
+                                          owl:onProperty fhir:AllergyIntolerance.criticality ;
                                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                         ] ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.comment ;
-                                          owl:allValuesFrom fhir:string
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:cardinality "1"^^xsd:nonNegativeInteger
                                         ] ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.patient ;
-                                          owl:allValuesFrom fhir:Reference
+                                          owl:onProperty fhir:AllergyIntolerance.lastOccurence ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                         ] ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.recordedDate ;
-                                          owl:allValuesFrom fhir:dateTime
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.identifier ;
-                                          owl:allValuesFrom fhir:Identifier
+                                          owl:onProperty fhir:AllergyIntolerance.status ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                         ] ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty fhir:AllergyIntolerance.status ;
@@ -1698,8 +1695,8 @@ fhir:AllergyIntolerance rdf:type owl:Class ;
                                                             ]
                                         ] ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty fhir:AllergyIntolerance.recorder ;
-                                          owl:allValuesFrom fhir:Reference
+                                          owl:onProperty fhir:AllergyIntolerance.type ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                         ] ;
                         
                         fhir:concept_definition "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance." .
@@ -1833,18 +1830,14 @@ fhir:CodingBase rdf:type owl:Class ;
                 rdfs:subClassOf fhir:Datatype ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fhir:CodingBase.primary ;
-                                  owl:allValuesFrom fhir:boolean
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty fhir:CodingBase.system ;
-                                  owl:allValuesFrom fhir:uri
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty fhir:CodingBase.system ;
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fhir:CodingBase.code ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fhir:CodingBase.system ;
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ,
                                 [ rdf:type owl:Restriction ;
@@ -1853,6 +1846,14 @@ fhir:CodingBase rdf:type owl:Class ;
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fhir:CodingBase.version ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fhir:CodingBase.primary ;
+                                  owl:allValuesFrom fhir:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fhir:CodingBase.display ;
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ,
                                 [ rdf:type owl:Restriction ;
@@ -1860,16 +1861,12 @@ fhir:CodingBase rdf:type owl:Class ;
                                   owl:allValuesFrom fhir:codeBase
                                 ] ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty fhir:CodingBase.display ;
-                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  owl:onProperty fhir:CodingBase.system ;
+                                  owl:allValuesFrom fhir:uri
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fhir:CodingBase.version ;
                                   owl:allValuesFrom fhir:string
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty fhir:CodingBase.primary ;
-                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 
                 owl:disjointWith fhir:Concepts .
@@ -1883,11 +1880,11 @@ fhir:ConceptBase rdf:type owl:Class ;
                  rdfs:subClassOf fhir:Datatype ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty fhir:ConceptBase.text ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   owl:allValuesFrom fhir:string
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty fhir:ConceptBase.text ;
-                                   owl:allValuesFrom fhir:string
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty fhir:ConceptBase.coding ;
@@ -1970,13 +1967,13 @@ fhir:Element rdf:type owl:Class ;
                                owl:onDataRange xsd:integer
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:Element.id ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:string
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:Element.extension ;
-                               owl:allValuesFrom fhir:Extension
+                               owl:onProperty fhir:index ;
+                               owl:allValuesFrom [ rdf:type rdfs:Datatype ;
+                                                   owl:onDatatype xsd:integer ;
+                                                   owl:withRestrictions ( [ xsd:minInclusive 1
+                                                                          ]
+                                                                        )
+                                                 ]
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty fhir:Element.id ;
@@ -1988,13 +1985,13 @@ fhir:Element rdf:type owl:Class ;
                                                  ]
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:index ;
-                               owl:allValuesFrom [ rdf:type rdfs:Datatype ;
-                                                   owl:onDatatype xsd:integer ;
-                                                   owl:withRestrictions ( [ xsd:minInclusive 1
-                                                                          ]
-                                                                        )
-                                                 ]
+                               owl:onProperty fhir:Element.extension ;
+                               owl:allValuesFrom fhir:Extension
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty fhir:Element.id ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
                              ] ;
              
              rdfs:comment "The base element used for all FHIR elements and resources - allows for them to be extended with extensions" .
@@ -2023,11 +2020,11 @@ fhir:HumanName rdf:type owl:Class ;
                
                rdfs:subClassOf fhir:Element ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:HumanName.given ;
+                                 owl:onProperty fhir:HumanName.family ;
                                  owl:allValuesFrom fhir:string
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:HumanName.family ;
+                                 owl:onProperty fhir:HumanName.given ;
                                  owl:allValuesFrom fhir:string
                                ] .
 
@@ -2063,63 +2060,23 @@ fhir:MedicationOrder rdf:type owl:Class ;
                      
                      rdfs:subClassOf fhir:DomainResource ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.encounter ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.identifier ;
-                                       owl:allValuesFrom fhir:Identifier
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.dispense ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
                                        owl:onProperty fhir:MedicationOrder.prescriber ;
                                        owl:allValuesFrom fhir:Reference
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.patient.link ;
-                                       owl:allValuesFrom fhir:Patient
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.reasonReference ;
-                                       owl:allValuesFrom fhir:Reference
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.prescriber.link ;
-                                       owl:allValuesFrom fhir:Practitioner
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.priorPrescription ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.substitution ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty fhir:MedicationOrder.reasonCodeableConcept ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.dosageInstruction ;
-                                       owl:allValuesFrom fhir:MedicationOrder.DosageInstructions
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.medicationReference ;
-                                       owl:allValuesFrom fhir:Reference
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.substitution ;
-                                       owl:allValuesFrom fhir:MedicationOrder.Substitution
+                                       owl:allValuesFrom fhir:CodeableConcept
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty fhir:MedicationOrder.dateEnded ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                       owl:allValuesFrom fhir:dateTime
                                      ] ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.prescriber ;
+                                       owl:onProperty fhir:MedicationOrder.dispense ;
+                                       owl:allValuesFrom fhir:MedicationOrder.Dispense
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.resaonEnded ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
@@ -2131,56 +2088,96 @@ fhir:MedicationOrder rdf:type owl:Class ;
                                        owl:allValuesFrom fhir:string
                                      ] ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.encounter.link ;
-                                       owl:allValuesFrom fhir:Encounter
+                                       owl:onProperty fhir:MedicationOrder.substitution ;
+                                       owl:allValuesFrom fhir:MedicationOrder.Substitution
                                      ] ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.dateEnded ;
-                                       owl:allValuesFrom fhir:dateTime
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.priorPrescription ;
-                                       owl:allValuesFrom fhir:Reference
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.reasonReference ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.note ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.reasonCodeableConcept ;
-                                       owl:allValuesFrom fhir:CodeableConcept
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.medicationReference.link ;
-                                       owl:allValuesFrom fhir:Medication
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.medicationCodeableConcept ;
+                                       owl:onProperty fhir:MedicationOrder.substitution ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty fhir:MedicationOrder.medicationCodeableConcept ;
-                                       owl:allValuesFrom fhir:CodeableConcept
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.resaonEnded ;
-                                       owl:allValuesFrom fhir:dateTime
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.dispense ;
-                                       owl:allValuesFrom fhir:MedicationOrder.Dispense
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty fhir:MedicationOrder.medicationReference ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty fhir:MedicationOrder.resaonEnded ;
+                                       owl:onProperty fhir:MedicationOrder.dispense ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.resaonEnded ;
+                                       owl:allValuesFrom fhir:dateTime
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.note ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.priorPrescription ;
+                                       owl:allValuesFrom fhir:Reference
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.reasonCodeableConcept ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.encounter.link ;
+                                       owl:allValuesFrom fhir:Encounter
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.priorPrescription ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.medicationReference ;
+                                       owl:allValuesFrom fhir:Reference
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.prescriber ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.encounter ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.prescriber.link ;
+                                       owl:allValuesFrom fhir:Practitioner
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.identifier ;
+                                       owl:allValuesFrom fhir:Identifier
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.patient.link ;
+                                       owl:allValuesFrom fhir:Patient
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.dosageInstruction ;
+                                       owl:allValuesFrom fhir:MedicationOrder.DosageInstructions
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.medicationReference.link ;
+                                       owl:allValuesFrom fhir:Medication
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.reasonReference ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.reasonReference ;
+                                       owl:allValuesFrom fhir:Reference
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.dateEnded ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:MedicationOrder.medicationCodeableConcept ;
+                                       owl:allValuesFrom fhir:CodeableConcept
                                      ] ;
                      
                      rdfs:comment "An order for both supply of the medication and the instructions for administration of the medication to a patient." .
@@ -2289,28 +2286,28 @@ fhir:Reference rdf:type owl:Class ;
                
                rdfs:subClassOf fhir:Element ,
                                [ rdf:type owl:Restriction ;
+                                 owl:onProperty fhir:Reference.reference ;
+                                 owl:allValuesFrom fhir:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty fhir:Reference.reference ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty fhir:Reference.display ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
                                  owl:onProperty fhir:Reference.link ;
                                  owl:allValuesFrom fhir:DomainResource
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.reference ;
-                                 owl:allValuesFrom fhir:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
                                  owl:onProperty fhir:Reference.display ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 owl:allValuesFrom fhir:string
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty fhir:Reference.link ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.reference ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.display ;
-                                 owl:allValuesFrom fhir:string
                                ] .
 
 
@@ -2329,22 +2326,6 @@ fhir:Resource rdf:type owl:Class ;
               
               rdfs:subClassOf fhir:Thing ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty fhir:Resource.implicitRules ;
-                                owl:allValuesFrom fhir:uri
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty fhir:Resource.id ;
-                                owl:allValuesFrom fhir:id
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty fhir:Resource.implicitRules ;
-                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty fhir:Resource.meta ;
-                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                              ] ,
-                              [ rdf:type owl:Restriction ;
                                 owl:onProperty fhir:Resource.meta ;
                                 owl:allValuesFrom fhir:Meta
                               ] ,
@@ -2358,6 +2339,22 @@ fhir:Resource rdf:type owl:Class ;
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty fhir:Resource.id ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:Resource.meta ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:Resource.id ;
+                                owl:allValuesFrom fhir:id
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:Resource.implicitRules ;
+                                owl:allValuesFrom fhir:uri
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:Resource.implicitRules ;
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] .
 
@@ -2420,6 +2417,11 @@ fhir:boolean rdf:type owl:Class ;
              rdfs:subClassOf fhir:Datatype ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty fhir:value ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:boolean
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty fhir:value ;
                                owl:someValuesFrom [ rdf:type rdfs:Datatype ;
                                                     owl:oneOf [ rdf:type rdf:List ;
                                                                 rdf:first "false"^^xsd:boolean ;
@@ -2429,11 +2431,6 @@ fhir:boolean rdf:type owl:Class ;
                                                                          ]
                                                               ]
                                                   ]
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:value ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:boolean
                              ] ;
              
              rdfs:comment "Value of \"\"true\" or \"false\"" .
@@ -2445,10 +2442,6 @@ fhir:boolean rdf:type owl:Class ;
 fhir:code rdf:type owl:Class ;
           
           rdfs:subClassOf fhir:ConceptBase ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty fhir:ConceptBase.coding ;
-                            owl:cardinality "1"^^xsd:nonNegativeInteger
-                          ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty fhir:ConceptBase.coding ;
                             owl:allValuesFrom [ rdf:type owl:Class ;
@@ -2475,6 +2468,10 @@ fhir:code rdf:type owl:Class ;
                                                                      ]
                                                                    )
                                               ]
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty fhir:ConceptBase.coding ;
+                            owl:cardinality "1"^^xsd:nonNegativeInteger
                           ] .
 
 
@@ -2572,11 +2569,6 @@ fhir:decimal rdf:type owl:Class ;
              rdfs:subClassOf fhir:Datatype ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty fhir:value ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:decimal
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:value ;
                                owl:allValuesFrom xsd:decimal
                              ] ,
                              [ rdf:type owl:Restriction ;
@@ -2587,6 +2579,11 @@ fhir:decimal rdf:type owl:Class ;
                                owl:onProperty fhir:fractionDigits ;
                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                owl:onDataRange xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty fhir:value ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:decimal
                              ] ;
              
              rdfs:comment "A rational number with implicit precision" .
@@ -2608,17 +2605,17 @@ fhir:id rdf:type owl:Class ;
         rdfs:subClassOf fhir:Datatype ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty fhir:value ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty fhir:value ;
                           owl:allValuesFrom [ rdf:type rdfs:Datatype ;
                                               owl:onDatatype xsd:string ;
                                               owl:withRestrictions ( [ xsd:pattern "[A-Za-z0-9\\-\\.]{1,64}"
                                                                      ]
                                                                    )
                                             ]
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty fhir:value ;
-                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
                         ] ;
         
         rdfs:comment "A whole number in the range 0 to 2^64-1, optionally represented in hex, a uuid, an oid or any other combination of lower-case letters a-z, numerals, &quot;-&quot; and &quot;.&quot;, with a length limit of 36 characters" .
@@ -2632,12 +2629,12 @@ fhir:instant rdf:type owl:Class ;
              rdfs:subClassOf fhir:Datatype ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty fhir:value ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:dateTime
+                               owl:allValuesFrom xsd:dateTime
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty fhir:value ;
-                               owl:allValuesFrom xsd:dateTime
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:dateTime
                              ] .
 
 
@@ -2725,12 +2722,12 @@ fhir:uri rdf:type owl:Class ;
          rdfs:subClassOf fhir:Datatype ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty fhir:value ;
-                           owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange xsd:anyURI
+                           owl:someValuesFrom xsd:anyURI
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty fhir:value ;
-                           owl:someValuesFrom xsd:anyURI
+                           owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onDataRange xsd:anyURI
                          ] .
 
 
@@ -3651,19 +3648,14 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
 
 
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf fhirvs:allergy-intolerance-status-1.02-A ;
-  owl:onProperty fhir:CodingBase.system ;
-  owl:hasValue fhircs:allergy-intolerance-status
-] .
-[ rdf:type owl:Restriction ;
-  rdfs:subClassOf allergy-intolerance-status:resolved ;
+  rdfs:subClassOf allergy-intolerance-status:refuted ;
   owl:onProperty fhir:ConceptBase.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                               owl:onProperty fhir:CodingBase.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
-                                                                  owl:hasValue "resolved"
+                                                                  owl:hasValue "refuted"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
@@ -3674,9 +3666,22 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
                      ]
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf fhirvs:allergy-intolerance-statusC ;
-  owl:onProperty fhir:CodingBase.concept ;
-  owl:someValuesFrom allergy-intolerance-status:Concept
+  rdfs:subClassOf allergy-intolerance-status:inactive ;
+  owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "inactive"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue fhircs:allergy-intolerance-status
+                                            ]
+                                          )
+                     ]
 ] .
 [ rdf:type owl:Class ;
   rdfs:subClassOf fhirvs:allergy-intolerance-statusB ;
@@ -3701,32 +3706,19 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
                      )
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf allergy-intolerance-status:entered-in-error ;
-  owl:onProperty fhir:ConceptBase.coding ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "entered-in-error"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue fhircs:allergy-intolerance-status
-                                            ]
-                                          )
-                     ]
+  rdfs:subClassOf fhirvs:allergy-intolerance-statusC ;
+  owl:onProperty fhir:CodingBase.concept ;
+  owl:someValuesFrom allergy-intolerance-status:Concept
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf allergy-intolerance-status:active ;
+  rdfs:subClassOf allergy-intolerance-status:resolved ;
   owl:onProperty fhir:ConceptBase.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                               owl:onProperty fhir:CodingBase.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
-                                                                  owl:hasValue "active"
+                                                                  owl:hasValue "resolved"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
@@ -3755,24 +3747,6 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
                      ]
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf allergy-intolerance-status:inactive ;
-  owl:onProperty fhir:ConceptBase.coding ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "inactive"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue fhircs:allergy-intolerance-status
-                                            ]
-                                          )
-                     ]
-] .
-[ rdf:type owl:Restriction ;
   rdfs:subClassOf fhirvs:allergy-intolerance-statusD ;
   owl:onProperty fhir:CodingBase.concept ;
   owl:someValuesFrom [ rdf:type owl:Class ;
@@ -3782,14 +3756,14 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
                      ]
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf allergy-intolerance-status:refuted ;
+  rdfs:subClassOf allergy-intolerance-status:entered-in-error ;
   owl:onProperty fhir:ConceptBase.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                               owl:onProperty fhir:CodingBase.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
-                                                                  owl:hasValue "refuted"
+                                                                  owl:hasValue "entered-in-error"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
@@ -3808,6 +3782,29 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
                                                                   owl:hasValue "unconfirmed"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue fhircs:allergy-intolerance-status
+                                            ]
+                                          )
+                     ]
+] .
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf fhirvs:allergy-intolerance-status-1.02-A ;
+  owl:onProperty fhir:CodingBase.system ;
+  owl:hasValue fhircs:allergy-intolerance-status
+] .
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf allergy-intolerance-status:active ;
+  owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "active"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
