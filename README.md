@@ -13,3 +13,6 @@ This was forked from jmandel/fhir-rdf because ericP needed admin privs.
     # download [http://saxon.sourceforge.net/ saxon]
     # java net.sf.saxon.Transform -s:deviceobservation-referencesToContained.xml -xsl:../transform.xsl -o:deviceobservation-referencesToContained-generated.ttl
 </pre>
+
+## TODO
+- migrate Atom stuff to use [Bundles](http://lists.hl7.org/read/attachment/281404/2/RDF+Example+ValueSets.xml)
