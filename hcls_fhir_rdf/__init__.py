@@ -26,3 +26,9 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
+
+__copyright__ = 'Copyright (c) 2015, Mayo Clinic'
+__license__ = 'New BSD license'
+__version__ = '0.0.1-DEV'
+
+__all__ = ['download_fhir_spec', 'generate_paths']
