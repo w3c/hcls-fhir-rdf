@@ -24,4 +24,4 @@ python bin/generate_fhir_definitions -id data -o data/definitions.xml -of xml -e
 The above will download the FHIR DST2 2 definitions, installing them in the data/site directory, and will place
 the examples in the examples directory.  It will then process the definitions creating a the definitions descriptor.
 
-xsltproc -stringparam fhirdefs data/definitions.xml xsl/transform.xsl examples/allergyintolerance-example.xml > examples/allergyintolerance-example.ttl
+xsltproc -stringparam fhirdefs data/definitions.xml xsl/transform.xsl examples/site/allergyintolerance-example.xml > examples/allergyintolerance-example.ttl

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0" xmlns:f="http://hl7.org/fhir"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="1.0" xmlns:f="http://hl7.org/fhir"
     xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:l="http://local-mods" xmlns:mt="http://local/mapping/">
 
     <!-- Generation date and time -->
-    <xsl:param name="now" select="current-dateTime()"/>
+    <!--<xsl:param name="now" select="current-dateTime()"/>  xslt version 2 only-->
+    <xsl:param name="now" select="'NOW'"/>
 
     <!-- Name of the root document -->
     <xsl:param name="docParam" select="'[]'"/>
@@ -51,6 +52,10 @@
         <entry suffix="Oid" type="oid"/>
         <entry suffix="Markdown" type="markdown"/>
     </mt:mappings>
+
+    <!-- XSLT 1.0 only -->
+    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'" />
+    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
     <!-- Entry point -->
     <xsl:template match="/">
@@ -371,7 +376,8 @@ change
                     </xsl:call-template>
 
                     <!-- for a given property, look for its occurence(s) in instance data -->
-                    <xsl:for-each select="$this/*[name() = lower-case($xpath)]">
+                    <!--<xsl:for-each select="$this/*[name() = lower-case($xpath)]">  xslt 2.0-->
+                    <xsl:for-each select="$this/*[name() = translate($xpath, $uppercase, $lowercase)]">
                         <!-- include contained arcs -->
                         <xsl:variable name="last_instance_p" select="position() = last()"/>
                         <xsl:call-template name="idnt">
@@ -673,13 +679,13 @@ change
     <!-- addPrefixes: generate the header prefixes
         param: name - local namespace of the resource
      -->
-    <xsl:variable name="prefixes">
+    <!--<xsl:variable name="prefixes"> version 2.0 -->
         <mt:prefixes xmlns="http://local/mapping/">
             <prefix pfx="fhir:">http://hl7.org/fhir/</prefix>
             <prefix pfx="xhtml:">http://www.w3.org/1999/xhtml</prefix>
             <prefix pfx="xsd:">http://www.w3.org/2001/XMLSchema</prefix>
         </mt:prefixes>
-    </xsl:variable>
+    <!--</xsl:variable> version 2.0-->
 
     <xsl:template name="addPrefixes">
         <xsl:param name="name"/>
@@ -687,7 +693,8 @@ change
             <xsl:with-param name="pfx" select="$name"/>
             <xsl:with-param name="uri">http://hl7.org/fhir</xsl:with-param>
         </xsl:call-template>
-        <xsl:for-each select="$prefixes/mt:prefixes/mt:prefix">
+        <!--<xsl:for-each select="$prefixes/mt:prefixes/mt:prefix">  xslt version 2-->
+        <xsl:for-each select="document('')/mt:prefixes/mt:prefix">
             <xsl:call-template name="prefix">
                 <xsl:with-param name="pfx" select="@pfx"/>
                 <xsl:with-param name="uri" select="."/>

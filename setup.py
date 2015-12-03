@@ -5,10 +5,13 @@ hcls_fhir_rdf
 
 Tools for RDF representations for FHIR
 """
-
-from distutils.core import setup
 import os
 import sys
+
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hcls_fhir_rdf'))
 import hcls_fhir_rdf
@@ -18,7 +21,7 @@ long_description = """Tools for RDF representations for FHIR"""
 setup(
     name='hcls_fhir_rdf',
     provides=['hcls_fhir_rdf'],
-    install_requires=['dirlistproc', 'jsonasobj'],
+    install_requires=['dirlistproc >= 1.0.0-rc.1', 'jsonasobj >= 0.0.2', 'requests >= 2.8.0'],
     version=hcls_fhir_rdf.__version__,
     description='FHIR to RDF conversion tools',
     long_description=long_description,

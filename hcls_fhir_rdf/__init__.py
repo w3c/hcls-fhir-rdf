@@ -29,6 +29,6 @@
 
 __copyright__ = 'Copyright (c) 2015, Mayo Clinic'
 __license__ = 'New BSD license'
-__version__ = '0.0.1-DEV'
+__version__ = '0.0.2-DEV'
 
 __all__ = ['download_fhir_spec', 'generate_paths']
