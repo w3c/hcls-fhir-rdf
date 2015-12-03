@@ -4,6 +4,8 @@ Sketching out an RDF representation for FHIR
 ## Installation
 This revised package is just being installed. Expect serious instability for a week or so...
 
+Currently requires python 3 -- may be adjusted later on
+
 git clone https://github.com/w3c/hcls-fhir-rdf.git
 
 pip install dirlistproc
