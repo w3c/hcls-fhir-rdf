@@ -7,7 +7,7 @@ This revised package is just being installed. Expect serious instability for a w
 Currently requires python 3 -- may be adjusted later on.  Most systems already have python 3 on them, which
 is invoked via the command "python3".  Note that the scripts below assume that 'python' direcly invokes 'python3'.
 
-* If python 3 is the default python on your system:
+### If python 3 is the default python on your system:
 
 ```bash
 git clone https://github.com/w3c/hcls-fhir-rdf.git
@@ -18,7 +18,7 @@ generate_xml_definitions
 generate_shex
 ```
 
-* If python defaults to an earlier version:
+### If python defaults to an earlier version:
 ```bash
 git clone https://github.com/w3c/hcls-fhir-rdf.git
 cd hcls-fhir-rdf
