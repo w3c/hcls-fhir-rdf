@@ -22,10 +22,10 @@ generate_shex
 ```bash
 git clone https://github.com/w3c/hcls-fhir-rdf.git
 cd hcls-fhir-rdf
-python setup.py install
-download_fhir_spec
-generate_xml_definitions
-generate_shex
+python3 setup.py install
+python3 scripts/download_fhir_spec
+python3 scripts/generate_xml_definitions > data/definitions.xml
+python3 scripts/generate_shex > data/definitions.shex
 ```
 
 ## Notes
