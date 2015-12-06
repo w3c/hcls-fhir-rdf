@@ -28,6 +28,7 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 """ This package interprets the snapshot view of a FHIR StructuredDefinition resource.
 """
+import argparse
 import logging
 import jsonasobj
 from collections import OrderedDict
@@ -38,12 +39,42 @@ t2 = '\t' * 2
 t3 = '\t' * 3
 t4 = '\t' * 4
 
+# Typing aliases
+ShExC = str
+xml = str
 
-class Elements:
+
+class PathElements:
     """ A complete dictionary of defined elements
     """
     def __init__(self):
-        self.entries = {}       # Element name to Element
+        self.entries = {}       # Dict[str, PathEntry]
+
+    def __iter__(self):
+        return self.entries
+
+    @staticmethod
+    def addargs(args: argparse.ArgumentParser) -> None:
+        """ Add local args to the dirlistproc set
+        :param args: dirlistproc arguments
+        """
+        args.add_argument("--differential", help="Process differential definitions. (default: snapshot)",
+                          action="store_true")
+
+    @staticmethod
+    def inp_filtr(input_fn: str) -> bool:
+        """ Determine which files should be processed
+        :param input_fn: file name to test
+        :return: True if it should be processed, False if it is to be skipped
+        """
+        reason = None
+        if '-' in input_fn:
+            reason = "name contains a hyphen (-)"
+        elif input_fn.endswith(".xml.profile.json"):
+            reason = "ends with .xml.profile.json"
+        if reason:
+            logging.info("\t%s skipped %s" % (input_fn, reason))
+        return reason is None
 
     def add_file(self, file_name: str, differential: bool) -> bool:
         """ Add the definition in the supplied file to the set of element definitions
@@ -98,15 +129,29 @@ class Elements:
         return self.entries.setdefault(entry_name, PathElement())
 
     @property
-    def as_dict(self):
+    def as_dict(self) -> dict:
         return {k: v.as_dict for k, v in self.entries.items()}
 
     @property
-    def as_xml(self):
+    def as_xml(self) -> xml:
         return '<l:fhirdefs xmlns:l="http://local-mods">\n' + \
                '\n'.join([t1 + '<path>\n' + t2 + '<fhir_path>' + k + '</fhir_path>\n' + v.as_xml(k) +
                           t1 + '</path>' for k, v in self.entries.items()]) + \
-               '</l:fhirdefs>'
+               '\n</l:fhirdefs>'
+
+    @property
+    def as_shexc(self) -> ShExC:
+        return 'PREFIX fhir: <http://hl7/org/fhir/>\n' + \
+               'PREFIX xhtml: <http://www.w3.org/1999/xhtml>\n' + \
+               'PREFIX GenX: <http://shex.io/extensions/GenX/>\n' + \
+               'PREFIX xsd: <http://www.w3.org/2001/XMLSchema>\n\n' + \
+               '\n}\n\n'.join(['<%(k)sShape> {\n\ta (fhir:%(k)s)?' % {'k': k} +
+                               (',\n\t' if self.entries.items else '\n') +
+                               self.entries[k].as_shexc(k) for k in sorted(self.entries.keys())]) + \
+               '\n}\n\n <LitShape> {\n' + \
+               '\tfhir:value LITERAL %GenX:{ @value %},\n' + \
+               '\tfhir:id LITERAL? %GenX:{ @id %}\n' + \
+               '}'
 
 
 class PathElement:
@@ -116,7 +161,7 @@ class PathElement:
         self.defined_in = ''
         self.referenced_in = set()
         self.properties = Properties()
-        self.constraints = {}           # key = base constraint, value = Properties()
+        self.constraints = {}           # Dict[str, Properties]
 
     def add_constraint(self, rootname: str, prop_name: str,
                        element_defn: jsonasobj.JsonObj, possible_value: jsonasobj.JsonObj) -> None:
@@ -180,12 +225,69 @@ class PathElement:
                 rval += t3 + '<sub>\n'
                 rval += t4 + '<fhir_path>' + parent + '.' + k + '</fhir_path>\n'
                 rval += t4 + '<predicate>fhir:' + parent + '.' + k + '</predicate>\n'
-                rval += v.as_xml(parent)
+                rval += v.as_xml
                 rval += t3 + '</sub>\n'
             # TODO constraints
             rval += t2 + '</subs>\n'
         rval += t2 + '<type>' + parent + '</type>\n'
         return rval
+
+    def as_shexc(self, name: str) -> ShExC:
+        return self.properties.as_shexc(name) + ''.join([props.as_shexc(k) for k, props in self.constraints.items()])
+
+
+class Properties:
+    """ An ordered collection of named properties
+    """
+    def __init__(self) -> None:
+        self.entries = OrderedDict()
+
+    def add_entry(self, target: str, prop):
+        if target in self.entries:
+            i = 1
+            while target + '_' + str(i) in self.entries:
+                i += 1
+            renamed_target = target + '_' + str(i)
+            logging.warning("\tduplicate property %s - renamed to %s" % (target, renamed_target))
+            target = renamed_target
+        self.entries[target] = prop
+
+    @property
+    def as_dict(self) -> dict:
+        return [{"id": k, "prop": v.as_dict} for k, v in self.entries.items()]
+
+    def as_shexc(self, name: str) -> ShExC:
+        return ',\n\t'.join([v.as_shexc(name + '.' + k) for k, v in self.entries.items()])
+
+# Checked against http://hl7-fhir.github.io/extensibility.html#json-inner  12/04/2015
+value_extension = """ (fhir:valueInteger xsd:integer,
+    | fhir:valueDecimal xsd:decimal,
+    | fhir:valueDateTime xsd:dateTime,
+    | fhir:valueDate xsd:date,
+    | fhir:valueInstant xsd:dateTime, #"<instant>"
+    | fhir:valueString LITERAL, #"<string>"
+    | fhir:valueUri IRI, #"<uri>"
+    | fhir:valueBoolean xsd:boolean,
+    | fhir:valueCode LITERAL, #"<code>"
+    | fhir:valueBase64Binary xsd:base64Binary,
+    | fhir:valueCoding @<CodingShape>,
+    | fhir:valueCodeableConcept @<CodeableConceptShape>,
+    | fhir:valueAttachment @<AttachmentShape>,
+    | fhir:valueIdentifier @<IdentifierShape>,
+    | fhir:valueQuantity @<QuantityShape>,
+    | fhir:valueRange @<RangeShape>,
+    | fhir:valuePeriod @<PeriodShape>,
+    | fhir:valueRatio @<RatioShape>,
+    | fhir:valueHumanName @<HumanNameShape>,
+    | fhir:valueAddress @<AddressShape>,
+    | fhir:valueContactPoint @<ContactPointShape>,
+    | fhir:valueSchedule @<ScheduleShape>,
+    | fhir:valueReference @<ReferenceShape>)"""
+
+card_map = {(0, 1): "?",
+            (1, 1): "",
+            (0, "*"): "*",
+            (1, "*"): "+"}
 
 
 class Property:
@@ -208,30 +310,58 @@ class Property:
     def as_dict(self) -> dict:
         return self.__dict__
 
-    def as_xml(self, parent) -> str:
+    @property
+    def as_xml(self) -> xml:
         typ = self.__dict__.get('type', '') + self.__dict__.get('primitiveType', '')
         rel_path = self.path if '.' not in self.path else self.path.rsplit('.', 1)[1]
         rval = t4 + '<relative_xpath>f:' + rel_path + '</relative_xpath>\n'
         rval += t4 + '<type>' + typ + '</type>\n'
         return rval
 
+    def as_shexc(self, name: str) -> ShExC:
+        card = card_map.get((self.min, self.max), "{%d,%s}" % (self.min, self.max if self.max != '*' else ''))
+        if 'primitiveType' in self.__dict__:
+            return "fhir:%s @<LitShape>%s %%GenX:{ %s = %%}" % (name, card, name)
+        elif self.type == "Extension.value":
+            return value_extension
+        else:
+            return "fhir:%s @<%s>%s  %%GenX:{ %s = %%}" % (name, self.type + "Shape", card, self.type)
+        #   fhir:Claim.payee.modifierExtension @<ExtensionShape>*  %GenX:{ modifierExtension = %},
 
-class Properties:
-    """ An ordered collection of named properties
-    """
-    def __init__(self) -> None:
-        self.entries = OrderedDict()
 
-    def add_entry(self, target: str, prop: Property):
-        if target in self.entries:
-            i = 1
-            while target + '_' + str(i) in self.entries:
-                i += 1
-            renamed_target = target + '_' + str(i)
-            logging.warning("\tduplicate property %s - renamed to %s" % (target, renamed_target))
-            target = renamed_target
-        self.entries[target] = prop
 
-    @property
-    def as_dict(self) -> dict:
-        return [{"id": k, "prop": v.as_dict} for k, v in self.entries.items()]
+# <AgeShape> {
+#   a (fhir:Age)?,
+#   fhir:Quantity.code @<LitShape>? %GenX:{ code = %},
+#   fhir:Quantity.comparator @<LitShape>? %GenX:{ comparator = %},
+#   fhir:Quantity.extension @<ExtensionShape>*  %GenX:{ extension = %},
+#   fhir:Quantity.system @<LitShape>? %GenX:{ system = %},
+#   fhir:Quantity.value @<LitShape>? %GenX:{ value = %},
+#   fhir:Quantity.units @<LitShape>? %GenX:{ units = %},
+#   fhir:Quantity.id @<LitShape>? %GenX:{ id = %}
+# }
+
+
+# <Claim.payeeShape> {
+#   a (fhir:Claim.payee)?,
+#   fhir:Claim.payee.modifierExtension @<ExtensionShape>*  %GenX:{ modifierExtension = %},
+#   fhir:Claim.payee.extension @<ExtensionShape>*  %GenX:{ extension = %},
+#   fhir:Claim.payee.person @<ReferenceShape>?  %GenX:{ person = %},
+#   fhir:Claim.payee.provider @<ReferenceShape>?  %GenX:{ provider = %},
+#   fhir:Claim.payee.organization @<ReferenceShape>?  %GenX:{ organization = %},
+#   fhir:Claim.payee.type @<CodingShape>?  %GenX:{ type = %},
+#   fhir:Claim.payee.id @<LitShape>? %GenX:{ id = %}
+# }
+
+# "Claim.payee": {
+#     "properties": {
+#       "extension": {
+#         "max": "*",
+#         "min": 0,
+#         "type": "Extension"
+#       },
+#       "id": {
+#         "max": "1",
+#         "min": 0,
+#         "primitiveType": "id"
+#       },

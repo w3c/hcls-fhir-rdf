@@ -21,7 +21,7 @@ long_description = """Tools for RDF representations for FHIR"""
 setup(
     name='hcls_fhir_rdf',
     provides=['hcls_fhir_rdf'],
-    install_requires=['dirlistproc >= 1.0.0-rc.1', 'jsonasobj >= 0.0.2', 'requests >= 2.8.0'],
+    install_requires=['dirlistproc >= 1.0.0-rc.1', 'jsonasobj >= 0.0.2', 'requests >= 2.8.0', 'typing'],
     version=hcls_fhir_rdf.__version__,
     description='FHIR to RDF conversion tools',
     long_description=long_description,
@@ -29,7 +29,7 @@ setup(
     author_email='solbrig.harold@mayo.edu',
     url='http://github.com/w3c/hcls-fhir-rdf',
     packages=['hcls_fhir_rdf'],
-    scripts=['scripts/generate_fhir_definitions'],
+    scripts=['scripts/download_fhir_spec', 'scripts/generate_shex', 'scripts/generate_xml_definitions'],
     license='BSD 3-Clause license',
     classifiers=[
         'Development Status :: 4 - Beta',

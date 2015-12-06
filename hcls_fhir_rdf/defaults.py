@@ -26,9 +26,15 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
+import os
+from logging import INFO
 
-__copyright__ = 'Copyright (c) 2015, Mayo Clinic'
-__license__ = 'New BSD license'
-__version__ = '0.0.3-DEV'
+DEFAULT_SPEC_URL = "http://www.hl7.org/implement/standards/fhir/2015May/fhir-spec.zip"
+DEFAULT_TARGET_DIRECTORY = "data"
+DEFAULT_TARGET_FILE = os.path.join(DEFAULT_TARGET_DIRECTORY, "fhir-spec.zip")
+DEFAULT_EXAMPLE_DIRECTORY = os.path.join(DEFAULT_TARGET_DIRECTORY, "examples")
 
-__all__ = ['defaults', 'fhir_elements']
+DEFAULT_LOG_FILE = os.path.join(DEFAULT_TARGET_DIRECTORY, "extract.log")
+LOGGING_LEVEL = INFO
+
+DOWNLOAD_CHUNK_SIZE = 8192       # streaming download chunk size
