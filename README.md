@@ -30,7 +30,8 @@ python3 scripts/generate_shex > data/definitions.shex
 
 ## Notes
 
-The above will download the FHIR DST2 2 definitions, installing them in the data/site directory, and will place
-the examples in the examples directory.  It will then process the definitions creating a the definitions descriptor.
+The above scripts don't actually generate the example turtle file.  We'll get that in in the next day or so... in the mean time the example below shows how one might generate bits of RDF:
 
+```bash
 xsltproc -stringparam fhirdefs data/definitions.xml xsl/transform.xsl ../data/examples/site/allergyintolerance-example.xml > examples/allergyintolerance-example.ttl
+```
