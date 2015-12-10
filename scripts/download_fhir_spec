@@ -1,0 +1,139 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2015, Mayo Clinic
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# Redistributions of source code must retain the above copyright notice, this
+#     list of conditions and the following disclaimer.
+#
+#     Redistributions in binary form must reproduce the above copyright notice,
+#     this list of conditions and the following disclaimer in the documentation
+#     and/or other materials provided with the distribution.
+#
+#     Neither the name of the <ORGANIZATION> nor the names of its contributors
+#     may be used to endorse or promote products derived from this software
+#     without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+# OF THE POSSIBILITY OF SUCH DAMAGE.
+import argparse
+from datetime import datetime
+import logging
+import os
+import requests
+import sys
+from typing import List, Union
+from zipfile import ZipFile
+
+if __name__ == "__main__":
+    sys.path.append(os.path.join(os.path.join(os.getcwd(), os.path.dirname(__file__)), '..'))
+
+from hcls_fhir_rdf.defaults import *
+
+
+def download_spec(opts: argparse.Namespace) -> bool:
+    """ Download and unzip the FHIR specification (if necessary)
+    :param opts: Parser options
+    :return: success indicator
+    """
+    download_needed = False
+    target_file_modtime = None
+    try:
+        target_file_modtime = datetime.fromtimestamp(os.path.getmtime(opts.file))
+    except FileNotFoundError:
+        logging.info("%s does not currently exist" % opts.file)
+        download_needed = True
+
+    if not download_needed:
+        try:
+            r = requests.head(opts.url)
+        except requests.ConnectionError as e:
+            print(str(e))
+            return False, False
+        if r.status_code == 200:
+            file_date = datetime.strptime(r.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S GMT')
+            download_needed = file_date > target_file_modtime
+            if download_needed:
+                logging.info("%s is newer than %s: downloading newer copy" % (opts.url, opts.file))
+        else:
+            logging.error("Error: %d on %s" % (r.status_code, opts.url))
+            return False, False
+
+    if download_needed:
+        logging.info("Downloading %s:" % opts.url)
+        try:
+            r = requests.get(opts.url, stream=True)
+        except requests.ConnectionError as e:
+            print(str(e))
+            return False, False
+        if r.status_code == 200:
+            with open(opts.file, 'wb') as tf:
+                for chunk in r.iter_content(DOWNLOAD_CHUNK_SIZE):
+                    tf.write(chunk)
+            return True, True
+        else:
+            logging.error("Error: %d downloading %s" % (r.status_code, opts.url))
+            return False, False
+
+    return True, False
+
+
+def do_unzip(opts: argparse.Namespace) -> bool:
+    """ Unzip the target file
+    :param opts: input options
+    :return: success indicator
+    """
+    # TODO: implement opts.clear
+    logging.info("Unzipping %s into %s" % (opts.file, opts.dir))
+    zf = ZipFile(opts.file)
+    file_names = [n for n in zf.namelist() if n.endswith(".profile.json")]
+    zf.extractall(opts.dir, members=file_names)
+    if opts.exampledir:
+        logging.info("Unzipping examples into %s" % opts.exampledir)
+        file_names = [n for n in zf.namelist() if n.endswith("-example.xml")]
+        zf.extractall(opts.exampledir, members=file_names)
+    return True
+
+
+def parse_args(args: Union[List[str], None]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Download and unzip the FHIR spec")
+    parser.add_argument("-url", "--url",
+                        help="URL of FHIR specification to download (default: %s)" % DEFAULT_SPEC_URL,
+                        default=DEFAULT_SPEC_URL)
+    parser.add_argument("-f", "--file", help="target download file name (default: %s)" % DEFAULT_TARGET_FILE,
+                        default=DEFAULT_TARGET_FILE)
+    parser.add_argument("-d", "--dir", help="target directory (default: %s)" % DEFAULT_TARGET_DIRECTORY,
+                        default=DEFAULT_TARGET_DIRECTORY)
+    parser.add_argument("-e", "--exampledir", help="Example directory (default: %s)" % DEFAULT_EXAMPLE_DIRECTORY,
+                        default=DEFAULT_EXAMPLE_DIRECTORY)
+    parser.add_argument("--force", help="Force FHIR specification download ",
+                        action="store_true")
+    # parser.add_argument("--clear", help="Clear output and examples directory before unzipping", action="store_true")
+    parser.add_argument("--unzip", help="Force unzip", action="store_true")
+    parser.add_argument("--logfile", help="Logging file. (default: %s)" % DEFAULT_LOG_FILE, default=DEFAULT_LOG_FILE)
+    parser.add_argument("--skipdownload", help="Don't attempt to download zip file", action="store_true")
+    return parser.parse_args(args if args is not None else sys.argv[1:])
+
+
+def main():
+    opts = parse_args(None)
+    os.makedirs(opts.dir, exist_ok=True)
+    logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='w')
+    success, new_download = download_spec(opts) if not opts.skipdownload else (True, True)
+    if success and (new_download or opts.unzip):
+        success = do_unzip(opts)
+    logging.info("Success!" if success else "Failed")
+    sys.exit(0 if success else 1)
+
+if __name__ == '__main__':
+    main()
