@@ -1,18 +1,96 @@
 @prefix : <http://record/AllergyIntolerance/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sct: <http://snomed.info/id/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix fhir: <http://hl7.org/fhir/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix profile: <http://PatientSafetyProfile/> .
 @base <http://record/AllergyIntolerance/> .
 
 <http://record/AllergyIntolerance/> rdf:type owl:Ontology ;
                                     
-                                    owl:imports <http://PatientSafetyProfile> ,
-                                                <http://record/Med1> .
+                                    owl:imports <http://hl7.org/fhir> .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://hl7.org/fhir/AllergyIntolerance.patient
+
+fhir:AllergyIntolerance.patient rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/AllergyIntolerance.status
+
+fhir:AllergyIntolerance.status rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/AllergyIntolerance.substance
+
+fhir:AllergyIntolerance.substance rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/CodingBase.code
+
+fhir:CodingBase.code rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/CodingBase.display
+
+fhir:CodingBase.display rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/CodingBase.system
+
+fhir:CodingBase.system rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/ConceptBase.coding
+
+fhir:ConceptBase.coding rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/ConceptBase.text
+
+fhir:ConceptBase.text rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Reference.display
+
+fhir:Reference.display rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Reference.link
+
+fhir:Reference.link rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Reference.reference
+
+fhir:Reference.reference rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Resource.id
+
+fhir:Resource.id rdf:type owl:AnnotationProperty .
+
+
+
 
 
 #################################################################
@@ -22,45 +100,9 @@
 #################################################################
 
 
-###  http://PatientSafetyProfile/DomainResource
+###  http://PatientSafetyProfile/AllergyIntolerance
 
-profile:DomainResource rdf:type owl:Class .
-
-
-
-###  http://hl7.org/fhir/Coding
-
-fhir:Coding rdf:type owl:Class .
-
-
-
-###  http://hl7.org/fhir/code
-
-fhir:code rdf:type owl:Class .
-
-
-
-###  http://hl7.org/fhir/uri
-
-fhir:uri rdf:type owl:Class .
-
-
-
-###  http://hl7.org/fhir/allergyIntoleranceStatus#confirmed
-
-<http://hl7.org/fhir/allergyIntoleranceStatus#confirmed> rdf:type owl:Class .
-
-
-
-###  http://hl7.org/fhir/vs/allergyIntoleranceStatus
-
-<http://hl7.org/fhir/vs/allergyIntoleranceStatus> rdf:type owl:Class .
-
-
-
-###  http://snomed.info/id/90614001
-
-<http://snomed.info/id/90614001> rdf:type owl:Class .
+<http://PatientSafetyProfile/AllergyIntolerance> rdf:type owl:Class .
 
 
 
@@ -75,43 +117,27 @@ fhir:uri rdf:type owl:Class .
 
 ###  http://record/AllergyIntolerance/1
 
-<http://record/AllergyIntolerance/1> rdf:type profile:AllergyIntolerance ,
- owl:NamedIndividual ;
-                         fhir:AllergyIntolerance.substance [ rdfs:label "beta-lactam (antibiotic)" ;
-                                                                  fhir:ConceptBase.coding [ fhir:CodingBase.display [ fhir:value "beta-lactam (antibiotic)" ] ;
- 
-         fhir:CodingBase.system [ fhir:value <http://snomed.info/sct>
- ] ;
-         fhir:CodingBase.code [ fhir:value "90614001" ]
+<http://record/AllergyIntolerance/1> rdf:type <http://PatientSafetyProfile/AllergyIntolerance> ,
+                                              owl:NamedIndividual ;
+                                     
+                                     fhir:AllergyIntolerance.substance [ rdfs:label "beta-lactam (antibiotic)" ;
+                                                                         fhir:ConceptBase.coding [ fhir:CodingBase.system [ ] ;
+                                                                                                 fhir:CodingBase.code [ ] ;
+                                                                       fhir:CodingBase.display [ ]
+] ;
+fhir:ConceptBase.text [ ]
+] ;
 
-      ] ;
-      fhir:ConceptBase.text [ fhir:value "beta-lactam (antibiotic)"
- ]
- 
-   ] ;
+fhir:Resource.id [ ] ;
 
-   fhir:Resource.id [ fhir:value "1"
- ] ;
-   fhir:AllergyIntolerance.patient [ fhir:Reference.link <http://record/Patient/PeterPatient> ;
- 
-      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient"
- ] ;
+fhir:AllergyIntolerance.status [ fhir:ConceptBase.coding [ fhir:CodingBase.code [ ]
+                                 ]
+] ;
 
-      fhir:Reference.display [ fhir:value "Peter Patient"
- ]
-   ] ;
-
-   fhir:AllergyIntolerance.status [ fhir:ConceptBase.coding [ fhir:CodingBase.code [ fhir:value "confirmed"
- ]
- ] ] .
-
-
-
-
-
-###  http://record/Patient/PeterPatient
-
-<http://record/Patient/PeterPatient> rdf:type owl:NamedIndividual .
+fhir:AllergyIntolerance.patient [ fhir:Reference.link <http://record/Patient/PeterPatient> ;
+                                  fhir:Reference.display [ ] ;
+                                fhir:Reference.reference [ ]
+] .
 
 
 

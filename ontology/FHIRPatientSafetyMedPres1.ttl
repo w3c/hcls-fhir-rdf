@@ -16,60 +16,80 @@
 
 #################################################################
 #
-#    Object Properties
+#    Annotation properties
 #
 #################################################################
 
 
+###  http://hl7.org/fhir/Bundle.Entry.resource
+
+fhir:Bundle.Entry.resource rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Bundle.entry
+
+fhir:Bundle.entry rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Bundle.link
+
+fhir:Bundle.link rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Bundle.total
+
+fhir:Bundle.total rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Bundle.type
+
+fhir:Bundle.type rdf:type owl:AnnotationProperty .
+
+
+
 ###  http://hl7.org/fhir/MedicationOrder.medicationReference
 
-fhir:MedicationOrder.medicationReference rdf:type owl:ObjectProperty .
+fhir:MedicationOrder.medicationReference rdf:type owl:AnnotationProperty .
+
 
 
 ###  http://hl7.org/fhir/MedicationOrder.patient
-fhir:MedicationOrder.patient rdf:type owl:ObjectProperty .
 
+fhir:MedicationOrder.patient rdf:type owl:AnnotationProperty .
+
+
+
+###  http://hl7.org/fhir/Meta.lastUpdated
+
+fhir:Meta.lastUpdated rdf:type owl:AnnotationProperty .
 
 
 
 ###  http://hl7.org/fhir/Reference.display
 
-fhir:Reference.display rdf:type owl:ObjectProperty .
-
+fhir:Reference.display rdf:type owl:AnnotationProperty .
 
 
 
 ###  http://hl7.org/fhir/Reference.link
 
-fhir:Reference.link rdf:type owl:ObjectProperty .
+fhir:Reference.link rdf:type owl:AnnotationProperty .
 
 
 
 ###  http://hl7.org/fhir/Reference.reference
 
-fhir:Reference.reference rdf:type owl:ObjectProperty .
+fhir:Reference.reference rdf:type owl:AnnotationProperty .
 
 
 
+###  http://hl7.org/fhir/Resource.meta
 
-
-
-#################################################################
-#
-#    Data properties
-#
-#################################################################
-
-
-###  http://hl7.org/fhir/tag
-
-fhir:tag rdf:type owl:DatatypeProperty .
-
-
-
-###  http://hl7.org/fhir/value
-
-fhir:value rdf:type owl:DatatypeProperty .
+fhir:Resource.meta rdf:type owl:AnnotationProperty .
 
 
 
@@ -82,15 +102,9 @@ fhir:value rdf:type owl:DatatypeProperty .
 #################################################################
 
 
-###  http://PatientSafetyProfile/DomainResource
+###  http://PatientSafetyProfile/MedicationPrescription
 
-profile:DomainResource rdf:type owl:Class .
-
-
-
-###  http://hl7.org/fhir/Reference
-
-fhir:Reference rdf:type owl:Class .
+profile:MedicationPrescription rdf:type owl:Class .
 
 
 
@@ -109,41 +123,54 @@ fhir:Reference rdf:type owl:Class .
 
 
 
-
 ###  http://record/MedicationPrescription/1
 
 <http://record/MedicationPrescription/1> rdf:type profile:MedicationPrescription ,
                                                   owl:NamedIndividual ;
                                          
-                                         fhir:tag "MedicationOrder" ;
-                                         
                                          fhir:MedicationOrder.medicationReference [ rdf:type fhir:Reference ;
                                                                                     fhir:Reference.link <http://record/Medication/1> ;
-
-   fhir:Reference.reference [ fhir:value "http://record/Medication/1"
- ] ;
-   
-   fhir:Reference.display [ fhir:value "Amoxicillin (product)"
- ]
+                                                                                    fhir:Reference.display [ ] ;
+                                                                                  fhir:Reference.reference [ ]
 ] ;
-fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
-  fhir:Reference.link <http://record/Patient/PeterPatient> ;
 
-  fhir:Reference.display [ fhir:value "Peter Patient"
-                         ] ;
-
-  fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient"
- ]
-
-  ] .
-
-
+fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
+                               fhir:Reference.link <http://record/Patient/PeterPatient> ;
+                               fhir:Reference.reference [ ] ;
+                             fhir:Reference.display [ ]
+] .
 
 
 
 ###  http://record/Patient/PeterPatient
 
 <http://record/Patient/PeterPatient> rdf:type owl:NamedIndividual .
+
+
+
+###  http://record/medpres1/bundle1
+
+<http://record/medpres1/bundle1> rdf:type fhir:Bundle ,
+                                          owl:NamedIndividual ;
+                                 
+                                 fhir:Bundle.link [ rdf:type fhir:uri
+                                                  ] ;
+                                 
+                                 fhir:Bundle.type [ ] ;
+
+fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry ;
+                    fhir:Bundle.Entry.resource <http://record/MedicationPrescription/1>
+                  ] ;
+
+fhir:Bundle.total [ rdf:type fhir:unsignedInt
+                  ] ;
+
+fhir:Resource.meta [ rdf:type fhir:Meta ;
+                     fhir:Meta.lastUpdated [ rdf:type fhir:instant
+                                           ]
+                   ] .
+
+
 
 
 ###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net

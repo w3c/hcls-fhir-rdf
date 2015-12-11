@@ -7,92 +7,11 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <http://record/Patient/> .
 
-<http://record/Patient/> rdf:type owl:Ontology .
+<http://record/Patient/> rdf:type owl:Ontology ;
+                         
+                         owl:imports <http://hl7.org/fhir> .
 
 
-#################################################################
-#
-#    Annotation properties
-#
-#################################################################
-
-
-###  http://hl7.org/fhir/HimanName.given
-
-fhir:HimanName.given rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/HumanName.family
-
-fhir:HumanName.family rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Patient.name
-
-fhir:Patient.name rdf:type owl:AnnotationProperty .
-
-
-
-
-
-#################################################################
-#
-#    Object Properties
-#
-#################################################################
-
-
-###  http://hl7.org/fhir/HumanName.family
-
-fhir:HumanName.family rdf:type owl:ObjectProperty .
-
-
-
-###  http://hl7.org/fhir/Patient.name
-
-fhir:Patient.name rdf:type owl:ObjectProperty .
-
-
-
-
-
-#################################################################
-#
-#    Data properties
-#
-#################################################################
-
-
-###  http://hl7.org/fhir/tag
-
-fhir:tag rdf:type owl:DatatypeProperty .
-
-
-
-
-
-#################################################################
-#
-#    Classes
-#
-#################################################################
-
-
-###  http://hl7.org/fhir/DomainResource
-
-fhir:DomainResource rdf:type owl:Class .
-
-
-
-
-
-#################################################################
-#
-#    Individuals
-#
-#################################################################
 
 
 ###  http://record/Patient/PeterPatient
@@ -100,11 +19,10 @@ fhir:DomainResource rdf:type owl:Class .
 :PeterPatient rdf:type fhir:DomainResource ,
                        owl:NamedIndividual ;
               
-              fhir:tag "Patient" ;
+              rdfs:label "Peter Patient" ;
               
-              fhir:Patient.name [ rdfs:label "Peter Patient" ;
-                                  fhir:HimanName.given [ ] ;
-                                fhir:HumanName.family [ ]
+              fhir:Patient.name [ fhir:HumanName.family [ fhir:value "Patient" ] ;
+                                fhir:HumanName.given [ fhir:vaue "Peter" ]
 ] .
 
 
