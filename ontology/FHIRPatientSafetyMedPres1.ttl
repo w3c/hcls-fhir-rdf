@@ -1,120 +1,29 @@
 @prefix : <http://record/medpres1#> .
+
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
+
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
 @prefix fhir: <http://hl7.org/fhir/> .
+
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
 @prefix profile: <http://PatientSafetyProfile/> .
+
 @prefix medpres1: <http://record/medpres1#> .
+
 @base <http://record/medpres1> .
 
-<http://record/medpres1> rdf:type owl:Ontology ;
-                         
-                         owl:imports <http://hl7.org/fhir> .
 
-
-#################################################################
-#
-#    Annotation properties
-#
-#################################################################
-
-
-###  http://hl7.org/fhir/Bundle.Entry.resource
-
-fhir:Bundle.Entry.resource rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Bundle.entry
-
-fhir:Bundle.entry rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Bundle.link
-
-fhir:Bundle.link rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Bundle.total
-
-fhir:Bundle.total rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Bundle.type
-
-fhir:Bundle.type rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/MedicationOrder.medicationReference
-
-fhir:MedicationOrder.medicationReference rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/MedicationOrder.patient
-
-fhir:MedicationOrder.patient rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Meta.lastUpdated
-
-fhir:Meta.lastUpdated rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Reference.display
-
-fhir:Reference.display rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Reference.link
-
-fhir:Reference.link rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Reference.reference
-
-fhir:Reference.reference rdf:type owl:AnnotationProperty .
-
-
-
-###  http://hl7.org/fhir/Resource.meta
-
-fhir:Resource.meta rdf:type owl:AnnotationProperty .
+<http://record/medpres1> rdf:type owl:Ontology ; owl:imports <http://hl7.org/fhir> .
 
 
 
 
-
-#################################################################
-#
-#    Classes
-#
-#################################################################
-
-
-###  http://PatientSafetyProfile/MedicationPrescription
-
-profile:MedicationPrescription rdf:type owl:Class .
-
-
-
-
-
-#################################################################
-#
-#    Individuals
-#
-#################################################################
 
 
 ###  http://record/Medication/1
@@ -128,17 +37,21 @@ profile:MedicationPrescription rdf:type owl:Class .
 <http://record/MedicationPrescription/1> rdf:type profile:MedicationPrescription ,
                                                   owl:NamedIndividual ;
                                          
+                                         fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
+                                                                        fhir:Reference.link <http://record/Patient/PeterPatient> ;
+                                                                        fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient"
+                                                                                                 ] ;
+                                                                        fhir:Reference.display [ fhir:value "Peter Patient"
+                                                                                               ]
+                                                                      ] ;
+                                         
                                          fhir:MedicationOrder.medicationReference [ rdf:type fhir:Reference ;
                                                                                     fhir:Reference.link <http://record/Medication/1> ;
-                                                                                    fhir:Reference.display [ ] ;
-                                                                                  fhir:Reference.reference [ ]
-] ;
-
-fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
-                               fhir:Reference.link <http://record/Patient/PeterPatient> ;
-                               fhir:Reference.reference [ ] ;
-                             fhir:Reference.display [ ]
-] .
+                                                                                    fhir:Reference.display [ fhir:value "Amoxicillin (product)"
+                                                                                                           ] ;
+                                                                                    fhir:Reference.reference [ fhir:value "http://record/Medication/1"
+                                                                                                             ]
+                                                                                  ] .
 
 
 
@@ -153,22 +66,26 @@ fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
 <http://record/medpres1/bundle1> rdf:type fhir:Bundle ,
                                           owl:NamedIndividual ;
                                  
-                                 fhir:Bundle.link [ rdf:type fhir:uri
+                                 fhir:Bundle.total [ rdf:type fhir:unsignedInt ;
+                                                     fhir:value 3
+                                                   ] ;
+                                 
+                                 fhir:Bundle.type [ fhir:value "searchset"
                                                   ] ;
                                  
-                                 fhir:Bundle.type [ ] ;
-
-fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry ;
-                    fhir:Bundle.Entry.resource <http://record/MedicationPrescription/1>
-                  ] ;
-
-fhir:Bundle.total [ rdf:type fhir:unsignedInt
-                  ] ;
-
-fhir:Resource.meta [ rdf:type fhir:Meta ;
-                     fhir:Meta.lastUpdated [ rdf:type fhir:instant
-                                           ]
-                   ] .
+                                 fhir:Resource.meta [ rdf:type fhir:Meta ;
+                                                      fhir:Meta.lastUpdated [ rdf:type fhir:instant ;
+                                                                              fhir:value "2015-08-02T00:00:00"^^xsd:dateTime
+                                                                            ]
+                                                    ] ;
+                                 
+                                 fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry ;
+                                                     fhir:Bundle.Entry.resource <http://record/MedicationPrescription/1>
+                                                   ] ;
+                                 
+                                 fhir:Bundle.link [ rdf:type fhir:uri ;
+                                                    fhir:value "self"
+                                                  ] .
 
 
 
