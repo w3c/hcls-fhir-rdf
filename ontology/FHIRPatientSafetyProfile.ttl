@@ -38,34 +38,6 @@
 #################################################################
 
 
-###  http://PatientSafetyProfile/AllergyIntolerance.substancehasConcept
-
-profile:AllergyIntolerance.substancehasConcept rdf:type owl:ObjectProperty ;
-                                               
-                                               owl:propertyChainAxiom ( <http://hl7.org/fhir/AllergyIntolerance/AllergyIntolerance.substance>
-                                                                        fhir:CodeableThingy.coding
-                                                                        profile:Coding.concept
-                                                                      ) .
-
-
-
-###  http://PatientSafetyProfile/Coding.concept
-
-profile:Coding.concept rdf:type owl:ObjectProperty .
-
-
-
-###  http://PatientSafetyProfile/MedicationOrderhasMedicationCoding
-
-profile:MedicationOrderhasMedicationCoding rdf:type owl:ObjectProperty ;
-                                           
-                                           owl:propertyChainAxiom ( <http://www.hl7.org/fhir/MedicationOrder/MedicationOrder.medication>
-                                                                    <http://www.hl7.org/fhir/Medication/Medication.code>
-                                                                    <http://hl7.org/fhir/base/CodeableConcept.coding>
-                                                                  ) .
-
-
-
 ###  http://hl7.org/fhir/AllergyIntolerance.status
 
 fhir:AllergyIntolerance.status rdf:type owl:ObjectProperty .
@@ -138,26 +110,9 @@ profile:AllergyIntolerance rdf:type owl:Class ;
 
 
 
-###  http://PatientSafetyProfile/DomainResource
-
-profile:DomainResource rdf:type owl:Class ;
-                       
-                       rdfs:subClassOf fhir:DomainResource .
-
-
-
 ###  http://PatientSafetyProfile/MedicationOrder
 
 profile:MedicationOrder rdf:type owl:Class ;
-                        
-                        owl:equivalentClass [ rdf:type owl:Class ;
-                                              owl:intersectionOf ( profile:DomainResource
-                                                                   [ rdf:type owl:Restriction ;
-                                                                     owl:onProperty fhir:tag ;
-                                                                     owl:hasValue "MedicationPrescription"
-                                                                   ]
-                                                                 )
-                                            ] ;
                         
                         rdfs:subClassOf fhir:MedicationOrder .
 
@@ -167,7 +122,7 @@ profile:MedicationOrder rdf:type owl:Class ;
 
 profile:substance-type rdf:type owl:Class ;
                        
-                       rdfs:subClassOf fhir:Valueset .
+                       rdfs:subClassOf fhir:Valuesets .
 
 
 
@@ -189,9 +144,9 @@ fhir:Null rdf:type owl:Class .
 
 
 
-###  http://hl7.org/fhir/Valueset
+###  http://hl7.org/fhir/Valuesets
 
-fhir:Valueset rdf:type owl:Class .
+fhir:Valuesets rdf:type owl:Class .
 
 
 
@@ -218,9 +173,25 @@ fhir:Valueset rdf:type owl:Class .
 
 [ rdf:type owl:Class ;
   rdfs:subClassOf profile:substance-type ;
-  owl:unionOf ( fhir:Null
-                <http://snomed.info/id/373873005>
-              )
+  owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:CodingBase.code ;
+                         owl:someValuesFrom [ rdf:type owl:Class ;
+                                              owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                              owl:onProperty fhir:value ;
+                                                              owl:hasValue "105590001"
+                                                            ]
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty fhir:value ;
+                                                              owl:hasValue "373873005"
+                                                            ]
+                                                          )
+                                            ]
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:CodingBase.system ;
+                         owl:hasValue <http://snomed.info/sct>
+                       ]
+                     )
 ] .
 
 

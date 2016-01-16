@@ -1,0 +1,93 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix fhir: <http://hl7.org/fhir/> .
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@base <http://Grahame/condition-example-f202-malignancy> .
+
+
+<http://Grahame/condition-example-f202-malignancy> rdf:type owl:Ontology ; owl:imports <http://hl7.org/fhir>  .
+
+###  http://Grahame/condition-example-f202-malignancy
+
+<http://Grahame/condition-example-f202-malignancy> rdf:type fhir:Condition, owl:NamedIndividual ;
+    fhir:Resource.id [ a fhir:id; fhir:value "f202"] ;
+	fhir:DomainResource.text [ a fhir:Narrative ; 
+		fhir:Narrative.status [ a fhir:code ; fhir:ConceptBase.coding 
+			[ a fhir:CodingBase ; fhir:CodingBase.code 
+				[ a fhir:codeBase ; fhir:value "generated"]
+			]
+		]
+	] ;
+	fhir:Condition.patient [ a fhir:Reference ;
+		fhir:Reference.reference [ a fhir:string ; fhir:value "Patient/f201"^^xsd:string ] ;
+		fhir:Reference.display [ a fhir:string ; fhir:value "Roel" ]
+	] ;
+	fhir:Condition.dateRecorded [ a fhir:date ; fhir:value "2012-01-12T00:00:00" ] ;
+	fhir:Condition.code [ a fhir:CodeableConcept ; fhir:ConceptBase.coding 
+		[ a fhir:CodingBase ; 
+			fhir:index 1 ;
+			fhir:CodingBase.system [ a fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
+			fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "363346000"] ;
+			fhir:CodingBase.display [ a fhir:string ; fhir:value "Malignant neoplastic disease" ]
+		]
+	] ;
+	fhir:Condition.category [ a fhir:CodeableConcept ; fhir:ConceptBase.coding 
+		[ a fhir:CodingBase ; 
+			fhir:index 1 ;
+			fhir:CodingBase.system [ a fhir:uri ; fhir:value "http://hl7.org/fhir/condition-category" ] ;
+			fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "diagnosis"]
+		]
+	] ;
+	fhir:Condition.clinicalStatus [ a fhir:code ; fhir:ConceptBase.coding 
+		[ a fhir:CodingBase ;  
+			fhir:CodingBase.code [ fhir:value "active"]
+		]
+	] ;
+	fhir:Condition.verificationStatus [ a fhir:code ; fhir:ConceptBase.coding 
+		[ a fhir:CodingBase ;  
+			fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "confirmed" ]
+		]
+	] ;
+	fhir:Condition.severity [ a fhir:CodeableConcept ; fhir:ConceptBase.coding 
+		[ a fhir:CodingBase ;  
+			fhir:index 1 ;
+			fhir:CodingBase.system [ fhir:value "http://snomed.info/sct" ] ;
+			fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "24484000"] ;
+			fhir:CodingBase.display [ a fhir:string ; fhir:value "Severe" ]
+		]
+	];
+	fhir:Condition.onsetQuantity [ a fhir:Quantity ; 
+		fhir:Quantity.value [ a fhir:decimal ; fhir:value "52" ] ;
+		fhir:Quantity.unit [ a fhir:ConceptBase ; fhir:ConceptBase.coding 
+			[ a fhir:CodingBase ; 
+				fhir:CodingBase.system [ a fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
+				fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "258707000"] ;
+				fhir:CodingBase.display [ a fhir:string ; fhir:value "Years" ]
+			]
+		]	
+	] ;
+	fhir:Condition.evidence [ a fhir:ConditionEvidence ; 
+		fhir:Condition.Evidence.code [ a fhir:CodeableConcept ; fhir:ConceptBase.coding [] ] ;
+		fhir:Condition.Evidence.detail [ a fhir:Reference ; 
+			fhir:index 1 ;
+			fhir:Reference.reference [ a fhir:string ; fhir:value "DiagnosticReport/f201" ] ;
+			fhir:Reference.display [ a fhir:string ; fhir:value "Erasmus' diagnostic report of Roel's tumor" ]
+		]
+	] ;
+	fhir:Condition.bodySite [ a fhir:CodeableConcept ; fhir:ConceptBase.coding 
+		[ a fhir:CodingBase ;  
+			fhir:index 1 ;
+			fhir:CodingBase.system [ a fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
+			fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "361355005"] ;
+			fhir:CodingBase.display [ a fhir:string ; fhir:value "Entire head and neck" ]
+		] 
+    ]
+.
