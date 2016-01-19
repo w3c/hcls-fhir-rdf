@@ -19,6 +19,7 @@ Sketching out an RDF representation for FHIR
   * `python -v` -- if 3.x you are ready to go else
   * `python3 -v` -- if this works you are also ready to go
 * virtualenv -- if this isn't on your machine, see <http://pythoncentral.io/how-to-install-virtualenv-python/>
+* java -- we need version 1.7 or greater
 
 
 ## Installation
