@@ -64,9 +64,12 @@ def procargs(opts: argparse.Namespace) -> None:
         opts.outdir = DEFAULT_TARGET_DIRECTORY
     if not opts.outfile:
         opts.outfile = DEFAULT_XML_DEFINITIONS
+    os.makedirs(opts.outdir, exist_ok=True)
+
     opts.logfile = os.path.join(opts.indir, opts.logfile)
     opts.outfile = os.path.join(opts.outdir, opts.outfile)
     logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='a')
+    logging.info("***** generate_xml_definitions *****\n")
 
 
 def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:

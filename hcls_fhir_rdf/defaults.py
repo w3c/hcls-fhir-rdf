@@ -36,6 +36,7 @@ DEFAULT_TARGET_FILE = "fhir-spec.zip"
 DEFAULT_EXAMPLE_DIRECTORY = "examples"
 DEFAULT_RDF_DIRECTORY = "rdf"
 DEFAULT_XML_DEFINITIONS = "definitions.xml"
+DEFAULT_SHEX_DEFINITIONS = "definitions.shex"
 
 DEFAULT_LOG_FILE = "extract.log"
 LOGGING_LEVEL = INFO
