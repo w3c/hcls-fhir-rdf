@@ -16,7 +16,7 @@ Sketching out an RDF representation for FHIR
 
 ## Requirements
 * python3 (ideally >= 3.5, but any 3.x version will do).  You can determine whether you have python on your machine and its version by:
-  * `python -v` -- if 3.x you are ready to go else
+  * `python -v` -- if 3.x you are ready to go, otherwise...
   * `python3 -v` -- if this works you are also ready to go
 * virtualenv -- if this isn't on your machine, see <http://pythoncentral.io/how-to-install-virtualenv-python/>
 * java -- we need version 1.7 or greater
