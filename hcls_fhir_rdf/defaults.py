@@ -28,7 +28,7 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 import os
 import argparse
-from logging import INFO
+import logging
 
 DEFAULT_SPEC_URL = "http://www.hl7.org/implement/standards/fhir/2015May/"
 DEFAULT_TARGET_DIRECTORY = "data"
@@ -39,9 +39,15 @@ DEFAULT_XML_DEFINITIONS = "definitions.xml"
 DEFAULT_SHEX_DEFINITIONS = "definitions.shex"
 
 DEFAULT_LOG_FILE = "extract.log"
-LOGGING_LEVEL = INFO
+LOGGING_LEVEL = logging.INFO
 
 DOWNLOAD_CHUNK_SIZE = 8192       # streaming download chunk size
+
+
+def start_logger(opts: argparse.Namespace, file_name: str) -> None:
+    logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='a',
+                        format='%(asctime)s - ' + os.path.basename(file_name) + ' - %(levelname)s - %(message)s')
+    logging.info("********** Start ***********")
 
 
 def fill_defaults(opts: argparse.Namespace) -> None:

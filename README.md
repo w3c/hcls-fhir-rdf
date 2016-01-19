@@ -1,37 +1,89 @@
 # hcls-fhir-rdf
 Sketching out an RDF representation for FHIR
 
+## Directories
+* data - the current stable FHIR specification
+  * examples -- XML examples from specification
+  * site -- FHIR definitions (we use the json format)
+  * rdf -- RDF representation of examples
+  * definitions.shex -- shex definitions of FHIR content
+  * definitions.xml -- XML definitions used in xslt transformation
+  * extract.log -- log of build for the data directory
+* hcls_fhir_rdf -- python 3 modules for building data directory
+* ontology -- (underway) work on modeling FHIR definitions in OWL
+* tests -- python unit tests (not a lot at the moment)
+* xsl -- XSLT 2.0 transform for converting FHIR instances from XML to RDF
+
+
 ## Installation
-This revised package is just being installed. Expect serious instability for a week or so...
-
-Currently requires python 3 -- may be adjusted later on.  Most systems already have python 3 on them, which
-is invoked via the command "python3".  Note that the scripts below assume that 'python' direcly invokes 'python3'.
-
-### If python 3 is the default python on your system:
-
+1. Set up a python3 virtual environment:
 ```bash
-git clone https://github.com/w3c/hcls-fhir-rdf.git
-cd hcls-fhir-rdf
-python setup.py install
-download_fhir_spec
-generate_xml_definitions
-generate_shex
+> virtualenv hcls -p python3
+> . hcls/bin/activate
+(hcls) > pip install hcls_fhir_rdf
 ```
 
-### If python defaults to an earlier version:
-```bash
-git clone https://github.com/w3c/hcls-fhir-rdf.git
-cd hcls-fhir-rdf
-python3 setup.py install
-python3 scripts/download_fhir_spec
-python3 scripts/generate_xml_definitions > data/definitions.xml
-python3 scripts/generate_shex > data/definitions.shex
-```
-
-## Notes
-
-The above scripts don't actually generate the example turtle file.  We'll get that in in the next day or so... in the mean time the example below shows how one might generate bits of RDF:
+## Execution
+To download the latest copy of the FHIR spec and unzip it:
 
 ```bash
-xsltproc -stringparam fhirdefs data/definitions.xml xsl/transform.xsl ../data/examples/site/allergyintolerance-example.xml > examples/allergyintolerance-example.ttl
+(hcls) > download_fhir_spec
 ```
+
+To generate the XML definitions for the XML to RDF transformation process:
+```bash
+(hcls) > generate_xml_definitions
+```
+
+To generate the ShEx definitions for the output RDF
+```bash
+(hcls) > generate_shex
+```
+
+To start the background XSLT transformer
+```bash
+(hcls) > nohup pyjxslt&
+```
+
+To transform the XML in the data/examples file into RDF:
+```bash
+(hcls) > generate_rdf
+```
+
+
+# Modules
+## ```download_fhir_spec```
+```download_fhir_spec``` has the following options:
+
+```bash
+usage: download_fhir_spec [-h] [-u URL] [-f FILE] [-d DIR] [-e EXAMPLEDIR]
+                          [--force] [--unzip] [--logfile LOGFILE]
+                          [--skipdownload]
+
+Download and unzip the FHIR spec
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u URL, --url URL     Base URL of the (default:
+                        http://www.hl7.org/implement/standards/fhir/2015May/)
+  -f FILE, --file FILE  Download zip file name (default: fhir-spec.zip)
+  -d DIR, --dir DIR     target download directory (default: data)
+  -e EXAMPLEDIR, --exampledir EXAMPLEDIR
+                        Example directory (default: examples)
+  --force               Force FHIR specification re-download 
+  --unzip               Force re-unzip
+  --logfile LOGFILE     Logging file. (default: extract.log in target directory)
+  --skipdownload        Don't download zip file
+```
+### examples:
+
+```bash
+(hcls) > download_fhir_spec
+```
+1. If `fhir-spec.zip` is not present in the data directory, or it is present but its modification date is older than the one on the FHIR web site, download it.  Note that this can take a while
+2. If the `fhir-spec.zip` was downloaded, unzip all of the files that end with ".profile.json" into the `site` directory
+3. If the `fhir-spec.zip` file was downloaded, unzip all the files that end with ".example.xml" into the `examples` directory.
+
+A log of the output can be found in `data/extract.log`
+
+## ```generate_xml_definitions```

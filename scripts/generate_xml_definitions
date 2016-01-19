@@ -68,9 +68,7 @@ def procargs(opts: argparse.Namespace) -> None:
 
     opts.logfile = os.path.join(opts.indir, opts.logfile)
     opts.outfile = os.path.join(opts.outdir, opts.outfile)
-    logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='a')
-    logging.info("***** generate_xml_definitions *****\n")
-
+    start_logger(opts, __file__)
 
 def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
     """ Process a FHIR profile file (json format)
@@ -88,7 +86,7 @@ def main():
     logging.info("  Processing json files into %s" % dlp.opts.outfile)
     nfiles, nsuccess = dlp.run(proc_profiles, PathElements.inp_filtr)
     print(elements.as_xml, file=open(dlp.opts.outfile, 'w') if dlp.opts.outfile else sys.stdout)
-    logging.info("  Total=%d Successful=%d" % (nfiles, nsuccess))
+    logging.info("  Total files=%d Errors=%d" % (nfiles, nfiles - nsuccess))
 
 
 if __name__ == '__main__':
