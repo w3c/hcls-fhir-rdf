@@ -14,6 +14,12 @@ Sketching out an RDF representation for FHIR
 * tests -- python unit tests (not a lot at the moment)
 * xsl -- XSLT 2.0 transform for converting FHIR instances from XML to RDF
 
+## Requirements
+* python3 (ideally >= 3.5, but any 3.x version will do).  You can determine whether you have python on your machine and its version by:
+  * `python -v` -- if 3.x you are ready to go else
+  * `python3 -v` -- if this works you are also ready to go
+* virtualenv -- if this isn't on your machine, see <http://pythoncentral.io/how-to-install-virtualenv-python/>
+
 
 ## Installation
 1. Set up a python3 virtual environment:
