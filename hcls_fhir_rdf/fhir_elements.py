@@ -54,16 +54,16 @@ class PathElements:
         return self.entries
 
     @staticmethod
-    def addargs(args: argparse.ArgumentParser) -> None:
+    def addargs(parser: argparse.ArgumentParser) -> None:
         """ Add local args to the dirlistproc set
-        :param args: dirlistproc arguments
+        :param parser: Argument parser
         """
-        args.add_argument("--differential", help="Process differential definitions. (default: snapshot)",
-                          action="store_true")
+        parser.add_argument("--differential", help="Process differential definitions. (default: snapshot)",
+                            action="store_true")
 
     @staticmethod
     def inp_filtr(input_fn: str) -> bool:
-        """ Determine which files should be processed
+        """ Vote on whether input_fn whould be processed
         :param input_fn: file name to test
         :return: True if it should be processed, False if it is to be skipped
         """
@@ -76,9 +76,9 @@ class PathElements:
             logging.info("\t%s skipped %s" % (input_fn, reason))
         return reason is None
 
-    def add_file(self, file_name: str, differential: bool) -> bool:
-        """ Add the definition in the supplied file to the set of element definitions
-        :param file_name: File to open
+    def proc_file(self, file_name: str, differential: bool) -> bool:
+        """ Process the supplied file and add its definition to the list
+        :param file_name: File to process
         :param differential: True means use 'differential' definition, False 'snapshot'
         :return: True if the file was processed, false if skipped
         """
@@ -312,7 +312,7 @@ class Property:
 
     @property
     def as_xml(self) -> xml:
-        typ = self.__dict__.get('type', '') + self.__dict__.get('primitiveType', '')
+        typ = self.__dict__.get('type') or self.__dict__.get('primitiveType')
         rel_path = self.path if '.' not in self.path else self.path.rsplit('.', 1)[1]
         rval = t4 + '<relative_xpath>f:' + rel_path + '</relative_xpath>\n'
         rval += t4 + '<type>' + typ + '</type>\n'

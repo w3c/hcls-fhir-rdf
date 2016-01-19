@@ -33,6 +33,8 @@ DEFAULT_SPEC_URL = "http://www.hl7.org/implement/standards/fhir/2015May/fhir-spe
 DEFAULT_TARGET_DIRECTORY = "data"
 DEFAULT_TARGET_FILE = os.path.join(DEFAULT_TARGET_DIRECTORY, "fhir-spec.zip")
 DEFAULT_EXAMPLE_DIRECTORY = os.path.join(DEFAULT_TARGET_DIRECTORY, "examples")
+DEFAULT_RDF_DIRECTORY = os.path.join(DEFAULT_TARGET_DIRECTORY, "rdf")
+DEFAULT_XML_DEFINITIONS = os.path.join(DEFAULT_TARGET_DIRECTORY, "definitions.xml")
 
 DEFAULT_LOG_FILE = os.path.join(DEFAULT_TARGET_DIRECTORY, "extract.log")
 LOGGING_LEVEL = INFO

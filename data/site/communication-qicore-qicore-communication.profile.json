@@ -1,0 +1,729 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "communication-qicore-qicore-communication",
+  "text": {
+    "status": "generated",
+    "div": "<div>to do</div>"
+  },
+  "url": "http://hl7.org/fhir/StructureDefinition/communication-qicore-qicore-communication",
+  "name": "QICore-Communication",
+  "publisher": "Health Level Seven, Inc. - CQI WG",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://hl7.org/special/committees/CQI"
+        }
+      ]
+    }
+  ],
+  "description": "Profile of Communication for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
+  "status": "draft",
+  "date": "2015-02-27",
+  "mapping": [
+    {
+      "identity": "qdm",
+      "uri": "http://www.healthit.gov/quality-data-model",
+      "name": "Quality Data Model"
+    }
+  ],
+  "type": "constraint",
+  "abstract": false,
+  "base": "http://hl7.org/fhir/StructureDefinition/Communication",
+  "snapshot": {
+    "element": [
+      {
+        "path": "Communication",
+        "name": "QICore-Communication",
+        "short": "A record of information transmitted from a sender to a receiver",
+        "definition": "An occurrence of information being transmitted. E.g., an alert that was sent to a responsible provider, a public health agency was notified about a reportable condition.",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Communication"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "\"Communication: From Patient to Provider\" and \"Communication: From Provider to Patient\" and \"Communication: From Provider to Provider\"; \"Intervention, Performed\" (when Communication.status=\"completed\")"
+          }
+        ]
+      },
+      {
+        "path": "Communication.id",
+        "short": "Logical id of this artefact",
+        "definition": "The logical id of the resource, as used in the url for the resoure. Once assigned, this value never changes.",
+        "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "id"
+          }
+        ]
+      },
+      {
+        "path": "Communication.meta",
+        "short": "Metadata about the resource",
+        "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Meta"
+          }
+        ]
+      },
+      {
+        "path": "Communication.implicitRules",
+        "short": "A set of rules under which this content was created",
+        "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+        "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "uri"
+          }
+        ],
+        "isModifier": true
+      },
+      {
+        "path": "Communication.language",
+        "short": "Language of the resource content",
+        "definition": "The base language in which the resource is written.",
+        "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource\n\nNot all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "code"
+          }
+        ],
+        "binding": {
+          "name": "Language",
+          "strength": "required",
+          "description": "A human language",
+          "valueSetUri": "http://tools.ietf.org/html/bcp47"
+        }
+      },
+      {
+        "path": "Communication.text",
+        "short": "Text summary of the resource, for human interpretation",
+        "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+        "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+        "alias": [
+          "narrative",
+          "html",
+          "xhtml",
+          "display"
+        ],
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Narrative"
+          }
+        ],
+        "condition": [
+          "dom-1"
+        ],
+        "mapping": [
+          {
+            "identity": "rim",
+            "map": "Act.text?"
+          }
+        ]
+      },
+      {
+        "path": "Communication.contained",
+        "short": "Contained, inline Resources",
+        "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+        "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+        "alias": [
+          "inline resources",
+          "anonymous resources",
+          "contained resources"
+        ],
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Resource"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "rim",
+            "map": "N/A"
+          }
+        ]
+      },
+      {
+        "path": "Communication.extension",
+        "slicing": {
+          "discriminator": [
+            "url"
+          ],
+          "ordered": false,
+          "rules": "open"
+        },
+        "short": "Extension",
+        "definition": "An Extension",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ]
+      },
+      {
+        "path": "Communication.extension",
+        "name": "Communication.reasonNotPerformed",
+        "short": "Extension",
+        "definition": "An Extension",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": "http://hl7.org/fhir/StructureDefinition/communication-reasonNotPerformed"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "negation rationale (when Communication.status=\"rejected\")"
+          }
+        ]
+      },
+      {
+        "path": "Communication.modifierExtension",
+        "short": "Extensions that cannot be ignored",
+        "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+        "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+        "alias": [
+          "extensions",
+          "user content"
+        ],
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ],
+        "isModifier": true,
+        "mapping": [
+          {
+            "identity": "rim",
+            "map": "N/A"
+          }
+        ]
+      },
+      {
+        "path": "Communication.identifier",
+        "short": "Unique identifier",
+        "definition": "Identifiers associated with this Communication that are defined by business processes and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Identifier"
+          }
+        ]
+      },
+      {
+        "path": "Communication.category",
+        "short": "Message category",
+        "definition": "The type of message conveyed such as alert, notification, reminder, instruction, etc.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "primary code"
+          }
+        ]
+      },
+      {
+        "path": "Communication.sender",
+        "short": "Message sender",
+        "definition": "The entity (e.g., person, organization, clinical information system, or device) which was the source of the communication.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/practitioner-qicore-qicore-practitioner"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/patient-qicore-qicore-patient"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/device-qicore-qicore-device"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/relatedperson-qicore-qicore-relatedperson"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/organization-qicore-qicore-organization"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "path": "Communication.recipient",
+        "short": "Message recipient",
+        "definition": "The entity (e.g., person, organization, clinical information system, or device) which was the target of the communication.",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/practitioner-qicore-qicore-practitioner"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/patient-qicore-qicore-patient"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/device-qicore-qicore-device"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/relatedperson-qicore-qicore-relatedperson"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/organization-qicore-qicore-organization"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "path": "Communication.payload",
+        "short": "Message payload",
+        "definition": "Text, attachment(s), or resource(s) that was communicated to the recipient.",
+        "min": 0,
+        "max": "*"
+      },
+      {
+        "path": "Communication.payload.id",
+        "representation": [
+          "xmlAttr"
+        ],
+        "short": "xml:id (or equivalent in JSON)",
+        "definition": "unique id for the element within a resource (for internal references).",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "id"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "rim",
+            "map": "n/a"
+          }
+        ]
+      },
+      {
+        "path": "Communication.payload.extension",
+        "short": "Additional Content defined by implementations",
+        "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+        "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+        "alias": [
+          "extensions",
+          "user content"
+        ],
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "rim",
+            "map": "n/a"
+          }
+        ]
+      },
+      {
+        "path": "Communication.payload.modifierExtension",
+        "short": "Extensions that cannot be ignored",
+        "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+        "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+        "alias": [
+          "extensions",
+          "user content",
+          "modifiers"
+        ],
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ],
+        "isModifier": true,
+        "mapping": [
+          {
+            "identity": "rim",
+            "map": "N/A"
+          }
+        ]
+      },
+      {
+        "path": "Communication.payload.content[x]",
+        "short": "Message part content",
+        "definition": "An individual message part for multi-part messages.",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "Attachment"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/Resource"
+          }
+        ]
+      },
+      {
+        "path": "Communication.medium",
+        "short": "Communication medium",
+        "definition": "The communication medium, e.g., email, fax.",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "binding": {
+          "name": "QICoreCommunicationMedium",
+          "strength": "example",
+          "description": "The type of channel used for the communication, for example, telephone, fax, email.",
+          "valueSetReference": {
+            "reference": "http://hl7.org/fhir/vs/qicore-communication-medium"
+          }
+        }
+      },
+      {
+        "path": "Communication.status",
+        "short": "in-progress | completed | suspended | rejected | failed",
+        "definition": "The status of the transmission.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "code"
+          }
+        ],
+        "mustSupport": true,
+        "isModifier": true,
+        "binding": {
+          "name": "CommunicationStatus",
+          "strength": "required",
+          "description": "The status of the communication",
+          "valueSetReference": {
+            "reference": "http://hl7.org/fhir/vs/communication-status"
+          }
+        },
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "status"
+          }
+        ]
+      },
+      {
+        "path": "Communication.encounter",
+        "short": "Encounter leading to message",
+        "definition": "The encounter within which the communication was sent.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/encounter-qicore-qicore-encounter"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "path": "Communication.sent",
+        "short": "When sent",
+        "definition": "The time when this communication was sent.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "dateTime"
+          }
+        ],
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "start datetime"
+          }
+        ]
+      },
+      {
+        "path": "Communication.received",
+        "short": "When received",
+        "definition": "The time when this communication arrived at the destination.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "dateTime"
+          }
+        ],
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "stop datetime"
+          }
+        ]
+      },
+      {
+        "path": "Communication.reason",
+        "short": "Indication for message",
+        "definition": "The reason or justification for the communication.",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "reason"
+          }
+        ]
+      },
+      {
+        "path": "Communication.subject",
+        "short": "Focus of message",
+        "definition": "The patient who was the focus of this communication.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/patient-qicore-qicore-patient"
+          }
+        ],
+        "mustSupport": true
+      }
+    ]
+  },
+  "differential": {
+    "element": [
+      {
+        "path": "Communication",
+        "name": "QICore-Communication",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Communication"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "\"Communication: From Patient to Provider\" and \"Communication: From Provider to Patient\" and \"Communication: From Provider to Provider\"; \"Intervention, Performed\" (when Communication.status=\"completed\")"
+          }
+        ]
+      },
+      {
+        "path": "Communication.extension",
+        "slicing": {
+          "discriminator": [
+            "url"
+          ],
+          "ordered": false,
+          "rules": "open"
+        }
+      },
+      {
+        "path": "Communication.extension",
+        "name": "Communication.reasonNotPerformed",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": "http://hl7.org/fhir/StructureDefinition/communication-reasonNotPerformed"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "negation rationale (when Communication.status=\"rejected\")"
+          }
+        ]
+      },
+      {
+        "path": "Communication.category",
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "primary code"
+          }
+        ]
+      },
+      {
+        "path": "Communication.sender",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/practitioner-qicore-qicore-practitioner"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/patient-qicore-qicore-patient"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/device-qicore-qicore-device"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/relatedperson-qicore-qicore-relatedperson"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/organization-qicore-qicore-organization"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "path": "Communication.recipient",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/practitioner-qicore-qicore-practitioner"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/patient-qicore-qicore-patient"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/device-qicore-qicore-device"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/relatedperson-qicore-qicore-relatedperson"
+          },
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/organization-qicore-qicore-organization"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "path": "Communication.medium",
+        "binding": {
+          "name": "QICoreCommunicationMedium",
+          "strength": "example",
+          "description": "The type of channel used for the communication, for example, telephone, fax, email.",
+          "valueSetReference": {
+            "reference": "http://hl7.org/fhir/vs/qicore-communication-medium"
+          }
+        }
+      },
+      {
+        "path": "Communication.status",
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "status"
+          }
+        ]
+      },
+      {
+        "path": "Communication.encounter",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/encounter-qicore-qicore-encounter"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "path": "Communication.sent",
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "start datetime"
+          }
+        ]
+      },
+      {
+        "path": "Communication.received",
+        "mustSupport": true,
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "stop datetime"
+          }
+        ]
+      },
+      {
+        "path": "Communication.reason",
+        "mapping": [
+          {
+            "identity": "qdm",
+            "map": "reason"
+          }
+        ]
+      },
+      {
+        "path": "Communication.subject",
+        "type": [
+          {
+            "code": "Reference",
+            "profile": "http://hl7.org/fhir/StructureDefinition/patient-qicore-qicore-patient"
+          }
+        ],
+        "mustSupport": true
+      }
+    ]
+  }
+}

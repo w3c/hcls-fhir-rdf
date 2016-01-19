@@ -1,0 +1,99 @@
+#!/usr/bin/env python
+
+#  -*- coding: utf-8 -*-
+# Copyright (c) 2015, Mayo Clinic
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# Redistributions of source code must retain the above copyright notice, this
+#     list of conditions and the following disclaimer.
+#
+#     Redistributions in binary form must reproduce the above copyright notice,
+#     this list of conditions and the following disclaimer in the documentation
+#     and/or other materials provided with the distribution.
+#
+#     Neither the name of the <ORGANIZATION> nor the names of its contributors
+#     may be used to endorse or promote products derived from this software
+#     without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+# OF THE POSSIBILITY OF SUCH DAMAGE.
+import argparse
+import logging
+import os
+import sys
+
+from dirlistproc import DirectoryListProcessor
+
+import pyjxslt
+
+_parent_dir = os.path.join(os.path.join(os.getcwd(), os.path.dirname(__file__)), '..')
+if __name__ == "__main__":
+    sys.path.append(_parent_dir)
+from hcls_fhir_rdf.rdflib_formats import known_formats, suffix_for
+from hcls_fhir_rdf.defaults import *
+
+
+def addargs(parser: argparse.ArgumentParser) -> None:
+    """ Add local args to the dirlistproc set
+    :param parser: argument parser from dirlistproc
+    """
+    parser.add_argument("-df", "--definitions", help="Transform definitions file (example: definitions.xml)",
+                        default=DEFAULT_XML_DEFINITIONS)
+    parser.add_argument("--logfile", help="Logging file. Default is 'extract.log'", default=DEFAULT_LOG_FILE)
+    parser.add_argument("-of", "--output_format", help="Output file format. Default: 'turtle'",
+                        choices=known_formats(), default='turtle')
+    parser.add_argument("--gwport", help="XSLT Gateway port", type=int, default=pyjxslt.DEFAULT_PORT)
+
+
+def procargs(opts: argparse.Namespace) -> None:
+    if not opts.indir:
+        opts.indir = DEFAULT_EXAMPLE_DIRECTORY
+    if not opts.outdir:
+        opts.outdir = DEFAULT_RDF_DIRECTORY
+    # TODO: Fix dirlistproc to create output directories if none exist
+    os.makedirs(opts.outdir, exist_ok=True)
+    opts.gw = pyjxslt.Gateway(opts.gwport)
+    opts.gw.add_transform('transform', os.path.join(_parent_dir, 'xsl', 'transform.xsl'))
+
+
+def proc_input_file(xml_file: str, rdf_file, opts: argparse.Namespace) -> bool:
+    """ Convert input_fn into output_fn
+    :param xml_file: name of the file to process
+    :param rdf_file: (unused)
+    :param opts: process options
+    :return: True if file was processed, false if it was skipped
+    """
+    logging.info("Transfoming %s into %s" % (xml_file, rdf_file))
+    rdf_file_name = rdf_file + "." + suffix_for(opts.output_format)
+    with open(xml_file) as xf:
+        xml_input = xf.read()
+        rdf = opts.gw.transform('transform', xml_input,
+                                fhirdefs=os.path.join(os.path.join(os.getcwd(), opts.definitions)))
+        if rdf and not rdf.startswith('ERROR:'):
+            with open(rdf_file_name, 'w') as rf:
+                rf.write(rdf)
+        else:
+            logging.error("\t" + rdf if rdf else "Transformation failed")
+
+
+def main():
+    dlp = DirectoryListProcessor(None, "Convert FHIR XML data into RDF", ".xml", '', addargs, procargs)
+    if dlp.opts.outdir:
+        os.makedirs(dlp.opts.outdir, exist_ok=True)
+    nfiles, nsuccess = dlp.run(proc_input_file)
+    logging.info("Total=%d Successful=%d" % (nfiles, nsuccess))
+
+
+if __name__ == '__main__':
+    main()

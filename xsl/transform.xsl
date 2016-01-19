@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="1.0" xmlns:f="http://hl7.org/fhir"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:l="http://local-mods" xmlns:mt="http://local/mapping/">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="xs"
+                version="2.0"
+                xmlns:f="http://hl7.org/fhir"
+                xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:l="http://local-mods"
+                xmlns:mt="http://local/mapping/">
 
     <!-- Generation date and time -->
-    <!--<xsl:param name="now" select="current-dateTime()"/>  xslt version 2 only-->
-    <xsl:param name="now" select="'NOW'"/>
+    <xsl:param name="now" select="current-dateTime()"/>  <!--xslt version 2 only-->
+    <!--<xsl:param name="now" select="'NOW'"/>-->
 
     <!-- Name of the root document -->
     <xsl:param name="docParam" select="'[]'"/>
@@ -31,27 +38,29 @@
     <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 
     <!-- Table to value<suffix> to type. This looks like a simple upper case
-         to lower case table, but it also serves as a list of primitive 
+         to lower case table, but it also serves as a list of primitive
          types.  If not on this list (valueFoo) stays upper. -->
-    <mt:mappings>
-        <entry suffix="Integer" type="integer"/>
-        <entry suffix="Decimal" type="decimal"/>
-        <entry suffix="DateTime" type="dateTime"/>
-        <entry suffix="Date" type="date"/>
-        <entry suffix="Time" type="time"/>
-        <entry suffix="Instant" type="instant"/>
-        <entry suffix="String" type="string"/>
-        <entry suffix="Uri" type="uri"/>
-        <entry suffix="Boolean" type="boolean"/>
-        <entry suffix="Code" type="code"/>
-        <entry suffix="Base64Binary" type="base64Binary"/>
-        <entry suffix="UnsignedInt" type="unsignedInt"/>
-        <entry suffix="PositiveInt" type="positiveInt"/>
-        <entry suffix="Code" type="code"/>
-        <entry suffix="Id" type="id"/>
-        <entry suffix="Oid" type="oid"/>
-        <entry suffix="Markdown" type="markdown"/>
-    </mt:mappings>
+
+    <xsl:variable name="mappings">
+        <mt:mappings>
+            <entry suffix="Integer" type="integer"/>
+            <entry suffix="Decimal" type="decimal"/>
+            <entry suffix="DateTime" type="dateTime"/>
+            <entry suffix="Date" type="date"/>
+            <entry suffix="Time" type="time"/>
+            <entry suffix="Instant" type="instant"/>
+            <entry suffix="String" type="string"/>
+            <entry suffix="Uri" type="uri"/>
+            <entry suffix="Boolean" type="boolean"/>
+            <entry suffix="Code" type="code"/>
+            <entry suffix="Base64Binary" type="base64Binary"/>
+            <entry suffix="UnsignedInt" type="unsignedInt"/>
+            <entry suffix="PositiveInt" type="positiveInt"/>
+            <entry suffix="Id" type="id"/>
+            <entry suffix="Oid" type="oid"/>
+            <entry suffix="Markdown" type="markdown"/>
+        </mt:mappings>
+    </xsl:variable>
 
     <!-- XSLT 1.0 only -->
     <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'" />
@@ -88,7 +97,7 @@
         </xsl:call-template>
         <xsl:call-template name="end_subject"/>
         <xsl:call-template name="eol"/>
-        
+
         <!-- If contained elements are going to be addressed by reference, make a collection of them up front -->
         <xsl:if test="$contained = 'ref'">
             <!-- Reference contained elements by id.
@@ -161,10 +170,10 @@ change
 
         <!-- find the (one) value element, e.g. f:valueInteger -->
         <xsl:for-each select="*[substring(name(), 1, 5) = 'value']">
-
+            <xsl:variable name='sfx' select="substring(name(), 6)"/>
             <!-- change 'f:valueInteger' into 'integer' but NOT f:valueFoo into 'foo' (keep caps in types) -->
             <xsl:variable name="type1">
-                <xsl:value-of select="document('')/mt:mappings/entry[@suffix = substring(name(), 6)]/@type"/>
+                <xsl:value-of select="$mappings/mt:mappings/entry[@suffix = $sfx]/@type"/>
             </xsl:variable>
             <xsl:variable name="type">
                 <xsl:choose>
@@ -231,7 +240,7 @@ change
         <!-- Type of the current element. Type can be null (for internal nodes) -->
         <xsl:variable name="def.type" select="$def/type"/>
 
-        <!-- Sub-elemenets that are defined for this type.  Each sub includes 
+        <!-- Sub-elemenets that are defined for this type.  Each sub includes
            * an xpath fragment (e.g. 'f:detail')
            * FHIR path (e.g. Order.detail)
            * target type (e.g. CodeableConcept; or blank if the target is an internal node)
@@ -376,8 +385,8 @@ change
                     </xsl:call-template>
 
                     <!-- for a given property, look for its occurence(s) in instance data -->
-                    <!--<xsl:for-each select="$this/*[name() = lower-case($xpath)]">  xslt 2.0-->
-                    <xsl:for-each select="$this/*[name() = translate($xpath, $uppercase, $lowercase)]">
+                    <xsl:for-each select="$this/*[name() = lower-case($xpath)]">  <!--xslt version 2 only-->
+                    <!--<xsl:for-each select="$this/*[name() = translate($xpath, $uppercase, $lowercase)]">-->
                         <!-- include contained arcs -->
                         <xsl:variable name="last_instance_p" select="position() = last()"/>
                         <xsl:call-template name="idnt">
@@ -679,13 +688,13 @@ change
     <!-- addPrefixes: generate the header prefixes
         param: name - local namespace of the resource
      -->
-    <!--<xsl:variable name="prefixes"> version 2.0 -->
+    <xsl:variable name="prefixes"> <!--xslt version 2 only-->
         <mt:prefixes xmlns="http://local/mapping/">
             <prefix pfx="fhir:">http://hl7.org/fhir/</prefix>
             <prefix pfx="xhtml:">http://www.w3.org/1999/xhtml</prefix>
             <prefix pfx="xsd:">http://www.w3.org/2001/XMLSchema</prefix>
         </mt:prefixes>
-    <!--</xsl:variable> version 2.0-->
+    </xsl:variable> <!--xslt version 2 only-->
 
     <xsl:template name="addPrefixes">
         <xsl:param name="name"/>
@@ -693,8 +702,8 @@ change
             <xsl:with-param name="pfx" select="$name"/>
             <xsl:with-param name="uri">http://hl7.org/fhir</xsl:with-param>
         </xsl:call-template>
-        <!--<xsl:for-each select="$prefixes/mt:prefixes/mt:prefix">  xslt version 2-->
-        <xsl:for-each select="document('')/mt:prefixes/mt:prefix">
+        <xsl:for-each select="$prefixes/mt:prefixes/mt:prefix">  <!--xslt version 2 only-->
+        <!--<xsl:for-each select="document('')/mt:prefixes/mt:prefix">-->
             <xsl:call-template name="prefix">
                 <xsl:with-param name="pfx" select="@pfx"/>
                 <xsl:with-param name="uri" select="."/>
