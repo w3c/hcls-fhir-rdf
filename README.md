@@ -27,7 +27,7 @@ Sketching out an RDF representation for FHIR
 ```bash
 > virtualenv hcls -p python3
 > . hcls/bin/activate
-(hcls) > pip install hcls_fhir_rdf
+(hcls) > pip install hcls-fhir-rdf
 ```
 
 ## Execution
