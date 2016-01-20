@@ -49,7 +49,7 @@ def addargs(args: argparse.ArgumentParser) -> None:
     """ Add local args to the dirlistproc set
     :param args: dirlistproc arguments
     """
-    args.add_argument("--logfile", help="Logging file. Default is 'extract.log'", default='extract.log')
+    args.add_argument("--logfile", help="Logging file. Default: %s" % DEFAULT_LOG_FILE, default=DEFAULT_LOG_FILE)
     PathElements.addargs(args)
 
 
@@ -59,7 +59,15 @@ def procargs(opts: argparse.Namespace) -> None:
     """
     if not opts.indir:
         opts.indir = DEFAULT_TARGET_DIRECTORY
-    logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='w')
+    if not opts.outdir:
+        opts.outdir = DEFAULT_TARGET_DIRECTORY
+    if not opts.outfile:
+        opts.outfile = DEFAULT_SHEX_DEFINITIONS
+    os.makedirs(opts.outdir, exist_ok=True)
+
+    opts.logfile = os.path.join(opts.indir, opts.logfile)
+    opts.outfile = os.path.join(opts.outdir, opts.outfile)
+    start_logger(opts, __file__)
 
 
 def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
@@ -76,8 +84,8 @@ def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
 def main():
     dlp = DirectoryListProcessor(None, "Generate ShExC definitions for FHIR", ".profile.json", None, addargs, procargs)
     nfiles, nsuccess = dlp.run(proc_profiles, PathElements.inp_filtr)
-    print(elements.as_shexc, file=open(dlp.opts.outfile[0], 'w') if dlp.opts.outfile else sys.stdout)
-    logging.info("Total=%d Successful=%d" % (nfiles, nsuccess))
+    print(elements.as_shexc, file=open(dlp.opts.outfile, 'w') if dlp.opts.outfile else sys.stdout)
+    logging.info("Total files processed=%d Errors=%d" % (nfiles, nfiles - nsuccess))
 
 
 if __name__ == '__main__':

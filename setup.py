@@ -47,7 +47,7 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet',
         'Topic :: Software Development :: Libraries',
-        'Programming Language :: Python :: 3'
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
     ],
     install_requires=['dirlistproc', 'requests', 'jsonasobj', 'rdflib', 'rdflib_jsonld', 'pyjxslt'] + v34_requires,

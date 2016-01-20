@@ -27,16 +27,32 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 import os
-from logging import INFO
+import argparse
+import logging
 
-DEFAULT_SPEC_URL = "http://www.hl7.org/implement/standards/fhir/2015May/fhir-spec.zip"
+DEFAULT_SPEC_URL = "http://www.hl7.org/implement/standards/fhir/2015May/"
 DEFAULT_TARGET_DIRECTORY = "data"
-DEFAULT_TARGET_FILE = os.path.join(DEFAULT_TARGET_DIRECTORY, "fhir-spec.zip")
-DEFAULT_EXAMPLE_DIRECTORY = os.path.join(DEFAULT_TARGET_DIRECTORY, "examples")
-DEFAULT_RDF_DIRECTORY = os.path.join(DEFAULT_TARGET_DIRECTORY, "rdf")
-DEFAULT_XML_DEFINITIONS = os.path.join(DEFAULT_TARGET_DIRECTORY, "definitions.xml")
+DEFAULT_TARGET_FILE = "fhir-spec.zip"
+DEFAULT_EXAMPLE_DIRECTORY = "examples"
+DEFAULT_RDF_DIRECTORY = "rdf"
+DEFAULT_XML_DEFINITIONS = "definitions.xml"
+DEFAULT_SHEX_DEFINITIONS = "definitions.shex"
 
-DEFAULT_LOG_FILE = os.path.join(DEFAULT_TARGET_DIRECTORY, "extract.log")
-LOGGING_LEVEL = INFO
+DEFAULT_LOG_FILE = "extract.log"
+LOGGING_LEVEL = logging.INFO
 
 DOWNLOAD_CHUNK_SIZE = 8192       # streaming download chunk size
+
+
+def start_logger(opts: argparse.Namespace, file_name: str) -> None:
+    logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='a',
+                        format='%(asctime)s - ' + os.path.basename(file_name) + ' - %(levelname)s - %(message)s')
+    logging.info("********** Start ***********")
+
+
+def fill_defaults(opts: argparse.Namespace) -> None:
+    opts.url = opts.url + '/' + opts.file
+    opts.file = os.path.join(opts.dir, opts.file)
+    opts.exampledir = os.path.join(opts.dir, opts.exampledir)
+    opts.logfile = os.path.join(opts.dir, opts.logfile)
+    return opts

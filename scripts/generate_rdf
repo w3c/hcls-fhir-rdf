@@ -28,6 +28,7 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
+
 import argparse
 import logging
 import os
@@ -48,9 +49,9 @@ def addargs(parser: argparse.ArgumentParser) -> None:
     """ Add local args to the dirlistproc set
     :param parser: argument parser from dirlistproc
     """
-    parser.add_argument("-df", "--definitions", help="Transform definitions file (example: definitions.xml)",
-                        default=DEFAULT_XML_DEFINITIONS)
-    parser.add_argument("--logfile", help="Logging file. Default is 'extract.log'", default=DEFAULT_LOG_FILE)
+    parser.add_argument("-df", "--definitions",
+                        help="Transform definitions file. Default: %s" % DEFAULT_XML_DEFINITIONS)
+    parser.add_argument("--logfile", help="Logging file. Default: %s" % DEFAULT_LOG_FILE)
     parser.add_argument("-of", "--output_format", help="Output file format. Default: 'turtle'",
                         choices=known_formats(), default='turtle')
     parser.add_argument("--gwport", help="XSLT Gateway port", type=int, default=pyjxslt.DEFAULT_PORT)
@@ -58,11 +59,18 @@ def addargs(parser: argparse.ArgumentParser) -> None:
 
 def procargs(opts: argparse.Namespace) -> None:
     if not opts.indir:
-        opts.indir = DEFAULT_EXAMPLE_DIRECTORY
+        opts.indir = os.path.join(DEFAULT_TARGET_DIRECTORY, DEFAULT_EXAMPLE_DIRECTORY)
     if not opts.outdir:
-        opts.outdir = DEFAULT_RDF_DIRECTORY
-    # TODO: Fix dirlistproc to create output directories if none exist
+        opts.outdir = os.path.join(DEFAULT_TARGET_DIRECTORY, DEFAULT_RDF_DIRECTORY)
+    if not opts.logfile:
+        opts.logfile = os.path.join(DEFAULT_TARGET_DIRECTORY, DEFAULT_LOG_FILE)
+    if not opts.definitions:
+        opts.definitions = os.path.join(DEFAULT_TARGET_DIRECTORY, DEFAULT_XML_DEFINITIONS)
+    opts.flatten = True
+
     os.makedirs(opts.outdir, exist_ok=True)
+
+    start_logger(opts, __file__)
     opts.gw = pyjxslt.Gateway(opts.gwport)
     opts.gw.add_transform('transform', os.path.join(_parent_dir, 'xsl', 'transform.xsl'))
 
@@ -74,7 +82,7 @@ def proc_input_file(xml_file: str, rdf_file, opts: argparse.Namespace) -> bool:
     :param opts: process options
     :return: True if file was processed, false if it was skipped
     """
-    logging.info("Transfoming %s into %s" % (xml_file, rdf_file))
+    logging.info("  Transfoming %s into %s" % (xml_file, rdf_file))
     rdf_file_name = rdf_file + "." + suffix_for(opts.output_format)
     with open(xml_file) as xf:
         xml_input = xf.read()
@@ -89,10 +97,8 @@ def proc_input_file(xml_file: str, rdf_file, opts: argparse.Namespace) -> bool:
 
 def main():
     dlp = DirectoryListProcessor(None, "Convert FHIR XML data into RDF", ".xml", '', addargs, procargs)
-    if dlp.opts.outdir:
-        os.makedirs(dlp.opts.outdir, exist_ok=True)
     nfiles, nsuccess = dlp.run(proc_input_file)
-    logging.info("Total=%d Successful=%d" % (nfiles, nsuccess))
+    logging.info("  Total files processed=%d Errors=%d" % (nfiles, nfiles - nsuccess))
 
 
 if __name__ == '__main__':
