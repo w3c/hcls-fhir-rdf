@@ -29,10 +29,11 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 from datetime import datetime
-import logging
 import os
+import shutil
 import requests
 import sys
+import json
 from typing import List, Optional
 from zipfile import ZipFile
 
@@ -41,13 +42,15 @@ if __name__ == "__main__":
 
 from hcls_fhir_rdf.defaults import *
 
+PROFILE_SUFFIX = ".profile.json"
+
 
 def download_spec(opts: argparse.Namespace) -> bool:
     """ Download and unzip the FHIR specification (if necessary)
     :param opts: Parser options
     :return: success indicator
     """
-    download_needed = opts.force
+    download_needed = opts.force or opts.clear
     target_file_modtime = None
     try:
         target_file_modtime = datetime.fromtimestamp(os.path.getmtime(opts.file))
@@ -88,7 +91,19 @@ def download_spec(opts: argparse.Namespace) -> bool:
     else:
         logging.info(" Zip file is current, not re-downloaded")
 
+    if opts.striptext:
+        logging.info(" Stripping text from *.%s files" % PROFILE_SUFFIX)
+        for root, dirs, files in os.walk(opts.dir):
+            [strip_text(os.path.join(root, f)) for f in files if f.endswith(PROFILE_SUFFIX)]
+
     return True, False
+
+
+def strip_text(fname: str) -> None:
+    f_as_json = json.load(open(fname))
+    if 'text' in f_as_json:
+        del f_as_json['text']
+        open(fname, 'w').write(json.dumps(f_as_json, indent='    '))
 
 
 def do_unzip(opts: argparse.Namespace) -> bool:
@@ -96,12 +111,11 @@ def do_unzip(opts: argparse.Namespace) -> bool:
     :param opts: input options
     :return: success indicator
     """
-    # TODO: implement opts.clear
     logging.info(" Unzipping %s into %s" % (opts.file, opts.dir))
     zf = ZipFile(opts.file)
-    file_names = [n for n in zf.namelist() if n.endswith(".profile.json")]
+    file_names = [n for n in zf.namelist() if n.endswith(PROFILE_SUFFIX)]
     if not file_names:
-        logging.warning("\tNo '.profile.json' files found!")
+        logging.warning("\tNo '%s' files found!" % PROFILE_SUFFIX)
     zf.extractall(opts.dir, members=file_names)
     if opts.exampledir:
         logging.info(" Unzipping examples into %s" % opts.exampledir)
@@ -125,25 +139,37 @@ def parse_args(args: Optional[List[str]]) -> argparse.Namespace:
                         default=DEFAULT_EXAMPLE_DIRECTORY)
     parser.add_argument("--force", help="Force FHIR specification download ",
                         action="store_true")
-    # parser.add_argument("--clear", help="Clear output and examples directory before unzipping", action="store_true")
+    parser.add_argument("--clear", help="Clear output and examples directory before unzipping", action="store_true")
     parser.add_argument("--unzip", help="Force unzip", action="store_true")
     parser.add_argument("--logfile", help="Logging file. (default: %s)" % DEFAULT_LOG_FILE, default=DEFAULT_LOG_FILE)
     parser.add_argument("--skipdownload", help="Don't attempt to download zip file", action="store_true")
+    parser.add_argument("--striptext", help="Remove the text section of profile definitions", action="store_true")
     opts = parser.parse_args(args if args is not None else sys.argv[1:])
 
     return fill_defaults(opts)
 
 
+def remove_folder(path):
+    if os.path.exists(path):
+        shutil.rmtree(path)
+
+
 def main():
     opts = parse_args(None)
-    os.makedirs(opts.dir, exist_ok=True)
-    os.makedirs(opts.exampledir, exist_ok=True)
+    if opts.clear:
+        if input("Will remove %s and %s, ok? " % (opts.dir, opts.exampledir)).lower() in ("y", "yes", "ok"):
+            remove_folder(opts.exampledir)
+            remove_folder(opts.dir)
+        else:
+            sys.exit(1)
+
+    os.makedirs(opts.dir, exist_ok=not opts.clear)
+    os.makedirs(opts.exampledir, exist_ok=not opts.clear)
 
     start_logger(opts, __file__)
     logging.info(" Downloading %s to %s" % (opts.url, opts.file))
     logging.info("  Log: %s" % opts.logfile)
     logging.info("  Examples in: %s" % opts.exampledir)
-
 
     success, new_download = download_spec(opts) if not opts.skipdownload else (True, True)
     if success and (new_download or opts.unzip):
