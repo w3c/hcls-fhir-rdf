@@ -1,22 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<CarePlan xmlns="http://hl7.org/fhir">
+<?xml version="1.0" encoding="UTF-8"?><CarePlan xmlns="http://hl7.org/fhir">
   <id value="example"/>
   <text>
     <status value="additional"/>
     <div xmlns="http://www.w3.org/1999/xhtml">
-      
       <p> A simple care plan to indicate a patient taking their weight once a day because of obesity.
             Some Notes: </p>
-      
       <ul>
-        
-        <li>It would be good to have some way of specifying/coding a goal. e.g. what the target weight is</li>
-        
+        <li>It would be good to have some way of specifying/coding a goal; e.g. what the target weight is</li>
         <li>In the codeable concepts I&#39;ve been lazy and just put the text. There should, of course, be a code behind these</li>
-      
       </ul>
-    
     </div>
   </text>
   <contained>
@@ -29,7 +21,7 @@
       <code>
         <text value="Obesity"/>
       </code>
-      <clinicalStatus value="confirmed"/>
+      <verificationStatus value="confirmed"/>
     </Condition>
   </contained>
   <contained>
@@ -57,7 +49,7 @@
               <code value="29463-7"/>
               <display value="Body weight"/>
             </coding>
-          </valueCodeableConcept>
+          </valueCodeableConcept>  
         </extension>
         <extension url="goal-target.detail">
           <valueQuantity>
@@ -67,26 +59,26 @@
           </valueQuantity>
         </extension>
       </extension>
-      <patient>
+      <subject>
         <reference value="Patient/example"/>
         <display value="Peter James Chalmers"/>
-      </patient>
+      </subject>
       <description value="Target weight is 80 kg"/>
       <status value="planned"/>
     </Goal>
   </contained>
-  <patient>
+  <subject>
     <reference value="Patient/example"/>
     <display value="Peter James Chalmers"/>
-  </patient>
+  </subject>
   <status value="active"/>
   <period>
     <end value="2013-01-01"/>
   </period>
-  <concern>
+  <addresses>
     <reference value="#p1"/>
     <display value="obesity"/>
-  </concern>
+  </addresses>
   <participant>
     <role>
       <text value="responsiblePerson"/>
@@ -110,7 +102,7 @@
   </goal>
   <activity>
     <detail>
-      <category value="observation"/>
+      <category><coding><system value="http://hl7.org/fhir/care-plan-activity-category"/><code value="observation"/></coding></category>
       <code>
         <text value="a code for weight measurement"/>
       </code>

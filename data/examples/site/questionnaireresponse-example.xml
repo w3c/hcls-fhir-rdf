@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><QuestionnaireResponse xmlns="http://hl7.org/fhir">
+  <id value="3141"/>
+  <text>
+    <status value="generated"/>
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      
+      
+      <pre>
+            Comorbidity? YES
+              Cardial Comorbidity? YES
+                Angina? YES
+                MI? NO
+              Vascular Comorbidity?
+                (no answers)
+              ...
+            Histopathology
+              Abdominal
+                pT category: 1a
+              ...
+          </pre>
+    
+    
+    </div>
+  </text>
+  <contained>
+    <Patient>
+      <id value="patsub"/>
+      <identifier>
+        <system value="http://cancer.questionnaire.org/systems/id/patientnr"/>
+        <value value="A34442332"/>
+      </identifier>
+      <identifier>
+        <type>
+          <text value="Dutch BSN"/>
+        </type>
+        <system value="urn:oid:2.16.840.1.113883.2.4.6.3"/>
+        <value value="188912345"/>
+      </identifier>
+      <gender value="male"/>
+      <birthDate value="1972-11-30"/>
+    </Patient>
+  </contained>
+  <contained>
+    <Practitioner>
+      <id value="questauth"/>
+      <identifier>
+        <type>
+          <text value="AUMC, Den Helder"/>
+        </type>
+        <system value="http://cancer.questionnaire.org/systems/id/org"/>
+        <value value="AUMC"/>
+      </identifier>
+    </Practitioner>
+  </contained>
+  <contained>
+    <Observation>
+      <id value="obs.pt-category"/>
+      <status value="final"/>
+      <code>
+        <coding>
+          <system value="http://snomed.info/sct"/>
+          <code value="53786006"/>
+          <display value="pT1 category"/>
+        </coding>
+      </code>
+      <subject>
+        <reference value="#patsub"/>
+      </subject>
+      <performer>
+        <reference value="#questauth"/>
+      </performer>
+      <valueCodeableConcept>
+        <coding>
+          <system value="http://snomed.info/sct"/>
+          <code value="443357004"/>
+          <display value="pT1a category"/>
+        </coding>
+      </valueCodeableConcept>
+    </Observation>
+  </contained>
+  <status value="completed"/>
+  <subject>
+    <reference value="#patsub"/>
+  </subject>
+  <author>
+    <reference value="#questauth"/>
+  </author>
+  <authored value="2013-02-19T14:15:00-05:00"/>
+  <group>
+    <title value="Cancer Quality Forum Questionnaire 2012"/>
+    <group>
+    <!--    COMORBIDITY    -->
+    <!--    First main section of the form, questions about comorbidity    -->
+    <!--    section contains one question: whether there is comorbidity    -->
+      <question>
+        <answer>
+          <valueCoding>
+            <system value="http://cancer.questionnaire.org/system/code/yesno"/>
+            <code value="1"/>
+            <display value="Yes"/>
+          </valueCoding>
+          <group>
+          <!--    COMORBIDITY/CARDIAL    -->
+          <!--    Subsection about specific comorbidity: cardial    -->
+            <question>
+              <answer>
+                <valueCoding>
+                  <system value="http://cancer.questionnaire.org/system/code/yesno"/>
+                  <code value="1"/>
+                </valueCoding>
+              </answer>
+            </question>
+            <question>
+            <!--    This answer carries both the questionnaire-specific name and an equivalent SNOMED CT code    -->
+              <answer>
+                <valueCoding>
+                  <system value="http://cancer.questionnaire.org/system/code/yesno"/>
+                  <code value="1"/>
+                </valueCoding>
+              </answer>
+            </question>
+            <question>
+              <answer>
+                <valueCoding>
+                  <system value="http://cancer.questionnaire.org/system/code/yesno"/>
+                  <code value="0"/>
+                </valueCoding>
+              </answer>
+            </question>
+          </group>
+        </answer>
+      </question>
+    </group>
+  <!--    HISTOPATHOLOGY    -->
+  <!--    TODO: decide how to do this
+    <group>
+
+      <group>
+        <question>
+         <dataResource>
+            <reference value="#obs.pt-category"/>
+          </dataResource>
+        </question>
+      </group>
+    </group>    -->
+  </group>
+</QuestionnaireResponse>

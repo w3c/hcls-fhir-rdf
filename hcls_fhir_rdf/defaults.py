@@ -30,7 +30,7 @@ import os
 import argparse
 import logging
 
-DEFAULT_SPEC_URL = "http://www.hl7.org/implement/standards/fhir/2015May/"
+DEFAULT_SPEC_URL = "http://hl7.org/fhir"
 DEFAULT_TARGET_DIRECTORY = "data"
 DEFAULT_TARGET_FILE = "fhir-spec.zip"
 DEFAULT_EXAMPLE_DIRECTORY = "examples"

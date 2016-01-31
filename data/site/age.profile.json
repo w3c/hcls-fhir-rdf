@@ -7,21 +7,23 @@
   },
   "url": "http://hl7.org/fhir/StructureDefinition/Age",
   "name": "Age",
+  "status": "draft",
   "publisher": "HL7 FHIR Standard",
   "contact": [
     {
       "telecom": [
         {
-          "system": "url",
+          "system": "other",
           "value": "http://hl7.org/fhir"
         }
       ]
     }
   ],
+  "date": "2015-10-24T07:41:03+11:00",
   "description": "A duration (length of time) with a UCUM code",
-  "status": "draft",
-  "date": "2015-04-03T14:24:32+11:00",
-  "type": "constraint",
+  "fhirVersion": "1.0.2",
+  "kind": "datatype",
+  "constrainedType": "Quantity",
   "abstract": false,
   "base": "http://hl7.org/fhir/StructureDefinition/Quantity",
   "snapshot": {
@@ -32,9 +34,13 @@
         "short": "A duration (length of time) with a UCUM code",
         "definition": "There SHALL be a code if there is a value and it SHALL be an expression of time.  If system is present, it SHALL be UCUM.  If value is present, it SHALL be positive.",
         "comments": "The context of use may frequently define what kind of quantity this is and therefore what kind of units can be used. The context of use may also restrict the values for the comparator.",
-        "requirements": "Need to able to capture all sorts of measured values, even if the measured value are not precisely quantified. Values include exact measures such as 3.51g, customary units such as 3 tablets, and currencies such as $100.32USD.",
-        "min": 1,
-        "max": "1",
+        "min": 0,
+        "max": "*",
+        "base": {
+          "path": "Quantity",
+          "min": 0,
+          "max": "*"
+        },
         "type": [
           {
             "code": "Quantity"
@@ -43,9 +49,8 @@
         "constraint": [
           {
             "key": "qty-3",
-            "name": "SHALL have a system",
             "severity": "error",
-            "human": "If a code for the units is present, the system SHALL also be present",
+            "human": "If a code for the unit is present, the system SHALL also be present",
             "xpath": "not(exists(f:code)) or exists(f:system)"
           },
           {
@@ -55,6 +60,7 @@
             "xpath": "(f:code or not(f:value)) and (not(exists(f:system)) or f:system/@value='http://unitsofmeasure.org') and not(contains(f:value/@value, '-'))"
           }
         ],
+        "isSummary": true,
         "mapping": [
           {
             "identity": "v2",
@@ -75,6 +81,11 @@
         "definition": "unique id for the element within a resource (for internal references).",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "Quantity.id",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
             "code": "id"
@@ -98,6 +109,11 @@
         ],
         "min": 0,
         "max": "*",
+        "base": {
+          "path": "Quantity.extension",
+          "min": 0,
+          "max": "*"
+        },
         "type": [
           {
             "code": "Extension"
@@ -118,11 +134,17 @@
         "requirements": "Precision is handled implicitly in almost all cases of measurement.",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "Quantity.value",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
             "code": "decimal"
           }
         ],
+        "isSummary": true,
         "mapping": [
           {
             "identity": "v2",
@@ -137,23 +159,29 @@
       {
         "path": "Quantity.comparator",
         "short": "< | <= | >= | > - how to understand the value",
-        "definition": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues. E.g. if the comparator is \"<\" , then the real value is < stated value.",
+        "definition": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"<\" , then the real value is < stated value.",
         "comments": "This is labeled as \"Is Modifier\" because the comparator modifies the interpretation of the value significantly. If there is no comparator, then there is no modification of the value.",
         "requirements": "Need a framework for handling measures where the value is <5ug/L or >400mg/L due to the limitations of measuring methodology.",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "Quantity.comparator",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
             "code": "code"
           }
         ],
+        "meaningWhenMissing": "If there is no comparator, then there is no modification of the value",
         "isModifier": true,
+        "isSummary": true,
         "binding": {
-          "name": "QuantityComparator",
           "strength": "required",
-          "description": "How the Quantity should be understood and represented",
+          "description": "How the Quantity should be understood and represented.",
           "valueSetReference": {
-            "reference": "http://hl7.org/fhir/vs/quantity-comparator"
+            "reference": "http://hl7.org/fhir/ValueSet/quantity-comparator"
           }
         },
         "mapping": [
@@ -168,21 +196,27 @@
         ]
       },
       {
-        "path": "Quantity.units",
+        "path": "Quantity.unit",
         "short": "Unit representation",
-        "definition": "A human-readable form of the units.",
-        "requirements": "There are many representations for units and in many contexts, particular representations are fixed and required. I.e. mcg for micrograms.",
+        "definition": "A human-readable form of the unit.",
+        "requirements": "There are many representations for units of measure and in many contexts, particular representations are fixed and required. I.e. mcg for micrograms.",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "Quantity.unit",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
             "code": "string"
           }
         ],
+        "isSummary": true,
         "mapping": [
           {
             "identity": "v2",
-            "map": "(see OBX.6 etc) / CQ.2"
+            "map": "(see OBX.6 etc.) / CQ.2"
           },
           {
             "identity": "rim",
@@ -197,6 +231,11 @@
         "requirements": "Need to know the system that defines the coded form of the unit.",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "Quantity.system",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
             "code": "uri"
@@ -205,10 +244,11 @@
         "condition": [
           "qty-3"
         ],
+        "isSummary": true,
         "mapping": [
           {
             "identity": "v2",
-            "map": "(see OBX.6 etc) / CQ.2"
+            "map": "(see OBX.6 etc.) / CQ.2"
           },
           {
             "identity": "rim",
@@ -219,20 +259,26 @@
       {
         "path": "Quantity.code",
         "short": "Coded form of the unit",
-        "definition": "A computer processable form of the units in some unit representation system.",
-        "comments": "The preferred system is UCUM, but SNOMED CT can also be used (for customary units) or ISO 4217 for currency.\n\nThe context of use may additionally require a code from a particular system.",
-        "requirements": "Need a computable form of the units that is fixed across all forms. UCUM provides this for quantities, but SNOMED CT provides many units of interest.",
+        "definition": "A computer processable form of the unit in some unit representation system.",
+        "comments": "The preferred system is UCUM, but SNOMED CT can also be used (for customary units) or ISO 4217 for currency.  The context of use may additionally require a code from a particular system.",
+        "requirements": "Need a computable form of the unit that is fixed across all forms. UCUM provides this for quantities, but SNOMED CT provides many units of interest.",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "Quantity.code",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
             "code": "code"
           }
         ],
+        "isSummary": true,
         "mapping": [
           {
             "identity": "v2",
-            "map": "(see OBX.6 etc) / CQ.2"
+            "map": "(see OBX.6 etc.) / CQ.2"
           },
           {
             "identity": "rim",
@@ -249,8 +295,8 @@
         "name": "Age",
         "short": "A duration (length of time) with a UCUM code",
         "definition": "There SHALL be a code if there is a value and it SHALL be an expression of time.  If system is present, it SHALL be UCUM.  If value is present, it SHALL be positive.",
-        "min": 1,
-        "max": "1",
+        "min": 0,
+        "max": "*",
         "type": [
           {
             "code": "Quantity"

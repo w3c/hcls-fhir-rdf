@@ -1,4 +1,4 @@
-# generated on  2016-01-19T14:51:04.56-06:00
+# generated on  2016-01-31T16:12:53.991-06:00
 
 @prefix CarePlan <http://hl7.org/fhir> .
 @prefix fhir: <http://hl7.org/fhir/> .
@@ -14,19 +14,21 @@
       fhir:Narrative.div [ 
          a fhir:xhtml;
          fhir:text [ fhir:value """<div><p> A simple care plan to indicate a patient taking their weight once a day because of obesity.
-            Some Notes: </p><ul><li>It would be good to have some way of specifying/coding a goal. e.g. what the target weight is</li><li>In the codeable concepts I've been lazy and just put the text. There should, of course, be a code behind these</li></ul></div>""" ]       ]
+            Some Notes: </p><ul><li>It would be good to have some way of specifying/coding a goal; e.g. what the target weight is</li><li>In the codeable concepts I've been lazy and just put the text. There should, of course, be a code behind these</li></ul></div>""" ]       ]
     ];
    fhir:contained <p1>;
    fhir:contained <pr1>;
    fhir:contained <goal>;
-   fhir:CarePlan.patient <Patient/example>;
+   fhir:CarePlan.subject <Patient/example>;
+;
+   fhir:CarePlan.subject_1 <Patient/example>;
 ;
    fhir:CarePlan.status [ fhir:value "active" ];
    fhir:CarePlan.period [ 
       a fhir:Period;
       fhir:Period.end [ fhir:value "2013-01-01" ]
     ];
-   fhir:CarePlan.concern <[]#p1>;
+   fhir:CarePlan.addresses <[]#p1>;
 ;
    fhir:CarePlan.participant [ 
       a fhir:CarePlan.participant;
@@ -64,7 +66,14 @@
       a fhir:CarePlan.activity;
       fhir:CarePlan.activity.detail [ 
          a fhir:CarePlan.activity.detail;
-         fhir:CarePlan.activity.detail.category [ fhir:value "observation" ];
+         fhir:CarePlan.activity.detail.category [ 
+            a fhir:CodeableConcept;
+            fhir:CodeableConcept.coding [ 
+               a fhir:Coding;
+               fhir:Coding.system [ fhir:value "http://hl7.org/fhir/care-plan-activity-category" ];
+               fhir:Coding.code [ fhir:value "observation" ];
+             ];
+          ];
          fhir:CarePlan.activity.detail.code [ 
             a fhir:CodeableConcept;
             fhir:CodeableConcept.text [ fhir:value "a code for weight measurement" ]
@@ -106,7 +115,11 @@
        ];
     ];
    fhir:Goal.id [ fhir:value "goal" ];
-   fhir:Goal.patient <Patient/example>;
+   fhir:Goal.subject <Patient/example>;
+;
+   fhir:Goal.subject_1 <Patient/example>;
+;
+   fhir:Goal.subject_2 <Patient/example>;
 ;
    fhir:Goal.description [ fhir:value "Target weight is 80 kg" ];
    fhir:Goal.status [ fhir:value "planned" ];

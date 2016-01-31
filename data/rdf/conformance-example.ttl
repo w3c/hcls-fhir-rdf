@@ -1,4 +1,4 @@
-# generated on  2016-01-19T14:51:04.742-06:00
+# generated on  2016-01-31T16:12:54.53-06:00
 
 @prefix Conformance <http://hl7.org/fhir> .
 @prefix fhir: <http://hl7.org/fhir/> .
@@ -21,27 +21,57 @@
    fhir:Conformance.url [ fhir:value "68D043B5-9ECF-4559-A57A-396E0D452311" ];
    fhir:Conformance.version [ fhir:value "20130510" ];
    fhir:Conformance.name [ fhir:value "ACME EHR Conformance statement" ];
+   fhir:Conformance.status [ fhir:value "draft" ];
+   fhir:Conformance.experimental [ fhir:value true ];
    fhir:Conformance.publisher [ fhir:value "ACME Corporation" ];
    fhir:Conformance.contact [ 
       a fhir:Conformance.contact;
+      fhir:Conformance.contact.name [ fhir:value "System Administrator" ];
       fhir:Conformance.contact.telecom [ 
          a fhir:ContactPoint;
          fhir:ContactPoint.system [ fhir:value "email" ];
          fhir:ContactPoint.value [ fhir:value "wile@acme.org" ];
        ]
     ];
-   fhir:Conformance.description [ fhir:value "This is the FHIR conformance statement for the main EHR at ACME for the private interface - it does not describe the public interface" ];
    fhir:Conformance.date [ fhir:value "2012-01-04" ];
+   fhir:Conformance.description [ fhir:value "This is the FHIR conformance statement for the main EHR at ACME for the private interface - it does not describe the public interface" ];
+   fhir:Conformance.requirements [ fhir:value "Main EHR conformance statement, published for contracting and operational support" ];
+   fhir:Conformance.copyright [ fhir:value "Copyright © Acme Healthcare and GoodCorp EHR Systems" ];
+   fhir:Conformance.kind [ fhir:value "instance" ];
    fhir:Conformance.software [ 
       a fhir:Conformance.software;
       fhir:Conformance.software.name [ fhir:value "EHR" ];
       fhir:Conformance.software.version [ fhir:value "0.00.020.2134" ];
+    ];
+   fhir:Conformance.implementation [ 
+      a fhir:Conformance.implementation;
+      fhir:Conformance.implementation.description [ fhir:value "main EHR at ACME" ];
+      fhir:Conformance.implementation.url [ fhir:value "http://10.2.3.4/fhir" ]
     ];
    fhir:Conformance.format [ fhir:value "xml" ];
    fhir:Conformance.format [ fhir:value "json" ];
    fhir:Conformance.rest [ 
       a fhir:Conformance.rest;
       fhir:Conformance.rest.mode [ fhir:value "server" ];
+      fhir:Conformance.rest.documentation [ fhir:value "Main FHIR endpoint for acem health" ];
+      fhir:Conformance.rest.security [ 
+         a fhir:Conformance.rest.security;
+         fhir:Conformance.rest.security.cors [ fhir:value true ];
+         fhir:Conformance.rest.security.service [ 
+            a fhir:CodeableConcept;
+            fhir:CodeableConcept.coding [ 
+               a fhir:Coding;
+               fhir:Coding.system [ fhir:value "http://hl7.org/fhir/restful-security-service" ];
+               fhir:Coding.code [ fhir:value "SMART-on-FHIR" ];
+             ];
+          ];
+         fhir:Conformance.rest.security.description [ fhir:value "See Smart on FHIR documentation" ];
+         fhir:Conformance.rest.security.certificate [ 
+            a fhir:Conformance.rest.security.certificate;
+            fhir:Conformance.rest.security.certificate.type [ fhir:value "application/jwt" ];
+            fhir:Conformance.rest.security.certificate.blob [ fhir:value "IHRoaXMgYmxvYiBpcyBub3QgdmFsaWQ=" ]
+          ]
+       ];
       fhir:Conformance.rest.resource [ 
          a fhir:Conformance.rest.resource;
          fhir:Conformance.rest.resource.type [ fhir:value "Patient" ];
@@ -54,6 +84,7 @@
          fhir:Conformance.rest.resource.interaction [ 
             a fhir:Conformance.rest.resource.interaction;
             fhir:Conformance.rest.resource.interaction.code [ fhir:value "vread" ];
+            fhir:Conformance.rest.resource.interaction.documentation [ fhir:value "Only supported for patient records since 12-Dec 2012" ]
           ];
          fhir:Conformance.rest.resource.interaction [ 
             a fhir:Conformance.rest.resource.interaction;
@@ -71,6 +102,7 @@
             a fhir:Conformance.rest.resource.interaction;
             fhir:Conformance.rest.resource.interaction.code [ fhir:value "history-type" ];
           ];
+         fhir:Conformance.rest.resource.versioning [ fhir:value "versioned-update" ];
        ];
       fhir:Conformance.rest.interaction [ 
          a fhir:Conformance.rest.interaction;
@@ -80,9 +112,20 @@
          a fhir:Conformance.rest.interaction;
          fhir:Conformance.rest.interaction.code [ fhir:value "history-system" ];
        ];
+      fhir:Conformance.rest.compartment [ fhir:value "http://hl7.org/fhir/compartment/Patient" ]
     ];
    fhir:Conformance.messaging [ 
       a fhir:Conformance.messaging;
+      fhir:Conformance.messaging.endpoint [ 
+         a fhir:Conformance.messaging.endpoint;
+         fhir:Conformance.messaging.endpoint.protocol [ 
+            a fhir:Coding;
+            fhir:Coding.system [ fhir:value "http://hl7.org/fhir/message-transport" ];
+            fhir:Coding.code [ fhir:value "mllp" ];
+          ];
+         fhir:Conformance.messaging.endpoint.address [ fhir:value "mllp:10.1.1.10:9234" ]
+       ];
+      fhir:Conformance.messaging.documentation [ fhir:value "ADT A08 equivalent for external system notifications" ];
       fhir:Conformance.messaging.event [ 
          a fhir:Conformance.messaging.event;
          fhir:Conformance.messaging.event.code [ 
@@ -90,12 +133,14 @@
             fhir:Coding.system [ fhir:value "http://hl7.org/fhir/message-type" ];
             fhir:Coding.code [ fhir:value "admin-notify" ];
           ];
+         fhir:Conformance.messaging.event.category [ fhir:value "Consequence" ];
          fhir:Conformance.messaging.event.mode [ fhir:value "receiver" ];
          fhir:Conformance.messaging.event.focus [ fhir:value "Patient" ];
-         fhir:Conformance.messaging.event.request <StructureDefinition/101>;
+         fhir:Conformance.messaging.event.request <StructureDefinition/daf-patient>;
 ;
-         fhir:Conformance.messaging.event.response <StructureDefinition/101>;
+         fhir:Conformance.messaging.event.response <StructureDefinition/MessageHeader>;
 ;
+         fhir:Conformance.messaging.event.documentation [ fhir:value "Notification of an update to a patient resource. changing the links is not supported" ]
        ]
     ];
    fhir:Conformance.document [ 

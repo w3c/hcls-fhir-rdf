@@ -36,6 +36,7 @@ setup(
     packages=['hcls_fhir_rdf'],
     scripts=['scripts/download_fhir_spec', 'scripts/generate_shex', 'scripts/generate_xml_definitions',
              'scripts/generate_rdf'],
+    data_files=[('share/xsl', ['share/xsl/transform.xsl'])],
     license='BSD 3-Clause license',
     classifiers=[
         'Development Status :: 4 - Beta',

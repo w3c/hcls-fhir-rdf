@@ -7,40 +7,47 @@
   },
   "url": "http://hl7.org/fhir/StructureDefinition/id",
   "name": "id",
+  "status": "draft",
   "publisher": "HL7 FHIR Standard",
   "contact": [
     {
       "telecom": [
         {
-          "system": "url",
+          "system": "other",
           "value": "http://hl7.org/fhir"
         }
       ]
     }
   ],
-  "description": "Base StructureDefinition for id Resource: Any combination of lowercase letters, numerals, \"-\" and \".\", with a length limit of 36 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Systems SHALL send ids as lower-case but SHOULD interpret them case-insensitively.",
-  "status": "draft",
-  "date": "2015-04-03T14:24:32+11:00",
-  "type": "type",
+  "date": "2015-10-24T07:41:03+11:00",
+  "description": "Base StructureDefinition for id type: Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+  "fhirVersion": "1.0.2",
+  "kind": "datatype",
+  "constrainedType": "string",
   "abstract": false,
-  "base": "http://hl7.org/fhir/StructureDefinition/Element",
+  "base": "http://hl7.org/fhir/StructureDefinition/string",
   "snapshot": {
     "element": [
       {
-        "path": "id",
+        "path": "string",
         "short": "Primitive Type id",
-        "definition": "Any combination of lowercase letters, numerals, \"-\" and \".\", with a length limit of 36 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Systems SHALL send ids as lower-case but SHOULD interpret them case-insensitively.",
+        "definition": "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
         "comments": "RFC 4122",
         "min": 0,
         "max": "*",
+        "base": {
+          "path": "string",
+          "min": 0,
+          "max": "*"
+        },
         "type": [
           {
-            "code": "id"
+            "code": "Element"
           }
         ]
       },
       {
-        "path": "id.extension",
+        "path": "string.extension",
         "short": "Additional Content defined by implementations",
         "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
         "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
@@ -50,6 +57,11 @@
         ],
         "min": 0,
         "max": "*",
+        "base": {
+          "path": "string.extension",
+          "min": 0,
+          "max": "*"
+        },
         "type": [
           {
             "code": "Extension"
@@ -57,7 +69,7 @@
         ]
       },
       {
-        "path": "value",
+        "path": "string.value",
         "representation": [
           "xmlAttr"
         ],
@@ -65,9 +77,34 @@
         "definition": "Primitive value for id",
         "min": 0,
         "max": "1",
+        "base": {
+          "path": "string.value",
+          "min": 0,
+          "max": "1"
+        },
         "type": [
           {
-            "code": "xs:string"
+            "fhir_comments": [
+              "Note: primitive values do not have an assigned type\r\n      e.g. this is compiler magic\r\n      XML and JSON types provided by extension"
+            ],
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-regex",
+                "valueString": "[A-Za-z0-9\\-\\.]{1,64}"
+              }
+            ],
+            "_code": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type",
+                  "valueString": "string"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type",
+                  "valueString": "xs:string+"
+                }
+              ]
+            }
           }
         ]
       }
@@ -76,9 +113,9 @@
   "differential": {
     "element": [
       {
-        "path": "id",
+        "path": "string",
         "short": "Primitive Type id",
-        "definition": "Any combination of lowercase letters, numerals, \"-\" and \".\", with a length limit of 36 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Systems SHALL send ids as lower-case but SHOULD interpret them case-insensitively.",
+        "definition": "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
         "comments": "RFC 4122",
         "min": 0,
         "max": "*",
@@ -89,7 +126,7 @@
         ]
       },
       {
-        "path": "value",
+        "path": "string.value",
         "representation": [
           "xmlAttr"
         ],
@@ -99,7 +136,27 @@
         "max": "1",
         "type": [
           {
-            "code": "xs:string"
+            "fhir_comments": [
+              "Note: primitive values do not have an assigned type\r\n      e.g. this is compiler magic\r\n      XML and JSON types provided by extension"
+            ],
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-regex",
+                "valueString": "[A-Za-z0-9\\-\\.]{1,64}"
+              }
+            ],
+            "_code": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type",
+                  "valueString": "string"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type",
+                  "valueString": "xs:string+"
+                }
+              ]
+            }
           }
         ]
       }

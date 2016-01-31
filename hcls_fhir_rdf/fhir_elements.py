@@ -92,7 +92,7 @@ class PathElements:
         #  1) Record the fact that the base type is referenced from this file
         #  2) Create a map from the constrained elements back to the base
         constrained_type = {}                        # map from base type to constraint name
-        if f.type == 'constraint':
+        if f.get('type') == 'constraint':
             for element in f.differential.element:
                 if 'name' in element:
                     assert '[x]' not in element.path, "Renaming a parameterized type is too wierd"
@@ -115,7 +115,7 @@ class PathElements:
                         parent = constrained_type.get(pname, pname)
                         parent_element = self.get_entry(parent)
                         parent_element.defining_file(parent, file_name)
-                        if f.type == 'constraint':
+                        if f.get('type') == 'constraint':
                             parent_element.add_constraint(pname, prop, element, possible_value)
                         else:
                             parent_element.add_property(prop, element, possible_value)
@@ -205,7 +205,7 @@ class PathElement:
 
     @staticmethod
     def _new_prop(element_defn: jsonasobj.JsonObj, type_defn: jsonasobj.JsonObj):
-        return Property(element_defn.min, element_defn.max, type_defn.code, element_defn.path, type_defn.get('profile'))
+        return Property(element_defn.min, element_defn.max, type_defn.get('code'), element_defn.path, type_defn.get('profile'))
 
     @property
     def as_dict(self):
