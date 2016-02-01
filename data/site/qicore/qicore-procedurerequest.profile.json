@@ -1,1160 +1,1156 @@
 {
-  "resourceType": "StructureDefinition",
-  "id": "qicore-procedurerequest",
-  "text": {
-    "status": "generated",
-    "div": "<div>to do</div>"
-  },
-  "url": "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest",
-  "name": "QICore-ProcedureRequest",
-  "status": "draft",
-  "publisher": "Health Level Seven International (Clinical Quality Information - QICore)",
-  "contact": [
-    {
-      "telecom": [
+    "mapping": [
         {
-          "system": "other",
-          "value": "http://hl7.org/special/committees/CQI"
+            "name": "Quality Data Model",
+            "uri": "http://www.healthit.gov/quality-data-model",
+            "identity": "qdm"
+        },
+        {
+            "name": "Quality Improvement Domain Analysis Model",
+            "uri": "http://www.hl7.org/implement/standards/product_brief.cfm?product_id=378",
+            "identity": "qidam"
         }
-      ]
-    }
-  ],
-  "date": "2015-02-27",
-  "description": "Profile of ProcedureRequest for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
-  "fhirVersion": "1.0.2",
-  "mapping": [
-    {
-      "identity": "qdm",
-      "uri": "http://www.healthit.gov/quality-data-model",
-      "name": "Quality Data Model"
+    ],
+    "id": "qicore-procedurerequest",
+    "constrainedType": "ProcedureRequest",
+    "abstract": false,
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org/special/committees/CQI",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "base": "http://hl7.org/fhir/StructureDefinition/ProcedureRequest",
+    "differential": {
+        "element": [
+            {
+                "mapping": [
+                    {
+                        "map": "\"Intervention, Order\" (when ProcedureRequest.status=\"requested\"); \"Intervention, Recommended\" (when ProcedureRequest.status=\"proposed\"); \"Procedure, Order\"; \"Procedure, Recommended\" (when ProcedureRequest.status=\"proposed\")",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "ProcedureRequest"
+                    }
+                ],
+                "path": "ProcedureRequest",
+                "min": 0,
+                "name": "QICore-ProcedureRequest",
+                "max": "*"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "negation rationale (when ProcedureRequest.status=\"rejected\")",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/procedurerequest-reasonRefused"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.extension",
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "min": 0,
+                "name": "ProcedureRequest.reasonRefused",
+                "binding": {
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
+                    },
+                    "strength": "example"
+                },
+                "max": "1"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Not in QIDAM, but should have been included because the procedure request might include a requested approach, for example, to distinguish between urethral and supra-pubic urinary catheterization.",
+                        "identity": "qidam"
+                    },
+                    {
+                        "map": "anatomical approach site",
+                        "identity": "qdm"
+                    }
+                ],
+                "name": "ProcedureRequest.approachBodySite",
+                "type": [
+                    {
+                        "code": "Extension",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/procedurerequest-approachBodySite"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.extension"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Not in QIDAM, but added because of a persuasive ballot comment (May 2015).",
+                        "identity": "qidam"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest-appropriatenessScore"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.extension",
+                "min": 0,
+                "name": "ProcedureRequest.appropriatenessScore",
+                "binding": {
+                    "description": "The RAND scoring for appropriateness of the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/qicore-appropriateness-score"
+                    },
+                    "strength": "required"
+                },
+                "max": "1"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ]
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.subject"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "primary code",
+                        "identity": "qdm"
+                    }
+                ],
+                "mustSupport": true,
+                "binding": {
+                    "description": "Codes describing the Procedure Type",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-procedure-type"
+                    },
+                    "strength": "preferred"
+                },
+                "path": "ProcedureRequest.code"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "anatomical location site",
+                        "identity": "qdm"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.bodySite"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "reason",
+                        "identity": "qdm"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.reason[x]"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "start datetime, stop datetime",
+                        "identity": "qdm"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.scheduled[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
+                        ]
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.encounter"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-organization"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.performer"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "negation rationale (when ProcedureRequest.status=\"rejected\")",
+                        "identity": "qdm"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.status"
+            },
+            {
+                "mustSupport": true,
+                "path": "ProcedureRequest.asNeeded[x]"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "start datetime, stop datetime",
+                        "identity": "qdm"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.orderedOn"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.orderer"
+            }
+        ]
     },
-    {
-      "identity": "qidam",
-      "uri": "http://www.hl7.org/implement/standards/product_brief.cfm?product_id=378",
-      "name": "Quality Improvement Domain Analysis Model"
-    }
-  ],
-  "kind": "resource",
-  "constrainedType": "ProcedureRequest",
-  "abstract": false,
-  "base": "http://hl7.org/fhir/StructureDefinition/ProcedureRequest",
-  "snapshot": {
-    "element": [
-      {
-        "path": "ProcedureRequest",
-        "name": "QICore-ProcedureRequest",
-        "short": "A request for a procedure to be performed",
-        "definition": "A request for a procedure to be performed. May be a proposal or an order.",
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "ProcedureRequest"
-          }
-        ],
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "w5",
-            "map": "clinical.general"
-          },
-          {
-            "identity": "qdm",
-            "map": "\"Intervention, Order\" (when ProcedureRequest.status=\"requested\"); \"Intervention, Recommended\" (when ProcedureRequest.status=\"proposed\"); \"Procedure, Order\"; \"Procedure, Recommended\" (when ProcedureRequest.status=\"proposed\")"
-          }
+    "url": "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest",
+    "kind": "resource",
+    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)",
+    "snapshot": {
+        "element": [
+            {
+                "mapping": [
+                    {
+                        "map": "clinical.general",
+                        "identity": "w5"
+                    },
+                    {
+                        "map": "\"Intervention, Order\" (when ProcedureRequest.status=\"requested\"); \"Intervention, Recommended\" (when ProcedureRequest.status=\"proposed\"); \"Procedure, Order\"; \"Procedure, Recommended\" (when ProcedureRequest.status=\"proposed\")",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "ProcedureRequest"
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest",
+                "max": "*",
+                "min": 0,
+                "short": "A request for a procedure to be performed",
+                "name": "QICore-ProcedureRequest",
+                "definition": "A request for a procedure to be performed. May be a proposal or an order.",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest"
+                }
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "isSummary": true,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "ProcedureRequest.id",
+                "max": "1",
+                "min": 0,
+                "short": "Logical id of this artifact",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.id"
+                }
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest.meta",
+                "max": "1",
+                "min": 0,
+                "short": "Metadata about the resource",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.meta"
+                }
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "isModifier": true,
+                "isSummary": true,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "ProcedureRequest.implicitRules",
+                "max": "1",
+                "min": 0,
+                "short": "A set of rules under which this content was created",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.implicitRules"
+                }
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "ProcedureRequest.language",
+                "max": "1",
+                "min": 0,
+                "short": "Language of the resource content",
+                "binding": {
+                    "description": "A human language.",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
+                    "strength": "required"
+                },
+                "definition": "The base language in which the resource is written.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.language"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "condition": [
+                    "dom-1"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "ProcedureRequest.text",
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "min": 0,
+                "short": "Text summary of the resource, for human interpretation",
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.text"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "ProcedureRequest.contained",
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "min": 0,
+                "short": "Contained, inline Resources",
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.contained"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "path": "ProcedureRequest.extension",
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "min": 0,
+                "short": "Additional Content defined by implementations",
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.extension"
+                },
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "negation rationale (when ProcedureRequest.status=\"rejected\")",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/procedurerequest-reasonRefused"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.extension",
+                "max": "1",
+                "min": 0,
+                "short": "Extension",
+                "name": "ProcedureRequest.reasonRefused",
+                "binding": {
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
+                    },
+                    "strength": "example"
+                },
+                "definition": "An Extension",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.extension"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Not in QIDAM, but should have been included because the procedure request might include a requested approach, for example, to distinguish between urethral and supra-pubic urinary catheterization.",
+                        "identity": "qidam"
+                    },
+                    {
+                        "map": "anatomical approach site",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/procedurerequest-approachBodySite"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.extension",
+                "max": "*",
+                "min": 0,
+                "short": "Extension",
+                "name": "ProcedureRequest.approachBodySite",
+                "definition": "An Extension",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.extension"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Not in QIDAM, but added because of a persuasive ballot comment (May 2015).",
+                        "identity": "qidam"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest-appropriatenessScore"
+                        ]
+                    }
+                ],
+                "path": "ProcedureRequest.extension",
+                "max": "1",
+                "min": 0,
+                "short": "Extension",
+                "name": "ProcedureRequest.appropriatenessScore",
+                "binding": {
+                    "description": "The RAND scoring for appropriateness of the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/qicore-appropriateness-score"
+                    },
+                    "strength": "required"
+                },
+                "definition": "An Extension",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.extension"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "isModifier": true,
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ProcedureRequest.modifierExtension",
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "min": 0,
+                "short": "Extensions that cannot be ignored",
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.modifierExtension"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "ClinicalStatement.identifier",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest.identifier",
+                "max": "*",
+                "min": 0,
+                "short": "Unique identifier for the request",
+                "definition": "Identifiers assigned to this order by the order or by the receiver.",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.identifier"
+                }
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "ClinicalStatement.subject",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ]
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.subject",
+                "max": "1",
+                "min": 1,
+                "short": "Who the procedure should be done to",
+                "definition": "The person, animal or group that should receive the procedure.",
+                "base": {
+                    "min": 1,
+                    "max": "1",
+                    "path": "ProcedureRequest.subject"
+                }
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "Procedure.procedureCode",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    },
+                    {
+                        "map": "primary code",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.code",
+                "max": "1",
+                "min": 1,
+                "short": "What procedure to perform",
+                "binding": {
+                    "description": "Codes describing the Procedure Type",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-procedure-type"
+                    },
+                    "strength": "preferred"
+                },
+                "definition": "The specific procedure that is ordered. Use text if the exact nature of the procedure cannot be coded.",
+                "base": {
+                    "min": 1,
+                    "max": "1",
+                    "path": "ProcedureRequest.code"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Procedure.targetBodySite",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "targetSiteCode",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "anatomical location site",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "isSummary": true,
+                "min": 0,
+                "short": "What part of body to perform on",
+                "binding": {
+                    "description": "A code that identifies the anatomical location.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "max": "*",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.bodySite"
+                },
+                "mustSupport": true,
+                "comments": "Only used if not implicit in the code found in ProcedureRequest.type.",
+                "path": "ProcedureRequest.bodySite",
+                "requirements": "Knowing where the procedure is made is important for tracking if multiple sites are possible.",
+                "definition": "Indicates the sites on the subject's body where the procedure should be performed (I.e. the target sites)."
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "Action.indication.reason",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "reason",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ]
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.reason[x]",
+                "max": "1",
+                "min": 0,
+                "short": "Why procedure should occur",
+                "binding": {
+                    "description": "A code that explains the reason why a procedure is  required.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-reason"
+                    },
+                    "strength": "example"
+                },
+                "definition": "The reason why the procedure is being proposed or ordered. This procedure request may be motivated by a Condition for instance.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.reason[x]"
+                }
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "Procedure.procedureSchedule",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "when.planned",
+                        "identity": "w5"
+                    },
+                    {
+                        "map": "start datetime, stop datetime",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "Period"
+                    },
+                    {
+                        "code": "Timing"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.scheduled[x]",
+                "max": "1",
+                "min": 0,
+                "short": "When procedure should occur",
+                "definition": "The timing schedule for the proposed or ordered procedure. The Schedule data type allows many different expressions.  E.g. \"Every 8 hours\"; \"Three times a day\"; \"1/2 an hour before breakfast for 10 days from 23-Dec 2011:\"; \"15 Oct 2013, 17 Oct 2013 and 1 Nov 2013\".",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.scheduled[x]"
+                }
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "ClinicalStatement.encounter",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "context",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
+                        ]
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.encounter",
+                "max": "1",
+                "min": 0,
+                "short": "Encounter request created during",
+                "definition": "The encounter within which the procedure proposal or request was created.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.encounter"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-organization"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
+                        ]
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest.performer",
+                "max": "1",
+                "min": 0,
+                "short": "Who should perform the procedure",
+                "definition": "For example, the surgeon, anaethetist, endoscopist, etc.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.performer"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Action.currentStatus",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    },
+                    {
+                        "map": "negation rationale (when ProcedureRequest.status=\"rejected\")",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "isSummary": true,
+                "min": 0,
+                "short": "proposed | draft | requested | received | accepted | in-progress | completed | suspended | rejected | aborted",
+                "binding": {
+                    "description": "The status of the request.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-request-status"
+                    },
+                    "strength": "required"
+                },
+                "max": "1",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.status"
+                },
+                "mustSupport": true,
+                "isModifier": true,
+                "path": "ProcedureRequest.status",
+                "definition": "The status of the order."
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "ClinicalStatement.additionalText",
+                        "identity": "quick"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest.notes",
+                "max": "*",
+                "min": 0,
+                "short": "Additional information about desired procedure",
+                "definition": "Any other notes associated with this proposal or order - e.g. provider instructions.",
+                "base": {
+                    "min": 0,
+                    "max": "*",
+                    "path": "ProcedureRequest.notes"
+                }
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "Proposal.prnReason.reason",
+                        "identity": "quick"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "boolean"
+                    },
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.asNeeded[x]",
+                "max": "1",
+                "min": 0,
+                "short": "Preconditions for procedure",
+                "binding": {
+                    "description": "A coded concept identifying the pre-condition that should hold prior to performing a procedure.  For example \"pain\", \"on flare-up\", etc.",
+                    "strength": "example"
+                },
+                "definition": "If a CodeableConcept is present, it indicates the pre-condition for performing the procedure.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.asNeeded[x]"
+                }
+            },
+            {
+                "isSummary": true,
+                "mapping": [
+                    {
+                        "map": "Proposal.proposedAtTime",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    },
+                    {
+                        "map": "start datetime, stop datetime",
+                        "identity": "qdm"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "ProcedureRequest.orderedOn",
+                "max": "1",
+                "min": 0,
+                "short": "When request was created",
+                "definition": "The time when the request was made.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.orderedOn"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "ClinicalStatement.statementAuthor",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
+                        ]
+                    },
+                    {
+                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
+                        ]
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest.orderer",
+                "max": "1",
+                "min": 0,
+                "short": "Who made request",
+                "definition": "The healthcare professional responsible for proposing or ordering the procedure.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.orderer"
+                }
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "Proposal.urgency",
+                        "identity": "quick"
+                    },
+                    {
+                        "map": "grade",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "isSummary": true,
+                "path": "ProcedureRequest.priority",
+                "max": "1",
+                "min": 0,
+                "short": "routine | urgent | stat | asap",
+                "binding": {
+                    "description": "The priority of the request.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-request-priority"
+                    },
+                    "strength": "required"
+                },
+                "definition": "The clinical priority associated with this order.",
+                "base": {
+                    "min": 0,
+                    "max": "1",
+                    "path": "ProcedureRequest.priority"
+                }
+            }
         ]
-      },
-      {
-        "path": "ProcedureRequest.id",
-        "short": "Logical id of this artifact",
-        "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
-        "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.id",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "id"
-          }
-        ],
-        "isSummary": true
-      },
-      {
-        "path": "ProcedureRequest.meta",
-        "short": "Metadata about the resource",
-        "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.meta",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "Meta"
-          }
-        ],
-        "isSummary": true
-      },
-      {
-        "path": "ProcedureRequest.implicitRules",
-        "short": "A set of rules under which this content was created",
-        "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
-        "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.implicitRules",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "uri"
-          }
-        ],
-        "isModifier": true,
-        "isSummary": true
-      },
-      {
-        "path": "ProcedureRequest.language",
-        "short": "Language of the resource content",
-        "definition": "The base language in which the resource is written.",
-        "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.language",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "code"
-          }
-        ],
-        "binding": {
-          "strength": "required",
-          "description": "A human language.",
-          "valueSetUri": "http://tools.ietf.org/html/bcp47"
-        }
-      },
-      {
-        "path": "ProcedureRequest.text",
-        "short": "Text summary of the resource, for human interpretation",
-        "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-        "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-        "alias": [
-          "narrative",
-          "html",
-          "xhtml",
-          "display"
-        ],
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.text",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "Narrative"
-          }
-        ],
-        "condition": [
-          "dom-1"
-        ],
-        "mapping": [
-          {
-            "identity": "rim",
-            "map": "Act.text?"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.contained",
-        "short": "Contained, inline Resources",
-        "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-        "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-        "alias": [
-          "inline resources",
-          "anonymous resources",
-          "contained resources"
-        ],
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.contained",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Resource"
-          }
-        ],
-        "mapping": [
-          {
-            "identity": "rim",
-            "map": "N/A"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "slicing": {
-          "discriminator": [
-            "url"
-          ],
-          "ordered": false,
-          "rules": "open"
-        },
-        "short": "Additional Content defined by implementations",
-        "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-        "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-        "alias": [
-          "extensions",
-          "user content"
-        ],
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.extension",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Extension"
-          }
-        ],
-        "mapping": [
-          {
-            "identity": "rim",
-            "map": "N/A"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "name": "ProcedureRequest.reasonRefused",
-        "short": "Extension",
-        "definition": "An Extension",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.extension",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/procedurerequest-reasonRefused"
-            ]
-          }
-        ],
-        "binding": {
-          "strength": "example",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "negation rationale (when ProcedureRequest.status=\"rejected\")"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "name": "ProcedureRequest.approachBodySite",
-        "short": "Extension",
-        "definition": "An Extension",
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.extension",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/procedurerequest-approachBodySite"
-            ]
-          }
-        ],
-        "mapping": [
-          {
-            "identity": "qidam",
-            "map": "Not in QIDAM, but should have been included because the procedure request might include a requested approach, for example, to distinguish between urethral and supra-pubic urinary catheterization."
-          },
-          {
-            "identity": "qdm",
-            "map": "anatomical approach site"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "name": "ProcedureRequest.appropriatenessScore",
-        "short": "Extension",
-        "definition": "An Extension",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.extension",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest-appropriatenessScore"
-            ]
-          }
-        ],
-        "binding": {
-          "strength": "required",
-          "description": "The RAND scoring for appropriateness of the procedure.",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/qicore-appropriateness-score"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "qidam",
-            "map": "Not in QIDAM, but added because of a persuasive ballot comment (May 2015)."
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.modifierExtension",
-        "short": "Extensions that cannot be ignored",
-        "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-        "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-        "alias": [
-          "extensions",
-          "user content"
-        ],
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.modifierExtension",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Extension"
-          }
-        ],
-        "isModifier": true,
-        "mapping": [
-          {
-            "identity": "rim",
-            "map": "N/A"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.identifier",
-        "short": "Unique identifier for the request",
-        "definition": "Identifiers assigned to this order by the order or by the receiver.",
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.identifier",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Identifier"
-          }
-        ],
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "ClinicalStatement.identifier"
-          },
-          {
-            "identity": "w5",
-            "map": "id"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.subject",
-        "short": "Who the procedure should be done to",
-        "definition": "The person, animal or group that should receive the procedure.",
-        "min": 1,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.subject",
-          "min": 1,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/Group"
-            ]
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "ClinicalStatement.subject"
-          },
-          {
-            "identity": "w5",
-            "map": "who.focus"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.code",
-        "short": "What procedure to perform",
-        "definition": "The specific procedure that is ordered. Use text if the exact nature of the procedure cannot be coded.",
-        "min": 1,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.code",
-          "min": 1,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "CodeableConcept"
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "binding": {
-          "strength": "preferred",
-          "description": "Codes describing the Procedure Type",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/daf-procedure-type"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Procedure.procedureCode"
-          },
-          {
-            "identity": "w5",
-            "map": "class"
-          },
-          {
-            "identity": "qdm",
-            "map": "primary code"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.bodySite",
-        "short": "What part of body to perform on",
-        "definition": "Indicates the sites on the subject's body where the procedure should be performed (I.e. the target sites).",
-        "comments": "Only used if not implicit in the code found in ProcedureRequest.type.",
-        "requirements": "Knowing where the procedure is made is important for tracking if multiple sites are possible.",
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.bodySite",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "CodeableConcept"
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "binding": {
-          "strength": "example",
-          "description": "A code that identifies the anatomical location.",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/body-site"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Procedure.targetBodySite"
-          },
-          {
-            "identity": "rim",
-            "map": "targetSiteCode"
-          },
-          {
-            "identity": "qdm",
-            "map": "anatomical location site"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.reason[x]",
-        "short": "Why procedure should occur",
-        "definition": "The reason why the procedure is being proposed or ordered. This procedure request may be motivated by a Condition for instance.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.reason[x]",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "CodeableConcept"
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/Condition"
-            ]
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "binding": {
-          "strength": "example",
-          "description": "A code that explains the reason why a procedure is  required.",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/procedure-reason"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Action.indication.reason"
-          },
-          {
-            "identity": "qdm",
-            "map": "reason"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.scheduled[x]",
-        "short": "When procedure should occur",
-        "definition": "The timing schedule for the proposed or ordered procedure. The Schedule data type allows many different expressions.  E.g. \"Every 8 hours\"; \"Three times a day\"; \"1/2 an hour before breakfast for 10 days from 23-Dec 2011:\"; \"15 Oct 2013, 17 Oct 2013 and 1 Nov 2013\".",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.scheduled[x]",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "dateTime"
-          },
-          {
-            "code": "Period"
-          },
-          {
-            "code": "Timing"
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Procedure.procedureSchedule"
-          },
-          {
-            "identity": "w5",
-            "map": "when.planned"
-          },
-          {
-            "identity": "qdm",
-            "map": "start datetime, stop datetime"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.encounter",
-        "short": "Encounter request created during",
-        "definition": "The encounter within which the procedure proposal or request was created.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.encounter",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-            ]
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "ClinicalStatement.encounter"
-          },
-          {
-            "identity": "w5",
-            "map": "context"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.performer",
-        "short": "Who should perform the procedure",
-        "definition": "For example, the surgeon, anaethetist, endoscopist, etc.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.performer",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-organization"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
-            ]
-          }
-        ],
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "w5",
-            "map": "who.actor"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.status",
-        "short": "proposed | draft | requested | received | accepted | in-progress | completed | suspended | rejected | aborted",
-        "definition": "The status of the order.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.status",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "code"
-          }
-        ],
-        "mustSupport": true,
-        "isModifier": true,
-        "isSummary": true,
-        "binding": {
-          "strength": "required",
-          "description": "The status of the request.",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/procedure-request-status"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Action.currentStatus"
-          },
-          {
-            "identity": "w5",
-            "map": "status"
-          },
-          {
-            "identity": "qdm",
-            "map": "negation rationale (when ProcedureRequest.status=\"rejected\")"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.notes",
-        "short": "Additional information about desired procedure",
-        "definition": "Any other notes associated with this proposal or order - e.g. provider instructions.",
-        "min": 0,
-        "max": "*",
-        "base": {
-          "path": "ProcedureRequest.notes",
-          "min": 0,
-          "max": "*"
-        },
-        "type": [
-          {
-            "code": "Annotation"
-          }
-        ],
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "ClinicalStatement.additionalText"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.asNeeded[x]",
-        "short": "Preconditions for procedure",
-        "definition": "If a CodeableConcept is present, it indicates the pre-condition for performing the procedure.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.asNeeded[x]",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "boolean"
-          },
-          {
-            "code": "CodeableConcept"
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "binding": {
-          "strength": "example",
-          "description": "A coded concept identifying the pre-condition that should hold prior to performing a procedure.  For example \"pain\", \"on flare-up\", etc."
-        },
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Proposal.prnReason.reason"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.orderedOn",
-        "short": "When request was created",
-        "definition": "The time when the request was made.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.orderedOn",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "dateTime"
-          }
-        ],
-        "mustSupport": true,
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Proposal.proposedAtTime"
-          },
-          {
-            "identity": "w5",
-            "map": "when.recorded"
-          },
-          {
-            "identity": "qdm",
-            "map": "start datetime, stop datetime"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.orderer",
-        "short": "Who made request",
-        "definition": "The healthcare professional responsible for proposing or ordering the procedure.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.orderer",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-device"
-            ]
-          }
-        ],
-        "isSummary": true,
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "ClinicalStatement.statementAuthor"
-          },
-          {
-            "identity": "w5",
-            "map": "who.author"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.priority",
-        "short": "routine | urgent | stat | asap",
-        "definition": "The clinical priority associated with this order.",
-        "min": 0,
-        "max": "1",
-        "base": {
-          "path": "ProcedureRequest.priority",
-          "min": 0,
-          "max": "1"
-        },
-        "type": [
-          {
-            "code": "code"
-          }
-        ],
-        "isSummary": true,
-        "binding": {
-          "strength": "required",
-          "description": "The priority of the request.",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/procedure-request-priority"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "quick",
-            "map": "Proposal.urgency"
-          },
-          {
-            "identity": "w5",
-            "map": "grade"
-          }
-        ]
-      }
-    ]
-  },
-  "differential": {
-    "element": [
-      {
-        "path": "ProcedureRequest",
-        "name": "QICore-ProcedureRequest",
-        "min": 0,
-        "max": "*",
-        "type": [
-          {
-            "code": "ProcedureRequest"
-          }
-        ],
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "\"Intervention, Order\" (when ProcedureRequest.status=\"requested\"); \"Intervention, Recommended\" (when ProcedureRequest.status=\"proposed\"); \"Procedure, Order\"; \"Procedure, Recommended\" (when ProcedureRequest.status=\"proposed\")"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "name": "ProcedureRequest.reasonRefused",
-        "slicing": {
-          "discriminator": [
-            "url"
-          ],
-          "ordered": false,
-          "rules": "open"
-        },
-        "min": 0,
-        "max": "1",
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/procedurerequest-reasonRefused"
-            ]
-          }
-        ],
-        "binding": {
-          "strength": "example",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "negation rationale (when ProcedureRequest.status=\"rejected\")"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "name": "ProcedureRequest.approachBodySite",
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/procedurerequest-approachBodySite"
-            ]
-          }
-        ],
-        "mapping": [
-          {
-            "identity": "qidam",
-            "map": "Not in QIDAM, but should have been included because the procedure request might include a requested approach, for example, to distinguish between urethral and supra-pubic urinary catheterization."
-          },
-          {
-            "identity": "qdm",
-            "map": "anatomical approach site"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.extension",
-        "name": "ProcedureRequest.appropriatenessScore",
-        "min": 0,
-        "max": "1",
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest-appropriatenessScore"
-            ]
-          }
-        ],
-        "binding": {
-          "strength": "required",
-          "description": "The RAND scoring for appropriateness of the procedure.",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/qicore-appropriateness-score"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "qidam",
-            "map": "Not in QIDAM, but added because of a persuasive ballot comment (May 2015)."
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.subject",
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/Group"
-            ]
-          }
-        ],
-        "mustSupport": true
-      },
-      {
-        "path": "ProcedureRequest.code",
-        "mustSupport": true,
-        "binding": {
-          "strength": "preferred",
-          "description": "Codes describing the Procedure Type",
-          "valueSetReference": {
-            "reference": "http://hl7.org/fhir/ValueSet/daf-procedure-type"
-          }
-        },
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "primary code"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.bodySite",
-        "mustSupport": true,
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "anatomical location site"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.reason[x]",
-        "mustSupport": true,
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "reason"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.scheduled[x]",
-        "mustSupport": true,
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "start datetime, stop datetime"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.encounter",
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-            ]
-          }
-        ],
-        "mustSupport": true
-      },
-      {
-        "path": "ProcedureRequest.performer",
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-organization"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
-            ]
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.status",
-        "mustSupport": true,
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "negation rationale (when ProcedureRequest.status=\"rejected\")"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.asNeeded[x]",
-        "mustSupport": true
-      },
-      {
-        "path": "ProcedureRequest.orderedOn",
-        "mustSupport": true,
-        "mapping": [
-          {
-            "identity": "qdm",
-            "map": "start datetime, stop datetime"
-          }
-        ]
-      },
-      {
-        "path": "ProcedureRequest.orderer",
-        "type": [
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-relatedperson"
-            ]
-          },
-          {
-            "code": "Reference",
-            "profile": [
-              "http://hl7.org/fhir/StructureDefinition/qicore-device"
-            ]
-          }
-        ]
-      }
-    ]
-  }
+    },
+    "name": "QICore-ProcedureRequest",
+    "description": "Profile of ProcedureRequest for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
+    "status": "draft",
+    "date": "2015-02-27",
+    "fhirVersion": "1.0.2"
 }
