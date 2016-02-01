@@ -29,9 +29,11 @@
 """ This package interprets the snapshot view of a FHIR StructuredDefinition resource.
 """
 import argparse
-import logging
 import jsonasobj
 from collections import OrderedDict
+from typing import Optional
+from .defaults import log_info, log_warning, log_error
+
 
 backbone_element = jsonasobj.loads('{"code": "BackboneElement"}')
 t1 = '\t'
@@ -47,8 +49,12 @@ xml = str
 class PathElements:
     """ A complete dictionary of defined elements
     """
-    def __init__(self):
+    def __init__(self, file_name: Optional[str] = None):
+        """ A complete dictionary of defined elements
+        :param file_name: File that the elements are defined in (for logging)
+        """
         self.entries = {}       # Dict[str, PathEntry]
+        self.file_name = file_name
 
     def __iter__(self):
         return self.entries
@@ -73,7 +79,7 @@ class PathElements:
         elif input_fn.endswith(".xml.profile.json"):
             reason = "ends with .xml.profile.json"
         if reason:
-            logging.info("\t%s skipped %s" % (input_fn, reason))
+            log_info("skipped %s" % reason, input_fn)
         return reason is None
 
     def proc_file(self, file_name: str, differential: bool) -> bool:
@@ -82,10 +88,11 @@ class PathElements:
         :param differential: True means use 'differential' definition, False 'snapshot'
         :return: True if the file was processed, false if skipped
         """
+        self.file_name = file_name
         f = jsonasobj.load(open(file_name))
         defn_type = 'differential' if differential else 'snapshot'
         if defn_type not in f:
-            logging.warning("\t'%s' not found in %s" % (defn_type, file_name))
+            log_warning("'%s' not found" % defn_type, self.file_name)
             return False
 
         # If we are dealing with a constrained type:
@@ -97,15 +104,15 @@ class PathElements:
                 if 'name' in element:
                     assert '[x]' not in element.path, "Renaming a parameterized type is too wierd"
                     path_name = PathElement.name_for(element, element.type[0])
-                    self.entries.setdefault(path_name, PathElement()).add_file_ref(file_name)
+                    self.entries.setdefault(path_name, PathElement(self.file_name)).add_file_ref(file_name)
                     constrained_type[path_name] = element.name
 
         # Iterate over the element constraints
         for element in f[defn_type].element:
             if 'name' in element:
-                entry = self.entries.setdefault(element.name, PathElement())
+                entry = self.entries.setdefault(element.name, PathElement(self.file_name))
                 entry.defining_file(element.name, file_name)
-                entry.constraints[element.path] = Properties()
+                entry.constraints[element.path] = Properties(self.file_name)
             else:
                 # Iterate over the list of types adding an element per type
                 for possible_value in element.get('type', [backbone_element]):
@@ -126,7 +133,7 @@ class PathElements:
         :param entry_name: name of the entry
         :return: PathElement for entry_name
         """
-        return self.entries.setdefault(entry_name, PathElement())
+        return self.entries.setdefault(entry_name, PathElement(self.file_name))
 
     @property
     def as_dict(self) -> dict:
@@ -157,16 +164,18 @@ class PathElements:
 class PathElement:
     """ An Element definition or reference in a json definition
     """
-    def __init__(self) -> None:
+    def __init__(self, file_name: str) -> None:
         self.defined_in = ''
         self.referenced_in = set()
-        self.properties = Properties()
+        self.file_name = file_name
+        self.properties = Properties(file_name)
         self.constraints = {}           # Dict[str, Properties]
 
     def add_constraint(self, rootname: str, prop_name: str,
                        element_defn: jsonasobj.JsonObj, possible_value: jsonasobj.JsonObj) -> None:
-        self.constraints.setdefault(rootname, Properties()).add_entry(prop_name,
-                                                                      self._new_prop(element_defn, possible_value))
+        self.constraints.setdefault(rootname, Properties(self.file_name)).add_entry(prop_name,
+                                                                                    self._new_prop(element_defn,
+                                                                                                   possible_value))
 
     def add_property(self, prop_name: str, element_defn: jsonasobj.JsonObj, possible_value: jsonasobj.JsonObj) -> None:
         self.properties.add_entry(prop_name, self._new_prop(element_defn, possible_value))
@@ -198,14 +207,15 @@ class PathElement:
 
     def defining_file(self, element_name, file_name: str) -> None:
         if self.defined_in and self.defined_in != file_name:
-            logging.error("Element %s was already defined in %s" % (element_name, self.defined_in))
+            log_error("Element %s was already defined in %s" % (element_name, self.defined_in), file_name)
             return
         self.defined_in = file_name
         self.add_file_ref(file_name)
 
     @staticmethod
     def _new_prop(element_defn: jsonasobj.JsonObj, type_defn: jsonasobj.JsonObj):
-        return Property(element_defn.min, element_defn.max, type_defn.get('code'), element_defn.path, type_defn.get('profile'))
+        return Property(element_defn.min, element_defn.max, type_defn.get('code'), element_defn.path,
+                        type_defn.get('profile'))
 
     @property
     def as_dict(self):
@@ -239,8 +249,9 @@ class PathElement:
 class Properties:
     """ An ordered collection of named properties
     """
-    def __init__(self) -> None:
+    def __init__(self, file_name: str) -> None:
         self.entries = OrderedDict()
+        self.file_name = file_name
 
     def add_entry(self, target: str, prop):
         if target in self.entries:
@@ -248,7 +259,7 @@ class Properties:
             while target + '_' + str(i) in self.entries:
                 i += 1
             renamed_target = target + '_' + str(i)
-            logging.warning("\tduplicate property %s - renamed to %s" % (target, renamed_target))
+            log_warning("duplicate property %s - renamed to %s" % (target, renamed_target), self.file_name)
             target = renamed_target
         self.entries[target] = prop
 

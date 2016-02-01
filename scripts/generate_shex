@@ -29,10 +29,8 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import argparse
 import os
 import sys
-import logging
 
 from dirlistproc import DirectoryListProcessor
 
@@ -44,12 +42,14 @@ from hcls_fhir_rdf.fhir_elements import PathElements
 
 elements = PathElements()
 
+DEFAULT_LOG_FILE = os.path.basename(__file__) + ".log"
+
 
 def addargs(args: argparse.ArgumentParser) -> None:
     """ Add local args to the dirlistproc set
     :param args: dirlistproc arguments
     """
-    args.add_argument("--logfile", help="Logging file. Default: %s" % DEFAULT_LOG_FILE, default=DEFAULT_LOG_FILE)
+    add_default_args(args, __file__)
     PathElements.addargs(args)
 
 
@@ -63,11 +63,11 @@ def procargs(opts: argparse.Namespace) -> None:
         opts.outdir = DEFAULT_TARGET_DIRECTORY
     if not opts.outfile:
         opts.outfile = DEFAULT_SHEX_DEFINITIONS
+
     os.makedirs(opts.outdir, exist_ok=True)
 
-    opts.logfile = os.path.join(opts.indir, opts.logfile)
     opts.outfile = os.path.join(opts.outdir, opts.outfile)
-    start_logger(opts, __file__)
+    start_logger(opts)
 
 
 def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
@@ -77,7 +77,7 @@ def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
     :param opts: process options
     :return: True if file was processed, false if it was skipped
     """
-    logging.info("Processing %s" % input_fn)
+    log_info("Processing", input_fn)
     return elements.proc_file(input_fn, opts.differential)
 
 

@@ -43,6 +43,7 @@ if __name__ == "__main__":
 from hcls_fhir_rdf.defaults import *
 
 PROFILE_SUFFIX = ".profile.json"
+DEFAULT_LOG_FILE = os.path.basename(__file__) + ".log"
 
 
 def download_spec(opts: argparse.Namespace) -> bool:
@@ -55,7 +56,7 @@ def download_spec(opts: argparse.Namespace) -> bool:
     try:
         target_file_modtime = datetime.fromtimestamp(os.path.getmtime(opts.file))
     except FileNotFoundError:
-        logging.info(" %s does not currently exist" % opts.file)
+        log_info(opts.file, "File does not currently exist")
         download_needed = True
 
     if not download_needed:
@@ -68,13 +69,13 @@ def download_spec(opts: argparse.Namespace) -> bool:
             file_date = datetime.strptime(r.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S GMT')
             download_needed = file_date > target_file_modtime
             if download_needed:
-                logging.info(" %s is newer than %s: downloading newer copy" % (opts.url, opts.file))
+                log_info(opts.file, " %s is newer than %s: downloading newer copy" % (opts.url, opts.file))
         else:
-            logging.error(" Error: %d on %s" % (r.status_code, opts.url))
+            log_error(opts.file, "Error: %d on %s" % (r.status_code, opts.url))
             return False, False
 
     if download_needed:
-        logging.info(" Downloading %s:" % opts.url)
+        log_info(" Downloading %s:" % opts.url, opts.file)
         try:
             r = requests.get(opts.url, stream=True)
         except requests.ConnectionError as e:
@@ -86,13 +87,13 @@ def download_spec(opts: argparse.Namespace) -> bool:
                     tf.write(chunk)
             return True, True
         else:
-            logging.error(" Error: %d downloading %s" % (r.status_code, opts.url))
+            logging.error(" Error: %d downloading %s" % (r.status_code, opts.url), extra={"fname": opts.file})
             return False, False
     else:
-        logging.info(" Zip file is current, not re-downloaded")
+        logging.info("Zip file is current, not re-downloaded", extra={"fname": opts.file})
 
     if opts.striptext:
-        logging.info(" Stripping text from *.%s files" % PROFILE_SUFFIX)
+        logging.info("Stripping text from *.%s files" % PROFILE_SUFFIX, extra={"fname": opts.file})
         for root, dirs, files in os.walk(opts.dir):
             [strip_text(os.path.join(root, f)) for f in files if f.endswith(PROFILE_SUFFIX)]
 
@@ -111,17 +112,17 @@ def do_unzip(opts: argparse.Namespace) -> bool:
     :param opts: input options
     :return: success indicator
     """
-    logging.info(" Unzipping %s into %s" % (opts.file, opts.dir))
+    log_info("Unzipping into %s" % opts.dir, opts.file)
     zf = ZipFile(opts.file)
     file_names = [n for n in zf.namelist() if n.endswith(PROFILE_SUFFIX)]
     if not file_names:
-        logging.warning("\tNo '%s' files found!" % PROFILE_SUFFIX)
+        log_warning("No '%s' files found!" % PROFILE_SUFFIX, opts.file)
     zf.extractall(opts.dir, members=file_names)
     if opts.exampledir:
-        logging.info(" Unzipping examples into %s" % opts.exampledir)
+        log_info("Unzipping examples into %s" % opts.exampledir, opts.file)
         file_names = [n for n in zf.namelist() if n.endswith("-example.xml")]
         if not file_names:
-            logging.warning("\tNo '-example.xml' files found!")
+            log_warning("No '-example.xml' files found!", opts.file)
         zf.extractall(opts.exampledir, members=file_names)
     return True
 
@@ -141,9 +142,9 @@ def parse_args(args: Optional[List[str]]) -> argparse.Namespace:
                         action="store_true")
     parser.add_argument("--clear", help="Clear output and examples directory before unzipping", action="store_true")
     parser.add_argument("--unzip", help="Force unzip", action="store_true")
-    parser.add_argument("--logfile", help="Logging file. (default: %s)" % DEFAULT_LOG_FILE, default=DEFAULT_LOG_FILE)
     parser.add_argument("--skipdownload", help="Don't attempt to download zip file", action="store_true")
     parser.add_argument("--striptext", help="Remove the text section of profile definitions", action="store_true")
+    add_default_args(parser, __file__)
     opts = parser.parse_args(args if args is not None else sys.argv[1:])
 
     return fill_defaults(opts)
@@ -158,23 +159,26 @@ def main():
     opts = parse_args(None)
     if opts.clear:
         if input("Will remove %s and %s, ok? " % (opts.dir, opts.exampledir)).lower() in ("y", "yes", "ok"):
+            logging.info("Removing %s" % opts.exampledir)
             remove_folder(opts.exampledir)
+            logging.info("Removing %s" % opts.dir)
             remove_folder(opts.dir)
         else:
             sys.exit(1)
 
+    logging.info("Creating %s" % opts.dir)
     os.makedirs(opts.dir, exist_ok=not opts.clear)
+    logging.info("Creating %s" % opts.exampledir)
     os.makedirs(opts.exampledir, exist_ok=not opts.clear)
 
-    start_logger(opts, __file__)
-    logging.info(" Downloading %s to %s" % (opts.url, opts.file))
-    logging.info("  Log: %s" % opts.logfile)
-    logging.info("  Examples in: %s" % opts.exampledir)
+    start_logger(opts)
+    log_info("Downloading %s " % opts.url, opts.file)
+    log_info("Examples in: %s" % opts.exampledir, opts.file)
 
     success, new_download = download_spec(opts) if not opts.skipdownload else (True, True)
     if success and (new_download or opts.unzip):
         success = do_unzip(opts)
-    logging.info(" Done" if success else " Failed")
+    log_info("Done" if success else "Failed", opts.file)
     sys.exit(0 if success else 1)
 
 if __name__ == '__main__':

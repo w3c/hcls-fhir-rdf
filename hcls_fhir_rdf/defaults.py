@@ -29,30 +29,59 @@
 import os
 import argparse
 import logging
+from typing import Optional
 
 DEFAULT_SPEC_URL = "http://hl7.org/fhir"
 DEFAULT_TARGET_DIRECTORY = "data"
 DEFAULT_TARGET_FILE = "fhir-spec.zip"
-DEFAULT_EXAMPLE_DIRECTORY = "examples"
+DEFAULT_EXAMPLE_DIRECTORY = os.path.join(DEFAULT_TARGET_DIRECTORY, "examples")
 DEFAULT_RDF_DIRECTORY = "rdf"
 DEFAULT_XML_DEFINITIONS = "definitions.xml"
 DEFAULT_SHEX_DEFINITIONS = "definitions.shex"
 
-DEFAULT_LOG_FILE = "extract.log"
-LOGGING_LEVEL = logging.INFO
+DEFAULT_LOG_DIRECTORY = "logs"
+DEFAULT_LOGGING_LEVEL = logging.getLevelName(logging.WARNING)
+
 
 DOWNLOAD_CHUNK_SIZE = 8192       # streaming download chunk size
 
+logNames = [logging.getLevelName(l) for l in [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]]
 
-def start_logger(opts: argparse.Namespace, file_name: str) -> None:
-    logging.basicConfig(filename=opts.logfile, level=LOGGING_LEVEL, filemode='a',
-                        format='%(asctime)s - ' + os.path.basename(file_name) + ' - %(levelname)s - %(message)s')
-    logging.info("********** Start ***********")
+
+def add_default_args(args: argparse.ArgumentParser, main_file_name: str) -> None:
+    default_log_file = os.path.join(DEFAULT_LOG_DIRECTORY, os.path.basename(main_file_name) + '.log')
+    args.add_argument("--logfile", help="Logging file. Default is '%s'" % default_log_file, default=default_log_file)
+    args.add_argument("--loglevel", help="Logging level. Default is %s" % DEFAULT_LOGGING_LEVEL,
+                      default=DEFAULT_LOGGING_LEVEL,
+                      choices=logNames)
+
+
+def _fmt(message: str, fname: Optional[str]) -> str:
+    return (" (%s) %s" % (fname, message)) if fname else message
+
+
+def log_info(message: str, fname: Optional[str] = None) -> None:
+    logging.info(_fmt(message, fname))
+
+
+def log_warning(message: str, fname: Optional[str] = None) -> None:
+    logging.warning(_fmt(message, fname))
+
+
+def log_error(message: str, fname: Optional[str] = None) -> None:
+    logging.error(_fmt(message, fname))
+
+
+def log_debug(message: str, fname: Optional[str] = None) -> None:
+    logging.debug(_fmt(message, fname))
+
+
+def start_logger(opts: argparse.Namespace) -> None:
+    logging.basicConfig(filename=opts.logfile, level=opts.loglevel, filemode='w',
+                        format='%(asctime)s  %(levelname)s - %(message)s')
 
 
 def fill_defaults(opts: argparse.Namespace) -> None:
     opts.url = opts.url + '/' + opts.file
     opts.file = os.path.join(opts.dir, opts.file)
-    opts.exampledir = os.path.join(opts.dir, opts.exampledir)
-    opts.logfile = os.path.join(opts.dir, opts.logfile)
     return opts

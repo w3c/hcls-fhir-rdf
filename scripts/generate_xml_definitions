@@ -29,10 +29,8 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import argparse
 import os
 import sys
-import logging
 
 
 from dirlistproc import DirectoryListProcessor
@@ -50,7 +48,7 @@ def addargs(args: argparse.ArgumentParser) -> None:
     """ Add local args to the dirlistproc set
     :param args: dirlistproc arguments
     """
-    args.add_argument("--logfile", help="Logging file. Default is 'extract.log'", default=DEFAULT_LOG_FILE)
+    add_default_args(args, __file__)
     PathElements.addargs(args)
 
 
@@ -66,9 +64,8 @@ def procargs(opts: argparse.Namespace) -> None:
         opts.outfile = DEFAULT_XML_DEFINITIONS
     os.makedirs(opts.outdir, exist_ok=True)
 
-    opts.logfile = os.path.join(opts.indir, opts.logfile)
     opts.outfile = os.path.join(opts.outdir, opts.outfile)
-    start_logger(opts, __file__)
+    start_logger(opts)
 
 
 def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
@@ -78,16 +75,16 @@ def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
     :param opts: process options
     :return: True if file was processed, false if it was skipped
     """
-    logging.info("  Processing %s" % input_fn)
+    log_info(input_fn, "Processing")
     return elements.proc_file(input_fn, opts.differential)
 
 
 def main():
     dlp = DirectoryListProcessor(None, "Generate XSLT definitions for FHIR", ".profile.json", None, addargs, procargs)
-    logging.info("  Processing json files into %s" % dlp.opts.outfile)
+    logging.info("Processing json files into %s" % dlp.opts.outfile)
     nfiles, nsuccess = dlp.run(proc_profiles, PathElements.inp_filtr)
     print(elements.as_xml, file=open(dlp.opts.outfile, 'w') if dlp.opts.outfile else sys.stdout)
-    logging.info("  Total files=%d Errors=%d" % (nfiles, nfiles - nsuccess))
+    logging.info("Total files=%d Errors=%d" % (nfiles, nfiles - nsuccess))
 
 
 if __name__ == '__main__':

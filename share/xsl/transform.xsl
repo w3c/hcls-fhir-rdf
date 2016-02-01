@@ -177,7 +177,7 @@ change
             </xsl:variable>
             <xsl:variable name="type">
                 <xsl:choose>
-                    <xsl:when test="$type1">
+                    <xsl:when test="$type1 != ''">
                         <xsl:value-of select="$type1"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -234,7 +234,8 @@ change
 
         <xsl:variable name="def" select="document($fhirdefs)/l:fhirdefs/path/fhir_path[text() = $context]/.."/>
         <xsl:if test="$context != 'xhtml'">
-            <xsl:if test="not($def)"> WARNING: <xsl:value-of select="$context"/> NOT FOUND IN THE DEFINITIONS </xsl:if>
+            <xsl:if test="not($def)"> 
+                WARNING: <xsl:value-of select="$context"/> NOT FOUND IN THE DEFINITIONS </xsl:if>
         </xsl:if>
 
         <!-- Type of the current element. Type can be null (for internal nodes) -->
@@ -286,7 +287,6 @@ change
                     <xsl:text>a fhir2:</xsl:text>
                     <xsl:value-of select="$this/f:type/@value"/>
                     <xsl:text>Reference;</xsl:text>
-                    <xsl:text>4</xsl:text>
                     <xsl:call-template name="eol"/>
                     <xsl:call-template name="idnt">
                         <xsl:with-param name="depth" select="$depth"/>
@@ -303,7 +303,6 @@ change
                         <xsl:call-template name="LeafNode">
                             <xsl:with-param name="value" select="$this/f:display/@value"/>
                         </xsl:call-template>
-                        <xsl:text>3</xsl:text>
                         <xsl:call-template name="eol"/>
                     </xsl:if>
                 </xsl:if>
@@ -699,8 +698,8 @@ change
     <xsl:template name="addPrefixes">
         <xsl:param name="name"/>
         <xsl:call-template name="prefix">
-            <xsl:with-param name="pfx" select="$name"/>
-            <xsl:with-param name="uri">http://hl7.org/fhir</xsl:with-param>
+            <xsl:with-param name="pfx" select="concat($name, ':')"/>
+            <xsl:with-param name="uri" select="concat('http://hl7.org/fhir/', $name)"/>
         </xsl:call-template>
         <xsl:for-each select="$prefixes/mt:prefixes/mt:prefix">  <!--xslt version 2 only-->
         <!--<xsl:for-each select="document('')/mt:prefixes/mt:prefix">-->
