@@ -31,6 +31,8 @@ import argparse
 import logging
 from typing import Optional
 
+import jsonasobj
+
 DEFAULT_SPEC_URL = "http://hl7.org/fhir"
 DEFAULT_TARGET_DIRECTORY = "data"
 DEFAULT_TARGET_FILE = "fhir-spec.zip"
@@ -42,8 +44,8 @@ DEFAULT_SHEX_DEFINITIONS = "definitions.shex"
 DEFAULT_LOG_DIRECTORY = "logs"
 DEFAULT_LOGGING_LEVEL = logging.getLevelName(logging.WARNING)
 
-
 DOWNLOAD_CHUNK_SIZE = 8192       # streaming download chunk size
+
 
 logNames = [logging.getLevelName(l) for l in [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]]
 

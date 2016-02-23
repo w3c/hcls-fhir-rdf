@@ -1,6 +1,17 @@
 # hcls-fhir-rdf
 Sketching out an RDF representation for FHIR
 
+## State of affairs
+1.  The ShEx generation script has been significantly overhauled.  Outstanding issues: 
+
+    * namedReference isn't handled correctly, meaning that things like Bundle.entry.link do not appear in the ShEx
+    * primitive data types are not addressed correctly.  We need to specifically create ShEx equivalents for elements such as date.profile, which have ```"_code"``` rather than ```"code"```
+
+2. The XSLT generation function is broken at this point.  We need to update it to reflect the changes above.
+3. Code needs some cleaning and documentation to make it clearer how the FHIR schema is mapped into ShEx and XML
+
+
+
 ## Directories
 * data - the current stable FHIR specification
   * examples -- XML examples from specification

@@ -40,7 +40,7 @@ if __name__ == "__main__":
 from hcls_fhir_rdf.defaults import *
 from hcls_fhir_rdf.fhir_elements import PathElements
 
-elements = PathElements()
+elements = None
 
 DEFAULT_LOG_FILE = os.path.basename(__file__) + ".log"
 
@@ -50,7 +50,8 @@ def addargs(args: argparse.ArgumentParser) -> None:
     :param args: dirlistproc arguments
     """
     add_default_args(args, __file__)
-    PathElements.addargs(args)
+    args.add_argument("--differential", help="Generate differential instead of snapshot", action="store_true")
+    args.add_argument("--genx", help="Add genx output to ShExC", action="store_true")
 
 
 def procargs(opts: argparse.Namespace) -> None:
@@ -62,29 +63,39 @@ def procargs(opts: argparse.Namespace) -> None:
     if not opts.outdir:
         opts.outdir = DEFAULT_TARGET_DIRECTORY
     if not opts.outfile:
-        opts.outfile = DEFAULT_SHEX_DEFINITIONS
+        opts.outfile = [DEFAULT_SHEX_DEFINITIONS]
+        opts.onebigfile = os.path.join(opts.outdir, DEFAULT_SHEX_DEFINITIONS)
+    else:
+        opts._onebigfile = None
 
     os.makedirs(opts.outdir, exist_ok=True)
-
-    opts.outfile = os.path.join(opts.outdir, opts.outfile)
     start_logger(opts)
 
 
-def proc_profiles(input_fn: str, _, opts: argparse.Namespace) -> bool:
+def proc_profiles(input_fn: str, output_fn: str, opts: argparse.Namespace) -> bool:
     """ Process a FHIR profile file (json format)
     :param input_fn: name of the file to process
-    :param _: (unused)
+    :param output_fn: name of the output file
     :param opts: process options
     :return: True if file was processed, false if it was skipped
     """
+    global elements
     log_info("Processing", input_fn)
-    return elements.proc_file(input_fn, opts.differential)
+    if not elements:
+        elements = PathElements()
+    success = elements.proc_file(input_fn, opts.differential)
+    if success and not opts.onebigfile:
+        print(elements.as_shexc, file=open(opts.outfile, 'w') if output_fn else sys.stdout)
+        elements = None
+    return success
 
 
 def main():
     dlp = DirectoryListProcessor(None, "Generate ShExC definitions for FHIR", ".profile.json", None, addargs, procargs)
+
     nfiles, nsuccess = dlp.run(proc_profiles, PathElements.inp_filtr)
-    print(elements.as_shexc, file=open(dlp.opts.outfile, 'w') if dlp.opts.outfile else sys.stdout)
+    if dlp.opts.onebigfile:
+        print(elements.as_shexc, file=open(dlp.opts.onebigfile, 'w') if dlp.opts.outfile else sys.stdout)
     logging.info("Total files processed=%d Errors=%d" % (nfiles, nfiles - nsuccess))
 
 
