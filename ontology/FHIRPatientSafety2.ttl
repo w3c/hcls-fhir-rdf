@@ -9,12 +9,14 @@
 <http://PatientSafety2> rdf:type owl:Ontology ;
                         
                         owl:imports <http://PatientSafetyProfile> ,
+                                    <http://example.org/AllergyIntolerance/1> ,
+                                    <http://example.org/AllergyIntolerance/2> ,
+                                    <http://example.org/Med/1> ,
+                                    <http://example.org/MedicationOrder/1> ,
+                                    <http://example.org/Patient/PeterPatient> ,
                                     <http://hl7.org/fhir> ,
                                     <http://hl7.org/fhirSCTBridge> ,
-                                    <http://record/Med1> ,
-                                    <http://record/AllergyIntolerance/1> ,
-                                    <http://record/MedicationOrder/1> ,
-                                    <http://record/Patient/> .
+                                    <http://hl7.org/fhir/bridge> .
 
 
 #################################################################
@@ -24,15 +26,59 @@
 #################################################################
 
 
-###  http://record/Medication/1
+###  http://hl7.org/fhir/anAllergyIntolerance
 
-<http://record/Medication/1> rdf:type <http://hl7.org/fhir/Medication> .
+<http://hl7.org/fhir/anAllergyIntolerance> rdf:type <http://hl7.org/fhir/AllergyIntolerance> ,
+                                                    owl:NamedIndividual ;
+                                           
+                                           <http://hl7.org/fhir/AllergyIntolerance.status> <http://hl7.org/fhir/anAllergyStatuscode> ;
+                                           
+                                           <http://hl7.org/fhir/AllergyIntolerance.substance> <http://hl7.org/fhir/anAllergySubstanceCodeableConcept> .
 
 
 
-###  http://snomed.info/sct
+###  http://hl7.org/fhir/anAllergyStatuscode
 
-<http://snomed.info/sct> rdf:type owl:NamedIndividual .
+<http://hl7.org/fhir/anAllergyStatuscode> rdf:type <http://hl7.org/fhir/TestIndividuals> ,
+                                                   owl:NamedIndividual ;
+                                          
+                                          <http://hl7.org/fhir/value> "confirmed"^^xsd:string .
+
+
+
+###  http://hl7.org/fhir/anAllergySubstanceCodeableConcept
+
+<http://hl7.org/fhir/anAllergySubstanceCodeableConcept> rdf:type <http://hl7.org/fhir/TestIndividuals> ,
+                                                                 owl:NamedIndividual .
+
+
+
+###  http://hl7.org/fhir/anAllergySubstanceCoding
+
+<http://hl7.org/fhir/anAllergySubstanceCoding> rdf:type <http://hl7.org/fhir/TestIndividuals> ,
+                                                        owl:NamedIndividual ;
+                                               
+                                               <http://hl7.org/fhir/Coding.code> <http://hl7.org/fhir/anAllergySubstancecode> ;
+                                               
+                                               <http://hl7.org/fhir/Coding.system> <http://snomed.info/sct> .
+
+
+
+###  http://hl7.org/fhir/anAllergySubstancecode
+
+<http://hl7.org/fhir/anAllergySubstancecode> rdf:type <http://hl7.org/fhir/TestIndividuals> ,
+                                                      owl:NamedIndividual ;
+                                             
+                                             <http://hl7.org/fhir/value> "373297006"^^xsd:string .
+
+
+
+###  http://hl7.org/fhir/prevAllergyStatusCode
+
+<http://hl7.org/fhir/prevAllergyStatusCode> rdf:type <http://hl7.org/fhir/TestIndividuals> ,
+                                                     owl:NamedIndividual ;
+                                            
+                                            <http://hl7.org/fhir/value> "unconfirmed"^^xsd:string .
 
 
 

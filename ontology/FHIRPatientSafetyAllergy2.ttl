@@ -1,0 +1,25 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fhir: <http://hl7.org/fhir/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/AllergyIntolerance/2> owl:imports <http://hl7.org/fhir> .
+
+<http://example.org/AllergyIntolerance/2> rdf:type fhir:AllergyIntolerance , <http://PatientSafetyProfile/AllergyIntolerance> ;
+   fhir:Resource.id [ fhir:value "2" ] ;
+   fhir:AllergyIntolerance.status [ fhir:value "confirmed" ] ;
+   fhir:AllergyIntolerance.patient [  
+      fhir:Reference.reference [ fhir:value "http://example.org/Patient/PeterPatient" ] ;
+      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
+	  fhir:Reference.link <http://example.org/Patient/PeterPatient>
+   ] ;
+   fhir:AllergyIntolerance.substance [  
+      fhir:CodeableConcept.coding [ 
+         fhir:Coding.code [  fhir:value "90614001" ] ;
+         fhir:Coding.system [ fhir:value "http://snomed.info/sct" ] ;
+         fhir:Coding.display [ fhir:value "beta-lactam (antibiotic)" ] 
+      ] ;
+      fhir:CodeableConcept.text [ fhir:value "beta-lactam (antibiotic)" ]
+   ] .
