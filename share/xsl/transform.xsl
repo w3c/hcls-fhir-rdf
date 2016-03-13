@@ -378,13 +378,19 @@ change
                     <xsl:variable name="predicate" select="./predicate"/>
                     <xsl:variable name="fhir_path" select="./fhir_path"/>
                     <xsl:variable name="type" select="./type"/>
-                    <xsl:variable name="xpath" select="substring-after(./relative_xpath, ':')"/>
+                    <xsl:variable name="xpath">
+                        <xsl:call-template name="replace_choice_element">
+                            <xsl:with-param name="relpath" select="./relative_xpath"/>
+                            <xsl:with-param name="fhir_path" select="$fhir_path"/>
+                        </xsl:call-template>
+                    </xsl:variable>
                     <xsl:call-template name="debug">
                         <xsl:with-param name="text">searching on <xsl:value-of select="$predicate"/> via <xsl:value-of select="$xpath"/></xsl:with-param>
                     </xsl:call-template>
 
                     <!-- for a given property, look for its occurence(s) in instance data -->
-                    <xsl:for-each select="$this/*[name() = lower-case($xpath)]">  <!--xslt version 2 only-->
+                    <xsl:for-each select="$this/*[lower-case(name()) = lower-case($xpath)]">  
+                    <!--xslt version 2 only-->
                     <!--<xsl:for-each select="$this/*[name() = translate($xpath, $uppercase, $lowercase)]">-->
                         <!-- include contained arcs -->
                         <xsl:variable name="last_instance_p" select="position() = last()"/>
@@ -852,6 +858,19 @@ change
     
     <xsl:template name="end_subject">
         <xsl:text> .</xsl:text>
+    </xsl:template>
+    
+    <xsl:template name="replace_choice_element">
+        <xsl:param name="fhir_path"/>
+        <xsl:param name="relpath"/>
+        <xsl:choose>
+            <xsl:when test="contains($relpath, '[x]')">
+                <xsl:value-of select="replace($fhir_path, '.*\.', '')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="substring-after($relpath, ':')"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 
