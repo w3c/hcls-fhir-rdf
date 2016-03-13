@@ -22,15 +22,21 @@
 #################################################################
 
 
-###  http://hl7.org/fhir/CodingBase.code
+###  http://hl7.org/fhir/Coding.code
 
-fhir:CodingBase.code rdf:type owl:ObjectProperty .
+fhir:Coding.code rdf:type owl:ObjectProperty .
 
 
 
-###  http://hl7.org/fhir/CodingBase.system
+###  http://hl7.org/fhir/Coding.concept
 
-fhir:CodingBase.system rdf:type owl:ObjectProperty .
+fhir:Coding.concept rdf:type owl:ObjectProperty .
+
+
+
+###  http://hl7.org/fhir/Coding.system
+
+fhir:Coding.system rdf:type owl:ObjectProperty .
 
 
 
@@ -96,9 +102,21 @@ fhir:uri rdf:type owl:Class .
 
 
 
+###  http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code
+
+<http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code> rdf:type owl:Class .
+
+
+
 ###  http://hl7.org/fhir/ValueSet/substance-codeB
 
 <http://hl7.org/fhir/ValueSet/substance-codeB> rdf:type owl:Class .
+
+
+
+###  http://hl7.org/fhir/ValueSet/substance-codeD
+
+<http://hl7.org/fhir/ValueSet/substance-codeD> rdf:type owl:Class .
 
 
 
@@ -201,6 +219,18 @@ fhir:uri rdf:type owl:Class .
 #################################################################
 
 
+###  http://hl7.org/fhir/anAllergyStatuscode
+
+fhir:anAllergyStatuscode rdf:type fhir:TestIndividuals .
+
+
+
+###  http://hl7.org/fhir/anAllergySubstanceCodeableConcept
+
+fhir:anAllergySubstanceCodeableConcept fhir:CodeableConcept.coding fhir:anAllergySubstanceCoding .
+
+
+
 ###  http://snomed.info/sct
 
 <http://snomed.info/sct> fhir:caseSensitive "false"^^xsd:boolean ;
@@ -235,36 +265,93 @@ fhir:anAllergySubstanceCodingBase rdfs:label "beta-Lactam antibiotic" .
 #################################################################
 
 
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf <http://snomed.info/id/373297006> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
+  owl:someValuesFrom <http://snomed.info/id/373297006>
+] .
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf <http://snomed.info/id/160244002> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:Coding.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "160244002"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:Coding.system ;
+                                              owl:hasValue <http://snomed.info/sct>
+                                            ]
+                                          )
+                     ]
+] .
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf <http://snomed.info/id/409137002> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:Coding.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "409137002"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:Coding.system ;
+                                              owl:hasValue <http://snomed.info/sct>
+                                            ]
+                                          )
+                     ]
+] .
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf <http://snomed.info/id/288328004> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:Coding.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "288328004"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:Coding.system ;
+                                              owl:hasValue <http://snomed.info/sct>
+                                            ]
+                                          )
+                     ]
+] .
 [ rdf:type owl:Class ;
-  rdfs:subClassOf <http://hl7.org/fhir/ValueSet/substance-rxnorm> ;
-  owl:intersectionOf ( <http://hl7.org/fhir/SomeBridge/fragmentA>
-                       [ rdf:type owl:Class ;
-                         owl:complementOf <http://hl7.org/fhir/SomeBridge/fragmentB>
+  rdfs:subClassOf <http://snomed.info/id/373297006> ;
+  owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:Coding.code ;
+                         owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                             owl:onProperty fhir:value ;
+                                             owl:hasValue "373297006"
+                                           ]
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:Coding.system ;
+                         owl:hasValue <http://snomed.info/sct>
                        ]
                      )
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://hl7.org/fhir/ValueSet/substance-codeD> ;
-  owl:onProperty fhir:CodingBase.concept ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:unionOf ( <http://snomed.info/id/105590001>
-                                     <http://snomed.info/id/373873005>
-                                   )
-                     ]
-] .
-[ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/90614001> ;
-  owl:onProperty fhir:ConceptBase.coding ;
+  rdfs:subClassOf <http://snomed.info/id/373873005> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:onProperty fhir:Coding.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
-                                                                  owl:hasValue "90614001"
+                                                                  owl:hasValue "373873005"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:onProperty fhir:Coding.system ;
                                               owl:hasValue <http://snomed.info/sct>
                                             ]
                                           )
@@ -272,45 +359,14 @@ fhir:anAllergySubstanceCodingBase rdfs:label "beta-Lactam antibiotic" .
 ] .
 [ rdf:type owl:Restriction ;
   rdfs:subClassOf <http://snomed.info/id/6369005> ;
-  owl:onProperty fhir:ConceptBase.coding ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "6369005"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue <http://snomed.info/sct>
-                                            ]
-                                          )
-                     ]
-] .
-[ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/429625007> ;
-  owl:onProperty fhir:ConceptBase.coding ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "429625007"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue <http://snomed.info/sct>
-                                            ]
-                                          )
-                     ]
+  owl:onProperty fhir:CodeableConcept.coding ;
+  owl:someValuesFrom <http://snomed.info/id/6369005>
 ] .
 [ rdf:type owl:Class ;
   rdfs:subClassOf <http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code> ;
   owl:unionOf ( <http://hl7.org/fhir/ValueSet/substance-codeD>
                 [ rdf:type owl:Restriction ;
-                  owl:onProperty fhir:CodingBase.concept ;
+                  owl:onProperty fhir:Coding.concept ;
                   owl:someValuesFrom [ rdf:type owl:Class ;
                                        owl:intersectionOf ( [ rdf:type owl:Class ;
                                                               owl:unionOf ( <http://snomed.info/id/160244002>
@@ -328,90 +384,86 @@ fhir:anAllergySubstanceCodingBase rdfs:label "beta-Lactam antibiotic" .
               )
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/288328004> ;
-  owl:onProperty fhir:ConceptBase.coding ;
+  rdfs:subClassOf <http://snomed.info/id/90614001> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:onProperty fhir:Coding.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
-                                                                  owl:hasValue "288328004"
+                                                                  owl:hasValue "90614001"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:onProperty fhir:Coding.system ;
                                               owl:hasValue <http://snomed.info/sct>
                                             ]
                                           )
                      ]
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/160244002> ;
-  owl:onProperty fhir:ConceptBase.coding ;
+  rdfs:subClassOf <http://hl7.org/fhir/ValueSet/substance-codeD> ;
+  owl:onProperty fhir:Coding.concept ;
   owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "160244002"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue <http://snomed.info/sct>
-                                            ]
-                                          )
+                       owl:unionOf ( <http://snomed.info/id/105590001>
+                                     <http://snomed.info/id/373873005>
+                                   )
                      ]
+] .
+[ rdf:type owl:Class ;
+  rdfs:subClassOf <http://snomed.info/id/6369005> ;
+  owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:Coding.code ;
+                         owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                             owl:onProperty fhir:value ;
+                                             owl:hasValue "6369005"^^xsd:string
+                                           ]
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:Coding.system ;
+                         owl:hasValue <http://snomed.info/sct>
+                       ]
+                     )
+] .
+[ rdf:type owl:Class ;
+  rdfs:subClassOf <http://hl7.org/fhir/ValueSet/substance-rxnorm> ;
+  owl:intersectionOf ( <http://hl7.org/fhir/SomeBridge/fragmentA>
+                       [ rdf:type owl:Class ;
+                         owl:complementOf <http://hl7.org/fhir/SomeBridge/fragmentB>
+                       ]
+                     )
 ] .
 [ rdf:type owl:Restriction ;
   rdfs:subClassOf <http://snomed.info/id/428607008> ;
-  owl:onProperty fhir:ConceptBase.coding ;
+  owl:onProperty fhir:CodeableConcept.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:onProperty fhir:Coding.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
                                                                   owl:hasValue "428607008"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:onProperty fhir:Coding.system ;
                                               owl:hasValue <http://snomed.info/sct>
                                             ]
                                           )
                      ]
 ] .
 [ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/373297006> ;
-  owl:onProperty fhir:ConceptBase.coding ;
+  rdfs:subClassOf <http://snomed.info/id/429625007> ;
+  owl:onProperty fhir:CodeableConcept.coding ;
   owl:someValuesFrom [ rdf:type owl:Class ;
                        owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:onProperty fhir:Coding.code ;
                                               owl:allValuesFrom [ rdf:type owl:Restriction ;
                                                                   owl:onProperty fhir:value ;
-                                                                  owl:hasValue "373297006"
+                                                                  owl:hasValue "429625007"
                                                                 ]
                                             ]
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue <http://snomed.info/sct>
-                                            ]
-                                          )
-                     ]
-] .
-[ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/409137002> ;
-  owl:onProperty fhir:ConceptBase.coding ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "409137002"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:onProperty fhir:Coding.system ;
                                               owl:hasValue <http://snomed.info/sct>
                                             ]
                                           )
@@ -420,7 +472,7 @@ fhir:anAllergySubstanceCodingBase rdfs:label "beta-Lactam antibiotic" .
 [ rdf:type owl:Class ;
   rdfs:subClassOf <http://hl7.org/fhir/ValueSet/substance-codeB> ;
   owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                         owl:onProperty fhir:CodingBase.code ;
+                         owl:onProperty fhir:Coding.code ;
                          owl:someValuesFrom [ rdf:type owl:Class ;
                                               owl:unionOf ( [ rdf:type owl:Restriction ;
                                                               owl:onProperty fhir:value ;
@@ -434,28 +486,10 @@ fhir:anAllergySubstanceCodingBase rdfs:label "beta-Lactam antibiotic" .
                                             ]
                        ]
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty fhir:CodingBase.system ;
+                         owl:onProperty fhir:Coding.system ;
                          owl:hasValue <http://snomed.info/sct>
                        ]
                      )
-] .
-[ rdf:type owl:Restriction ;
-  rdfs:subClassOf <http://snomed.info/id/373873005> ;
-  owl:onProperty fhir:ConceptBase.coding ;
-  owl:someValuesFrom [ rdf:type owl:Class ;
-                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.code ;
-                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty fhir:value ;
-                                                                  owl:hasValue "373873005"
-                                                                ]
-                                            ]
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty fhir:CodingBase.system ;
-                                              owl:hasValue <http://snomed.info/sct>
-                                            ]
-                                          )
-                     ]
 ] .
 
 

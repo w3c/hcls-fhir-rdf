@@ -1,81 +1,87 @@
+@prefix : <http://example.org/MedicationOrder/1#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
-
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
 @prefix fhir: <http://hl7.org/fhir/> .
-
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://example.org/MedicationOrder/1> .
 
-@base <http://record/MedicationOrder/1> .
+<http://example.org/MedicationOrder/1> rdf:type owl:Ontology ;
+                                       
+                                       owl:imports <http://hl7.org/fhir> .
+
+###  http://PatientSafetyProfile/MedicationOrder
+
+<http://PatientSafetyProfile/MedicationOrder> rdf:type owl:Class .
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://example.org/Medication/1
+
+<http://example.org/Medication/1> rdf:type fhir:MedicationOrder ,
+                                           owl:NamedIndividual .
 
 
 
-<http://record/MedicationOrder/1> rdf:type owl:Ontology ; owl:imports <http://hl7.org/fhir>  .
+###  http://example.org/MedicationOrder/1
 
-
-
-
-
-
-
-###  http://record/MedicationOrder/1
-
-<http://record/MedicationOrder/1> rdf:type <http://PatientSafetyProfile/MedicationOrder> ,
-                                                  owl:NamedIndividual ;
-                                         
-                                         fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
-                                                                        fhir:Reference.link <http://record/Patient/PeterPatient> ;
-                                                                        fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient"
-                                                                                                 ] ;
-                                                                        fhir:Reference.display [ fhir:value "Peter Patient"
+<http://example.org/MedicationOrder/1> rdf:type fhir:MedicationOrder , <http://PatientSafetyProfile/MedicationOrder> ,
+                                                owl:NamedIndividual ;
+                                       
+                                       fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
+                                                                      fhir:Reference.link <http://example.org/Patient/PeterPatient> ;
+                                                                      fhir:Reference.display [ fhir:value "Peter Patient"
+                                                                                             ] ;
+                                                                      fhir:Reference.reference [ fhir:value "http://example.org/Patient/PeterPatient"
                                                                                                ]
-                                                                      ] ;
-                                         
-                                         fhir:MedicationOrder.medicationReference [ rdf:type fhir:Reference ;
-                                                                                    fhir:Reference.link <http://record/Medication/1> ;
-                                                                                    fhir:Reference.display [ fhir:value "Amoxicillin (product)"
+                                                                    ] ;
+                                       
+                                       fhir:MedicationOrder.medicationReference [ rdf:type fhir:Reference ;
+                                                                                  fhir:Reference.link <http://example.org/Medication/1> ;
+                                                                                  fhir:Reference.reference [ fhir:value "http://example.org/Medication/1"
                                                                                                            ] ;
-                                                                                    fhir:Reference.reference [ fhir:value "http://record/Medication/1"
-                                                                                                             ]
-                                                                                  ] .
+                                                                                  fhir:Reference.display [ fhir:value "Amoxicillin (product)"
+                                                                                                         ]
+                                                                                ] .
 
 
 
-###  http://record/Patient/PeterPatient
+###  http://example.org/Patient/PeterPatient
 
-<http://record/Patient/PeterPatient> rdf:type owl:NamedIndividual .
+<http://example.org/Patient/PeterPatient> rdf:type owl:NamedIndividual .
 
 
 
-###  http://record/medpres1/bundle1
+###  http://example.org/medpres1/bundle1
 
-<http://record/medpres1/bundle1> rdf:type fhir:Bundle ,
-                                          owl:NamedIndividual ;
-                                 
-                                 fhir:Bundle.total [ rdf:type fhir:unsignedInt ;
-                                                     fhir:value 3
-                                                   ] ;
-                                 
-                                 fhir:Bundle.type [ fhir:value "searchset"
-                                                  ] ;
-                                 
-                                 fhir:Resource.meta [ rdf:type fhir:Meta ;
-                                                      fhir:Meta.lastUpdated [ rdf:type fhir:instant ;
-                                                                              fhir:value "2015-08-02T00:00:00"^^xsd:dateTime
-                                                                            ]
-                                                    ] ;
-                                 
-                                 fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry ;
-                                                     fhir:Bundle.Entry.resource <http://record/MedicationPrescription/1>
-                                                   ] ;
-                                 
-                                 fhir:Bundle.link [ rdf:type fhir:uri ;
-                                                    fhir:value "self"
-                                                  ] .
+<http://example.org/medpres1/bundle1> rdf:type fhir:Bundle ,
+                                               owl:NamedIndividual ;
+                                      
+                                      fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry
+                                                        ] ;
+                                      
+                                      fhir:Bundle.type [ fhir:value "searchset"
+                                                       ] ;
+                                      
+                                      fhir:Resource.meta [ rdf:type fhir:Meta ;
+                                                           fhir:Meta.lastUpdated [ rdf:type fhir:instant ;
+                                                                                   fhir:value "2015-08-02T00:00:00"^^xsd:dateTime
+                                                                                 ]
+                                                         ] ;
+                                      
+                                      fhir:Bundle.total [ rdf:type fhir:unsignedInt ;
+                                                          fhir:value 3
+                                                        ] ;
+                                      
+                                      fhir:Bundle.link [ rdf:type fhir:uri ;
+                                                         fhir:value "self"
+                                                       ] .
 
 
 
