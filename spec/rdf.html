@@ -87,6 +87,24 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       border-top-style: none;    
       border-bottom-style: none; 
       }
+      pre.FHIRShEx {
+        font-size: 8pt;
+        line-height: 100%;
+        text-align: left ! important;
+        font-family: Consolas;
+        writing-mode: lr-tb;
+        background-color: #fffda0;
+        padding-left: 0.0555in;
+        padding-right: 0.0555in;
+        border-width: 0.018cm;
+        border-style: solid;
+        border-color: #00000a;
+        color: #000000;
+        padding-bottom: 0in;
+        padding-top: 0in;
+      border-top-style: none;    
+      border-bottom-style: none; 
+      }
       .ul {
         text-decoration: underline;
       }
@@ -148,6 +166,23 @@ img.scaled {
 .contentious { color: red; }
 
 .shared { border-left: solid thick #909; padding-left: .5em; }
+
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
 		</style>
 	</head>
 	<body>
@@ -311,6 +346,7 @@ img.scaled {
       ] ;
       fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
    ] .        </pre>
+
 		    <section>
           <h2>RDF File identity</h2>
           <p>
@@ -389,15 +425,31 @@ Note that the type of the resource is qualified by the profile which is obtained
             3 new additional classes are introduced – codeBase, CodingBase and ConceptBase. 
           </p>
           <pre class="FHIRRDF shared">
-   fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept ;
-      fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
-         fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
-         fhir:CodingBase.system [ rdf:type fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
-         fhir:CodingBase.display [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+   fhir:AllergyIntolerance.substance [ a fhir:CodeableConcept ;
+      fhir:ConceptBase.coding [ a fhir:CodingBase ;
+         fhir:CodingBase.code [ a fhir:codeBase ; fhir:value "90614001" ] ;
+         fhir:CodingBase.system [ a fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
+         fhir:CodingBase.display [ a fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
       ] ;
-      fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+      fhir:ConceptBase.text [ a fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
    ] .
           </pre>
+    <pre class="FHIRShEx">
+   <span class="variable-name">&lt;CodeableConceptShape&gt;</span> {
+    <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">CodeableConcept</span>]<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">ConceptBase.coding</span> <span class="variable-name">@&lt;CodingShape&gt;</span><span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">ConceptBase.text</span> <span class="variable-name">@&lt;textShape&gt;</span><span class="keyword">?</span>
+  }
+  <span class="type">&lt;codingShape&gt;</span> {
+    <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">CodingBase</span>]<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.code</span> { <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">codeBase</span>]<span class="keyword">?</span>, <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">LITERAL</span> }<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.system</span> { <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">uri</span>]<span class="keyword">?</span>, <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">LITERAL</span> }<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.display</span> { <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">string</span>]<span class="keyword">?</span>, <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">LITERAL</span> }<span class="keyword">?</span>
+  }
+  <span class="variable-name">&lt;textShape&gt;</span> {
+    <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">string</span>]<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">LITERAL</span>
+  }</pre>
           <p class="shared">
             The fhir:CodeableConcept type assertion allows round trip back to the original XML type.
             The same approach will be taken for fhir:Coding and fhir:code.
