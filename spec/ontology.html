@@ -172,6 +172,8 @@ img.scaled {
 	text-decoration: none;
 	color: #428bca;
 }
+
+.shared { border-left: solid thick blue; }
 		</style>
 	</head>
 	<body>
@@ -211,7 +213,7 @@ img.scaled {
 			and is separated into Structural Definition and ValueSet mappings to 
 			OWL.</p>
 			<h2>Structural Definition Mapping</h2>
-      <p>
+      <p class="shared">
         In general the mapping between types, elements in XML and Classes, individuals in RDF is generally the same.
         This section defines that default mapping and other section describe deviations from the default mapping.
       </p>
@@ -734,11 +736,11 @@ img.scaled {
             </tr>
           </table>
 		    	  <h2>XML Attribute</h2>
-          <p>
+          <p class="shared">
             An XML attribute represents a simple type and in FHIR is always “value”.
             FHIR datatypes have attributes of XSD datatypes.
           </p>
-          <p>
+          <p class="shared">
             <span class="code">  fhir:CodingBase.display [ <span class="inferred">a fhir:string</span>; fhir:value "Admin"] ;</span><br/>
             Shows an anonymous individual in [] of datatype fhir:string with value data property “Admin”.
           </p>
@@ -748,7 +750,7 @@ img.scaled {
         <h2>Default Type Mapping</h2>
 		    <section id="NestedElements">
           	  <h2>Nested Elements</h2>
-          <p>
+          <p class="shared">
             An XML tag is unique within the namespace that it is declared in.
             FHIR does not use global declarations.
             The XML tag is mapped to an Object Property where the name is prefixed with the Class name in which it was declared.
@@ -758,7 +760,7 @@ img.scaled {
 		    </section>
 		    <section>
           <h2>Datatypes</h2>
-          <p>
+          <p class="shared">
             In RDF the value attribute of a datatype is a Data Property named “value” with undefined range.
             Each FHIR data type has a restriction on the range of the Data Property (see section on Datatypes).
           </p>
@@ -940,7 +942,7 @@ fhir:Reference.display rdf:type owl:ObjectProperty ;
 
 		<section>
       	  <h2> Datatypes (section 1.18.0.1)</h2>
-      <p>
+      <p class="shared">
         Difference in the treatment of datatypes code, string and uri as classes with primitive values as rdf:Datatypes.
         Datatypes are transformed into OWL Classes where the value is expressed as a an OWL DataProperty with restrictions (facets etc).
       </p>
@@ -1014,7 +1016,7 @@ fhir:decimal rdf:type owl:Class ;
         <h2>FHIR CodeableConcept and Coding Structure Definition</h2>
 		    <section>
           <h2>FHIR XML</h2>
-          <p>
+          <p class="shared">
             Codeable Concept example
           </p>
           <pre class="FHIRXML">
@@ -1053,11 +1055,11 @@ fhir:decimal rdf:type owl:Class ;
 		    </section>
 		    <section>
           <h2>RDF Data for Codeable Concept Instance</h2>
-          <p>
+          <p class="shared">
             The RDF variant for fhir:Code, fhir:Coding and fhir:CodeableConcept are not straight translations of the FHIR representation.
             3 new additional classes are introduced – codeBase, CodingBase and ConceptBase. 
           </p>
-          <pre class="FHIRRDF">
+          <pre class="FHIRRDF shared">
    fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept ;
       fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
          fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
@@ -1067,12 +1069,12 @@ fhir:decimal rdf:type owl:Class ;
       fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
    ] .
           </pre>
-          <p>
+          <p class="shared">
             The fhir:CodeableConcept type assertion allows round trip back to the original XML type.
             The same approach will be taken for fhir:Coding and fhir:code.
           </p>
 
-          <p>
+          <p class="shared">
           This approach will be implemented by creating ConceptBase, CodingBase and codeBase individuals as blank nodes.
           </p>
 		    </section>
@@ -1441,10 +1443,10 @@ fhir:Bundle.Entry rdf:type owl:Class ;
       <h2> Ordering</h2>
 		    <section>
         		<h2>RDF individual ordering example</h2>
-        <p>
+        <p class="shared">
           Simple integer DataProperty fhir:index can be applied to individuals of subclasses of fhir:Element          
         </p>
-        <pre class="FHIRRDF">
+        <pre class="FHIRRDF shared">
 ###  http://hl7.org/fhir/index
 fhir:index rdf:type owl:DatatypeProperty ;
            rdfs:range fhir:index-primitive .
@@ -1474,7 +1476,7 @@ fhir:Element rdf:type owl:Class ;
              rdfs:comment "The base element used for all FHIR elements and resources - allows for them to be extended with extensions" .
  .
         </pre>
-        <p>
+        <p class="shared">
           In general fhir:value and fhir:Element.id are converted to an attribute in XML. fhir:index dictates the sequence only.
         </p>
 		  </section>

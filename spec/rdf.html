@@ -146,6 +146,8 @@ img.scaled {
 .todo { color:red; border: thin solid red; }
 .todo:before { content: "TODO" }
 .contentious { color: red; }
+
+.shared { border-left: solid thick #909; padding-left: .5em; }
 		</style>
 	</head>
 	<body>
@@ -177,7 +179,7 @@ img.scaled {
 
 		<section id="DefaultMapping">
       <h2>Default Mapping</h2>
-      <p>
+      <p class="shared">
         In general the mapping between types, elements in XML and Classes, individuals in RDF is generally the same.
         This section defines that default mapping and other section describe deviations from the default mapping.
       </p>
@@ -202,11 +204,11 @@ img.scaled {
 		    </section>
 		    <section id="XMLAttribute">
           <h2>XML Attribute</h2>
-          <p>
+          <p class="shared">
             An XML attribute represents a simple type and in FHIR is always “value”.
             FHIR datatypes have attributes of XSD datatypes.
           </p>
-          <p>
+          <p class="shared">
             <span class="code">  fhir:CodingBase.display [ <span class="inferred">a fhir:string</span>; fhir:value "Admin"] ;</span><br/>
             Shows an anonymous individual in [] of datatype fhir:string with value data property “Admin”.
           </p>
@@ -215,7 +217,7 @@ img.scaled {
       <section id="DefaultTypeMapping">
           <section id="NestedElements">
           	<h2>Nested Elements</h2>
-          <p>
+          <p class="shared">
             An XML tag is unique within the namespace that it is declared in.
             FHIR does not use global declarations.
             The XML tag is mapped to an Object Property where the name is prefixed with the Class name in which it was declared.
@@ -225,7 +227,7 @@ img.scaled {
 		    </section>
 		    <section>
           <h2>Datatypes</h2>
-          <p>
+          <p class="shared">
             In RDF the value attribute of a datatype is a Data Property named “value” with undefined range.
             Each FHIR data type has a restriction on the range of the Data Property (see section on Datatypes).
           </p>
@@ -360,7 +362,7 @@ Note that the type of the resource is qualified by the profile which is obtained
 
 		<section>
       <h2> Datatypes (section 1.18.0.1)</h2>
-      <p>
+      <p class="shared">
         Difference in the treatment of datatypes code, string and uri as classes with primitive values as rdf:Datatypes.
         Datatypes are transformed into OWL Classes where the value is expressed as a an OWL DataProperty with restrictions (facets etc).
       </p>
@@ -368,7 +370,7 @@ Note that the type of the resource is qualified by the profile which is obtained
         		<h2>FHIR CodeableConcept and Coding Structure Definition</h2>
 		    <section>
           <h2>FHIR XML</h2>
-          <p>
+          <p class="shared">
             Codeable Concept example
           </p>
           <pre class="FHIRXML">
@@ -382,11 +384,11 @@ Note that the type of the resource is qualified by the profile which is obtained
   &lt;/substance&gt;
           </pre>
           	  <h2>RDF Data for Codeable Concept Instance</h2>
-          <p>
+          <p class="shared">
             The RDF variant for fhir:Code, fhir:Coding and fhir:CodeableConcept are not straight translations of the FHIR representation.
             3 new additional classes are introduced – codeBase, CodingBase and ConceptBase. 
           </p>
-          <pre class="FHIRRDF">
+          <pre class="FHIRRDF shared">
    fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept ;
       fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
          fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
@@ -396,12 +398,12 @@ Note that the type of the resource is qualified by the profile which is obtained
       fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
    ] .
           </pre>
-          <p>
+          <p class="shared">
             The fhir:CodeableConcept type assertion allows round trip back to the original XML type.
             The same approach will be taken for fhir:Coding and fhir:code.
           </p>
 
-          <p>
+          <p class="shared">
           This approach will be implemented by creating ConceptBase, CodingBase and codeBase individuals as blank nodes.
           </p>
 		    </section>
@@ -468,19 +470,19 @@ fhir:AllergyIntolerance.patient.link rdf:type owl:ObjectProperty ;
         </p>
 		  </section>
 		    <h2>Containment</h2>
-      <p>
+      <p class="shared">
         Containment is where a resource or container contains other resources.
       </p>
-      <p>
+      <p class="shared">
         It applies to Bundle, Contained and Parameters.
       </p>
 		  <section>
         <h2>Bundle</h2>
-        <p>
+        <p class="shared">
           One common operation performed with resources is to gather a collection of resources into a single instance with containing context.
           In FHIR this is referred to as "bundling" the resources together. These resource bundles are useful for a variety of different reasons, including: 
         </p>
-        <ul>
+        <ul class="shared">
           <li>Returning a set of resources that meet some criteria as part of a server operation (see <a href="http://hl7-fhir.github.io/http.html#search">RESTful Search</a>)</li>
           <li>Returning a set of versions of resources as part of the history operation on a server (see <a href="http://hl7-fhir.github.io/http.html#history">History</a>)</li>
           <li>Sending a set of resources as part of a message exchange (see <a href="http://hl7-fhir.github.io/messaging.html">Messaging</a>)</li>
@@ -488,7 +490,7 @@ fhir:AllergyIntolerance.patient.link rdf:type owl:ObjectProperty ;
           <li>Creating/updating/deleting a set of resources on a server as a single operation (including doing so as a single atomic transaction) (see <a href="http://hl7-fhir.github.io/http.html#transaction">Transactions</a>)</li>
           <li>Storing a collection of resources</li>
         </ul>
-		    <section>
+		    <section class="shared">
           <h2>Bundle XML instance</h2>
           <pre class="FHIRXML">
 &lt;Bundle xmlns="http://hl7.org/fhir"&gt;
@@ -546,7 +548,7 @@ fhir:AllergyIntolerance.patient.link rdf:type owl:ObjectProperty ;
 &lt;/Bundle&gt;
           </pre>
 		    </section>
-		    <section>
+		    <section class="shared">
           <h2>Bundle XML content description</h2>
           <pre class="spec">
 &lt; <a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle" title="A container for a collection of resources." class="dict"><b>Bundle</b></a> xmlns="http://hl7.org/fhir"&gt; <span style="float: right"><a href="http://hl7-fhir.github.io/xml.html" title="Documentation for this format"><img src="http://hl7-fhir.github.io/help.png" alt="doco" /></a></span>
@@ -622,10 +624,10 @@ fhir:AllergyIntolerance.patient.link rdf:type owl:ObjectProperty ;
 			<h2> Ordering</h2>
 		    <section>
         		<h2>RDF individual ordering example</h2>
-        <p>
+        <p class="shared">
           Simple integer DataProperty fhir:index can be applied to individuals of subclasses of fhir:Element          
         </p>
-        <pre class="FHIRRDF">
+        <pre class="FHIRRDF shared">
 ###  http://hl7.org/fhir/index
 fhir:index rdf:type owl:DatatypeProperty ;
            rdfs:range fhir:index-primitive .
@@ -655,7 +657,7 @@ fhir:Element rdf:type owl:Class ;
              rdfs:comment "The base element used for all FHIR elements and resources - allows for them to be extended with extensions" .
  .
         </pre>
-        <p>
+        <p class="shared">
           In general fhir:value and fhir:Element.id are converted to an attribute in XML. fhir:index dictates the sequence only.
         </p>
 		  </section>
