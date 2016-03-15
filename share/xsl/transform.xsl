@@ -570,6 +570,13 @@ change
                                     </xsl:when>
                                     <xsl:when test="$reference = 'ref' and $type = 'Reference'">
                                         <xsl:choose>
+                                            <xsl:when test="not(f:reference/@value) and f:display/@value">
+                                                <xsl:text>[ fhir:Reference.display </xsl:text>
+                                                <xsl:call-template name="LeafNode">
+                                                  <xsl:with-param name="value" select="concat('&quot;', f:display/@value, '&quot;')"/>
+                                                </xsl:call-template>
+                                                <xsl:text> ]</xsl:text>
+                                            </xsl:when>
                                             <xsl:when test="contains(f:reference/@value, '#')">
                                                 <xsl:call-template name="as_url">
                                                     <xsl:with-param name="value" select="concat($docParam, f:reference/@value)"/>
