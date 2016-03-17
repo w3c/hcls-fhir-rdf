@@ -796,43 +796,421 @@ allergy-intolerance-status:confirmed rdf:type owl:Class ;
       </section>
       <section id="ValueSets">
         <h2>ValueSets</h2>
+        <p>
+          A ValueSet in RDF is a specific Class which defines the CodingBase individuals which are members of it. 
+        </p><p>There are two ways of declaring the ValueSet in RDF – 
+          <ul>
+            <li>ValueSets are named Classes with direct restrictions on CodingBase individuals (system + code)</li>
+            <li>ValueSets are named Classes representing sets of CodingBase restrictions via Concept restrictions.</li> 
+          </ul>
+          See the later section for more detailed consideration of the flexibility of ValueSet definitions. These definitions will be mapped into the two ways above.
+        </p><p>The following diagram shows the subclass relationships between the classes: 
+        </p>
+        <img src="ValueSetPic.png"/>
+        <p>
+          A valueset defines a subset of CodingBase individuals which meet the constraints of that ValueSet.
+        </p><p>Two cases are explored A &amp; B are the direct and indirect (via concepts ) restrictions:
+          <ul>
+            <li type="A"> ValueSet direct restriction on CodingBase</li>
+            <li type="A"> ValueSet indirect restriction via Concepts</li>
+          </ul>
+        </p>
         <section id="CodingBindingtoexternalterminology">
           <h2>Coding Binding to external terminology (section 1.17.3.3.5)</h2>
           <section id="FHIRXML">
             <h2>FHIR XML</h2>
+            <pre class="FHIRXML">
+&lt;AllergyIntolerance xmlns=http://hl7.org/fhir &gt;
+  &lt;id value="1"/&gt;
+  &lt;text&gt;
+  &lt;/text&gt;
+&lt;!--   the date that this entry was recorded   --&gt;
+  &lt;recordedDate value="2010-03-01"/&gt;
+&lt;!--   the patient that actually has the risk of adverse reaction   --&gt;
+  &lt;patient&gt;
+    &lt;reference value="http://record/Patient/PeterPatient"/&gt;
+    &lt;display value="Peter Patient"/&gt;
+  &lt;/patient&gt;
+&lt;!--   substance, coded from SNOMED CT--&gt;
+  &lt;substance&gt;
+    &lt;coding&gt;
+      &lt;system value="http://snomed.info/id/"/&gt;
+      &lt;code value="90614001"/&gt;
+      &lt;display value="beta-Lactam antibiotic"/&gt;
+    &lt;/coding&gt;
+  &lt;/substance&gt;
+  &lt;status value="confirmed"/&gt;
+  &lt;criticality value="high"/&gt;
+  &lt;category value="medication"/&gt;
+&lt;/AllergyIntolerance&gt;
+            </pre>
           </section>
           <section id="RDFInstanceExample">
             <h2>RDF Instance Example</h2>
+            <p>
+              This is the raw instance before processing and after <span style="color: green">in green for inference</span> and <span style="color: red">red for specific processing</span>
+            </p>
+            <pre class="FHIRRDF shared">
+@prefix : &lt;http://record/AllergyIntolerance/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sct: &lt;http://snomed.info/id/&gt; .
+@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix profile: &lt;http://PatientSafetyProfile/&gt; .
+@base &lt;http://record/AllergyIntolerance/1&gt; .
+
+&lt;http://record/AllergyIntolerance/&gt; rdf:type owl:Ontology ;
+  <b><span style="color: red">owl:imports &lt;http://PatientSafetyProfile&gt; .</span></b>
+
+###  http://record/AllergyIntolerance/1
+
+&lt;http://record/AllergyIntolerance/1&gt; rdf:type profile:DomainResource, owl:NamedIndividual ;
+   fhir:Resource.id [ rdf:type fhir:id ; fhir:value "1" ] ;
+   fhir:AllergyIntolerance.status [ rdf:type fhir:code , <b><span style="color: green">&lt;http://hl7.org/fhir/allergyIntoleranceStatus#confirmed&gt;</span></b>; 
+      fhir:ConceptBase.coding [ fhir:CodingBase.code [ fhir:value "confirmed" ]  ] 
+   ] ;
+   fhir:AllergyIntolerance.patient [ rdf:type fhir:Reference ; 
+      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient" ] ;
+      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
+      <b><span style="color: red">fhir:Reference.link &lt;http://record/Patient/PeterPatient&gt; </span></b>;
+   ] ;
+   fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept , <b><span style="color: green">&lt;http://snomed.info/id/90614001&gt;</span></b>; 
+      <b><span style="color: red">rdfs:label "beta-lactam (antibiotic)" </span></b>;
+      fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
+         fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
+         fhir:CodingBase.system [ rdf:type fhir:string ; fhir:value "http://snomed.info/sct" ] ;
+         fhir:CodingBase.display [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ] 
+      ] ;
+      fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+   ] .
+            </pre>
+            <p>
+              Note the use of a profile binding through the type “profile:AllergyIntolerance” which then restricts the types of CodingBase instances.
+            </p>
           </section>
         </section>
         <section id="OWLRecordbindingDefinition">
           <h2>OWL Record binding Definition</h2>
           <section id="AllergyIntoleranceClass">
             <h2>Allergy Intolerance Class</h2>
+            <p>
+              The OWL schema fragment for the class and object properties is shown here:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance
+fhir:AllergyIntolerance rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf fhir:DomainResource ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.status ;
+                                          owl:allValuesFrom fhirvs:allergy-intolerance-statusA
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.status ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.patient ;
+                                          owl:allValuesFrom fhir:Reference
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.patient ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:allValuesFrom fhir:CodeableConcept
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+………………………
+.
+            </pre>
+            <p>
+              It shows that:
+              <ul>
+                <li>AllergyIntolerance.status is restricted to the set defined by fhirvs:allergy intolerance statusA because the binding strength is “required”.</li>
+                <li>AllergyIntolerance.substance is not restricted to the set defined by fhirvs:allergyintolerance substance code but purely to the CodeableConcept since the binding strength is “example”.</li>
+              </ul>
+            </p>
           </section>
         </section>
         <section id="FHIRXMLvaluesetdefinition">
           <h2>FHIR XML value set definition</h2>
           <section id="AllergyIntoleranceStatusStructuralDefinition">
             <h2>Allergy Intolerance Status Structural Definition</h2>
+            <pre class="FHIRXML">
+    &lt;element&gt;
+      &lt;path value="AllergyIntolerance.status"/&gt;
+      &lt;short value="active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error"/&gt;
+      &lt;definition value="Assertion about certainty associated with the propensity, or potential risk, of a reaction
+       to the identified Substance."/&gt;
+      &lt;comments value="Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved'
+       and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation of the Adverse Reaction
+       List. Some implementations may choose to make this field mandatory."/&gt;
+      &lt;alias value="State"/&gt;
+      &lt;min value="0"/&gt;
+      &lt;max value="1"/&gt;
+      &lt;type&gt;
+        &lt;code value="code"/&gt;
+      &lt;/type&gt;
+      &lt;isModifier value="true"/&gt;
+      &lt;isSummary value="true"/&gt;
+      &lt;binding&gt;
+        &lt;strength value="required"/&gt;
+        &lt;description value="Assertion about certainty associated with a propensity, or potential risk, of a reaction
+         to the identified Substance."/&gt;
+        &lt;valueSetReference&gt;
+          &lt;reference value="http://hl7.org/fhir/ValueSet/allergy-intolerance-status"/&gt;
+        &lt;/valueSetReference&gt;
+      &lt;/binding&gt;
+      &lt;mapping&gt;
+        &lt;identity value="v2"/&gt;
+        &lt;map value="IAM-17"/&gt;
+      &lt;/mapping&gt;
+      &lt;mapping&gt;
+        &lt;identity value="w5"/&gt;
+        &lt;map value="status"/&gt;
+      &lt;/mapping&gt;
+    &lt;/element&gt;
+            </pre>
           </section>
           <section id="AllergyIntolerance.substanceStructuralDefinition">
             <h2>AllergyIntolerance.substance Structural Definition</h2>
+            <pre class="FHIRXML">
+    &lt;element&gt;
+      &lt;path value="AllergyIntolerance.substance"/&gt;
+      &lt;short value="Substance, (or class) considered to be responsible for risk"/&gt;
+      &lt;definition value="Identification of a substance, or a class of substances, that is considered to be responsible
+       for the adverse reaction risk."/&gt;
+      &lt;comments value="It is strongly recommended that the substance be coded with a terminology, where possible.
+       For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10,
+       UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology
+       available. Additional details about a substance can be specified in the text."/&gt;
+      &lt;alias value="Agent"/&gt;
+      &lt;min value="1"/&gt;
+      &lt;max value="1"/&gt;
+      &lt;type&gt;
+        &lt;code value="CodeableConcept"/&gt;
+      &lt;/type&gt;
+      &lt;isSummary value="true"/&gt;
+      &lt;binding&gt;
+        &lt;strength value="example"/&gt;
+        &lt;description value="Type of the substance and Negation codes for reporting no known allergies."/&gt;
+        &lt;valueSetReference&gt;
+          &lt;reference value="http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code"/&gt;
+        &lt;/valueSetReference&gt;
+      &lt;/binding&gt;
+      &lt;mapping&gt;
+        &lt;identity value="v2"/&gt;
+        &lt;map value="AL1-3 / IAM-3"/&gt;
+      &lt;/mapping&gt;
+      &lt;mapping&gt;
+        &lt;identity value="w5"/&gt;
+        &lt;map value="what"/&gt;
+      &lt;/mapping&gt;
+    &lt;/element&gt;
+            </pre>
           </section>
           <section id="AllergyIntolerance.statusObjectPropertydefinition">
             <h2>AllergyIntolerance.status Object Property definition</h2>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance.status
+
+fhir:AllergyIntolerance.status rdf:type owl:ObjectProperty ;
+   fhir:binding.valueSetReference "http://hl7.org/fhir/ValueSet/allergy-intolerance-status"^^xsd:anyURI ;
+   fhir:isModifier "true"^^xsd:boolean ;
+   fhir:isSummary "true"^^xsd:boolean ;
+   rdfs:comment "Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved' and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation  of the Adverse Reaction List. Some implementations may choose to make this field mandatory." ;
+   fhir:short "active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error" ;
+   fhir:binding.description "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance." ;
+   fhir:concept_definition "Assertion about certainty associated with the propensity, or potential risk, of a reaction to the identified Substance." ;
+   fhir:binding.strength "required" ;
+   rdfs:domain fhir:AllergyIntolerance ;
+   rdfs:range fhir:code ;
+   rdfs:subPropertyOf fhir:objectProperty .
+            </pre>
           </section>
           <section id="AllergyIntolerance.substanceObjectProperty">
             <h2>AllergyIntolerance.substance Object Property</h2>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance.substance
+
+fhir:AllergyIntolerance.substance rdf:type owl:ObjectProperty ;
+   fhir:isSummary "true"^^xsd:boolean ;
+   fhir:binding.valueSetReference "http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code" ;
+   fhir:short "Substance, (or class) considered to be responsible for risk" ;
+   fhir:concept_definition "Identification of a substance, or a class of substances, that is considered to be responsible for the adverse reaction risk." ;
+   fhir:binding.strength "example" ;
+   rdfs:comment "It is strongly recommended that the substance be coded with a terminology, where possible.  For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10, UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology available. Additional details about a substance can be specified in the text." ;
+   fhir:binding.description "Type of the substance and Negation codes for reporting no known allergies." ;
+   rdfs:domain fhir:AllergyIntolerance ;
+   rdfs:range fhir:CodeableConcept ;
+   rdfs:subPropertyOf fhir:objectProperty .
+            </pre>
           </section>
         </section>
         <section id="ApproachtoConformance">
           <h2>Approach to Conformance</h2>
+          <p>
+            Binding strength to a ValueSet determines the conformance of the CodingBase.
+          </p><p>Almost all of the elements that have a coded data type are bound to a value set. The bindings are associated with various degrees of flexibility as to how closely the value set should be followed: 
+          </p>
+          <table border="1" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td valign="top">
+                  <p>
+                    Required
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    To be conformant, instances of this element SHALL include a code from the specified value set
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    extensible
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    To be conformant, instances of this element must include a code from the specified value set if any of the codes within the value set can
+                    apply to the concept being communicated. If the valueset does not cover the concept (based on human review), alternate codings (from
+                    different code systems, including local ones) or (data type allowing) text) may be included instead.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    Preferred
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Instances are encouraged, to draw from the specified codes for interoperability purposes but are not required to do so to be considered
+                    conformant
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    Example
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Instances are not expected or even encouraged to draw from the specified value set. The value set merely provides examples of the types of
+                    concepts intended to be included
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            The classes that the CodingBase individual belong to, are inferred and the individual must belong to the ValueSet class declared in the schema if its binding strength is “required”. 
+          </p><p>In the example above, the individual ConceptBase has a CodingBase which is a member of <span style="color: red">fhirvs:allergy-intolerance-statusA</span> so the ConceptBase individual is conformant to the schema.
+          </p><p>This implies that a reasoner will work from the values in the CodingBase.system and CodingBase.code to infer the classes. The ValueSet Class must be equivalent or a superclass of the restriction for this to work.
+          </p><p>Being a member of the Target ValueSet meets the “required” binding strength. Being a member of another ValueSet meets the “extensible” binding strength.
+          </p><p>Note that the binding strength for AllergyIntolerance.substance is “example”. It is expected that a Profile would strengthen this to “required”.
+          </p><p>In ORIM, the subclassing of restrictions approach (as a general Class axiom) is taken which avoids complications from propagation. This subclass approach for restrictions and the superclass approach for Concepts will be taken in FHIR/RDF.
+          </p><p>The testing of the conformance is outside the scope of this paper but is expected to be performed with rules or query languages.
+          </p>
         </section>
         <section id="HL7InternalConceptRDFExample">
           <h2>HL7 Internal Concept RDF Example</h2>
           <section id="CodeSystemandConceptXML">
             <h2>CodeSystem and Concept XML</h2>
+            <pre class="FHIRXML">
+&lt;ValueSet xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="allergy-intolerance-status"/&gt;
+  &lt;meta&gt;
+    &lt;lastUpdated value="2015-10-27T02:58:28.599+00:00"/&gt;
+    &lt;profile value="http://hl7.org/fhir/StructureDefinition/valueset-shareable-definition"/&gt;
+  &lt;/meta&gt;
+  &lt;text&gt;
+
+  &lt;/text&gt;
+  &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+    &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.2.50"/&gt;
+  &lt;/extension&gt;
+  &lt;url value="http://hl7.org/fhir/ValueSet/allergy-intolerance-status"/&gt;
+  &lt;version value="1.0.2"/&gt;
+  &lt;name value="AllergyIntoleranceStatus"/&gt;
+  &lt;status value="draft"/&gt;
+  &lt;experimental value="false"/&gt;
+  &lt;publisher value="HL7 (FHIR Project)"/&gt;
+  &lt;contact&gt;
+    &lt;telecom&gt;
+      &lt;system value="other"/&gt;
+      &lt;value value="http://hl7.org/fhir"/&gt;
+    &lt;/telecom&gt;
+    &lt;telecom&gt;
+      &lt;system value="email"/&gt;
+      &lt;value value="fhir@lists.hl7.org"/&gt;
+    &lt;/telecom&gt;
+  &lt;/contact&gt;
+  &lt;date value="2015-10-27T02:58:28+00:00"/&gt;
+  &lt;description value="Assertion about certainty associated with a propensity, or potential risk, of a reaction
+   to the identified Substance."/&gt;
+  &lt;codeSystem&gt;
+    &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+      &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.1.50"/&gt;
+    &lt;/extension&gt;
+    &lt;system value="http://hl7.org/fhir/allergy-intolerance-status"/&gt;
+    &lt;version value="1.0.2"/&gt;
+    &lt;caseSensitive value="true"/&gt;
+    &lt;concept&gt;
+      &lt;code value="active"/&gt;
+      &lt;display value="Active"/&gt;
+      &lt;definition value="An active record of a reaction to the identified Substance."/&gt;
+      &lt;concept&gt;
+        &lt;code value="unconfirmed"/&gt;
+        &lt;display value="Unconfirmed"/&gt;
+        &lt;definition value="A low level of certainty about the propensity for a reaction to the identified Substance."/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="confirmed"/&gt;
+        &lt;display value="Confirmed"/&gt;
+        &lt;definition value="A high level of certainty about the propensity for a reaction to the identified Substance,
+         which may include clinical evidence by testing or rechallenge."/&gt;
+      &lt;/concept&gt;
+    &lt;/concept&gt;
+    &lt;concept&gt;
+      &lt;code value="inactive"/&gt;
+      &lt;display value="Inactive"/&gt;
+      &lt;definition value="An inactive record of a reaction to the identified Substance."/&gt;
+      &lt;concept&gt;
+        &lt;code value="resolved"/&gt;
+        &lt;display value="Resolved"/&gt;
+        &lt;definition value="A reaction to the identified Substance has been clinically reassessed by testing or rechallenge
+         and considered to be resolved."/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="refuted"/&gt;
+        &lt;display value="Refuted"/&gt;
+        &lt;definition value="A propensity for a reaction to the identified Substance has been disproven with a high
+         level of clinical certainty, which may include testing or rechallenge, and is refuted."/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="entered-in-error"/&gt;
+        &lt;display value="Entered In Error"/&gt;
+        &lt;definition value="The statement was entered in error and is not valid."/&gt;
+      &lt;/concept&gt;
+    &lt;/concept&gt;
+  &lt;/codeSystem&gt;
+&lt;/ValueSet&gt; 
+            </pre>
           </section>
           <section id="RDFDirectRestriction">
             <h2>RDF Direct Restriction</h2>
