@@ -472,57 +472,326 @@ Note that the type of the resource is qualified by the profile which is obtained
 		  </section>
 		</section>
 
-		<section id="Terminology" class="todo">
+		<section id="Terminology">
       <h2>Terminology</h2>
       <section id="Codesystem">
         <h2>Code system</h2>
+        <p>
+          A code system is a namespace which makes its codes unique. A Code system may contain Concepts. 
+          You can have many concept hierarchies in the same code system (e.g. SNOMED) or you can have one 
+          concept hierarchy in a code system (e.g. HL7 internal codes).
+        </p>        
         <section id="HL7FHIRInternalCodeSystemXMLexample">
           <h2>HL7 FHIR Internal Code System XML example</h2>
+          <p>
+          A definition of a code system, inlined into the value set instance (as a packaging convenience).
+          </p>
+          <pre class="FHIRXML">
+            &lt;codeSystem&gt;
+             &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+               &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.1.50"/&gt;
+             &lt;/extension&gt;
+             &lt;system value="http://hl7.org/fhir/allergy-intolerance-status"/&gt;
+             &lt;version value="1.0.0"/&gt;
+             &lt;caseSensitive value="true"/&gt;
+             &lt;concept&gt;
+               &lt;code value="active"/&gt;
+               &lt;display value="Active"/&gt;
+               &lt;definition value="An active record of a reaction to the identified Substance."/&gt;
+               &lt;concept&gt;
+                 &lt;code value="confirmed"/&gt;
+                 &lt;display value="Confirmed"/&gt;
+                 &lt;definition value="A high level of certainty about the propensity for a reaction to the identified Substance,
+                  which may include clinical evidence by testing or rechallenge."/&gt;
+               &lt;/concept&gt;
+             &lt;/concept&gt;
+           &lt;/codeSystem&gt;
+          </pre>
         </section>
         <section id="RDFCodeSystemURIdeclaration">
           <h2>RDF CodeSystemURI declaration</h2>
+          <p class="shared">
+            A code system will have one named individual representing the code system. This is a member of class: fhir:CodeSystemURI. 
+            CodeSystemURI is a subclass of fhir:uri and allows named individuals to represent the URI. The properties are added to it as annotation properties.
+            Thus the reference to a system in CodingBase.system can have a value e.g. &lt;http://snomed.info/sct&gt; and not have to declare a further anonymous individual.
+          </p>
           <section id="HL7InternalCodesystemURIexample">
             <h2>HL7 Internal Code system URI example</h2>
+            <pre class="FHIRRDF shared">
+              ###  http://hl7.org/fhir/cs/allergy-intolerance-status
+
+              fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI , owl:NamedIndividual ;
+                 fhir:caseSensitive "true"^^xsd:boolean ;
+                 fhir:valueset-oid "urn:oid:2.16.840.1.113883.4.642.1.50" ;
+                 fhir:value "http://hl7.org/fhir/cs/allergy-intolerance-status" ;
+                 fhir:prefix "http://hl7.org/fhir/allergy-intolerance-status#" ;
+                 fhir:version "1.0.2" .
+            </pre>
+            <p>
+              Note that since this acts as a namespace it has the case sensitivity indicator and a prefix (not in HL7 FHIR) to prepend the concepts to make them unique.
+            </p>
           </section>
           <section id="SNOMEDRDFCodeSystemURIexample">
             <h2>SNOMED RDF Code System URI example</h2>
+            <pre class="FHIRRDF shared">
+              ###  http://snomed.info/sct
+
+              &lt;http://snomed.info/sct&gt; rdf:type fhir:CodeSystemURI , owl:NamedIndividual ;
+                 fhir:value "http://snomed.info/sct"^^xsd:anyURI .
+                 fhir:caseSensitive "false"^^xsd:boolean ;
+                 fhir:prefix "http://snomed.info/id/"^^xsd:string ;
+                 fhir:valueset-oid "2.16.840.1.113883.6.96" ;
+                 fhir:version "US1000124_20140301" .
+            </pre>
+            <p>
+              Code systems are published at <b>http://hl7-fhir.github.io/terminologies-systems.html</b> and the URI identifier is used for FHIR/RDF rather than the OID. 
+            </p>
           </section>
           <section id="CodeSystemVersion">
             <h2>Code System Version</h2>
+            <p>
+              Version of code system as part of the name is TBD.
+            </p>
           </section>
         </section>
       </section>
       <section id="BridgingOntologies">
         <h2>Bridging Ontologies</h2>
+        <p>
+          Both external and HL7 internal terminologies use bridging ontologies to map between the Concepts and Codes.
+        </p><p>If the terminology has an RDF representation then the bridging ontology binds from a common representation of Concept, Code and Value Set to that terminology. 
+        </p><p>In the case that there is not and RDF representation then the bridging ontology provides the complete representation and is constructed by transformation of the non-RDF representation.
+        </p>
       </section>
       <section id="Concept">
         <h2>Concept</h2>
         <section id="RDFConceptDefinition">
           <h2>RDF Concept Definition</h2>
+          <p>
+            A Concept in RDF/OWL is a named Class which has a restriction for CodingBase individuals associated with that concept.  A specific Concept is a named subclass of the fhir:Concepts class or it is a subclass of another Concept.  Where the restrictions are defined on the Concept they are the intersection of the restriction on ConceptBase.coding and CodingBase.code and CodingBase.system. 
+          </p><p>Concepts may have one or more CodingBase restrictions. The FHIR valueset resource structure definition only allows one but the RDF equivalent will relax that cardinality. A Concept which has multiple Codes associated with it, have a union of multiple CodingBase.code restrictions.
+          </p>
         </section>
         <section id="HL7BridgingOntology">
           <h2>HL7 Bridging Ontology</h2>
           <section id="HL7FHIRXMLConcept">
             <h2>HL7 FHIR XML Concept</h2>
+            <p>
+              The following fragment from Allergy Intolerance Status found at <b>http://hl7 fhir.github.io/valueset allergy-intolerance-status.html</b> 
+            </p><p>In FHIR, Code System contains ValueSet.codeSystem.concept elements.
+            </p><p>ValueSet.codeSystem.concept have code, abstract, display, definition, designation and nested Valueset.Concepts.
+            </p>
+            <pre class="FHIRXML">
+                &lt;codeSystem&gt;
+                 &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+                   &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.1.50"/&gt;
+                 &lt;/extension&gt;
+                 &lt;system value="http://hl7.org/fhir/allergy-intolerance-status"/&gt;
+                 &lt;version value="1.0.0"/&gt;
+                 &lt;caseSensitive value="true"/&gt;
+                 &lt;concept&gt;
+                   &lt;code value="active"/&gt;
+                   &lt;display value="Active"/&gt;
+                   &lt;definition value="An active record of a reaction to the identified Substance."/&gt;
+                   &lt;concept&gt;
+                     &lt;code value="confirmed"/&gt;
+                     &lt;display value="Confirmed"/&gt;
+                     &lt;definition value="A high level of certainty about the propensity for a reaction to the identified Substance,
+                      which may include clinical evidence by testing or rechallenge."/&gt;
+                   &lt;/concept&gt;
+                 &lt;/concept&gt;
+               &lt;/codeSystem&gt;
+             &lt;/ValueSet&gt;
+            </pre>
+            <p>
+              The nesting of <concept> represents general to specific concepts although the structure does not indicate that semantic but rather a containment.
+            </p>
           </section>
           <section id="FHIRinternalXMLConceptmapping">
             <h2>FHIR internal XML Concept mapping</h2>
+            <p>
+            The RDF Concept is a named Class which maps to the components of the ValueSet.codeSystem.concept element in FHIR Valueset Resource.
+            <ul>
+              <li>System maps to the restriction on CodingBase.system</li>
+              <li>Code maps to the restriction on CodingBase.code</li>
+              <li>Display maps to rdfs:label</li>
+              <li>Definition maps to fhir:concept_definition annotation</li>
+              <li>Nesting maps to subclass assertions (as a default)</li>
+              <li>An abstract Concept (ValueSetConcept.abstract = “true”) has no restriction on CodingBase.code just a position in the class hierarchy.</li>
+              <li>Designation will probably transform into annotation language (e.g. @en) or type.</li>
+            </ul>
+            </p>
           </section>
           <section id="HL7InternalConceptRDFExample">
             <h2>HL7 Internal Concept RDF Example</h2>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/allergy-intolerance-status#Concept
+
+allergy-intolerance-status:Concept rdf:type owl:Class ;
+   rdfs:label "Allergy Intolerance Status Concept" ;
+   rdfs:subClassOf fhir:Concepts ;
+   fhir:concept_definition "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance." .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#active
+
+allergy-intolerance-status:active rdf:type owl:Class ;
+   rdfs:label "Active" ;
+   rdfs:subClassOf allergy-intolerance-status:Concept ;
+   fhir:concept_definition "An active record of a reaction to the identified Substance" .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf allergy-intolerance-status:active ; owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty fhir:value ;
+                                                                   owl:hasValue "active"
+                                                                 ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue fhircs:allergy-intolerance-status
+                                            ]
+                                          )
+                     ]
+] .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#confirmed
+
+allergy-intolerance-status:confirmed rdf:type owl:Class ;
+   rdfs:label "Confirmed"@en ;
+   rdfs:subClassOf allergy-intolerance-status:active ;
+   fhir:concept_definition "A high level of certainty about the propensity for a reaction to the identified Substance, which may include clinical evidence by testing or rechallenge." .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf allergy-intolerance-status:confirmed ; owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "confirmed"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue fhircs:allergy-intolerance-status
+                                            ]
+                                          )
+                     ]
+] .
+            </pre>
           </section>
           <section id="ExternalConceptRDFExample">
             <h2>External Concept RDF Example</h2>
+            <p>
+              An external terminology is treated differently in that it is assumed that the ontology provided by the external organization cannot be changed. A bridging ontology is therefore provided which allows the expressions to be added to bind to the FHIR CodingBase instances.
+            </p><p>The bridging ontology is constructed to add the expressions to categorize FHIR CodingBase individuals. This binding occurs at both code/system and concepts. Direct use of the declared SNOMED concept identifier is shown here but it is also possible to make an equivalent class if needed.
+            </p>
             <section id="ExternalSNOMEDOntology">
               <h2>External SNOMED Ontology</h2>
+              <p>
+                The following example from the SNOMED OWL extraction shows the two top Concepts referenced in the valueset substance-code:
+              </p>
+              <pre class="FHIRRDF shared">
+###  http://snomed.info/id/105590001
+
+&lt;http://snomed.info/id/105590001&gt; rdf:type owl:Class ;
+                                  rdfs:label "Substance (substance)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/373873005
+
+&lt;http://snomed.info/id/373873005&gt; rdf:type owl:Class ;
+                                  rdfs:label "Pharmaceutical / biologic product (product)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+              </pre>
+              <p>
+                Notice there is no description and the display value is in rdfs:label. Concept 138875005 is the top level SNOMED CT concept.
+              </p>
+              <p>
+                The extensions of the value set beyond substance-code are defined in SNOMED:
+              </p>
+              <pre class="FHIRRDF shared">
+###  http://snomed.info/id/160244002
+
+&lt;http://snomed.info/id/160244002&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Allergies" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/409137002
+
+&lt;http://snomed.info/id/409137002&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Drug Allergies" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/428607008
+
+&lt;http://snomed.info/id/428607008&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Environmental Allergy" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/429625007
+
+&lt;http://snomed.info/id/429625007&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Food Allergies" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+              </pre>
+              <p>
+                These are shown as subclasses of the top concept which is incorrect.
+              </p>
             </section>
             <section id="BridgingOntology">
               <h2>Bridging Ontology</h2>
+              <p>
+                The FHIR SCTBridge ontology imports both fhir and snomed ontologies so it can see both:
+              </p>
+              <pre class="FHIRRDF shared">
+                &lt;http://hl7.org/fhirSCTBridge&gt; rdf:type owl:Ontology ;
+                               owl:imports &lt;http://hl7.org/fhir&gt; ,
+                                           &lt;http://snomed.info/id&gt; .
+              </pre>
+              <p>
+                The SNOMED ontology is named &lt;http://snomed.info/id&gt; which makes the concept URI construction natural.
+              </p>
+              <p>
+                The restrictions on the Concepts to CodingBase individuals are made through general class axioms in the same way as internal code systems:
+              </p>
+              <pre class="FHIRRDF shared">
+  [ rdf:type owl:Restriction ;
+  rdfs:subClassOf &lt;http://snomed.info/id/90614001&gt; ;
+  owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty fhir:value ;
+                                                                   owl:hasValue "90614001"
+                                                                 ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue &lt;http://snomed.info/sct&gt;
+                                            ]
+                                          )
+                     ]
+] .
+              </pre>
+              <p>
+                This example shows that the Concept “Beta lactam antibiotic” is inferred when the ConceptBase.coding has a CodingBase where CodingBase.code has a code of 90614001 and CodingBase.system has value &lt;http://snomed.info/sct&gt;.
+              </p>
             </section>
           </section>
         </section>
         <section id="RelationshipofConcepttoCodeSystemURI">
           <h2>Relationship of Concept to Code SystemURI</h2>
+          <p>
+            The concept defines its CodeSystemURI through ConceptBase.system restriction. 
+          </p>
+          <p>
+            The CodeSystemURI being an individual has no relationship to the Concepts in the Code system which are Classes.
+          </p>
         </section>
       </section>
       <section id="ValueSets">
