@@ -1214,41 +1214,421 @@ fhir:AllergyIntolerance.substance rdf:type owl:ObjectProperty ;
           </section>
           <section id="RDFDirectRestriction">
             <h2>RDF Direct Restriction</h2>
+            <p>
+              The first option for value set is where the valueset entry defines the direct restriction on code and system itself without referencing a named concept and when the ValueSet is aligned (all codes from) with the CodingSystem the declaration is simple. 
+            </p><p>Valueset allergy-intolerance-statusA is defined using general class axiom restriction on CodingBase.system
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/allergy-intolerance-statusA
+
+fhirvs:allergy-intolerance-statusA rdf:type owl:Class ;
+   rdfs:subClassOf fhir:Valuesets .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf fhirvs:allergy-intolerance-statusA ;
+  owl:onProperty fhir:CodingBase.system ;
+  owl:hasValue fhircs:allergy-intolerance-status
+] .
+              </pre>
+            <p>
+              However, this mechanism does not validate that the coding is actually a member of the Code System which cannot be done without doing an indirect restriction (see B).
+            </p>
           </section>
           <section id="RDFAlignedValueSetofCodingBasetoConcept">
             <h2>RDF Aligned ValueSet of CodingBase to Concept (B)</h2>
+            <p>
+              Since we can use the set expressions of OWL on classes (Concepts) there is a simplification to the expression of Valuesets subclasses as shown in allergy-intolerance-statusC.
+            </p><p>The concepts are named classes as shown earlier. The Valuesets subclass can now refer to these named classes avoiding repetitive declaration of anonymous classes.
+            </p><p>When the valueset is aligned with the code system the ValueSet is a superclass of all the CodingBase individuals which have a type Concept of the top concept (inferred).
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/allergy-intolerance-statusC
+
+fhirvs:allergy-intolerance-statusC rdf:type owl:Class ;
+   rdfs:label "Allergy Int Status C" ;
+   rdfs:subClassOf fhir:Valuesets .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf fhirvs:allergy-intolerance-statusC ;
+  owl:onProperty fhir:CodingBase.concept ;
+  owl:someValuesFrom allergy-intolerance-status:Concept
+] .
+              </pre>
+            <p>
+              This is entered as a general class axiom as in the other examples.
+            </p><p>Note the Object Property CodingBase.concept which is the inverse of ConceptBase.coding:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/CodingBase.concept
+
+fhir:CodingBase.concept rdf:type owl:ObjectProperty ;
+   owl:inverseOf fhir:ConceptBase.coding ;
+   rdfs:subPropertyOf fhir:objectProperty .
+              </pre>
+            <p>
+              The object property is then used in the restriction to say that the CodingBase individual belongs to the Concept as defined in the Concept restriction (in section 4.2.3).
+            </p>
           </section>
         </section>
         <section id="ExternalterminologyValueSets">
           <h2>External terminology ValueSets</h2>
           <section id="Allcodesfrom">
             <h2>All codes from</h2>
+            <p>
+              No examples are given where the Valueset is all codes from an external code system since this is generally too broad. If this is required the same process as internal terminologies can be used.
+            </p>
           </section>
           <section id="ValueSetResourceexampleinXML">
             <h2>ValueSet Resource example in XML</h2>
+            <p>
+              The valueset “allergyintolerance-substance-code” includes the valueset “substance-code” but adds some additional codes:
+            </p>
+            <pre class="FHIRXML">
+&lt;ValueSet xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="substance-code"/&gt;
+   
+  &lt;description value="This value set contains concept codes for specific substances"/&gt;
+  &lt;copyright value="This value set includes content from SNOMED CT, which is copyright © 2002+ International
+   Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement
+   between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"/&gt;
+  &lt;compose&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="105590001"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="373873005"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+  &lt;/compose&gt;
+&lt;/ValueSet&gt;
+            </pre>
+            <pre class="FHIRXML"><b>
+&lt;ValueSet xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="allergyintolerance-substance-code"/&gt;
+   
+  &lt;description value="This value set includes concept codes for specific substances and negation codes to specify
+   the absence of specific types of allergies."/&gt;
+  &lt;copyright value="This value set includes content from SNOMED CT, which is copyright © 2002+ International
+   Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement
+   between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"/&gt;
+  &lt;compose&gt;
+    &lt;import value="http://hl7.org/fhir/ValueSet/substance-code"/&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;concept&gt;
+        &lt;code value="160244002"/&gt;
+        &lt;display value="No Known Allergies"/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="429625007"/&gt;
+        &lt;display value="No Known Food Allergies"/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="409137002"/&gt;
+        &lt;display value="No Known Drug Allergies"/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="428607008"/&gt;
+        &lt;display value="No Known Environmental Allergy"/&gt;
+      &lt;/concept&gt;
+    &lt;/include&gt;
+  &lt;/compose&gt;
+&lt;/ValueSet&gt;
+            </b>
+            </pre>
+            <p>
+              Notice that allergyintolerance-substance-code extends substance-code with 4 concepts with their code restrictions and the system restriction at the beginning.
+            </p>
           </section>
           <section id="RDFCodingBaseDirectRestriction">
             <h2>RDF CodingBase Direct Restriction (A)</h2>
+            <p>
+              The Valueset substance-codeB is declared in the FHIR ontology with no restrictions:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/substance-codeA
+
+fhirvs:substance-codeB rdf:type owl:Class ;
+   rdfs:label "Substance Code" ;
+   rdfs:subClassOf fhir:Valuesets.
+              </pre>
+            <p>
+              In the Bridging Ontology, substance-codeA is declared against CodingBase.system and CodingBase.code restrictions. 
+            </p>
+            <pre class="FHIRRDF shared">
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/substance-codeA&gt; ;
+  owl:intersectionOf ( [ rdf:type owl:Restriction ; owl:onProperty fhir:CodingBase.code ;
+        owl:allValuesFrom [ rdf:type owl:Class ;
+           owl:unionOf ( 
+              [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "105590001" ]
+              [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "373873005" ]
+           )
+        ]
+     ]
+     [ rdf:type owl:Restriction ; owl:onProperty fhir:CodingBase.system ;
+        owl:hasValue &lt;http://snomed.info/sct&gt;
+     ]
+  )
+] .
+              </pre>
+            <p>
+              This will only define the ValueSet as the top code and does not include all the subconcepts as codes. In order to do this an expansion must be made with a filter. See <b>http://hl7-fhir.github.io/valueset-allergyintolerance-substance-code.html</b> 
+            </p><p>The operation &lt;filter&gt;&lt;op&gt; declares “is-a” to mean transitive subclassing. However this is not understood by RDF/OWL. What is understood is the subclassing of the SNOMED Concept ontology itself.
+            </p><p>The only solution is to extract all the codes in the hierarchy and explicitly declare them in the Bridging Ontology. The treatment of allergyintolerance-substance-code is to add the concepts to the enumerated list.
+            </p>
           </section>
           <section id="RDFValueSetbindingtoConcepts">
             <h2>RDF ValueSet binding to Concepts(B)</h2>
+            <p>
+              The valueset substance-codeB is declared in FHIR as before:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/substance-codeB
+
+fhirvs:substance-codeB rdf:type owl:Class ;
+                       rdfs:label "Substance  Codes B" ;
+                       rdfs:subClassOf fhir: Valuesets .
+            </pre>
+            <p>
+              The allergyintolerance-substance-code valueset is also declared in FHIR
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code
+
+&lt;http://hl7.org/fhir//ValueSet/allergyintolerance-substance-code&gt; rdf:type owl:Class ;
+   rdfs:label " AllergyIntolerance Substance and Negation Codes" ;
+   rdfs:subClassOf fhir:CodingBase_in_Valuesets .
+            </pre>
+            <p>
+              The bridging ontology declares a general Class axiom which shows the mapping to the Concepts:
+            </p>
+            <pre class="FHIRRDF shared">
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/substance-codeB&gt; ;
+  owl:onProperty fhir:CodingBase.concept ; owl:someValuesFrom [ rdf:type owl:Class ;
+     owl:unionOf ( &lt;http://snomed.info/id/105590001&gt;
+                   &lt;http://snomed.info/id/373873005&gt;
+                 )
+                     ]
+] .
+            </pre>
+            <pre class="FHIRRDF shared">
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code&gt; ;
+  owl:unionOf ( &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty fhir:CodingBase.concept ; owl:someValuesFrom [ rdf:type owl:Class ;
+                     owl:unionOf ( &lt;http://snomed.info/id/160244002&gt;
+                                   &lt;http://snomed.info/id/409137002&gt;
+                                   &lt;http://snomed.info/id/428607008&gt;
+                                   &lt;http://snomed.info/id/429625007&gt;
+                                 )
+                  ]
+                ]
+              )
+] .
+            </pre>
+            <p>
+              CodingBase.concept defines the restriction on concepts for the Codingbase.
+            </p><p>The display values are redundant and since closure is achieved with these classes, their display as rdfs:label can be shown at any time in an OWL tool.
+            </p>
           </section>
           <section id="FHIRAllergyIntoleranceOWLSchema">
             <h2>FHIR Allergy Intolerance OWL Schema</h2>
+            <p>
+              The schema is abridged to show the topics of interest:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance
+
+fhir:AllergyIntolerance rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf fhir:DomainResource ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:allValuesFrom fhir:CodeableConcept
+                                        ] ,
+Etc..
+.
+            </pre>
+            <p>
+              The substance Object Property has no valueset type yet only the restriction that it is a CodeableConcept type. The valueset gets applied through the structural definition or profile binding.
+            </p>
           </section>
         </section>
         <section id="DefinitionsofCodeSystemConcept">
           <h2>Definitions of Code System, Concept</h2>
+          <p>
+            This section is needed to ground the definitions of Coding System, and Concept when defined in RDF/OWL.
+          </p>
           <section id="CodeSystem">
             <h2>Code System</h2>
+            <p>
+              The system ensures that codes can be unambiguously traced back to their original definition, and that logical comparisons, matching and inferences can be performed consistently by different systems.
+            </p><p>In RDF/OWL a code system is a namespace in which the code is unique. Since a code forms a fragment of a URI, the code-system forms a prefix to that fragment making it unique. The code system identity and the prefix may not be the same but are related using a property of the code system.
+            </p>
+            <table border="1" cellspacing="0" cellpadding="0">
+              <tbody>
+                <tr>
+                  <td width="108" valign="top">
+                    <p>
+                      <strong>URI</strong>
+                    </p>
+                  </td>
+                  <td width="118" valign="top">
+                    <p>
+                      <strong>Source</strong>
+                    </p>
+                  </td>
+                  <td width="116" valign="top">
+                    <p>
+                      <strong>OID</strong>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="108" valign="top">
+                    <p>
+                      http://snomed.info/sct <a name="http://snomed.info/sct"></a>
+                    </p>
+                  </td>
+                  <td valign="top">
+                    <p>
+                      SNOMED CT (IHTSDO )
+                    </p>
+                  </td>
+                  <td valign="top">
+                    <p>
+                      2.16.840.1.113883.6.96
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              The prefix for snomed is http://snomed.info.id/
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://snomed.info/sct
+
+&lt;http://snomed.info/sct&gt; rdf:type fhir:CodeSystemURI ,
+                                  owl:NamedIndividual ;
+                         
+                         fhir:value "http://snomed.info/sct" .
+            </pre>
+            <p>
+              A specific CodeSystem may be declared as a class which is a set of all the CodingBase individuals restricted by the CodingBase.system property.
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://snomed.info/sct
+
+&lt;http://snomed.info/sct&gt; rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf fhir:CodingBase_in_Systems .
+            </pre>
           </section>
         </section>
         <section id="Concept">
           <h2>Concept</h2>
+          <p>
+            A concept may be a single Class in RDF which may in turn be a union of multiple classes based on subclass relationships.
+          </p>
           <section id="ValueSet">
             <h2>ValueSet</h2>
+            <p>
+              Example is substance-code used in AllergyIntolerance
+            </p>
             <section id="Summary">
               <h2>Summary</h2>
+              <table border="1" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Defining URL:
+                      </p>
+                    </td>
+                    <td valign="top">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Name:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Substance Code
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Definition:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        This value set contains concept codes for specific substances
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        OID:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        2.16.840.1.113883.4.642.2.57 (for OID based terminology systems)
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Copyright:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development
+                        Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Source Resource
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <a href="http://hl7-fhir.github.io/valueset-substance-code.xml.html">XML</a>
+                        / <a href="http://hl7-fhir.github.io/valueset-substance-code.json.html">JSON</a>
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </section>
             <section id="ContentLogicalDefinition">
               <h2>Content Logical Definition</h2>
