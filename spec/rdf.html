@@ -1632,74 +1632,627 @@ Etc..
             </section>
             <section id="ContentLogicalDefinition">
               <h2>Content Logical Definition</h2>
+              <p>
+                This value set includes codes from the following code systems:
+                <ul>
+                  <li>Include codes from http://snomed.info/sct where concept is-a 105590001</li>
+                  <li>Include codes from http://snomed.info/sct where concept is-a 373873005</li>
+                </ul>
+              </p>
             </section>
             <section id="RDFDefinition">
               <h2>RDF Definition</h2>
+              <p>
+                Since these concepts in snomed are hierarchical, classes the valueset is by definition a union of concept classes.
+                </p><p>A named Valueset as a class is a union of named concept classes (not a superclass). If an instance of CodingBase is typed to a Valueset then it probably means that the codeBase is unknown or to be selected.
+                </p><p>The FHIR “include” gets stranslated to a union expression:
+              </p>
             </section>
             <section id="Examples">
               <h2>Examples</h2>
               <section id="ValueSetschemainFHIR">
                 <h2>ValueSet schema in FHIR</h2>
+                <p>
+                  A ValueSet individual will have define, compose and expansion object properties to applicable objects. The following RDF samples show a direct translation of the metamodel viewpoint.
+                </p>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet
+fhir:ValueSet rdf:type owl:Class ;
+              rdfs:subClassOf fhir:DomainResource ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.define ;
+                                owl:allValuesFrom fhir:ValueSet.Define
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.define ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.compose ;
+                                owl:allValuesFrom fhir:ValueSet.Compose
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.expansion ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.expansion ;
+                                owl:allValuesFrom fhir:ValueSet.Expansion
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.compose ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] .
+
+###  http://hl7.org/fhir/ValueSet.Compose
+fhir:ValueSet.Compose rdf:type owl:Class ;
+                      rdfs:subClassOf fhir:BackboneElement .
+                </pre>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet.Concept
+fhir:ValueSet.Concept rdf:type owl:Class ;
+                      rdfs:subClassOf fhir:BackboneElement ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.display ;
+                                        owl:allValuesFrom fhir:string
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.code ;
+                                        owl:cardinality "1"^^xsd:nonNegativeInteger
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.code ;
+                                        owl:allValuesFrom fhir:code
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.definition ;
+                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.display ;
+                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.definition ;
+                                        owl:allValuesFrom fhir:string
+                                      ] .
+                </pre>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet.Define
+fhir:ValueSet.Define rdf:type owl:Class ;
+                     rdfs:subClassOf fhir:BackboneElement ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:ValueSet.Define.system ;
+                                       owl:allValuesFrom fhir:uri
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:ValueSet.Define.system ;
+                                       owl:cardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:ValueSet.Define.concept ;
+                                       owl:allValuesFrom fhir:ValueSet.Concept
+                                     ] .
+
+###  http://hl7.org/fhir/ValueSet.Expansion
+fhir:ValueSet.Expansion rdf:type owl:Class ;
+                        rdfs:subClassOf fhir:BackboneElement .
+                </pre>
               </section>
             </section>
           </section>
           <section id="FHIRinternalSystemandCodingbindings">
             <h2>FHIR internal System and Coding bindings (OWL Schema)</h2>
+            <p>
+              The system is inclusive of all the terms within it and all the instances of those terms.
+            </p>
+            <pre class="FHIRRDF shared">
+@prefix allergy-intolerance-status: &lt;http://hl7.org/fhir/allergy-intolerance-status#&gt; .
+
+###  http://hl7.org/fhir/allergy-intolerance-status
+
+fhir:allergy-intolerance-status rdf:type owl:Class ;
+  rdfs:subClassOf fhir:valueset-system ,
+  [ rdf:type owl:Class ;
+    owl:unionOf ( 
+      allergy-intolerance-status:confirmed
+      allergy-intolerance-status:entered-in-error
+      allergy-intolerance-status:refuted
+      allergy-intolerance-status:resolved
+      allergy-intolerance-status:unconfirmed
+    )
+  ] ,
+  [ rdf:type owl:Restriction ;
+    owl:onProperty fhir:CodingBase.system ;
+    owl:allValuesFrom [ rdf:type owl:Restriction ;
+      owl:onProperty fhir:value ; owl:hasValue "http://hl7.org/fhir/allergy-intolerance-status"
+    ]
+  ] ;
+  fhir:prefix "http://hl7.org/fhir/allergy-intolerance-status#" .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#confirmed
+
+allergy-intolerance-status:confirmed rdf:type owl:Class ;
+  rdfs:label "Confirmed" ;
+  rdfs:subClassOf fhir:allergy-intolerance-status ,
+  [ rdf:type owl:Restriction ;
+    owl:onProperty fhir:CodingBase.code ;
+    owl:allValuesFrom [ rdf:type owl:Restriction ;
+      owl:onProperty fhir:value ; owl:hasValue "confirmed"
+    ]
+  ] ;
+  rdfs:comment "A high level of certainty about the propensity for a reaction to the identified Substance, which may include clinical evidence by testing or rechallenge." .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#entered-in-error
+
+allergy-intolerance-status:entered-in-error rdf:type owl:Class ;
+  rdfs:label "Entered In Error" ;
+  rdfs:subClassOf fhir:allergy-intolerance-status ,
+  [ rdf:type owl:Restriction ;
+    owl:onProperty fhir:CodingBase.code ;
+    owl:allValuesFrom [ rdf:type owl:Restriction ;
+      owl:onProperty fhir:value ; owl:hasValue "entered-in-error"
+    ]
+  ] ;
+  rdfs:comment "The statement was entered in error and is not valid" .
+            </pre>
+            <p>
+              The system Class definition shows it is a subclass of the abstract valueset-system and restricts its members to the CodingBase.system.
+              </p><p>There is also an annotation property fhir:prefix which defines the structure of the URI prefix when naming the members of the system. It causes the @prefix declaration.
+              </p><p>Two members are shown “confirmed” and “entered-in-error”. They are subclasses of allergy-intolerance-status and have the restrictions of that class so they do not have to declare CodingBase.system restrictions.
+            </p>
           </section>
           <section id="SystemandcodingsexternalRDFrepresentation">
             <h2>System and codings external RDF representation</h2>
+            <p>
+              From the SNOMED RDF:
+            </p>
+            <pre class="FHIRRDF shared">
+&lt;http://snomed.info/id/138875005&gt; rdf:type owl:Class ;
+                                  rdfs:label "SNOMED CT Concept" .
+
+&lt;http://snomed.info/id/105590001&gt; rdf:type owl:Class ;
+                                  rdfs:label "Substance (substance)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+&lt;http://snomed.info/id/373873005&gt; rdf:type owl:Class ;
+                                  rdfs:label "Pharmaceutical / biologic product (product)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+&lt;http://snomed.info/id/346325008&gt; rdf:type owl:Class ;
+                                  rdfs:label "Antibacterial drugs (product)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/373873005&gt; .
+
+&lt;http://snomed.info/id/90614001&gt; rdf:type owl:Class ;
+                                  rdfs:label "beta-Lactam antibiotic" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/346325008&gt; .
+            </pre>
+            <p>
+              The system is defined further in the FHIR ontology
+            </p>
+            <pre class="FHIRRDF shared">
+@prefix sct: &lt;http://snomed.info/id/&gt; .
+
+###  http://snomed.info/sct
+
+&lt;http://snomed.info/sct&gt; rdf:type owl:Class ;
+  rdfs:subClassOf fhir:valueset-system ;
+  fhir:prefix "http://snomed.info/id/" .
+            </pre>
           </section>
           <section id="ValuesetDefinition">
             <h2>Valueset Definition</h2>
+            <p>
+              A ValueSet is somewhat similar to a value-set-system in that it applies constraints to the members but they can be from different systems.
+            </p><p>The specific ValueSet is a Class which is a union of Concept classes from one or more coding-systems. It is expected that this representation can be computed from the FHIR representation.
+            </p>
               <section id="Anonymouscodings">
                 <h2>Anonymous codings</h2>
+                <p>
+                  Here is the definition of the specific ValueSet as a Class with restrictions on values not types:
+                </p>
+                <pre class="FHIRRDF shared">
+&lt;http://hl7.org/fhir/vs/allergy-intolerance-status&gt; rdf:type owl:Class ;
+  rdfs:label "Allergy Intolerance Status Value Set" ;
+  rdfs:subClassOf fhir:valueset ,
+  [ rdf:type owl:Class ;
+    owl:intersectionOf ( 
+      [ rdf:type owl:Restriction ;
+        owl:onProperty fhir:CodingBase.code ;
+        owl:someValuesFrom [ rdf:type owl:Class ;
+          owl:unionOf ( 
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "confirmed" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "entered-in-error" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "refuted" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "resolved" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "unconfirmed" ]
+          )
+        ]
+      ]
+      [ rdf:type owl:Restriction ;
+        owl:onProperty fhir:CodingBase.system ;
+        owl:allValuesFrom [ rdf:type owl:Restriction ; owl:onProperty fhir:value ;
+          owl:hasValue "http://fhir/allergy-intolerance-status"
+        ]
+      ]
+    )
+  ] .
+                </pre>
+                <p>
+                  If the valueset needs to identify CodingBase restrictions from other systems then the restriction will have a slightly different structure. The example here shows the optimization for a single system (Define).
+                </p>
               </section>
             <section id="Namedcodings">
               <h2>Named codings</h2>
+              <p>
+                If named codings are used then the expression can be greatly simplified since the restrictions are in the named class.
+              </p>
+              <pre class="FHIRRDF shared">
+&lt;http://hl7.org/fhir/vs/allergy-intolerance-status&gt; rdf:type owl:Class ;
+rdfs:label "Allergy Intolerance Status Value Set" ;
+rdfs:subClassOf fhir:valueset ,
+  [ rdf:type owl:Class ;
+    owl:unionOf ( allergy-intolerance-status:confirmed
+      allergy-intolerance-status:entered-in-error
+      allergy-intolerance-status:refuted
+      allergy-intolerance-status:resolved
+      allergy-intolerance-status:unconfirmed
+    )
+  ] .
+              </pre>
             </section>
           </section>
           <section id="ValueSetschemainthemetamodel">
             <h2>ValueSet schema in the metamodel</h2>
+            <p>
+              A metamodel is introduced when Classes in the Model are instances of MetaClasses which are subclasses of owl:class. In general the Element Definition (1.23.0) is a metamodel.
+              </p><p>In the metamodel viewpoint, an instance of ValueSet will have object property assertions to 
+                <ul>
+                  <li type="a">instances of ValueSet.Define if all the codes are taken from a single system</li>
+                  <li type="a">instances of ValueSet.Compose if the codes come from multiple systems and allow inclusion and exclusion </li>
+                  <li type="a">instances of ValueSet.Expansion if the valueset is converted into an enumerated list</li>
+                </ul>
+              A ValueSet individual will have define, compose and expansion object properties to applicable objects. However, these object property semantics are not understood by RDF or OWL. They are translated in the Model to subclass, intersection and union relationships between classes.
+            </p>
           </section>
           <section id="RestrictionequivalentstoComposeElements">
             <h2>Restriction equivalents to Compose Elements</h2>
+            <p>
+              The Compose element has subelements – import, include, exclude.
+            </p>
             <section id="Import">
               <h2>Import</h2>
+              <p>
+                Import has a value of a ValueSet URI that is to be imported (see earlier Valueset example – 7.2.1)
+              </p>
+              <pre class="FHIRRDF shared">
+                owl:unionOf ( &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;
+                [ rdf:type owl:Restriction ;
+                Etc.]
+              )
+              </pre>
+              <p>
+                The import equivalent is the unionOf with the named Class representing the Valueset (here shown as &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;.
+              </p>
             </section>
             <section id="CodeSystem_Concepts">
               <h2>CodeSystem – Concepts</h2>
+              <p>
+                The extensional definition of a Code system includes its concepts as subclasses of the top concept. This is translated into a CodeSystemURI individual with the annotation properties of the CodeSystem and the associated Concept Classes. 
+                </p><p>However, there is no direct ontology relationship between the CodeSystemURI and the top concept. Some thoughts about a pun relationship might be useful.
+                </p><p>See - HL7 Internal Concept RDF Example.
+              </p>
             </section>
             <section id="Filter">
               <h2>Filter</h2>
+              <p>
+              The Filter element selects concepts by specify a matching criteria based on the properties (including relationships) defined by the system. If multiple filters are specified, they SHALL all be true.
+              </p><p>The Filter Operator value set has an inline code system http://hl7.org/fhir/filter-operator, which defines the following codes:
+              </p>
+              <table border="1" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        <strong>Code</strong>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <strong>Display</strong>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <strong>Definition</strong>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        =<a name=".61"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Equals
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> equals the provided value.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        is-a<a name="is-a"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Is A (by subsumption)
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Includes all <strong>concept</strong> ids that have a transitive is-a relationship with the concept Id provided as the value, including the
+                        provided concept itself.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        is-not-a<a name="is-not-a"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Not (Is A) (by subsumption)
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> does not have an is-a relationship with the provided value.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        regex<a name="regex"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Regular Expression
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> matches the regex specified in the provided value.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        in<a name="in"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        In Set
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> is in the set of codes or concepts specified in the provided value (comma separated
+                        list).
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        not-in<a name="not-in"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Not in Set
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> is not in the set of codes or concepts specified in the provided value (comma separated
+                        list).
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </section>
             <section id="Is_a_bysubsumption">
               <h2>Is-a – by subsumption</h2>
               <section id="XMLexample">
                 <h2>XML example</h2>
+                <pre class="FHIRXML">
+&lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="105590001"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="373873005"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+                </pre>
+                <p>
+                  The difficulty with this filter is that while it appears to apply to the concept class which can have is-a subsumption, the value is the CodingBase.code value which restricts it to the concept class without subsumption. CodingBase is a single class and the instances are not subsumable.
+                </p>
               </section>
               <section id="ComposeIncludeis-aConcept">
                 <h2>Compose Include is-a Concept</h2>
+                <p>
+                  The approach is that the value must be translated into the Concept Class Name which would be &lt;http://snomed.info/id/373873005&gt; and would be used in the restriction.
+                </p>
+                <pre class="FHIRRDF shared">
+                  &lt;http://snomed.info/sct&gt; fhir:prefix "http://snomed.info/id/"^^xsd:string .
+                </pre>
+                <p>
+                  An annotation property on the CodeSystem individual can be used to construct the concept name where a simple prefix is used with the codeBase value.
+                  </p><p>This may also be articulated by the ValueSet fragment class which has the system and filter annotation properties and could be translated into the final RDF form.
+                  </p><p>The include element in conjunction with filtering on is-a concept is transformed into a union of the named concept:
+                </p>
+                <pre class="FHIRRDF shared">
+owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:unionOf ( &lt;http://snomed.info/id/105590001&gt;
+                                     &lt;http://snomed.info/id/373873005&gt;
+                </pre>
               </section>
             </section>
             <section id="Exclude">
               <h2>Exclude</h2>
               <section id="XMLExample">
                 <h2>XML Example</h2>
+                <pre class="FHIRXML">
+         &lt;exclude&gt;
+            &lt;system value="http://snomed.info/sct"/&gt;
+            &lt;filter&gt;
+              &lt;property value="concept"/&gt;
+              &lt;op value="is-a"/&gt;
+              &lt;value value="410942007"/&gt;
+            &lt;/filter&gt;
+          &lt;/exclude&gt;
+                </pre>
               </section>
               <section id="ComposeExcludeis-aConcept">
                 <h2>Compose Exclude is-a Concept</h2>
+                <pre class="FHIRRDF shared">
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code&gt; ;
+  owl:unionOf ( &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty fhir:CodingBase.concept ;
+                  owl:someValuesFrom [ rdf:type owl:Class ;
+                                       owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                              owl:unionOf ( &lt;http://snomed.info/id/160244002&gt;
+                                                                            &lt;http://snomed.info/id/409137002&gt;
+                                                                            &lt;http://snomed.info/id/428607008&gt;
+                                                                            &lt;http://snomed.info/id/429625007&gt;
+                                                                          )
+                                                            ]
+                                                            [ rdf:type owl:Class ;
+                                                              owl:complementOf &lt;http://snomed.info/id/410942007&gt;
+                                                            ]
+                                                          )
+                                     ]
+                ]
+              )
+] .
+                </pre>
+                <p>
+                  In this case the concept &lt;http://snomed.info/id/410942007&gt; is in the intersection as a complementOf so as to be excluded.
+                </p>
               </section>
             </section>
             <section id="EqualsandIn">
               <h2>Equals and In</h2>
               <section id="XMLExample">
                 <h2>XML Example</h2>
+                <pre class="FHIRXML">
+       &lt;description value="All RxNorm codes that have TTY = IN,PIN,MIN,BN, but TTY != OCD."/&gt;
+        &lt;compose&gt;
+          &lt;include&gt;
+            &lt;system value="http://www.nlm.nih.gov/research/umls/rxnorm"/&gt;
+            &lt;filter&gt;
+              &lt;property value="TTY"/&gt;
+              &lt;op value="in"/&gt;
+              &lt;value value="IN,PIN,MIN,BN"/&gt;
+            &lt;/filter&gt;
+          &lt;/include&gt;
+          &lt;exclude&gt;
+            &lt;system value="http://www.nlm.nih.gov/research/umls/rxnorm"/&gt;
+            &lt;filter&gt;
+              &lt;property value="TTY"/&gt;
+              &lt;op value="="/&gt;
+              &lt;value value="OCD"/&gt;
+            &lt;/filter&gt;
+          &lt;/exclude&gt;
+        &lt;/compose&gt;
+                </pre>
+                <p>
+                  These properties are specific to the code systems illustrated and would be expressed in the bridging ontology for that system.
+                </p>
               </section>
               <section id="FilterRDFExpression">
                 <h2>Filter RDF Expression</h2>
+                <p>
+                  Each filter is defined as a class. In the RDF example these will be named to assist testing and visibility.
+                </p><p>A filter class will declare the set meeting the filter properties which are annotation properties. The set are CodingBase individuals and the filter is therefore a fragment of a ValueSet.
+                </p>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/SomeBridge/fragmentA
+
+&lt;http://hl7.org/fhir/SomeBridge/fragmentA&gt; rdf:type owl:Class ;
+                                           rdfs:subClassOf fhir:Valuesets ;
+                                           fhir:filter.property "TTY" ;
+                                           fhir:filter.op "in" ;
+                                           fhir:filter.system "http://www.nlm.nih.gov/research/umls/rxnorm" ;
+                                           fhir:filter.value "IN,PIN,MIN,BN" .
+
+###  http://hl7.org/fhir/SomeBridge/fragmentB
+
+&lt;http://hl7.org/fhir/SomeBridge/fragmentB&gt; rdf:type owl:Class ;
+                                           rdfs:subClassOf fhir:Valuesets ;
+                                           fhir:filter.property "TTY" ;
+                                           fhir:filter.op "=" ;
+                                           fhir:filter.system "http://www.nlm.nih.gov/research/umls/rxnorm" ;
+                                           fhir:filter.value "OCD" .
+                </pre>
+                <p>
+                  The definition may not be interpreted by OWL but can be through other mechanisms.
+                  </p><p>Further exploration needs to be done on SPARQL and SWRL expressions to define the fragment membership of CodingBase individuals there thereby the membership of the ValueSet.
+                </p>
               </section>
               <section id="TheRDFValueSet">
                 <h2>The RDF ValueSet</h2>
+                <p>
+                  The fragments are combined together based on include and exclude elements:
+                </p>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/substance-rxnorm
+
+&lt;http://hl7.org/fhir/ValueSet/substance-rxnorm&gt; rdf:type owl:Class ;
+   rdfs:label "DAF Substance RxNorm Codes" ;
+   rdfs:subClassOf fhir:Valuesets ;
+   fhir:telecom.other "http://hl7.org/fhir" ;
+   fhir:lastUpdated "2015-10-15T03:44:57.526+00:00" ;
+   fhir:publisher "FHIR Project team" ;
+   fhir:status "draft" ;
+   fhir:concept_definition "All RxNorm codes that have TTY = IN,PIN,MIN,BN, but TTY != OCD." ;
+   fhir:valueset-oid "urn:oid:2.16.840.1.113762.1.4.1010.7" .
+
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/substance-rxnorm&gt; ;
+  owl:intersectionOf ( &lt;http://hl7.org/fhir/SomeBridge/fragmentA&gt;
+                       [ rdf:type owl:Class ;
+                         owl:complementOf &lt;http://hl7.org/fhir/SomeBridge/fragmentB&gt;
+                       ]
+                     )
+] .
+                </pre>
               </section>
             </section>
           </section>
