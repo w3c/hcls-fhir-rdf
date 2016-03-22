@@ -300,12 +300,6 @@ fhir:telecom.phone rdf:type owl:AnnotationProperty ;
 
 
 
-###  http://hl7.org/fhir/value
-
-fhir:value rdf:type owl:AnnotationProperty .
-
-
-
 ###  http://hl7.org/fhir/valueset-oid
 
 fhir:valueset-oid rdf:type owl:AnnotationProperty ;
@@ -907,9 +901,7 @@ fhir:Patient.name rdf:type owl:ObjectProperty ;
 
 ###  http://hl7.org/fhir/Patient.prescription
 
-fhir:Patient.prescription rdf:type owl:ObjectProperty ;
-                          
-                          owl:inverseOf fhir:MedicationOrder.patient.link .
+fhir:Patient.prescription rdf:type owl:ObjectProperty .
 
 
 
@@ -1889,6 +1881,24 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
 #################################################################
 
 
+[ rdf:type owl:Class ;
+  rdfs:subClassOf <http://hl7.org/fhir/bridge/allergy-intolerance-status#confirmed> ;
+  owl:intersectionOf ( fhirvs:allergy-intolerance-status
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:value ;
+                         owl:hasValue "confirmed"
+                       ]
+                     )
+] .
+[ rdf:type owl:Class ;
+  rdfs:subClassOf <http://hl7.org/fhir/bridge/allergy-intolerance-status#unconfirmed> ;
+  owl:intersectionOf ( fhirvs:allergy-intolerance-status
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty fhir:value ;
+                         owl:hasValue "unconfirmed"
+                       ]
+                     )
+] .
 [ rdf:type owl:Restriction ;
   rdfs:subClassOf <http://hl7.org/fhir/bridge/allergy-intolerance-status#active> ;
   owl:onProperty fhir:AllergyIntolerance.status ;
@@ -1900,24 +1910,6 @@ fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI ,
                                             ]
                                           )
                      ]
-] .
-[ rdf:type owl:Class ;
-  rdfs:subClassOf <http://hl7.org/fhir/bridge/allergy-intolerance-status#unconfirmed> ;
-  owl:intersectionOf ( fhirvs:allergy-intolerance-status
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty fhir:value ;
-                         owl:hasValue "unconfirmed"
-                       ]
-                     )
-] .
-[ rdf:type owl:Class ;
-  rdfs:subClassOf <http://hl7.org/fhir/bridge/allergy-intolerance-status#confirmed> ;
-  owl:intersectionOf ( fhirvs:allergy-intolerance-status
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty fhir:value ;
-                         owl:hasValue "confirmed"
-                       ]
-                     )
 ] .
 
 
