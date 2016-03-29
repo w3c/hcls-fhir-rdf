@@ -247,17 +247,18 @@ td img { height: 1.5ex; }
 <pre>
 Turtle Template
 
-[
-  :Obervation.resourceType "Observation";
+[ a fhir:Observation; fhir:nodeRole fhir:treeRoot;
   # from Resource: id; meta; implicitRules; and language
   # from DomainResource: text; contained; extension; and modifierExtension
-  :Obervation.identifier : [ a :Identifier ]; # 0..* Unique Id for this particular observation
-  :Obervation.status "&lt;code&gt;"; # R!  registered | preliminary | final | amended +
-  :Obervation.code [ a :CodeableConcept ]; # 1..1 R!  Type of observation (code / type)
-  :Obervation.subject [ :reference[a :Patient,:Group,:Device,:Location] ]; # 0..1 Who and/or what this is about
+  fhir:Obervation.identifier [ <a href="">Identifier</a> ]; # 0..* Unique Id for this particular observation
+  fhir:Obervation.status [ fhir:value "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
+  fhir:Obervation.code [ <a href="">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
+  fhir:Obervation.subject [ fhir:reference [ <a href="">Patient</a>|<a href="">Group</a>|<a href="">Device</a>|<a href="">Location</a> ] ]; # 0..1 Who and/or what this is about
+  fhir:Obervation.encounter [ fhir:reference [ <a href="">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
   # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
-    :Obervation.effectiveDateTime "&lt;dateTime&gt;";
-    :Obervation.effectivePeriod [ a :Period ];
+    fhir:Obervation.effectiveDateTime [ fhir:value "&lt;dateTime&gt;" ];
+    fhir:Obervation.effectivePeriod [ <a href="">Period</a> ];
+]
 </pre>
       <section id="ResourceRoot">
         <h2>Resource Root</h2>
@@ -2543,63 +2544,63 @@ fhir:Element rdf:type owl:Class ;
       <pre>
 Turtle Template
 
-[ a fhir:Observation; fhir:nodeRole "treeRoot";
+[ a fhir:Observation; fhir:nodeRole fhir:treeRoot;
   # from Resource: id; meta; implicitRules; and language
   # from DomainResource: text; contained; extension; and modifierExtension
   fhir:Obervation.identifier [ <a href="">Identifier</a> ]; # 0..* Unique Id for this particular observation
   fhir:Obervation.status [ fhir:value "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
   fhir:Obervation.category [ <a href="">CodeableConcept</a> ]; # 0..1 Classification of  type of observation
   fhir:Obervation.code [ <a href="">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
-  fhir:Obervation.subject [ fhir:reference[<a href="">Patient</a>|<a href="">Group</a>|<a href="">Device</a>|<a href="">Location</a>] ]; # 0..1 Who and/or what this is about
-  fhir:Obervation.encounter [ fhir:reference[<a href="">Encounter</a>] ]; # 0..1 Healthcare event during which this observation is made
+  fhir:Obervation.subject [ fhir:reference [ <a href="">Patient</a>|<a href="">Group</a>|<a href="">Device</a>|<a href="">Location</a> ] ]; # 0..1 Who and/or what this is about
+  fhir:Obervation.encounter [ fhir:reference [ <a href="">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
   # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
     fhir:Obervation.effectiveDateTime [ fhir:value "&lt;dateTime&gt;" ];
     fhir:Obervation.effectivePeriod [ <a href="">Period</a> ];
-  fhir:Obervation.issued "&lt;instant&gt;"; # 0..1 Date/Time this was made available
-  fhir:Obervation.performer [ fhir:reference [<a href="">Practitioner</a>|<a href="">Organization</a>|<a href="">Patient</a>|<a href="">RelatedPerson</a>] ]; # 0..* Reference Who is responsible for the observation
+  fhir:Obervation.issued [ fhir:value "&lt;instant&gt;" ]; # 0..1 Date/Time this was made available
+  fhir:Obervation.performer [ fhir:reference [ <a href="">Practitioner</a>|<a href="">Organization</a>|<a href="">Patient</a>|<a href="">RelatedPerson</a> ] ]; # 0..* Reference Who is responsible for the observation
   # value[x]: 0..1 Actual result. One of these 10:
-    fhir:Obervation.valueQuantity [ a :Quantity ];
-    fhir:Obervation.valueCodeableConcept [ a :CodeableConcept ];
-    fhir:Obervation.valueString "&lt;string&gt;";
-    fhir:Obervation.valueRange [ a :Range ];
-    fhir:Obervation.valueRatio [ a :Ratio ];
-    fhir:Obervation.valueSampledData [ a :SampledData ];
-    fhir:Obervation.valueAttachment [ a :Attachment ];
-    fhir:Obervation.valueTime "&lt;time&gt;";
-    fhir:Obervation.valueDateTime "&lt;dateTime&gt;";
-    fhir:Obervation.valuePeriod [ a :Period ];
-  fhir:Obervation.dataAbsentReason [ a :CodeableConcept ]; # 0..1 C? Why the result is missing
-  fhir:Obervation.interpretation [ a :CodeableConcept ]; # 0..1 High; low; normal; etc.
-  fhir:Obervation.comment "&lt;string&gt;"; # 0..1 Comments about result
-  fhir:Obervation.bodySite [ a :CodeableConcept ]; # 0..1 Observed body part
-  fhir:Obervation.method [ a :CodeableConcept ]; # 0..1 How it was done
-  fhir:Obervation.specimen [ fhir:reference [a :Specimen] ]; # 0..1 Specimen used for this observation
-  fhir:Obervation.device [ fhir:reference [a :Device,:DeviceMetric] ]; # 0..1 (Measurement) Device
+    fhir:Obervation.valueQuantity [ <a href="">Quantity</a> ];
+    fhir:Obervation.valueCodeableConcept [ <a href="">CodeableConcept</a> ];
+    fhir:Obervation.valueString [ fhir:value "&lt;string&gt;" ];
+    fhir:Obervation.valueRange [ <a href="">Range</a> ];
+    fhir:Obervation.valueRatio [ <a href="">Ratio</a> ];
+    fhir:Obervation.valueSampledData [ <a href="">SampledData</a> ];
+    fhir:Obervation.valueAttachment [ <a href="">Attachment</a> ];
+    fhir:Obervation.valueTime [ fhir:value "&lt;time&gt;" ];
+    fhir:Obervation.valueDateTime [ fhir:value "&lt;dateTime&gt;" ];
+    fhir:Obervation.valuePeriod [ <a href="">Period</a> ];
+  fhir:Obervation.dataAbsentReason [ <a href="">CodeableConcept</a> ]; # 0..1 C? Why the result is missing
+  fhir:Obervation.interpretation [ <a href="">CodeableConcept</a> ]; # 0..1 High; low; normal; etc.
+  fhir:Obervation.comment [ fhir:value "&lt;string&gt;" ]; # 0..1 Comments about result
+  fhir:Obervation.bodySite [ <a href="">CodeableConcept</a> ]; # 0..1 Observed body part
+  fhir:Obervation.method [ <a href="">CodeableConcept</a> ]; # 0..1 How it was done
+  fhir:Obervation.specimen [ fhir:reference [ <a href="">Specimen</a> ] ]; # 0..1 Specimen used for this observation
+  fhir:Obervation.device [ fhir:reference [ <a href="">Device</a>|<a href="">DeviceMetric</a> ] ]; # 0..1 (Measurement) Device
   fhir:Obervation.referenceRange [ # 0..* Provides Provides guide for interpretation
-    fhir:Obervation.referenceRange.low [ fhir:reference [a :SimpleQuantity] ]; # 0..1 C? Low Range; if relevant
-    fhir:Obervation.referenceRange.high [fhir:reference [a :SimpleQuantity] ]; # 0..1 C? High Range; if relevant
-    fhir:Obervation.referenceRange.meaning [ a :CodeableConcept ]; # 0..1 Indicates the meaning/use of this range of this range
-    fhir:Obervation.referenceRange.age [ a :Range ]; # 0..1 Applicable age range; if relevant
-    fhir:Obervation.referenceRange.text "&lt;string&gt;" # 0..1 Text based reference range in an observation
+    fhir:Obervation.referenceRange.low  [ fhir:reference [ <a href="">SimpleQuantity</a> ] ]; # 0..1 C? Low Range; if relevant
+    fhir:Obervation.referenceRange.high [ fhir:reference [ <a href="">SimpleQuantity</a> ] ]; # 0..1 C? High Range; if relevant
+    fhir:Obervation.referenceRange.meaning [ <a href="">CodeableConcept</a> ]; # 0..1 Indicates the meaning/use of this range of this range
+    fhir:Obervation.referenceRange.age [ <a href="">Range</a> ]; # 0..1 Applicable age range; if relevant
+    fhir:Obervation.referenceRange.text [ fhir:value "&lt;string&gt;" ] # 0..1 Text based reference range in an observation
   ];
   fhir:Obervation.related [ # 0..* Resource Resource related to this observation
-    fhir:Obervation.related.type "&lt;code&gt;"; # 0..1 has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by
-    fhir:Obervation.related.target [ fhir:reference [a :Observation,:QuestionnaireResponse] ] # 1..1 R!  Resource that is related to this one
+    fhir:Obervation.related.type [ fhir:value "&lt;code&gt;" ]; # 0..1 has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by
+    fhir:Obervation.related.target [ fhir:reference [ <a href="">Observation</a>|<a href="">QuestionnaireResponse</a> ] ] # 1..1 R!  Resource that is related to this one
   ];
   fhir:Obervation.component [ # 0..* Component Component results
-    fhir:Obervation.component.code [ a :CodeableConcept ]; # 1..1 C? R!  Type of component observation (code / type)
+    fhir:Obervation.component.code [ <a href="">CodeableConcept</a> ]; # 1..1 C? R!  Type of component observation (code / type)
     # value[x]: 0..1 Actual component result. One of these 10:
-    fhir:Obervation.related.valueQuantity [ a :Quantity ];
-    fhir:Obervation.related.valueCodeableConcept [ a :CodeableConcept ];
-    fhir:Obervation.related.valueString "&lt;string&gt;";
-    fhir:Obervation.related.valueRange [ a :Range ];
-    fhir:Obervation.related.valueRatio [ a :Ratio ];
-    fhir:Obervation.related.valueSampledData [ a :SampledData ];
-    fhir:Obervation.related.valueAttachment [ a :Attachment ];
-    fhir:Obervation.related.valueTime "&lt;time&gt;";
-    fhir:Obervation.related.valueDateTime "&lt;dateTime&gt;";
-    fhir:Obervation.related.valuePeriod [ a :Period ];
-    fhir:Obervation.related.dataAbsentReason [ a :CodeableConcept ]; # C? Why the component result is missing
+    fhir:Obervation.related.valueQuantity [ <a href="">Quantity</a> ];
+    fhir:Obervation.related.valueCodeableConcept [ <a href="">CodeableConcept</a> ];
+    fhir:Obervation.related.valueString [ fhir:value "&lt;string&gt;" ];
+    fhir:Obervation.related.valueRange [ <a href="">Range</a> ];
+    fhir:Obervation.related.valueRatio [ <a href="">Ratio</a> ];
+    fhir:Obervation.related.valueSampledData [ <a href="">SampledData</a> ];
+    fhir:Obervation.related.valueAttachment [ <a href="">Attachment</a> ];
+    fhir:Obervation.related.valueTime [ fhir:value "&lt;time&gt;" ];
+    fhir:Obervation.related.valueDateTime [ fhir:value "&lt;dateTime&gt;" ];
+    fhir:Obervation.related.valuePeriod [ <a href="">Period</a> ];
+    fhir:Obervation.related.dataAbsentReason [ <a href="">CodeableConcept</a> ]; # C? Why the component result is missing
     fhir:Obervation.related.referenceRange [ Content as for Observation.referenceRange ] # 0..* Content Provides guide for interpretation of component result
   ]
 ]
