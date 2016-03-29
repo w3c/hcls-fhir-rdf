@@ -2543,19 +2543,19 @@ fhir:Element rdf:type owl:Class ;
       <pre>
 Turtle Template
 
-[
-  :Obervation.resourceType "Observation";
+[ a fhir:Observation;
+  fhir:Obervation.resourceType "Observation";
   # from Resource: id; meta; implicitRules; and language
   # from DomainResource: text; contained; extension; and modifierExtension
-  :Obervation.identifier : [ a :Identifier ]; # 0..* Unique Id for this particular observation
-  :Obervation.status "&lt;code&gt;"; # R!  registered | preliminary | final | amended +
-  :Obervation.category [ a :CodeableConcept ]; # 0..1 Classification of  type of observation
-  :Obervation.code [ a :CodeableConcept ]; # 1..1 R!  Type of observation (code / type)
-  :Obervation.subject [ :reference[a :Patient,:Group,:Device,:Location] ]; # 0..1 Who and/or what this is about
-  :Obervation.encounter [ reference[a :Encounter] ]; # 0..1 Healthcare event during which this observation is made
+  fhir::Obervation.identifier [ <a href="">Identifier</a> ]; # 0..* Unique Id for this particular observation
+  fhir::Obervation.status [ fhir:value "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
+  fhir::Obervation.category [ <a href="">CodeableConcept</a> ]; # 0..1 Classification of  type of observation
+  fhir::Obervation.code [ <a href="">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
+  fhir::Obervation.subject [ :reference[<a href="">Patient</a>|<a href="">Group</a>|<a href="">Device</a>|<a href="">Location</a>] ]; # 0..1 Who and/or what this is about
+  fhir::Obervation.encounter [ fhir:reference[<a href="">Encounter</a>] ]; # 0..1 Healthcare event during which this observation is made
   # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
-    :Obervation.effectiveDateTime "&lt;dateTime&gt;";
-    :Obervation.effectivePeriod [ a :Period ];
+    fhir::Obervation.effectiveDateTime [ fhir:value "&lt;dateTime&gt;" ];
+    fhir::Obervation.effectivePeriod [ <a href="">Period</a> ];
   :Obervation.issued "&lt;instant&gt;"; # 0..1 Date/Time this was made available
   :Obervation.performer [reference[a :Practitioner,:Organization,:Patient,:RelatedPerson] ]; # 0..* Reference Who is responsible for the observation
   # value[x]: 0..1 Actual result. One of these 10:
