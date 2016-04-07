@@ -28,7 +28,7 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
 __copyright__ = 'Copyright (c) 2015, Mayo Clinic'
-__license__ = 'New BSD license'
-__version__ = '0.1.1'
+__license__ = 'Apache License 2.0'
+__version__ = '0.1.2'
 
 __all__ = ['defaults', 'fhir_elements', 'rdflib_formats']
