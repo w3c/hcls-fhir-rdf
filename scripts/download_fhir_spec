@@ -34,7 +34,7 @@ import shutil
 import requests
 import sys
 import json
-from typing import List, Optional
+from typing import List, Tuple
 from zipfile import ZipFile
 
 if __name__ == "__main__":
@@ -46,33 +46,37 @@ PROFILE_SUFFIX = ".profile.json"
 DEFAULT_LOG_FILE = os.path.basename(__file__) + ".log"
 
 
-def download_spec(opts: argparse.Namespace) -> bool:
+def download_spec(opts: argparse.Namespace) -> Tuple[bool, bool]:
     """ Download and unzip the FHIR specification (if necessary)
     :param opts: Parser options
-    :return: success indicator
+    :return: success indicator, new download occurred
     """
-    download_needed = opts.force or opts.clear
-    target_file_modtime = None
-    try:
-        target_file_modtime = datetime.fromtimestamp(os.path.getmtime(opts.file))
-    except FileNotFoundError:
-        log_info(opts.file, "File does not currently exist")
-        download_needed = True
-
-    if not download_needed:
+    if opts.skipdownload:
+        download_needed = False
+        logging.info("Download step skipped")
+    else:
+        download_needed = opts.force or opts.clear
+        target_file_modtime = None
         try:
-            r = requests.head(opts.url)
-        except requests.ConnectionError as e:
-            print(str(e))
-            return False, False
-        if r.status_code == 200:
-            file_date = datetime.strptime(r.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S GMT')
-            download_needed = file_date > target_file_modtime
-            if download_needed:
-                log_info(opts.file, " %s is newer than %s: downloading newer copy" % (opts.url, opts.file))
-        else:
-            log_error(opts.file, "Error: %d on %s" % (r.status_code, opts.url))
-            return False, False
+            target_file_modtime = datetime.fromtimestamp(os.path.getmtime(opts.file))
+        except FileNotFoundError:
+            log_info(opts.file, "File does not currently exist")
+            download_needed = True
+
+        if not download_needed:
+            try:
+                r = requests.head(opts.url)
+            except requests.ConnectionError as e:
+                print(str(e))
+                return False, False
+            if r.status_code == 200:
+                file_date = datetime.strptime(r.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S GMT')
+                download_needed = file_date > target_file_modtime
+                if download_needed:
+                    log_info(opts.file, " %s is newer than %s: downloading newer copy" % (opts.url, opts.file))
+            else:
+                log_error(opts.file, "Error: %d on %s" % (r.status_code, opts.url))
+                return False, False
 
     if download_needed:
         log_info(" Downloading %s:" % opts.url, opts.file)
@@ -175,7 +179,7 @@ def main():
     log_info("Downloading %s " % opts.url, opts.file)
     log_info("Examples in: %s" % opts.exampledir, opts.file)
 
-    success, new_download = download_spec(opts) if not opts.skipdownload else (True, True)
+    success, new_download = download_spec(opts)
     if success and (new_download or opts.unzip):
         success = do_unzip(opts)
     log_info("Done" if success else "Failed", opts.file)
