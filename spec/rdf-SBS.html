@@ -1,0 +1,2509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<!-- 
+###############################################################
+TO RENDER THIS DOCUMENT IN YOUR BROWSER, USE THIS URL:
+http://w3c.github.io/hcls-fhir-rdf/spec/rdf.html
+###############################################################
+-->
+<html>
+	<head>
+		<title>RDF Representation</title>
+		<meta charset="utf-8"/>
+		<script src="https://www.w3.org/Tools/respec/respec-w3c-common" async class="remove"></script>
+		<script class="remove">
+			var respecConfig = {
+				edDraftURI: "http://w3c.github.io/hcls-fhir-rdf/spec/rdf.html",
+				issueBase: "https://github.com/w3c/hcls-fhir-rdf/issues",
+				specStatus: "unofficial",
+				shortName:  "fhir-rdf",
+				editors: [
+					{
+						name:       "Anthony Mallia",
+						url:        "amallia@edmondsci.com",
+						company:    "Edmond Scientific",
+						companyURL: "http://edmondsci.com/"
+					},
+					{
+						name:       "Eric Prud'hommeaux",
+						url:        "http://www.w3.org/People/Eric/",
+						company:    "W3C/MIT",
+						companyURL: "http://www.w3.org/"
+					}
+				],
+				wg:           "Semantic Web in Health Care and Life Sciences Interest Group",
+				wgURI:        "//www.w3.org/wiki/HCLSIG",
+				wgPublicList: "public-semweb-lifesci",
+				wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/73865/status",
+        otherLinks: [{
+          key: "Source code for this document",
+          data: [{
+              value: "GitHub repository -- see spec/rdf.html",
+              href: "https://github.com/w3c/hcls-fhir-rdf"
+          }, {
+              value: "Issues list",
+              href: "https://github.com/w3c/hcls-fhir-rdf/issues"
+          }]
+          }]
+			};
+		</script>
+		<!-- script src="https://www.w3.org/scripts/jquery/2.1/jquery.min.js"></script--> 
+		<style>
+      .special { color: red; }
+      .inferred { color: green; }
+      pre.FHIRXML {
+        font-size: 8pt;
+        line-height: 100%;
+        text-align: left ! important;
+        font-family: Consolas;
+        writing-mode: lr-tb;
+        background-color: #f2f2f2;
+        padding-left: 0.0555in;
+        padding-right: 0.0555in;
+        border-width: 0.018cm;
+        border-style: solid;
+        border-color: #00000a;
+        color: #000000;
+        padding-bottom: 0in;
+        padding-top: 0in;
+      border-top-style: none;    
+      border-bottom-style: none; 
+      }
+      pre.FHIRRDF {
+        font-size: 8pt;
+        line-height: 100%;
+        text-align: left ! important;
+        font-family: Consolas;
+        writing-mode: lr-tb;
+        background-color: #e4fff2;
+        padding-left: 0.0555in;
+        padding-right: 0.0555in;
+        border-width: 0.018cm;
+        border-style: solid;
+        border-color: #00000a;
+        color: #000000;
+        padding-bottom: 0in;
+        padding-top: 0in;
+      border-top-style: none;    
+      border-bottom-style: none; 
+      }
+      pre.FHIRShEx {
+        font-size: 8pt;
+        line-height: 100%;
+        text-align: left ! important;
+        font-family: Consolas;
+        writing-mode: lr-tb;
+        background-color: #fffda0;
+        padding-left: 0.0555in;
+        padding-right: 0.0555in;
+        border-width: 0.018cm;
+        border-style: solid;
+        border-color: #00000a;
+        color: #000000;
+        padding-bottom: 0in;
+        padding-top: 0in;
+      border-top-style: none;    
+      border-bottom-style: none; 
+      }
+      .ul {
+        text-decoration: underline;
+      }
+      span.code {
+        background-color: #f2f2f2;
+        border-style: solid;
+        border-top-style: none;
+        border-bottom-style: none;
+        border-left-style: .1em;
+        border-right-style: thin;
+      }
+      .Table1 td {
+          padding-left: 0.075in;
+          padding-right: 0.075in;
+          padding-top: 0in;
+          padding-bottom: 0in;
+          border-style: none;
+      }
+pre.spec {
+    border: 1px solid #dcdcdc;
+    font-size: 11px;
+    background: #FFFFE0;
+    padding: 5px;
+    width: 650px;
+    white-space: pre-wrap;
+}
+.spec a.dict { color: purple; }
+pre.spec a {
+    color: darkgreen;
+    text-decoration: none;
+    border: 0;
+}
+pre.spec a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+}
+.description { color: navy; }
+.description a { color: navy; }
+pre.spec .description a { color: navy; } /* override pre.spec a */
+.Table1 pre.spec {
+    border-top-style: none;
+    border-bottom-style: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.greyback { background-color: #C0C0C0; }
+.scalar { color: #2A00FF; }
+img.scaled {
+    display: block;
+    max-width:90%;
+    max-height:90%;
+    width: auto;
+    height: auto;
+}
+.todo { color:red; border: thin solid red; }
+.todo:before { content: "TODO" }
+.contentious { color: red; }
+
+.shared { border-left: solid thick #909; padding-left: .5em; }
+
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+		</style>
+	</head>
+	<body>
+
+		<section id="abstract">
+			<p>
+        This document describes the RDF representation of FHIR Resources.
+			</p>
+		</section>
+
+		<section id="sotd"><!-- filled in automagically --></section>
+
+		<section class='introductory'>
+		  <h2>Revision History</h2>
+			<p>
+				The detailed list of changes and their diffs can be found in the <a href="https://github.com/w3c/hcls-fhir-rdf/commits/gh-pages/spec/index.html">Git repository</a>.
+			</p>
+			<ul>
+				<li><b>2016-02-09</b>: Created this page as a copy of the side-by-side document (dbooth)</li>
+			</ul>
+		</section>
+
+		<section id="legend" class="introductory">
+      <h2>Legend</h2>
+      <p class="Standard">Most of the RDF is generated by verbatim logic (e.g. An unidentified element becomes an anonymous individual - &nbsp;blank node).</p>
+      <p class="Standard">Where RDF is generated by special transformation it is <span class="special">marked in red</span></p>
+      <p class="Standard">Where RDF is inferred by a reasoner it is <span class="inferred">marked in green</span>. </p>
+		</section>
+
+		<section id="DefaultMapping">
+      <h2>Default Mapping</h2>
+      <p class="shared">
+        In general the mapping between types, elements in XML and Classes, individuals in RDF is generally the same.
+        This section defines that default mapping and other section describe deviations from the default mapping.
+      </p>
+		  <section id="InstanceMapping">
+        <h2>Instance Mapping</h2>
+        <p>
+          In XML the element instances are nested using tags.
+        </p>
+		    <section id="Element">
+          <h2>Element</h2>
+          <p>
+            An XML element corresponds to a RDF/OWL individual.
+            In many cases unless the element has identity the mapping is to an anonymous individual.
+            Where identity has been given to the element then it maps to a anamed individual.
+          </p>
+		    </section>
+		    <section id="XMLTag">
+          <h2>XML Tag</h2>
+          <p>
+            The XML tag is mapped to an Object Property Assertion of the Object Property defined for the tag name.
+          </p>
+		    </section>
+		    <section id="XMLAttribute">
+          <h2>XML Attribute</h2>
+          <p class="shared">
+            An XML attribute represents a simple type and in FHIR is always “value”.
+            FHIR datatypes have attributes of XSD datatypes.
+          </p>
+          <p class="shared">
+            <span class="code">  fhir:CodingBase.display [ <span class="inferred">a fhir:string</span>; fhir:value "Admin"] ;</span><br/>
+            Shows an anonymous individual in [] of datatype fhir:string with value data property “Admin”.
+          </p>
+		    </section>
+		  </section>
+      <section id="DefaultTypeMapping">
+          <section id="NestedElements">
+          	<h2>Nested Elements</h2>
+          <p class="shared">
+            An XML tag is unique within the namespace that it is declared in.
+            FHIR does not use global declarations.
+            The XML tag is mapped to an Object Property where the name is prefixed with the Class name in which it was declared.
+            A tag “bar” declared in a complex type “Foo” would become an Object Property “Foo.bar”.
+            This is aligned with the structural definition mechanism in FHIR.
+          </p>
+		    </section>
+		    <section>
+          <h2>Datatypes</h2>
+          <p class="shared">
+            In RDF the value attribute of a datatype is a Data Property named “value” with undefined range.
+            Each FHIR data type has a restriction on the range of the Data Property (see section on Datatypes).
+          </p>
+		    </section>
+		  </section>
+		    <h2>Message and Resource identity</h2>
+		  <section>
+        <h2>XML Identity</h2>
+		    <section>
+          <h2>XML Identity</h2>
+          <p>
+            The read RESTful interaction
+          </p>
+          <p>
+            <span class="code">  fhir:CodingBase.display [ <span class="inferred">a fhir:string</span>; fhir:value "Admin"] ;</span><br/>
+            Causes a return of the mime type file which has an identity of [base]/[type]/[id].[mime-type].
+            These four parts form the dereferenceable URI and the identity of that file.
+          </p>
+		    </section>
+		    <section>
+          <h2>XML Resource identity</h2>
+          <p>
+            The XML Root tag binds the root element to a Complex Type.
+            In FHIR the tag and the Complex Type have the same value however this is not always true in XML.
+          </p>
+          <pre class="FHIRXML">
+&lt;<span class="greyback">AllergyIntolerance</span> xmlns=http://hl7.org/fhir &gt;
+  &lt;id value="1"/&gt;
+  &lt;text&gt;
+  &lt;/text&gt;
+&lt;!--   the date that this entry was recorded   --&gt;
+  &lt;recordedDate value="2010-03-01"/&gt;
+&lt;!--   the patient that actually has the risk of adverse reaction   --&gt;
+  &lt;patient&gt;
+    &lt;reference value="http://record/Patient/PeterPatient"/&gt;
+    &lt;display value="Peter Patient"/&gt;
+  &lt;/patient&gt;
+&lt;!--   substance, coded from SNOMED CT--&gt;
+  &lt;substance&gt;
+    &lt;coding&gt;
+      &lt;system value="http://snomed.info/id/"/&gt;
+      &lt;code value="90614001"/&gt;
+      &lt;display value="beta-Lactam antibiotic"/&gt;
+    &lt;/coding&gt;
+  &lt;/substance&gt;
+  &lt;status value="confirmed"/&gt;
+  &lt;criticality value="high"/&gt;
+  &lt;category value="medication"/&gt;
+&lt;/AllergyIntolerance&gt;
+          </pre>
+          <p>
+            The id value represents only a segment of the identifier.
+            The type is taken from the root element and the base is not included in the Resource so it is not clear in FHIR that the Resource can be clearly disambiguated.
+          </p>
+		    </section>
+		  </section>
+		  <section>
+        <h2>RDF/OWL identities</h2>
+        <pre class="FHIRRDF">
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+&lt;http://record/AllergyIntolerance/1&gt; rdf:type owl:Ontology ; owl:imports &lt;http://hl7.org/fhir&gt; .
+&lt;http://record/AllergyIntolerance/1&gt; rdf:type &lt;http://PatientSafetyProfile/AllergyIntolerance&gt; , owl:NamedIndividual ;
+   fhir:Resource.id [ rdf:type fhir:id ; fhir:value "1" ] ;
+   fhir:AllergyIntolerance.status [ rdf:type fhir:code ;
+      fhir:ConceptBase.coding [ fhir:CodingBase.code [ fhir:value "confirmed" ]  ]
+   ] ;
+   fhir:AllergyIntolerance.patient [ rdf:type fhir:Reference ;
+      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient" ] ;
+      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
+   ] ;
+   fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept , &lt;http://snomed.info/id/90614001&gt;;
+      fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
+         fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
+         fhir:CodingBase.system [ rdf:type fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
+         fhir:CodingBase.display [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+      ] ;
+      fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+   ] .        </pre>
+
+		    <section>
+          <h2>RDF File identity</h2>
+          <p>
+            The identity of the RDF file is its file name (e.g. http://record/AllergyIntolerance/1.ttl)
+          </p>
+
+          <p>
+            The first three segment (without the mime-type) are the name of the Ontology.
+          </p>
+
+          <p>
+            <span class="code">&lt;http://record/AllergyIntolerance/1&gt; rdf:type owl:Ontology ;</span><br/>
+            The file is an ontology.
+            This is required since there appears to be a restriction on import statements importing the same ontology more than once.
+            This is independent of prefixes of the elements.
+          </p>
+		    </section>
+		    <section>
+          <h2>RDF Individual identity</h2>
+          <p>
+            The name of the individual is derived from the URL identity of the resource.
+            The class of the individual is declared using rdf:type:<br/>
+            <span class="code">&lt;http://record/AllergyIntolerance/1&gt; rdf:type &lt;http://PatientSafetyProfile/AllergyIntolerance&gt;, owl:NamedIndividual ;</span><br/>
+            In simple resources the identity of the message is mapped to the identity of the root element.
+            However they may have different types.
+          </p>
+          <p>
+            In this case the name of the individual is the same as the name of the ontology.
+            This appears to work.
+          </p>
+          <p>
+            In Bundles the identity of the message (bundle) is different from the identities of contained resources.
+          </p>
+
+          <p>
+Note that the type of the resource is qualified by the profile which is obtained from Meta.profile (see Profile section later).
+          </p>
+		    </section>
+		    <section>
+          <h2> Ontology triples</h2>
+          <p>
+            The ontology identity is linked to the import predicate which links to the fhir ontology:<br/>
+            <span class="code">&lt;http://record/AllergyIntolerance/1&gt; rdf:type owl:Ontology ; owl:imports &lt;http://hl7.org/fhir&gt; .</span><br/>
+            The import statement is required for Turtle files so that the loading can distinguish between Object Properties and Annotation Properties.
+          </p>
+		    </section>
+		  </section>
+		</section>
+
+		<section>
+      <h2> Datatypes (section 1.18.0.1)</h2>
+      <p class="shared">
+        Difference in the treatment of datatypes code, string and uri as classes with primitive values as rdf:Datatypes.
+        Datatypes are transformed into OWL Classes where the value is expressed as a an OWL DataProperty with restrictions (facets etc).
+      </p>
+		    <section>
+        		<h2>FHIR CodeableConcept and Coding Structure Definition</h2>
+		    <section>
+          <h2>FHIR XML</h2>
+          <p class="shared">
+            Codeable Concept example
+          </p>
+          <pre class="FHIRXML">
+  &lt;substance&gt;
+    &lt;coding&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;code value="90614001"/&gt;
+      &lt;display value=" beta-lactam (antibiotic)"/&gt;
+    &lt;/coding&gt;
+    &lt;text value=" beta-lactam (antibiotic)"/&gt;
+  &lt;/substance&gt;
+          </pre>
+          	  <h2>RDF Data for Codeable Concept Instance</h2>
+          <p class="shared">
+            The RDF variant for fhir:Code, fhir:Coding and fhir:CodeableConcept are not straight translations of the FHIR representation.
+            3 new additional classes are introduced – codeBase, CodingBase and ConceptBase. 
+          </p>
+          <pre class="FHIRRDF shared">
+   fhir:AllergyIntolerance.substance [ a fhir:CodeableConcept ;
+      fhir:ConceptBase.coding [ a fhir:CodingBase ;
+         fhir:CodingBase.code [ fhir:value "90614001" ] ;
+         fhir:CodingBase.system [ fhir:value "http://snomed.info/sct" ] ;
+         fhir:CodingBase.display [ fhir:value "beta-lactam (antibiotic)" ]
+      ] ;
+      fhir:ConceptBase.text [ a fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+   ] .
+          </pre>
+    <pre class="FHIRShEx">
+   <span class="variable-name">&lt;CodeableConceptShape&gt;</span> {
+    <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">CodeableConcept</span>]<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">ConceptBase.coding</span> <span class="variable-name">@&lt;CodingShape&gt;</span><span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">ConceptBase.text</span> <span class="variable-name">@&lt;textShape&gt;</span><span class="keyword">?</span>
+  }
+  <span class="type">&lt;codingShape&gt;</span> {
+    <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">CodingBase</span>]<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.code</span>         @&lt;<span class="variable-name">extensibleLiteral</span>&gt;<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.system</span>       @&lt;<span class="variable-name">extensibleLiteral</span>&gt;<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.display</span>      @&lt;<span class="variable-name">extensibleLiteral</span>&gt;<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.version</span>      @&lt;<span class="variable-name">extensibleLiteral</span>&gt;<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">CodingBase.userSelected</span> @&lt;<span class="variable-name">extensibleLiteral</span>&gt;<span class="keyword">?</span>
+  }
+  <span class="variable-name">&lt;textShape&gt;</span> {
+    <span class="keyword">a</span> [<span class="type">fhir:</span><span class="constant">string</span>]<span class="keyword">?</span>,
+    <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">LITERAL</span>
+  }
+  <span class="variable-name">&lt;extensibleLiteral&gt;</span> {
+    <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">LITERAL</span>
+  }</pre>
+
+          <p class="shared">
+            The fhir:CodeableConcept type assertion allows round trip back to the original XML type.
+            The same approach will be taken for fhir:Coding and fhir:code.
+          </p>
+
+          <p class="shared">
+          This approach will be implemented by creating ConceptBase, CodingBase and codeBase individuals as blank nodes.
+          </p>
+		    </section>
+		    <section>
+          	  <pre class="FHIRRDF">
+     </pre>
+		    </section>
+		  </section>
+		</section>
+
+		<section id="Terminology">
+      <h2>Terminology</h2>
+      <section id="Codesystem">
+        <h2>Code system</h2>
+        <p>
+          A code system is a namespace which makes its codes unique. A Code system may contain Concepts. 
+          You can have many concept hierarchies in the same code system (e.g. SNOMED) or you can have one 
+          concept hierarchy in a code system (e.g. HL7 internal codes).
+        </p>        
+        <section id="HL7FHIRInternalCodeSystemXMLexample">
+          <h2>HL7 FHIR Internal Code System XML example</h2>
+          <p>
+          A definition of a code system, inlined into the value set instance (as a packaging convenience).
+          </p>
+          <pre class="FHIRXML">
+            &lt;codeSystem&gt;
+             &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+               &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.1.50"/&gt;
+             &lt;/extension&gt;
+             &lt;system value="http://hl7.org/fhir/allergy-intolerance-status"/&gt;
+             &lt;version value="1.0.0"/&gt;
+             &lt;caseSensitive value="true"/&gt;
+             &lt;concept&gt;
+               &lt;code value="active"/&gt;
+               &lt;display value="Active"/&gt;
+               &lt;definition value="An active record of a reaction to the identified Substance."/&gt;
+               &lt;concept&gt;
+                 &lt;code value="confirmed"/&gt;
+                 &lt;display value="Confirmed"/&gt;
+                 &lt;definition value="A high level of certainty about the propensity for a reaction to the identified Substance,
+                  which may include clinical evidence by testing or rechallenge."/&gt;
+               &lt;/concept&gt;
+             &lt;/concept&gt;
+           &lt;/codeSystem&gt;
+          </pre>
+        </section>
+        <section id="RDFCodeSystemURIdeclaration">
+          <h2>RDF CodeSystemURI declaration</h2>
+          <p class="shared">
+            A code system will have one named individual representing the code system. This is a member of class: fhir:CodeSystemURI. 
+            CodeSystemURI is a subclass of fhir:uri and allows named individuals to represent the URI. The properties are added to it as annotation properties.
+            Thus the reference to a system in CodingBase.system can have a value e.g. &lt;http://snomed.info/sct&gt; and not have to declare a further anonymous individual.
+          </p>
+          <section id="HL7InternalCodesystemURIexample">
+            <h2>HL7 Internal Code system URI example</h2>
+            <pre class="FHIRRDF shared">
+              ###  http://hl7.org/fhir/cs/allergy-intolerance-status
+
+              fhircs:allergy-intolerance-status rdf:type fhir:CodeSystemURI , owl:NamedIndividual ;
+                 fhir:caseSensitive "true"^^xsd:boolean ;
+                 fhir:valueset-oid "urn:oid:2.16.840.1.113883.4.642.1.50" ;
+                 fhir:value "http://hl7.org/fhir/cs/allergy-intolerance-status" ;
+                 fhir:prefix "http://hl7.org/fhir/allergy-intolerance-status#" ;
+                 fhir:version "1.0.2" .
+            </pre>
+            <p>
+              Note that since this acts as a namespace it has the case sensitivity indicator and a prefix (not in HL7 FHIR) to prepend the concepts to make them unique.
+            </p>
+          </section>
+          <section id="SNOMEDRDFCodeSystemURIexample">
+            <h2>SNOMED RDF Code System URI example</h2>
+            <pre class="FHIRRDF shared">
+              ###  http://snomed.info/sct
+
+              &lt;http://snomed.info/sct&gt; rdf:type fhir:CodeSystemURI , owl:NamedIndividual ;
+                 fhir:value "http://snomed.info/sct"^^xsd:anyURI .
+                 fhir:caseSensitive "false"^^xsd:boolean ;
+                 fhir:prefix "http://snomed.info/id/"^^xsd:string ;
+                 fhir:valueset-oid "2.16.840.1.113883.6.96" ;
+                 fhir:version "US1000124_20140301" .
+            </pre>
+            <p>
+              Code systems are published at <b>http://hl7-fhir.github.io/terminologies-systems.html</b> and the URI identifier is used for FHIR/RDF rather than the OID. 
+            </p>
+          </section>
+          <section id="CodeSystemVersion">
+            <h2>Code System Version</h2>
+            <p>
+              Version of code system as part of the name is TBD.
+            </p>
+          </section>
+        </section>
+      </section>
+      <section id="BridgingOntologies">
+        <h2>Bridging Ontologies</h2>
+        <p>
+          Both external and HL7 internal terminologies use bridging ontologies to map between the Concepts and Codes.
+        </p><p>If the terminology has an RDF representation then the bridging ontology binds from a common representation of Concept, Code and Value Set to that terminology. 
+        </p><p>In the case that there is not and RDF representation then the bridging ontology provides the complete representation and is constructed by transformation of the non-RDF representation.
+        </p>
+      </section>
+      <section id="Concept">
+        <h2>Concept</h2>
+        <section id="RDFConceptDefinition">
+          <h2>RDF Concept Definition</h2>
+          <p>
+            A Concept in RDF/OWL is a named Class which has a restriction for CodingBase individuals associated with that concept.  A specific Concept is a named subclass of the fhir:Concepts class or it is a subclass of another Concept.  Where the restrictions are defined on the Concept they are the intersection of the restriction on ConceptBase.coding and CodingBase.code and CodingBase.system. 
+          </p><p>Concepts may have one or more CodingBase restrictions. The FHIR valueset resource structure definition only allows one but the RDF equivalent will relax that cardinality. A Concept which has multiple Codes associated with it, have a union of multiple CodingBase.code restrictions.
+          </p>
+        </section>
+        <section id="HL7BridgingOntology">
+          <h2>HL7 Bridging Ontology</h2>
+          <section id="HL7FHIRXMLConcept">
+            <h2>HL7 FHIR XML Concept</h2>
+            <p>
+              The following fragment from Allergy Intolerance Status found at <b>http://hl7 fhir.github.io/valueset allergy-intolerance-status.html</b> 
+            </p><p>In FHIR, Code System contains ValueSet.codeSystem.concept elements.
+            </p><p>ValueSet.codeSystem.concept have code, abstract, display, definition, designation and nested Valueset.Concepts.
+            </p>
+            <pre class="FHIRXML">
+                &lt;codeSystem&gt;
+                 &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+                   &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.1.50"/&gt;
+                 &lt;/extension&gt;
+                 &lt;system value="http://hl7.org/fhir/allergy-intolerance-status"/&gt;
+                 &lt;version value="1.0.0"/&gt;
+                 &lt;caseSensitive value="true"/&gt;
+                 &lt;concept&gt;
+                   &lt;code value="active"/&gt;
+                   &lt;display value="Active"/&gt;
+                   &lt;definition value="An active record of a reaction to the identified Substance."/&gt;
+                   &lt;concept&gt;
+                     &lt;code value="confirmed"/&gt;
+                     &lt;display value="Confirmed"/&gt;
+                     &lt;definition value="A high level of certainty about the propensity for a reaction to the identified Substance,
+                      which may include clinical evidence by testing or rechallenge."/&gt;
+                   &lt;/concept&gt;
+                 &lt;/concept&gt;
+               &lt;/codeSystem&gt;
+             &lt;/ValueSet&gt;
+            </pre>
+            <p>
+              The nesting of <concept> represents general to specific concepts although the structure does not indicate that semantic but rather a containment.
+            </p>
+          </section>
+          <section id="FHIRinternalXMLConceptmapping">
+            <h2>FHIR internal XML Concept mapping</h2>
+            <p>
+            The RDF Concept is a named Class which maps to the components of the ValueSet.codeSystem.concept element in FHIR Valueset Resource.
+            <ul>
+              <li>System maps to the restriction on CodingBase.system</li>
+              <li>Code maps to the restriction on CodingBase.code</li>
+              <li>Display maps to rdfs:label</li>
+              <li>Definition maps to fhir:concept_definition annotation</li>
+              <li>Nesting maps to subclass assertions (as a default)</li>
+              <li>An abstract Concept (ValueSetConcept.abstract = “true”) has no restriction on CodingBase.code just a position in the class hierarchy.</li>
+              <li>Designation will probably transform into annotation language (e.g. @en) or type.</li>
+            </ul>
+            </p>
+          </section>
+          <section id="HL7InternalConceptRDFExample">
+            <h2>HL7 Internal Concept RDF Example</h2>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/allergy-intolerance-status#Concept
+
+allergy-intolerance-status:Concept rdf:type owl:Class ;
+   rdfs:label "Allergy Intolerance Status Concept" ;
+   rdfs:subClassOf fhir:Concepts ;
+   fhir:concept_definition "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance." .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#active
+
+allergy-intolerance-status:active rdf:type owl:Class ;
+   rdfs:label "Active" ;
+   rdfs:subClassOf allergy-intolerance-status:Concept ;
+   fhir:concept_definition "An active record of a reaction to the identified Substance" .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf allergy-intolerance-status:active ; owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty fhir:value ;
+                                                                   owl:hasValue "active"
+                                                                 ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue fhircs:allergy-intolerance-status
+                                            ]
+                                          )
+                     ]
+] .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#confirmed
+
+allergy-intolerance-status:confirmed rdf:type owl:Class ;
+   rdfs:label "Confirmed"@en ;
+   rdfs:subClassOf allergy-intolerance-status:active ;
+   fhir:concept_definition "A high level of certainty about the propensity for a reaction to the identified Substance, which may include clinical evidence by testing or rechallenge." .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf allergy-intolerance-status:confirmed ; owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty fhir:value ;
+                                                                  owl:hasValue "confirmed"
+                                                                ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue fhircs:allergy-intolerance-status
+                                            ]
+                                          )
+                     ]
+] .
+            </pre>
+          </section>
+          <section id="ExternalConceptRDFExample">
+            <h2>External Concept RDF Example</h2>
+            <p>
+              An external terminology is treated differently in that it is assumed that the ontology provided by the external organization cannot be changed. A bridging ontology is therefore provided which allows the expressions to be added to bind to the FHIR CodingBase instances.
+            </p><p>The bridging ontology is constructed to add the expressions to categorize FHIR CodingBase individuals. This binding occurs at both code/system and concepts. Direct use of the declared SNOMED concept identifier is shown here but it is also possible to make an equivalent class if needed.
+            </p>
+            <section id="ExternalSNOMEDOntology">
+              <h2>External SNOMED Ontology</h2>
+              <p>
+                The following example from the SNOMED OWL extraction shows the two top Concepts referenced in the valueset substance-code:
+              </p>
+              <pre class="FHIRRDF shared">
+###  http://snomed.info/id/105590001
+
+&lt;http://snomed.info/id/105590001&gt; rdf:type owl:Class ;
+                                  rdfs:label "Substance (substance)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/373873005
+
+&lt;http://snomed.info/id/373873005&gt; rdf:type owl:Class ;
+                                  rdfs:label "Pharmaceutical / biologic product (product)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+              </pre>
+              <p>
+                Notice there is no description and the display value is in rdfs:label. Concept 138875005 is the top level SNOMED CT concept.
+              </p>
+              <p>
+                The extensions of the value set beyond substance-code are defined in SNOMED:
+              </p>
+              <pre class="FHIRRDF shared">
+###  http://snomed.info/id/160244002
+
+&lt;http://snomed.info/id/160244002&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Allergies" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/409137002
+
+&lt;http://snomed.info/id/409137002&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Drug Allergies" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/428607008
+
+&lt;http://snomed.info/id/428607008&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Environmental Allergy" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+###  http://snomed.info/id/429625007
+
+&lt;http://snomed.info/id/429625007&gt; rdf:type owl:Class ;
+   rdfs:label "No Known Food Allergies" ;
+   rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+              </pre>
+              <p>
+                These are shown as subclasses of the top concept which is incorrect.
+              </p>
+            </section>
+            <section id="BridgingOntology">
+              <h2>Bridging Ontology</h2>
+              <p>
+                The FHIR SCTBridge ontology imports both fhir and snomed ontologies so it can see both:
+              </p>
+              <pre class="FHIRRDF shared">
+                &lt;http://hl7.org/fhirSCTBridge&gt; rdf:type owl:Ontology ;
+                               owl:imports &lt;http://hl7.org/fhir&gt; ,
+                                           &lt;http://snomed.info/id&gt; .
+              </pre>
+              <p>
+                The SNOMED ontology is named &lt;http://snomed.info/id&gt; which makes the concept URI construction natural.
+              </p>
+              <p>
+                The restrictions on the Concepts to CodingBase individuals are made through general class axioms in the same way as internal code systems:
+              </p>
+              <pre class="FHIRRDF shared">
+  [ rdf:type owl:Restriction ;
+  rdfs:subClassOf &lt;http://snomed.info/id/90614001&gt; ;
+  owl:onProperty fhir:ConceptBase.coding ;
+  owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.code ;
+                                              owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty fhir:value ;
+                                                                   owl:hasValue "90614001"
+                                                                 ]
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty fhir:CodingBase.system ;
+                                              owl:hasValue &lt;http://snomed.info/sct&gt;
+                                            ]
+                                          )
+                     ]
+] .
+              </pre>
+              <p>
+                This example shows that the Concept “Beta lactam antibiotic” is inferred when the ConceptBase.coding has a CodingBase where CodingBase.code has a code of 90614001 and CodingBase.system has value &lt;http://snomed.info/sct&gt;.
+              </p>
+            </section>
+          </section>
+        </section>
+        <section id="RelationshipofConcepttoCodeSystemURI">
+          <h2>Relationship of Concept to Code SystemURI</h2>
+          <p>
+            The concept defines its CodeSystemURI through ConceptBase.system restriction. 
+          </p>
+          <p>
+            The CodeSystemURI being an individual has no relationship to the Concepts in the Code system which are Classes.
+          </p>
+        </section>
+      </section>
+      <section id="ValueSets">
+        <h2>ValueSets</h2>
+        <p>
+          A ValueSet in RDF is a specific Class which defines the CodingBase individuals which are members of it. 
+        </p><p>There are two ways of declaring the ValueSet in RDF – 
+          <ul>
+            <li>ValueSets are named Classes with direct restrictions on CodingBase individuals (system + code)</li>
+            <li>ValueSets are named Classes representing sets of CodingBase restrictions via Concept restrictions.</li> 
+          </ul>
+          See the later section for more detailed consideration of the flexibility of ValueSet definitions. These definitions will be mapped into the two ways above.
+        </p><p>The following diagram shows the subclass relationships between the classes: 
+        </p>
+        <img src="ValueSetPic.png"/>
+        <p>
+          A valueset defines a subset of CodingBase individuals which meet the constraints of that ValueSet.
+        </p><p>Two cases are explored A &amp; B are the direct and indirect (via concepts ) restrictions:
+          <ul>
+            <li type="A"> ValueSet direct restriction on CodingBase</li>
+            <li type="A"> ValueSet indirect restriction via Concepts</li>
+          </ul>
+        </p>
+        <section id="CodingBindingtoexternalterminology">
+          <h2>Coding Binding to external terminology (section 1.17.3.3.5)</h2>
+          <section id="FHIRXML">
+            <h2>FHIR XML</h2>
+            <pre class="FHIRXML">
+&lt;AllergyIntolerance xmlns=http://hl7.org/fhir &gt;
+  &lt;id value="1"/&gt;
+  &lt;text&gt;
+  &lt;/text&gt;
+&lt;!--   the date that this entry was recorded   --&gt;
+  &lt;recordedDate value="2010-03-01"/&gt;
+&lt;!--   the patient that actually has the risk of adverse reaction   --&gt;
+  &lt;patient&gt;
+    &lt;reference value="http://record/Patient/PeterPatient"/&gt;
+    &lt;display value="Peter Patient"/&gt;
+  &lt;/patient&gt;
+&lt;!--   substance, coded from SNOMED CT--&gt;
+  &lt;substance&gt;
+    &lt;coding&gt;
+      &lt;system value="http://snomed.info/id/"/&gt;
+      &lt;code value="90614001"/&gt;
+      &lt;display value="beta-Lactam antibiotic"/&gt;
+    &lt;/coding&gt;
+  &lt;/substance&gt;
+  &lt;status value="confirmed"/&gt;
+  &lt;criticality value="high"/&gt;
+  &lt;category value="medication"/&gt;
+&lt;/AllergyIntolerance&gt;
+            </pre>
+          </section>
+          <section id="RDFInstanceExample">
+            <h2>RDF Instance Example</h2>
+            <p>
+              This is the raw instance before processing and after <span style="color: green">in green for inference</span> and <span style="color: red">red for specific processing</span>
+            </p>
+            <pre class="FHIRRDF shared">
+@prefix : &lt;http://record/AllergyIntolerance/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sct: &lt;http://snomed.info/id/&gt; .
+@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix profile: &lt;http://PatientSafetyProfile/&gt; .
+@base &lt;http://record/AllergyIntolerance/1&gt; .
+
+&lt;http://record/AllergyIntolerance/&gt; rdf:type owl:Ontology ;
+  <b><span style="color: red">owl:imports &lt;http://PatientSafetyProfile&gt; .</span></b>
+
+###  http://record/AllergyIntolerance/1
+
+&lt;http://record/AllergyIntolerance/1&gt; rdf:type profile:DomainResource, owl:NamedIndividual ;
+   fhir:Resource.id [ rdf:type fhir:id ; fhir:value "1" ] ;
+   fhir:AllergyIntolerance.status [ rdf:type fhir:code , <b><span style="color: green">&lt;http://hl7.org/fhir/allergyIntoleranceStatus#confirmed&gt;</span></b>; 
+      fhir:ConceptBase.coding [ fhir:CodingBase.code [ fhir:value "confirmed" ]  ] 
+   ] ;
+   fhir:AllergyIntolerance.patient [ rdf:type fhir:Reference ; 
+      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient" ] ;
+      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
+      <b><span style="color: red">fhir:Reference.link &lt;http://record/Patient/PeterPatient&gt; </span></b>;
+   ] ;
+   fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept , <b><span style="color: green">&lt;http://snomed.info/id/90614001&gt;</span></b>; 
+      <b><span style="color: red">rdfs:label "beta-lactam (antibiotic)" </span></b>;
+      fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
+         fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
+         fhir:CodingBase.system [ rdf:type fhir:string ; fhir:value "http://snomed.info/sct" ] ;
+         fhir:CodingBase.display [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ] 
+      ] ;
+      fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
+   ] .
+            </pre>
+            <p>
+              Note the use of a profile binding through the type “profile:AllergyIntolerance” which then restricts the types of CodingBase instances.
+            </p>
+          </section>
+        </section>
+        <section id="OWLRecordbindingDefinition">
+          <h2>OWL Record binding Definition</h2>
+          <section id="AllergyIntoleranceClass">
+            <h2>Allergy Intolerance Class</h2>
+            <p>
+              The OWL schema fragment for the class and object properties is shown here:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance
+fhir:AllergyIntolerance rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf fhir:DomainResource ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.status ;
+                                          owl:allValuesFrom fhirvs:allergy-intolerance-statusA
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.status ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.patient ;
+                                          owl:allValuesFrom fhir:Reference
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.patient ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:allValuesFrom fhir:CodeableConcept
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+………………………
+.
+            </pre>
+            <p>
+              It shows that:
+              <ul>
+                <li>AllergyIntolerance.status is restricted to the set defined by fhirvs:allergy intolerance statusA because the binding strength is “required”.</li>
+                <li>AllergyIntolerance.substance is not restricted to the set defined by fhirvs:allergyintolerance substance code but purely to the CodeableConcept since the binding strength is “example”.</li>
+              </ul>
+            </p>
+          </section>
+        </section>
+        <section id="FHIRXMLvaluesetdefinition">
+          <h2>FHIR XML value set definition</h2>
+          <section id="AllergyIntoleranceStatusStructuralDefinition">
+            <h2>Allergy Intolerance Status Structural Definition</h2>
+            <pre class="FHIRXML">
+    &lt;element&gt;
+      &lt;path value="AllergyIntolerance.status"/&gt;
+      &lt;short value="active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error"/&gt;
+      &lt;definition value="Assertion about certainty associated with the propensity, or potential risk, of a reaction
+       to the identified Substance."/&gt;
+      &lt;comments value="Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved'
+       and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation of the Adverse Reaction
+       List. Some implementations may choose to make this field mandatory."/&gt;
+      &lt;alias value="State"/&gt;
+      &lt;min value="0"/&gt;
+      &lt;max value="1"/&gt;
+      &lt;type&gt;
+        &lt;code value="code"/&gt;
+      &lt;/type&gt;
+      &lt;isModifier value="true"/&gt;
+      &lt;isSummary value="true"/&gt;
+      &lt;binding&gt;
+        &lt;strength value="required"/&gt;
+        &lt;description value="Assertion about certainty associated with a propensity, or potential risk, of a reaction
+         to the identified Substance."/&gt;
+        &lt;valueSetReference&gt;
+          &lt;reference value="http://hl7.org/fhir/ValueSet/allergy-intolerance-status"/&gt;
+        &lt;/valueSetReference&gt;
+      &lt;/binding&gt;
+      &lt;mapping&gt;
+        &lt;identity value="v2"/&gt;
+        &lt;map value="IAM-17"/&gt;
+      &lt;/mapping&gt;
+      &lt;mapping&gt;
+        &lt;identity value="w5"/&gt;
+        &lt;map value="status"/&gt;
+      &lt;/mapping&gt;
+    &lt;/element&gt;
+            </pre>
+          </section>
+          <section id="AllergyIntolerance.substanceStructuralDefinition">
+            <h2>AllergyIntolerance.substance Structural Definition</h2>
+            <pre class="FHIRXML">
+    &lt;element&gt;
+      &lt;path value="AllergyIntolerance.substance"/&gt;
+      &lt;short value="Substance, (or class) considered to be responsible for risk"/&gt;
+      &lt;definition value="Identification of a substance, or a class of substances, that is considered to be responsible
+       for the adverse reaction risk."/&gt;
+      &lt;comments value="It is strongly recommended that the substance be coded with a terminology, where possible.
+       For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10,
+       UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology
+       available. Additional details about a substance can be specified in the text."/&gt;
+      &lt;alias value="Agent"/&gt;
+      &lt;min value="1"/&gt;
+      &lt;max value="1"/&gt;
+      &lt;type&gt;
+        &lt;code value="CodeableConcept"/&gt;
+      &lt;/type&gt;
+      &lt;isSummary value="true"/&gt;
+      &lt;binding&gt;
+        &lt;strength value="example"/&gt;
+        &lt;description value="Type of the substance and Negation codes for reporting no known allergies."/&gt;
+        &lt;valueSetReference&gt;
+          &lt;reference value="http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code"/&gt;
+        &lt;/valueSetReference&gt;
+      &lt;/binding&gt;
+      &lt;mapping&gt;
+        &lt;identity value="v2"/&gt;
+        &lt;map value="AL1-3 / IAM-3"/&gt;
+      &lt;/mapping&gt;
+      &lt;mapping&gt;
+        &lt;identity value="w5"/&gt;
+        &lt;map value="what"/&gt;
+      &lt;/mapping&gt;
+    &lt;/element&gt;
+            </pre>
+          </section>
+          <section id="AllergyIntolerance.statusObjectPropertydefinition">
+            <h2>AllergyIntolerance.status Object Property definition</h2>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance.status
+
+fhir:AllergyIntolerance.status rdf:type owl:ObjectProperty ;
+   fhir:binding.valueSetReference "http://hl7.org/fhir/ValueSet/allergy-intolerance-status"^^xsd:anyURI ;
+   fhir:isModifier "true"^^xsd:boolean ;
+   fhir:isSummary "true"^^xsd:boolean ;
+   rdfs:comment "Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved' and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation  of the Adverse Reaction List. Some implementations may choose to make this field mandatory." ;
+   fhir:short "active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error" ;
+   fhir:binding.description "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance." ;
+   fhir:concept_definition "Assertion about certainty associated with the propensity, or potential risk, of a reaction to the identified Substance." ;
+   fhir:binding.strength "required" ;
+   rdfs:domain fhir:AllergyIntolerance ;
+   rdfs:range fhir:code ;
+   rdfs:subPropertyOf fhir:objectProperty .
+            </pre>
+          </section>
+          <section id="AllergyIntolerance.substanceObjectProperty">
+            <h2>AllergyIntolerance.substance Object Property</h2>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance.substance
+
+fhir:AllergyIntolerance.substance rdf:type owl:ObjectProperty ;
+   fhir:isSummary "true"^^xsd:boolean ;
+   fhir:binding.valueSetReference "http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code" ;
+   fhir:short "Substance, (or class) considered to be responsible for risk" ;
+   fhir:concept_definition "Identification of a substance, or a class of substances, that is considered to be responsible for the adverse reaction risk." ;
+   fhir:binding.strength "example" ;
+   rdfs:comment "It is strongly recommended that the substance be coded with a terminology, where possible.  For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10, UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology available. Additional details about a substance can be specified in the text." ;
+   fhir:binding.description "Type of the substance and Negation codes for reporting no known allergies." ;
+   rdfs:domain fhir:AllergyIntolerance ;
+   rdfs:range fhir:CodeableConcept ;
+   rdfs:subPropertyOf fhir:objectProperty .
+            </pre>
+          </section>
+        </section>
+        <section id="ApproachtoConformance">
+          <h2>Approach to Conformance</h2>
+          <p>
+            Binding strength to a ValueSet determines the conformance of the CodingBase.
+          </p><p>Almost all of the elements that have a coded data type are bound to a value set. The bindings are associated with various degrees of flexibility as to how closely the value set should be followed: 
+          </p>
+          <table border="1" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td valign="top">
+                  <p>
+                    Required
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    To be conformant, instances of this element SHALL include a code from the specified value set
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    extensible
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    To be conformant, instances of this element must include a code from the specified value set if any of the codes within the value set can
+                    apply to the concept being communicated. If the valueset does not cover the concept (based on human review), alternate codings (from
+                    different code systems, including local ones) or (data type allowing) text) may be included instead.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    Preferred
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Instances are encouraged, to draw from the specified codes for interoperability purposes but are not required to do so to be considered
+                    conformant
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    Example
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Instances are not expected or even encouraged to draw from the specified value set. The value set merely provides examples of the types of
+                    concepts intended to be included
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            The classes that the CodingBase individual belong to, are inferred and the individual must belong to the ValueSet class declared in the schema if its binding strength is “required”. 
+          </p><p>In the example above, the individual ConceptBase has a CodingBase which is a member of <span style="color: red">fhirvs:allergy-intolerance-statusA</span> so the ConceptBase individual is conformant to the schema.
+          </p><p>This implies that a reasoner will work from the values in the CodingBase.system and CodingBase.code to infer the classes. The ValueSet Class must be equivalent or a superclass of the restriction for this to work.
+          </p><p>Being a member of the Target ValueSet meets the “required” binding strength. Being a member of another ValueSet meets the “extensible” binding strength.
+          </p><p>Note that the binding strength for AllergyIntolerance.substance is “example”. It is expected that a Profile would strengthen this to “required”.
+          </p><p>In ORIM, the subclassing of restrictions approach (as a general Class axiom) is taken which avoids complications from propagation. This subclass approach for restrictions and the superclass approach for Concepts will be taken in FHIR/RDF.
+          </p><p>The testing of the conformance is outside the scope of this paper but is expected to be performed with rules or query languages.
+          </p>
+        </section>
+        <section id="HL7InternalConceptRDFExample">
+          <h2>HL7 Internal Concept RDF Example</h2>
+          <section id="CodeSystemandConceptXML">
+            <h2>CodeSystem and Concept XML</h2>
+            <pre class="FHIRXML">
+&lt;ValueSet xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="allergy-intolerance-status"/&gt;
+  &lt;meta&gt;
+    &lt;lastUpdated value="2015-10-27T02:58:28.599+00:00"/&gt;
+    &lt;profile value="http://hl7.org/fhir/StructureDefinition/valueset-shareable-definition"/&gt;
+  &lt;/meta&gt;
+  &lt;text&gt;
+
+  &lt;/text&gt;
+  &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+    &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.2.50"/&gt;
+  &lt;/extension&gt;
+  &lt;url value="http://hl7.org/fhir/ValueSet/allergy-intolerance-status"/&gt;
+  &lt;version value="1.0.2"/&gt;
+  &lt;name value="AllergyIntoleranceStatus"/&gt;
+  &lt;status value="draft"/&gt;
+  &lt;experimental value="false"/&gt;
+  &lt;publisher value="HL7 (FHIR Project)"/&gt;
+  &lt;contact&gt;
+    &lt;telecom&gt;
+      &lt;system value="other"/&gt;
+      &lt;value value="http://hl7.org/fhir"/&gt;
+    &lt;/telecom&gt;
+    &lt;telecom&gt;
+      &lt;system value="email"/&gt;
+      &lt;value value="fhir@lists.hl7.org"/&gt;
+    &lt;/telecom&gt;
+  &lt;/contact&gt;
+  &lt;date value="2015-10-27T02:58:28+00:00"/&gt;
+  &lt;description value="Assertion about certainty associated with a propensity, or potential risk, of a reaction
+   to the identified Substance."/&gt;
+  &lt;codeSystem&gt;
+    &lt;extension url="http://hl7.org/fhir/StructureDefinition/valueset-oid"&gt;
+      &lt;valueUri value="urn:oid:2.16.840.1.113883.4.642.1.50"/&gt;
+    &lt;/extension&gt;
+    &lt;system value="http://hl7.org/fhir/allergy-intolerance-status"/&gt;
+    &lt;version value="1.0.2"/&gt;
+    &lt;caseSensitive value="true"/&gt;
+    &lt;concept&gt;
+      &lt;code value="active"/&gt;
+      &lt;display value="Active"/&gt;
+      &lt;definition value="An active record of a reaction to the identified Substance."/&gt;
+      &lt;concept&gt;
+        &lt;code value="unconfirmed"/&gt;
+        &lt;display value="Unconfirmed"/&gt;
+        &lt;definition value="A low level of certainty about the propensity for a reaction to the identified Substance."/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="confirmed"/&gt;
+        &lt;display value="Confirmed"/&gt;
+        &lt;definition value="A high level of certainty about the propensity for a reaction to the identified Substance,
+         which may include clinical evidence by testing or rechallenge."/&gt;
+      &lt;/concept&gt;
+    &lt;/concept&gt;
+    &lt;concept&gt;
+      &lt;code value="inactive"/&gt;
+      &lt;display value="Inactive"/&gt;
+      &lt;definition value="An inactive record of a reaction to the identified Substance."/&gt;
+      &lt;concept&gt;
+        &lt;code value="resolved"/&gt;
+        &lt;display value="Resolved"/&gt;
+        &lt;definition value="A reaction to the identified Substance has been clinically reassessed by testing or rechallenge
+         and considered to be resolved."/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="refuted"/&gt;
+        &lt;display value="Refuted"/&gt;
+        &lt;definition value="A propensity for a reaction to the identified Substance has been disproven with a high
+         level of clinical certainty, which may include testing or rechallenge, and is refuted."/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="entered-in-error"/&gt;
+        &lt;display value="Entered In Error"/&gt;
+        &lt;definition value="The statement was entered in error and is not valid."/&gt;
+      &lt;/concept&gt;
+    &lt;/concept&gt;
+  &lt;/codeSystem&gt;
+&lt;/ValueSet&gt; 
+            </pre>
+          </section>
+          <section id="RDFDirectRestriction">
+            <h2>RDF Direct Restriction</h2>
+            <p>
+              The first option for value set is where the valueset entry defines the direct restriction on code and system itself without referencing a named concept and when the ValueSet is aligned (all codes from) with the CodingSystem the declaration is simple. 
+            </p><p>Valueset allergy-intolerance-statusA is defined using general class axiom restriction on CodingBase.system
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/allergy-intolerance-statusA
+
+fhirvs:allergy-intolerance-statusA rdf:type owl:Class ;
+   rdfs:subClassOf fhir:Valuesets .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf fhirvs:allergy-intolerance-statusA ;
+  owl:onProperty fhir:CodingBase.system ;
+  owl:hasValue fhircs:allergy-intolerance-status
+] .
+              </pre>
+            <p>
+              However, this mechanism does not validate that the coding is actually a member of the Code System which cannot be done without doing an indirect restriction (see B).
+            </p>
+          </section>
+          <section id="RDFAlignedValueSetofCodingBasetoConcept">
+            <h2>RDF Aligned ValueSet of CodingBase to Concept (B)</h2>
+            <p>
+              Since we can use the set expressions of OWL on classes (Concepts) there is a simplification to the expression of Valuesets subclasses as shown in allergy-intolerance-statusC.
+            </p><p>The concepts are named classes as shown earlier. The Valuesets subclass can now refer to these named classes avoiding repetitive declaration of anonymous classes.
+            </p><p>When the valueset is aligned with the code system the ValueSet is a superclass of all the CodingBase individuals which have a type Concept of the top concept (inferred).
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/allergy-intolerance-statusC
+
+fhirvs:allergy-intolerance-statusC rdf:type owl:Class ;
+   rdfs:label "Allergy Int Status C" ;
+   rdfs:subClassOf fhir:Valuesets .
+
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf fhirvs:allergy-intolerance-statusC ;
+  owl:onProperty fhir:CodingBase.concept ;
+  owl:someValuesFrom allergy-intolerance-status:Concept
+] .
+              </pre>
+            <p>
+              This is entered as a general class axiom as in the other examples.
+            </p><p>Note the Object Property CodingBase.concept which is the inverse of ConceptBase.coding:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/CodingBase.concept
+
+fhir:CodingBase.concept rdf:type owl:ObjectProperty ;
+   owl:inverseOf fhir:ConceptBase.coding ;
+   rdfs:subPropertyOf fhir:objectProperty .
+              </pre>
+            <p>
+              The object property is then used in the restriction to say that the CodingBase individual belongs to the Concept as defined in the Concept restriction (in section 4.2.3).
+            </p>
+          </section>
+        </section>
+        <section id="ExternalterminologyValueSets">
+          <h2>External terminology ValueSets</h2>
+          <section id="Allcodesfrom">
+            <h2>All codes from</h2>
+            <p>
+              No examples are given where the Valueset is all codes from an external code system since this is generally too broad. If this is required the same process as internal terminologies can be used.
+            </p>
+          </section>
+          <section id="ValueSetResourceexampleinXML">
+            <h2>ValueSet Resource example in XML</h2>
+            <p>
+              The valueset “allergyintolerance-substance-code” includes the valueset “substance-code” but adds some additional codes:
+            </p>
+            <pre class="FHIRXML">
+&lt;ValueSet xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="substance-code"/&gt;
+   
+  &lt;description value="This value set contains concept codes for specific substances"/&gt;
+  &lt;copyright value="This value set includes content from SNOMED CT, which is copyright © 2002+ International
+   Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement
+   between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"/&gt;
+  &lt;compose&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="105590001"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="373873005"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+  &lt;/compose&gt;
+&lt;/ValueSet&gt;
+            </pre>
+            <pre class="FHIRXML"><b>
+&lt;ValueSet xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="allergyintolerance-substance-code"/&gt;
+   
+  &lt;description value="This value set includes concept codes for specific substances and negation codes to specify
+   the absence of specific types of allergies."/&gt;
+  &lt;copyright value="This value set includes content from SNOMED CT, which is copyright © 2002+ International
+   Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement
+   between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement"/&gt;
+  &lt;compose&gt;
+    &lt;import value="http://hl7.org/fhir/ValueSet/substance-code"/&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;concept&gt;
+        &lt;code value="160244002"/&gt;
+        &lt;display value="No Known Allergies"/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="429625007"/&gt;
+        &lt;display value="No Known Food Allergies"/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="409137002"/&gt;
+        &lt;display value="No Known Drug Allergies"/&gt;
+      &lt;/concept&gt;
+      &lt;concept&gt;
+        &lt;code value="428607008"/&gt;
+        &lt;display value="No Known Environmental Allergy"/&gt;
+      &lt;/concept&gt;
+    &lt;/include&gt;
+  &lt;/compose&gt;
+&lt;/ValueSet&gt;
+            </b>
+            </pre>
+            <p>
+              Notice that allergyintolerance-substance-code extends substance-code with 4 concepts with their code restrictions and the system restriction at the beginning.
+            </p>
+          </section>
+          <section id="RDFCodingBaseDirectRestriction">
+            <h2>RDF CodingBase Direct Restriction (A)</h2>
+            <p>
+              The Valueset substance-codeB is declared in the FHIR ontology with no restrictions:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/substance-codeA
+
+fhirvs:substance-codeB rdf:type owl:Class ;
+   rdfs:label "Substance Code" ;
+   rdfs:subClassOf fhir:Valuesets.
+              </pre>
+            <p>
+              In the Bridging Ontology, substance-codeA is declared against CodingBase.system and CodingBase.code restrictions. 
+            </p>
+            <pre class="FHIRRDF shared">
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/substance-codeA&gt; ;
+  owl:intersectionOf ( [ rdf:type owl:Restriction ; owl:onProperty fhir:CodingBase.code ;
+        owl:allValuesFrom [ rdf:type owl:Class ;
+           owl:unionOf ( 
+              [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "105590001" ]
+              [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "373873005" ]
+           )
+        ]
+     ]
+     [ rdf:type owl:Restriction ; owl:onProperty fhir:CodingBase.system ;
+        owl:hasValue &lt;http://snomed.info/sct&gt;
+     ]
+  )
+] .
+              </pre>
+            <p>
+              This will only define the ValueSet as the top code and does not include all the subconcepts as codes. In order to do this an expansion must be made with a filter. See <b>http://hl7-fhir.github.io/valueset-allergyintolerance-substance-code.html</b> 
+            </p><p>The operation &lt;filter&gt;&lt;op&gt; declares “is-a” to mean transitive subclassing. However this is not understood by RDF/OWL. What is understood is the subclassing of the SNOMED Concept ontology itself.
+            </p><p>The only solution is to extract all the codes in the hierarchy and explicitly declare them in the Bridging Ontology. The treatment of allergyintolerance-substance-code is to add the concepts to the enumerated list.
+            </p>
+          </section>
+          <section id="RDFValueSetbindingtoConcepts">
+            <h2>RDF ValueSet binding to Concepts(B)</h2>
+            <p>
+              The valueset substance-codeB is declared in FHIR as before:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/substance-codeB
+
+fhirvs:substance-codeB rdf:type owl:Class ;
+                       rdfs:label "Substance  Codes B" ;
+                       rdfs:subClassOf fhir: Valuesets .
+            </pre>
+            <p>
+              The allergyintolerance-substance-code valueset is also declared in FHIR
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code
+
+&lt;http://hl7.org/fhir//ValueSet/allergyintolerance-substance-code&gt; rdf:type owl:Class ;
+   rdfs:label " AllergyIntolerance Substance and Negation Codes" ;
+   rdfs:subClassOf fhir:CodingBase_in_Valuesets .
+            </pre>
+            <p>
+              The bridging ontology declares a general Class axiom which shows the mapping to the Concepts:
+            </p>
+            <pre class="FHIRRDF shared">
+[ rdf:type owl:Restriction ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/substance-codeB&gt; ;
+  owl:onProperty fhir:CodingBase.concept ; owl:someValuesFrom [ rdf:type owl:Class ;
+     owl:unionOf ( &lt;http://snomed.info/id/105590001&gt;
+                   &lt;http://snomed.info/id/373873005&gt;
+                 )
+                     ]
+] .
+            </pre>
+            <pre class="FHIRRDF shared">
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code&gt; ;
+  owl:unionOf ( &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty fhir:CodingBase.concept ; owl:someValuesFrom [ rdf:type owl:Class ;
+                     owl:unionOf ( &lt;http://snomed.info/id/160244002&gt;
+                                   &lt;http://snomed.info/id/409137002&gt;
+                                   &lt;http://snomed.info/id/428607008&gt;
+                                   &lt;http://snomed.info/id/429625007&gt;
+                                 )
+                  ]
+                ]
+              )
+] .
+            </pre>
+            <p>
+              CodingBase.concept defines the restriction on concepts for the Codingbase.
+            </p><p>The display values are redundant and since closure is achieved with these classes, their display as rdfs:label can be shown at any time in an OWL tool.
+            </p>
+          </section>
+          <section id="FHIRAllergyIntoleranceOWLSchema">
+            <h2>FHIR Allergy Intolerance OWL Schema</h2>
+            <p>
+              The schema is abridged to show the topics of interest:
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/AllergyIntolerance
+
+fhir:AllergyIntolerance rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf fhir:DomainResource ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty fhir:AllergyIntolerance.substance ;
+                                          owl:allValuesFrom fhir:CodeableConcept
+                                        ] ,
+Etc..
+.
+            </pre>
+            <p>
+              The substance Object Property has no valueset type yet only the restriction that it is a CodeableConcept type. The valueset gets applied through the structural definition or profile binding.
+            </p>
+          </section>
+        </section>
+        <section id="DefinitionsofCodeSystemConcept">
+          <h2>Definitions of Code System, Concept</h2>
+          <p>
+            This section is needed to ground the definitions of Coding System, and Concept when defined in RDF/OWL.
+          </p>
+          <section id="CodeSystem">
+            <h2>Code System</h2>
+            <p>
+              The system ensures that codes can be unambiguously traced back to their original definition, and that logical comparisons, matching and inferences can be performed consistently by different systems.
+            </p><p>In RDF/OWL a code system is a namespace in which the code is unique. Since a code forms a fragment of a URI, the code-system forms a prefix to that fragment making it unique. The code system identity and the prefix may not be the same but are related using a property of the code system.
+            </p>
+            <table border="1" cellspacing="0" cellpadding="0">
+              <tbody>
+                <tr>
+                  <td width="108" valign="top">
+                    <p>
+                      <strong>URI</strong>
+                    </p>
+                  </td>
+                  <td width="118" valign="top">
+                    <p>
+                      <strong>Source</strong>
+                    </p>
+                  </td>
+                  <td width="116" valign="top">
+                    <p>
+                      <strong>OID</strong>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="108" valign="top">
+                    <p>
+                      http://snomed.info/sct <a name="http://snomed.info/sct"></a>
+                    </p>
+                  </td>
+                  <td valign="top">
+                    <p>
+                      SNOMED CT (IHTSDO )
+                    </p>
+                  </td>
+                  <td valign="top">
+                    <p>
+                      2.16.840.1.113883.6.96
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              The prefix for snomed is http://snomed.info.id/
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://snomed.info/sct
+
+&lt;http://snomed.info/sct&gt; rdf:type fhir:CodeSystemURI ,
+                                  owl:NamedIndividual ;
+                         
+                         fhir:value "http://snomed.info/sct" .
+            </pre>
+            <p>
+              A specific CodeSystem may be declared as a class which is a set of all the CodingBase individuals restricted by the CodingBase.system property.
+            </p>
+            <pre class="FHIRRDF shared">
+###  http://snomed.info/sct
+
+&lt;http://snomed.info/sct&gt; rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf fhir:CodingBase_in_Systems .
+            </pre>
+          </section>
+        </section>
+        <section id="Concept">
+          <h2>Concept</h2>
+          <p>
+            A concept may be a single Class in RDF which may in turn be a union of multiple classes based on subclass relationships.
+          </p>
+          <section id="ValueSet">
+            <h2>ValueSet</h2>
+            <p>
+              Example is substance-code used in AllergyIntolerance
+            </p>
+            <section id="Summary">
+              <h2>Summary</h2>
+              <table border="1" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Defining URL:
+                      </p>
+                    </td>
+                    <td valign="top">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Name:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Substance Code
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Definition:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        This value set contains concept codes for specific substances
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        OID:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        2.16.840.1.113883.4.642.2.57 (for OID based terminology systems)
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Copyright:
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        This value set includes content from SNOMED CT, which is copyright © 2002+ International Health Terminology Standards Development
+                        Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Source Resource
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <a href="http://hl7-fhir.github.io/valueset-substance-code.xml.html">XML</a>
+                        / <a href="http://hl7-fhir.github.io/valueset-substance-code.json.html">JSON</a>
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section id="ContentLogicalDefinition">
+              <h2>Content Logical Definition</h2>
+              <p>
+                This value set includes codes from the following code systems:
+                <ul>
+                  <li>Include codes from http://snomed.info/sct where concept is-a 105590001</li>
+                  <li>Include codes from http://snomed.info/sct where concept is-a 373873005</li>
+                </ul>
+              </p>
+            </section>
+            <section id="RDFDefinition">
+              <h2>RDF Definition</h2>
+              <p>
+                Since these concepts in snomed are hierarchical, classes the valueset is by definition a union of concept classes.
+                </p><p>A named Valueset as a class is a union of named concept classes (not a superclass). If an instance of CodingBase is typed to a Valueset then it probably means that the codeBase is unknown or to be selected.
+                </p><p>The FHIR “include” gets stranslated to a union expression:
+              </p>
+            </section>
+            <section id="Examples">
+              <h2>Examples</h2>
+              <section id="ValueSetschemainFHIR">
+                <h2>ValueSet schema in FHIR</h2>
+                <p>
+                  A ValueSet individual will have define, compose and expansion object properties to applicable objects. The following RDF samples show a direct translation of the metamodel viewpoint.
+                </p>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet
+fhir:ValueSet rdf:type owl:Class ;
+              rdfs:subClassOf fhir:DomainResource ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.define ;
+                                owl:allValuesFrom fhir:ValueSet.Define
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.define ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.compose ;
+                                owl:allValuesFrom fhir:ValueSet.Compose
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.expansion ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.expansion ;
+                                owl:allValuesFrom fhir:ValueSet.Expansion
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty fhir:ValueSet.compose ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] .
+
+###  http://hl7.org/fhir/ValueSet.Compose
+fhir:ValueSet.Compose rdf:type owl:Class ;
+                      rdfs:subClassOf fhir:BackboneElement .
+                </pre>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet.Concept
+fhir:ValueSet.Concept rdf:type owl:Class ;
+                      rdfs:subClassOf fhir:BackboneElement ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.display ;
+                                        owl:allValuesFrom fhir:string
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.code ;
+                                        owl:cardinality "1"^^xsd:nonNegativeInteger
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.code ;
+                                        owl:allValuesFrom fhir:code
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.definition ;
+                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.display ;
+                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty fhir:ValueSet.Concept.definition ;
+                                        owl:allValuesFrom fhir:string
+                                      ] .
+                </pre>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet.Define
+fhir:ValueSet.Define rdf:type owl:Class ;
+                     rdfs:subClassOf fhir:BackboneElement ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:ValueSet.Define.system ;
+                                       owl:allValuesFrom fhir:uri
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:ValueSet.Define.system ;
+                                       owl:cardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty fhir:ValueSet.Define.concept ;
+                                       owl:allValuesFrom fhir:ValueSet.Concept
+                                     ] .
+
+###  http://hl7.org/fhir/ValueSet.Expansion
+fhir:ValueSet.Expansion rdf:type owl:Class ;
+                        rdfs:subClassOf fhir:BackboneElement .
+                </pre>
+              </section>
+            </section>
+          </section>
+          <section id="FHIRinternalSystemandCodingbindings">
+            <h2>FHIR internal System and Coding bindings (OWL Schema)</h2>
+            <p>
+              The system is inclusive of all the terms within it and all the instances of those terms.
+            </p>
+            <pre class="FHIRRDF shared">
+@prefix allergy-intolerance-status: &lt;http://hl7.org/fhir/allergy-intolerance-status#&gt; .
+
+###  http://hl7.org/fhir/allergy-intolerance-status
+
+fhir:allergy-intolerance-status rdf:type owl:Class ;
+  rdfs:subClassOf fhir:valueset-system ,
+  [ rdf:type owl:Class ;
+    owl:unionOf ( 
+      allergy-intolerance-status:confirmed
+      allergy-intolerance-status:entered-in-error
+      allergy-intolerance-status:refuted
+      allergy-intolerance-status:resolved
+      allergy-intolerance-status:unconfirmed
+    )
+  ] ,
+  [ rdf:type owl:Restriction ;
+    owl:onProperty fhir:CodingBase.system ;
+    owl:allValuesFrom [ rdf:type owl:Restriction ;
+      owl:onProperty fhir:value ; owl:hasValue "http://hl7.org/fhir/allergy-intolerance-status"
+    ]
+  ] ;
+  fhir:prefix "http://hl7.org/fhir/allergy-intolerance-status#" .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#confirmed
+
+allergy-intolerance-status:confirmed rdf:type owl:Class ;
+  rdfs:label "Confirmed" ;
+  rdfs:subClassOf fhir:allergy-intolerance-status ,
+  [ rdf:type owl:Restriction ;
+    owl:onProperty fhir:CodingBase.code ;
+    owl:allValuesFrom [ rdf:type owl:Restriction ;
+      owl:onProperty fhir:value ; owl:hasValue "confirmed"
+    ]
+  ] ;
+  rdfs:comment "A high level of certainty about the propensity for a reaction to the identified Substance, which may include clinical evidence by testing or rechallenge." .
+
+###  http://hl7.org/fhir/allergy-intolerance-status#entered-in-error
+
+allergy-intolerance-status:entered-in-error rdf:type owl:Class ;
+  rdfs:label "Entered In Error" ;
+  rdfs:subClassOf fhir:allergy-intolerance-status ,
+  [ rdf:type owl:Restriction ;
+    owl:onProperty fhir:CodingBase.code ;
+    owl:allValuesFrom [ rdf:type owl:Restriction ;
+      owl:onProperty fhir:value ; owl:hasValue "entered-in-error"
+    ]
+  ] ;
+  rdfs:comment "The statement was entered in error and is not valid" .
+            </pre>
+            <p>
+              The system Class definition shows it is a subclass of the abstract valueset-system and restricts its members to the CodingBase.system.
+              </p><p>There is also an annotation property fhir:prefix which defines the structure of the URI prefix when naming the members of the system. It causes the @prefix declaration.
+              </p><p>Two members are shown “confirmed” and “entered-in-error”. They are subclasses of allergy-intolerance-status and have the restrictions of that class so they do not have to declare CodingBase.system restrictions.
+            </p>
+          </section>
+          <section id="SystemandcodingsexternalRDFrepresentation">
+            <h2>System and codings external RDF representation</h2>
+            <p>
+              From the SNOMED RDF:
+            </p>
+            <pre class="FHIRRDF shared">
+&lt;http://snomed.info/id/138875005&gt; rdf:type owl:Class ;
+                                  rdfs:label "SNOMED CT Concept" .
+
+&lt;http://snomed.info/id/105590001&gt; rdf:type owl:Class ;
+                                  rdfs:label "Substance (substance)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+&lt;http://snomed.info/id/373873005&gt; rdf:type owl:Class ;
+                                  rdfs:label "Pharmaceutical / biologic product (product)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/138875005&gt; .
+
+&lt;http://snomed.info/id/346325008&gt; rdf:type owl:Class ;
+                                  rdfs:label "Antibacterial drugs (product)" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/373873005&gt; .
+
+&lt;http://snomed.info/id/90614001&gt; rdf:type owl:Class ;
+                                  rdfs:label "beta-Lactam antibiotic" ;
+                                  rdfs:subClassOf &lt;http://snomed.info/id/346325008&gt; .
+            </pre>
+            <p>
+              The system is defined further in the FHIR ontology
+            </p>
+            <pre class="FHIRRDF shared">
+@prefix sct: &lt;http://snomed.info/id/&gt; .
+
+###  http://snomed.info/sct
+
+&lt;http://snomed.info/sct&gt; rdf:type owl:Class ;
+  rdfs:subClassOf fhir:valueset-system ;
+  fhir:prefix "http://snomed.info/id/" .
+            </pre>
+          </section>
+          <section id="ValuesetDefinition">
+            <h2>Valueset Definition</h2>
+            <p>
+              A ValueSet is somewhat similar to a value-set-system in that it applies constraints to the members but they can be from different systems.
+            </p><p>The specific ValueSet is a Class which is a union of Concept classes from one or more coding-systems. It is expected that this representation can be computed from the FHIR representation.
+            </p>
+              <section id="Anonymouscodings">
+                <h2>Anonymous codings</h2>
+                <p>
+                  Here is the definition of the specific ValueSet as a Class with restrictions on values not types:
+                </p>
+                <pre class="FHIRRDF shared">
+&lt;http://hl7.org/fhir/vs/allergy-intolerance-status&gt; rdf:type owl:Class ;
+  rdfs:label "Allergy Intolerance Status Value Set" ;
+  rdfs:subClassOf fhir:valueset ,
+  [ rdf:type owl:Class ;
+    owl:intersectionOf ( 
+      [ rdf:type owl:Restriction ;
+        owl:onProperty fhir:CodingBase.code ;
+        owl:someValuesFrom [ rdf:type owl:Class ;
+          owl:unionOf ( 
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "confirmed" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "entered-in-error" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "refuted" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "resolved" ]
+            [ rdf:type owl:Restriction ; owl:onProperty fhir:value ; owl:hasValue "unconfirmed" ]
+          )
+        ]
+      ]
+      [ rdf:type owl:Restriction ;
+        owl:onProperty fhir:CodingBase.system ;
+        owl:allValuesFrom [ rdf:type owl:Restriction ; owl:onProperty fhir:value ;
+          owl:hasValue "http://fhir/allergy-intolerance-status"
+        ]
+      ]
+    )
+  ] .
+                </pre>
+                <p>
+                  If the valueset needs to identify CodingBase restrictions from other systems then the restriction will have a slightly different structure. The example here shows the optimization for a single system (Define).
+                </p>
+              </section>
+            <section id="Namedcodings">
+              <h2>Named codings</h2>
+              <p>
+                If named codings are used then the expression can be greatly simplified since the restrictions are in the named class.
+              </p>
+              <pre class="FHIRRDF shared">
+&lt;http://hl7.org/fhir/vs/allergy-intolerance-status&gt; rdf:type owl:Class ;
+rdfs:label "Allergy Intolerance Status Value Set" ;
+rdfs:subClassOf fhir:valueset ,
+  [ rdf:type owl:Class ;
+    owl:unionOf ( allergy-intolerance-status:confirmed
+      allergy-intolerance-status:entered-in-error
+      allergy-intolerance-status:refuted
+      allergy-intolerance-status:resolved
+      allergy-intolerance-status:unconfirmed
+    )
+  ] .
+              </pre>
+            </section>
+          </section>
+          <section id="ValueSetschemainthemetamodel">
+            <h2>ValueSet schema in the metamodel</h2>
+            <p>
+              A metamodel is introduced when Classes in the Model are instances of MetaClasses which are subclasses of owl:class. In general the Element Definition (1.23.0) is a metamodel.
+              </p><p>In the metamodel viewpoint, an instance of ValueSet will have object property assertions to 
+                <ul>
+                  <li type="a">instances of ValueSet.Define if all the codes are taken from a single system</li>
+                  <li type="a">instances of ValueSet.Compose if the codes come from multiple systems and allow inclusion and exclusion </li>
+                  <li type="a">instances of ValueSet.Expansion if the valueset is converted into an enumerated list</li>
+                </ul>
+              A ValueSet individual will have define, compose and expansion object properties to applicable objects. However, these object property semantics are not understood by RDF or OWL. They are translated in the Model to subclass, intersection and union relationships between classes.
+            </p>
+          </section>
+          <section id="RestrictionequivalentstoComposeElements">
+            <h2>Restriction equivalents to Compose Elements</h2>
+            <p>
+              The Compose element has subelements – import, include, exclude.
+            </p>
+            <section id="Import">
+              <h2>Import</h2>
+              <p>
+                Import has a value of a ValueSet URI that is to be imported (see earlier Valueset example – 7.2.1)
+              </p>
+              <pre class="FHIRRDF shared">
+                owl:unionOf ( &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;
+                [ rdf:type owl:Restriction ;
+                Etc.]
+              )
+              </pre>
+              <p>
+                The import equivalent is the unionOf with the named Class representing the Valueset (here shown as &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;.
+              </p>
+            </section>
+            <section id="CodeSystem_Concepts">
+              <h2>CodeSystem – Concepts</h2>
+              <p>
+                The extensional definition of a Code system includes its concepts as subclasses of the top concept. This is translated into a CodeSystemURI individual with the annotation properties of the CodeSystem and the associated Concept Classes. 
+                </p><p>However, there is no direct ontology relationship between the CodeSystemURI and the top concept. Some thoughts about a pun relationship might be useful.
+                </p><p>See - HL7 Internal Concept RDF Example.
+              </p>
+            </section>
+            <section id="Filter">
+              <h2>Filter</h2>
+              <p>
+              The Filter element selects concepts by specify a matching criteria based on the properties (including relationships) defined by the system. If multiple filters are specified, they SHALL all be true.
+              </p><p>The Filter Operator value set has an inline code system http://hl7.org/fhir/filter-operator, which defines the following codes:
+              </p>
+              <table border="1" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        <strong>Code</strong>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <strong>Display</strong>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <strong>Definition</strong>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        =<a name=".61"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Equals
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> equals the provided value.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        is-a<a name="is-a"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Is A (by subsumption)
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Includes all <strong>concept</strong> ids that have a transitive is-a relationship with the concept Id provided as the value, including the
+                        provided concept itself.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        is-not-a<a name="is-not-a"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Not (Is A) (by subsumption)
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> does not have an is-a relationship with the provided value.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        regex<a name="regex"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Regular Expression
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> matches the regex specified in the provided value.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        in<a name="in"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        In Set
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> is in the set of codes or concepts specified in the provided value (comma separated
+                        list).
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        not-in<a name="not-in"><u> </u></a>
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        Not in Set
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        The specified property of the <strong>code</strong> is not in the set of codes or concepts specified in the provided value (comma separated
+                        list).
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section id="Is_a_bysubsumption">
+              <h2>Is-a – by subsumption</h2>
+              <section id="XMLexample">
+                <h2>XML example</h2>
+                <pre class="FHIRXML">
+&lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="105590001"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+    &lt;include&gt;
+      &lt;system value="http://snomed.info/sct"/&gt;
+      &lt;filter&gt;
+        &lt;property value="concept"/&gt;
+        &lt;op value="is-a"/&gt;
+        &lt;value value="373873005"/&gt;
+      &lt;/filter&gt;
+    &lt;/include&gt;
+                </pre>
+                <p>
+                  The difficulty with this filter is that while it appears to apply to the concept class which can have is-a subsumption, the value is the CodingBase.code value which restricts it to the concept class without subsumption. CodingBase is a single class and the instances are not subsumable.
+                </p>
+              </section>
+              <section id="ComposeIncludeis-aConcept">
+                <h2>Compose Include is-a Concept</h2>
+                <p>
+                  The approach is that the value must be translated into the Concept Class Name which would be &lt;http://snomed.info/id/373873005&gt; and would be used in the restriction.
+                </p>
+                <pre class="FHIRRDF shared">
+                  &lt;http://snomed.info/sct&gt; fhir:prefix "http://snomed.info/id/"^^xsd:string .
+                </pre>
+                <p>
+                  An annotation property on the CodeSystem individual can be used to construct the concept name where a simple prefix is used with the codeBase value.
+                  </p><p>This may also be articulated by the ValueSet fragment class which has the system and filter annotation properties and could be translated into the final RDF form.
+                  </p><p>The include element in conjunction with filtering on is-a concept is transformed into a union of the named concept:
+                </p>
+                <pre class="FHIRRDF shared">
+owl:someValuesFrom [ rdf:type owl:Class ;
+                       owl:unionOf ( &lt;http://snomed.info/id/105590001&gt;
+                                     &lt;http://snomed.info/id/373873005&gt;
+                </pre>
+              </section>
+            </section>
+            <section id="Exclude">
+              <h2>Exclude</h2>
+              <section id="XMLExample">
+                <h2>XML Example</h2>
+                <pre class="FHIRXML">
+         &lt;exclude&gt;
+            &lt;system value="http://snomed.info/sct"/&gt;
+            &lt;filter&gt;
+              &lt;property value="concept"/&gt;
+              &lt;op value="is-a"/&gt;
+              &lt;value value="410942007"/&gt;
+            &lt;/filter&gt;
+          &lt;/exclude&gt;
+                </pre>
+              </section>
+              <section id="ComposeExcludeis-aConcept">
+                <h2>Compose Exclude is-a Concept</h2>
+                <pre class="FHIRRDF shared">
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code&gt; ;
+  owl:unionOf ( &lt;http://hl7.org/fhir/ValueSet/substance-codeD&gt;
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty fhir:CodingBase.concept ;
+                  owl:someValuesFrom [ rdf:type owl:Class ;
+                                       owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                              owl:unionOf ( &lt;http://snomed.info/id/160244002&gt;
+                                                                            &lt;http://snomed.info/id/409137002&gt;
+                                                                            &lt;http://snomed.info/id/428607008&gt;
+                                                                            &lt;http://snomed.info/id/429625007&gt;
+                                                                          )
+                                                            ]
+                                                            [ rdf:type owl:Class ;
+                                                              owl:complementOf &lt;http://snomed.info/id/410942007&gt;
+                                                            ]
+                                                          )
+                                     ]
+                ]
+              )
+] .
+                </pre>
+                <p>
+                  In this case the concept &lt;http://snomed.info/id/410942007&gt; is in the intersection as a complementOf so as to be excluded.
+                </p>
+              </section>
+            </section>
+            <section id="EqualsandIn">
+              <h2>Equals and In</h2>
+              <section id="XMLExample">
+                <h2>XML Example</h2>
+                <pre class="FHIRXML">
+       &lt;description value="All RxNorm codes that have TTY = IN,PIN,MIN,BN, but TTY != OCD."/&gt;
+        &lt;compose&gt;
+          &lt;include&gt;
+            &lt;system value="http://www.nlm.nih.gov/research/umls/rxnorm"/&gt;
+            &lt;filter&gt;
+              &lt;property value="TTY"/&gt;
+              &lt;op value="in"/&gt;
+              &lt;value value="IN,PIN,MIN,BN"/&gt;
+            &lt;/filter&gt;
+          &lt;/include&gt;
+          &lt;exclude&gt;
+            &lt;system value="http://www.nlm.nih.gov/research/umls/rxnorm"/&gt;
+            &lt;filter&gt;
+              &lt;property value="TTY"/&gt;
+              &lt;op value="="/&gt;
+              &lt;value value="OCD"/&gt;
+            &lt;/filter&gt;
+          &lt;/exclude&gt;
+        &lt;/compose&gt;
+                </pre>
+                <p>
+                  These properties are specific to the code systems illustrated and would be expressed in the bridging ontology for that system.
+                </p>
+              </section>
+              <section id="FilterRDFExpression">
+                <h2>Filter RDF Expression</h2>
+                <p>
+                  Each filter is defined as a class. In the RDF example these will be named to assist testing and visibility.
+                </p><p>A filter class will declare the set meeting the filter properties which are annotation properties. The set are CodingBase individuals and the filter is therefore a fragment of a ValueSet.
+                </p>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/SomeBridge/fragmentA
+
+&lt;http://hl7.org/fhir/SomeBridge/fragmentA&gt; rdf:type owl:Class ;
+                                           rdfs:subClassOf fhir:Valuesets ;
+                                           fhir:filter.property "TTY" ;
+                                           fhir:filter.op "in" ;
+                                           fhir:filter.system "http://www.nlm.nih.gov/research/umls/rxnorm" ;
+                                           fhir:filter.value "IN,PIN,MIN,BN" .
+
+###  http://hl7.org/fhir/SomeBridge/fragmentB
+
+&lt;http://hl7.org/fhir/SomeBridge/fragmentB&gt; rdf:type owl:Class ;
+                                           rdfs:subClassOf fhir:Valuesets ;
+                                           fhir:filter.property "TTY" ;
+                                           fhir:filter.op "=" ;
+                                           fhir:filter.system "http://www.nlm.nih.gov/research/umls/rxnorm" ;
+                                           fhir:filter.value "OCD" .
+                </pre>
+                <p>
+                  The definition may not be interpreted by OWL but can be through other mechanisms.
+                  </p><p>Further exploration needs to be done on SPARQL and SWRL expressions to define the fragment membership of CodingBase individuals there thereby the membership of the ValueSet.
+                </p>
+              </section>
+              <section id="TheRDFValueSet">
+                <h2>The RDF ValueSet</h2>
+                <p>
+                  The fragments are combined together based on include and exclude elements:
+                </p>
+                <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/ValueSet/substance-rxnorm
+
+&lt;http://hl7.org/fhir/ValueSet/substance-rxnorm&gt; rdf:type owl:Class ;
+   rdfs:label "DAF Substance RxNorm Codes" ;
+   rdfs:subClassOf fhir:Valuesets ;
+   fhir:telecom.other "http://hl7.org/fhir" ;
+   fhir:lastUpdated "2015-10-15T03:44:57.526+00:00" ;
+   fhir:publisher "FHIR Project team" ;
+   fhir:status "draft" ;
+   fhir:concept_definition "All RxNorm codes that have TTY = IN,PIN,MIN,BN, but TTY != OCD." ;
+   fhir:valueset-oid "urn:oid:2.16.840.1.113762.1.4.1010.7" .
+
+[ rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://hl7.org/fhir/ValueSet/substance-rxnorm&gt; ;
+  owl:intersectionOf ( &lt;http://hl7.org/fhir/SomeBridge/fragmentA&gt;
+                       [ rdf:type owl:Class ;
+                         owl:complementOf &lt;http://hl7.org/fhir/SomeBridge/fragmentB&gt;
+                       ]
+                     )
+] .
+                </pre>
+              </section>
+            </section>
+          </section>
+        </section>
+      </section>
+		</section>
+
+		<section>
+      <h2>Resource References</h2>
+		  <section>
+        <h2>FHIR XML</h2>
+        <div class="todo">
+        <pre class="FHIRXML">
+ &lt; <span class="greyback">AllergyIntolerance</span> xmlns="http://hl7.org/fhir" &gt;
+  &lt; id value="1" /&gt;
+  &lt; text &gt;
+   
+  &lt;/ text &gt;
+&lt;!--   the date that this entry was recorded   --&gt;
+  &lt; recordedDate value="2010-03-01" /&gt;
+&lt;!--   the patient that actually has the risk of adverse reaction   --&gt;
+  &lt; patient &gt;
+    &lt; reference value = "http://record/Patient/PeterPatient" /&gt;
+    &lt; display value = "Peter Patient" /&gt;
+  &lt;/ patient &gt;
+&lt;/ <span class="greyback">AllergyIntolerance</span> &gt; 
+        </pre>
+        </div>
+		  </section>
+		  <section>
+        <h2>RDF Data After processing (acquiring the resource and importing)</h2>
+        <pre class="FHIRRDF">
+fhir:AllergyIntolerance.patient [ fhir:Reference.display [ fhir:value "Peter Patient" ] ;
+                                fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient" ] ;
+                                <span class="contentious">fhir:Reference.link &lt;http://record/Patient/PeterPatient&gt;</span>
+                               ] ; 
+        </pre>
+        <p>
+          Note that Reference object has been supplemented by the URI of the Reference.link.
+        </p>
+        <p>
+          AllergyIntolerance.patient.link can represent the property chain as shown earlier.
+          A reverse property of the property chain can get the resources for a particular patient.
+        </p>
+        <pre class="FHIRRDF">
+###  http://hl7.org/fhir/AllergyForPatient
+fhir:AllergyForPatient rdf:type owl:ObjectProperty ;
+                       owl:inverseOf fhir:AllergyIntolerance.patient.link .
+###  http://hl7.org/fhir/AllergyIntolerance.patient.link
+fhir:AllergyIntolerance.patient.link rdf:type owl:ObjectProperty ;
+                       owl:propertyChainAxiom ( fhir:AllergyIntolerance.patient fhir:Reference.link ) .
+        </pre>
+        <p>
+          The Reference.link is declared when the resource has been imported and closure has been achieved.
+          This allows the consumer to determine whether the import has happened or not and can trigger that function.
+          If the Reference.link is pre-established there will be no indication in the import and the Resource instance will be empty.
+        </p>
+		  </section>
+		    <h2>Containment</h2>
+      <p class="shared">
+        Containment is where a resource or container contains other resources.
+      </p>
+      <p class="shared">
+        It applies to Bundle, Contained and Parameters.
+      </p>
+		  <section>
+        <h2>Bundle</h2>
+        <p class="shared">
+          One common operation performed with resources is to gather a collection of resources into a single instance with containing context.
+          In FHIR this is referred to as "bundling" the resources together. These resource bundles are useful for a variety of different reasons, including: 
+        </p>
+        <ul class="shared">
+          <li>Returning a set of resources that meet some criteria as part of a server operation (see <a href="http://hl7-fhir.github.io/http.html#search">RESTful Search</a>)</li>
+          <li>Returning a set of versions of resources as part of the history operation on a server (see <a href="http://hl7-fhir.github.io/http.html#history">History</a>)</li>
+          <li>Sending a set of resources as part of a message exchange (see <a href="http://hl7-fhir.github.io/messaging.html">Messaging</a>)</li>
+          <li>Grouping a self-contained set of resources to act as an exchangeable and persistable collection with clinical integrity - e.g. a clinical document (see <a href="http://hl7-fhir.github.io/documents.html">Documents</a>)</li>
+          <li>Creating/updating/deleting a set of resources on a server as a single operation (including doing so as a single atomic transaction) (see <a href="http://hl7-fhir.github.io/http.html#transaction">Transactions</a>)</li>
+          <li>Storing a collection of resources</li>
+        </ul>
+		    <section class="shared">
+          <h2>Bundle XML instance</h2>
+          <pre class="FHIRXML">
+&lt;Bundle xmlns="http://hl7.org/fhir"&gt;
+  &lt;id value="bundle-example"/&gt;&lt;!--   this example bundle is a search set   --&gt;
+  &lt;meta&gt;
+    &lt;lastUpdated value="2014-08-18T01:43:30Z"/&gt;
+  &lt;/meta&gt;&lt;!--   when the search was executed   --&gt;
+  &lt;type value="searchset"/&gt;&lt;!--   the base URL of the server is responding to the search   --&gt;
+  &lt;base value="http://example.com/base"/&gt;&lt;!--   the total number of matches. This is a stupid example - there's a grand total of 3 matches, and we're only going to return the first 1, with a next link, in order to demonstrate what a page link looks like   --&gt;
+  &lt;total value="3"/&gt;
+  &lt;link&gt;
+    &lt;relation value="self"/&gt;
+    &lt;url value="https://example.com/base/MedicationPrescription?patient=347&amp;amp;_include=MedicationPrescription.medication"/&gt;
+  &lt;/link&gt;&lt;!--   now, the link to the next set of results.
+  Note that a big set of results will include prev, first, last links as well as next   --&gt;
+  &lt;link&gt;
+    &lt;relation value="next"/&gt;
+    &lt;url value="https://example.com/base/MedicationPrescription?patient=347&amp;amp;searchId=ff15fd40-ff71-4b48-b366-09c706bed9d0&amp;amp;page=2"/&gt;
+  &lt;/link&gt;&lt;!--   now, the actual entries   --&gt;
+  &lt;entry&gt;
+    &lt;resource&gt;
+      &lt;MedicationPrescription&gt;&lt;!--   the matching resource   --&gt;
+        &lt;id value="3123"/&gt;
+        &lt;text&gt;
+          Omitted
+        &lt;/text&gt;
+        &lt;patient&gt;
+          &lt;reference value="Patient/347"/&gt;
+        &lt;/patient&gt;
+        &lt;medication&gt;
+          &lt;reference value="Medication/example"/&gt;
+        &lt;/medication&gt;
+      &lt;/MedicationPrescription&gt;
+    &lt;/resource&gt;
+    &lt;search&gt;&lt;!--   this resource included as a match to the search criteria. Servers are not required to populate this, but should, because there are a few cases where it might be ambiguous whether a resource is added because it's a match or an include  --&gt;
+      &lt;mode value="match"/&gt;&lt;!--   score. For matches where the criteria are not determinate,
+        e.g. text search on narrative, the server can include a score to indicate
+        how well the resource matches the conditions. Since this search is by patient
+        identifier, there's nothing fuzzy about it, but for example purposes:   --&gt;
+      &lt;score value="1"/&gt;
+    &lt;/search&gt;
+  &lt;/entry&gt;
+  &lt;entry&gt;
+    &lt;resource&gt;
+      &lt;Medication&gt;
+        &lt;id value="example"/&gt;
+        &lt;text&gt;
+        &lt;/text&gt;
+      &lt;/Medication&gt;
+    &lt;/resource&gt;&lt;!--   snip   --&gt;
+    &lt;search&gt;&lt;!--   added because the client asked to include the medications   --&gt;
+      &lt;mode value="include"/&gt;
+    &lt;/search&gt;
+  &lt;/entry&gt;
+&lt;/Bundle&gt;
+          </pre>
+		    </section>
+		    <section class="shared">
+          <h2>Bundle XML content description</h2>
+          <pre class="spec">
+&lt; <a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle" title="A container for a collection of resources." class="dict"><b>Bundle</b></a> xmlns="http://hl7.org/fhir"&gt; <span style="float: right"><a href="http://hl7-fhir.github.io/xml.html" title="Documentation for this format"><img src="http://hl7-fhir.github.io/help.png" alt="doco" /></a></span>
+ &lt;!-- from <a href="http://hl7-fhir.github.io/resource.html">Resource</a>: <a href="http://hl7-fhir.github.io/resource.html#id">id</a>, <a href="http://hl7-fhir.github.io/resource.html#meta">meta</a>, <a href="http://hl7-fhir.github.io/resource.html#implicitRules">implicitRules</a>, and <a href="http://hl7-fhir.github.io/resource.html#language">language</a> --&gt;
+ &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.type" title="Indicates the purpose of this bundle- how it was intended to be used." class="dict"><b>type</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/valueset-bundle-type.html">document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection</a></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.total" title="If a set of search matches, this is the total number of matches for the search (as opposed to the number of results in this bundle)." class="dict"><b>total</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#unsignedInt">unsignedInt</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="bdl-1: total only when a search or history"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">If search, the total number of matches</a></span><span style="color: Gray"> --&gt;</span>
+ &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.link" title="A series of links that provide context to this bundle." class="dict"><b>link</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Links related to this Bundle --&gt;</span>
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.link.relation" title="A name which details the functional use for this link - see [[http://www.iana.org/assignments/link-relations/link-relations.xhtml]]." class="dict"><b>relation</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">http://www.iana.org/assignments/link-relations/link-relations.xhtml</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.link.url" title="The reference details for the link." class="dict"><b>url</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Reference details for the link</a></span><span style="color: Gray"> --&gt;</span>
+ &lt;/link&gt;
+ &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry" title="An entry in a bundle resource - will either contain a resource, or information about a resource (transactions and history only)." class="dict"><b>entry</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Entry in the bundle - will have a resource, or information --&gt;</span>
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.link" title="A series of links that provide context to this entry." class="dict"><b>link</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen">Content as for Bundle.link</span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Links related to this entry</a></span><span style="color: Gray"> --&gt;</span>&lt;/link&gt;
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.fullUrl" title="The Absolute URL for the resource. This must be provided for all resources. The fullUrl SHALL not disagree with the id in the resource. The fullUrl is a version independent reference to the resource." class="dict"><b>fullUrl</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Absolute URL for resource (server address, or UUID/OID)</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.resource" title="The Resources for the entry." class="dict"><b>resource</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/resource.html#Resource">Resource</a></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">A resource in the bundle</a></span><span style="color: Gray"> --&gt;</span>&lt;/resource&gt;
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.search" title="Information about the search process that lead to the creation of this entry." class="dict"><b>search</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="bdl-2: entry.search only when a search"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> Search related information --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.search.mode" title="Why this entry is in the result set - whether it's included as a match or because of an _include requirement." class="dict"><b>mode</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/valueset-search-entry-mode.html">match | include | outcome - why this is in the result set</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.search.score" title="When searching, the server's search ranking score for the entry." class="dict"><b>score</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#decimal">decimal</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Search ranking (between 0 and 1)</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;/search&gt;
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request" title="Additional information about how this entry should be processed as part of a transaction." class="dict"><b>request</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="bdl-3: entry.request only for some types of bundles"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> Transaction Related Information --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.method" title="The HTTP verb for this entry in either a update history, or a transaction/ transaction response." class="dict"><b>method</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/valueset-http-verb.html">GET | POST | PUT | DELETE</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.url" title="The URL for this entry, relative to the root (the address to which the request is posted)." class="dict"><b>url</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">URL for HTTP equivalent of this entry</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifNoneMatch" title="If the ETag values match, return a 304 Not modified status. See the API documentation for [&quot;Conditional Read&quot;](http.html#cread)." class="dict"><b>ifNoneMatch</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For managing cache currency</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifModifiedSince" title="Only perform the operation if the last updated date matches. See the API documentation for [&quot;Conditional Read&quot;](http.html#cread)." class="dict"><b>ifModifiedSince</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#instant">instant</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For managing update contention</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifMatch" title="Only perform the operation if the Etag value matches. For more information, see the API section [&quot;Managing Resource Contention&quot;](http.html#concurrency)." class="dict"><b>ifMatch</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For managing update contention</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifNoneExist" title="Instruct the server not to perform the create if a specified resource already exists. For further information, see the API documentation for [&quot;Conditional Create&quot;](http.html#ccreate). This is just the query portion of the URL - what follows the &quot;?&quot; (not including the &quot;?&quot;)." class="dict"><b>ifNoneExist</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For conditional creates</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;/request&gt;
+  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response" title="Additional information about how this entry should be processed as part of a transaction." class="dict"><b>response</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="bdl-4: entry.response only for some types of bundles"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> Transaction Related Information --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.status" title="The status code returned by processing this entry." class="dict"><b>status</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Status return code for entry</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.location" title="The location header created by processing this operation." class="dict"><b>location</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">The location, if the operation returns a location</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.etag" title="The etag for the resource, it the operation for the entry produced a versioned resource." class="dict"><b>etag</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">The etag for the resource (if relevant)</a></span><span style="color: Gray"> --&gt;</span>
+   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.lastModified" title="The date/time that the resource was modified on the server." class="dict"><b>lastModified</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#instant">instant</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Server's date time modified</a></span><span style="color: Gray"> --&gt;</span>
+  &lt;/response&gt;
+ &lt;/entry&gt;
+ &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.signature" title="Digital Signature - base64 encoded. XML DigSIg or a JWT." class="dict"><b>signature</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#Signature">Signature</a></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Digital Signature</a></span><span style="color: Gray"> --&gt;</span>&lt;/signature&gt;
+&lt;/Bundle&gt;
+          </pre>
+		    </section>
+		    <section>
+          <h2>Bundle RDF Content</h2>
+          <pre class="FHIRRDF">
+&lt;http://record/medpres1&gt; rdf:type owl:Ontology ; owl:imports &lt;http://hl7.org/fhir&gt; .
+###  http://record/medpres1/bundle1
+&lt;http://record/medpres1/bundle1&gt; rdf:type fhir:Bundle , owl:NamedIndividual ;
+   fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry ;
+      fhir:Bundle.Entry.resource &lt; http://record/MedicationPrescription/1 &gt;
+   ] ;
+   fhir:Bundle.type [ fhir:value "searchset"];
+   fhir:Bundle.link [ rdf:type fhir:uri ; fhir:value "self"] ;
+   fhir:Bundle.total [ rdf:type fhir:unsignedInt ; fhir:value 3 ];
+   fhir:Resource.meta [ rdf:type fhir:Meta ; fhir:Meta.lastUpdated
+      [ rdf:type fhir:instant ; fhir:value "2015-08-02T00:00:00"^^xsd:dateTime]
+   ]  .
+###  http://record/MedicationPrescription/1
+&lt;http://record/MedicationPrescription/1&gt; rdf:type profile:MedicationPrescription , owl:NamedIndividual ;
+   fhir:MedicationOrder.medicationReference [ rdf:type fhir:Reference ;
+      fhir:Reference.link &lt;http://record/Medication/1&gt; ;
+      fhir:Reference.reference [ fhir:value http://record/Medication/1 ] ;
+      fhir:Reference.display [ fhir:value "Amoxicillin (product)" ]
+   ] ;
+   fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
+      fhir:Reference.link &lt;http://record/Patient/PeterPatient&gt; ;
+      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
+      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient"
+   ]
+] .
+          </pre>
+          <p>
+            A Bundle may or may not have an Id (inherited from Resource) therefore it can be referenced as an Ontology e.g. record/Bundle/123.
+            It may therefore be a named or anonymous individual.
+          </p>
+		    </section>
+		  </section>
+			<h2> Ordering</h2>
+		    <section>
+        		<h2>RDF individual ordering example</h2>
+        <p class="shared">
+          Simple integer DataProperty fhir:index can be applied to individuals of subclasses of fhir:Element          
+        </p>
+        <pre class="FHIRRDF shared">
+###  http://hl7.org/fhir/index
+fhir:index rdf:type owl:DatatypeProperty ;
+           rdfs:range fhir:index-primitive .
+###  http://hl7.org/fhir/index-primitive
+fhir:index-primitive rdf:type rdfs:Datatype ;
+                     owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                           owl:onDatatype xsd:integer ;
+                                           owl:withRestrictions ( [ xsd:minInclusive 1 ] )
+                     ] .
+###  http://hl7.org/fhir/Element
+fhir:Element rdf:type owl:Class ;
+             rdfs:label "Element" ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty fhir:Element.extension ;
+                               owl:someValuesFrom fhir:Extension
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty fhir:Element.id ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange fhir:id-primitive
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty fhir:index ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange fhir:index-primitive
+                             ] ;
+             rdfs:comment "The base element used for all FHIR elements and resources - allows for them to be extended with extensions" .
+ .
+        </pre>
+        <p class="shared">
+          In general fhir:value and fhir:Element.id are converted to an attribute in XML. fhir:index dictates the sequence only.
+        </p>
+		  </section>
+		</section>
+
+  </body>
+</html>
