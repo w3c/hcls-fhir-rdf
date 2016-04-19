@@ -1,0 +1,2 @@
+# Examples
+The .shex files in this directory were generated using the code in [ShExGenerator.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2F*checkout*%2Ftrunk%2Fbuild%2Fimplementations%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Futils%2FShExGenerator.java)

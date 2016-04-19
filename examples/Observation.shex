@@ -1,0 +1,171 @@
+﻿PREFIX fhir: <http://hl7.org/fhir/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+BASE <http://hl7.org/fhir/shape/>
+
+
+<Observation> {
+	a [fhir:Observation],
+	fhir:nodeRole [fhir:treeRoot],
+	fhir:Resource.id @<id>?,
+	fhir:Resource.meta @<Meta>?,
+	fhir:Resource.implicitRules @<uri>?,
+	fhir:Resource.language @<code>?,
+	fhir:DomainResource.text @<Narrative>?,
+	fhir:DomainResource.contained @<Resource>*,
+	fhir:DomainResource.extension @<Extension>*,
+	fhir:DomainResource.modifierExtension @<Extension>*,
+	fhir:Observation.identifier @<Identifier>*,
+	fhir:Observation.status @<code>?,
+	fhir:Observation.category @<CodeableConcept>?,
+	fhir:Observation.code @<CodeableConcept>?,
+	fhir:Observation.subject 	(	@<PatientReference> OR
+		@<GroupReference> OR
+		@<DeviceReference> OR
+		@<LocationReference>
+	)?,
+	fhir:Observation.encounter @<uri>?,
+	(	fhir:Observation.effectivedateTime @<dateTime> |
+		fhir:Observation.effectivePeriod @<Period>
+	)?,
+	fhir:Observation.issued @<instant>?,
+	fhir:Observation.performer 	(	@<PractitionerReference> OR
+		@<OrganizationReference> OR
+		@<PatientReference> OR
+		@<RelatedPersonReference>
+	)*,
+	(	fhir:Observation.valueQuantity @<Quantity> |
+		fhir:Observation.valueCodeableConcept @<CodeableConcept> |
+		fhir:Observation.valuestring @<string> |
+		fhir:Observation.valueRange @<Range> |
+		fhir:Observation.valueRatio @<Ratio> |
+		fhir:Observation.valueSampledData @<SampledData> |
+		fhir:Observation.valueAttachment @<Attachment> |
+		fhir:Observation.valuetime @<time> |
+		fhir:Observation.valuedateTime @<dateTime> |
+		fhir:Observation.valuePeriod @<Period>
+	)?,
+	fhir:Observation.dataAbsentReason @<CodeableConcept>?,
+	fhir:Observation.interpretation @<CodeableConcept>?,
+	fhir:Observation.comment @<string>?,
+	fhir:Observation.bodySite @<CodeableConcept>?,
+	fhir:Observation.method @<CodeableConcept>?,
+	fhir:Observation.specimen @<uri>?,
+	fhir:Observation.device 	(	@<DeviceReference> OR
+		@<DeviceMetricReference>
+	)?,
+	fhir:Observation.referenceRange @<Observation.referenceRange>*,
+	fhir:Observation.related @<Observation.related>*,
+	fhir:Observation.component @<Observation.component>*
+}
+
+<Observation.referenceRange> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	fhir:Observation.referenceRange.low @<uri>?,
+	fhir:Observation.referenceRange.high @<uri>?,
+	fhir:Observation.referenceRange.meaning @<CodeableConcept>?,
+	fhir:Observation.referenceRange.age @<Range>?,
+	fhir:Observation.referenceRange.text @<string>?
+}
+
+<Observation.related> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	fhir:Observation.related.type @<code>?,
+	fhir:Observation.related.target 	(	@<ObservationReference> OR
+		@<QuestionnaireResponseReference>
+	)?
+}
+
+<Observation.component> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	fhir:Observation.component.code @<CodeableConcept>?,
+	(	fhir:Observation.component.valueQuantity @<Quantity> |
+		fhir:Observation.component.valueCodeableConcept @<CodeableConcept> |
+		fhir:Observation.component.valuestring @<string> |
+		fhir:Observation.component.valueRange @<Range> |
+		fhir:Observation.component.valueRatio @<Ratio> |
+		fhir:Observation.component.valueSampledData @<SampledData> |
+		fhir:Observation.component.valueAttachment @<Attachment> |
+		fhir:Observation.component.valuetime @<time> |
+		fhir:Observation.component.valuedateTime @<dateTime> |
+		fhir:Observation.component.valuePeriod @<Period>
+	)?,
+	fhir:Observation.component.dataAbsentReason @<CodeableConcept>?,
+	fhir:Observation.component.referenceRange 	(	
+	)*
+}
+
+<DeviceReference> {
+	a [fhir:DeviceReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Device>)
+}
+
+<DeviceMetricReference> {
+	a [fhir:DeviceMetricReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<DeviceMetric>)
+}
+
+<OrganizationReference> {
+	a [fhir:OrganizationReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Organization>)
+}
+
+<LocationReference> {
+	a [fhir:LocationReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Location>)
+}
+
+<PatientReference> {
+	a [fhir:PatientReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Patient>)
+}
+
+<ObservationReference> {
+	a [fhir:ObservationReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Observation>)
+}
+
+<PractitionerReference> {
+	a [fhir:PractitionerReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Practitioner>)
+}
+
+<QuestionnaireResponseReference> {
+	a [fhir:QuestionnaireResponseReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<QuestionnaireResponse>)
+}
+
+<GroupReference> {
+	a [fhir:GroupReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Group>)
+}
+
+<RelatedPersonReference> {
+	a [fhir:RelatedPersonReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<RelatedPerson>)
+}

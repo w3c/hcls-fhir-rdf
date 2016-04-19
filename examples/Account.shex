@@ -1,0 +1,76 @@
+﻿PREFIX fhir: <http://hl7.org/fhir/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+BASE <http://hl7.org/fhir/shape/>
+
+
+<Account> {
+	a [fhir:Account],
+	fhir:nodeRole [fhir:treeRoot],
+	fhir:Resource.id @<id>?,
+	fhir:Resource.meta @<Meta>?,
+	fhir:Resource.implicitRules @<uri>?,
+	fhir:Resource.language @<code>?,
+	fhir:DomainResource.text @<Narrative>?,
+	fhir:DomainResource.contained @<Resource>*,
+	fhir:DomainResource.extension @<Extension>*,
+	fhir:DomainResource.modifierExtension @<Extension>*,
+	fhir:Account.identifier @<Identifier>*,
+	fhir:Account.name @<string>?,
+	fhir:Account.type @<CodeableConcept>?,
+	fhir:Account.status @<code>?,
+	fhir:Account.activePeriod @<Period>?,
+	fhir:Account.currency @<Coding>?,
+	fhir:Account.balance @<uri>?,
+	fhir:Account.coveragePeriod @<Period>?,
+	fhir:Account.subject 	(	@<PatientReference> OR
+		@<DeviceReference> OR
+		@<PractitionerReference> OR
+		@<LocationReference> OR
+		@<HealthcareServiceReference> OR
+		@<OrganizationReference>
+	)?,
+	fhir:Account.owner @<uri>?,
+	fhir:Account.description @<string>?
+}
+
+<DeviceReference> {
+	a [fhir:DeviceReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Device>)
+}
+
+<OrganizationReference> {
+	a [fhir:OrganizationReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Organization>)
+}
+
+<HealthcareServiceReference> {
+	a [fhir:HealthcareServiceReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<HealthcareService>)
+}
+
+<LocationReference> {
+	a [fhir:LocationReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Location>)
+}
+
+<PatientReference> {
+	a [fhir:PatientReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Patient>)
+}
+
+<PractitionerReference> {
+	a [fhir:PractitionerReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Practitioner>)
+}

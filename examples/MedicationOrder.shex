@@ -1,0 +1,82 @@
+﻿PREFIX fhir: <http://hl7.org/fhir/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+BASE <http://hl7.org/fhir/shape/>
+
+
+<MedicationOrder> {
+	a [fhir:MedicationOrder],
+	fhir:nodeRole [fhir:treeRoot],
+	fhir:Resource.id @<id>?,
+	fhir:Resource.meta @<Meta>?,
+	fhir:Resource.implicitRules @<uri>?,
+	fhir:Resource.language @<code>?,
+	fhir:DomainResource.text @<Narrative>?,
+	fhir:DomainResource.contained @<Resource>*,
+	fhir:DomainResource.extension @<Extension>*,
+	fhir:DomainResource.modifierExtension @<Extension>*,
+	fhir:MedicationOrder.identifier @<Identifier>*,
+	fhir:MedicationOrder.status @<code>?,
+	(	fhir:MedicationOrder.medicationCodeableConcept @<CodeableConcept> |
+		fhir:MedicationOrder.medicationReference @<uri>
+	)?,
+	fhir:MedicationOrder.patient @<uri>?,
+	fhir:MedicationOrder.encounter @<uri>?,
+	fhir:MedicationOrder.dateWritten @<dateTime>?,
+	fhir:MedicationOrder.prescriber @<uri>?,
+	fhir:MedicationOrder.reasonCode @<CodeableConcept>*,
+	fhir:MedicationOrder.reasonReference @<uri>*,
+	fhir:MedicationOrder.dateEnded @<dateTime>?,
+	fhir:MedicationOrder.reasonEnded @<CodeableConcept>?,
+	fhir:MedicationOrder.note @<Annotation>*,
+	fhir:MedicationOrder.dosageInstruction @<MedicationOrder.dosageInstruction>*,
+	fhir:MedicationOrder.dispenseRequest @<MedicationOrder.dispenseRequest>?,
+	fhir:MedicationOrder.substitution @<MedicationOrder.substitution>?,
+	fhir:MedicationOrder.priorPrescription @<uri>?
+}
+
+<MedicationOrder.dosageInstruction> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	fhir:MedicationOrder.dosageInstruction.text @<string>?,
+	fhir:MedicationOrder.dosageInstruction.additionalInstructions @<CodeableConcept>?,
+	fhir:MedicationOrder.dosageInstruction.timing @<Timing>?,
+	(	fhir:MedicationOrder.dosageInstruction.asNeededboolean @<boolean> |
+		fhir:MedicationOrder.dosageInstruction.asNeededCodeableConcept @<CodeableConcept>
+	)?,
+	(	fhir:MedicationOrder.dosageInstruction.siteCodeableConcept @<CodeableConcept> |
+		fhir:MedicationOrder.dosageInstruction.siteReference @<uri>
+	)?,
+	fhir:MedicationOrder.dosageInstruction.route @<CodeableConcept>?,
+	fhir:MedicationOrder.dosageInstruction.method @<CodeableConcept>?,
+	(	fhir:MedicationOrder.dosageInstruction.doseRange @<Range> |
+		fhir:MedicationOrder.dosageInstruction.doseQuantity @<uri>
+	)?,
+	fhir:MedicationOrder.dosageInstruction.maxDosePerPeriod @<Ratio>?,
+	fhir:MedicationOrder.dosageInstruction.maxDosePerAdministration @<uri>?,
+	(	fhir:MedicationOrder.dosageInstruction.rateRatio @<Ratio> |
+		fhir:MedicationOrder.dosageInstruction.rateRange @<Range> |
+		fhir:MedicationOrder.dosageInstruction.rateQuantity @<uri>
+	)?
+}
+
+<MedicationOrder.dispenseRequest> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	(	fhir:MedicationOrder.dispenseRequest.medicationCodeableConcept @<CodeableConcept> |
+		fhir:MedicationOrder.dispenseRequest.medicationReference @<uri>
+	)?,
+	fhir:MedicationOrder.dispenseRequest.validityPeriod @<Period>?,
+	fhir:MedicationOrder.dispenseRequest.numberOfRepeatsAllowed @<positiveInt>?,
+	fhir:MedicationOrder.dispenseRequest.quantity @<uri>?,
+	fhir:MedicationOrder.dispenseRequest.expectedSupplyDuration @<uri>?
+}
+
+<MedicationOrder.substitution> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	fhir:MedicationOrder.substitution.type @<CodeableConcept>?,
+	fhir:MedicationOrder.substitution.reason @<CodeableConcept>?
+}

@@ -1,0 +1,71 @@
+﻿PREFIX fhir: <http://hl7.org/fhir/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+BASE <http://hl7.org/fhir/shape/>
+
+
+<AllergyIntolerance> {
+	a [fhir:AllergyIntolerance],
+	fhir:nodeRole [fhir:treeRoot],
+	fhir:Resource.id @<id>?,
+	fhir:Resource.meta @<Meta>?,
+	fhir:Resource.implicitRules @<uri>?,
+	fhir:Resource.language @<code>?,
+	fhir:DomainResource.text @<Narrative>?,
+	fhir:DomainResource.contained @<Resource>*,
+	fhir:DomainResource.extension @<Extension>*,
+	fhir:DomainResource.modifierExtension @<Extension>*,
+	fhir:AllergyIntolerance.identifier @<Identifier>*,
+	fhir:AllergyIntolerance.status @<code>?,
+	fhir:AllergyIntolerance.type @<code>?,
+	fhir:AllergyIntolerance.category @<code>?,
+	fhir:AllergyIntolerance.criticality @<code>?,
+	fhir:AllergyIntolerance.substance @<CodeableConcept>?,
+	fhir:AllergyIntolerance.patient @<uri>?,
+	fhir:AllergyIntolerance.recordedDate @<dateTime>?,
+	fhir:AllergyIntolerance.recorder 	(	@<PractitionerReference> OR
+		@<PatientReference>
+	)?,
+	fhir:AllergyIntolerance.reporter 	(	@<PatientReference> OR
+		@<RelatedPersonReference> OR
+		@<PractitionerReference>
+	)?,
+	fhir:AllergyIntolerance.onset @<dateTime>?,
+	fhir:AllergyIntolerance.lastOccurence @<dateTime>?,
+	fhir:AllergyIntolerance.note @<Annotation>*,
+	fhir:AllergyIntolerance.reaction @<AllergyIntolerance.reaction>*
+}
+
+<AllergyIntolerance.reaction> {
+	fhir:Element.id @<id>?,
+	fhir:Element.extension @<Extension>*,
+	fhir:BackboneElement.modifierExtension @<Extension>*,
+	fhir:AllergyIntolerance.reaction.substance @<CodeableConcept>?,
+	fhir:AllergyIntolerance.reaction.certainty @<code>?,
+	fhir:AllergyIntolerance.reaction.manifestation @<CodeableConcept>+,
+	fhir:AllergyIntolerance.reaction.description @<string>?,
+	fhir:AllergyIntolerance.reaction.onset @<dateTime>?,
+	fhir:AllergyIntolerance.reaction.severity @<code>?,
+	fhir:AllergyIntolerance.reaction.exposureRoute @<CodeableConcept>?,
+	fhir:AllergyIntolerance.reaction.note @<Annotation>*
+}
+
+<PatientReference> {
+	a [fhir:PatientReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Patient>)
+}
+
+<PractitionerReference> {
+	a [fhir:PractitionerReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<Practitioner>)
+}
+
+<RelatedPersonReference> {
+	a [fhir:RelatedPersonReference]?,
+	fhir:uri.id @<id>?,
+	fhir:uri.extension @<Extension>*,
+	fhir:uri.value (xsd:anyURI OR @<RelatedPerson>)
+}
