@@ -1,20 +1,16 @@
 {
-    "mapping": [
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        }
-    ],
     "id": "Annotation",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A  text note which also  contains information about who made the statement and when.",
                 "mapping": [
                     {
                         "map": "N/A",
@@ -25,20 +21,42 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Text node with attribution",
+                "min": 0,
                 "comments": "For systems that do not have structured annotations, they can simply communicate a single annotation with no author or time. \nThis element may need to be included in narrative because of the potential for modifying information. \n*Annotations SHOULD NOT* be used to communicate \"modifying\" information that could be computable. (This is a SHOULD because enforcing user behavior is nearly impossible).",
                 "path": "Annotation",
-                "max": "*",
-                "min": 0,
-                "short": "Text node with attribution",
-                "definition": "A  text note which also  contains information about who made the statement and when."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The individual responsible for making the annotation.",
+                "short": "Individual responsible for the annotation",
+                "min": 0,
+                "isSummary": true,
+                "path": "Annotation.author[x]",
                 "mapping": [
                     {
                         "map": "N/A",
@@ -48,38 +66,20 @@
                         "map": "Act.participant[typeCode=AUT].role",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    },
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Annotation.author[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Individual responsible for the annotation",
-                "definition": "The individual responsible for making the annotation."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates when this particular annotation was made.",
+                "short": "When the annotation was made",
+                "min": 0,
+                "isSummary": true,
+                "path": "Annotation.time",
                 "mapping": [
                     {
                         "map": "N/A",
@@ -89,20 +89,20 @@
                         "map": "Act.effectiveTime",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Annotation.time",
-                "max": "1",
-                "min": 0,
-                "short": "When the annotation was made",
-                "definition": "Indicates when this particular annotation was made."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The text of the annotation.",
+                "short": "The annotation  - text content",
+                "min": 1,
+                "isSummary": true,
+                "path": "Annotation.text",
                 "mapping": [
                     {
                         "map": "N/A",
@@ -112,22 +112,189 @@
                         "map": "Act.text",
                         "identity": "rim"
                     }
+                ]
+            }
+        ]
+    },
+    "name": "Annotation",
+    "abstract": false,
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
                 ],
+                "max": "*",
+                "definition": "A  text note which also  contains information about who made the statement and when.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Act",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Text node with attribution",
+                "min": 0,
+                "comments": "For systems that do not have structured annotations, they can simply communicate a single annotation with no author or time. \nThis element may need to be included in narrative because of the potential for modifying information. \n*Annotations SHOULD NOT* be used to communicate \"modifying\" information that could be computable. (This is a SHOULD because enforcing user behavior is nearly impossible).",
+                "path": "Annotation",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Annotation.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Annotation.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The individual responsible for making the annotation.",
+                "short": "Individual responsible for the annotation",
+                "min": 0,
+                "isSummary": true,
+                "path": "Annotation.author[x]",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Act.participant[typeCode=AUT].role",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates when this particular annotation was made.",
+                "short": "When the annotation was made",
+                "min": 0,
+                "isSummary": true,
+                "path": "Annotation.time",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Act.effectiveTime",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
+                "max": "1",
+                "definition": "The text of the annotation.",
+                "short": "The annotation  - text content",
+                "min": 1,
                 "isSummary": true,
                 "path": "Annotation.text",
-                "max": "1",
-                "min": 1,
-                "short": "The annotation  - text content",
-                "definition": "The text of the annotation."
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Act.text",
+                        "identity": "rim"
+                    }
+                ]
             }
         ]
     },
-    "abstract": false,
+    "description": "Base StructureDefinition for Annotation Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/Annotation",
+    "fhirVersion": "1.0.2",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        }
+    ],
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -139,172 +306,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "url": "http://hl7.org/fhir/StructureDefinition/Annotation",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Act",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "For systems that do not have structured annotations, they can simply communicate a single annotation with no author or time. \nThis element may need to be included in narrative because of the potential for modifying information. \n*Annotations SHOULD NOT* be used to communicate \"modifying\" information that could be computable. (This is a SHOULD because enforcing user behavior is nearly impossible).",
-                "path": "Annotation",
-                "max": "*",
-                "min": 0,
-                "short": "Text node with attribution",
-                "definition": "A  text note which also  contains information about who made the statement and when."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Annotation.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Annotation.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Act.participant[typeCode=AUT].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    },
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Annotation.author[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Individual responsible for the annotation",
-                "definition": "The individual responsible for making the annotation."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Act.effectiveTime",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Annotation.time",
-                "max": "1",
-                "min": 0,
-                "short": "When the annotation was made",
-                "definition": "Indicates when this particular annotation was made."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Act.text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Annotation.text",
-                "max": "1",
-                "min": 1,
-                "short": "The annotation  - text content",
-                "definition": "The text of the annotation."
-            }
-        ]
-    },
-    "name": "Annotation",
-    "description": "Base StructureDefinition for Annotation Type",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "fhirVersion": "1.0.2"
+    "publisher": "HL7 FHIR Standard"
 }

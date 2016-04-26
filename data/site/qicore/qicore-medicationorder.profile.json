@@ -1,59 +1,34 @@
 {
-    "mapping": [
-        {
-            "name": "Quality Data Model",
-            "uri": "http://www.healthit.gov/quality-data-model",
-            "identity": "qdm"
-        },
-        {
-            "name": "Quality Improvement Domain Analysis Model",
-            "uri": "http://www.hl7.org/implement/standards/product_brief.cfm?product_id=378",
-            "identity": "qidam"
-        }
-    ],
     "id": "qicore-medicationorder",
-    "constrainedType": "MedicationOrder",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org/special/committees/CQI",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/MedicationOrder",
+    "date": "2015-02-27",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "MedicationOrder"
+                    }
+                ],
+                "name": "QICore-MedicationOrder",
+                "max": "*",
+                "definition": "Profile of medication prescription, indicating which elements must be supported in rule and measure interpreters.",
                 "mapping": [
                     {
                         "map": "Medication, Order",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "MedicationOrder"
-                    }
-                ],
-                "path": "MedicationOrder",
                 "min": 0,
-                "definition": "Profile of medication prescription, indicating which elements must be supported in rule and measure interpreters.",
-                "name": "QICore-MedicationOrder",
-                "max": "*"
+                "path": "MedicationOrder"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "active datetime",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "MedicationOrder.dateWritten"
             },
             {
@@ -61,38 +36,38 @@
                 "path": "MedicationOrder.status"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
                 "path": "MedicationOrder.patient"
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "MedicationOrder.prescriber"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
                 "path": "MedicationOrder.encounter"
             },
             {
@@ -112,6 +87,7 @@
                 "path": "MedicationOrder.reason[x]"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "primary code",
@@ -123,10 +99,10 @@
                         "code": "CodeableConcept"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-medication"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "binding": {
@@ -136,7 +112,6 @@
                     },
                     "strength": "preferred"
                 },
-                "mustSupport": true,
                 "path": "MedicationOrder.medication[x]"
             },
             {
@@ -144,21 +119,6 @@
                 "path": "MedicationOrder.dosageInstruction"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Dosage.doseType",
-                        "identity": "qidam"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-doseType"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -166,8 +126,23 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "min": 0,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-doseType"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
                 "name": "MedicationOrder.dosageInstruction.doseType",
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "Dosage.doseType",
+                        "identity": "qidam"
+                    }
+                ],
+                "min": 0,
                 "binding": {
                     "description": "Medication dose types (e.g., loading, maintenance, etc.)",
                     "valueSetReference": {
@@ -175,147 +150,147 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-infuseOver"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.infuseOver",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.infuseOver",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-infuseOver"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.infuseOver",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrement"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.rateIncrement",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.rateIncrement",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrement"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.rateIncrement",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrementInterval"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.rateIncrementInterval",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.rateIncrementInterval",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrementInterval"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.rateIncrementInterval",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateGoal"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.rateGoal",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.rateGoal",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateGoal"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.rateGoal",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-minDosePerPeriod"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.minDosePerPeriod",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.minDosePerPeriod",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-minDosePerPeriod"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.minDosePerPeriod",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryRate"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.maxDeliveryRate",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.maxDeliveryRate",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryRate"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.maxDeliveryRate",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryVolume"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.maxDeliveryVolume",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "Dosage.maxDeliveryVolume",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryVolume"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
                 "min": 0,
-                "name": "MedicationOrder.dosageInstruction.maxDeliveryVolume",
-                "max": "1"
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
                 "binding": {
@@ -336,22 +311,44 @@
                         "code": "CodeableConcept"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-medication"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "MedicationOrder.dispenseRequest.medication[x]"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/qicore-medicationorder",
+    "name": "QICore-MedicationOrder",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)",
+    "constrainedType": "MedicationOrder",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "MedicationOrder"
+                    }
+                ],
+                "name": "QICore-MedicationOrder",
+                "max": "*",
+                "definition": "Profile of medication prescription, indicating which elements must be supported in rule and measure interpreters.",
+                "short": "Prescription of medication to for patient",
+                "min": 0,
+                "alias": [
+                    "Prescription"
+                ],
+                "isSummary": true,
+                "path": "MedicationOrder",
                 "mapping": [
                     {
                         "map": "CombinedMedicationRequest",
@@ -365,27 +362,7 @@
                         "map": "Medication, Order",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "MedicationOrder"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder",
-                "alias": [
-                    "Prescription"
-                ],
-                "min": 0,
-                "short": "Prescription of medication to for patient",
-                "name": "QICore-MedicationOrder",
-                "max": "*",
-                "definition": "Profile of medication prescription, indicating which elements must be supported in rule and measure interpreters.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder"
-                }
+                ]
             },
             {
                 "type": [
@@ -393,18 +370,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "MedicationOrder.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.id"
-                }
+                    "path": "MedicationOrder.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "MedicationOrder.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -412,17 +389,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.meta"
-                }
+                    "path": "MedicationOrder.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.meta"
             },
             {
                 "type": [
@@ -430,19 +407,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "MedicationOrder.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.implicitRules"
-                }
+                    "path": "MedicationOrder.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "MedicationOrder.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -450,143 +427,159 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "MedicationOrder.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.language"
-                }
+                    "path": "MedicationOrder.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "MedicationOrder.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "MedicationOrder.text",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "MedicationOrder.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "MedicationOrder.contained",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "MedicationOrder.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "MedicationOrder.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationOrder.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "External identifier - one that would be used by another non-FHIR system - for example a re-imbursement system might issue its own id for each prescription that is created.  This is particularly important where FHIR only provides part of an entire workflow process where records have to be tracked through an entire system.",
+                "short": "External identifier",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.identifier",
                 "mapping": [
                     {
                         "map": "ORC-2-Placer Order Number / ORC-3-Filler Order Number",
@@ -600,26 +593,26 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External identifier",
-                "definition": "External identifier - one that would be used by another non-FHIR system - for example a re-imbursement system might issue its own id for each prescription that is created.  This is particularly important where FHIR only provides part of an entire workflow process where records have to be tracked through an entire system.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.identifier"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dateWritten",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The date (and perhaps time) when the prescription was written.",
+                "short": "When prescription was authorized",
+                "min": 0,
                 "isSummary": true,
+                "path": "MedicationOrder.dateWritten",
                 "mapping": [
                     {
                         "map": "RXE-32-Original Order Date/Time / ORC-9-Date/Time of Transaction",
@@ -637,25 +630,33 @@
                         "map": "active datetime",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "MedicationOrder.dateWritten",
-                "max": "1",
-                "min": 0,
-                "short": "When prescription was authorized",
-                "definition": "The date (and perhaps time) when the prescription was written.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dateWritten"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "active | on-hold | completed | entered-in-error | stopped | draft",
+                "definition": "A code specifying the state of the order.  Generally this will be active or completed state.",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.status",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "A code specifying the state of the prescribing event. Describes the lifecycle of the prescription.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/medication-order-status"
+                    },
+                    "strength": "required"
+                },
                 "mapping": [
                     {
                         "map": "statusCode",
@@ -666,31 +667,7 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "active | on-hold | completed | entered-in-error | stopped | draft",
-                "binding": {
-                    "description": "A code specifying the state of the prescribing event. Describes the lifecycle of the prescription.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/medication-order-status"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.status"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "path": "MedicationOrder.status",
-                "definition": "A code specifying the state of the order.  Generally this will be active or completed state."
+                "path": "MedicationOrder.status"
             },
             {
                 "type": [
@@ -698,17 +675,17 @@
                         "code": "dateTime"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.dateEnded",
-                "max": "1",
-                "min": 0,
-                "short": "When prescription was stopped",
-                "definition": "The date (and perhaps time) when the prescription was stopped.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dateEnded"
-                }
+                    "path": "MedicationOrder.dateEnded",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The date (and perhaps time) when the prescription was stopped.",
+                "short": "When prescription was stopped",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.dateEnded"
             },
             {
                 "type": [
@@ -716,24 +693,39 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.reasonEnded",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.reasonEnded",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "The reason why the prescription was stopped, if it was.",
                 "short": "Why prescription was stopped",
+                "min": 0,
                 "binding": {
                     "description": "Codes indicating why the medication was terminated; e.g. Adverse reaction, medication change, issue resolved, etc.",
                     "strength": "example"
                 },
-                "definition": "The reason why the prescription was stopped, if it was.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.reasonEnded"
-                }
+                "isSummary": true,
+                "path": "MedicationOrder.reasonEnded"
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.patient",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A link to a resource representing the person to whom the medication will be given.",
                 "mapping": [
                     {
                         "map": "PID-3-Patient ID List",
@@ -748,28 +740,32 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
+                "short": "Who prescription is for",
+                "min": 0,
                 "comments": "SubstanceAdministration->subject->Patient.",
                 "path": "MedicationOrder.patient",
-                "max": "1",
-                "min": 0,
-                "short": "Who prescription is for",
-                "definition": "A link to a resource representing the person to whom the medication will be given.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.patient"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.prescriber",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The healthcare professional responsible for authorizing the prescription.",
+                "short": "Who ordered the medication(s)",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.prescriber",
                 "mapping": [
                     {
                         "map": "RXE-13-Ordering Provider's DEA Number / RXO-14-Ordering Provider's DEA Number / RXE-14-Pharmacist/Treatment Supplier's Verifier ID / RXO-15-Pharmacist/Treatment Supplier's Verifier ID / ORC-12-Ordering Provider / PRT-5-Participation Person: PRT-4-Participation='OP' (all but last deprecated)",
@@ -783,29 +779,25 @@
                         "map": "who.actor",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.prescriber",
-                "max": "1",
-                "min": 0,
-                "short": "Who ordered the medication(s)",
-                "definition": "The healthcare professional responsible for authorizing the prescription.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.prescriber"
-                }
+                ]
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A link to a resource that identifies the particular occurrence of contact between patient and health care provider.",
                 "mapping": [
                     {
                         "map": "PV1-19-Visit Number",
@@ -820,28 +812,42 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
+                "short": "Created during encounter/admission/stay",
+                "min": 0,
                 "comments": "SubstanceAdministration->component->EncounterEvent.",
                 "path": "MedicationOrder.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "Created during encounter/admission/stay",
-                "definition": "A link to a resource that identifies the particular occurrence of contact between patient and health care provider.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.encounter"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.reason[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Can be the reason or the indication for writing the prescription.",
+                "short": "Reason or indication for writing the prescription",
+                "min": 0,
+                "binding": {
+                    "description": "The reason code for the presecription",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-problem"
+                    },
+                    "strength": "preferred"
+                },
+                "isSummary": true,
+                "path": "MedicationOrder.reason[x]",
                 "mapping": [
                     {
                         "map": "ORC-16-Order Control Code Reason /RXE-27-Give Indication/RXO-20-Indication / RXD-21-Indication / RXG-22-Indication / RXA-19-Indication",
@@ -859,36 +865,7 @@
                         "map": "reason",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.reason[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Reason or indication for writing the prescription",
-                "binding": {
-                    "description": "The reason code for the presecription",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-problem"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "Can be the reason or the indication for writing the prescription.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.reason[x]"
-                }
+                ]
             },
             {
                 "type": [
@@ -896,19 +873,28 @@
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.note",
-                "max": "1",
-                "min": 0,
-                "short": "Information about the prescription",
-                "definition": "Extra information about the prescription that could not be conveyed by the other attributes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.note"
-                }
+                    "path": "MedicationOrder.note",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Extra information about the prescription that could not be conveyed by the other attributes.",
+                "short": "Information about the prescription",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.note"
             },
             {
+                "min": 1,
+                "max": "1",
+                "short": "Medication to be taken",
+                "definition": "Identifies the medication being administered. This is a link to a resource that represents the medication which may be the details of the medication or simply an attribute carrying a code that identifies the medication from a known list of medications.",
+                "base": {
+                    "min": 1,
+                    "path": "MedicationOrder.medication[x]",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "RXE-2-Give Code / RXO-1-Requested Give Code / RXC-2-Component Code",
@@ -927,20 +913,19 @@
                         "identity": "qdm"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "If only a code is specified, then it needs to be a code for a specific product.  If more information is required, then the use of the medication resource is recommended.  Note: do not use Medication.name to describe the prescribed medication. When the only available information is a text description of the medication, Medication.code.text should be used.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-medication"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Medication to be taken",
                 "binding": {
                     "description": "The set of RxNorm codes to represent medications",
                     "valueSetReference": {
@@ -948,82 +933,62 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "MedicationOrder.medication[x]"
-                },
-                "mustSupport": true,
-                "comments": "If only a code is specified, then it needs to be a code for a specific product.  If more information is required, then the use of the medication resource is recommended.  Note: do not use Medication.name to describe the prescribed medication. When the only available information is a text description of the medication, Medication.code.text should be used.",
-                "path": "MedicationOrder.medication[x]",
-                "definition": "Identifies the medication being administered. This is a link to a resource that represents the medication which may be the details of the medication or simply an attribute carrying a code that identifies the medication from a known list of medications."
+                "isSummary": true,
+                "path": "MedicationOrder.medication[x]"
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Indicates how the medication is to be used by the patient.",
                 "mapping": [
                     {
                         "map": "component.substanceAdministrationRequest",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mustSupport": true,
+                "short": "How medication should be taken",
+                "min": 0,
                 "comments": "When the dose or rate is intended to change over the entire administration period, e.g. Tapering dose prescriptions, multiple instances of dosage instructions will need to be supplied to convey the different doses/rates. Another common example in institutional settings is 'titration' of an IV medication dose to maintain a specific stated hemodynamic value or range e.g. drug x to be administered to maintain AM (arterial mean) greater than 65.",
                 "path": "MedicationOrder.dosageInstruction",
-                "max": "*",
-                "min": 0,
-                "short": "How medication should be taken",
-                "definition": "Indicates how the medication is to be used by the patient.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "MedicationOrder.dosageInstruction.id",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
+                "path": "MedicationOrder.dosageInstruction.id"
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -1031,41 +996,52 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.dosageInstruction.extension",
                 "mapping": [
                     {
-                        "map": "Dosage.doseType",
-                        "identity": "qidam"
+                        "map": "n/a",
+                        "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/pharmacy-core-doseType"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
                 "name": "MedicationOrder.dosageInstruction.doseType",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "binding": {
                     "description": "Medication dose types (e.g., loading, maintenance, etc.)",
                     "valueSetReference": {
@@ -1073,233 +1049,250 @@
                     },
                     "strength": "preferred"
                 },
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "mapping": [
+                    {
+                        "map": "Dosage.doseType",
+                        "identity": "qidam"
+                    }
+                ],
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-infuseOver"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.infuseOver",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.infuseOver",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-infuseOver"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.infuseOver",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrement"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.rateIncrement",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.rateIncrement",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrement"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.rateIncrement",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrementInterval"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.rateIncrementInterval",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.rateIncrementInterval",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateIncrementInterval"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.rateIncrementInterval",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateGoal"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.rateGoal",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.rateGoal",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-rateGoal"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.rateGoal",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-minDosePerPeriod"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.minDosePerPeriod",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.minDosePerPeriod",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-minDosePerPeriod"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.minDosePerPeriod",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryRate"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.maxDeliveryRate",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.maxDeliveryRate",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryRate"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.maxDeliveryRate",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryVolume"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "MedicationOrder.dosageInstruction.maxDeliveryVolume",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Dosage.maxDeliveryVolume",
                         "identity": "qidam"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/pharmacy-core-maxDeliveryVolume"
-                        ]
-                    }
-                ],
-                "path": "MedicationOrder.dosageInstruction.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "MedicationOrder.dosageInstruction.maxDeliveryVolume",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.extension"
-                }
+                "path": "MedicationOrder.dosageInstruction.extension"
             },
             {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationOrder.dosageInstruction.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dosageInstruction.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.dosageInstruction.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Free text dosage instructions can be used for cases where the instructions are too complex to code.  The content of this attribute does not include the name or description of the medication. When coded instructions are present, the free text instructions may still be present for display to humans taking or administering the medication. It is expected that the text instructions will always be populated.  If the dosage.timing attribute is also populated, then the dosage.text should reflect the same information as the timing.",
+                "short": "Dosage instructions expressed as text",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.dosageInstruction.text",
                 "mapping": [
                     {
                         "map": "RXE-7.2-Provider's Administration Instructions.text / RXO-7.2-Provider's Administration Instructions.text / TQ1-10-Condition Text / TQ1-11-Text Instruction",
@@ -1309,25 +1302,29 @@
                         "map": "text",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.dosageInstruction.text",
-                "max": "1",
-                "min": 0,
-                "short": "Dosage instructions expressed as text",
-                "definition": "Free text dosage instructions can be used for cases where the instructions are too complex to code.  The content of this attribute does not include the name or description of the medication. When coded instructions are present, the free text instructions may still be present for display to humans taking or administering the medication. It is expected that the text instructions will always be populated.  If the dosage.timing attribute is also populated, then the dosage.text should reflect the same information as the timing.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.text"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.additionalInstructions",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Additional instructions such as \"Swallow with plenty of water\" which may or may not be coded.",
+                "short": "Supplemental instructions - e.g. \"with meals\"",
+                "min": 0,
+                "binding": {
+                    "description": "Codes identifying additional instructions such as \"take with water\" or \"avoid operating heavy machinery\".",
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "MedicationOrder.dosageInstruction.additionalInstructions",
                 "mapping": [
                     {
                         "map": "RXE-7.2-Provider's Administration Instructions.text / RXO-7.2-Provider's Administration Instructions.text / TQ1-10-Condition Text / TQ1-11-Text Instruction",
@@ -1337,29 +1334,21 @@
                         "map": "component.substanceAdministrationRequest.text",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.dosageInstruction.additionalInstructions",
-                "max": "1",
-                "min": 0,
-                "short": "Supplemental instructions - e.g. \"with meals\"",
-                "binding": {
-                    "description": "Codes identifying additional instructions such as \"take with water\" or \"avoid operating heavy machinery\".",
-                    "strength": "example"
-                },
-                "definition": "Additional instructions such as \"Swallow with plenty of water\" which may or may not be coded.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.additionalInstructions"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Timing"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.timing",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The timing schedule for giving the medication to the patient. The Schedule data type allows many different expressions. For example: \"Every 8 hours\"; \"Three times a day\"; \"1/2 an hour before breakfast for 10 days from 23-Dec 2011:\"; \"15 Oct 2013, 17 Oct 2013 and 1 Nov 2013\".",
                 "mapping": [
                     {
                         "map": "TQ1-X / ORC Quantity/timing",
@@ -1370,31 +1359,13 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Timing"
-                    }
-                ],
-                "isSummary": true,
+                "short": "When medication should be administered",
+                "min": 0,
                 "comments": "This attribute may not always be populated while the DosageInstruction.text is expected to be populated.  If both are populated, then the DosageInstruction.text should reflect the content of the Dosage.timing.",
                 "path": "MedicationOrder.dosageInstruction.timing",
-                "max": "1",
-                "min": 0,
-                "short": "When medication should be administered",
-                "definition": "The timing schedule for giving the medication to the patient. The Schedule data type allows many different expressions. For example: \"Every 8 hours\"; \"Three times a day\"; \"1/2 an hour before breakfast for 10 days from 23-Dec 2011:\"; \"15 Oct 2013, 17 Oct 2013 and 1 Nov 2013\".",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.timing"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "boolean: precondition.negationInd (inversed - so negationInd = true means asNeeded=false  CodeableConcept: precondition.observationEventCriterion[code=\"Assertion\"].value",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "boolean"
@@ -1403,24 +1374,58 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Specifically if 'boolean' datatype is selected, then the following logic applies:  If set to True, this indicates that the medication is only taken when needed, within the specified schedule.",
-                "path": "MedicationOrder.dosageInstruction.asNeeded[x]",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.asNeeded[x]",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "Indicates whether the Medication is only taken when needed within a specific dosing schedule (Boolean option), or it indicates the precondition for taking the Medication (CodeableConcept).",
+                "mapping": [
+                    {
+                        "map": "boolean: precondition.negationInd (inversed - so negationInd = true means asNeeded=false  CodeableConcept: precondition.observationEventCriterion[code=\"Assertion\"].value",
+                        "identity": "rim"
+                    }
+                ],
                 "short": "Take \"as needed\" (for x)",
+                "min": 0,
                 "binding": {
                     "description": "A coded concept identifying the precondition that should be met or evaluated prior to consuming or administering a medication dose.  For example \"pain\", \"30 minutes prior to sexual intercourse\", \"on flare-up\" etc.",
                     "strength": "example"
                 },
-                "definition": "Indicates whether the Medication is only taken when needed within a specific dosing schedule (Boolean option), or it indicates the precondition for taking the Medication (CodeableConcept).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.asNeeded[x]"
-                }
+                "comments": "Specifically if 'boolean' datatype is selected, then the following logic applies:  If set to True, this indicates that the medication is only taken when needed, within the specified schedule.",
+                "path": "MedicationOrder.dosageInstruction.asNeeded[x]",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/BodySite"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.site[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A coded specification of the anatomic site where the medication first enters the body.",
+                "short": "Body site to administer to",
+                "min": 0,
+                "binding": {
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
+                    },
+                    "strength": "preferred"
+                },
+                "isSummary": true,
+                "path": "MedicationOrder.dosageInstruction.site[x]",
                 "mapping": [
                     {
                         "map": "RXR-2-Administration Site",
@@ -1430,37 +1435,32 @@
                         "map": "approachSiteCode",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/BodySite"
-                        ]
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.dosageInstruction.site[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Body site to administer to",
-                "binding": {
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "A coded specification of the anatomic site where the medication first enters the body.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.site[x]"
-                }
-            },
-            {
+                    "path": "MedicationOrder.dosageInstruction.route",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A code specifying the route or physiological path of administration of a therapeutic agent into or onto a patient's body.",
+                "short": "How drug should enter body",
+                "min": 0,
+                "binding": {
+                    "description": "A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/route-codes"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "MedicationOrder.dosageInstruction.route",
                 "mapping": [
                     {
                         "map": "RXR-1-Route",
@@ -1470,32 +1470,21 @@
                         "map": "routeCode",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.dosageInstruction.route",
-                "max": "1",
-                "min": 0,
-                "short": "How drug should enter body",
-                "binding": {
-                    "description": "A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/route-codes"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A code specifying the route or physiological path of administration of a therapeutic agent into or onto a patient's body.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.route"
-                }
-            },
-            {
+                    "path": "MedicationOrder.dosageInstruction.method",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  For examples, Slow Push; Deep IV.",
                 "mapping": [
                     {
                         "map": "RXR-4-Administration Method",
@@ -1506,29 +1495,35 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Terminologies used often pre-coordinate this term with the route and or form of administration.",
-                "path": "MedicationOrder.dosageInstruction.method",
-                "max": "1",
-                "min": 0,
                 "short": "Technique for administering medication",
+                "min": 0,
                 "binding": {
                     "description": "A coded concept describing the technique by which the medicine is administered.",
                     "strength": "example"
                 },
-                "definition": "A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  For examples, Slow Push; Deep IV.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.method"
-                }
+                "comments": "Terminologies used often pre-coordinate this term with the route and or form of administration.",
+                "path": "MedicationOrder.dosageInstruction.method",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "Range"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.dose[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The amount of therapeutic or other substance given at one administration event.",
                 "mapping": [
                     {
                         "map": "RXE-23-Give Rate Amount / RXE-24.1-Give Rate Units.code / RXE-24.3-Give Rate Units.name of coding system",
@@ -1539,31 +1534,28 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Range"
-                    },
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Amount of medication per dose",
+                "min": 0,
                 "comments": "Note that this specifies the quantity of the specified medication, not the quantity for each active ingredient(s). Each ingredient amount can be communicated in the Medication resource. For example, if one wants to communicate that a tablet was 375 mg, where the dose was one tablet, you can use the Medication resource to document that the tablet was comprised of 375 mg of drug XYZ. Alternatively if the dose was 375 mg, then you may only need to use the Medication resource to indicate this was a tablet. If the example were an IV such as dopamine and you wanted to communicate that 400mg of dopamine was mixed in 500 ml of some IV solution, then this would all be communicated in the Medication resource. If the administration is not intended to be instantaneous (rate is present or timing has a duration), this can be specified to convey the total amount to be administered over the period of time as indicated by the schedule e.g. 500 ml in dose, with timing used to convey that this should be done over 4 hours.",
                 "path": "MedicationOrder.dosageInstruction.dose[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Amount of medication per dose",
-                "definition": "The amount of therapeutic or other substance given at one administration event.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.dose[x]"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "Ratio"
+                    },
+                    {
+                        "code": "Range"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dosageInstruction.rate[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the speed with which the medication was or will be introduced into the patient. Typically the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr.  May also be expressed as a rate per unit of time e.g. 500 ml per 2 hours.   Currently we do not specify a default of '1' in the denominator, but this is being discussed. Other examples: 200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.",
                 "mapping": [
                     {
                         "map": "RXE-22-Give Per (Time Unit)",
@@ -1574,28 +1566,25 @@
                         "identity": "rim"
                     }
                 ],
+                "short": "Amount of medication per unit of time",
+                "min": 0,
+                "comments": "It is possible to supply both a rate and a doseQuantity to provide full details about how the medication is to be administered and supplied. If the rate is intended to change over time, depending on local rules/regulations, each change should be captured as a new version of the MedicationOrder with an updated rate, or captured with a new MedicationOrder with the new rate.",
+                "path": "MedicationOrder.dosageInstruction.rate[x]",
+                "isSummary": true
+            },
+            {
                 "type": [
                     {
                         "code": "Ratio"
-                    },
-                    {
-                        "code": "Range"
                     }
                 ],
-                "isSummary": true,
-                "comments": "It is possible to supply both a rate and a doseQuantity to provide full details about how the medication is to be administered and supplied. If the rate is intended to change over time, depending on local rules/regulations, each change should be captured as a new version of the MedicationOrder with an updated rate, or captured with a new MedicationOrder with the new rate.",
-                "path": "MedicationOrder.dosageInstruction.rate[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Amount of medication per unit of time",
-                "definition": "Identifies the speed with which the medication was or will be introduced into the patient. Typically the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr.  May also be expressed as a rate per unit of time e.g. 500 ml per 2 hours.   Currently we do not specify a default of '1' in the denominator, but this is being discussed. Other examples: 200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.rate[x]"
-                }
-            },
-            {
+                    "path": "MedicationOrder.dosageInstruction.maxDosePerPeriod",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The maximum total quantity of a therapeutic substance that may be administered to a subject over the period of time.  For example, 1000mg in 24 hours.",
                 "mapping": [
                     {
                         "map": "RXE-4-Give Amount - Maximum / RXE-5-Give Units",
@@ -1606,134 +1595,140 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Ratio"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Upper limit on medication per unit of time",
+                "min": 0,
                 "comments": "This is intended for use as an adjunct to the dosage when there is an upper cap.  For example \"2 tablets every 4 hours to a maximum of 8/day\".",
                 "path": "MedicationOrder.dosageInstruction.maxDosePerPeriod",
-                "max": "1",
-                "min": 0,
-                "short": "Upper limit on medication per unit of time",
-                "definition": "The maximum total quantity of a therapeutic substance that may be administered to a subject over the period of time.  For example, 1000mg in 24 hours.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dosageInstruction.maxDosePerPeriod"
-                }
+                "isSummary": true
             },
             {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "component.supplyEvent",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationOrder.dispenseRequest",
-                "max": "1",
-                "min": 0,
-                "short": "Medication supply authorization",
-                "definition": "Indicates the specific details for the dispense or medication supply part of a medication order (also known as a Medication Prescription).  Note that this information is NOT always sent with the order.  There may be in some settings (e.g. hospitals) institutional or system support for completing the dispense details in the pharmacy department.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest"
-                }
-            },
-            {
+                    "path": "MedicationOrder.dispenseRequest",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates the specific details for the dispense or medication supply part of a medication order (also known as a Medication Prescription).  Note that this information is NOT always sent with the order.  There may be in some settings (e.g. hospitals) institutional or system support for completing the dispense details in the pharmacy department.",
+                "short": "Medication supply authorization",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.dispenseRequest",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": "component.supplyEvent",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "MedicationOrder.dispenseRequest.id",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "MedicationOrder.dispenseRequest.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationOrder.dispenseRequest.extension",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dispenseRequest.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.dispenseRequest.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationOrder.dispenseRequest.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.dispenseRequest.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.dispenseRequest.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-medication"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.medication[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the medication being administered. This is a link to a resource that represents the medication which may be the details of the medication or simply an attribute carrying a code that identifies the medication from a known list of medications.",
                 "mapping": [
                     {
                         "map": "RXE-2-Give Code / RXO-1-Requested Give Code / RXD-2-Dispense/Give Code",
@@ -1744,57 +1739,51 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-medication"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Product to be supplied",
+                "min": 0,
                 "comments": "If only a code is specified, then it needs to be a code for a specific product.  If more information is required, then the use of the medication resource is recommended.",
                 "path": "MedicationOrder.dispenseRequest.medication[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Product to be supplied",
-                "definition": "Identifies the medication being administered. This is a link to a resource that represents the medication which may be the details of the medication or simply an attribute carrying a code that identifies the medication from a known list of medications.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest.medication[x]"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.validityPeriod",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "This indicates the validity period of a prescription (stale dating the Prescription).",
+                "requirements": "Indicates when the Prescription becomes valid, and when it ceases to be a dispensable Prescription.",
                 "mapping": [
                     {
                         "map": "effectiveTime",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Time period supply is authorized for",
+                "min": 0,
                 "comments": "It reflects the prescriber perspective for the validity of the prescription. Dispenses must not be made against the prescription outside of this period. The lower-bound of the Dispensing Window signifies the earliest date that the prescription can be filled for the first time. If an upper-bound is not specified then the Prescription is open-ended or will default to a stale-date based on regulations.",
                 "path": "MedicationOrder.dispenseRequest.validityPeriod",
-                "max": "1",
-                "min": 0,
-                "short": "Time period supply is authorized for",
-                "requirements": "Indicates when the Prescription becomes valid, and when it ceases to be a dispensable Prescription.",
-                "definition": "This indicates the validity period of a prescription (stale dating the Prescription).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest.validityPeriod"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.numberOfRepeatsAllowed",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "An integer indicating the number of additional times (aka refills or repeats) the patient can receive the prescribed medication.   Usage Notes: This integer does NOT include the original order dispense.   This means that if an order indicates dispense 30 tablets plus  \"3 repeats\", then the order can be dispensed a total of 4 times and the patient can receive a total of 120 tablets.",
                 "mapping": [
                     {
                         "map": "RXE-12-Number of Refills",
@@ -1805,25 +1794,32 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Number of refills authorized",
+                "min": 0,
                 "comments": "If displaying \"number of authorized refills\", subtract 1 from this number.",
                 "path": "MedicationOrder.dispenseRequest.numberOfRepeatsAllowed",
-                "max": "1",
-                "min": 0,
-                "short": "Number of refills authorized",
-                "definition": "An integer indicating the number of additional times (aka refills or repeats) the patient can receive the prescribed medication.   Usage Notes: This integer does NOT include the original order dispense.   This means that if an order indicates dispense 30 tablets plus  \"3 repeats\", then the order can be dispensed a total of 4 times and the patient can receive a total of 120 tablets.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest.numberOfRepeatsAllowed"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.quantity",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The amount that is to be dispensed for one fill.",
+                "short": "Amount of medication to supply per dispense",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.dispenseRequest.quantity",
                 "mapping": [
                     {
                         "map": "RXD-4-Actual Dispense Amount / RXD-5.1-Actual Dispense Units.code / RXD-5.3-Actual Dispense Units.name of coding system",
@@ -1833,164 +1829,168 @@
                         "map": "quantity",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.dispenseRequest.quantity",
-                "max": "1",
-                "min": 0,
-                "short": "Amount of medication to supply per dispense",
-                "definition": "The amount that is to be dispensed for one fill.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest.quantity"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Duration"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.dispenseRequest.expectedSupplyDuration",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the period time over which the supplied product is expected to be used, or the length of time the dispense is expected to last.",
                 "mapping": [
                     {
                         "map": "expectedUseTime",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Duration"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Number of days supply per dispense",
+                "min": 0,
                 "comments": "In some situations, this attribute may be used instead of quantity to identify the amount supplied by how long it is expected to last, rather than the physical quantity issued, e.g. 90 days supply of medication (based on an ordered dosage) When possible, it is always better to specify quantity, as this tends to be more precise. expectedSupplyDuration will always be an estimate that can be influenced by external factors.",
                 "path": "MedicationOrder.dispenseRequest.expectedSupplyDuration",
-                "max": "1",
-                "min": 0,
-                "short": "Number of days supply per dispense",
-                "definition": "Identifies the period time over which the supplied product is expected to be used, or the length of time the dispense is expected to last.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.dispenseRequest.expectedSupplyDuration"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "subjectOf.substitutionPersmission",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.substitution",
-                "max": "1",
-                "min": 0,
-                "short": "Any restrictions on medication substitution",
-                "definition": "Indicates whether or not substitution can or should be part of the dispense. In some cases substitution must happen, in other cases substitution must not happen, and in others it does not matter. This block explains the prescriber's intent. If nothing is specified substitution may be done.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.substitution"
-                }
-            },
-            {
+                    "path": "MedicationOrder.substitution",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates whether or not substitution can or should be part of the dispense. In some cases substitution must happen, in other cases substitution must not happen, and in others it does not matter. This block explains the prescriber's intent. If nothing is specified substitution may be done.",
+                "short": "Any restrictions on medication substitution",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.substitution",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": "subjectOf.substitutionPersmission",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "MedicationOrder.substitution.id",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.substitution.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.substitution.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "MedicationOrder.substitution.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationOrder.substitution.extension",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.substitution.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.substitution.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.substitution.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.substitution.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationOrder.substitution.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationOrder.substitution.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationOrder.substitution.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "MedicationOrder.substitution.type",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A code signifying whether a different drug should be dispensed from what was prescribed.",
+                "short": "generic | formulary +",
+                "min": 1,
+                "binding": {
+                    "description": "A coded concept describing whether a different medicinal product may be dispensed other than the product as specified exactly in the prescription.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/v3-ActSubstanceAdminSubstitutionCode"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "MedicationOrder.substitution.type",
                 "mapping": [
                     {
                         "map": "RXO-9-Allow Substitutions / RXE-9-Substitution Status",
@@ -2000,32 +2000,32 @@
                         "map": "code",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.substitution.type",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationOrder.substitution.reason",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 1,
-                "short": "generic | formulary +",
+                "definition": "Indicates the reason for the substitution, or why substitution must or must not be performed.",
+                "short": "Why should (not) substitution be made",
+                "min": 0,
                 "binding": {
-                    "description": "A coded concept describing whether a different medicinal product may be dispensed other than the product as specified exactly in the prescription.",
+                    "description": "A coded concept describing the reason that a different medication should (or should not) be substituted from what was prescribed.",
                     "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/v3-ActSubstanceAdminSubstitutionCode"
+                        "reference": "http://hl7.org/fhir/ValueSet/v3-SubstanceAdminSubstitutionReason"
                     },
                     "strength": "example"
                 },
-                "definition": "A code signifying whether a different drug should be dispensed from what was prescribed.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "MedicationOrder.substitution.type"
-                }
-            },
-            {
+                "isSummary": true,
+                "path": "MedicationOrder.substitution.reason",
                 "mapping": [
                     {
                         "map": "RXE-9 Substition status",
@@ -2035,57 +2035,57 @@
                         "map": "reasonCode",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MedicationOrder.substitution.reason",
-                "max": "1",
-                "min": 0,
-                "short": "Why should (not) substitution be made",
-                "binding": {
-                    "description": "A coded concept describing the reason that a different medication should (or should not) be substituted from what was prescribed.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/v3-SubstanceAdminSubstitutionReason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Indicates the reason for the substitution, or why substitution must or must not be performed.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.substitution.reason"
-                }
+                ]
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/MedicationOrder"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationOrder.priorPrescription",
-                "max": "1",
-                "min": 0,
-                "short": "An order/prescription that this supersedes",
-                "definition": "A link to a resource representing an earlier order or prescription that this order supersedes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationOrder.priorPrescription"
-                }
+                    "path": "MedicationOrder.priorPrescription",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A link to a resource representing an earlier order or prescription that this order supersedes.",
+                "short": "An order/prescription that this supersedes",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationOrder.priorPrescription"
             }
         ]
     },
-    "name": "QICore-MedicationOrder",
     "description": "Profile of MedicationOrder for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
-    "status": "draft",
-    "date": "2015-02-27",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/qicore-medicationorder",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/MedicationOrder",
+    "mapping": [
+        {
+            "uri": "http://www.healthit.gov/quality-data-model",
+            "identity": "qdm",
+            "name": "Quality Data Model"
+        },
+        {
+            "uri": "http://www.hl7.org/implement/standards/product_brief.cfm?product_id=378",
+            "identity": "qidam",
+            "name": "Quality Improvement Domain Analysis Model"
+        }
+    ],
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org/special/committees/CQI",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)"
 }

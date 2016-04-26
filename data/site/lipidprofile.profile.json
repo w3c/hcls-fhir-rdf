@@ -1,19 +1,6 @@
 {
     "id": "lipidprofile",
-    "constrainedType": "DiagnosticReport",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "grahame@healthintersections.com.au",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport",
+    "date": "2012-05-12",
     "differential": {
         "element": [
             {
@@ -22,13 +9,13 @@
                         "code": "DiagnosticReport"
                     }
                 ],
-                "comments": "In this profile, mustSupport means that authoring systems must include the ability to report these elements, and processing systems must cater for them by either displaying them to the user or considering them appropriately in decision support systems.",
-                "path": "DiagnosticReport",
-                "max": "1",
-                "min": 1,
-                "short": "Lipid Lab Report",
                 "name": "LipidProfile",
-                "definition": "The findings and interpretation of a general lipd lab profile."
+                "max": "1",
+                "definition": "The findings and interpretation of a general lipd lab profile.",
+                "short": "Lipid Lab Report",
+                "min": 1,
+                "comments": "In this profile, mustSupport means that authoring systems must include the ability to report these elements, and processing systems must cater for them by either displaying them to the user or considering them appropriately in decision support systems.",
+                "path": "DiagnosticReport"
             },
             {
                 "type": [
@@ -36,32 +23,23 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "comments": "LOINC code includes \"direct\" LDL - does this mean LDL derived by measuring VLDL by ultracentrifugation? This panel includes both measured and calculated LDL.",
-                "path": "DiagnosticReport.code",
-                "max": "1",
-                "min": 1,
-                "short": "LOINC Code for Lipid Panel with LDL",
-                "definition": "LOINC Code for Lipid Panel with LDL.",
                 "fixedCodeableConcept": {
                     "coding": [
                         {
-                            "display": "Lipid panel with direct LDL - Serum or Plasma",
                             "code": "57698-3",
+                            "display": "Lipid panel with direct LDL - Serum or Plasma",
                             "system": "http://loinc.org"
                         }
                     ]
-                }
+                },
+                "max": "1",
+                "definition": "LOINC Code for Lipid Panel with LDL.",
+                "short": "LOINC Code for Lipid Panel with LDL",
+                "min": 1,
+                "comments": "LOINC code includes \"direct\" LDL - does this mean LDL derived by measuring VLDL by ultracentrifugation? This panel includes both measured and calculated LDL.",
+                "path": "DiagnosticReport.code"
             },
             {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/cholesterol"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticReport.result",
                 "slicing": {
                     "discriminator": [
                         "reference.code"
@@ -69,77 +47,86 @@
                     "ordered": true,
                     "rules": "closed"
                 },
-                "max": "1",
-                "min": 1,
-                "short": "Cholesterol Result",
-                "name": "Cholesterol",
-                "definition": "Reference to Cholesterol Result.",
-                "mustSupport": true
-            },
-            {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/cholesterol"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "name": "Cholesterol",
+                "max": "1",
+                "definition": "Reference to Cholesterol Result.",
+                "short": "Cholesterol Result",
+                "min": 1,
+                "path": "DiagnosticReport.result"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/triglyceride"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "path": "DiagnosticReport.result",
-                "max": "1",
-                "min": 1,
-                "short": "Triglyceride Result",
                 "name": "Triglyceride",
+                "max": "1",
                 "definition": "Group of elements for Triglyceride result.",
-                "mustSupport": true
+                "short": "Triglyceride Result",
+                "min": 1,
+                "path": "DiagnosticReport.result"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/hdlcholesterol"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "path": "DiagnosticReport.result",
-                "max": "1",
-                "min": 1,
-                "short": "HDL Cholesterol Result",
                 "name": "HDL Cholesterol",
+                "max": "1",
                 "definition": "Group of elements for HDL Cholesterol result.",
-                "mustSupport": true
+                "short": "HDL Cholesterol Result",
+                "min": 1,
+                "path": "DiagnosticReport.result"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/ldlcholesterol"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "path": "DiagnosticReport.result",
-                "max": "1",
-                "min": 0,
-                "short": "LDL Cholesterol result, if reported",
                 "name": "LDL Cholesterol",
+                "max": "1",
                 "definition": "LDL Cholesterol result, if reported.",
-                "mustSupport": true
+                "short": "LDL Cholesterol result, if reported",
+                "min": 0,
+                "path": "DiagnosticReport.result"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "comments": "It's not unusual for the lab to make some kind of interpretative comment on the set of results.",
-                "path": "DiagnosticReport.conclusion",
                 "max": "1",
-                "min": 0,
-                "short": "Clinical Interpretation of Lipid Panel",
                 "definition": "May include diagnosis or suggestions for follow up testing.",
-                "mustSupport": true
+                "short": "Clinical Interpretation of Lipid Panel",
+                "min": 0,
+                "comments": "It's not unusual for the lab to make some kind of interpretative comment on the set of results.",
+                "path": "DiagnosticReport.conclusion"
             },
             {
                 "type": [
@@ -147,21 +134,48 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "comments": "Not used in this context.",
-                "path": "DiagnosticReport.codedDiagnosis",
                 "max": "0",
-                "min": 0,
+                "definition": "No codes for a lipid panel.",
                 "short": "No codes for a lipid panel",
-                "definition": "No codes for a lipid panel."
+                "min": 0,
+                "comments": "Not used in this context.",
+                "path": "DiagnosticReport.codedDiagnosis"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/lipidprofile",
+    "name": "Example Lipid Profile",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Grahame Grieve",
+    "constrainedType": "DiagnosticReport",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "DiagnosticReport"
+                    }
+                ],
+                "name": "LipidProfile",
+                "max": "1",
+                "definition": "The findings and interpretation of a general lipd lab profile.",
+                "short": "Lipid Lab Report",
+                "min": 1,
+                "alias": [
+                    "Report",
+                    "Test",
+                    "Result",
+                    "Results",
+                    "Labs",
+                    "Laboratory"
+                ],
+                "comments": "In this profile, mustSupport means that authoring systems must include the ability to report these elements, and processing systems must cater for them by either displaying them to the user or considering them appropriately in decision support systems.",
+                "path": "DiagnosticReport",
                 "mapping": [
                     {
                         "map": "ORU -> OBR",
@@ -175,32 +189,7 @@
                         "map": "clinical.diagnostics",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "DiagnosticReport"
-                    }
-                ],
-                "comments": "In this profile, mustSupport means that authoring systems must include the ability to report these elements, and processing systems must cater for them by either displaying them to the user or considering them appropriately in decision support systems.",
-                "path": "DiagnosticReport",
-                "alias": [
-                    "Report",
-                    "Test",
-                    "Result",
-                    "Results",
-                    "Labs",
-                    "Laboratory"
-                ],
-                "min": 1,
-                "short": "Lipid Lab Report",
-                "name": "LipidProfile",
-                "max": "1",
-                "definition": "The findings and interpretation of a general lipd lab profile.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport"
-                }
+                ]
             },
             {
                 "type": [
@@ -208,18 +197,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "DiagnosticReport.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.id"
-                }
+                    "path": "DiagnosticReport.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "DiagnosticReport.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -227,17 +216,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "DiagnosticReport.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.meta"
-                }
+                    "path": "DiagnosticReport.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticReport.meta"
             },
             {
                 "type": [
@@ -245,19 +234,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "DiagnosticReport.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.implicitRules"
-                }
+                    "path": "DiagnosticReport.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "DiagnosticReport.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -265,143 +254,163 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "DiagnosticReport.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.language"
-                }
+                    "path": "DiagnosticReport.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "DiagnosticReport.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "DiagnosticReport.text",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "DiagnosticReport.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "DiagnosticReport.contained",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "DiagnosticReport.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "DiagnosticReport.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticReport.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticReport.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The local ID assigned to the report by the order filler, usually by the Information System of the diagnostic service provider.",
+                "requirements": "Need to know what identifier to use when making queries about this report from the source laboratory, and for linking to the report outside FHIR context.",
+                "short": "Id for external references to this report",
+                "min": 0,
+                "alias": [
+                    "ReportID"
+                ],
+                "isSummary": true,
+                "path": "DiagnosticReport.identifier",
                 "mapping": [
                     {
                         "map": "OBR-51",
@@ -415,29 +424,19 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticReport.identifier",
-                "alias": [
-                    "ReportID"
-                ],
-                "min": 0,
-                "short": "Id for external references to this report",
-                "max": "*",
-                "requirements": "Need to know what identifier to use when making queries about this report from the source laboratory, and for linking to the report outside FHIR context.",
-                "definition": "The local ID assigned to the report by the order filler, usually by the Information System of the diagnostic service provider.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.identifier"
-                }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "registered | partial | final | corrected | appended | cancelled | entered-in-error",
+                "definition": "The status of the diagnostic report as a whole.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.status",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBR-25 (not 1:1 mapping)",
@@ -452,14 +451,13 @@
                         "identity": "w5"
                     }
                 ],
+                "requirements": "Diagnostic services routinely issue provisional/incomplete reports, and sometimes withdraw previously released reports.",
+                "comments": "This is labeled as \"Is Modifier\" because applications need to take appropriate action if a report is withdrawn.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "registered | partial | final | corrected | appended | cancelled | entered-in-error",
                 "binding": {
                     "description": "The status of the diagnostic report as a whole.",
                     "valueSetReference": {
@@ -467,19 +465,25 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.status"
-                },
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications need to take appropriate action if a report is withdrawn.",
-                "path": "DiagnosticReport.status",
-                "requirements": "Diagnostic services routinely issue provisional/incomplete reports, and sometimes withdraw previously released reports.",
-                "definition": "The status of the diagnostic report as a whole."
+                "isSummary": true,
+                "path": "DiagnosticReport.status"
             },
             {
+                "min": 0,
+                "max": "1",
+                "alias": [
+                    "Department",
+                    "Sub-department",
+                    "service",
+                    "discipline"
+                ],
+                "short": "Service category",
+                "definition": "A code that classifies the clinical discipline, department or diagnostic service that created the report (e.g. cardiology, biochemistry, hematology, MRI). This is used for searching, sorting and display purposes.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.category",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBR-24",
@@ -494,14 +498,12 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "The level of granularity is defined by the category concepts in the value set. More fine-grained filtering can be performed using the metadata and/or terminology hierarchy in DiagnosticReport.code.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Service category",
                 "binding": {
                     "description": "Codes for diagnostic service sections.",
                     "valueSetReference": {
@@ -509,23 +511,28 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.category"
-                },
-                "comments": "The level of granularity is defined by the category concepts in the value set. More fine-grained filtering can be performed using the metadata and/or terminology hierarchy in DiagnosticReport.code.",
-                "path": "DiagnosticReport.category",
-                "alias": [
-                    "Department",
-                    "Sub-department",
-                    "service",
-                    "discipline"
-                ],
-                "definition": "A code that classifies the clinical discipline, department or diagnostic service that created the report (e.g. cardiology, biochemistry, hematology, MRI). This is used for searching, sorting and display purposes."
+                "isSummary": true,
+                "path": "DiagnosticReport.category"
             },
             {
+                "min": 1,
+                "fixedCodeableConcept": {
+                    "coding": [
+                        {
+                            "code": "57698-3",
+                            "display": "Lipid panel with direct LDL - Serum or Plasma",
+                            "system": "http://loinc.org"
+                        }
+                    ]
+                },
+                "max": "1",
+                "short": "LOINC Code for Lipid Panel with LDL",
+                "definition": "LOINC Code for Lipid Panel with LDL.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.code",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBR-4 (HL7 v2 doesn't provide an easy way to indicate both the ordered test and the performed panel)",
@@ -540,14 +547,12 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "LOINC code includes \"direct\" LDL - does this mean LDL derived by measuring VLDL by ultracentrifugation? This panel includes both measured and calculated LDL.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "LOINC Code for Lipid Panel with LDL",
                 "binding": {
                     "description": "Codes that describe Diagnostic Reports.",
                     "valueSetReference": {
@@ -555,26 +560,51 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.code"
-                },
-                "fixedCodeableConcept": {
-                    "coding": [
-                        {
-                            "display": "Lipid panel with direct LDL - Serum or Plasma",
-                            "code": "57698-3",
-                            "system": "http://loinc.org"
-                        }
-                    ]
-                },
-                "comments": "LOINC code includes \"direct\" LDL - does this mean LDL derived by measuring VLDL by ultracentrifugation? This panel includes both measured and calculated LDL.",
-                "path": "DiagnosticReport.code",
-                "definition": "LOINC Code for Lipid Panel with LDL."
+                "isSummary": true,
+                "path": "DiagnosticReport.code"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.subject",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The subject of the report. Usually, but not always, this is a patient. However diagnostic services also perform analyses on specimens collected from a variety of other sources.",
+                "requirements": "SHALL know the subject context.",
+                "short": "The subject of the report, usually, but not always, the patient",
+                "min": 1,
+                "alias": [
+                    "Patient"
+                ],
+                "isSummary": true,
+                "path": "DiagnosticReport.subject",
                 "mapping": [
                     {
                         "map": "PID-3 (no HL7 v2 mapping for Group or Device)",
@@ -588,50 +618,28 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticReport.subject",
-                "alias": [
-                    "Patient"
-                ],
-                "min": 1,
-                "short": "The subject of the report, usually, but not always, the patient",
-                "max": "1",
-                "requirements": "SHALL know the subject context.",
-                "definition": "The subject of the report. Usually, but not always, this is a patient. However diagnostic services also perform analyses on specimens collected from a variety of other sources.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.subject"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The link to the health care event (encounter) when the order was made.",
+                "short": "Health care event when test ordered",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticReport.encounter",
                 "mapping": [
                     {
                         "map": "PV1-19",
@@ -645,28 +653,19 @@
                         "map": "context",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Encounter"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticReport.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "Health care event when test ordered",
-                "definition": "The link to the health care event (encounter) when the order was made.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.encounter"
-                }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Need to know where in the patient history to file/present this report.",
+                "short": "Clinically Relevant time/time-period for report",
+                "definition": "The time or time-period the observed values are related to. When the subject of the report is a patient, this is usually either the time of the procedure or of specimen collection(s), but very often the source of the date/time is not known, only the date/time itself.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.effective[x]",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBR-7",
@@ -681,6 +680,7 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "If the diagnostic procedure was performed on the patient, this is the time it was performed. If there are specimens, the diagnostically relevant time can be derived from the specimen collection times, but the specimen information is not always available, and the exact relationship between the specimens and the diagnostically relevant time is not always automatic.",
                 "type": [
                     {
                         "code": "dateTime"
@@ -689,25 +689,24 @@
                         "code": "Period"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Clinically Relevant time/time-period for report",
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.effective[x]"
-                },
-                "comments": "If the diagnostic procedure was performed on the patient, this is the time it was performed. If there are specimens, the diagnostically relevant time can be derived from the specimen collection times, but the specimen information is not always available, and the exact relationship between the specimens and the diagnostically relevant time is not always automatic.",
-                "path": "DiagnosticReport.effective[x]",
                 "alias": [
                     "Observation time",
                     "Effective Time"
                 ],
-                "requirements": "Need to know where in the patient history to file/present this report.",
-                "definition": "The time or time-period the observed values are related to. When the subject of the report is a patient, this is usually either the time of the procedure or of specimen collection(s), but very often the source of the date/time is not known, only the date/time itself."
+                "isSummary": true,
+                "path": "DiagnosticReport.effective[x]"
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Clinicians need to be able to check the date that the report was released.",
+                "short": "DateTime this version was released",
+                "definition": "The date and time that this version of the report was released from the source diagnostic service.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.issued",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBR-22",
@@ -722,31 +721,31 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "May be different from the update time of the resource itself, because that is the status of the record (potentially a secondary copy), not the actual release time of the report.",
                 "type": [
                     {
                         "code": "instant"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "DateTime this version was released",
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.issued"
-                },
-                "comments": "May be different from the update time of the resource itself, because that is the status of the record (potentially a secondary copy), not the actual release time of the report.",
-                "path": "DiagnosticReport.issued",
                 "alias": [
                     "Date Created",
                     "Date published",
                     "Date Issued"
                 ],
-                "requirements": "Clinicians need to be able to check the date that the report was released.",
-                "definition": "The date and time that this version of the report was released from the source diagnostic service."
+                "isSummary": true,
+                "path": "DiagnosticReport.issued"
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Need to know whom to contact if there are queries about the results. Also may need to track the source of reports for secondary data analysis.",
+                "short": "Responsible Diagnostic Service",
+                "definition": "The diagnostic service that is responsible for issuing the report.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.performer",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "PRT-8 (where this PRT-4-Participation = \"PO\")",
@@ -761,31 +760,21 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "This is not necessarily the source of the atomic data items. It is the entity that takes responsibility for the clinical report.",
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Responsible Diagnostic Service",
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.performer"
-                },
-                "comments": "This is not necessarily the source of the atomic data items. It is the entity that takes responsibility for the clinical report.",
-                "path": "DiagnosticReport.performer",
                 "alias": [
                     "Laboratory",
                     "Service",
@@ -793,10 +782,42 @@
                     "Department",
                     "Company"
                 ],
-                "requirements": "Need to know whom to contact if there are queries about the results. Also may need to track the source of reports for secondary data analysis.",
-                "definition": "The diagnostic service that is responsible for issuing the report."
+                "isSummary": true,
+                "path": "DiagnosticReport.performer"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ReferralRequest"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.request",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Details concerning a test or procedure requested.",
+                "requirements": "Need to be able to track completion of requests based on reports issued and also to report what diagnostic tests were requested (not always the same as what is delivered).",
+                "short": "What was requested",
+                "min": 0,
+                "comments": "Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single test result resource. Note that there are also cases where one request leads to multiple reports.",
+                "path": "DiagnosticReport.request",
                 "mapping": [
                     {
                         "map": "ORC? OBR-2/3?",
@@ -806,41 +827,29 @@
                         "map": "outboundRelationship[typeCode=FLFS].target",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ReferralRequest"
-                        ]
-                    }
-                ],
-                "comments": "Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single test result resource. Note that there are also cases where one request leads to multiple reports.",
-                "path": "DiagnosticReport.request",
-                "max": "*",
-                "min": 0,
-                "short": "What was requested",
-                "requirements": "Need to be able to track completion of requests based on reports issued and also to report what diagnostic tests were requested (not always the same as what is delivered).",
-                "definition": "Details concerning a test or procedure requested.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.request"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Specimen"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.specimen",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Details about the specimens on which this diagnostic report is based.",
+                "requirements": "Need to be able to report information about the collected specimens on which the report is based.",
+                "short": "Specimens this report is based on",
+                "min": 0,
+                "comments": "If the specimen is sufficiently specified with a code in the test result name, then this additional data may be redundant. If there are multiple specimens, these may be represented per Observation or group.",
+                "path": "DiagnosticReport.specimen",
                 "mapping": [
                     {
                         "map": "SPM",
@@ -850,48 +859,9 @@
                         "map": "participation[typeCode=SBJ]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Specimen"
-                        ]
-                    }
-                ],
-                "comments": "If the specimen is sufficiently specified with a code in the test result name, then this additional data may be redundant. If there are multiple specimens, these may be represented per Observation or group.",
-                "path": "DiagnosticReport.specimen",
-                "max": "*",
-                "min": 0,
-                "short": "Specimens this report is based on",
-                "requirements": "Need to be able to report information about the collected specimens on which the report is based.",
-                "definition": "Details about the specimens on which this diagnostic report is based.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.specimen"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": "OBXs",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "outboundRelationship[typeCode=COMP].target",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticReport.result",
                 "slicing": {
                     "discriminator": [
                         "reference.code"
@@ -899,6 +869,24 @@
                     "ordered": true,
                     "rules": "closed"
                 },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.result",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Observations that are part of this diagnostic report. Observations can be simple name/value pairs (e.g. \"atomic\" results), or they can be grouping observations that include references to other members of the group (e.g. \"panels\").",
+                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
+                "short": "Observations - simple, or complex nested groups",
+                "min": 0,
                 "alias": [
                     "Data",
                     "Atomic Value",
@@ -910,18 +898,31 @@
                     "Battery",
                     "Organizer"
                 ],
-                "min": 0,
-                "short": "Observations - simple, or complex nested groups",
-                "max": "*",
-                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
-                "definition": "Observations that are part of this diagnostic report. Observations can be simple name/value pairs (e.g. \"atomic\" results), or they can be grouping observations that include references to other members of the group (e.g. \"panels\").",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.result"
-                }
+                "mapping": [
+                    {
+                        "map": "OBXs",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "outboundRelationship[typeCode=COMP].target",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "DiagnosticReport.result"
             },
             {
+                "min": 1,
+                "name": "Cholesterol",
+                "max": "1",
+                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
+                "short": "Cholesterol Result",
+                "definition": "Reference to Cholesterol Result.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.result",
+                    "max": "*"
+                },
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "OBXs",
@@ -934,22 +935,12 @@
                 ],
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/cholesterol"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "min": 1,
-                "short": "Cholesterol Result",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.result"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticReport.result",
                 "alias": [
                     "Data",
                     "Atomic Value",
@@ -961,11 +952,21 @@
                     "Battery",
                     "Organizer"
                 ],
-                "name": "Cholesterol",
-                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
-                "definition": "Reference to Cholesterol Result."
+                "path": "DiagnosticReport.result"
             },
             {
+                "min": 1,
+                "name": "Triglyceride",
+                "max": "1",
+                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
+                "short": "Triglyceride Result",
+                "definition": "Group of elements for Triglyceride result.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.result",
+                    "max": "*"
+                },
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "OBXs",
@@ -978,22 +979,12 @@
                 ],
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/triglyceride"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "min": 1,
-                "short": "Triglyceride Result",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.result"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticReport.result",
                 "alias": [
                     "Data",
                     "Atomic Value",
@@ -1005,11 +996,21 @@
                     "Battery",
                     "Organizer"
                 ],
-                "name": "Triglyceride",
-                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
-                "definition": "Group of elements for Triglyceride result."
+                "path": "DiagnosticReport.result"
             },
             {
+                "min": 1,
+                "name": "HDL Cholesterol",
+                "max": "1",
+                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
+                "short": "HDL Cholesterol Result",
+                "definition": "Group of elements for HDL Cholesterol result.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.result",
+                    "max": "*"
+                },
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "OBXs",
@@ -1022,22 +1023,12 @@
                 ],
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/hdlcholesterol"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "min": 1,
-                "short": "HDL Cholesterol Result",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.result"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticReport.result",
                 "alias": [
                     "Data",
                     "Atomic Value",
@@ -1049,11 +1040,21 @@
                     "Battery",
                     "Organizer"
                 ],
-                "name": "HDL Cholesterol",
-                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
-                "definition": "Group of elements for HDL Cholesterol result."
+                "path": "DiagnosticReport.result"
             },
             {
+                "min": 0,
+                "name": "LDL Cholesterol",
+                "max": "1",
+                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
+                "short": "LDL Cholesterol result, if reported",
+                "definition": "LDL Cholesterol result, if reported.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.result",
+                    "max": "*"
+                },
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "OBXs",
@@ -1066,22 +1067,12 @@
                 ],
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/ldlcholesterol"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "min": 0,
-                "short": "LDL Cholesterol result, if reported",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.result"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticReport.result",
                 "alias": [
                     "Data",
                     "Atomic Value",
@@ -1093,44 +1084,64 @@
                     "Battery",
                     "Organizer"
                 ],
-                "name": "LDL Cholesterol",
-                "requirements": "Need to support individual results, or report groups of results, where the result grouping is arbitrary, but meaningful. This structure is recursive - observations can contain observations.",
-                "definition": "LDL Cholesterol result, if reported."
+                "path": "DiagnosticReport.result"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ImagingStudy"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ImagingObjectSelection"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.imagingStudy",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "One or more links to full details of any imaging performed during the diagnostic investigation. Typically, this is imaging performed by DICOM enabled modalities, but this is not required. A fully enabled PACS viewer can use this information to provide views of the source images.",
+                "short": "Reference to full details of imaging associated with the diagnostic report",
+                "min": 0,
+                "comments": "ImagingStudy and ImageObjectStudy and the image element are somewhat overlapping - typically, the list of image references in the image element will also be found in one of the imaging study resources. However each caters to different types of displays for different types of purposes. Neither, either, or both may be provided.",
+                "path": "DiagnosticReport.imagingStudy",
                 "mapping": [
                     {
                         "map": "outboundRelationship[typeCode=COMP].target[classsCode=DGIMG, moodCode=EVN]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ImagingStudy"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ImagingObjectSelection"
-                        ]
-                    }
-                ],
-                "comments": "ImagingStudy and ImageObjectStudy and the image element are somewhat overlapping - typically, the list of image references in the image element will also be found in one of the imaging study resources. However each caters to different types of displays for different types of purposes. Neither, either, or both may be provided.",
-                "path": "DiagnosticReport.imagingStudy",
-                "max": "*",
-                "min": 0,
-                "short": "Reference to full details of imaging associated with the diagnostic report",
-                "definition": "One or more links to full details of any imaging performed during the diagnostic investigation. Typically, this is imaging performed by DICOM enabled modalities, but this is not required. A fully enabled PACS viewer can use this information to provide views of the source images.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.imagingStudy"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.image",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A list of key images associated with this report. The images are generally created during the diagnostic process, and may be directly of the patient, or of treated specimens (i.e. slides of interest).",
+                "requirements": "Many diagnostic services include images in the report as part of their service.",
+                "short": "Key images associated with this report",
+                "min": 0,
+                "alias": [
+                    "DICOM",
+                    "Slides",
+                    "Scans"
+                ],
+                "isSummary": true,
+                "path": "DiagnosticReport.image",
                 "mapping": [
                     {
                         "map": "OBX?",
@@ -1140,167 +1151,165 @@
                         "map": "outboundRelationship[typeCode=COMP].target",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticReport.image",
-                "alias": [
-                    "DICOM",
-                    "Slides",
-                    "Scans"
-                ],
-                "min": 0,
-                "short": "Key images associated with this report",
-                "max": "*",
-                "requirements": "Many diagnostic services include images in the report as part of their service.",
-                "definition": "A list of key images associated with this report. The images are generally created during the diagnostic process, and may be directly of the patient, or of treated specimens (i.e. slides of interest).",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.image"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticReport.image.id",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.image.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.image.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticReport.image.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticReport.image.extension",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.image.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.image.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticReport.image.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.image.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticReport.image.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.image.modifierExtension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticReport.image.modifierExtension",
                 "mapping": [
                     {
-                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "comments": "The comment should be displayed with the image. It would be common for the report to include additional discussion of the image contents in other sections such as the conclusion.",
-                "path": "DiagnosticReport.image.comment",
-                "max": "1",
-                "min": 0,
-                "short": "Comment about the image (e.g. explanation)",
-                "requirements": "The provider of the report should make a comment about each image included in the report.",
-                "definition": "A comment about the image. Typically, this is used to provide an explanation for why the image is included, or to draw the viewer's attention to important features.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.image.comment"
-                }
+                    "path": "DiagnosticReport.image.comment",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A comment about the image. Typically, this is used to provide an explanation for why the image is included, or to draw the viewer's attention to important features.",
+                "requirements": "The provider of the report should make a comment about each image included in the report.",
+                "short": "Comment about the image (e.g. explanation)",
+                "min": 0,
+                "comments": "The comment should be displayed with the image. It would be common for the report to include additional discussion of the image contents in other sections such as the conclusion.",
+                "path": "DiagnosticReport.image.comment",
+                "mapping": [
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Media"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticReport.image.link",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Reference to the image source.",
+                "short": "Reference to the image source",
+                "min": 1,
+                "isSummary": true,
+                "path": "DiagnosticReport.image.link",
                 "mapping": [
                     {
                         "map": ".value.reference",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Media"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticReport.image.link",
-                "max": "1",
-                "min": 1,
-                "short": "Reference to the image source",
-                "definition": "Reference to the image source.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticReport.image.link"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Need to be able to provide a conclusion that is not lost among the basic result data.",
+                "short": "Clinical Interpretation of Lipid Panel",
+                "definition": "May include diagnosis or suggestions for follow up testing.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.conclusion",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "comments": "It's not unusual for the lab to make some kind of interpretative comment on the set of results.",
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "alias": [
+                    "Report"
+                ],
                 "mapping": [
                     {
                         "map": "OBX",
@@ -1311,29 +1320,32 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "min": 0,
-                "short": "Clinical Interpretation of Lipid Panel",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticReport.conclusion"
-                },
-                "mustSupport": true,
-                "comments": "It's not unusual for the lab to make some kind of interpretative comment on the set of results.",
-                "path": "DiagnosticReport.conclusion",
-                "alias": [
-                    "Report"
-                ],
-                "requirements": "Need to be able to provide a conclusion that is not lost among the basic result data.",
-                "definition": "May include diagnosis or suggestions for follow up testing."
+                "path": "DiagnosticReport.conclusion"
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.codedDiagnosis",
+                    "max": "*"
+                },
+                "max": "0",
+                "definition": "No codes for a lipid panel.",
+                "short": "No codes for a lipid panel",
+                "min": 0,
+                "binding": {
+                    "description": "Diagnoses codes provided as adjuncts to the report.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/clinical-findings"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Not used in this context.",
+                "path": "DiagnosticReport.codedDiagnosis",
                 "mapping": [
                     {
                         "map": "OBX",
@@ -1343,32 +1355,26 @@
                         "map": "inboundRelationship[typeCode=SPRT].source[classCode=OBS, moodCode=EVN, code=LOINC:54531-9].value (type=CD)",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "Not used in this context.",
-                "path": "DiagnosticReport.codedDiagnosis",
-                "max": "0",
-                "min": 0,
-                "short": "No codes for a lipid panel",
-                "binding": {
-                    "description": "Diagnoses codes provided as adjuncts to the report.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/clinical-findings"
-                    },
-                    "strength": "example"
-                },
-                "definition": "No codes for a lipid panel.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.codedDiagnosis"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Attachment"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticReport.presentedForm",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they SHALL be semantically equivalent.",
+                "requirements": "Gives Laboratory the ability to provide its own fully formatted report for clinical fidelity.",
+                "short": "Entire report as issued",
+                "min": 0,
+                "comments": "\"application/pdf\" is recommended as the most reliable and interoperable in this context.",
+                "path": "DiagnosticReport.presentedForm",
                 "mapping": [
                     {
                         "map": "OBX",
@@ -1378,30 +1384,24 @@
                         "map": "text (type=ED)",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Attachment"
-                    }
-                ],
-                "comments": "\"application/pdf\" is recommended as the most reliable and interoperable in this context.",
-                "path": "DiagnosticReport.presentedForm",
-                "max": "*",
-                "min": 0,
-                "short": "Entire report as issued",
-                "requirements": "Gives Laboratory the ability to provide its own fully formatted report for clinical fidelity.",
-                "definition": "Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they SHALL be semantically equivalent.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticReport.presentedForm"
-                }
+                ]
             }
         ]
     },
-    "name": "Example Lipid Profile",
     "description": "Lipid Lab Report",
-    "status": "draft",
-    "date": "2012-05-12",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/lipidprofile",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport",
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "grahame@healthintersections.com.au",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Grahame Grieve"
 }

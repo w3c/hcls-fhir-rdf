@@ -1,19 +1,895 @@
 {
+    "id": "Timing",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "Specifies an event that may occur multiple times. Timing schedules are used to record when things are expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "QSET<TS> (GTS)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "A timing schedule that specifies an event that may occur multiple times",
+                "min": 0,
+                "comments": "A timing schedule can be either a list of events - intervals on which the event occurs, or a single event with repeating criteria or just repeating criteria with no actual event.  When both event and a repeating specification are provided, the list of events should be understood as an interpretation of the information in the repeat structure.",
+                "path": "Timing",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifies specific times when the event occurs.",
+                "requirements": "In an MAR, for instance, you need to take a general specification, and turn it into a precise specification.",
+                "short": "When the event occurs",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.event",
+                "mapping": [
+                    {
+                        "map": "QLIST<TS>",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "Either frequency or when can exist, not both",
+                        "severity": "error",
+                        "xpath": "not((f:period or f:frequency) and f:when)",
+                        "key": "tim-3"
+                    },
+                    {
+                        "human": "if there's a duration, there needs to be duration units",
+                        "severity": "error",
+                        "xpath": "not(exists(f:duration)) or exists(f:durationUnits)",
+                        "key": "tim-1"
+                    },
+                    {
+                        "human": "if there's a period, there needs to be period units",
+                        "severity": "error",
+                        "xpath": "not(exists(f:period)) or exists(f:periodUnits)",
+                        "key": "tim-2"
+                    },
+                    {
+                        "human": "If there's a periodMax, there must be a period",
+                        "severity": "error",
+                        "xpath": "not(exists(f:periodMax)) or exists(f:period)",
+                        "key": "tim-6"
+                    },
+                    {
+                        "human": "If there's a durationMax, there must be a duration",
+                        "severity": "error",
+                        "xpath": "not(exists(f:durationMax)) or exists(f:duration)",
+                        "key": "tim-7"
+                    }
+                ],
+                "max": "1",
+                "definition": "A set of rules that describe when the event should occur.",
+                "requirements": "Many timing schedules are determined by regular repetitions.",
+                "short": "When the event is to occur",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat",
+                "mapping": [
+                    {
+                        "map": "Implies PIVL or EIVL",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Duration"
+                        ],
+                        "code": "Quantity"
+                    },
+                    {
+                        "code": "Range"
+                    },
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Either a duration for the length of the timing schedule, a range of possible length, or outer bounds for start and/or end limits of the timing schedule.",
+                "short": "Length/Range of lengths, or (Start and/or end) limits",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.bounds[x]",
+                "mapping": [
+                    {
+                        "map": "IVL(TS) used in a QSI",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "integer"
+                    }
+                ],
+                "max": "1",
+                "definition": "A total count of the desired number of repetitions.",
+                "requirements": "Repetitions may be limited by end time or total occurrences.",
+                "mapping": [
+                    {
+                        "map": "PIVL.count",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Number of times to repeat",
+                "min": 0,
+                "comments": "If you have both bounds and count, then this should be understood as within the bounds period, until count times happens.",
+                "path": "Timing.repeat.count",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "duration SHALL be a non-negative value",
+                        "severity": "error",
+                        "xpath": "@value >= 0 or not(@value)",
+                        "key": "tim-4"
+                    }
+                ],
+                "max": "1",
+                "definition": "How long this thing happens for when it happens.",
+                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase / EIVL.offset",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "How long when it happens",
+                "min": 0,
+                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
+                "path": "Timing.repeat.duration",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The upper limit of how long this thing happens for when it happens.",
+                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase / EIVL.offset",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "How long when it happens (Max)",
+                "min": 0,
+                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
+                "path": "Timing.repeat.durationMax",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The units of time for the duration, in UCUM units.",
+                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
+                "min": 0,
+                "binding": {
+                    "description": "A unit of time (units from UCUM).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Timing.repeat.durationUnits",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase.unit",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "integer"
+                    }
+                ],
+                "max": "1",
+                "definition": "The number of times to repeat the action within the specified period / period range (i.e. both period and periodMax provided).",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase / EIVL.offset",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Event occurs frequency times per period",
+                "min": 0,
+                "defaultValueInteger": 1,
+                "path": "Timing.repeat.frequency",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "integer"
+                    }
+                ],
+                "max": "1",
+                "definition": "If present, indicates that the frequency is a range - so repeat between [frequency] and [frequencyMax] times within the period or period range.",
+                "short": "Event occurs up to frequencyMax times per period",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.frequencyMax",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "period SHALL be a non-negative value",
+                        "severity": "error",
+                        "xpath": "@value >= 0 or not(@value)",
+                        "key": "tim-5"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates the duration of time over which repetitions are to occur; e.g. to express \"3 times per day\", 3 would be the frequency and \"1 day\" would be the period.",
+                "short": "Event occurs frequency times per period",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.period",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "If present, indicates that the period is a range from [period] to [periodMax], allowing expressing concepts such as \"do this once every 3-5 days.",
+                "short": "Upper limit of period (3-4 hours)",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.periodMax",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The units of time for the period in UCUM units.",
+                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
+                "min": 0,
+                "binding": {
+                    "description": "A unit of time (units from UCUM).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Timing.repeat.periodUnits",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase.unit",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "A real world event that the occurrence of the event should be tied to.",
+                "requirements": "Timings are frequently determined by occurrences such as waking, eating and sleep.",
+                "short": "Regular life events the event is tied to",
+                "min": 0,
+                "binding": {
+                    "description": "Real world event that the relating to the schedule.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/event-timing"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Timing.repeat.when",
+                "mapping": [
+                    {
+                        "map": "EIVL.event",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A code for the timing pattern. Some codes such as BID are ubiquitous, but many institutions define their own additional codes.",
+                "mapping": [
+                    {
+                        "map": "QSC.code",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "QD | QOD | Q4H | Q6H | BID | TID | QID | AM | PM +",
+                "min": 0,
+                "binding": {
+                    "description": "Code for a known / defined timing pattern.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/timing-abbreviation"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "A repeat should always be defined except for the common codes BID, TID, QID, AM and PM, which all systems are required to understand.",
+                "path": "Timing.code",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "Timing",
+    "abstract": false,
+    "requirements": "Need to able to track proposed timing schedules. There are several different ways to do this: one or more specified times, a simple rules like three times a day, or  before/after meals.",
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "Specifies an event that may occur multiple times. Timing schedules are used to record when things are expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "QSET<TS> (GTS)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "A timing schedule that specifies an event that may occur multiple times",
+                "min": 0,
+                "comments": "A timing schedule can be either a list of events - intervals on which the event occurs, or a single event with repeating criteria or just repeating criteria with no actual event.  When both event and a repeating specification are provided, the list of events should be understood as an interpretation of the information in the repeat structure.",
+                "path": "Timing",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Timing.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Timing.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifies specific times when the event occurs.",
+                "requirements": "In an MAR, for instance, you need to take a general specification, and turn it into a precise specification.",
+                "short": "When the event occurs",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.event",
+                "mapping": [
+                    {
+                        "map": "QLIST<TS>",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "Either frequency or when can exist, not both",
+                        "severity": "error",
+                        "xpath": "not((f:period or f:frequency) and f:when)",
+                        "key": "tim-3"
+                    },
+                    {
+                        "human": "if there's a duration, there needs to be duration units",
+                        "severity": "error",
+                        "xpath": "not(exists(f:duration)) or exists(f:durationUnits)",
+                        "key": "tim-1"
+                    },
+                    {
+                        "human": "if there's a period, there needs to be period units",
+                        "severity": "error",
+                        "xpath": "not(exists(f:period)) or exists(f:periodUnits)",
+                        "key": "tim-2"
+                    },
+                    {
+                        "human": "If there's a periodMax, there must be a period",
+                        "severity": "error",
+                        "xpath": "not(exists(f:periodMax)) or exists(f:period)",
+                        "key": "tim-6"
+                    },
+                    {
+                        "human": "If there's a durationMax, there must be a duration",
+                        "severity": "error",
+                        "xpath": "not(exists(f:durationMax)) or exists(f:duration)",
+                        "key": "tim-7"
+                    }
+                ],
+                "max": "1",
+                "definition": "A set of rules that describe when the event should occur.",
+                "requirements": "Many timing schedules are determined by regular repetitions.",
+                "short": "When the event is to occur",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat",
+                "mapping": [
+                    {
+                        "map": "Implies PIVL or EIVL",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Timing.repeat.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Timing.repeat.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Duration"
+                        ],
+                        "code": "Quantity"
+                    },
+                    {
+                        "code": "Range"
+                    },
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Either a duration for the length of the timing schedule, a range of possible length, or outer bounds for start and/or end limits of the timing schedule.",
+                "short": "Length/Range of lengths, or (Start and/or end) limits",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.bounds[x]",
+                "mapping": [
+                    {
+                        "map": "IVL(TS) used in a QSI",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "integer"
+                    }
+                ],
+                "max": "1",
+                "definition": "A total count of the desired number of repetitions.",
+                "requirements": "Repetitions may be limited by end time or total occurrences.",
+                "mapping": [
+                    {
+                        "map": "PIVL.count",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Number of times to repeat",
+                "min": 0,
+                "comments": "If you have both bounds and count, then this should be understood as within the bounds period, until count times happens.",
+                "path": "Timing.repeat.count",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "duration SHALL be a non-negative value",
+                        "severity": "error",
+                        "xpath": "@value >= 0 or not(@value)",
+                        "key": "tim-4"
+                    }
+                ],
+                "max": "1",
+                "definition": "How long this thing happens for when it happens.",
+                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase / EIVL.offset",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "How long when it happens",
+                "min": 0,
+                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
+                "path": "Timing.repeat.duration",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The upper limit of how long this thing happens for when it happens.",
+                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase / EIVL.offset",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "How long when it happens (Max)",
+                "min": 0,
+                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
+                "path": "Timing.repeat.durationMax",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The units of time for the duration, in UCUM units.",
+                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
+                "min": 0,
+                "binding": {
+                    "description": "A unit of time (units from UCUM).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Timing.repeat.durationUnits",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase.unit",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "integer"
+                    }
+                ],
+                "max": "1",
+                "definition": "The number of times to repeat the action within the specified period / period range (i.e. both period and periodMax provided).",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase / EIVL.offset",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Event occurs frequency times per period",
+                "min": 0,
+                "defaultValueInteger": 1,
+                "path": "Timing.repeat.frequency",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "integer"
+                    }
+                ],
+                "max": "1",
+                "definition": "If present, indicates that the frequency is a range - so repeat between [frequency] and [frequencyMax] times within the period or period range.",
+                "short": "Event occurs up to frequencyMax times per period",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.frequencyMax",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "period SHALL be a non-negative value",
+                        "severity": "error",
+                        "xpath": "@value >= 0 or not(@value)",
+                        "key": "tim-5"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates the duration of time over which repetitions are to occur; e.g. to express \"3 times per day\", 3 would be the frequency and \"1 day\" would be the period.",
+                "short": "Event occurs frequency times per period",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.period",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "If present, indicates that the period is a range from [period] to [periodMax], allowing expressing concepts such as \"do this once every 3-5 days.",
+                "short": "Upper limit of period (3-4 hours)",
+                "min": 0,
+                "isSummary": true,
+                "path": "Timing.repeat.periodMax",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The units of time for the period in UCUM units.",
+                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
+                "min": 0,
+                "binding": {
+                    "description": "A unit of time (units from UCUM).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Timing.repeat.periodUnits",
+                "mapping": [
+                    {
+                        "map": "PIVL.phase.unit",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "A real world event that the occurrence of the event should be tied to.",
+                "requirements": "Timings are frequently determined by occurrences such as waking, eating and sleep.",
+                "short": "Regular life events the event is tied to",
+                "min": 0,
+                "binding": {
+                    "description": "Real world event that the relating to the schedule.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/event-timing"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Timing.repeat.when",
+                "mapping": [
+                    {
+                        "map": "EIVL.event",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A code for the timing pattern. Some codes such as BID are ubiquitous, but many institutions define their own additional codes.",
+                "mapping": [
+                    {
+                        "map": "QSC.code",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "QD | QOD | Q4H | Q6H | BID | TID | QID | AM | PM +",
+                "min": 0,
+                "binding": {
+                    "description": "Code for a known / defined timing pattern.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/timing-abbreviation"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "A repeat should always be defined except for the common codes BID, TID, QID, AM and PM, which all systems are required to understand.",
+                "path": "Timing.code",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Timing Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/Timing",
+    "fhirVersion": "1.0.2",
     "mapping": [
         {
-            "name": "HL7 v2",
             "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "identity": "v2",
+            "name": "HL7 v2"
         },
         {
-            "name": "RIM",
             "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "identity": "rim",
+            "name": "RIM"
         }
     ],
-    "id": "Timing",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -25,881 +901,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "QSET<TS> (GTS)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "A timing schedule can be either a list of events - intervals on which the event occurs, or a single event with repeating criteria or just repeating criteria with no actual event.  When both event and a repeating specification are provided, the list of events should be understood as an interpretation of the information in the repeat structure.",
-                "path": "Timing",
-                "max": "*",
-                "min": 0,
-                "short": "A timing schedule that specifies an event that may occur multiple times",
-                "definition": "Specifies an event that may occur multiple times. Timing schedules are used to record when things are expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "QLIST<TS>",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.event",
-                "max": "*",
-                "min": 0,
-                "short": "When the event occurs",
-                "requirements": "In an MAR, for instance, you need to take a general specification, and turn it into a precise specification.",
-                "definition": "Identifies specific times when the event occurs."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Implies PIVL or EIVL",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "not((f:period or f:frequency) and f:when)",
-                        "human": "Either frequency or when can exist, not both",
-                        "severity": "error",
-                        "key": "tim-3"
-                    },
-                    {
-                        "xpath": "not(exists(f:duration)) or exists(f:durationUnits)",
-                        "human": "if there's a duration, there needs to be duration units",
-                        "severity": "error",
-                        "key": "tim-1"
-                    },
-                    {
-                        "xpath": "not(exists(f:period)) or exists(f:periodUnits)",
-                        "human": "if there's a period, there needs to be period units",
-                        "severity": "error",
-                        "key": "tim-2"
-                    },
-                    {
-                        "xpath": "not(exists(f:periodMax)) or exists(f:period)",
-                        "human": "If there's a periodMax, there must be a period",
-                        "severity": "error",
-                        "key": "tim-6"
-                    },
-                    {
-                        "xpath": "not(exists(f:durationMax)) or exists(f:duration)",
-                        "human": "If there's a durationMax, there must be a duration",
-                        "severity": "error",
-                        "key": "tim-7"
-                    }
-                ],
-                "path": "Timing.repeat",
-                "max": "1",
-                "min": 0,
-                "short": "When the event is to occur",
-                "requirements": "Many timing schedules are determined by regular repetitions.",
-                "definition": "A set of rules that describe when the event should occur."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IVL(TS) used in a QSI",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Duration"
-                        ]
-                    },
-                    {
-                        "code": "Range"
-                    },
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.bounds[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Length/Range of lengths, or (Start and/or end) limits",
-                "definition": "Either a duration for the length of the timing schedule, a range of possible length, or outer bounds for start and/or end limits of the timing schedule."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.count",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "integer"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If you have both bounds and count, then this should be understood as within the bounds period, until count times happens.",
-                "path": "Timing.repeat.count",
-                "max": "1",
-                "min": 0,
-                "short": "Number of times to repeat",
-                "requirements": "Repetitions may be limited by end time or total occurrences.",
-                "definition": "A total count of the desired number of repetitions."
-            },
-            {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "PIVL.phase / EIVL.offset",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "@value >= 0 or not(@value)",
-                        "human": "duration SHALL be a non-negative value",
-                        "severity": "error",
-                        "key": "tim-4"
-                    }
-                ],
-                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
-                "path": "Timing.repeat.duration",
-                "max": "1",
-                "min": 0,
-                "short": "How long when it happens",
-                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
-                "definition": "How long this thing happens for when it happens."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase / EIVL.offset",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
-                "path": "Timing.repeat.durationMax",
-                "max": "1",
-                "min": 0,
-                "short": "How long when it happens (Max)",
-                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
-                "definition": "The upper limit of how long this thing happens for when it happens."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase.unit",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.durationUnits",
-                "max": "1",
-                "min": 0,
-                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
-                "binding": {
-                    "description": "A unit of time (units from UCUM).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The units of time for the duration, in UCUM units."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase / EIVL.offset",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "integer"
-                    }
-                ],
-                "isSummary": true,
-                "defaultValueInteger": 1,
-                "path": "Timing.repeat.frequency",
-                "max": "1",
-                "min": 0,
-                "short": "Event occurs frequency times per period",
-                "definition": "The number of times to repeat the action within the specified period / period range (i.e. both period and periodMax provided)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "integer"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.frequencyMax",
-                "max": "1",
-                "min": 0,
-                "short": "Event occurs up to frequencyMax times per period",
-                "definition": "If present, indicates that the frequency is a range - so repeat between [frequency] and [frequencyMax] times within the period or period range."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "@value >= 0 or not(@value)",
-                        "human": "period SHALL be a non-negative value",
-                        "severity": "error",
-                        "key": "tim-5"
-                    }
-                ],
-                "path": "Timing.repeat.period",
-                "max": "1",
-                "min": 0,
-                "short": "Event occurs frequency times per period",
-                "definition": "Indicates the duration of time over which repetitions are to occur; e.g. to express \"3 times per day\", 3 would be the frequency and \"1 day\" would be the period."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.periodMax",
-                "max": "1",
-                "min": 0,
-                "short": "Upper limit of period (3-4 hours)",
-                "definition": "If present, indicates that the period is a range from [period] to [periodMax], allowing expressing concepts such as \"do this once every 3-5 days."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase.unit",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.periodUnits",
-                "max": "1",
-                "min": 0,
-                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
-                "binding": {
-                    "description": "A unit of time (units from UCUM).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The units of time for the period in UCUM units."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "EIVL.event",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "binding": {
-                    "description": "Real world event that the relating to the schedule.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/event-timing"
-                    },
-                    "strength": "required"
-                },
-                "isSummary": true,
-                "path": "Timing.repeat.when",
-                "max": "1",
-                "min": 0,
-                "short": "Regular life events the event is tied to",
-                "requirements": "Timings are frequently determined by occurrences such as waking, eating and sleep.",
-                "definition": "A real world event that the occurrence of the event should be tied to."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "QSC.code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "A repeat should always be defined except for the common codes BID, TID, QID, AM and PM, which all systems are required to understand.",
-                "path": "Timing.code",
-                "max": "1",
-                "min": 0,
-                "short": "QD | QOD | Q4H | Q6H | BID | TID | QID | AM | PM +",
-                "binding": {
-                    "description": "Code for a known / defined timing pattern.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/timing-abbreviation"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "A code for the timing pattern. Some codes such as BID are ubiquitous, but many institutions define their own additional codes."
-            }
-        ]
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Timing",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "QSET<TS> (GTS)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "A timing schedule can be either a list of events - intervals on which the event occurs, or a single event with repeating criteria or just repeating criteria with no actual event.  When both event and a repeating specification are provided, the list of events should be understood as an interpretation of the information in the repeat structure.",
-                "path": "Timing",
-                "max": "*",
-                "min": 0,
-                "short": "A timing schedule that specifies an event that may occur multiple times",
-                "definition": "Specifies an event that may occur multiple times. Timing schedules are used to record when things are expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Timing.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Timing.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "QLIST<TS>",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.event",
-                "max": "*",
-                "min": 0,
-                "short": "When the event occurs",
-                "requirements": "In an MAR, for instance, you need to take a general specification, and turn it into a precise specification.",
-                "definition": "Identifies specific times when the event occurs."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Implies PIVL or EIVL",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "not((f:period or f:frequency) and f:when)",
-                        "human": "Either frequency or when can exist, not both",
-                        "severity": "error",
-                        "key": "tim-3"
-                    },
-                    {
-                        "xpath": "not(exists(f:duration)) or exists(f:durationUnits)",
-                        "human": "if there's a duration, there needs to be duration units",
-                        "severity": "error",
-                        "key": "tim-1"
-                    },
-                    {
-                        "xpath": "not(exists(f:period)) or exists(f:periodUnits)",
-                        "human": "if there's a period, there needs to be period units",
-                        "severity": "error",
-                        "key": "tim-2"
-                    },
-                    {
-                        "xpath": "not(exists(f:periodMax)) or exists(f:period)",
-                        "human": "If there's a periodMax, there must be a period",
-                        "severity": "error",
-                        "key": "tim-6"
-                    },
-                    {
-                        "xpath": "not(exists(f:durationMax)) or exists(f:duration)",
-                        "human": "If there's a durationMax, there must be a duration",
-                        "severity": "error",
-                        "key": "tim-7"
-                    }
-                ],
-                "path": "Timing.repeat",
-                "max": "1",
-                "min": 0,
-                "short": "When the event is to occur",
-                "requirements": "Many timing schedules are determined by regular repetitions.",
-                "definition": "A set of rules that describe when the event should occur."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Timing.repeat.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Timing.repeat.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IVL(TS) used in a QSI",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Duration"
-                        ]
-                    },
-                    {
-                        "code": "Range"
-                    },
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.bounds[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Length/Range of lengths, or (Start and/or end) limits",
-                "definition": "Either a duration for the length of the timing schedule, a range of possible length, or outer bounds for start and/or end limits of the timing schedule."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.count",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "integer"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If you have both bounds and count, then this should be understood as within the bounds period, until count times happens.",
-                "path": "Timing.repeat.count",
-                "max": "1",
-                "min": 0,
-                "short": "Number of times to repeat",
-                "requirements": "Repetitions may be limited by end time or total occurrences.",
-                "definition": "A total count of the desired number of repetitions."
-            },
-            {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "PIVL.phase / EIVL.offset",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "@value >= 0 or not(@value)",
-                        "human": "duration SHALL be a non-negative value",
-                        "severity": "error",
-                        "key": "tim-4"
-                    }
-                ],
-                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
-                "path": "Timing.repeat.duration",
-                "max": "1",
-                "min": 0,
-                "short": "How long when it happens",
-                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
-                "definition": "How long this thing happens for when it happens."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase / EIVL.offset",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).",
-                "path": "Timing.repeat.durationMax",
-                "max": "1",
-                "min": 0,
-                "short": "How long when it happens (Max)",
-                "requirements": "Some activities are not instantaneous and need to be maintained for a period of time.",
-                "definition": "The upper limit of how long this thing happens for when it happens."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase.unit",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.durationUnits",
-                "max": "1",
-                "min": 0,
-                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
-                "binding": {
-                    "description": "A unit of time (units from UCUM).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The units of time for the duration, in UCUM units."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase / EIVL.offset",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "integer"
-                    }
-                ],
-                "isSummary": true,
-                "defaultValueInteger": 1,
-                "path": "Timing.repeat.frequency",
-                "max": "1",
-                "min": 0,
-                "short": "Event occurs frequency times per period",
-                "definition": "The number of times to repeat the action within the specified period / period range (i.e. both period and periodMax provided)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "integer"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.frequencyMax",
-                "max": "1",
-                "min": 0,
-                "short": "Event occurs up to frequencyMax times per period",
-                "definition": "If present, indicates that the frequency is a range - so repeat between [frequency] and [frequencyMax] times within the period or period range."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "@value >= 0 or not(@value)",
-                        "human": "period SHALL be a non-negative value",
-                        "severity": "error",
-                        "key": "tim-5"
-                    }
-                ],
-                "path": "Timing.repeat.period",
-                "max": "1",
-                "min": 0,
-                "short": "Event occurs frequency times per period",
-                "definition": "Indicates the duration of time over which repetitions are to occur; e.g. to express \"3 times per day\", 3 would be the frequency and \"1 day\" would be the period."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.periodMax",
-                "max": "1",
-                "min": 0,
-                "short": "Upper limit of period (3-4 hours)",
-                "definition": "If present, indicates that the period is a range from [period] to [periodMax], allowing expressing concepts such as \"do this once every 3-5 days."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PIVL.phase.unit",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Timing.repeat.periodUnits",
-                "max": "1",
-                "min": 0,
-                "short": "s | min | h | d | wk | mo | a - unit of time (UCUM)",
-                "binding": {
-                    "description": "A unit of time (units from UCUM).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/units-of-time"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The units of time for the period in UCUM units."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "EIVL.event",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "binding": {
-                    "description": "Real world event that the relating to the schedule.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/event-timing"
-                    },
-                    "strength": "required"
-                },
-                "isSummary": true,
-                "path": "Timing.repeat.when",
-                "max": "1",
-                "min": 0,
-                "short": "Regular life events the event is tied to",
-                "requirements": "Timings are frequently determined by occurrences such as waking, eating and sleep.",
-                "definition": "A real world event that the occurrence of the event should be tied to."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "QSC.code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "A repeat should always be defined except for the common codes BID, TID, QID, AM and PM, which all systems are required to understand.",
-                "path": "Timing.code",
-                "max": "1",
-                "min": 0,
-                "short": "QD | QOD | Q4H | Q6H | BID | TID | QID | AM | PM +",
-                "binding": {
-                    "description": "Code for a known / defined timing pattern.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/timing-abbreviation"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "A code for the timing pattern. Some codes such as BID are ubiquitous, but many institutions define their own additional codes."
-            }
-        ]
-    },
-    "name": "Timing",
-    "requirements": "Need to able to track proposed timing schedules. There are several different ways to do this: one or more specified times, a simple rules like three times a day, or  before/after meals.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Timing Type"
+    "publisher": "HL7 FHIR Standard"
 }

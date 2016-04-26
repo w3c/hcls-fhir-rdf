@@ -27,8 +27,8 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-__copyright__ = 'Copyright (c) 2015, Mayo Clinic'
+__copyright__ = 'Copyright (c) 2015, 2016, Mayo Clinic'
 __license__ = 'Apache License 2.0'
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 __all__ = ['defaults', 'fhir_elements', 'rdflib_formats']

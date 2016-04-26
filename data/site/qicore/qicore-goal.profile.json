@@ -1,83 +1,54 @@
 {
-    "mapping": [
-        {
-            "name": "Quality Data Model",
-            "uri": "http://www.healthit.gov/quality-data-model",
-            "identity": "qdm"
-        }
-    ],
     "id": "qicore-goal",
-    "constrainedType": "Goal",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org/special/committees/CQI",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Goal",
+    "date": "2015-02-27",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "Goal"
+                    }
+                ],
+                "name": "QICore-Goal",
+                "max": "*",
                 "mapping": [
                     {
                         "map": "Care Goal",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Goal"
-                    }
-                ],
-                "path": "Goal",
                 "min": 0,
-                "name": "QICore-Goal",
-                "max": "*"
+                "path": "Goal"
             },
             {
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/goal-target"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "Goal.target",
+                "max": "*",
                 "mapping": [
                     {
                         "map": "target outcome",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/goal-target"
-                        ]
-                    }
-                ],
-                "path": "Goal.extension",
-                "slicing": {
-                    "discriminator": [
-                        "url"
-                    ],
-                    "ordered": false,
-                    "rules": "open"
-                },
                 "min": 0,
-                "name": "Goal.target",
-                "max": "*",
-                "mustSupport": true
+                "path": "Goal.extension"
             },
             {
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/goal-target#measure"
-                        ]
-                    }
-                ],
-                "path": "Goal.extension.extension",
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -85,8 +56,17 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "min": 1,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/goal-target#measure"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
                 "name": "Goal.target.measure",
+                "max": "1",
+                "min": 1,
                 "binding": {
                     "description": "LOINC codes",
                     "valueSetReference": {
@@ -94,20 +74,20 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1"
+                "path": "Goal.extension.extension"
             },
             {
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/goal-target#detail"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "Goal.extension.extension",
-                "min": 1,
                 "name": "Goal.target.detail",
+                "max": "1",
+                "min": 1,
                 "binding": {
                     "description": "SNOMED CT for coded results",
                     "valueSetReference": {
@@ -115,56 +95,56 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1"
+                "path": "Goal.extension.extension"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/goal-reasonRejected"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "Goal.reasonRejected",
+                "max": "1",
                 "mapping": [
                     {
                         "map": "negation rationale",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/goal-reasonRejected"
-                        ]
-                    }
-                ],
-                "path": "Goal.extension",
                 "min": 0,
-                "name": "Goal.reasonRejected",
                 "binding": {
                     "valueSetReference": {
                         "reference": "http://hl7.org/fhir/ValueSet/qicore-goal-reason-rejected"
                     },
                     "strength": "example"
                 },
-                "max": "1"
+                "path": "Goal.extension"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-organization"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Goal.subject"
             },
             {
@@ -172,13 +152,13 @@
                 "path": "Goal.targetDate"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "primary code",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Goal.category"
             },
             {
@@ -190,6 +170,7 @@
                 "path": "Goal.statusDate"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "related to",
@@ -198,53 +179,71 @@
                 ],
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-condition"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-observation"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-medicationstatement"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Goal.addresses"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/qicore-goal",
+    "name": "QICore-Goal",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)",
+    "constrainedType": "Goal",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "Goal",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Goal"
+                    }
+                ],
+                "name": "QICore-Goal",
+                "max": "*",
+                "definition": "Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.",
+                "short": "Describes the intended objective(s) for a patient, group or organization",
+                "min": 0,
+                "comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
+                "path": "Goal",
                 "mapping": [
                     {
                         "map": "GOL.1",
@@ -262,24 +261,7 @@
                         "map": "Care Goal",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Goal"
-                    }
-                ],
-                "comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
-                "path": "Goal",
-                "max": "*",
-                "min": 0,
-                "short": "Describes the intended objective(s) for a patient, group or organization",
-                "name": "QICore-Goal",
-                "definition": "Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal"
-                }
+                ]
             },
             {
                 "type": [
@@ -287,18 +269,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Goal.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Goal.id"
-                }
+                    "path": "Goal.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Goal.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -306,17 +288,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "Goal.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Goal.meta"
-                }
+                    "path": "Goal.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.meta"
             },
             {
                 "type": [
@@ -324,19 +306,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Goal.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Goal.implicitRules"
-                }
+                    "path": "Goal.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Goal.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -344,98 +326,86 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Goal.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Goal.language"
-                }
+                    "path": "Goal.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Goal.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Goal.text",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Goal.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Goal.contained",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Goal.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension",
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -443,88 +413,88 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "base": {
+                    "min": 0,
+                    "path": "Goal.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/goal-target"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "Goal.target",
+                "max": "*",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "target outcome",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/goal-target"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Goal.extension",
-                "max": "*",
-                "min": 0,
-                "short": "Extension",
-                "name": "Goal.target",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.extension"
-                }
+                "path": "Goal.extension"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Goal.extension.id",
+                "base": {
+                    "min": 0,
+                    "path": "Extension.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Extension.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
+                "path": "Goal.extension.id"
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -532,210 +502,210 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Goal.extension.extension",
-                "max": "1",
-                "min": 1,
-                "short": "The parameter whose value is being tracked",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
                 "name": "measure",
-                "definition": "The parameter whose value is being tracked, e.g. body weight, blood pressure, or hemoglobin A1c level.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
-                "slicing": {
-                    "discriminator": [
-                        "url"
-                    ],
-                    "ordered": false,
-                    "rules": "open"
-                },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
-                "slicing": {
-                    "discriminator": [
-                        "url"
-                    ],
-                    "ordered": false,
-                    "rules": "open"
-                },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
-                "slicing": {
-                    "discriminator": [
-                        "url"
-                    ],
-                    "ordered": false,
-                    "rules": "open"
-                },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
-                "slicing": {
-                    "discriminator": [
-                        "url"
-                    ],
-                    "ordered": false,
-                    "rules": "open"
-                },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
                 "max": "1",
+                "definition": "The parameter whose value is being tracked, e.g. body weight, blood pressure, or hemoglobin A1c level.",
+                "short": "The parameter whose value is being tracked",
                 "min": 1,
-                "short": "The target value range to be achieved",
+                "path": "Goal.extension.extension"
+            },
+            {
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "slicing": {
+                    "discriminator": [
+                        "url"
+                    ],
+                    "ordered": false,
+                    "rules": "open"
+                },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
                 "name": "detail",
+                "max": "1",
                 "definition": "The target value range of the focus to be achieved to signify the fulfillment of the goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the range can be specified. When a low value is missing, it indicates that the goal is achieved at any focus value at or below the high value. Similarly, if the high value is missing, it indicates that the goal is achieved at any focus value at or above the low value.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                }
+                "short": "The target value range to be achieved",
+                "min": 1,
+                "path": "Goal.extension.extension"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Goal.extension.extension",
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -743,34 +713,34 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -778,34 +748,34 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -813,34 +783,34 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -848,34 +818,51 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/goal-target#measure"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "Goal.extension.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
                 "max": "1",
-                "min": 1,
+                "definition": "An Extension",
                 "short": "Extension",
+                "min": 1,
                 "binding": {
                     "description": "LOINC codes",
                     "valueSetReference": {
@@ -883,26 +870,26 @@
                     },
                     "strength": "preferred"
                 },
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                }
+                "path": "Goal.extension.extension"
             },
             {
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/goal-target#detail"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "Goal.extension.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
                 "max": "1",
-                "min": 1,
+                "definition": "An Extension",
                 "short": "Extension",
+                "min": 1,
                 "binding": {
                     "description": "SNOMED CT for coded results",
                     "valueSetReference": {
@@ -910,48 +897,37 @@
                     },
                     "strength": "preferred"
                 },
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                }
+                "path": "Goal.extension.extension"
             },
             {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
-                "path": "Goal.extension.url",
+                "base": {
+                    "min": 1,
+                    "path": "Extension.url",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Source of the definition for the extension code - a logical name or a URL.",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 1,
-                "short": "identifies the meaning of the extension",
-                "fixedUri": "http://hl7.org/fhir/StructureDefinition/goal-target",
-                "definition": "Source of the definition for the extension code - a logical name or a URL.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Extension.url"
-                },
-                "comments": "The definition may point directly to a computable or human-readable definition of the extensibility codes, or it may be a logical URI as declared in some other specification. The definition should be version specific.  This will ideally be the URI for the Resource Profile defining the extension, with the code for the extension after a #."
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
                 ],
+                "short": "identifies the meaning of the extension",
+                "min": 1,
+                "comments": "The definition may point directly to a computable or human-readable definition of the extensibility codes, or it may be a logical URI as declared in some other specification. The definition should be version specific.  This will ideally be the URI for the Resource Profile defining the extension, with the code for the extension after a #.",
+                "path": "Goal.extension.url",
+                "fixedUri": "http://hl7.org/fhir/StructureDefinition/goal-target"
+            },
+            {
                 "type": [
                     {
                         "code": "boolean"
@@ -1053,80 +1029,101 @@
                         "code": "Meta"
                     }
                 ],
-                "path": "Goal.extension.value[x]",
-                "max": "0",
-                "min": 0,
-                "short": "Value of extension",
-                "definition": "Value of extension - may be a resource or one of a constrained set of the data types (see Extensibility in the spec for list).",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Extension.value[x]"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "negation rationale",
-                        "identity": "qdm"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/goal-reasonRejected"
-                        ]
-                    }
-                ],
-                "path": "Goal.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
-                "name": "Goal.reasonRejected",
-                "binding": {
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/qicore-goal-reason-rejected"
-                    },
-                    "strength": "example"
+                    "path": "Extension.value[x]",
+                    "max": "1"
                 },
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.extension"
-                }
-            },
-            {
+                "max": "0",
+                "definition": "Value of extension - may be a resource or one of a constrained set of the data types (see Extensibility in the spec for list).",
+                "short": "Value of extension",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
                 ],
+                "path": "Goal.extension.value[x]"
+            },
+            {
+                "base": {
+                    "min": 0,
+                    "path": "Goal.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/goal-reasonRejected"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "Goal.reasonRejected",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
+                "binding": {
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/qicore-goal-reason-rejected"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "negation rationale",
+                        "identity": "qdm"
+                    }
+                ],
+                "path": "Goal.extension"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "This records identifiers associated with this care plan that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "requirements": "Need to allow connection to a wider workflow.",
+                "short": "External Ids for this goal",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".id",
@@ -1137,25 +1134,42 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "path": "Goal.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Ids for this goal",
-                "requirements": "Need to allow connection to a wider workflow.",
-                "definition": "This records identifiers associated with this care plan that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.identifier"
-                }
+                "path": "Goal.identifier"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.subject",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the patient, group or organization for whom the goal is being established.",
+                "requirements": "Subject is optional to support annonymized reporting.",
+                "short": "Who this goal is intended for",
+                "min": 0,
                 "isSummary": true,
+                "path": "Goal.subject",
                 "mapping": [
                     {
                         "map": "PID-3-patient ID list",
@@ -1169,39 +1183,7 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-organization"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Goal.subject",
-                "max": "1",
-                "min": 0,
-                "short": "Who this goal is intended for",
-                "requirements": "Subject is optional to support annonymized reporting.",
-                "definition": "Identifies the patient, group or organization for whom the goal is being established.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.subject"
-                }
+                ]
             },
             {
                 "type": [
@@ -1212,6 +1194,16 @@
                         "code": "CodeableConcept"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.start[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The date or event after which the goal should begin being pursued.",
+                "requirements": "Goals can be established prior to there being an intention to start pursuing them; e.g. Goals for post-surgical recovery established prior to surgery.",
+                "short": "When goal pursuit begins",
+                "min": 0,
                 "binding": {
                     "description": "Codes describing events that can trigger the initiation of a goal",
                     "valueSetReference": {
@@ -1220,59 +1212,52 @@
                     "strength": "example"
                 },
                 "isSummary": true,
-                "path": "Goal.start[x]",
-                "max": "1",
-                "min": 0,
-                "short": "When goal pursuit begins",
-                "requirements": "Goals can be established prior to there being an intention to start pursuing them; e.g. Goals for post-surgical recovery established prior to surgery.",
-                "definition": "The date or event after which the goal should begin being pursued.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.start[x]"
-                }
+                "path": "Goal.start[x]"
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "date"
                     },
                     {
-                        "code": "Quantity",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Duration"
-                        ]
+                        ],
+                        "code": "Quantity"
                     }
                 ],
-                "mustSupport": true,
-                "path": "Goal.target[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Reach goal on or before",
-                "requirements": "Identifies when the goal should be evaluated.",
-                "definition": "Indicates either the date or the duration after start by which the goal should be met.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Goal.target[x]"
-                }
+                    "path": "Goal.target[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates either the date or the duration after start by which the goal should be met.",
+                "requirements": "Identifies when the goal should be evaluated.",
+                "short": "Reach goal on or before",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.target[x]"
             },
             {
-                "mapping": [
-                    {
-                        "map": "primary code",
-                        "identity": "qdm"
-                    }
-                ],
+                "min": 0,
+                "max": "*",
+                "requirements": "Allows goals to be filtered and sorted.",
+                "short": "E.g. Treatment, dietary, behavioral, etc.",
+                "definition": "Indicates a category the goal falls within.",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.category",
+                    "max": "*"
+                },
+                "mustSupport": true,
+                "isSummary": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "E.g. Treatment, dietary, behavioral, etc.",
                 "binding": {
                     "description": "Codes for grouping and sorting goals",
                     "valueSetReference": {
@@ -1280,18 +1265,32 @@
                     },
                     "strength": "example"
                 },
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.category"
-                },
-                "mustSupport": true,
-                "path": "Goal.category",
-                "requirements": "Allows goals to be filtered and sorted.",
-                "definition": "Indicates a category the goal falls within."
+                "mapping": [
+                    {
+                        "map": "primary code",
+                        "identity": "qdm"
+                    }
+                ],
+                "path": "Goal.category"
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Goal.description",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Human-readable description of a specific desired objective of care.",
+                "requirements": "Without a description of what's trying to be achieved, element has no purpose.",
+                "short": "What's the desired outcome?",
+                "min": 1,
+                "isSummary": true,
+                "path": "Goal.description",
                 "mapping": [
                     {
                         "map": "GOL-3.2-goal ID.text",
@@ -1301,26 +1300,34 @@
                         "map": ".text",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.description",
-                "max": "1",
-                "min": 1,
-                "short": "What's the desired outcome?",
-                "requirements": "Without a description of what's trying to be achieved, element has no purpose.",
-                "definition": "Human-readable description of a specific desired objective of care.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Goal.description"
-                }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Allows measuring outcome and whether goal needs to be further tracked.",
+                "binding": {
+                    "description": "Indicates whether the goal has been met and is still being targeted",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-status"
+                    },
+                    "strength": "required"
+                },
+                "short": "proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled",
+                "definition": "Indicates whether the goal has been reached and is still considered relevant.",
+                "base": {
+                    "min": 1,
+                    "path": "Goal.status",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "isModifier": true,
                 "mapping": [
                     {
                         "map": "GOL-18-goal life cycle status",
@@ -1335,58 +1342,33 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled",
-                "binding": {
-                    "description": "Indicates whether the goal has been met and is still being targeted",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-status"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Goal.status"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "path": "Goal.status",
-                "requirements": "Allows measuring outcome and whether goal needs to be further tracked.",
-                "definition": "Indicates whether the goal has been reached and is still considered relevant."
+                "path": "Goal.status"
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.statusDate",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc.",
                 "mapping": [
                     {
                         "map": "when.recorded",
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "mustSupport": true,
+                "short": "When goal status took effect",
+                "min": 0,
                 "comments": "To see the date for past statuses, query history.",
                 "path": "Goal.statusDate",
-                "max": "1",
-                "min": 0,
-                "short": "When goal status took effect",
-                "definition": "Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.statusDate"
-                }
+                "isSummary": true
             },
             {
                 "type": [
@@ -1394,11 +1376,15 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "comments": "This will typically be captured for statuses such as rejected, on-hold or cancelled, but could be present for others.",
-                "path": "Goal.statusReason",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.statusReason",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "Captures the reason for the current status.",
                 "short": "Reason for current status",
+                "min": 0,
                 "binding": {
                     "description": "Codes to identify the reason for a goal's current status",
                     "valueSetReference": {
@@ -1406,68 +1392,72 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Captures the reason for the current status.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.statusReason"
-                }
+                "comments": "This will typically be captured for statuses such as rejected, on-hold or cancelled, but could be present for others.",
+                "path": "Goal.statusReason"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.author",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates whose goal this is - patient goal, practitioner goal, etc.",
                 "mapping": [
                     {
                         "map": "who.actor",
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Who's responsible for creating Goal?",
+                "min": 0,
                 "comments": "This is the individual reponsible for establishing the goal, not necessarily who recorded it.  (For that, use the Provenance resource.).",
                 "path": "Goal.author",
-                "max": "1",
-                "min": 0,
-                "short": "Who's responsible for creating Goal?",
-                "definition": "Indicates whose goal this is - patient goal, practitioner goal, etc.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.author"
-                }
+                "isSummary": true
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Used for sorting and presenting goals.",
+                "short": "high | medium |low",
+                "definition": "Identifies the mutually agreed level of importance associated with reaching/sustaining the goal.",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.priority",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".priorityCode",
                         "identity": "rim"
                     }
                 ],
+                "comments": "Extensions are available to track priorities as established by each participant (i.e. Priority from the patient's perspective, different practitioners' perspectives, family member's perspectives)\n\nThe ordinal extension on Coding can be used to convey a numerically comparable ranking to priority.  (Keep in mind that different coding systems may use a \"low value=important\".",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "high | medium |low",
                 "binding": {
                     "description": "The level of importance associated with a goal",
                     "valueSetReference": {
@@ -1475,18 +1465,59 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.priority"
-                },
-                "comments": "Extensions are available to track priorities as established by each participant (i.e. Priority from the patient's perspective, different practitioners' perspectives, family member's perspectives)\n\nThe ordinal extension on Coding can be used to convey a numerically comparable ranking to priority.  (Keep in mind that different coding systems may use a \"low value=important\".",
-                "path": "Goal.priority",
-                "requirements": "Used for sorting and presenting goals.",
-                "definition": "Identifies the mutually agreed level of importance associated with reaching/sustaining the goal."
+                "isSummary": true,
+                "path": "Goal.priority"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-condition"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-observation"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-medicationstatement"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.addresses",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The identified conditions and other health record elements that are intended to be addressed by the goal.",
+                "requirements": "Allows specific goals to explicitly linked to the concerns they're dealing with - makes the goal more understandable.",
+                "short": "Issues addressed by this goal",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".outboundRelationship[typeCode=SUBJ].target[classCode=CONC]",
@@ -1497,58 +1528,26 @@
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-condition"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-observation"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-medicationstatement"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-procedurerequest"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Goal.addresses",
-                "max": "*",
-                "min": 0,
-                "short": "Issues addressed by this goal",
-                "requirements": "Allows specific goals to explicitly linked to the concerns they're dealing with - makes the goal more understandable.",
-                "definition": "The identified conditions and other health record elements that are intended to be addressed by the goal.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.addresses"
-                }
+                "path": "Goal.addresses"
             },
             {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.note",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Any comments related to the goal.",
+                "requirements": "There's a need to capture information about the goal that doesn't actually describe the goal.",
+                "short": "Comments about the goal",
+                "min": 0,
+                "comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
+                "path": "Goal.note",
                 "mapping": [
                     {
                         "map": "GOL-16-goal evaluation + NTE?",
@@ -1558,24 +1557,7 @@
                         "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
-                "path": "Goal.note",
-                "max": "*",
-                "min": 0,
-                "short": "Comments about the goal",
-                "requirements": "There's a need to capture information about the goal that doesn't actually describe the goal.",
-                "definition": "Any comments related to the goal.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.note"
-                }
+                ]
             },
             {
                 "type": [
@@ -1583,102 +1565,102 @@
                         "code": "BackboneElement"
                     }
                 ],
-                "comments": "Note that this should not duplicate the goal status.",
-                "path": "Goal.outcome",
-                "max": "*",
-                "min": 0,
-                "short": "What was end result of goal?",
-                "requirements": "Outcome tracking is a key aspect of care planning.",
-                "definition": "Identifies the change (or lack of change) at the point where the goal was deepmed to be cancelled or achieved.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "Goal.outcome"
-                }
+                    "path": "Goal.outcome",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Identifies the change (or lack of change) at the point where the goal was deepmed to be cancelled or achieved.",
+                "requirements": "Outcome tracking is a key aspect of care planning.",
+                "short": "What was end result of goal?",
+                "min": 0,
+                "comments": "Note that this should not duplicate the goal status.",
+                "path": "Goal.outcome"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Goal.outcome.id",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.outcome.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.outcome.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Goal.outcome.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.outcome.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.outcome.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.outcome.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.outcome.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Goal.outcome.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.outcome.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Goal.outcome.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.outcome.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
                 "type": [
@@ -1686,32 +1668,50 @@
                         "code": "CodeableConcept"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "path": "Goal.outcome.result[x]",
+                "base": {
+                    "min": 0,
+                    "path": "Goal.outcome.result[x]",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "Details of what's changed (or not changed).",
                 "short": "Code or observation that resulted from goal",
+                "min": 0,
                 "binding": {
                     "description": "The result of the goal; e.g. \"25% increase in shoulder mobility\", \"Anxiety reduced to moderate levels\".  \"15 kg weight loss sustained over 6 months\"",
                     "strength": "example"
                 },
-                "definition": "Details of what's changed (or not changed).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Goal.outcome.result[x]"
-                }
+                "path": "Goal.outcome.result[x]"
             }
         ]
     },
-    "name": "QICore-Goal",
     "description": "Profile of Goal for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
-    "status": "draft",
-    "date": "2015-02-27",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/qicore-goal",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/Goal",
+    "mapping": [
+        {
+            "uri": "http://www.healthit.gov/quality-data-model",
+            "identity": "qdm",
+            "name": "Quality Data Model"
+        }
+    ],
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org/special/committees/CQI",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)"
 }

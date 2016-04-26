@@ -1,25 +1,2264 @@
 {
-    "mapping": [
+    "id": "ImagingStudy",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "Representation of the content produced in a DICOM imaging study. A study comprises a set of series, each of which includes a set of Service-Object Pair Instances (SOP Instances - images or other data) acquired or produced in a common context.  A series is of only one modality (e.g. X-ray, CT, MR, ultrasound), but a study may have multiple series of different modalities.",
+                "short": "A set of images produced in single study (one or more series of references images)",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy",
+                "mapping": [
+                    {
+                        "map": "Reference IHE radiology TF vol 2 table 4.14-1",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": "Act[classCode=COMPOSITION, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.diagnostics",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "exampleDateTime": "2011-01-01T11:01:20+03:00",
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
+                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html#sect_C.7.2.1"
+                    }
+                ],
+                "max": "1",
+                "definition": "Date and Time the study started.",
+                "short": "When the study was started",
+                "min": 0,
+                "alias": [
+                    "StudyDate",
+                    "StudyTime"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.started",
+                "mapping": [
+                    {
+                        "map": "(0008,0020)+(0008,0030)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.init",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
+                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.2.2.html"
+                    }
+                ],
+                "max": "1",
+                "definition": "The patient imaged in the study.",
+                "short": "Who the images are of",
+                "min": 1,
+                "isSummary": true,
+                "path": "ImagingStudy.patient",
+                "mapping": [
+                    {
+                        "map": "(0010/*)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
+                        "valueString": "dicom="
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal identifier for the study.",
+                "mapping": [
+                    {
+                        "map": "(0020,000D)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Formal identifier for the study",
+                "min": 1,
+                "alias": [
+                    "StudyInstanceUID"
+                ],
+                "exampleUri": "urn:oid:2.16.124.113543.6003.1154777499.30246.19789.3503430045",
+                "path": "ImagingStudy.uid",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "1",
+                "definition": "Accession Number is an identifier related to some aspect of imaging workflow and data management. Usage may vary across different institutions.  See for instance [IHE Radiology Technical Framework Volume 1 Appendix A](http://www.ihe.net/uploadedFiles/Documents/Radiology/IHE_RAD_TF_Rev13.0_Vol1_FT_2014-07-30.pdf).",
+                "short": "Related workflow identifier (\"Accession Number\")",
+                "min": 0,
+                "alias": [
+                    "AccessionNumber"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.accession",
+                "mapping": [
+                    {
+                        "map": "(0008,0050)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ACSN, moodCode=EVN].id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Other identifiers for the study.",
+                "short": "Other identifiers for the study",
+                "min": 0,
+                "alias": [
+                    "StudyID"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.identifier",
+                "mapping": [
+                    {
+                        "map": "(0020,0010)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id (no means to distinguish from uid)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "A list of the diagnostic orders that resulted in this imaging study being performed.",
+                "requirements": "To support grouped procedures (one imaging study supporting multiple ordered procedures, e.g. chest/abdomen/pelvis CT).",
+                "short": "Order(s) that caused this study to be performed",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.order",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "*",
+                "definition": "A list of all the Series.ImageModality values that are actual acquisition modalities, i.e. those in the DICOM Context Group 29 (value set OID 1.2.840.10008.6.1.19).",
+                "binding": {
+                    "description": "Type of acquired data in the instance",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
+                    },
+                    "strength": "extensible"
+                },
+                "short": "All series modality if actual acquisition modalities",
+                "min": 0,
+                "alias": [
+                    "ModalitiesInStudy"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.modalityList",
+                "mapping": [
+                    {
+                        "map": "(0008,0061)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The requesting/referring physician.",
+                "short": "Referring physician (0008,0090)",
+                "min": 0,
+                "alias": [
+                    "ReferringPhysiciansName"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.referrer",
+                "mapping": [
+                    {
+                        "map": "(0008,0090)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO].participation[typeCode=AUT].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.cause",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Availability of study (online, offline or nearline).",
+                "binding": {
+                    "description": "Availability of the resource",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
+                    },
+                    "strength": "required"
+                },
+                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE (0008,0056)",
+                "min": 0,
+                "alias": [
+                    "InstanceAvailability"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.availability",
+                "mapping": [
+                    {
+                        "map": "(0008,0056)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": "Not supported",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS resource where Study is available.",
+                "short": "Retrieve URI",
+                "min": 0,
+                "alias": [
+                    "RetrieveURI"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.url",
+                "mapping": [
+                    {
+                        "map": "(0008,1190)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text.reference",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Number of Series in Study.",
+                "short": "Number of Study Related Series",
+                "min": 1,
+                "alias": [
+                    "NumberOfStudyRelatedSeries"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.numberOfSeries",
+                "mapping": [
+                    {
+                        "map": "(0020,1206)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=OBSSER, moodCode=EVN].repeatNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Number of SOP Instances in Study.",
+                "short": "Number of Study Related Instances",
+                "min": 1,
+                "alias": [
+                    "NumberOfStudyRelatedInstances"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.numberOfInstances",
+                "mapping": [
+                    {
+                        "map": "(0020,1208)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Procedure"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Type of procedure performed.",
+                "mapping": [
+                    {
+                        "map": "(0008,1032)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=PROC, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Type of procedure performed",
+                "min": 0,
+                "alias": [
+                    "ProcedureCodeSequence"
+                ],
+                "comments": "For the Procedure.code, LOINC radiology orderables would be a good value set to use.",
+                "path": "ImagingStudy.procedure",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Who read the study and interpreted the images or other content.",
+                "short": "Who interpreted images",
+                "min": 0,
+                "alias": [
+                    "Name of Physician(s) Reading Study"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.interpreter",
+                "mapping": [
+                    {
+                        "map": "(0008,1060)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".participation[typeCode=PRF].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.witness",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Institution-generated description or classification of the Study performed.",
+                "short": "Institution-generated description",
+                "min": 0,
+                "alias": [
+                    "StudyDescription"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.description",
+                "mapping": [
+                    {
+                        "map": "(0008,1030)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Each study has one or more series of images or other content.",
+                "short": "Each study has one or more series of instances",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.series",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBSSER, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "exampleInteger": 3,
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "The Numeric identifier of this series in the study.",
+                "short": "Numeric identifier of this series",
+                "min": 0,
+                "alias": [
+                    "SeriesNumber"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.number",
+                "mapping": [
+                    {
+                        "map": "(0020,0011)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[type=COMP, source[classCode=COMPOSITION, moodCode=EVN]].sequenceNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "The modality of this series sequence.",
+                "binding": {
+                    "description": "Type of acquired data in the instance",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
+                    },
+                    "strength": "extensible"
+                },
+                "short": "The modality of the instances in the series",
+                "min": 1,
+                "alias": [
+                    "Modality"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.modality",
+                "mapping": [
+                    {
+                        "map": "(0008,0060)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal identifier for this series.",
+                "mapping": [
+                    {
+                        "map": "(0020,000E)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Formal identifier for this series",
+                "min": 1,
+                "alias": [
+                    "SeriesInstanceUID"
+                ],
+                "exampleUri": "urn:oid:2.16.124.113543.6003.2588828330.45298.17418.2723805630",
+                "path": "ImagingStudy.series.uid",
+                "isSummary": true
+            },
+            {
+                "exampleString": "CT Surview 180",
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A description of the series.",
+                "short": "A description of the series",
+                "min": 0,
+                "alias": [
+                    "SeriesDescription"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.description",
+                "mapping": [
+                    {
+                        "map": "(0008,103E)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Number of SOP Instances in Series.",
+                "short": "Number of Series Related Instances",
+                "min": 1,
+                "alias": [
+                    "NumberOfSeriesRelatedInstances"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.numberOfInstances",
+                "mapping": [
+                    {
+                        "map": "(0020,1209)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Availability of series (online, offline or nearline).",
+                "binding": {
+                    "description": "Availability of the resource",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
+                    },
+                    "strength": "required"
+                },
+                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE",
+                "min": 0,
+                "alias": [
+                    "InstanceAvailability"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.availability",
+                "mapping": [
+                    {
+                        "map": "(0008,0056)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"availability\"].value",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "URI/URL specifying the location of the referenced series using WADO-RS.",
+                "short": "Location of the referenced instance(s)",
+                "min": 0,
+                "alias": [
+                    "RetrieveURI"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.url",
+                "mapping": [
+                    {
+                        "map": "(0008,1115) > (0008,1190)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text.reference",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "Body part examined. See  DICOM Part 16 Annex L for the mapping from DICOM to Snomed CT.",
+                "binding": {
+                    "description": "Codes describing anatomical locations. May include laterality.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "short": "Body part examined",
+                "min": 0,
+                "alias": [
+                    "BodyPartExamined"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.bodySite",
+                "mapping": [
+                    {
+                        "map": "(0018,0015)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "Laterality if body site is paired anatomic structure and laterality is not pre-coordinated in body site code.",
+                "short": "Body part laterality",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing body site laterality (left, right, etc.).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/bodysite-laterality"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "ImagingStudy.series.laterality",
+                "mapping": [
+                    {
+                        "map": "(0020,0060)",
+                        "identity": "dicom"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date and time the series was started.",
+                "short": "When the series started",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.series.started",
+                "mapping": [
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "A single SOP Instance within the series, e.g. an image, or presentation state.",
+                "short": "A single SOP instance from the series",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.series.instance",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=DGIMG, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "exampleInteger": 1,
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "The number of instance in the series.",
+                "short": "The number of this instance in the series",
+                "min": 0,
+                "alias": [
+                    "InstanceNumber"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.instance.number",
+                "mapping": [
+                    {
+                        "map": "(0020,0013)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP, source[classCode=OBSSER, moodCode=EVN]].sequenceNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal identifier for this image or other content.",
+                "mapping": [
+                    {
+                        "map": "(0008,0018)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Formal identifier for this instance",
+                "min": 1,
+                "alias": [
+                    "SOPInstanceUID"
+                ],
+                "exampleUri": "urn:oid:2.16.124.113543.6003.189642796.63084.16748.2599092903",
+                "path": "ImagingStudy.series.instance.uid",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "DICOM instance  type.",
+                "mapping": [
+                    {
+                        "map": "(0008,0016)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"sop class\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "DICOM class type",
+                "min": 1,
+                "alias": [
+                    "SOPClassUID"
+                ],
+                "exampleUri": "urn:oid:1.2.840.10008.5.1.4.1.1.2",
+                "path": "ImagingStudy.series.instance.sopClass",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-friendly SOP Class name.",
+                "mapping": [
+                    {
+                        "map": "(0004,1430)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Type of instance (image etc.)",
+                "min": 0,
+                "comments": "E.g. 'CT image', 'MR multi-frame', 'blending presentation'.",
+                "path": "ImagingStudy.series.instance.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The description of the instance.",
+                "mapping": [
+                    {
+                        "map": "(0070,0080) | (0040,A043) > (0008,0104) | (0042,0010) | (0008,0008)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".title",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Description of instance",
+                "min": 0,
+                "comments": "Particularly for post-acquisition analytic objects, such as SR, presentation states, value mapping, etc.",
+                "path": "ImagingStudy.series.instance.title",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Attachment"
+                    }
+                ],
+                "max": "*",
+                "definition": "Content of the instance or a rendering thereof (e.g. a JPEG of an image, or an XML of a structured report). May be represented for example by inline encoding; by a URL reference to a WADO-RS service that makes the instance available; or to a FHIR Resource (e.g. Media, Document, etc.). Multiple content attachments may be used for alternate representations of the instance.",
+                "mapping": [
+                    {
+                        "map": ".text.binary",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Content of the instance",
+                "min": 0,
+                "comments": "Use of Attachment.data is discouraged.",
+                "path": "ImagingStudy.series.instance.content",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "ImagingStudy",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "DICOM",
-            "uri": "http://nema.org/dicom",
-            "identity": "dicom"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 2
         }
     ],
-    "id": "ImagingStudy",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "Representation of the content produced in a DICOM imaging study. A study comprises a set of series, each of which includes a set of Service-Object Pair Instances (SOP Instances - images or other data) acquired or produced in a common context.  A series is of only one modality (e.g. X-ray, CT, MR, ultrasound), but a study may have multiple series of different modalities.",
+                "short": "A set of images produced in single study (one or more series of references images)",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy",
+                "mapping": [
+                    {
+                        "map": "Reference IHE radiology TF vol 2 table 4.14-1",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": "Act[classCode=COMPOSITION, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.diagnostics",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "ImagingStudy.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "ImagingStudy.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "ImagingStudy.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "ImagingStudy.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "ImagingStudy.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingStudy.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingStudy.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "exampleDateTime": "2011-01-01T11:01:20+03:00",
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
+                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html#sect_C.7.2.1"
+                    }
+                ],
+                "max": "1",
+                "definition": "Date and Time the study started.",
+                "short": "When the study was started",
+                "min": 0,
+                "alias": [
+                    "StudyDate",
+                    "StudyTime"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.started",
+                "mapping": [
+                    {
+                        "map": "(0008,0020)+(0008,0030)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.init",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
+                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.2.2.html"
+                    }
+                ],
+                "max": "1",
+                "definition": "The patient imaged in the study.",
+                "short": "Who the images are of",
+                "min": 1,
+                "isSummary": true,
+                "path": "ImagingStudy.patient",
+                "mapping": [
+                    {
+                        "map": "(0010/*)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
+                        "valueString": "dicom="
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal identifier for the study.",
+                "mapping": [
+                    {
+                        "map": "(0020,000D)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Formal identifier for the study",
+                "min": 1,
+                "alias": [
+                    "StudyInstanceUID"
+                ],
+                "exampleUri": "urn:oid:2.16.124.113543.6003.1154777499.30246.19789.3503430045",
+                "path": "ImagingStudy.uid",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "1",
+                "definition": "Accession Number is an identifier related to some aspect of imaging workflow and data management. Usage may vary across different institutions.  See for instance [IHE Radiology Technical Framework Volume 1 Appendix A](http://www.ihe.net/uploadedFiles/Documents/Radiology/IHE_RAD_TF_Rev13.0_Vol1_FT_2014-07-30.pdf).",
+                "short": "Related workflow identifier (\"Accession Number\")",
+                "min": 0,
+                "alias": [
+                    "AccessionNumber"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.accession",
+                "mapping": [
+                    {
+                        "map": "(0008,0050)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ACSN, moodCode=EVN].id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Other identifiers for the study.",
+                "short": "Other identifiers for the study",
+                "min": 0,
+                "alias": [
+                    "StudyID"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.identifier",
+                "mapping": [
+                    {
+                        "map": "(0020,0010)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id (no means to distinguish from uid)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "A list of the diagnostic orders that resulted in this imaging study being performed.",
+                "requirements": "To support grouped procedures (one imaging study supporting multiple ordered procedures, e.g. chest/abdomen/pelvis CT).",
+                "short": "Order(s) that caused this study to be performed",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.order",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "*",
+                "definition": "A list of all the Series.ImageModality values that are actual acquisition modalities, i.e. those in the DICOM Context Group 29 (value set OID 1.2.840.10008.6.1.19).",
+                "binding": {
+                    "description": "Type of acquired data in the instance",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
+                    },
+                    "strength": "extensible"
+                },
+                "short": "All series modality if actual acquisition modalities",
+                "min": 0,
+                "alias": [
+                    "ModalitiesInStudy"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.modalityList",
+                "mapping": [
+                    {
+                        "map": "(0008,0061)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The requesting/referring physician.",
+                "short": "Referring physician (0008,0090)",
+                "min": 0,
+                "alias": [
+                    "ReferringPhysiciansName"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.referrer",
+                "mapping": [
+                    {
+                        "map": "(0008,0090)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO].participation[typeCode=AUT].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.cause",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Availability of study (online, offline or nearline).",
+                "binding": {
+                    "description": "Availability of the resource",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
+                    },
+                    "strength": "required"
+                },
+                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE (0008,0056)",
+                "min": 0,
+                "alias": [
+                    "InstanceAvailability"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.availability",
+                "mapping": [
+                    {
+                        "map": "(0008,0056)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": "Not supported",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS resource where Study is available.",
+                "short": "Retrieve URI",
+                "min": 0,
+                "alias": [
+                    "RetrieveURI"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.url",
+                "mapping": [
+                    {
+                        "map": "(0008,1190)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text.reference",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Number of Series in Study.",
+                "short": "Number of Study Related Series",
+                "min": 1,
+                "alias": [
+                    "NumberOfStudyRelatedSeries"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.numberOfSeries",
+                "mapping": [
+                    {
+                        "map": "(0020,1206)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=OBSSER, moodCode=EVN].repeatNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Number of SOP Instances in Study.",
+                "short": "Number of Study Related Instances",
+                "min": 1,
+                "alias": [
+                    "NumberOfStudyRelatedInstances"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.numberOfInstances",
+                "mapping": [
+                    {
+                        "map": "(0020,1208)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Procedure"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Type of procedure performed.",
+                "mapping": [
+                    {
+                        "map": "(0008,1032)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=PROC, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Type of procedure performed",
+                "min": 0,
+                "alias": [
+                    "ProcedureCodeSequence"
+                ],
+                "comments": "For the Procedure.code, LOINC radiology orderables would be a good value set to use.",
+                "path": "ImagingStudy.procedure",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Who read the study and interpreted the images or other content.",
+                "short": "Who interpreted images",
+                "min": 0,
+                "alias": [
+                    "Name of Physician(s) Reading Study"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.interpreter",
+                "mapping": [
+                    {
+                        "map": "(0008,1060)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".participation[typeCode=PRF].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.witness",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Institution-generated description or classification of the Study performed.",
+                "short": "Institution-generated description",
+                "min": 0,
+                "alias": [
+                    "StudyDescription"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.description",
+                "mapping": [
+                    {
+                        "map": "(0008,1030)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Each study has one or more series of images or other content.",
+                "short": "Each study has one or more series of instances",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.series",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBSSER, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ImagingStudy.series.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingStudy.series.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingStudy.series.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "exampleInteger": 3,
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "The Numeric identifier of this series in the study.",
+                "short": "Numeric identifier of this series",
+                "min": 0,
+                "alias": [
+                    "SeriesNumber"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.number",
+                "mapping": [
+                    {
+                        "map": "(0020,0011)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[type=COMP, source[classCode=COMPOSITION, moodCode=EVN]].sequenceNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "The modality of this series sequence.",
+                "binding": {
+                    "description": "Type of acquired data in the instance",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
+                    },
+                    "strength": "extensible"
+                },
+                "short": "The modality of the instances in the series",
+                "min": 1,
+                "alias": [
+                    "Modality"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.modality",
+                "mapping": [
+                    {
+                        "map": "(0008,0060)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal identifier for this series.",
+                "mapping": [
+                    {
+                        "map": "(0020,000E)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Formal identifier for this series",
+                "min": 1,
+                "alias": [
+                    "SeriesInstanceUID"
+                ],
+                "exampleUri": "urn:oid:2.16.124.113543.6003.2588828330.45298.17418.2723805630",
+                "path": "ImagingStudy.series.uid",
+                "isSummary": true
+            },
+            {
+                "exampleString": "CT Surview 180",
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A description of the series.",
+                "short": "A description of the series",
+                "min": 0,
+                "alias": [
+                    "SeriesDescription"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.description",
+                "mapping": [
+                    {
+                        "map": "(0008,103E)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Number of SOP Instances in Series.",
+                "short": "Number of Series Related Instances",
+                "min": 1,
+                "alias": [
+                    "NumberOfSeriesRelatedInstances"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.numberOfInstances",
+                "mapping": [
+                    {
+                        "map": "(0020,1209)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Availability of series (online, offline or nearline).",
+                "binding": {
+                    "description": "Availability of the resource",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
+                    },
+                    "strength": "required"
+                },
+                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE",
+                "min": 0,
+                "alias": [
+                    "InstanceAvailability"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.availability",
+                "mapping": [
+                    {
+                        "map": "(0008,0056)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"availability\"].value",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "URI/URL specifying the location of the referenced series using WADO-RS.",
+                "short": "Location of the referenced instance(s)",
+                "min": 0,
+                "alias": [
+                    "RetrieveURI"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.url",
+                "mapping": [
+                    {
+                        "map": "(0008,1115) > (0008,1190)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".text.reference",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "Body part examined. See  DICOM Part 16 Annex L for the mapping from DICOM to Snomed CT.",
+                "binding": {
+                    "description": "Codes describing anatomical locations. May include laterality.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "short": "Body part examined",
+                "min": 0,
+                "alias": [
+                    "BodyPartExamined"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.bodySite",
+                "mapping": [
+                    {
+                        "map": "(0018,0015)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "Laterality if body site is paired anatomic structure and laterality is not pre-coordinated in body site code.",
+                "short": "Body part laterality",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing body site laterality (left, right, etc.).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/bodysite-laterality"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "ImagingStudy.series.laterality",
+                "mapping": [
+                    {
+                        "map": "(0020,0060)",
+                        "identity": "dicom"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date and time the series was started.",
+                "short": "When the series started",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.series.started",
+                "mapping": [
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "A single SOP Instance within the series, e.g. an image, or presentation state.",
+                "short": "A single SOP instance from the series",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingStudy.series.instance",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=DGIMG, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ImagingStudy.series.instance.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingStudy.series.instance.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingStudy.series.instance.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "exampleInteger": 1,
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "The number of instance in the series.",
+                "short": "The number of this instance in the series",
+                "min": 0,
+                "alias": [
+                    "InstanceNumber"
+                ],
+                "isSummary": true,
+                "path": "ImagingStudy.series.instance.number",
+                "mapping": [
+                    {
+                        "map": "(0020,0013)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP, source[classCode=OBSSER, moodCode=EVN]].sequenceNumber",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal identifier for this image or other content.",
+                "mapping": [
+                    {
+                        "map": "(0008,0018)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Formal identifier for this instance",
+                "min": 1,
+                "alias": [
+                    "SOPInstanceUID"
+                ],
+                "exampleUri": "urn:oid:2.16.124.113543.6003.189642796.63084.16748.2599092903",
+                "path": "ImagingStudy.series.instance.uid",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "DICOM instance  type.",
+                "mapping": [
+                    {
+                        "map": "(0008,0016)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"sop class\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "DICOM class type",
+                "min": 1,
+                "alias": [
+                    "SOPClassUID"
+                ],
+                "exampleUri": "urn:oid:1.2.840.10008.5.1.4.1.1.2",
+                "path": "ImagingStudy.series.instance.sopClass",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-friendly SOP Class name.",
+                "mapping": [
+                    {
+                        "map": "(0004,1430)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Type of instance (image etc.)",
+                "min": 0,
+                "comments": "E.g. 'CT image', 'MR multi-frame', 'blending presentation'.",
+                "path": "ImagingStudy.series.instance.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The description of the instance.",
+                "mapping": [
+                    {
+                        "map": "(0070,0080) | (0040,A043) > (0008,0104) | (0042,0010) | (0008,0008)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".title",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Description of instance",
+                "min": 0,
+                "comments": "Particularly for post-acquisition analytic objects, such as SR, presentation states, value mapping, etc.",
+                "path": "ImagingStudy.series.instance.title",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Attachment"
+                    }
+                ],
+                "max": "*",
+                "definition": "Content of the instance or a rendering thereof (e.g. a JPEG of an image, or an XML of a structured report). May be represented for example by inline encoding; by a URL reference to a WADO-RS service that makes the instance available; or to a FHIR Resource (e.g. Media, Document, etc.). Multiple content attachments may be used for alternate representations of the instance.",
+                "mapping": [
+                    {
+                        "map": ".text.binary",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Content of the instance",
+                "min": 0,
+                "comments": "Use of Attachment.data is discouraged.",
+                "path": "ImagingStudy.series.instance.content",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for ImagingStudy Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/ImagingStudy",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://nema.org/dicom",
+            "identity": "dicom",
+            "name": "DICOM"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,2244 +2277,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/ImagingStudy",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Imaging Integration)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 2
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Reference IHE radiology TF vol 2 table 4.14-1",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": "Act[classCode=COMPOSITION, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.diagnostics",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy",
-                "max": "*",
-                "min": 0,
-                "short": "A set of images produced in single study (one or more series of references images)",
-                "definition": "Representation of the content produced in a DICOM imaging study. A study comprises a set of series, each of which includes a set of Service-Object Pair Instances (SOP Instances - images or other data) acquired or produced in a common context.  A series is of only one modality (e.g. X-ray, CT, MR, ultrasound), but a study may have multiple series of different modalities."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "ImagingStudy.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "ImagingStudy.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "ImagingStudy.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "ImagingStudy.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "ImagingStudy.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingStudy.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingStudy.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "(0008,0020)+(0008,0030)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.init",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.started",
-                "alias": [
-                    "StudyDate",
-                    "StudyTime"
-                ],
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
-                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html#sect_C.7.2.1"
-                    }
-                ],
-                "short": "When the study was started",
-                "max": "1",
-                "exampleDateTime": "2011-01-01T11:01:20+03:00",
-                "definition": "Date and Time the study started."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "(0010/*)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.patient",
-                "max": "1",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
-                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.2.2.html"
-                    }
-                ],
-                "short": "Who the images are of",
-                "definition": "The patient imaged in the study."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "(0020,000D)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.uid",
-                "alias": [
-                    "StudyInstanceUID"
-                ],
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
-                        "valueString": "dicom="
-                    }
-                ],
-                "short": "Formal identifier for the study",
-                "max": "1",
-                "definition": "Formal identifier for the study.",
-                "exampleUri": "urn:oid:2.16.124.113543.6003.1154777499.30246.19789.3503430045"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0050)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ACSN, moodCode=EVN].id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.accession",
-                "alias": [
-                    "AccessionNumber"
-                ],
-                "min": 0,
-                "short": "Related workflow identifier (\"Accession Number\")",
-                "max": "1",
-                "definition": "Accession Number is an identifier related to some aspect of imaging workflow and data management. Usage may vary across different institutions.  See for instance [IHE Radiology Technical Framework Volume 1 Appendix A](http://www.ihe.net/uploadedFiles/Documents/Radiology/IHE_RAD_TF_Rev13.0_Vol1_FT_2014-07-30.pdf)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,0010)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id (no means to distinguish from uid)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.identifier",
-                "alias": [
-                    "StudyID"
-                ],
-                "min": 0,
-                "short": "Other identifiers for the study",
-                "max": "*",
-                "definition": "Other identifiers for the study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.order",
-                "max": "*",
-                "min": 0,
-                "short": "Order(s) that caused this study to be performed",
-                "requirements": "To support grouped procedures (one imaging study supporting multiple ordered procedures, e.g. chest/abdomen/pelvis CT).",
-                "definition": "A list of the diagnostic orders that resulted in this imaging study being performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0061)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.modalityList",
-                "alias": [
-                    "ModalitiesInStudy"
-                ],
-                "min": 0,
-                "short": "All series modality if actual acquisition modalities",
-                "max": "*",
-                "binding": {
-                    "description": "Type of acquired data in the instance",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
-                    },
-                    "strength": "extensible"
-                },
-                "definition": "A list of all the Series.ImageModality values that are actual acquisition modalities, i.e. those in the DICOM Context Group 29 (value set OID 1.2.840.10008.6.1.19)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0090)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO].participation[typeCode=AUT].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.cause",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.referrer",
-                "alias": [
-                    "ReferringPhysiciansName"
-                ],
-                "min": 0,
-                "short": "Referring physician (0008,0090)",
-                "max": "1",
-                "definition": "The requesting/referring physician."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0056)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": "Not supported",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.availability",
-                "alias": [
-                    "InstanceAvailability"
-                ],
-                "min": 0,
-                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE (0008,0056)",
-                "max": "1",
-                "binding": {
-                    "description": "Availability of the resource",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Availability of study (online, offline or nearline)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1190)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text.reference",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.url",
-                "alias": [
-                    "RetrieveURI"
-                ],
-                "min": 0,
-                "short": "Retrieve URI",
-                "max": "1",
-                "definition": "WADO-RS resource where Study is available."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,1206)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=OBSSER, moodCode=EVN].repeatNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.numberOfSeries",
-                "alias": [
-                    "NumberOfStudyRelatedSeries"
-                ],
-                "min": 1,
-                "short": "Number of Study Related Series",
-                "max": "1",
-                "definition": "Number of Series in Study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,1208)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.numberOfInstances",
-                "alias": [
-                    "NumberOfStudyRelatedInstances"
-                ],
-                "min": 1,
-                "short": "Number of Study Related Instances",
-                "max": "1",
-                "definition": "Number of SOP Instances in Study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1032)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=PROC, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Procedure"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "For the Procedure.code, LOINC radiology orderables would be a good value set to use.",
-                "path": "ImagingStudy.procedure",
-                "alias": [
-                    "ProcedureCodeSequence"
-                ],
-                "min": 0,
-                "short": "Type of procedure performed",
-                "max": "*",
-                "definition": "Type of procedure performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1060)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".participation[typeCode=PRF].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.witness",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.interpreter",
-                "alias": [
-                    "Name of Physician(s) Reading Study"
-                ],
-                "min": 0,
-                "short": "Who interpreted images",
-                "max": "1",
-                "definition": "Who read the study and interpreted the images or other content."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1030)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.description",
-                "alias": [
-                    "StudyDescription"
-                ],
-                "min": 0,
-                "short": "Institution-generated description",
-                "max": "1",
-                "definition": "Institution-generated description or classification of the Study performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBSSER, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series",
-                "max": "*",
-                "min": 0,
-                "short": "Each study has one or more series of instances",
-                "definition": "Each study has one or more series of images or other content."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ImagingStudy.series.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingStudy.series.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingStudy.series.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "exampleInteger": 3,
-                "mapping": [
-                    {
-                        "map": "(0020,0011)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[type=COMP, source[classCode=COMPOSITION, moodCode=EVN]].sequenceNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.number",
-                "alias": [
-                    "SeriesNumber"
-                ],
-                "min": 0,
-                "short": "Numeric identifier of this series",
-                "max": "1",
-                "definition": "The Numeric identifier of this series in the study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0060)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.modality",
-                "alias": [
-                    "Modality"
-                ],
-                "min": 1,
-                "short": "The modality of the instances in the series",
-                "max": "1",
-                "binding": {
-                    "description": "Type of acquired data in the instance",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
-                    },
-                    "strength": "extensible"
-                },
-                "definition": "The modality of this series sequence."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,000E)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.uid",
-                "alias": [
-                    "SeriesInstanceUID"
-                ],
-                "min": 1,
-                "short": "Formal identifier for this series",
-                "max": "1",
-                "definition": "Formal identifier for this series.",
-                "exampleUri": "urn:oid:2.16.124.113543.6003.2588828330.45298.17418.2723805630"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,103E)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "exampleString": "CT Surview 180",
-                "path": "ImagingStudy.series.description",
-                "alias": [
-                    "SeriesDescription"
-                ],
-                "min": 0,
-                "short": "A description of the series",
-                "max": "1",
-                "definition": "A description of the series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,1209)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.numberOfInstances",
-                "alias": [
-                    "NumberOfSeriesRelatedInstances"
-                ],
-                "min": 1,
-                "short": "Number of Series Related Instances",
-                "max": "1",
-                "definition": "Number of SOP Instances in Series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0056)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"availability\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.availability",
-                "alias": [
-                    "InstanceAvailability"
-                ],
-                "min": 0,
-                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE",
-                "max": "1",
-                "binding": {
-                    "description": "Availability of the resource",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Availability of series (online, offline or nearline)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1115) > (0008,1190)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text.reference",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.url",
-                "alias": [
-                    "RetrieveURI"
-                ],
-                "min": 0,
-                "short": "Location of the referenced instance(s)",
-                "max": "1",
-                "definition": "URI/URL specifying the location of the referenced series using WADO-RS."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0018,0015)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.bodySite",
-                "alias": [
-                    "BodyPartExamined"
-                ],
-                "min": 0,
-                "short": "Body part examined",
-                "max": "1",
-                "binding": {
-                    "description": "Codes describing anatomical locations. May include laterality.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Body part examined. See  DICOM Part 16 Annex L for the mapping from DICOM to Snomed CT."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,0060)",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.laterality",
-                "max": "1",
-                "min": 0,
-                "short": "Body part laterality",
-                "binding": {
-                    "description": "Codes describing body site laterality (left, right, etc.).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/bodysite-laterality"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Laterality if body site is paired anatomic structure and laterality is not pre-coordinated in body site code."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.started",
-                "max": "1",
-                "min": 0,
-                "short": "When the series started",
-                "definition": "The date and time the series was started."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=DGIMG, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance",
-                "max": "*",
-                "min": 0,
-                "short": "A single SOP instance from the series",
-                "definition": "A single SOP Instance within the series, e.g. an image, or presentation state."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ImagingStudy.series.instance.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingStudy.series.instance.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingStudy.series.instance.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "exampleInteger": 1,
-                "mapping": [
-                    {
-                        "map": "(0020,0013)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP, source[classCode=OBSSER, moodCode=EVN]].sequenceNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance.number",
-                "alias": [
-                    "InstanceNumber"
-                ],
-                "min": 0,
-                "short": "The number of this instance in the series",
-                "max": "1",
-                "definition": "The number of instance in the series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0018)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance.uid",
-                "alias": [
-                    "SOPInstanceUID"
-                ],
-                "min": 1,
-                "short": "Formal identifier for this instance",
-                "max": "1",
-                "definition": "Formal identifier for this image or other content.",
-                "exampleUri": "urn:oid:2.16.124.113543.6003.189642796.63084.16748.2599092903"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0016)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"sop class\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance.sopClass",
-                "alias": [
-                    "SOPClassUID"
-                ],
-                "min": 1,
-                "short": "DICOM class type",
-                "max": "1",
-                "definition": "DICOM instance  type.",
-                "exampleUri": "urn:oid:1.2.840.10008.5.1.4.1.1.2"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0004,1430)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "E.g. 'CT image', 'MR multi-frame', 'blending presentation'.",
-                "path": "ImagingStudy.series.instance.type",
-                "max": "1",
-                "min": 0,
-                "short": "Type of instance (image etc.)",
-                "definition": "A human-friendly SOP Class name."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0070,0080) | (0040,A043) > (0008,0104) | (0042,0010) | (0008,0008)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".title",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Particularly for post-acquisition analytic objects, such as SR, presentation states, value mapping, etc.",
-                "path": "ImagingStudy.series.instance.title",
-                "max": "1",
-                "min": 0,
-                "short": "Description of instance",
-                "definition": "The description of the instance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".text.binary",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Attachment"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Use of Attachment.data is discouraged.",
-                "path": "ImagingStudy.series.instance.content",
-                "max": "*",
-                "min": 0,
-                "short": "Content of the instance",
-                "definition": "Content of the instance or a rendering thereof (e.g. a JPEG of an image, or an XML of a structured report). May be represented for example by inline encoding; by a URL reference to a WADO-RS service that makes the instance available; or to a FHIR Resource (e.g. Media, Document, etc.). Multiple content attachments may be used for alternate representations of the instance."
-            }
-        ]
-    },
-    "name": "ImagingStudy",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Reference IHE radiology TF vol 2 table 4.14-1",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": "Act[classCode=COMPOSITION, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.diagnostics",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy",
-                "max": "*",
-                "min": 0,
-                "short": "A set of images produced in single study (one or more series of references images)",
-                "definition": "Representation of the content produced in a DICOM imaging study. A study comprises a set of series, each of which includes a set of Service-Object Pair Instances (SOP Instances - images or other data) acquired or produced in a common context.  A series is of only one modality (e.g. X-ray, CT, MR, ultrasound), but a study may have multiple series of different modalities."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "(0008,0020)+(0008,0030)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.init",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.started",
-                "alias": [
-                    "StudyDate",
-                    "StudyTime"
-                ],
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
-                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html#sect_C.7.2.1"
-                    }
-                ],
-                "short": "When the study was started",
-                "max": "1",
-                "exampleDateTime": "2011-01-01T11:01:20+03:00",
-                "definition": "Date and Time the study started."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "(0010/*)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.patient",
-                "max": "1",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
-                        "valueString": "dicom=http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.2.2.html"
-                    }
-                ],
-                "short": "Who the images are of",
-                "definition": "The patient imaged in the study."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "(0020,000D)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.uid",
-                "alias": [
-                    "StudyInstanceUID"
-                ],
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint",
-                        "valueString": "dicom="
-                    }
-                ],
-                "short": "Formal identifier for the study",
-                "max": "1",
-                "definition": "Formal identifier for the study.",
-                "exampleUri": "urn:oid:2.16.124.113543.6003.1154777499.30246.19789.3503430045"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0050)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ACSN, moodCode=EVN].id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.accession",
-                "alias": [
-                    "AccessionNumber"
-                ],
-                "min": 0,
-                "short": "Related workflow identifier (\"Accession Number\")",
-                "max": "1",
-                "definition": "Accession Number is an identifier related to some aspect of imaging workflow and data management. Usage may vary across different institutions.  See for instance [IHE Radiology Technical Framework Volume 1 Appendix A](http://www.ihe.net/uploadedFiles/Documents/Radiology/IHE_RAD_TF_Rev13.0_Vol1_FT_2014-07-30.pdf)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,0010)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id (no means to distinguish from uid)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.identifier",
-                "alias": [
-                    "StudyID"
-                ],
-                "min": 0,
-                "short": "Other identifiers for the study",
-                "max": "*",
-                "definition": "Other identifiers for the study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.order",
-                "max": "*",
-                "min": 0,
-                "short": "Order(s) that caused this study to be performed",
-                "requirements": "To support grouped procedures (one imaging study supporting multiple ordered procedures, e.g. chest/abdomen/pelvis CT).",
-                "definition": "A list of the diagnostic orders that resulted in this imaging study being performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0061)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.modalityList",
-                "alias": [
-                    "ModalitiesInStudy"
-                ],
-                "min": 0,
-                "short": "All series modality if actual acquisition modalities",
-                "max": "*",
-                "binding": {
-                    "description": "Type of acquired data in the instance",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
-                    },
-                    "strength": "extensible"
-                },
-                "definition": "A list of all the Series.ImageModality values that are actual acquisition modalities, i.e. those in the DICOM Context Group 29 (value set OID 1.2.840.10008.6.1.19)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0090)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=FLFS].target[classCode=DGIMG, moodCode=RQO].participation[typeCode=AUT].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.cause",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.referrer",
-                "alias": [
-                    "ReferringPhysiciansName"
-                ],
-                "min": 0,
-                "short": "Referring physician (0008,0090)",
-                "max": "1",
-                "definition": "The requesting/referring physician."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0056)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": "Not supported",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.availability",
-                "alias": [
-                    "InstanceAvailability"
-                ],
-                "min": 0,
-                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE (0008,0056)",
-                "max": "1",
-                "binding": {
-                    "description": "Availability of the resource",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Availability of study (online, offline or nearline)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1190)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text.reference",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.url",
-                "alias": [
-                    "RetrieveURI"
-                ],
-                "min": 0,
-                "short": "Retrieve URI",
-                "max": "1",
-                "definition": "WADO-RS resource where Study is available."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,1206)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=OBSSER, moodCode=EVN].repeatNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.numberOfSeries",
-                "alias": [
-                    "NumberOfStudyRelatedSeries"
-                ],
-                "min": 1,
-                "short": "Number of Study Related Series",
-                "max": "1",
-                "definition": "Number of Series in Study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,1208)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.numberOfInstances",
-                "alias": [
-                    "NumberOfStudyRelatedInstances"
-                ],
-                "min": 1,
-                "short": "Number of Study Related Instances",
-                "max": "1",
-                "definition": "Number of SOP Instances in Study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1032)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=PROC, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Procedure"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "For the Procedure.code, LOINC radiology orderables would be a good value set to use.",
-                "path": "ImagingStudy.procedure",
-                "alias": [
-                    "ProcedureCodeSequence"
-                ],
-                "min": 0,
-                "short": "Type of procedure performed",
-                "max": "*",
-                "definition": "Type of procedure performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1060)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".participation[typeCode=PRF].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.witness",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.interpreter",
-                "alias": [
-                    "Name of Physician(s) Reading Study"
-                ],
-                "min": 0,
-                "short": "Who interpreted images",
-                "max": "1",
-                "definition": "Who read the study and interpreted the images or other content."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1030)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.description",
-                "alias": [
-                    "StudyDescription"
-                ],
-                "min": 0,
-                "short": "Institution-generated description",
-                "max": "1",
-                "definition": "Institution-generated description or classification of the Study performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBSSER, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series",
-                "max": "*",
-                "min": 0,
-                "short": "Each study has one or more series of instances",
-                "definition": "Each study has one or more series of images or other content."
-            },
-            {
-                "exampleInteger": 3,
-                "mapping": [
-                    {
-                        "map": "(0020,0011)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[type=COMP, source[classCode=COMPOSITION, moodCode=EVN]].sequenceNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.number",
-                "alias": [
-                    "SeriesNumber"
-                ],
-                "min": 0,
-                "short": "Numeric identifier of this series",
-                "max": "1",
-                "definition": "The Numeric identifier of this series in the study."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0060)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.modality",
-                "alias": [
-                    "Modality"
-                ],
-                "min": 1,
-                "short": "The modality of the instances in the series",
-                "max": "1",
-                "binding": {
-                    "description": "Type of acquired data in the instance",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/dicom-cid29"
-                    },
-                    "strength": "extensible"
-                },
-                "definition": "The modality of this series sequence."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,000E)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.uid",
-                "alias": [
-                    "SeriesInstanceUID"
-                ],
-                "min": 1,
-                "short": "Formal identifier for this series",
-                "max": "1",
-                "definition": "Formal identifier for this series.",
-                "exampleUri": "urn:oid:2.16.124.113543.6003.2588828330.45298.17418.2723805630"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,103E)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "exampleString": "CT Surview 180",
-                "path": "ImagingStudy.series.description",
-                "alias": [
-                    "SeriesDescription"
-                ],
-                "min": 0,
-                "short": "A description of the series",
-                "max": "1",
-                "definition": "A description of the series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,1209)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target[classCode=DGIMG, moodCode=EVN].repeatNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.numberOfInstances",
-                "alias": [
-                    "NumberOfSeriesRelatedInstances"
-                ],
-                "min": 1,
-                "short": "Number of Series Related Instances",
-                "max": "1",
-                "definition": "Number of SOP Instances in Series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0056)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"availability\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.availability",
-                "alias": [
-                    "InstanceAvailability"
-                ],
-                "min": 0,
-                "short": "ONLINE | OFFLINE | NEARLINE | UNAVAILABLE",
-                "max": "1",
-                "binding": {
-                    "description": "Availability of the resource",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/instance-availability"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Availability of series (online, offline or nearline)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1115) > (0008,1190)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".text.reference",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.url",
-                "alias": [
-                    "RetrieveURI"
-                ],
-                "min": 0,
-                "short": "Location of the referenced instance(s)",
-                "max": "1",
-                "definition": "URI/URL specifying the location of the referenced series using WADO-RS."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0018,0015)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.bodySite",
-                "alias": [
-                    "BodyPartExamined"
-                ],
-                "min": 0,
-                "short": "Body part examined",
-                "max": "1",
-                "binding": {
-                    "description": "Codes describing anatomical locations. May include laterality.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Body part examined. See  DICOM Part 16 Annex L for the mapping from DICOM to Snomed CT."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,0060)",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.laterality",
-                "max": "1",
-                "min": 0,
-                "short": "Body part laterality",
-                "binding": {
-                    "description": "Codes describing body site laterality (left, right, etc.).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/bodysite-laterality"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Laterality if body site is paired anatomic structure and laterality is not pre-coordinated in body site code."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.started",
-                "max": "1",
-                "min": 0,
-                "short": "When the series started",
-                "definition": "The date and time the series was started."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=DGIMG, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance",
-                "max": "*",
-                "min": 0,
-                "short": "A single SOP instance from the series",
-                "definition": "A single SOP Instance within the series, e.g. an image, or presentation state."
-            },
-            {
-                "exampleInteger": 1,
-                "mapping": [
-                    {
-                        "map": "(0020,0013)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP, source[classCode=OBSSER, moodCode=EVN]].sequenceNumber",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance.number",
-                "alias": [
-                    "InstanceNumber"
-                ],
-                "min": 0,
-                "short": "The number of this instance in the series",
-                "max": "1",
-                "definition": "The number of instance in the series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0018)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance.uid",
-                "alias": [
-                    "SOPInstanceUID"
-                ],
-                "min": 1,
-                "short": "Formal identifier for this instance",
-                "max": "1",
-                "definition": "Formal identifier for this image or other content.",
-                "exampleUri": "urn:oid:2.16.124.113543.6003.189642796.63084.16748.2599092903"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0016)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP]. source[classCode=OBS, moodCode=EVN, code=\"sop class\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingStudy.series.instance.sopClass",
-                "alias": [
-                    "SOPClassUID"
-                ],
-                "min": 1,
-                "short": "DICOM class type",
-                "max": "1",
-                "definition": "DICOM instance  type.",
-                "exampleUri": "urn:oid:1.2.840.10008.5.1.4.1.1.2"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0004,1430)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "E.g. 'CT image', 'MR multi-frame', 'blending presentation'.",
-                "path": "ImagingStudy.series.instance.type",
-                "max": "1",
-                "min": 0,
-                "short": "Type of instance (image etc.)",
-                "definition": "A human-friendly SOP Class name."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0070,0080) | (0040,A043) > (0008,0104) | (0042,0010) | (0008,0008)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".title",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Particularly for post-acquisition analytic objects, such as SR, presentation states, value mapping, etc.",
-                "path": "ImagingStudy.series.instance.title",
-                "max": "1",
-                "min": 0,
-                "short": "Description of instance",
-                "definition": "The description of the instance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".text.binary",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Attachment"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Use of Attachment.data is discouraged.",
-                "path": "ImagingStudy.series.instance.content",
-                "max": "*",
-                "min": 0,
-                "short": "Content of the instance",
-                "definition": "Content of the instance or a rendering thereof (e.g. a JPEG of an image, or an XML of a structured report). May be represented for example by inline encoding; by a URL reference to a WADO-RS service that makes the instance available; or to a FHIR Resource (e.g. Media, Document, etc.). Multiple content attachments may be used for alternate representations of the instance."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for ImagingStudy Resource"
+    "publisher": "Health Level Seven International (Imaging Integration)"
 }

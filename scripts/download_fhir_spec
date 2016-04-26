@@ -30,6 +30,7 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 from datetime import datetime
 import os
+import re
 import shutil
 import requests
 import sys
@@ -43,8 +44,12 @@ if __name__ == "__main__":
 from hcls_fhir_rdf.defaults import *
 
 PROFILE_SUFFIX = ".profile.json"
+VALUESET_PATTERN = re.compile(r'((/valueset-)|(^valueset-)).*\.json$')
 DEFAULT_LOG_FILE = os.path.basename(__file__) + ".log"
 
+
+def file_name_match(n: str) -> bool:
+    return n.endswith(PROFILE_SUFFIX) or (VALUESET_PATTERN.search(n) and not '.canonical.' in n)
 
 def download_spec(opts: argparse.Namespace) -> Tuple[bool, bool]:
     """ Download and unzip the FHIR specification (if necessary)
@@ -96,12 +101,26 @@ def download_spec(opts: argparse.Namespace) -> Tuple[bool, bool]:
     else:
         logging.info("Zip file is current, not re-downloaded", extra={"fname": opts.file})
 
+    opts.zipfile_timestamp = datetime.fromtimestamp(os.path.getmtime(opts.file)).isoformat()
+
     if opts.striptext:
         logging.info("Stripping text from *.%s files" % PROFILE_SUFFIX, extra={"fname": opts.file})
         for root, dirs, files in os.walk(opts.dir):
-            [strip_text(os.path.join(root, f)) for f in files if f.endswith(PROFILE_SUFFIX)]
+            [strip_text(os.path.join(root, f)) for f in files if file_name_match(f)]
+
+    write_metadata(opts, opts.file)
 
     return True, False
+
+
+def write_metadata(opts: argparse.Namespace, zipfilename: str) -> None:
+    """ Write a metadata file along with the zip file so we know what happened
+    :param opts: Input options
+    :param zipfilename: location of the zip file
+    """
+    opts.date = datetime.now().isoformat()
+    metadata_filename = zipfilename.replace('.zip', '.META')
+    open(metadata_filename, 'w').write(json.dumps(opts.__dict__, indent='    '))
 
 
 def strip_text(fname: str) -> None:
@@ -118,7 +137,7 @@ def do_unzip(opts: argparse.Namespace) -> bool:
     """
     log_info("Unzipping into %s" % opts.dir, opts.file)
     zf = ZipFile(opts.file)
-    file_names = [n for n in zf.namelist() if n.endswith(PROFILE_SUFFIX)]
+    file_names = [n for n in zf.namelist() if file_name_match(n)]
     if not file_names:
         log_warning("No '%s' files found!" % PROFILE_SUFFIX, opts.file)
     zf.extractall(opts.dir, members=file_names)

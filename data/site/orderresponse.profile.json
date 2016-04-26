@@ -1,25 +1,652 @@
 {
-    "mapping": [
+    "id": "OrderResponse",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A response to an order.",
+                "mapping": [
+                    {
+                        "map": "ControlAct[classCode=ACTN, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "workflow.order",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "A response to an order",
+                "min": 0,
+                "comments": "There might be more than one response to an order.",
+                "path": "OrderResponse",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifiers assigned to this order. The identifiers are usually assigned by the system responding to the order, but they may be provided or added to by other systems.",
+                "short": "Identifiers assigned to this order by the orderer or by the receiver",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.identifier",
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Order"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to the order that this is in response to.",
+                "short": "The order that this is a response to",
+                "min": 1,
+                "isSummary": true,
+                "path": "OrderResponse.request",
+                "mapping": [
+                    {
+                        "map": "ORC-2 / ORC-3, or OBR-2 | OBR-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".outboundRelationships[typeCode=FLFS].target",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date and time at which this order response was made (created/posted).",
+                "short": "When the response was made",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.date",
+                "mapping": [
+                    {
+                        "map": "ORC-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=AUT].time",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person, organization, or device credited with making the response.",
+                "short": "Who made the response",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.who",
+                "mapping": [
+                    {
+                        "map": "Practitioner: ORC-19 | PRT / Organization: PRT",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=AUT].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "What this response says about the status of the original order.",
+                "short": "pending | review | rejected | error | accepted | cancelled | replaced | aborted | completed",
+                "min": 1,
+                "binding": {
+                    "description": "The status of the response to an order.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/order-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "OrderResponse.orderStatus",
+                "mapping": [
+                    {
+                        "map": "ORC-1 + ORC-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code (different trigger events for different outcomes)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional description about the response - e.g. a text description provided by a human user when making decisions about the order.",
+                "short": "Additional description of the response",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.description",
+                "mapping": [
+                    {
+                        "map": "ORC-16.2.text",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Links to resources that provide details of the outcome of performing the order; e.g. Diagnostic Reports in a response that is made to an order that referenced a diagnostic order.",
+                "short": "Details of the outcome of performing the order",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.fulfillment",
+                "mapping": [
+                    {
+                        "map": "OBR+OBX[n] / RXE / RXD / RXG / RXA / BPX / BTX",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=SUBJ]/target[moodCode=RQO]",
+                        "identity": "rim"
+                    }
+                ]
+            }
+        ]
+    },
+    "name": "OrderResponse",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 0
         }
     ],
-    "id": "OrderResponse",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A response to an order.",
+                "mapping": [
+                    {
+                        "map": "ControlAct[classCode=ACTN, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "workflow.order",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "A response to an order",
+                "min": 0,
+                "comments": "There might be more than one response to an order.",
+                "path": "OrderResponse",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "OrderResponse.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "OrderResponse.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "OrderResponse.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "OrderResponse.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "OrderResponse.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "OrderResponse.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "OrderResponse.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifiers assigned to this order. The identifiers are usually assigned by the system responding to the order, but they may be provided or added to by other systems.",
+                "short": "Identifiers assigned to this order by the orderer or by the receiver",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.identifier",
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Order"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to the order that this is in response to.",
+                "short": "The order that this is a response to",
+                "min": 1,
+                "isSummary": true,
+                "path": "OrderResponse.request",
+                "mapping": [
+                    {
+                        "map": "ORC-2 / ORC-3, or OBR-2 | OBR-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".outboundRelationships[typeCode=FLFS].target",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date and time at which this order response was made (created/posted).",
+                "short": "When the response was made",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.date",
+                "mapping": [
+                    {
+                        "map": "ORC-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=AUT].time",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person, organization, or device credited with making the response.",
+                "short": "Who made the response",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.who",
+                "mapping": [
+                    {
+                        "map": "Practitioner: ORC-19 | PRT / Organization: PRT",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=AUT].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "What this response says about the status of the original order.",
+                "short": "pending | review | rejected | error | accepted | cancelled | replaced | aborted | completed",
+                "min": 1,
+                "binding": {
+                    "description": "The status of the response to an order.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/order-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "OrderResponse.orderStatus",
+                "mapping": [
+                    {
+                        "map": "ORC-1 + ORC-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code (different trigger events for different outcomes)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional description about the response - e.g. a text description provided by a human user when making decisions about the order.",
+                "short": "Additional description of the response",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.description",
+                "mapping": [
+                    {
+                        "map": "ORC-16.2.text",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Links to resources that provide details of the outcome of performing the order; e.g. Diagnostic Reports in a response that is made to an order that referenced a diagnostic order.",
+                "short": "Details of the outcome of performing the order",
+                "min": 0,
+                "isSummary": true,
+                "path": "OrderResponse.fulfillment",
+                "mapping": [
+                    {
+                        "map": "OBR+OBX[n] / RXE / RXD / RXG / RXA / BPX / BTX",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=SUBJ]/target[moodCode=RQO]",
+                        "identity": "rim"
+                    }
+                ]
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for OrderResponse Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/OrderResponse",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,632 +665,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/OrderResponse",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Orders and Observations)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 0
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "ControlAct[classCode=ACTN, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "workflow.order",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "There might be more than one response to an order.",
-                "path": "OrderResponse",
-                "max": "*",
-                "min": 0,
-                "short": "A response to an order",
-                "definition": "A response to an order."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "OrderResponse.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "OrderResponse.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "OrderResponse.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "OrderResponse.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "OrderResponse.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "OrderResponse.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "OrderResponse.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Identifiers assigned to this order by the orderer or by the receiver",
-                "definition": "Identifiers assigned to this order. The identifiers are usually assigned by the system responding to the order, but they may be provided or added to by other systems."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-2 / ORC-3, or OBR-2 | OBR-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".outboundRelationships[typeCode=FLFS].target",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Order"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.request",
-                "max": "1",
-                "min": 1,
-                "short": "The order that this is a response to",
-                "definition": "A reference to the order that this is in response to."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=AUT].time",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.date",
-                "max": "1",
-                "min": 0,
-                "short": "When the response was made",
-                "definition": "The date and time at which this order response was made (created/posted)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Practitioner: ORC-19 | PRT / Organization: PRT",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=AUT].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.who",
-                "max": "1",
-                "min": 0,
-                "short": "Who made the response",
-                "definition": "The person, organization, or device credited with making the response."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-1 + ORC-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code (different trigger events for different outcomes)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "OrderResponse.orderStatus",
-                "max": "1",
-                "min": 1,
-                "short": "pending | review | rejected | error | accepted | cancelled | replaced | aborted | completed",
-                "binding": {
-                    "description": "The status of the response to an order.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/order-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "What this response says about the status of the original order."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-16.2.text",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.description",
-                "max": "1",
-                "min": 0,
-                "short": "Additional description of the response",
-                "definition": "Additional description about the response - e.g. a text description provided by a human user when making decisions about the order."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBR+OBX[n] / RXE / RXD / RXG / RXA / BPX / BTX",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=SUBJ]/target[moodCode=RQO]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.fulfillment",
-                "max": "*",
-                "min": 0,
-                "short": "Details of the outcome of performing the order",
-                "definition": "Links to resources that provide details of the outcome of performing the order; e.g. Diagnostic Reports in a response that is made to an order that referenced a diagnostic order."
-            }
-        ]
-    },
-    "name": "OrderResponse",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "ControlAct[classCode=ACTN, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "workflow.order",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "There might be more than one response to an order.",
-                "path": "OrderResponse",
-                "max": "*",
-                "min": 0,
-                "short": "A response to an order",
-                "definition": "A response to an order."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Identifiers assigned to this order by the orderer or by the receiver",
-                "definition": "Identifiers assigned to this order. The identifiers are usually assigned by the system responding to the order, but they may be provided or added to by other systems."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-2 / ORC-3, or OBR-2 | OBR-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".outboundRelationships[typeCode=FLFS].target",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Order"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.request",
-                "max": "1",
-                "min": 1,
-                "short": "The order that this is a response to",
-                "definition": "A reference to the order that this is in response to."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=AUT].time",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.date",
-                "max": "1",
-                "min": 0,
-                "short": "When the response was made",
-                "definition": "The date and time at which this order response was made (created/posted)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Practitioner: ORC-19 | PRT / Organization: PRT",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=AUT].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.who",
-                "max": "1",
-                "min": 0,
-                "short": "Who made the response",
-                "definition": "The person, organization, or device credited with making the response."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-1 + ORC-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code (different trigger events for different outcomes)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "OrderResponse.orderStatus",
-                "max": "1",
-                "min": 1,
-                "short": "pending | review | rejected | error | accepted | cancelled | replaced | aborted | completed",
-                "binding": {
-                    "description": "The status of the response to an order.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/order-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "What this response says about the status of the original order."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-16.2.text",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.description",
-                "max": "1",
-                "min": 0,
-                "short": "Additional description of the response",
-                "definition": "Additional description about the response - e.g. a text description provided by a human user when making decisions about the order."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBR+OBX[n] / RXE / RXD / RXG / RXA / BPX / BTX",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=SUBJ]/target[moodCode=RQO]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "OrderResponse.fulfillment",
-                "max": "*",
-                "min": 0,
-                "short": "Details of the outcome of performing the order",
-                "definition": "Links to resources that provide details of the outcome of performing the order; e.g. Diagnostic Reports in a response that is made to an order that referenced a diagnostic order."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for OrderResponse Resource"
+    "publisher": "Health Level Seven International (Orders and Observations)"
 }

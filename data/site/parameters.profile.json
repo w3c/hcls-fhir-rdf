@@ -1,25 +1,584 @@
 {
-    "mapping": [
+    "id": "Parameters",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "This special resource type is used to represent an operation request and response (operations.html). It has no other use, and there is no RESTful endpoint associated with it.",
+                "short": "Operation Request or Response",
+                "min": 0,
+                "comments": "The parameters that may be used are defined by the OperationDefinition resource.",
+                "path": "Parameters",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.exchange",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "name": "parameter",
+                "max": "*",
+                "definition": "A parameter passed to or received from the operation.",
+                "constraint": [
+                    {
+                        "human": "A parameter must have a value or a resource, but not both",
+                        "severity": "error",
+                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
+                        "key": "inv-1"
+                    }
+                ],
+                "short": "Operation Parameter",
+                "min": 0,
+                "path": "Parameters.parameter"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The name of the parameter (reference to the operation definition).",
+                "short": "Name from the definition",
+                "min": 1,
+                "path": "Parameters.parameter.name"
+            },
+            {
+                "condition": [
+                    "inv-1"
+                ],
+                "type": [
+                    {
+                        "code": "boolean"
+                    },
+                    {
+                        "code": "integer"
+                    },
+                    {
+                        "code": "decimal"
+                    },
+                    {
+                        "code": "base64Binary"
+                    },
+                    {
+                        "code": "instant"
+                    },
+                    {
+                        "code": "string"
+                    },
+                    {
+                        "code": "uri"
+                    },
+                    {
+                        "code": "date"
+                    },
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "time"
+                    },
+                    {
+                        "code": "code"
+                    },
+                    {
+                        "code": "oid"
+                    },
+                    {
+                        "code": "id"
+                    },
+                    {
+                        "code": "unsignedInt"
+                    },
+                    {
+                        "code": "positiveInt"
+                    },
+                    {
+                        "code": "markdown"
+                    },
+                    {
+                        "code": "Annotation"
+                    },
+                    {
+                        "code": "Attachment"
+                    },
+                    {
+                        "code": "Identifier"
+                    },
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "code": "Coding"
+                    },
+                    {
+                        "code": "Quantity"
+                    },
+                    {
+                        "code": "Range"
+                    },
+                    {
+                        "code": "Period"
+                    },
+                    {
+                        "code": "Ratio"
+                    },
+                    {
+                        "code": "SampledData"
+                    },
+                    {
+                        "code": "Signature"
+                    },
+                    {
+                        "code": "HumanName"
+                    },
+                    {
+                        "code": "Address"
+                    },
+                    {
+                        "code": "ContactPoint"
+                    },
+                    {
+                        "code": "Timing"
+                    },
+                    {
+                        "code": "Reference"
+                    },
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "If the parameter is a data type.",
+                "short": "If parameter is a data type",
+                "min": 0,
+                "path": "Parameters.parameter.value[x]"
+            },
+            {
+                "condition": [
+                    "inv-1"
+                ],
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "1",
+                "definition": "If the parameter is a whole resource.",
+                "short": "If parameter is a whole resource",
+                "min": 0,
+                "path": "Parameters.parameter.resource"
+            },
+            {
+                "constraint": [
+                    {
+                        "human": "A part must have a value or a resource, but not both",
+                        "severity": "error",
+                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
+                        "key": "inv-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "A named part of a parameter. In many implementation context, a set of named parts is known as a \"Tuple\".",
+                "short": "Named part of a parameter (e.g. Tuple)",
+                "min": 0,
+                "comments": "Only one level of Tuples is allowed.",
+                "path": "Parameters.parameter.part",
+                "nameReference": "parameter"
+            }
+        ]
+    },
+    "name": "Parameters",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
         }
     ],
-    "id": "Parameters",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "This special resource type is used to represent an operation request and response (operations.html). It has no other use, and there is no RESTful endpoint associated with it.",
+                "short": "Operation Request or Response",
+                "min": 0,
+                "comments": "The parameters that may be used are defined by the OperationDefinition resource.",
+                "path": "Parameters",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.exchange",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Parameters.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Parameters.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Parameters.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Parameters.language"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "name": "parameter",
+                "max": "*",
+                "definition": "A parameter passed to or received from the operation.",
+                "constraint": [
+                    {
+                        "human": "A parameter must have a value or a resource, but not both",
+                        "severity": "error",
+                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
+                        "key": "inv-1"
+                    }
+                ],
+                "short": "Operation Parameter",
+                "min": 0,
+                "path": "Parameters.parameter"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Parameters.parameter.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Parameters.parameter.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Parameters.parameter.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The name of the parameter (reference to the operation definition).",
+                "short": "Name from the definition",
+                "min": 1,
+                "path": "Parameters.parameter.name"
+            },
+            {
+                "condition": [
+                    "inv-1"
+                ],
+                "type": [
+                    {
+                        "code": "boolean"
+                    },
+                    {
+                        "code": "integer"
+                    },
+                    {
+                        "code": "decimal"
+                    },
+                    {
+                        "code": "base64Binary"
+                    },
+                    {
+                        "code": "instant"
+                    },
+                    {
+                        "code": "string"
+                    },
+                    {
+                        "code": "uri"
+                    },
+                    {
+                        "code": "date"
+                    },
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "time"
+                    },
+                    {
+                        "code": "code"
+                    },
+                    {
+                        "code": "oid"
+                    },
+                    {
+                        "code": "id"
+                    },
+                    {
+                        "code": "unsignedInt"
+                    },
+                    {
+                        "code": "positiveInt"
+                    },
+                    {
+                        "code": "markdown"
+                    },
+                    {
+                        "code": "Annotation"
+                    },
+                    {
+                        "code": "Attachment"
+                    },
+                    {
+                        "code": "Identifier"
+                    },
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "code": "Coding"
+                    },
+                    {
+                        "code": "Quantity"
+                    },
+                    {
+                        "code": "Range"
+                    },
+                    {
+                        "code": "Period"
+                    },
+                    {
+                        "code": "Ratio"
+                    },
+                    {
+                        "code": "SampledData"
+                    },
+                    {
+                        "code": "Signature"
+                    },
+                    {
+                        "code": "HumanName"
+                    },
+                    {
+                        "code": "Address"
+                    },
+                    {
+                        "code": "ContactPoint"
+                    },
+                    {
+                        "code": "Timing"
+                    },
+                    {
+                        "code": "Reference"
+                    },
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "If the parameter is a data type.",
+                "short": "If parameter is a data type",
+                "min": 0,
+                "path": "Parameters.parameter.value[x]"
+            },
+            {
+                "condition": [
+                    "inv-1"
+                ],
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "1",
+                "definition": "If the parameter is a whole resource.",
+                "short": "If parameter is a whole resource",
+                "min": 0,
+                "path": "Parameters.parameter.resource"
+            },
+            {
+                "constraint": [
+                    {
+                        "human": "A part must have a value or a resource, but not both",
+                        "severity": "error",
+                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
+                        "key": "inv-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "A named part of a parameter. In many implementation context, a set of named parts is known as a \"Tuple\".",
+                "short": "Named part of a parameter (e.g. Tuple)",
+                "min": 0,
+                "comments": "Only one level of Tuples is allowed.",
+                "path": "Parameters.parameter.part",
+                "nameReference": "parameter"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Parameters Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Parameters",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/Resource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,564 +597,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Resource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Parameters",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (FHIR Infrastructure)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.exchange",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "The parameters that may be used are defined by the OperationDefinition resource.",
-                "path": "Parameters",
-                "max": "*",
-                "min": 0,
-                "short": "Operation Request or Response",
-                "definition": "This special resource type is used to represent an operation request and response (operations.html). It has no other use, and there is no RESTful endpoint associated with it."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Parameters.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Parameters.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Parameters.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Parameters.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
-                        "human": "A parameter must have a value or a resource, but not both",
-                        "severity": "error",
-                        "key": "inv-1"
-                    }
-                ],
-                "path": "Parameters.parameter",
-                "max": "*",
-                "min": 0,
-                "short": "Operation Parameter",
-                "name": "parameter",
-                "definition": "A parameter passed to or received from the operation."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Parameters.parameter.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Parameters.parameter.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Parameters.parameter.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Parameters.parameter.name",
-                "max": "1",
-                "min": 1,
-                "short": "Name from the definition",
-                "definition": "The name of the parameter (reference to the operation definition)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    },
-                    {
-                        "code": "integer"
-                    },
-                    {
-                        "code": "decimal"
-                    },
-                    {
-                        "code": "base64Binary"
-                    },
-                    {
-                        "code": "instant"
-                    },
-                    {
-                        "code": "string"
-                    },
-                    {
-                        "code": "uri"
-                    },
-                    {
-                        "code": "date"
-                    },
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "time"
-                    },
-                    {
-                        "code": "code"
-                    },
-                    {
-                        "code": "oid"
-                    },
-                    {
-                        "code": "id"
-                    },
-                    {
-                        "code": "unsignedInt"
-                    },
-                    {
-                        "code": "positiveInt"
-                    },
-                    {
-                        "code": "markdown"
-                    },
-                    {
-                        "code": "Annotation"
-                    },
-                    {
-                        "code": "Attachment"
-                    },
-                    {
-                        "code": "Identifier"
-                    },
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Coding"
-                    },
-                    {
-                        "code": "Quantity"
-                    },
-                    {
-                        "code": "Range"
-                    },
-                    {
-                        "code": "Period"
-                    },
-                    {
-                        "code": "Ratio"
-                    },
-                    {
-                        "code": "SampledData"
-                    },
-                    {
-                        "code": "Signature"
-                    },
-                    {
-                        "code": "HumanName"
-                    },
-                    {
-                        "code": "Address"
-                    },
-                    {
-                        "code": "ContactPoint"
-                    },
-                    {
-                        "code": "Timing"
-                    },
-                    {
-                        "code": "Reference"
-                    },
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "path": "Parameters.parameter.value[x]",
-                "max": "1",
-                "min": 0,
-                "short": "If parameter is a data type",
-                "condition": [
-                    "inv-1"
-                ],
-                "definition": "If the parameter is a data type."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "path": "Parameters.parameter.resource",
-                "max": "1",
-                "min": 0,
-                "short": "If parameter is a whole resource",
-                "condition": [
-                    "inv-1"
-                ],
-                "definition": "If the parameter is a whole resource."
-            },
-            {
-                "nameReference": "parameter",
-                "constraint": [
-                    {
-                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
-                        "human": "A part must have a value or a resource, but not both",
-                        "severity": "error",
-                        "key": "inv-2"
-                    }
-                ],
-                "comments": "Only one level of Tuples is allowed.",
-                "path": "Parameters.parameter.part",
-                "max": "*",
-                "min": 0,
-                "short": "Named part of a parameter (e.g. Tuple)",
-                "definition": "A named part of a parameter. In many implementation context, a set of named parts is known as a \"Tuple\"."
-            }
-        ]
-    },
-    "name": "Parameters",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.exchange",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "The parameters that may be used are defined by the OperationDefinition resource.",
-                "path": "Parameters",
-                "max": "*",
-                "min": 0,
-                "short": "Operation Request or Response",
-                "definition": "This special resource type is used to represent an operation request and response (operations.html). It has no other use, and there is no RESTful endpoint associated with it."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
-                        "human": "A parameter must have a value or a resource, but not both",
-                        "severity": "error",
-                        "key": "inv-1"
-                    }
-                ],
-                "path": "Parameters.parameter",
-                "max": "*",
-                "min": 0,
-                "short": "Operation Parameter",
-                "name": "parameter",
-                "definition": "A parameter passed to or received from the operation."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Parameters.parameter.name",
-                "max": "1",
-                "min": 1,
-                "short": "Name from the definition",
-                "definition": "The name of the parameter (reference to the operation definition)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    },
-                    {
-                        "code": "integer"
-                    },
-                    {
-                        "code": "decimal"
-                    },
-                    {
-                        "code": "base64Binary"
-                    },
-                    {
-                        "code": "instant"
-                    },
-                    {
-                        "code": "string"
-                    },
-                    {
-                        "code": "uri"
-                    },
-                    {
-                        "code": "date"
-                    },
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "time"
-                    },
-                    {
-                        "code": "code"
-                    },
-                    {
-                        "code": "oid"
-                    },
-                    {
-                        "code": "id"
-                    },
-                    {
-                        "code": "unsignedInt"
-                    },
-                    {
-                        "code": "positiveInt"
-                    },
-                    {
-                        "code": "markdown"
-                    },
-                    {
-                        "code": "Annotation"
-                    },
-                    {
-                        "code": "Attachment"
-                    },
-                    {
-                        "code": "Identifier"
-                    },
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Coding"
-                    },
-                    {
-                        "code": "Quantity"
-                    },
-                    {
-                        "code": "Range"
-                    },
-                    {
-                        "code": "Period"
-                    },
-                    {
-                        "code": "Ratio"
-                    },
-                    {
-                        "code": "SampledData"
-                    },
-                    {
-                        "code": "Signature"
-                    },
-                    {
-                        "code": "HumanName"
-                    },
-                    {
-                        "code": "Address"
-                    },
-                    {
-                        "code": "ContactPoint"
-                    },
-                    {
-                        "code": "Timing"
-                    },
-                    {
-                        "code": "Reference"
-                    },
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "path": "Parameters.parameter.value[x]",
-                "max": "1",
-                "min": 0,
-                "short": "If parameter is a data type",
-                "condition": [
-                    "inv-1"
-                ],
-                "definition": "If the parameter is a data type."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "path": "Parameters.parameter.resource",
-                "max": "1",
-                "min": 0,
-                "short": "If parameter is a whole resource",
-                "condition": [
-                    "inv-1"
-                ],
-                "definition": "If the parameter is a whole resource."
-            },
-            {
-                "nameReference": "parameter",
-                "constraint": [
-                    {
-                        "xpath": "exists(f:value) or exists(f:resource) and not(exists(f:value) and exists(f:resource))",
-                        "human": "A part must have a value or a resource, but not both",
-                        "severity": "error",
-                        "key": "inv-2"
-                    }
-                ],
-                "comments": "Only one level of Tuples is allowed.",
-                "path": "Parameters.parameter.part",
-                "max": "*",
-                "min": 0,
-                "short": "Named part of a parameter (e.g. Tuple)",
-                "definition": "A named part of a parameter. In many implementation context, a set of named parts is known as a \"Tuple\"."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Parameters Resource"
+    "publisher": "Health Level Seven International (FHIR Infrastructure)"
 }

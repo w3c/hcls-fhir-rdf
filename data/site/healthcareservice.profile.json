@@ -1,20 +1,1376 @@
 {
-    "mapping": [
+    "id": "HealthcareService",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "The details of a healthcare service available at a location.",
+                "short": "The details of a healthcare service available at a location",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "administrative.group",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "HealthcareService"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "External identifiers for this item.",
+                "short": "External identifiers for this item",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.identifier",
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The organization that provides this healthcare service.",
+                "short": "Organization that provides this service",
+                "min": 0,
+                "comments": "This property is recommended to be the same as the Location's managingOrganization, and if not provided should be interpreted as such. If the Location does not have a managing Organization, then this property should be populated.",
+                "path": "HealthcareService.providedBy",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the broad category of service being performed or delivered.",
+                "mapping": [
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Broad category of service being performed or delivered",
+                "min": 0,
+                "binding": {
+                    "description": "A category of the service(s) that could be provided.",
+                    "strength": "example"
+                },
+                "comments": "Selecting a Service Category then determines the list of relevant service types that can be selected in the primary service type.",
+                "path": "HealthcareService.serviceCategory",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "ServiceType"
+                    }
+                ],
+                "max": "*",
+                "definition": "A specific type of service that may be delivered or performed.",
+                "short": "Specific service delivered or performed",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.serviceType"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The specific type of service being delivered or performed.",
+                "short": "Type of service delivered or performed",
+                "min": 1,
+                "binding": {
+                    "description": "Additional details about where the content was created (e.g. clinical specialty).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/c80-practice-codes"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Change to serviceType?",
+                "path": "HealthcareService.serviceType.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Collection of specialties handled by the service site. This is more of a medical term.",
+                "short": "Specialties handled by the Service Site",
+                "min": 0,
+                "binding": {
+                    "description": "A specialty that a healthcare service may provide.",
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "HealthcareService.serviceType.specialty"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The location where this healthcare service may be provided.",
+                "short": "Location where service may be provided",
+                "min": 1,
+                "isSummary": true,
+                "path": "HealthcareService.location",
+                "mapping": [
+                    {
+                        "map": "where",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Further description of the service as it would be presented to a consumer while searching.",
+                "short": "Description of service as presented to a consumer while searching",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.serviceName"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Any additional description of the service and/or any specific issues not covered by the other attributes, which can be displayed as further detail under the serviceName.",
+                "short": "Additional description and/or any specific issues not covered elsewhere",
+                "min": 0,
+                "comments": "Would expect that a user would not see this information on a search results, and it would only be available when viewing the complete details of the service.",
+                "path": "HealthcareService.comment",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Extra details about the service that can't be placed in the other fields.",
+                "short": "Extra details about the service that can't be placed in the other fields",
+                "min": 0,
+                "path": "HealthcareService.extraDetails"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Attachment"
+                    }
+                ],
+                "max": "1",
+                "definition": "If there is a photo/symbol associated with this HealthcareService, it may be included here to facilitate quick identification of the service in a list.",
+                "short": "Facilitates quick identification of the service",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.photo"
+            },
+            {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "max": "*",
+                "definition": "List of contacts related to this specific healthcare service.",
+                "short": "Contacts related to the healthcare service",
+                "min": 0,
+                "comments": "If this is empty, then refer to the location's contacts.",
+                "path": "HealthcareService.telecom"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "The location(s) that this service is available to (not where the service is provided).",
+                "short": "Location(s) service is inteded for/available to",
+                "min": 0,
+                "comments": "The locations referenced by the coverage area can include both specific locations, including areas, and also conceptual domains too (mode = kind), such as a physical area (tri-state area) and some other attribute (covered by Example Care Organization). These types of Locations are often not managed by any specific organization. This could also include generic locations such as \"in-home\".",
+                "path": "HealthcareService.coverageArea"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "The code(s) that detail the conditions under which the healthcare service is available/offered.",
+                "short": "Conditions under which service is available/offered",
+                "min": 0,
+                "binding": {
+                    "description": "The code(s) that detail the conditions under which the healthcare service is available/offered.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/service-provision-conditions"
+                    },
+                    "strength": "example"
+                },
+                "comments": "The provision means being commissioned by, contractually obliged or financially sourced. Types of costings that may apply to this healthcare service, such if the service may be available for free, some discounts available, or fees apply.",
+                "path": "HealthcareService.serviceProvisionCode"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Does this service have specific eligibility requirements that need to be met in order to use the service?",
+                "short": "Specific eligibility requirements required to use the service",
+                "min": 0,
+                "binding": {
+                    "description": "Coded values underwhich a specific service is made available.",
+                    "strength": "example"
+                },
+                "path": "HealthcareService.eligibility"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Describes the eligibility conditions for the service.",
+                "short": "Describes the eligibility conditions for the service",
+                "min": 0,
+                "comments": "The description of service eligibility should, in general, not exceed one or two paragraphs. It should be sufficient for a prospective consumer to determine if they are likely to be eligible or not. Where eligibility requirements and conditions are complex, it may simply be noted that an eligibility assessment is required. Where eligibility is determined by an outside source, such as an Act of Parliament, this should be noted, preferably with a reference to a commonly available copy of the source document such as a web page.",
+                "path": "HealthcareService.eligibilityNote"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "*",
+                "definition": "Program Names that can be used to categorize the service.",
+                "short": "Program Names that categorize the service",
+                "min": 0,
+                "comments": "Programs are often defined externally to an Organization, commonly by governments; e.g. Home and Community Care Programs, Homeless Program, \u2026.",
+                "path": "HealthcareService.programName"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Collection of characteristics (attributes).",
+                "short": "Collection of characteristics (attributes)",
+                "min": 0,
+                "binding": {
+                    "description": "A custom attribute that could be provided at a service (e.g. Wheelchair accessibiliy).",
+                    "strength": "example"
+                },
+                "comments": "These could be such things as is wheelchair accessible.",
+                "path": "HealthcareService.characteristic"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Ways that the service accepts referrals, if this is not provided then it is implied that no referral is required.",
+                "short": "Ways that the service accepts referrals",
+                "min": 0,
+                "binding": {
+                    "description": "The methods of referral can be used when referring to a specific HealthCareService resource.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/service-referral-method"
+                    },
+                    "strength": "example"
+                },
+                "path": "HealthcareService.referralMethod"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The public part of the 'keys' allocated to an Organization by an accredited body to support secure exchange of data over the internet. To be provided by the Organization, where available.",
+                "short": "PKI Public keys to support secure communications",
+                "min": 0,
+                "comments": "Note: This is a base64 encoded digital certificate.",
+                "path": "HealthcareService.publicKey"
+            },
+            {
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates whether or not a prospective consumer will require an appointment for a particular service at a site to be provided by the Organization. Indicates if an appointment is required for access to this service.",
+                "short": "If an appointment is required for access to this service",
+                "min": 0,
+                "path": "HealthcareService.appointmentRequired"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "A collection of times that the Service Site is available.",
+                "short": "Times the Service Site is available",
+                "min": 0,
+                "comments": "More detailed availability information may be provided in associated Schedule/Slot resources.",
+                "path": "HealthcareService.availableTime"
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "*",
+                "definition": "Indicates which days of the week are available between the start and end Times.",
+                "short": "mon | tue | wed | thu | fri | sat | sun",
+                "min": 0,
+                "binding": {
+                    "description": "The days of the week.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/days-of-week"
+                    },
+                    "strength": "required"
+                },
+                "path": "HealthcareService.availableTime.daysOfWeek"
+            },
+            {
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "max": "1",
+                "definition": "Is this always available? (hence times are irrelevant) e.g. 24 hour service.",
+                "short": "Always available? e.g. 24 hour service",
+                "min": 0,
+                "path": "HealthcareService.availableTime.allDay"
+            },
+            {
+                "type": [
+                    {
+                        "code": "time"
+                    }
+                ],
+                "max": "1",
+                "definition": "The opening time of day. Note: If the AllDay flag is set, then this time is ignored.",
+                "short": "Opening time of day (ignored if allDay = true)",
+                "min": 0,
+                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
+                "path": "HealthcareService.availableTime.availableStartTime"
+            },
+            {
+                "type": [
+                    {
+                        "code": "time"
+                    }
+                ],
+                "max": "1",
+                "definition": "The closing time of day. Note: If the AllDay flag is set, then this time is ignored.",
+                "short": "Closing time of day (ignored if allDay = true)",
+                "min": 0,
+                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
+                "path": "HealthcareService.availableTime.availableEndTime"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "The HealthcareService is not available during this period of time due to the provided reason.",
+                "short": "Not available during this time due to provided reason",
+                "min": 0,
+                "path": "HealthcareService.notAvailable"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The reason that can be presented to the user as to why this time is not available.",
+                "short": "Reason presented to the user explaining why time not available",
+                "min": 1,
+                "path": "HealthcareService.notAvailable.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Service is not available (seasonally or for a public holiday) from this date.",
+                "short": "Service not availablefrom this date",
+                "min": 0,
+                "path": "HealthcareService.notAvailable.during"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A description of site availability exceptions, e.g. public holiday availability. Succinctly describing all possible exceptions to normal site availability as details in the available Times and not available Times.",
+                "short": "Description of availability exceptions",
+                "min": 0,
+                "path": "HealthcareService.availabilityExceptions"
+            }
+        ]
+    },
+    "name": "HealthcareService",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
         }
     ],
-    "id": "HealthcareService",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "The details of a healthcare service available at a location.",
+                "short": "The details of a healthcare service available at a location",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "administrative.group",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "HealthcareService"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "HealthcareService.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "HealthcareService.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "HealthcareService.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "HealthcareService.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "HealthcareService.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "External identifiers for this item.",
+                "short": "External identifiers for this item",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.identifier",
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The organization that provides this healthcare service.",
+                "short": "Organization that provides this service",
+                "min": 0,
+                "comments": "This property is recommended to be the same as the Location's managingOrganization, and if not provided should be interpreted as such. If the Location does not have a managing Organization, then this property should be populated.",
+                "path": "HealthcareService.providedBy",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the broad category of service being performed or delivered.",
+                "mapping": [
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Broad category of service being performed or delivered",
+                "min": 0,
+                "binding": {
+                    "description": "A category of the service(s) that could be provided.",
+                    "strength": "example"
+                },
+                "comments": "Selecting a Service Category then determines the list of relevant service types that can be selected in the primary service type.",
+                "path": "HealthcareService.serviceCategory",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "ServiceType"
+                    }
+                ],
+                "max": "*",
+                "definition": "A specific type of service that may be delivered or performed.",
+                "short": "Specific service delivered or performed",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.serviceType"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "HealthcareService.serviceType.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.serviceType.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.serviceType.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The specific type of service being delivered or performed.",
+                "short": "Type of service delivered or performed",
+                "min": 1,
+                "binding": {
+                    "description": "Additional details about where the content was created (e.g. clinical specialty).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/c80-practice-codes"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Change to serviceType?",
+                "path": "HealthcareService.serviceType.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Collection of specialties handled by the service site. This is more of a medical term.",
+                "short": "Specialties handled by the Service Site",
+                "min": 0,
+                "binding": {
+                    "description": "A specialty that a healthcare service may provide.",
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "HealthcareService.serviceType.specialty"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The location where this healthcare service may be provided.",
+                "short": "Location where service may be provided",
+                "min": 1,
+                "isSummary": true,
+                "path": "HealthcareService.location",
+                "mapping": [
+                    {
+                        "map": "where",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Further description of the service as it would be presented to a consumer while searching.",
+                "short": "Description of service as presented to a consumer while searching",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.serviceName"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Any additional description of the service and/or any specific issues not covered by the other attributes, which can be displayed as further detail under the serviceName.",
+                "short": "Additional description and/or any specific issues not covered elsewhere",
+                "min": 0,
+                "comments": "Would expect that a user would not see this information on a search results, and it would only be available when viewing the complete details of the service.",
+                "path": "HealthcareService.comment",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Extra details about the service that can't be placed in the other fields.",
+                "short": "Extra details about the service that can't be placed in the other fields",
+                "min": 0,
+                "path": "HealthcareService.extraDetails"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Attachment"
+                    }
+                ],
+                "max": "1",
+                "definition": "If there is a photo/symbol associated with this HealthcareService, it may be included here to facilitate quick identification of the service in a list.",
+                "short": "Facilitates quick identification of the service",
+                "min": 0,
+                "isSummary": true,
+                "path": "HealthcareService.photo"
+            },
+            {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "max": "*",
+                "definition": "List of contacts related to this specific healthcare service.",
+                "short": "Contacts related to the healthcare service",
+                "min": 0,
+                "comments": "If this is empty, then refer to the location's contacts.",
+                "path": "HealthcareService.telecom"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "The location(s) that this service is available to (not where the service is provided).",
+                "short": "Location(s) service is inteded for/available to",
+                "min": 0,
+                "comments": "The locations referenced by the coverage area can include both specific locations, including areas, and also conceptual domains too (mode = kind), such as a physical area (tri-state area) and some other attribute (covered by Example Care Organization). These types of Locations are often not managed by any specific organization. This could also include generic locations such as \"in-home\".",
+                "path": "HealthcareService.coverageArea"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "The code(s) that detail the conditions under which the healthcare service is available/offered.",
+                "short": "Conditions under which service is available/offered",
+                "min": 0,
+                "binding": {
+                    "description": "The code(s) that detail the conditions under which the healthcare service is available/offered.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/service-provision-conditions"
+                    },
+                    "strength": "example"
+                },
+                "comments": "The provision means being commissioned by, contractually obliged or financially sourced. Types of costings that may apply to this healthcare service, such if the service may be available for free, some discounts available, or fees apply.",
+                "path": "HealthcareService.serviceProvisionCode"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Does this service have specific eligibility requirements that need to be met in order to use the service?",
+                "short": "Specific eligibility requirements required to use the service",
+                "min": 0,
+                "binding": {
+                    "description": "Coded values underwhich a specific service is made available.",
+                    "strength": "example"
+                },
+                "path": "HealthcareService.eligibility"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Describes the eligibility conditions for the service.",
+                "short": "Describes the eligibility conditions for the service",
+                "min": 0,
+                "comments": "The description of service eligibility should, in general, not exceed one or two paragraphs. It should be sufficient for a prospective consumer to determine if they are likely to be eligible or not. Where eligibility requirements and conditions are complex, it may simply be noted that an eligibility assessment is required. Where eligibility is determined by an outside source, such as an Act of Parliament, this should be noted, preferably with a reference to a commonly available copy of the source document such as a web page.",
+                "path": "HealthcareService.eligibilityNote"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "*",
+                "definition": "Program Names that can be used to categorize the service.",
+                "short": "Program Names that categorize the service",
+                "min": 0,
+                "comments": "Programs are often defined externally to an Organization, commonly by governments; e.g. Home and Community Care Programs, Homeless Program, \u2026.",
+                "path": "HealthcareService.programName"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Collection of characteristics (attributes).",
+                "short": "Collection of characteristics (attributes)",
+                "min": 0,
+                "binding": {
+                    "description": "A custom attribute that could be provided at a service (e.g. Wheelchair accessibiliy).",
+                    "strength": "example"
+                },
+                "comments": "These could be such things as is wheelchair accessible.",
+                "path": "HealthcareService.characteristic"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Ways that the service accepts referrals, if this is not provided then it is implied that no referral is required.",
+                "short": "Ways that the service accepts referrals",
+                "min": 0,
+                "binding": {
+                    "description": "The methods of referral can be used when referring to a specific HealthCareService resource.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/service-referral-method"
+                    },
+                    "strength": "example"
+                },
+                "path": "HealthcareService.referralMethod"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The public part of the 'keys' allocated to an Organization by an accredited body to support secure exchange of data over the internet. To be provided by the Organization, where available.",
+                "short": "PKI Public keys to support secure communications",
+                "min": 0,
+                "comments": "Note: This is a base64 encoded digital certificate.",
+                "path": "HealthcareService.publicKey"
+            },
+            {
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates whether or not a prospective consumer will require an appointment for a particular service at a site to be provided by the Organization. Indicates if an appointment is required for access to this service.",
+                "short": "If an appointment is required for access to this service",
+                "min": 0,
+                "path": "HealthcareService.appointmentRequired"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "A collection of times that the Service Site is available.",
+                "short": "Times the Service Site is available",
+                "min": 0,
+                "comments": "More detailed availability information may be provided in associated Schedule/Slot resources.",
+                "path": "HealthcareService.availableTime"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "HealthcareService.availableTime.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.availableTime.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.availableTime.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "*",
+                "definition": "Indicates which days of the week are available between the start and end Times.",
+                "short": "mon | tue | wed | thu | fri | sat | sun",
+                "min": 0,
+                "binding": {
+                    "description": "The days of the week.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/days-of-week"
+                    },
+                    "strength": "required"
+                },
+                "path": "HealthcareService.availableTime.daysOfWeek"
+            },
+            {
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "max": "1",
+                "definition": "Is this always available? (hence times are irrelevant) e.g. 24 hour service.",
+                "short": "Always available? e.g. 24 hour service",
+                "min": 0,
+                "path": "HealthcareService.availableTime.allDay"
+            },
+            {
+                "type": [
+                    {
+                        "code": "time"
+                    }
+                ],
+                "max": "1",
+                "definition": "The opening time of day. Note: If the AllDay flag is set, then this time is ignored.",
+                "short": "Opening time of day (ignored if allDay = true)",
+                "min": 0,
+                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
+                "path": "HealthcareService.availableTime.availableStartTime"
+            },
+            {
+                "type": [
+                    {
+                        "code": "time"
+                    }
+                ],
+                "max": "1",
+                "definition": "The closing time of day. Note: If the AllDay flag is set, then this time is ignored.",
+                "short": "Closing time of day (ignored if allDay = true)",
+                "min": 0,
+                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
+                "path": "HealthcareService.availableTime.availableEndTime"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "The HealthcareService is not available during this period of time due to the provided reason.",
+                "short": "Not available during this time due to provided reason",
+                "min": 0,
+                "path": "HealthcareService.notAvailable"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "HealthcareService.notAvailable.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.notAvailable.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "HealthcareService.notAvailable.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The reason that can be presented to the user as to why this time is not available.",
+                "short": "Reason presented to the user explaining why time not available",
+                "min": 1,
+                "path": "HealthcareService.notAvailable.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Service is not available (seasonally or for a public holiday) from this date.",
+                "short": "Service not availablefrom this date",
+                "min": 0,
+                "path": "HealthcareService.notAvailable.during"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A description of site availability exceptions, e.g. public holiday availability. Succinctly describing all possible exceptions to normal site availability as details in the available Times and not available Times.",
+                "short": "Description of availability exceptions",
+                "min": 0,
+                "path": "HealthcareService.availabilityExceptions"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for HealthcareService Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/HealthcareService",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -33,1361 +1389,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/HealthcareService",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Patient Administration)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "administrative.group",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "path": "HealthcareService",
-                "max": "*",
-                "min": 0,
-                "short": "The details of a healthcare service available at a location",
-                "definition": "The details of a healthcare service available at a location."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "HealthcareService.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "HealthcareService.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "HealthcareService.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "HealthcareService.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "HealthcareService.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External identifiers for this item",
-                "definition": "External identifiers for this item."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This property is recommended to be the same as the Location's managingOrganization, and if not provided should be interpreted as such. If the Location does not have a managing Organization, then this property should be populated.",
-                "path": "HealthcareService.providedBy",
-                "max": "1",
-                "min": 0,
-                "short": "Organization that provides this service",
-                "definition": "The organization that provides this healthcare service."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Selecting a Service Category then determines the list of relevant service types that can be selected in the primary service type.",
-                "path": "HealthcareService.serviceCategory",
-                "max": "1",
-                "min": 0,
-                "short": "Broad category of service being performed or delivered",
-                "binding": {
-                    "description": "A category of the service(s) that could be provided.",
-                    "strength": "example"
-                },
-                "definition": "Identifies the broad category of service being performed or delivered."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.serviceType",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "ServiceType"
-                    }
-                ],
-                "short": "Specific service delivered or performed",
-                "definition": "A specific type of service that may be delivered or performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "HealthcareService.serviceType.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.serviceType.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.serviceType.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Change to serviceType?",
-                "path": "HealthcareService.serviceType.type",
-                "max": "1",
-                "min": 1,
-                "short": "Type of service delivered or performed",
-                "binding": {
-                    "description": "Additional details about where the content was created (e.g. clinical specialty).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/c80-practice-codes"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "The specific type of service being delivered or performed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.serviceType.specialty",
-                "max": "*",
-                "min": 0,
-                "short": "Specialties handled by the Service Site",
-                "binding": {
-                    "description": "A specialty that a healthcare service may provide.",
-                    "strength": "example"
-                },
-                "definition": "Collection of specialties handled by the service site. This is more of a medical term."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "where",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.location",
-                "max": "1",
-                "min": 1,
-                "short": "Location where service may be provided",
-                "definition": "The location where this healthcare service may be provided."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.serviceName",
-                "max": "1",
-                "min": 0,
-                "short": "Description of service as presented to a consumer while searching",
-                "definition": "Further description of the service as it would be presented to a consumer while searching."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Would expect that a user would not see this information on a search results, and it would only be available when viewing the complete details of the service.",
-                "path": "HealthcareService.comment",
-                "max": "1",
-                "min": 0,
-                "short": "Additional description and/or any specific issues not covered elsewhere",
-                "definition": "Any additional description of the service and/or any specific issues not covered by the other attributes, which can be displayed as further detail under the serviceName."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "HealthcareService.extraDetails",
-                "max": "1",
-                "min": 0,
-                "short": "Extra details about the service that can't be placed in the other fields",
-                "definition": "Extra details about the service that can't be placed in the other fields."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Attachment"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.photo",
-                "max": "1",
-                "min": 0,
-                "short": "Facilitates quick identification of the service",
-                "definition": "If there is a photo/symbol associated with this HealthcareService, it may be included here to facilitate quick identification of the service in a list."
-            },
-            {
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "comments": "If this is empty, then refer to the location's contacts.",
-                "path": "HealthcareService.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "Contacts related to the healthcare service",
-                "definition": "List of contacts related to this specific healthcare service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "comments": "The locations referenced by the coverage area can include both specific locations, including areas, and also conceptual domains too (mode = kind), such as a physical area (tri-state area) and some other attribute (covered by Example Care Organization). These types of Locations are often not managed by any specific organization. This could also include generic locations such as \"in-home\".",
-                "path": "HealthcareService.coverageArea",
-                "max": "*",
-                "min": 0,
-                "short": "Location(s) service is inteded for/available to",
-                "definition": "The location(s) that this service is available to (not where the service is provided)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "The provision means being commissioned by, contractually obliged or financially sourced. Types of costings that may apply to this healthcare service, such if the service may be available for free, some discounts available, or fees apply.",
-                "path": "HealthcareService.serviceProvisionCode",
-                "max": "*",
-                "min": 0,
-                "short": "Conditions under which service is available/offered",
-                "binding": {
-                    "description": "The code(s) that detail the conditions under which the healthcare service is available/offered.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/service-provision-conditions"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The code(s) that detail the conditions under which the healthcare service is available/offered."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "HealthcareService.eligibility",
-                "max": "1",
-                "min": 0,
-                "short": "Specific eligibility requirements required to use the service",
-                "binding": {
-                    "description": "Coded values underwhich a specific service is made available.",
-                    "strength": "example"
-                },
-                "definition": "Does this service have specific eligibility requirements that need to be met in order to use the service?"
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "The description of service eligibility should, in general, not exceed one or two paragraphs. It should be sufficient for a prospective consumer to determine if they are likely to be eligible or not. Where eligibility requirements and conditions are complex, it may simply be noted that an eligibility assessment is required. Where eligibility is determined by an outside source, such as an Act of Parliament, this should be noted, preferably with a reference to a commonly available copy of the source document such as a web page.",
-                "path": "HealthcareService.eligibilityNote",
-                "max": "1",
-                "min": 0,
-                "short": "Describes the eligibility conditions for the service",
-                "definition": "Describes the eligibility conditions for the service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "Programs are often defined externally to an Organization, commonly by governments; e.g. Home and Community Care Programs, Homeless Program, \u2026.",
-                "path": "HealthcareService.programName",
-                "max": "*",
-                "min": 0,
-                "short": "Program Names that categorize the service",
-                "definition": "Program Names that can be used to categorize the service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "These could be such things as is wheelchair accessible.",
-                "path": "HealthcareService.characteristic",
-                "max": "*",
-                "min": 0,
-                "short": "Collection of characteristics (attributes)",
-                "binding": {
-                    "description": "A custom attribute that could be provided at a service (e.g. Wheelchair accessibiliy).",
-                    "strength": "example"
-                },
-                "definition": "Collection of characteristics (attributes)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "HealthcareService.referralMethod",
-                "max": "*",
-                "min": 0,
-                "short": "Ways that the service accepts referrals",
-                "binding": {
-                    "description": "The methods of referral can be used when referring to a specific HealthCareService resource.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/service-referral-method"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Ways that the service accepts referrals, if this is not provided then it is implied that no referral is required."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "Note: This is a base64 encoded digital certificate.",
-                "path": "HealthcareService.publicKey",
-                "max": "1",
-                "min": 0,
-                "short": "PKI Public keys to support secure communications",
-                "definition": "The public part of the 'keys' allocated to an Organization by an accredited body to support secure exchange of data over the internet. To be provided by the Organization, where available."
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "path": "HealthcareService.appointmentRequired",
-                "max": "1",
-                "min": 0,
-                "short": "If an appointment is required for access to this service",
-                "definition": "Indicates whether or not a prospective consumer will require an appointment for a particular service at a site to be provided by the Organization. Indicates if an appointment is required for access to this service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "comments": "More detailed availability information may be provided in associated Schedule/Slot resources.",
-                "path": "HealthcareService.availableTime",
-                "max": "*",
-                "min": 0,
-                "short": "Times the Service Site is available",
-                "definition": "A collection of times that the Service Site is available."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "HealthcareService.availableTime.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.availableTime.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.availableTime.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "path": "HealthcareService.availableTime.daysOfWeek",
-                "max": "*",
-                "min": 0,
-                "short": "mon | tue | wed | thu | fri | sat | sun",
-                "binding": {
-                    "description": "The days of the week.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/days-of-week"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Indicates which days of the week are available between the start and end Times."
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "path": "HealthcareService.availableTime.allDay",
-                "max": "1",
-                "min": 0,
-                "short": "Always available? e.g. 24 hour service",
-                "definition": "Is this always available? (hence times are irrelevant) e.g. 24 hour service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "time"
-                    }
-                ],
-                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
-                "path": "HealthcareService.availableTime.availableStartTime",
-                "max": "1",
-                "min": 0,
-                "short": "Opening time of day (ignored if allDay = true)",
-                "definition": "The opening time of day. Note: If the AllDay flag is set, then this time is ignored."
-            },
-            {
-                "type": [
-                    {
-                        "code": "time"
-                    }
-                ],
-                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
-                "path": "HealthcareService.availableTime.availableEndTime",
-                "max": "1",
-                "min": 0,
-                "short": "Closing time of day (ignored if allDay = true)",
-                "definition": "The closing time of day. Note: If the AllDay flag is set, then this time is ignored."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable",
-                "max": "*",
-                "min": 0,
-                "short": "Not available during this time due to provided reason",
-                "definition": "The HealthcareService is not available during this period of time due to the provided reason."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.notAvailable.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "HealthcareService.notAvailable.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable.description",
-                "max": "1",
-                "min": 1,
-                "short": "Reason presented to the user explaining why time not available",
-                "definition": "The reason that can be presented to the user as to why this time is not available."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable.during",
-                "max": "1",
-                "min": 0,
-                "short": "Service not availablefrom this date",
-                "definition": "Service is not available (seasonally or for a public holiday) from this date."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "HealthcareService.availabilityExceptions",
-                "max": "1",
-                "min": 0,
-                "short": "Description of availability exceptions",
-                "definition": "A description of site availability exceptions, e.g. public holiday availability. Succinctly describing all possible exceptions to normal site availability as details in the available Times and not available Times."
-            }
-        ]
-    },
-    "name": "HealthcareService",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "administrative.group",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "path": "HealthcareService",
-                "max": "*",
-                "min": 0,
-                "short": "The details of a healthcare service available at a location",
-                "definition": "The details of a healthcare service available at a location."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External identifiers for this item",
-                "definition": "External identifiers for this item."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This property is recommended to be the same as the Location's managingOrganization, and if not provided should be interpreted as such. If the Location does not have a managing Organization, then this property should be populated.",
-                "path": "HealthcareService.providedBy",
-                "max": "1",
-                "min": 0,
-                "short": "Organization that provides this service",
-                "definition": "The organization that provides this healthcare service."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Selecting a Service Category then determines the list of relevant service types that can be selected in the primary service type.",
-                "path": "HealthcareService.serviceCategory",
-                "max": "1",
-                "min": 0,
-                "short": "Broad category of service being performed or delivered",
-                "binding": {
-                    "description": "A category of the service(s) that could be provided.",
-                    "strength": "example"
-                },
-                "definition": "Identifies the broad category of service being performed or delivered."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.serviceType",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "ServiceType"
-                    }
-                ],
-                "short": "Specific service delivered or performed",
-                "definition": "A specific type of service that may be delivered or performed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Change to serviceType?",
-                "path": "HealthcareService.serviceType.type",
-                "max": "1",
-                "min": 1,
-                "short": "Type of service delivered or performed",
-                "binding": {
-                    "description": "Additional details about where the content was created (e.g. clinical specialty).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/c80-practice-codes"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "The specific type of service being delivered or performed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.serviceType.specialty",
-                "max": "*",
-                "min": 0,
-                "short": "Specialties handled by the Service Site",
-                "binding": {
-                    "description": "A specialty that a healthcare service may provide.",
-                    "strength": "example"
-                },
-                "definition": "Collection of specialties handled by the service site. This is more of a medical term."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "where",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.location",
-                "max": "1",
-                "min": 1,
-                "short": "Location where service may be provided",
-                "definition": "The location where this healthcare service may be provided."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.serviceName",
-                "max": "1",
-                "min": 0,
-                "short": "Description of service as presented to a consumer while searching",
-                "definition": "Further description of the service as it would be presented to a consumer while searching."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Would expect that a user would not see this information on a search results, and it would only be available when viewing the complete details of the service.",
-                "path": "HealthcareService.comment",
-                "max": "1",
-                "min": 0,
-                "short": "Additional description and/or any specific issues not covered elsewhere",
-                "definition": "Any additional description of the service and/or any specific issues not covered by the other attributes, which can be displayed as further detail under the serviceName."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "HealthcareService.extraDetails",
-                "max": "1",
-                "min": 0,
-                "short": "Extra details about the service that can't be placed in the other fields",
-                "definition": "Extra details about the service that can't be placed in the other fields."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Attachment"
-                    }
-                ],
-                "isSummary": true,
-                "path": "HealthcareService.photo",
-                "max": "1",
-                "min": 0,
-                "short": "Facilitates quick identification of the service",
-                "definition": "If there is a photo/symbol associated with this HealthcareService, it may be included here to facilitate quick identification of the service in a list."
-            },
-            {
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "comments": "If this is empty, then refer to the location's contacts.",
-                "path": "HealthcareService.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "Contacts related to the healthcare service",
-                "definition": "List of contacts related to this specific healthcare service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "comments": "The locations referenced by the coverage area can include both specific locations, including areas, and also conceptual domains too (mode = kind), such as a physical area (tri-state area) and some other attribute (covered by Example Care Organization). These types of Locations are often not managed by any specific organization. This could also include generic locations such as \"in-home\".",
-                "path": "HealthcareService.coverageArea",
-                "max": "*",
-                "min": 0,
-                "short": "Location(s) service is inteded for/available to",
-                "definition": "The location(s) that this service is available to (not where the service is provided)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "The provision means being commissioned by, contractually obliged or financially sourced. Types of costings that may apply to this healthcare service, such if the service may be available for free, some discounts available, or fees apply.",
-                "path": "HealthcareService.serviceProvisionCode",
-                "max": "*",
-                "min": 0,
-                "short": "Conditions under which service is available/offered",
-                "binding": {
-                    "description": "The code(s) that detail the conditions under which the healthcare service is available/offered.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/service-provision-conditions"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The code(s) that detail the conditions under which the healthcare service is available/offered."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "HealthcareService.eligibility",
-                "max": "1",
-                "min": 0,
-                "short": "Specific eligibility requirements required to use the service",
-                "binding": {
-                    "description": "Coded values underwhich a specific service is made available.",
-                    "strength": "example"
-                },
-                "definition": "Does this service have specific eligibility requirements that need to be met in order to use the service?"
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "The description of service eligibility should, in general, not exceed one or two paragraphs. It should be sufficient for a prospective consumer to determine if they are likely to be eligible or not. Where eligibility requirements and conditions are complex, it may simply be noted that an eligibility assessment is required. Where eligibility is determined by an outside source, such as an Act of Parliament, this should be noted, preferably with a reference to a commonly available copy of the source document such as a web page.",
-                "path": "HealthcareService.eligibilityNote",
-                "max": "1",
-                "min": 0,
-                "short": "Describes the eligibility conditions for the service",
-                "definition": "Describes the eligibility conditions for the service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "Programs are often defined externally to an Organization, commonly by governments; e.g. Home and Community Care Programs, Homeless Program, \u2026.",
-                "path": "HealthcareService.programName",
-                "max": "*",
-                "min": 0,
-                "short": "Program Names that categorize the service",
-                "definition": "Program Names that can be used to categorize the service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "These could be such things as is wheelchair accessible.",
-                "path": "HealthcareService.characteristic",
-                "max": "*",
-                "min": 0,
-                "short": "Collection of characteristics (attributes)",
-                "binding": {
-                    "description": "A custom attribute that could be provided at a service (e.g. Wheelchair accessibiliy).",
-                    "strength": "example"
-                },
-                "definition": "Collection of characteristics (attributes)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "HealthcareService.referralMethod",
-                "max": "*",
-                "min": 0,
-                "short": "Ways that the service accepts referrals",
-                "binding": {
-                    "description": "The methods of referral can be used when referring to a specific HealthCareService resource.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/service-referral-method"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Ways that the service accepts referrals, if this is not provided then it is implied that no referral is required."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "Note: This is a base64 encoded digital certificate.",
-                "path": "HealthcareService.publicKey",
-                "max": "1",
-                "min": 0,
-                "short": "PKI Public keys to support secure communications",
-                "definition": "The public part of the 'keys' allocated to an Organization by an accredited body to support secure exchange of data over the internet. To be provided by the Organization, where available."
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "path": "HealthcareService.appointmentRequired",
-                "max": "1",
-                "min": 0,
-                "short": "If an appointment is required for access to this service",
-                "definition": "Indicates whether or not a prospective consumer will require an appointment for a particular service at a site to be provided by the Organization. Indicates if an appointment is required for access to this service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "comments": "More detailed availability information may be provided in associated Schedule/Slot resources.",
-                "path": "HealthcareService.availableTime",
-                "max": "*",
-                "min": 0,
-                "short": "Times the Service Site is available",
-                "definition": "A collection of times that the Service Site is available."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "path": "HealthcareService.availableTime.daysOfWeek",
-                "max": "*",
-                "min": 0,
-                "short": "mon | tue | wed | thu | fri | sat | sun",
-                "binding": {
-                    "description": "The days of the week.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/days-of-week"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Indicates which days of the week are available between the start and end Times."
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "path": "HealthcareService.availableTime.allDay",
-                "max": "1",
-                "min": 0,
-                "short": "Always available? e.g. 24 hour service",
-                "definition": "Is this always available? (hence times are irrelevant) e.g. 24 hour service."
-            },
-            {
-                "type": [
-                    {
-                        "code": "time"
-                    }
-                ],
-                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
-                "path": "HealthcareService.availableTime.availableStartTime",
-                "max": "1",
-                "min": 0,
-                "short": "Opening time of day (ignored if allDay = true)",
-                "definition": "The opening time of day. Note: If the AllDay flag is set, then this time is ignored."
-            },
-            {
-                "type": [
-                    {
-                        "code": "time"
-                    }
-                ],
-                "comments": "The timezone is expected to be for where this HealthcareService is provided at.",
-                "path": "HealthcareService.availableTime.availableEndTime",
-                "max": "1",
-                "min": 0,
-                "short": "Closing time of day (ignored if allDay = true)",
-                "definition": "The closing time of day. Note: If the AllDay flag is set, then this time is ignored."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable",
-                "max": "*",
-                "min": 0,
-                "short": "Not available during this time due to provided reason",
-                "definition": "The HealthcareService is not available during this period of time due to the provided reason."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable.description",
-                "max": "1",
-                "min": 1,
-                "short": "Reason presented to the user explaining why time not available",
-                "definition": "The reason that can be presented to the user as to why this time is not available."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "path": "HealthcareService.notAvailable.during",
-                "max": "1",
-                "min": 0,
-                "short": "Service not availablefrom this date",
-                "definition": "Service is not available (seasonally or for a public holiday) from this date."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "HealthcareService.availabilityExceptions",
-                "max": "1",
-                "min": 0,
-                "short": "Description of availability exceptions",
-                "definition": "A description of site availability exceptions, e.g. public holiday availability. Succinctly describing all possible exceptions to normal site availability as details in the available Times and not available Times."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for HealthcareService Resource"
+    "publisher": "Health Level Seven International (Patient Administration)"
 }

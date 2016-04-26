@@ -1,24 +1,256 @@
 {
+    "id": "CodeableConcept",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.",
+                "mapping": [
+                    {
+                        "map": "fhir:CodeableConcept rdfs:subClassOf dt:CD",
+                        "identity": "orim"
+                    },
+                    {
+                        "map": "CE/CNE/CWE",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "CD",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Concept - reference to a terminology or just  text",
+                "min": 0,
+                "comments": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.",
+                "path": "CodeableConcept",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "*",
+                "definition": "A reference to a code defined by a terminology system.",
+                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
+                "mapping": [
+                    {
+                        "map": "fhir:CodeableConcept.coding rdfs:subPropertyOf dt:CD.coding",
+                        "identity": "orim"
+                    },
+                    {
+                        "map": "C*E.1-8, C*E.10-22",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "union(., ./translation)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Code defined by a terminology system",
+                "min": 0,
+                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
+                "path": "CodeableConcept.coding",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.",
+                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
+                "mapping": [
+                    {
+                        "map": "fhir:CodeableConcept.text rdfs:subPropertyOf dt:CD.originalText",
+                        "identity": "orim"
+                    },
+                    {
+                        "map": "C*E.9. But note many systems use C*E.2 for this",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./originalText[mediaType/code=\"text/plain\"]/data",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Plain text representation of the concept",
+                "min": 0,
+                "comments": "Very often the text is the same as a displayName of one of the codings.",
+                "path": "CodeableConcept.text",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "CodeableConcept",
+    "abstract": false,
+    "requirements": "This is a common pattern in healthcare - a concept that may be defined by one or more codes from formal definitions including LOINC and SNOMED CT, and/or defined by the provision of text that captures a human sense of the concept.",
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.",
+                "mapping": [
+                    {
+                        "map": "fhir:CodeableConcept rdfs:subClassOf dt:CD",
+                        "identity": "orim"
+                    },
+                    {
+                        "map": "CE/CNE/CWE",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "CD",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Concept - reference to a terminology or just  text",
+                "min": 0,
+                "comments": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.",
+                "path": "CodeableConcept",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "CodeableConcept.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "CodeableConcept.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "*",
+                "definition": "A reference to a code defined by a terminology system.",
+                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
+                "mapping": [
+                    {
+                        "map": "fhir:CodeableConcept.coding rdfs:subPropertyOf dt:CD.coding",
+                        "identity": "orim"
+                    },
+                    {
+                        "map": "C*E.1-8, C*E.10-22",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "union(., ./translation)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Code defined by a terminology system",
+                "min": 0,
+                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
+                "path": "CodeableConcept.coding",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.",
+                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
+                "mapping": [
+                    {
+                        "map": "fhir:CodeableConcept.text rdfs:subPropertyOf dt:CD.originalText",
+                        "identity": "orim"
+                    },
+                    {
+                        "map": "C*E.9. But note many systems use C*E.2 for this",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./originalText[mediaType/code=\"text/plain\"]/data",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Plain text representation of the concept",
+                "min": 0,
+                "comments": "Very often the text is the same as a displayName of one of the codings.",
+                "path": "CodeableConcept.text",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for CodeableConcept Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/CodeableConcept",
+    "fhirVersion": "1.0.2",
     "mapping": [
         {
-            "name": "Ontological RIM Mapping",
             "uri": "http://hl7.org/orim",
-            "identity": "orim"
+            "identity": "orim",
+            "name": "Ontological RIM Mapping"
         },
         {
-            "name": "HL7 v2",
             "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "identity": "v2",
+            "name": "HL7 v2"
         },
         {
-            "name": "RIM",
             "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "identity": "rim",
+            "name": "RIM"
         }
     ],
-    "id": "CodeableConcept",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -30,237 +262,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "fhir:CodeableConcept rdfs:subClassOf dt:CD",
-                        "identity": "orim"
-                    },
-                    {
-                        "map": "CE/CNE/CWE",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "CD",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.",
-                "path": "CodeableConcept",
-                "max": "*",
-                "min": 0,
-                "short": "Concept - reference to a terminology or just  text",
-                "definition": "A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "fhir:CodeableConcept.coding rdfs:subPropertyOf dt:CD.coding",
-                        "identity": "orim"
-                    },
-                    {
-                        "map": "C*E.1-8, C*E.10-22",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "union(., ./translation)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
-                "path": "CodeableConcept.coding",
-                "max": "*",
-                "min": 0,
-                "short": "Code defined by a terminology system",
-                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
-                "definition": "A reference to a code defined by a terminology system."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "fhir:CodeableConcept.text rdfs:subPropertyOf dt:CD.originalText",
-                        "identity": "orim"
-                    },
-                    {
-                        "map": "C*E.9. But note many systems use C*E.2 for this",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./originalText[mediaType/code=\"text/plain\"]/data",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Very often the text is the same as a displayName of one of the codings.",
-                "path": "CodeableConcept.text",
-                "max": "1",
-                "min": 0,
-                "short": "Plain text representation of the concept",
-                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
-                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user."
-            }
-        ]
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/CodeableConcept",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "fhir:CodeableConcept rdfs:subClassOf dt:CD",
-                        "identity": "orim"
-                    },
-                    {
-                        "map": "CE/CNE/CWE",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "CD",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.",
-                "path": "CodeableConcept",
-                "max": "*",
-                "min": 0,
-                "short": "Concept - reference to a terminology or just  text",
-                "definition": "A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "CodeableConcept.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "CodeableConcept.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "fhir:CodeableConcept.coding rdfs:subPropertyOf dt:CD.coding",
-                        "identity": "orim"
-                    },
-                    {
-                        "map": "C*E.1-8, C*E.10-22",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "union(., ./translation)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
-                "path": "CodeableConcept.coding",
-                "max": "*",
-                "min": 0,
-                "short": "Code defined by a terminology system",
-                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
-                "definition": "A reference to a code defined by a terminology system."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "fhir:CodeableConcept.text rdfs:subPropertyOf dt:CD.originalText",
-                        "identity": "orim"
-                    },
-                    {
-                        "map": "C*E.9. But note many systems use C*E.2 for this",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./originalText[mediaType/code=\"text/plain\"]/data",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Very often the text is the same as a displayName of one of the codings.",
-                "path": "CodeableConcept.text",
-                "max": "1",
-                "min": 0,
-                "short": "Plain text representation of the concept",
-                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
-                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user."
-            }
-        ]
-    },
-    "name": "CodeableConcept",
-    "requirements": "This is a common pattern in healthcare - a concept that may be defined by one or more codes from formal definitions including LOINC and SNOMED CT, and/or defined by the provision of text that captures a human sense of the concept.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for CodeableConcept Type"
+    "publisher": "HL7 FHIR Standard"
 }

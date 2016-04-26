@@ -1,7 +1,1069 @@
 {
     "id": "daf-procedurelist",
-    "fhirVersion": "1.0.2",
+    "date": "2014-08-21",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "List"
+                    }
+                ],
+                "name": "DAF-ProcedureList",
+                "max": "*",
+                "definition": "Information summarized from a list of other resources.",
+                "short": "US Realm Procedure list",
+                "min": 0,
+                "path": "List"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "path": "List.identifier",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "fixedCodeableConcept": {
+                    "coding": [
+                        {
+                            "code": "47519-4",
+                            "system": "http://loinc.org"
+                        }
+                    ]
+                },
+                "max": "1",
+                "definition": "Fixed code for Results.",
+                "min": 1,
+                "path": "List.code"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "List.subject",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "List.source",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "path": "List.date",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "fixedCode": "snapshot",
+                "min": 1,
+                "path": "List.mode"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "List.entry",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "path": "List.entry.flag",
+                "max": "1"
+            },
+            {
+                "min": 0,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "path": "List.entry.deleted",
+                "max": "0"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "path": "List.entry.date",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-procedure"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "List.entry.item",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "min": 0,
+                "binding": {
+                    "description": "If a list is empty, why it is empty",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-empty-reason"
+                    },
+                    "strength": "extensible"
+                },
+                "path": "List.emptyReason"
+            }
+        ]
+    },
+    "name": "U.S. Data Access Framework (DAF) List Profile",
     "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "constrainedType": "List",
+    "snapshot": {
+        "element": [
+            {
+                "base": {
+                    "min": 0,
+                    "path": "List",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "List"
+                    }
+                ],
+                "name": "DAF-ProcedureList",
+                "max": "*",
+                "definition": "Information summarized from a list of other resources.",
+                "constraint": [
+                    {
+                        "human": "The deleted flag can only be used if the mode of the list is \"changes\"",
+                        "severity": "error",
+                        "xpath": "(f:mode/@value = 'changes') or not(exists(f:entry/f:deleted))",
+                        "key": "lst-2"
+                    },
+                    {
+                        "human": "A list can only have an emptyReason if it is empty",
+                        "severity": "error",
+                        "xpath": "not(exists(f:emptyReason) and exists(f:entry))",
+                        "key": "lst-1"
+                    }
+                ],
+                "short": "US Realm Procedure list",
+                "min": 0,
+                "alias": [
+                    "Collection",
+                    "WorkingList",
+                    "Organizer"
+                ],
+                "mapping": [
+                    {
+                        "map": "Act[classCode<ORG,moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.documents",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "List"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "List.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "List.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "List.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "List.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "List.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "List.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "List.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "List.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Identifier for the List assigned for business purposes outside the context of FHIR.",
+                "short": "Business identifier",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "List.identifier"
+            },
+            {
+                "exampleString": "Dr. Jane's Patients",
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.title",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A label for the list assigned by the author.",
+                "requirements": "Allows customization beyond just the code identifying the kind of list.",
+                "short": "Descriptive name for the list",
+                "min": 0,
+                "isSummary": true,
+                "path": "List.title"
+            },
+            {
+                "min": 1,
+                "fixedCodeableConcept": {
+                    "coding": [
+                        {
+                            "code": "47519-4",
+                            "system": "http://loinc.org"
+                        }
+                    ]
+                },
+                "max": "1",
+                "requirements": "Lists often contain subsets of resources rather than an exhaustive list.  The code identifies what type of subset is included.",
+                "short": "What the purpose of this list is",
+                "definition": "Fixed code for Results.",
+                "base": {
+                    "min": 0,
+                    "path": "List.code",
+                    "max": "1"
+                },
+                "mapping": [
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "what",
+                        "identity": "w5"
+                    }
+                ],
+                "mustSupport": true,
+                "comments": "If there is no code, the purpose of the list is implied where it is used, such as in a document section using Document.section.code.",
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "binding": {
+                    "description": "What the purpose of a list is",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-example-codes"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "List.code"
+            },
+            {
+                "min": 0,
+                "max": "1",
+                "requirements": "The primary purpose of listing the subject explicitly is to help with finding the right list.",
+                "short": "If all resources have the same subject",
+                "definition": "The common subject (or patient) of the resources that are in the list, if there is one.",
+                "base": {
+                    "min": 0,
+                    "path": "List.subject",
+                    "max": "1"
+                },
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode<SUB].role (and sometimes .player)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ],
+                "mustSupport": true,
+                "comments": "Some purely arbitrary lists do not have a common subject, so this is optional.",
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "isSummary": true,
+                "path": "List.subject"
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "requirements": "Allows follow-up as well as context.",
+                "short": "Who and/or what defined the list contents (aka Author)",
+                "definition": "The entity responsible for deciding what the contents of the list were. Where the list was created by a human, this is the same as the author of the list.",
+                "base": {
+                    "min": 0,
+                    "path": "List.source",
+                    "max": "1"
+                },
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode<AUT].role[classCode=REL].player[classCode=PSN,determinerCode=INST] or .participation[typeCode<AUT].role[classCode=REL].player[classCode=DEV,determinerCode=INST]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ],
+                "mustSupport": true,
+                "comments": "The primary source is the entity that made the decisions what items are in the list. This may be software or user.",
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "alias": [
+                    "Author"
+                ],
+                "isSummary": true,
+                "path": "List.source"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The encounter that is the context in which this list was created.",
+                "short": "Context in which list created",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "context",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "List.encounter"
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "List.status",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates the current state of this list.",
+                "short": "current | retired | entered-in-error",
+                "min": 1,
+                "binding": {
+                    "description": "The current state of the list",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "List.status",
+                "mapping": [
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "requirements": "Identifies how current the list is which affects relevance.",
+                "short": "When the list was prepared",
+                "definition": "The date that the list was prepared.",
+                "base": {
+                    "min": 0,
+                    "path": "List.date",
+                    "max": "1"
+                },
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode<AUT].time[type=TS]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ],
+                "mustSupport": true,
+                "comments": "The actual important date is the date of currency of the resources that were summarized, but it is usually assumed that these are current when the preparation occurs.",
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "isSummary": true,
+                "path": "List.date"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.orderedBy",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "What order applies to the items in the list.",
+                "requirements": "Important for presentation and rendering.  Lists may be sorted to place more important information first or to group related entries.",
+                "short": "What order the list has",
+                "min": 0,
+                "binding": {
+                    "description": "What order applies to the items in a list",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-order"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Applications SHOULD render ordered lists in the order provided, but MAY allow users to re-order based on their own preferences as well. If there is no order specified, the order is unknown, though there may still be some order.",
+                "path": "List.orderedBy",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].sequenceNumber > 1",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "requirements": "Lists are used in various ways, and it must be known in what way it is safe to use them.",
+                "binding": {
+                    "description": "The processing mode that applies to this list",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-mode"
+                    },
+                    "strength": "required"
+                },
+                "short": "working | snapshot | changes",
+                "definition": "How this list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted.",
+                "base": {
+                    "min": 1,
+                    "path": "List.mode",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "fixedCode": "snapshot",
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "isModifier": true,
+                "mapping": [
+                    {
+                        "map": ".outBoundRelationship[typeCode=COMP].target[classCode=OBS\"].value",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "List.mode"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.note",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Comments that apply to the overall list.",
+                "short": "Comments about the list",
+                "min": 0,
+                "path": "List.note"
+            },
+            {
+                "condition": [
+                    "lst-1"
+                ],
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.entry",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Entries in this list.",
+                "short": "Entries in the list",
+                "min": 0,
+                "comments": "If there are no entries in the list, an emptyReason SHOULD be provided.",
+                "path": "List.entry",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP] or  .participation[typeCode=SBJ]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.entry.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "List.entry.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.entry.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "List.entry.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.entry.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "List.entry.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "min": 0,
+                "max": "1",
+                "requirements": "This field is present to support various clinical uses of lists, such as a discharge summary medication list, where flags specify whether the medication was added, modified, or deleted from the list.",
+                "short": "Status/Workflow information about this item",
+                "definition": "The flag allows the system constructing the list to indicate the role and significance of the item in the list.",
+                "base": {
+                    "min": 0,
+                    "path": "List.entry.flag",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "comments": "The flag can only be understood in the context of the List.code. If the flag means that the entry has actually been deleted from the list, the deleted element SHALL be true. Deleted can only be used if the List.mode is \"changes\".",
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "binding": {
+                    "description": "Codes that provide further information about the reason and meaning of the item in the list",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-item-flag"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".outBoundRelationship[typeCode=COMP].target[classCode=OBS\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "List.entry.flag"
+            },
+            {
+                "condition": [
+                    "lst-2"
+                ],
+                "max": "0",
+                "requirements": "The flag element may contain codes that an application processing the list does not understand. However there can be no ambiguity if a list item is actually marked as \"deleted\".",
+                "short": "If this item is actually marked as deleted",
+                "definition": "True if this item is marked as deleted in the list.",
+                "base": {
+                    "min": 0,
+                    "path": "List.entry.deleted",
+                    "max": "1"
+                },
+                "isModifier": true,
+                "path": "List.entry.deleted",
+                "defaultValueBoolean": false,
+                "comments": "If the flag means that the entry has actually been deleted from the list, the deleted element SHALL be true. Both flag and deleted can only be used if the List.mode is \"changes\". A deleted entry should be displayed in narrative as deleted.",
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "mapping": [
+                    {
+                        "map": "added: .updateMode=(\"A\",\"AR\")  retained: .updateMode=\"NC\"  updated: .updateMode=\"R\"  deleted: .updateMode=\"D\"",
+                        "identity": "rim"
+                    }
+                ],
+                "min": 0
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "List.entry.date",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "When this item was added to the list.",
+                "requirements": "The date may be significant for understanding the meaning of items in a working list.",
+                "short": "When item added to list",
+                "min": 0,
+                "comments": "This is only useful and meaningful when the mode is \"working\".",
+                "path": "List.entry.date",
+                "mapping": [
+                    {
+                        "map": ".availabilityTime",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-procedure"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "List.entry.item",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to the actual resource from which data was derived.",
+                "short": "Actual entry",
+                "min": 1,
+                "mapping": [
+                    {
+                        "map": ".target or .role or .role.entity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "List.entry.item"
+            },
+            {
+                "condition": [
+                    "lst-1"
+                ],
+                "max": "1",
+                "requirements": "Allows capturing things like \"none exist\" or \"not asked\" which can be important for most lists.",
+                "short": "Why list is empty",
+                "definition": "If the list is empty, why the list is empty.",
+                "base": {
+                    "min": 0,
+                    "path": "List.emptyReason",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "path": "List.emptyReason",
+                "comments": "The various reasons for an empty list make a significant interpretation to its interpretation. Note that this code is for use when the entire list has been suppressed, and not for when individual items are omitted - implementers may consider using a text note or a flag on an entry in these cases.",
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "binding": {
+                    "description": "If a list is empty, why it is empty",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-empty-reason"
+                    },
+                    "strength": "extensible"
+                },
+                "mapping": [
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ,code<{ListEmptyReason}].value[type=CD]",
+                        "identity": "rim"
+                    }
+                ],
+                "min": 0
+            }
+        ]
+    },
+    "description": "US Realm Procedure list",
+    "url": "http://hl7.org/fhir/StructureDefinition/daf-procedurelist",
+    "fhirVersion": "1.0.2",
+    "display": "list-daf",
+    "base": "http://hl7.org/fhir/StructureDefinition/List",
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -13,1067 +1075,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/List",
-    "display": "list-daf",
-    "url": "http://hl7.org/fhir/StructureDefinition/daf-procedurelist",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Infrastructure and Messaging - Data Access Framework)",
-    "constrainedType": "List",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Act[classCode<ORG,moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.documents",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "List"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "(f:mode/@value = 'changes') or not(exists(f:entry/f:deleted))",
-                        "human": "The deleted flag can only be used if the mode of the list is \"changes\"",
-                        "severity": "error",
-                        "key": "lst-2"
-                    },
-                    {
-                        "xpath": "not(exists(f:emptyReason) and exists(f:entry))",
-                        "human": "A list can only have an emptyReason if it is empty",
-                        "severity": "error",
-                        "key": "lst-1"
-                    }
-                ],
-                "path": "List",
-                "alias": [
-                    "Collection",
-                    "WorkingList",
-                    "Organizer"
-                ],
-                "min": 0,
-                "short": "US Realm Procedure list",
-                "name": "DAF-ProcedureList",
-                "max": "*",
-                "definition": "Information summarized from a list of other resources.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List"
-                }
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "List.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.id"
-                }
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "List.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.meta"
-                }
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "List.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.implicitRules"
-                }
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "List.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.language"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "List.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.text"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "List.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.contained"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "List.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.extension"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "List.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.modifierExtension"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "List.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Business identifier",
-                "definition": "Identifier for the List assigned for business purposes outside the context of FHIR.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.identifier"
-                }
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "exampleString": "Dr. Jane's Patients",
-                "path": "List.title",
-                "max": "1",
-                "min": 0,
-                "short": "Descriptive name for the list",
-                "requirements": "Allows customization beyond just the code identifying the kind of list.",
-                "definition": "A label for the list assigned by the author.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.title"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "what",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "What the purpose of this list is",
-                "binding": {
-                    "description": "What the purpose of a list is",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-example-codes"
-                    },
-                    "strength": "example"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.code"
-                },
-                "fixedCodeableConcept": {
-                    "coding": [
-                        {
-                            "code": "47519-4",
-                            "system": "http://loinc.org"
-                        }
-                    ]
-                },
-                "mustSupport": true,
-                "comments": "If there is no code, the purpose of the list is implied where it is used, such as in a document section using Document.section.code.",
-                "path": "List.code",
-                "requirements": "Lists often contain subsets of resources rather than an exhaustive list.  The code identifies what type of subset is included.",
-                "definition": "Fixed code for Results."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode<SUB].role (and sometimes .player)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "If all resources have the same subject",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.subject"
-                },
-                "mustSupport": true,
-                "comments": "Some purely arbitrary lists do not have a common subject, so this is optional.",
-                "path": "List.subject",
-                "requirements": "The primary purpose of listing the subject explicitly is to help with finding the right list.",
-                "definition": "The common subject (or patient) of the resources that are in the list, if there is one."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode<AUT].role[classCode=REL].player[classCode=PSN,determinerCode=INST] or .participation[typeCode<AUT].role[classCode=REL].player[classCode=DEV,determinerCode=INST]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.author",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Who and/or what defined the list contents (aka Author)",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.source"
-                },
-                "mustSupport": true,
-                "comments": "The primary source is the entity that made the decisions what items are in the list. This may be software or user.",
-                "path": "List.source",
-                "alias": [
-                    "Author"
-                ],
-                "requirements": "Allows follow-up as well as context.",
-                "definition": "The entity responsible for deciding what the contents of the list were. Where the list was created by a human, this is the same as the author of the list."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "context",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Encounter"
-                        ]
-                    }
-                ],
-                "path": "List.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "Context in which list created",
-                "definition": "The encounter that is the context in which this list was created.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.encounter"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "List.status",
-                "max": "1",
-                "min": 1,
-                "short": "current | retired | entered-in-error",
-                "binding": {
-                    "description": "The current state of the list",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Indicates the current state of this list.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "List.status"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode<AUT].time[type=TS]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "When the list was prepared",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.date"
-                },
-                "mustSupport": true,
-                "comments": "The actual important date is the date of currency of the resources that were summarized, but it is usually assumed that these are current when the preparation occurs.",
-                "path": "List.date",
-                "requirements": "Identifies how current the list is which affects relevance.",
-                "definition": "The date that the list was prepared."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].sequenceNumber > 1",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "What order applies to the items in a list",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-order"
-                    },
-                    "strength": "preferred"
-                },
-                "comments": "Applications SHOULD render ordered lists in the order provided, but MAY allow users to re-order based on their own preferences as well. If there is no order specified, the order is unknown, though there may still be some order.",
-                "path": "List.orderedBy",
-                "max": "1",
-                "min": 0,
-                "short": "What order the list has",
-                "requirements": "Important for presentation and rendering.  Lists may be sorted to place more important information first or to group related entries.",
-                "definition": "What order applies to the items in the list.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.orderedBy"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outBoundRelationship[typeCode=COMP].target[classCode=OBS\"].value",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "requirements": "Lists are used in various ways, and it must be known in what way it is safe to use them.",
-                "isSummary": true,
-                "min": 1,
-                "short": "working | snapshot | changes",
-                "binding": {
-                    "description": "The processing mode that applies to this list",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-mode"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "List.mode"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "path": "List.mode",
-                "fixedCode": "snapshot",
-                "definition": "How this list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "List.note",
-                "max": "1",
-                "min": 0,
-                "short": "Comments about the list",
-                "definition": "Comments that apply to the overall list.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.note"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP] or  .participation[typeCode=SBJ]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "If there are no entries in the list, an emptyReason SHOULD be provided.",
-                "path": "List.entry",
-                "max": "*",
-                "min": 0,
-                "short": "Entries in the list",
-                "condition": [
-                    "lst-1"
-                ],
-                "definition": "Entries in this list.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.entry"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "List.entry.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.entry.id"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "List.entry.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.entry.extension"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "List.entry.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "List.entry.modifierExtension"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outBoundRelationship[typeCode=COMP].target[classCode=OBS\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "min": 0,
-                "short": "Status/Workflow information about this item",
-                "binding": {
-                    "description": "Codes that provide further information about the reason and meaning of the item in the list",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-item-flag"
-                    },
-                    "strength": "example"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.entry.flag"
-                },
-                "mustSupport": true,
-                "comments": "The flag can only be understood in the context of the List.code. If the flag means that the entry has actually been deleted from the list, the deleted element SHALL be true. Deleted can only be used if the List.mode is \"changes\".",
-                "path": "List.entry.flag",
-                "requirements": "This field is present to support various clinical uses of lists, such as a discharge summary medication list, where flags specify whether the medication was added, modified, or deleted from the list.",
-                "definition": "The flag allows the system constructing the list to indicate the role and significance of the item in the list."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "added: .updateMode=(\"A\",\"AR\")  retained: .updateMode=\"NC\"  updated: .updateMode=\"R\"  deleted: .updateMode=\"D\"",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "min": 0,
-                "short": "If this item is actually marked as deleted",
-                "condition": [
-                    "lst-2"
-                ],
-                "max": "0",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.entry.deleted"
-                },
-                "isModifier": true,
-                "comments": "If the flag means that the entry has actually been deleted from the list, the deleted element SHALL be true. Both flag and deleted can only be used if the List.mode is \"changes\". A deleted entry should be displayed in narrative as deleted.",
-                "path": "List.entry.deleted",
-                "requirements": "The flag element may contain codes that an application processing the list does not understand. However there can be no ambiguity if a list item is actually marked as \"deleted\".",
-                "definition": "True if this item is marked as deleted in the list.",
-                "defaultValueBoolean": false
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".availabilityTime",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "This is only useful and meaningful when the mode is \"working\".",
-                "path": "List.entry.date",
-                "max": "1",
-                "min": 0,
-                "short": "When item added to list",
-                "requirements": "The date may be significant for understanding the meaning of items in a working list.",
-                "definition": "When this item was added to the list.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.entry.date"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".target or .role or .role.entity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-procedure"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "List.entry.item",
-                "max": "1",
-                "min": 1,
-                "short": "Actual entry",
-                "definition": "A reference to the actual resource from which data was derived.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "List.entry.item"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ,code<{ListEmptyReason}].value[type=CD]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "min": 0,
-                "short": "Why list is empty",
-                "condition": [
-                    "lst-1"
-                ],
-                "binding": {
-                    "description": "If a list is empty, why it is empty",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-empty-reason"
-                    },
-                    "strength": "extensible"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "List.emptyReason"
-                },
-                "mustSupport": true,
-                "comments": "The various reasons for an empty list make a significant interpretation to its interpretation. Note that this code is for use when the entire list has been suppressed, and not for when individual items are omitted - implementers may consider using a text note or a flag on an entry in these cases.",
-                "path": "List.emptyReason",
-                "requirements": "Allows capturing things like \"none exist\" or \"not asked\" which can be important for most lists.",
-                "definition": "If the list is empty, why the list is empty."
-            }
-        ]
-    },
-    "name": "U.S. Data Access Framework (DAF) List Profile",
-    "differential": {
-        "element": [
-            {
-                "type": [
-                    {
-                        "code": "List"
-                    }
-                ],
-                "path": "List",
-                "max": "*",
-                "min": 0,
-                "short": "US Realm Procedure list",
-                "name": "DAF-ProcedureList",
-                "definition": "Information summarized from a list of other resources."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "max": "*",
-                "mustSupport": true,
-                "path": "List.identifier"
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "List.code",
-                "min": 1,
-                "definition": "Fixed code for Results.",
-                "max": "1",
-                "mustSupport": true,
-                "fixedCodeableConcept": {
-                    "coding": [
-                        {
-                            "code": "47519-4",
-                            "system": "http://loinc.org"
-                        }
-                    ]
-                }
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "List.subject"
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "List.source"
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "List.date"
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "path": "List.mode",
-                "min": 1,
-                "fixedCode": "snapshot",
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "*",
-                "path": "List.entry"
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "List.entry.flag"
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "max": "0",
-                "path": "List.entry.deleted"
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "List.entry.date"
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-procedure"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "List.entry.item"
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "List.emptyReason",
-                "min": 0,
-                "binding": {
-                    "description": "If a list is empty, why it is empty",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-empty-reason"
-                    },
-                    "strength": "extensible"
-                },
-                "max": "1",
-                "mustSupport": true
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2014-08-21",
-    "description": "US Realm Procedure list"
+    "publisher": "Health Level Seven International (Infrastructure and Messaging - Data Access Framework)"
 }

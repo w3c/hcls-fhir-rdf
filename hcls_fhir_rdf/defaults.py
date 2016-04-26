@@ -84,6 +84,8 @@ def start_logger(opts: argparse.Namespace) -> None:
 
 
 def fill_defaults(opts: argparse.Namespace) -> None:
+    if '//' not in opts.url:
+        opts.url = 'http://' + opts.url
     opts.url = opts.url + '/' + opts.file
     opts.file = os.path.join(opts.dir, opts.file)
     return opts

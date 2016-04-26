@@ -1,19 +1,405 @@
 {
+    "id": "SampledData",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data.",
+                "mapping": [
+                    {
+                        "map": "N/A (but see section 7.14 in v2.7)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "SLIST + GLIST",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "A series of measurements taken by a device",
+                "min": 0,
+                "comments": "The data is not interpretable without at least origin, period, and dimensions, but these are optional to allow a separation between the template of measurement and the actual measurement, such as between DeviceCapabilities and DeviceLog.  When providing a summary view (for example with Observation.value[x]) SampledData should be represented with a brief display text such as \"Sampled Data\".",
+                "path": "SampledData",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base quantity that a measured value of zero represents. In addition, this provides the units of the entire measurement series.",
+                "short": "Zero value and units",
+                "min": 1,
+                "isSummary": true,
+                "path": "SampledData.origin",
+                "mapping": [
+                    {
+                        "map": "SLIST.origin",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The length of time between sampling times, measured in milliseconds.",
+                "mapping": [
+                    {
+                        "map": "GLIST.increment",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Number of milliseconds between samples",
+                "min": 1,
+                "comments": "This is usually a whole number.",
+                "path": "SampledData.period",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "A correction factor that is applied to the sampled data points before they are added to the origin.",
+                "mapping": [
+                    {
+                        "map": "SLIST.factor",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Multiply data by this before adding to origin",
+                "min": 0,
+                "isSummary": true,
+                "path": "SampledData.factor",
+                "defaultValueDecimal": 1
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The lower limit of detection of the measured points. This is needed if any of the data points have the value \"L\" (lower than detection limit).",
+                "short": "Lower limit of detection",
+                "min": 0,
+                "isSummary": true,
+                "path": "SampledData.lowerLimit",
+                "mapping": [
+                    {
+                        "map": "N/A (use SLIST.digits.nullFlavor)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The upper limit of detection of the measured points. This is needed if any of the data points have the value \"U\" (higher than detection limit).",
+                "short": "Upper limit of detection",
+                "min": 0,
+                "isSummary": true,
+                "path": "SampledData.upperLimit",
+                "mapping": [
+                    {
+                        "map": "N/A (use SLIST.digits.nullFlavor)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "The number of sample points at each time point. If this value is greater than one, then the dimensions will be interlaced - all the sample points for a point in time will be recorded at once.",
+                "mapping": [
+                    {
+                        "map": "N/A (fixed to 1)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Number of sample points at each time point",
+                "min": 1,
+                "comments": "If there is more than one dimension, the code for the type of data will define the meaning of the dimensions (typically ECG data).",
+                "path": "SampledData.dimensions",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A series of data points which are decimal values separated by a single space (character u20). The special values \"E\" (error), \"L\" (below detection limit) and \"U\" (above detection limit) can also be used in place of a decimal value.",
+                "short": "Decimal values with spaces, or \"E\" | \"U\" | \"L\"",
+                "min": 1,
+                "isSummary": true,
+                "path": "SampledData.data",
+                "mapping": [
+                    {
+                        "map": "SLIST.digits",
+                        "identity": "rim"
+                    }
+                ]
+            }
+        ]
+    },
+    "name": "SampledData",
+    "abstract": false,
+    "requirements": "There is a need for a concise way to handle the data produced by devices that sample a physical state at a high frequency.",
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data.",
+                "mapping": [
+                    {
+                        "map": "N/A (but see section 7.14 in v2.7)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "SLIST + GLIST",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "A series of measurements taken by a device",
+                "min": 0,
+                "comments": "The data is not interpretable without at least origin, period, and dimensions, but these are optional to allow a separation between the template of measurement and the actual measurement, such as between DeviceCapabilities and DeviceLog.  When providing a summary view (for example with Observation.value[x]) SampledData should be represented with a brief display text such as \"Sampled Data\".",
+                "path": "SampledData",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "SampledData.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "SampledData.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base quantity that a measured value of zero represents. In addition, this provides the units of the entire measurement series.",
+                "short": "Zero value and units",
+                "min": 1,
+                "isSummary": true,
+                "path": "SampledData.origin",
+                "mapping": [
+                    {
+                        "map": "SLIST.origin",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The length of time between sampling times, measured in milliseconds.",
+                "mapping": [
+                    {
+                        "map": "GLIST.increment",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Number of milliseconds between samples",
+                "min": 1,
+                "comments": "This is usually a whole number.",
+                "path": "SampledData.period",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "A correction factor that is applied to the sampled data points before they are added to the origin.",
+                "mapping": [
+                    {
+                        "map": "SLIST.factor",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Multiply data by this before adding to origin",
+                "min": 0,
+                "isSummary": true,
+                "path": "SampledData.factor",
+                "defaultValueDecimal": 1
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The lower limit of detection of the measured points. This is needed if any of the data points have the value \"L\" (lower than detection limit).",
+                "short": "Lower limit of detection",
+                "min": 0,
+                "isSummary": true,
+                "path": "SampledData.lowerLimit",
+                "mapping": [
+                    {
+                        "map": "N/A (use SLIST.digits.nullFlavor)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "decimal"
+                    }
+                ],
+                "max": "1",
+                "definition": "The upper limit of detection of the measured points. This is needed if any of the data points have the value \"U\" (higher than detection limit).",
+                "short": "Upper limit of detection",
+                "min": 0,
+                "isSummary": true,
+                "path": "SampledData.upperLimit",
+                "mapping": [
+                    {
+                        "map": "N/A (use SLIST.digits.nullFlavor)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "The number of sample points at each time point. If this value is greater than one, then the dimensions will be interlaced - all the sample points for a point in time will be recorded at once.",
+                "mapping": [
+                    {
+                        "map": "N/A (fixed to 1)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Number of sample points at each time point",
+                "min": 1,
+                "comments": "If there is more than one dimension, the code for the type of data will define the meaning of the dimensions (typically ECG data).",
+                "path": "SampledData.dimensions",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A series of data points which are decimal values separated by a single space (character u20). The special values \"E\" (error), \"L\" (below detection limit) and \"U\" (above detection limit) can also be used in place of a decimal value.",
+                "short": "Decimal values with spaces, or \"E\" | \"U\" | \"L\"",
+                "min": 1,
+                "isSummary": true,
+                "path": "SampledData.data",
+                "mapping": [
+                    {
+                        "map": "SLIST.digits",
+                        "identity": "rim"
+                    }
+                ]
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for SampledData Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/SampledData",
+    "fhirVersion": "1.0.2",
     "mapping": [
         {
-            "name": "HL7 v2",
             "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "identity": "v2",
+            "name": "HL7 v2"
         },
         {
-            "name": "RIM",
             "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "identity": "rim",
+            "name": "RIM"
         }
     ],
-    "id": "SampledData",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -25,391 +411,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (but see section 7.14 in v2.7)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "SLIST + GLIST",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The data is not interpretable without at least origin, period, and dimensions, but these are optional to allow a separation between the template of measurement and the actual measurement, such as between DeviceCapabilities and DeviceLog.  When providing a summary view (for example with Observation.value[x]) SampledData should be represented with a brief display text such as \"Sampled Data\".",
-                "path": "SampledData",
-                "max": "*",
-                "min": 0,
-                "short": "A series of measurements taken by a device",
-                "definition": "A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SLIST.origin",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.origin",
-                "max": "1",
-                "min": 1,
-                "short": "Zero value and units",
-                "definition": "The base quantity that a measured value of zero represents. In addition, this provides the units of the entire measurement series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GLIST.increment",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is usually a whole number.",
-                "path": "SampledData.period",
-                "max": "1",
-                "min": 1,
-                "short": "Number of milliseconds between samples",
-                "definition": "The length of time between sampling times, measured in milliseconds."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SLIST.factor",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.factor",
-                "max": "1",
-                "min": 0,
-                "short": "Multiply data by this before adding to origin",
-                "definition": "A correction factor that is applied to the sampled data points before they are added to the origin.",
-                "defaultValueDecimal": 1
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (use SLIST.digits.nullFlavor)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.lowerLimit",
-                "max": "1",
-                "min": 0,
-                "short": "Lower limit of detection",
-                "definition": "The lower limit of detection of the measured points. This is needed if any of the data points have the value \"L\" (lower than detection limit)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (use SLIST.digits.nullFlavor)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.upperLimit",
-                "max": "1",
-                "min": 0,
-                "short": "Upper limit of detection",
-                "definition": "The upper limit of detection of the measured points. This is needed if any of the data points have the value \"U\" (higher than detection limit)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (fixed to 1)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If there is more than one dimension, the code for the type of data will define the meaning of the dimensions (typically ECG data).",
-                "path": "SampledData.dimensions",
-                "max": "1",
-                "min": 1,
-                "short": "Number of sample points at each time point",
-                "definition": "The number of sample points at each time point. If this value is greater than one, then the dimensions will be interlaced - all the sample points for a point in time will be recorded at once."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SLIST.digits",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.data",
-                "max": "1",
-                "min": 1,
-                "short": "Decimal values with spaces, or \"E\" | \"U\" | \"L\"",
-                "definition": "A series of data points which are decimal values separated by a single space (character u20). The special values \"E\" (error), \"L\" (below detection limit) and \"U\" (above detection limit) can also be used in place of a decimal value."
-            }
-        ]
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/SampledData",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (but see section 7.14 in v2.7)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "SLIST + GLIST",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The data is not interpretable without at least origin, period, and dimensions, but these are optional to allow a separation between the template of measurement and the actual measurement, such as between DeviceCapabilities and DeviceLog.  When providing a summary view (for example with Observation.value[x]) SampledData should be represented with a brief display text such as \"Sampled Data\".",
-                "path": "SampledData",
-                "max": "*",
-                "min": 0,
-                "short": "A series of measurements taken by a device",
-                "definition": "A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "SampledData.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "SampledData.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SLIST.origin",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.origin",
-                "max": "1",
-                "min": 1,
-                "short": "Zero value and units",
-                "definition": "The base quantity that a measured value of zero represents. In addition, this provides the units of the entire measurement series."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GLIST.increment",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is usually a whole number.",
-                "path": "SampledData.period",
-                "max": "1",
-                "min": 1,
-                "short": "Number of milliseconds between samples",
-                "definition": "The length of time between sampling times, measured in milliseconds."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SLIST.factor",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.factor",
-                "max": "1",
-                "min": 0,
-                "short": "Multiply data by this before adding to origin",
-                "definition": "A correction factor that is applied to the sampled data points before they are added to the origin.",
-                "defaultValueDecimal": 1
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (use SLIST.digits.nullFlavor)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.lowerLimit",
-                "max": "1",
-                "min": 0,
-                "short": "Lower limit of detection",
-                "definition": "The lower limit of detection of the measured points. This is needed if any of the data points have the value \"L\" (lower than detection limit)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (use SLIST.digits.nullFlavor)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "decimal"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.upperLimit",
-                "max": "1",
-                "min": 0,
-                "short": "Upper limit of detection",
-                "definition": "The upper limit of detection of the measured points. This is needed if any of the data points have the value \"U\" (higher than detection limit)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A (fixed to 1)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If there is more than one dimension, the code for the type of data will define the meaning of the dimensions (typically ECG data).",
-                "path": "SampledData.dimensions",
-                "max": "1",
-                "min": 1,
-                "short": "Number of sample points at each time point",
-                "definition": "The number of sample points at each time point. If this value is greater than one, then the dimensions will be interlaced - all the sample points for a point in time will be recorded at once."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SLIST.digits",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SampledData.data",
-                "max": "1",
-                "min": 1,
-                "short": "Decimal values with spaces, or \"E\" | \"U\" | \"L\"",
-                "definition": "A series of data points which are decimal values separated by a single space (character u20). The special values \"E\" (error), \"L\" (below detection limit) and \"U\" (above detection limit) can also be used in place of a decimal value."
-            }
-        ]
-    },
-    "name": "SampledData",
-    "requirements": "There is a need for a concise way to handle the data produced by devices that sample a physical state at a high frequency.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for SampledData Type"
+    "publisher": "HL7 FHIR Standard"
 }

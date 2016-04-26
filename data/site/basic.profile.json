@@ -1,19 +1,25 @@
 {
-    "mapping": [
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        }
-    ],
+    "id": "Basic",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "Basic is used for handling concepts not yet defined in FHIR, narrative-only resources that don't map to an existing resource, and custom resources not appropriate for inclusion in the FHIR specification.",
+                "short": "Resource for non-supported content",
+                "min": 0,
+                "alias": [
+                    "Z-resource",
+                    "Extension-resource",
+                    "Custom-resource"
+                ],
+                "isSummary": true,
+                "path": "Basic",
                 "mapping": [
                     {
                         "map": "Act, Entity or Role",
@@ -23,25 +29,20 @@
                         "map": "infrastructure.structure",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic",
-                "alias": [
-                    "Z-resource",
-                    "Extension-resource",
-                    "Custom-resource"
-                ],
-                "min": 0,
-                "short": "Resource for non-supported content",
-                "max": "*",
-                "definition": "Basic is used for handling concepts not yet defined in FHIR, narrative-only resources that don't map to an existing resource, and custom resources not appropriate for inclusion in the FHIR specification."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifier assigned to the resource for business purposes, outside the context of FHIR.",
+                "short": "Business identifier",
+                "min": 0,
+                "isSummary": true,
+                "path": "Basic.identifier",
                 "mapping": [
                     {
                         "map": "./identifier",
@@ -51,20 +52,14 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Business identifier",
-                "definition": "Identifier assigned to the resource for business purposes, outside the context of FHIR."
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "Kind of Resource",
+                "definition": "Identifies the 'type' of resource - equivalent to the resource name for other resources.",
                 "mapping": [
                     {
                         "map": "./code",
@@ -75,14 +70,13 @@
                         "identity": "w5"
                     }
                 ],
+                "requirements": "Must be able to distinguish different types of \"basic\" resources.",
+                "comments": "Because resource references will only be able to indicate 'Basic', the type of reference will need to be specified in a Profile identified as part of the resource.  Refer to the resource notes section for information on appropriate terminologies for this code.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Kind of Resource",
                 "binding": {
                     "description": "Codes for identifying types of resources not yet defined by FHIR",
                     "valueSetReference": {
@@ -90,14 +84,21 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
-                "isModifier": true,
-                "comments": "Because resource references will only be able to indicate 'Basic', the type of reference will need to be specified in a Profile identified as part of the resource.  Refer to the resource notes section for information on appropriate terminologies for this code.",
-                "path": "Basic.code",
-                "requirements": "Must be able to distinguish different types of \"basic\" resources.",
-                "definition": "Identifies the 'type' of resource - equivalent to the resource name for other resources."
+                "isSummary": true,
+                "path": "Basic.code"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the patient, practitioner, device or any other resource that is the \"focus\" of this resource.",
+                "requirements": "Needed for partitioning the resource by Patient.",
                 "mapping": [
                     {
                         "map": "./participation[typeCode='SBJ'] (possibly through a ControlAct and Role)",
@@ -108,24 +109,40 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Identifies the focus of this resource",
+                "min": 0,
                 "comments": "Optional as not all resources potential resources will have subjects.  Resources associated with multiple subjects can handle this via extension.",
                 "path": "Basic.subject",
-                "max": "1",
-                "min": 0,
-                "short": "Identifies the focus of this resource",
-                "requirements": "Needed for partitioning the resource by Patient.",
-                "definition": "Identifies the patient, practitioner, device or any other resource that is the \"focus\" of this resource."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates who was responsible for creating the resource instance.",
+                "requirements": "Needed for partitioning the resource.",
+                "short": "Who created",
+                "min": 0,
+                "isSummary": true,
+                "path": "Basic.author",
                 "mapping": [
                     {
                         "map": "./participation[typeCode='SUB'] (possibly through a ControlAct and Role)",
@@ -135,36 +152,21 @@
                         "map": "who.author",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic.author",
-                "max": "1",
-                "min": 0,
-                "short": "Who created",
-                "requirements": "Needed for partitioning the resource.",
-                "definition": "Indicates who was responsible for creating the resource instance."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies when the resource was first created.",
+                "requirements": "Allows ordering resource instances by time.",
+                "short": "When created",
+                "min": 0,
+                "isSummary": true,
+                "path": "Basic.created",
                 "mapping": [
                     {
                         "map": "./participation[typeCode='AUT']/time (possibly through a ControlAct and Role)",
@@ -174,26 +176,379 @@
                         "map": "when.recorded",
                         "identity": "w5"
                     }
+                ]
+            }
+        ]
+    },
+    "name": "Basic",
+    "abstract": false,
+    "requirements": "Need some way to safely (without breaking interoperability) allow implementers to exchange content not supported by the initial set of declared resources.",
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
+        }
+    ],
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
                 ],
+                "max": "*",
+                "definition": "Basic is used for handling concepts not yet defined in FHIR, narrative-only resources that don't map to an existing resource, and custom resources not appropriate for inclusion in the FHIR specification.",
+                "short": "Resource for non-supported content",
+                "min": 0,
+                "alias": [
+                    "Z-resource",
+                    "Extension-resource",
+                    "Custom-resource"
+                ],
+                "isSummary": true,
+                "path": "Basic",
+                "mapping": [
+                    {
+                        "map": "Act, Entity or Role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.structure",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Basic.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Basic.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Basic.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Basic.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Basic.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Basic.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Basic.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Basic.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifier assigned to the resource for business purposes, outside the context of FHIR.",
+                "short": "Business identifier",
+                "min": 0,
+                "isSummary": true,
+                "path": "Basic.identifier",
+                "mapping": [
+                    {
+                        "map": "./identifier",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "Kind of Resource",
+                "definition": "Identifies the 'type' of resource - equivalent to the resource name for other resources.",
+                "mapping": [
+                    {
+                        "map": "./code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "what",
+                        "identity": "w5"
+                    }
+                ],
+                "requirements": "Must be able to distinguish different types of \"basic\" resources.",
+                "comments": "Because resource references will only be able to indicate 'Basic', the type of reference will need to be specified in a Profile identified as part of the resource.  Refer to the resource notes section for information on appropriate terminologies for this code.",
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "binding": {
+                    "description": "Codes for identifying types of resources not yet defined by FHIR",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/basic-resource-type"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Basic.code"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the patient, practitioner, device or any other resource that is the \"focus\" of this resource.",
+                "requirements": "Needed for partitioning the resource by Patient.",
+                "mapping": [
+                    {
+                        "map": "./participation[typeCode='SBJ'] (possibly through a ControlAct and Role)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Identifies the focus of this resource",
+                "min": 0,
+                "comments": "Optional as not all resources potential resources will have subjects.  Resources associated with multiple subjects can handle this via extension.",
+                "path": "Basic.subject",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates who was responsible for creating the resource instance.",
+                "requirements": "Needed for partitioning the resource.",
+                "short": "Who created",
+                "min": 0,
+                "isSummary": true,
+                "path": "Basic.author",
+                "mapping": [
+                    {
+                        "map": "./participation[typeCode='SUB'] (possibly through a ControlAct and Role)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "date"
                     }
                 ],
+                "max": "1",
+                "definition": "Identifies when the resource was first created.",
+                "requirements": "Allows ordering resource instances by time.",
+                "short": "When created",
+                "min": 0,
                 "isSummary": true,
                 "path": "Basic.created",
-                "max": "1",
-                "min": 0,
-                "short": "When created",
-                "requirements": "Allows ordering resource instances by time.",
-                "definition": "Identifies when the resource was first created."
+                "mapping": [
+                    {
+                        "map": "./participation[typeCode='AUT']/time (possibly through a ControlAct and Role)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ]
             }
         ]
     },
-    "id": "Basic",
+    "description": "Base StructureDefinition for Basic Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Basic",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -212,360 +567,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Basic",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (FHIR Infrastructure)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Act, Entity or Role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.structure",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic",
-                "alias": [
-                    "Z-resource",
-                    "Extension-resource",
-                    "Custom-resource"
-                ],
-                "min": 0,
-                "short": "Resource for non-supported content",
-                "max": "*",
-                "definition": "Basic is used for handling concepts not yet defined in FHIR, narrative-only resources that don't map to an existing resource, and custom resources not appropriate for inclusion in the FHIR specification."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Basic.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Basic.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Basic.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Basic.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Basic.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Basic.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Basic.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./identifier",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Business identifier",
-                "definition": "Identifier assigned to the resource for business purposes, outside the context of FHIR."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "what",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Kind of Resource",
-                "binding": {
-                    "description": "Codes for identifying types of resources not yet defined by FHIR",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/basic-resource-type"
-                    },
-                    "strength": "example"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "Because resource references will only be able to indicate 'Basic', the type of reference will need to be specified in a Profile identified as part of the resource.  Refer to the resource notes section for information on appropriate terminologies for this code.",
-                "path": "Basic.code",
-                "requirements": "Must be able to distinguish different types of \"basic\" resources.",
-                "definition": "Identifies the 'type' of resource - equivalent to the resource name for other resources."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./participation[typeCode='SBJ'] (possibly through a ControlAct and Role)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Optional as not all resources potential resources will have subjects.  Resources associated with multiple subjects can handle this via extension.",
-                "path": "Basic.subject",
-                "max": "1",
-                "min": 0,
-                "short": "Identifies the focus of this resource",
-                "requirements": "Needed for partitioning the resource by Patient.",
-                "definition": "Identifies the patient, practitioner, device or any other resource that is the \"focus\" of this resource."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./participation[typeCode='SUB'] (possibly through a ControlAct and Role)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.author",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic.author",
-                "max": "1",
-                "min": 0,
-                "short": "Who created",
-                "requirements": "Needed for partitioning the resource.",
-                "definition": "Indicates who was responsible for creating the resource instance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./participation[typeCode='AUT']/time (possibly through a ControlAct and Role)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Basic.created",
-                "max": "1",
-                "min": 0,
-                "short": "When created",
-                "requirements": "Allows ordering resource instances by time.",
-                "definition": "Identifies when the resource was first created."
-            }
-        ]
-    },
-    "name": "Basic",
-    "requirements": "Need some way to safely (without breaking interoperability) allow implementers to exchange content not supported by the initial set of declared resources.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Basic Resource"
+    "publisher": "Health Level Seven International (FHIR Infrastructure)"
 }

@@ -1,21 +1,24 @@
 {
-    "mapping": [
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        }
-    ],
     "id": "Period",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
-                "isSummary": true,
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "If present, start SHALL have a lower value than end",
+                        "severity": "error",
+                        "xpath": "not(exists(f:start)) or not(exists(f:end)) or (f:start/@value <= f:end/@value)",
+                        "key": "per-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "A time period defined by a start and end date and optionally time.",
                 "mapping": [
                     {
                         "map": "DR",
@@ -26,27 +29,23 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:start)) or not(exists(f:end)) or (f:start/@value <= f:end/@value)",
-                        "human": "If present, start SHALL have a lower value than end",
-                        "severity": "error",
-                        "key": "per-1"
-                    }
-                ],
+                "short": "Time range defined by start and end date/time",
+                "min": 0,
                 "comments": "This is not a duration - that's a measure of time (a separate type), but a duration that occurs at a fixed value of time. A Period specifies a range of time; the context of use will specify whether the entire range applies (e.g. \"the patient was an inpatient of the hospital for this time range\") or one value from the range applies (e.g. \"give to the patient between these two times\"). If duration is required, specify the type as Interval|Duration.",
                 "path": "Period",
-                "max": "*",
-                "min": 0,
-                "short": "Time range defined by start and end date/time",
-                "definition": "A time period defined by a start and end date and optionally time."
+                "isSummary": true
             },
             {
+                "condition": [
+                    "per-1"
+                ],
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The start of the period. The boundary is inclusive.",
                 "mapping": [
                     {
                         "map": "DR.1",
@@ -57,29 +56,24 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Starting time with inclusive boundary",
+                "min": 0,
                 "comments": "If the low element is missing, the meaning is that the low boundary is not known.",
                 "path": "Period.start",
-                "max": "1",
-                "min": 0,
-                "short": "Starting time with inclusive boundary",
+                "isSummary": true
+            },
+            {
                 "condition": [
                     "per-1"
                 ],
-                "definition": "The start of the period. The boundary is inclusive."
-            },
-            {
                 "meaningWhenMissing": "If the end of the period is missing, it means that the period is ongoing",
                 "type": [
                     {
                         "code": "dateTime"
                     }
                 ],
+                "max": "1",
+                "definition": "The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.",
                 "mapping": [
                     {
                         "map": "DR.2",
@@ -90,20 +84,169 @@
                         "identity": "rim"
                     }
                 ],
-                "isSummary": true,
+                "short": "End time with inclusive boundary, if not ongoing",
+                "min": 0,
                 "comments": "The high value includes any matching date/time. i.e. 2012-02-03T10:00:00 is in a period that has a end value of 2012-02-03.",
                 "path": "Period.end",
-                "max": "1",
-                "min": 0,
-                "short": "End time with inclusive boundary, if not ongoing",
-                "condition": [
-                    "per-1"
-                ],
-                "definition": "The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time."
+                "isSummary": true
             }
         ]
     },
+    "name": "Period",
     "abstract": false,
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "If present, start SHALL have a lower value than end",
+                        "severity": "error",
+                        "xpath": "not(exists(f:start)) or not(exists(f:end)) or (f:start/@value <= f:end/@value)",
+                        "key": "per-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "A time period defined by a start and end date and optionally time.",
+                "mapping": [
+                    {
+                        "map": "DR",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "IVL<TS>[lowClosed=\"true\" and highClosed=\"true\"] or URG<TS>[lowClosed=\"true\" and highClosed=\"true\"]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Time range defined by start and end date/time",
+                "min": 0,
+                "comments": "This is not a duration - that's a measure of time (a separate type), but a duration that occurs at a fixed value of time. A Period specifies a range of time; the context of use will specify whether the entire range applies (e.g. \"the patient was an inpatient of the hospital for this time range\") or one value from the range applies (e.g. \"give to the patient between these two times\"). If duration is required, specify the type as Interval|Duration.",
+                "path": "Period",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Period.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Period.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "per-1"
+                ],
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The start of the period. The boundary is inclusive.",
+                "mapping": [
+                    {
+                        "map": "DR.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./low",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Starting time with inclusive boundary",
+                "min": 0,
+                "comments": "If the low element is missing, the meaning is that the low boundary is not known.",
+                "path": "Period.start",
+                "isSummary": true
+            },
+            {
+                "condition": [
+                    "per-1"
+                ],
+                "meaningWhenMissing": "If the end of the period is missing, it means that the period is ongoing",
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.",
+                "mapping": [
+                    {
+                        "map": "DR.2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./high",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "End time with inclusive boundary, if not ongoing",
+                "min": 0,
+                "comments": "The high value includes any matching date/time. i.e. 2012-02-03T10:00:00 is in a period that has a end value of 2012-02-03.",
+                "path": "Period.end",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Period Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/Period",
+    "fhirVersion": "1.0.2",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        }
+    ],
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -115,148 +258,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "url": "http://hl7.org/fhir/StructureDefinition/Period",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "DR",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "IVL<TS>[lowClosed=\"true\" and highClosed=\"true\"] or URG<TS>[lowClosed=\"true\" and highClosed=\"true\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:start)) or not(exists(f:end)) or (f:start/@value <= f:end/@value)",
-                        "human": "If present, start SHALL have a lower value than end",
-                        "severity": "error",
-                        "key": "per-1"
-                    }
-                ],
-                "comments": "This is not a duration - that's a measure of time (a separate type), but a duration that occurs at a fixed value of time. A Period specifies a range of time; the context of use will specify whether the entire range applies (e.g. \"the patient was an inpatient of the hospital for this time range\") or one value from the range applies (e.g. \"give to the patient between these two times\"). If duration is required, specify the type as Interval|Duration.",
-                "path": "Period",
-                "max": "*",
-                "min": 0,
-                "short": "Time range defined by start and end date/time",
-                "definition": "A time period defined by a start and end date and optionally time."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Period.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Period.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "DR.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./low",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the low element is missing, the meaning is that the low boundary is not known.",
-                "path": "Period.start",
-                "max": "1",
-                "min": 0,
-                "short": "Starting time with inclusive boundary",
-                "condition": [
-                    "per-1"
-                ],
-                "definition": "The start of the period. The boundary is inclusive."
-            },
-            {
-                "meaningWhenMissing": "If the end of the period is missing, it means that the period is ongoing",
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "DR.2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./high",
-                        "identity": "rim"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The high value includes any matching date/time. i.e. 2012-02-03T10:00:00 is in a period that has a end value of 2012-02-03.",
-                "path": "Period.end",
-                "max": "1",
-                "min": 0,
-                "short": "End time with inclusive boundary, if not ongoing",
-                "condition": [
-                    "per-1"
-                ],
-                "definition": "The end of the period. If the end of the period is missing, it means that the period is ongoing. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time."
-            }
-        ]
-    },
-    "name": "Period",
-    "description": "Base StructureDefinition for Period Type",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "fhirVersion": "1.0.2"
+    "publisher": "HL7 FHIR Standard"
 }

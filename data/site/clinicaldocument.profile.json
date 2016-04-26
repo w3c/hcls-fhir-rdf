@@ -1,75 +1,81 @@
 {
     "id": "clinicaldocument",
-    "constrainedType": "Composition",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org/special/committees/structure",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Composition",
+    "date": "2015-03-17",
     "differential": {
         "element": [
             {
                 "min": 0,
-                "name": "ClinicalDocument",
-                "max": "*",
                 "type": [
                     {
                         "code": "Composition"
                     }
                 ],
-                "path": "Composition"
+                "name": "ClinicalDocument",
+                "path": "Composition",
+                "max": "*"
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "Composition.subject"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/clinicaldocument",
+    "name": "Clinical Document Profile for Composition",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven, Inc. - Structured Documents WG",
+    "constrainedType": "Composition",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "Composition",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Composition"
+                    }
+                ],
+                "name": "ClinicalDocument",
+                "max": "*",
+                "definition": "A set of healthcare-related information that is assembled together into a single logical document that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. While a Composition defines the structure, it does not actually contain the content: rather the full content of a document is contained in a Bundle, of which the Composition is the first resource contained.",
+                "short": "A set of resources composed into a single coherent clinical statement with clinical attestation",
+                "min": 0,
+                "comments": "While the focus of this specification is on patient-specific clinical statements, this resource can also apply to other healthcare-related statements such as study protocol designs, healthcare invoices and other activities that are not necessarily patient-specific or clinical.",
+                "path": "Composition",
                 "mapping": [
                     {
                         "map": "ClinicalDocument",
@@ -83,24 +89,7 @@
                         "map": "infrastructure.documents",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Composition"
-                    }
-                ],
-                "comments": "While the focus of this specification is on patient-specific clinical statements, this resource can also apply to other healthcare-related statements such as study protocol designs, healthcare invoices and other activities that are not necessarily patient-specific or clinical.",
-                "path": "Composition",
-                "max": "*",
-                "min": 0,
-                "short": "A set of resources composed into a single coherent clinical statement with clinical attestation",
-                "name": "ClinicalDocument",
-                "definition": "A set of healthcare-related information that is assembled together into a single logical document that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. While a Composition defines the structure, it does not actually contain the content: rather the full content of a document is contained in a Bundle, of which the Composition is the first resource contained.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition"
-                }
+                ]
             },
             {
                 "type": [
@@ -108,18 +97,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Composition.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Composition.id"
-                }
+                    "path": "Composition.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Composition.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -127,17 +116,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "Composition.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Composition.meta"
-                }
+                    "path": "Composition.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Composition.meta"
             },
             {
                 "type": [
@@ -145,19 +134,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Composition.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Composition.implicitRules"
-                }
+                    "path": "Composition.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Composition.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -165,143 +154,155 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Composition.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Composition.language"
-                }
+                    "path": "Composition.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Composition.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Composition.text",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Composition.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Composition.contained",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Composition.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Composition.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.identifier",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Logical identifier for the composition, assigned when created. This identifier stays constant as the composition is changed over time.",
                 "mapping": [
                     {
                         "map": ".setId",
@@ -316,25 +317,26 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Logical identifier of composition (version-independent)",
+                "min": 0,
                 "comments": "See discussion in resource definition for how these relate.",
                 "path": "Composition.identifier",
-                "max": "1",
-                "min": 0,
-                "short": "Logical identifier of composition (version-independent)",
-                "definition": "Logical identifier for the composition, assigned when created. This identifier stays constant as the composition is changed over time.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.identifier"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Composition.date",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The composition editing time, when the composition was last logically changed by the author.",
+                "requirements": "dateTime is used for tracking, organizing versions and searching.",
                 "mapping": [
                     {
                         "map": ".effectiveTime",
@@ -349,26 +351,23 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Composition editing time",
+                "min": 1,
                 "comments": "The Last Modified Date on the composition may be after the date of the document was attested without being changed.",
                 "path": "Composition.date",
-                "max": "1",
-                "min": 1,
-                "short": "Composition editing time",
-                "requirements": "dateTime is used for tracking, organizing versions and searching.",
-                "definition": "The composition editing time, when the composition was last logically changed by the author.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Composition.date"
-                }
+                "isSummary": true
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Key metadata element describing the composition, used in searching/filtering.",
+                "short": "Kind of composition (LOINC if possible)",
+                "definition": "Specifies the particular kind of composition (e.g. History and Physical, Discharge Summary, Progress Note). This usually equates to the purpose of making the composition.",
+                "base": {
+                    "min": 1,
+                    "path": "Composition.type",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".code",
@@ -383,14 +382,12 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "For Composition type, LOINC is ubiquitous and strongly endorsed by HL7. Most implementation guides will require a specific LOINC code, or use LOINC as an extensible binding.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Kind of composition (LOINC if possible)",
                 "binding": {
                     "description": "Type of a composition.",
                     "valueSetReference": {
@@ -398,18 +395,20 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Composition.type"
-                },
-                "comments": "For Composition type, LOINC is ubiquitous and strongly endorsed by HL7. Most implementation guides will require a specific LOINC code, or use LOINC as an extensible binding.",
-                "path": "Composition.type",
-                "requirements": "Key metadata element describing the composition, used in searching/filtering.",
-                "definition": "Specifies the particular kind of composition (e.g. History and Physical, Discharge Summary, Progress Note). This usually equates to the purpose of making the composition."
+                "isSummary": true,
+                "path": "Composition.type"
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Helps humans to assess whether the composition is of interest when viewing an index of compositions or documents.",
+                "short": "Categorization of Composition",
+                "definition": "A categorization for the type of the composition - helps for indexing and searching. This may be implied by or derived from the code specified in the Composition Type.",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.class",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "n/a",
@@ -424,14 +423,12 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "This is a metadata field from [XDS/MHD](http://wiki.ihe.net/index.php?title=Mobile_access_to_Health_Documents_(MHD)).",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Categorization of Composition",
                 "binding": {
                     "description": "High-level kind of a clinical document at a macro level.",
                     "valueSetReference": {
@@ -439,18 +436,22 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.class"
-                },
-                "comments": "This is a metadata field from [XDS/MHD](http://wiki.ihe.net/index.php?title=Mobile_access_to_Health_Documents_(MHD)).",
-                "path": "Composition.class",
-                "requirements": "Helps humans to assess whether the composition is of interest when viewing an index of compositions or documents.",
-                "definition": "A categorization for the type of the composition - helps for indexing and searching. This may be implied by or derived from the code specified in the Composition Type."
+                "isSummary": true,
+                "path": "Composition.class"
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Composition.title",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Official human-readable label for the composition.",
                 "mapping": [
                     {
                         "map": ".title",
@@ -461,25 +462,23 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Human Readable name/title",
+                "min": 1,
                 "comments": "For many compositions, the title is the same as the text or a display name of Composition.type (e.g. a \"consultation\" or \"progress note\"). Note that CDA does not make title mandatory, but there are no known cases where it is useful for title to be omitted, so it is mandatory here. Feedback on this requirement is welcome during the trial use period.",
                 "path": "Composition.title",
-                "max": "1",
-                "min": 1,
-                "short": "Human Readable name/title",
-                "definition": "Official human-readable label for the composition.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Composition.title"
-                }
+                "isSummary": true
             },
             {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "preliminary | final | amended | entered-in-error",
+                "definition": "The workflow/clinical status of this composition. The status is a marker for the clinical standing of the document.",
+                "base": {
+                    "min": 1,
+                    "path": "Composition.status",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "n/a",
@@ -494,14 +493,13 @@
                         "identity": "w5"
                     }
                 ],
+                "requirements": "Need to be able to mark interim, amended, or withdrawn compositions or documents.",
+                "comments": "If a composition is marked as withdrawn, the compositions/documents in the series, or data from the composition or document series, should never be displayed to a user without being clearly marked as untrustworthy. The flag \"withdrawn\" is why this element is labeled as a modifier of other elements. \n\nSome reporting work flows require that the original narrative of a final document never be altered; instead, only new narrative can be added. The composition resource has no explicit status for explicitly noting whether this business rule is in effect. This would be handled by an extension if required.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "preliminary | final | amended | entered-in-error",
                 "binding": {
                     "description": "The workflow/clinical status of the composition.",
                     "valueSetReference": {
@@ -509,19 +507,20 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Composition.status"
-                },
-                "isModifier": true,
-                "comments": "If a composition is marked as withdrawn, the compositions/documents in the series, or data from the composition or document series, should never be displayed to a user without being clearly marked as untrustworthy. The flag \"withdrawn\" is why this element is labeled as a modifier of other elements. \n\nSome reporting work flows require that the original narrative of a final document never be altered; instead, only new narrative can be added. The composition resource has no explicit status for explicitly noting whether this business rule is in effect. This would be handled by an extension if required.",
-                "path": "Composition.status",
-                "requirements": "Need to be able to mark interim, amended, or withdrawn compositions or documents.",
-                "definition": "The workflow/clinical status of this composition. The status is a marker for the clinical standing of the document."
+                "isSummary": true,
+                "path": "Composition.status"
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "As defined by affinity domain",
+                "definition": "The code specifying the level of confidentiality of the Composition.",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.confidentiality",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".confidentialityCode",
@@ -532,14 +531,12 @@
                         "identity": "rim"
                     }
                 ],
+                "comments": "The exact use of this element, and enforcement and issues related to highly sensitive documents are out of scope for the base specification, and delegated to implementation profiles (see security section).",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "As defined by affinity domain",
                 "binding": {
                     "description": "Codes specifying the level of confidentiality of the composition.",
                     "valueSetReference": {
@@ -547,18 +544,50 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.confidentiality"
-                },
-                "isModifier": true,
-                "comments": "The exact use of this element, and enforcement and issues related to highly sensitive documents are out of scope for the base specification, and delegated to implementation profiles (see security section).",
-                "path": "Composition.confidentiality",
-                "definition": "The code specifying the level of confidentiality of the Composition."
+                "isSummary": true,
+                "path": "Composition.confidentiality"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Composition.subject",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Who or what the composition is about. The composition can be about a person, (patient or healthcare practitioner), a device (e.g. a machine) or even a group of subjects (such as a document about a herd of livestock, or a set of patients that share a common exposure).",
+                "requirements": "Essential metadata for searching for the composition. Identifies who and/or what the composition/document is about.",
                 "mapping": [
                     {
                         "map": ".recordTarget",
@@ -573,53 +602,51 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Who and/or what the composition is about",
+                "min": 1,
                 "comments": "For clinical documents, this is usually the patient.",
                 "path": "Composition.subject",
-                "max": "1",
-                "min": 1,
-                "short": "Who and/or what the composition is about",
-                "requirements": "Essential metadata for searching for the composition. Identifies who and/or what the composition/document is about.",
-                "definition": "Who or what the composition is about. The composition can be about a person, (patient or healthcare practitioner), a device (e.g. a machine) or even a group of subjects (such as a document about a herd of livestock, or a set of patients that share a common exposure).",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Composition.subject"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Composition.author",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Identifies who is responsible for the information in the composition, not necessarily who typed it in.",
+                "requirements": "Identifies who is responsible for the content.",
+                "short": "Who and/or what authored the composition",
+                "min": 1,
+                "isSummary": true,
+                "path": "Composition.author",
                 "mapping": [
                     {
                         "map": ".author.assignedAuthor",
@@ -633,47 +660,22 @@
                         "map": "who.author",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Composition.author",
-                "max": "*",
-                "min": 1,
-                "short": "Who and/or what authored the composition",
-                "requirements": "Identifies who is responsible for the content.",
-                "definition": "Identifies who is responsible for the information in the composition, not necessarily who typed it in.",
-                "base": {
-                    "min": 1,
-                    "max": "*",
-                    "path": "Composition.author"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.attester",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A participant who has attested to the accuracy of the composition/document.",
+                "requirements": "Identifies responsibility for the accuracy of the composition content.",
                 "mapping": [
                     {
                         "map": ".authenticator/.legalAuthenticator",
@@ -684,110 +686,107 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Attests to accuracy of composition",
+                "min": 0,
                 "comments": "Only list each attester once.",
                 "path": "Composition.attester",
-                "max": "*",
-                "min": 0,
-                "short": "Attests to accuracy of composition",
-                "requirements": "Identifies responsibility for the accuracy of the composition content.",
-                "definition": "A participant who has attested to the accuracy of the composition/document.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.attester"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Composition.attester.id",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.attester.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.attester.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Composition.attester.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.attester.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.attester.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.attester.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.attester.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.attester.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.attester.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.attester.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.attester.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "*",
+                "requirements": "Indicates the level of authority of the attestation.",
+                "short": "personal | professional | legal | official",
+                "definition": "The type of attestation the authenticator offers.",
+                "base": {
+                    "min": 1,
+                    "path": "Composition.attester.mode",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": "implied by .authenticator/.legalAuthenticator",
@@ -798,14 +797,12 @@
                         "identity": "rim"
                     }
                 ],
+                "comments": "Use more than one code where a single attester has more than one mode (professional and legal are often paired).",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "personal | professional | legal | official",
                 "binding": {
                     "description": "The way in which a person authenticated a composition.",
                     "valueSetReference": {
@@ -813,18 +810,27 @@
                     },
                     "strength": "required"
                 },
-                "max": "*",
-                "base": {
-                    "min": 1,
-                    "max": "*",
-                    "path": "Composition.attester.mode"
-                },
-                "comments": "Use more than one code where a single attester has more than one mode (professional and legal are often paired).",
-                "path": "Composition.attester.mode",
-                "requirements": "Indicates the level of authority of the attestation.",
-                "definition": "The type of attestation the authenticator offers."
+                "isSummary": true,
+                "path": "Composition.attester.mode"
             },
             {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.attester.time",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "When composition was attested by the party.",
+                "requirements": "Identifies when the information in the composition was deemed accurate.  (Things may have changed since then.).",
+                "short": "When composition attested",
+                "min": 0,
+                "isSummary": true,
+                "path": "Composition.attester.time",
                 "mapping": [
                     {
                         "map": ".authenticator.time",
@@ -834,26 +840,41 @@
                         "map": "./time[type=\"TS\" and isNormalDatatype()]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Composition.attester.time",
-                "max": "1",
-                "min": 0,
-                "short": "When composition attested",
-                "requirements": "Identifies when the information in the composition was deemed accurate.  (Things may have changed since then.).",
-                "definition": "When composition was attested by the party.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.attester.time"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.attester.party",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Who attested the composition in the specified way.",
+                "requirements": "Identifies who has taken on the responsibility for accuracy of the composition content.",
+                "short": "Who attested the composition",
+                "min": 0,
+                "isSummary": true,
+                "path": "Composition.attester.party",
                 "mapping": [
                     {
                         "map": ".authenticator.assignedEnttty",
@@ -867,41 +888,25 @@
                         "map": "who.witness",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Composition.attester.party",
-                "max": "1",
-                "min": 0,
-                "short": "Who attested the composition",
-                "requirements": "Identifies who has taken on the responsibility for accuracy of the composition content.",
-                "definition": "Who attested the composition in the specified way.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.attester.party"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.custodian",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the organization or group who is responsible for ongoing maintenance of and access to the composition/document information.",
+                "requirements": "Identifies where to go to find the current version, where to report issues, etc.",
                 "mapping": [
                     {
                         "map": ".custodian.assignedCustodian",
@@ -912,29 +917,26 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Organization which maintains the composition",
+                "min": 0,
                 "comments": "This is useful when documents are derived from a composition - provides guidance for how to get the latest version of the document. This is optional because this is sometimes not known by the authoring system, and can be inferred by context. However it is important that this information be known when working with a derived document, so providing a custodian is encouraged.",
                 "path": "Composition.custodian",
-                "max": "1",
-                "min": 0,
-                "short": "Organization which maintains the composition",
-                "requirements": "Identifies where to go to find the current version, where to report issues, etc.",
-                "definition": "Identifies the organization or group who is responsible for ongoing maintenance of and access to the composition/document information.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.custodian"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The clinical service, such as a colonoscopy or an appendectomy, being documented.",
+                "requirements": "Provides context for the composition and creates a linkage between a resource describing an event and the composition created describing the event.",
                 "mapping": [
                     {
                         "map": ".documentationOf.serviceEvent",
@@ -945,110 +947,109 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
+                "short": "The clinical service(s) being documented",
+                "min": 0,
                 "comments": "The event needs to be consistent with the type element, though can provide further information if desired.",
                 "path": "Composition.event",
-                "max": "*",
-                "min": 0,
-                "short": "The clinical service(s) being documented",
-                "requirements": "Provides context for the composition and creates a linkage between a resource describing an event and the composition created describing the event.",
-                "definition": "The clinical service, such as a colonoscopy or an appendectomy, being documented.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.event"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Composition.event.id",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.event.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Composition.event.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.event.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.event.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.event.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.event.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.event.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.event.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event.code",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy, being documented. In some cases, the event is inherent in the typeCode, such as a \"History and Physical Report\" in which the procedure being documented is necessarily a \"History and Physical\" act.",
                 "mapping": [
                     {
                         "map": ".code",
@@ -1059,17 +1060,8 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "An event can further specialize the act inherent in the typeCode, such as where it is simply \"Procedure Report\" and the procedure was a \"colonoscopy\". If one or more eventCodes are included, they SHALL NOT conflict with the values inherent in the classCode, practiceSettingCode or typeCode, as such a conflict would create an ambiguous situation. This short list of codes is provided to be used as key words for certain types of queries.",
-                "path": "Composition.event.code",
-                "max": "*",
-                "min": 0,
                 "short": "Code(s) that apply to the event being documented",
+                "min": 0,
                 "binding": {
                     "description": "This list of codes represents the main clinical acts being documented.",
                     "valueSetReference": {
@@ -1077,14 +1069,27 @@
                     },
                     "strength": "example"
                 },
-                "definition": "This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy, being documented. In some cases, the event is inherent in the typeCode, such as a \"History and Physical Report\" in which the procedure being documented is necessarily a \"History and Physical\" act.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.event.code"
-                }
+                "comments": "An event can further specialize the act inherent in the typeCode, such as where it is simply \"Procedure Report\" and the procedure was a \"colonoscopy\". If one or more eventCodes are included, they SHALL NOT conflict with the values inherent in the classCode, practiceSettingCode or typeCode, as such a conflict would create an ambiguous situation. This short list of codes is provided to be used as key words for certain types of queries.",
+                "path": "Composition.event.code",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event.period",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The period of time covered by the documentation. There is no assertion that the documentation is a complete representation for this period, only that it documents events during this time.",
+                "short": "The period covered by the documentation",
+                "min": 0,
+                "isSummary": true,
+                "path": "Composition.event.period",
                 "mapping": [
                     {
                         "map": ".effectiveTime",
@@ -1094,25 +1099,28 @@
                         "map": ".effectiveTime",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Composition.event.period",
-                "max": "1",
-                "min": 0,
-                "short": "The period covered by the documentation",
-                "definition": "The period of time covered by the documentation. There is no assertion that the documentation is a complete representation for this period, only that it documents events during this time.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.event.period"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.event.detail",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The description and/or reference of the event(s) being documented. For example, this could be used to document such a colonoscopy or an appendectomy.",
+                "short": "The event(s) being documented",
+                "min": 0,
+                "isSummary": true,
+                "path": "Composition.event.detail",
                 "mapping": [
                     {
                         "map": "n/a",
@@ -1122,28 +1130,29 @@
                         "map": ".outboundRelationship[typeCode=\"SUBJ\"].target",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Composition.event.detail",
-                "max": "*",
-                "min": 0,
-                "short": "The event(s) being documented",
-                "definition": "The description and/or reference of the event(s) being documented. For example, this could be used to document such a colonoscopy or an appendectomy.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.event.detail"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Describes the clinical encounter or type of care this documentation is associated with.",
+                "requirements": "Provides context for the composition and supports searching.",
+                "short": "Context of the Composition",
+                "min": 0,
+                "isSummary": true,
+                "path": "Composition.encounter",
                 "mapping": [
                     {
                         "map": ".componentOf.encompassingEncounter",
@@ -1157,35 +1166,43 @@
                         "map": "context",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Encounter"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Composition.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "Context of the Composition",
-                "requirements": "Provides context for the composition and supports searching.",
-                "definition": "Describes the clinical encounter or type of care this documentation is associated with.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.encounter"
-                }
+                ]
             },
             {
-                "min": 0,
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section",
+                    "max": "*"
+                },
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "Section"
+                    }
+                ],
+                "max": "*",
+                "definition": "The root of the sections that make up the composition.",
+                "constraint": [
+                    {
+                        "human": "A section can only have an emptyReason if it is empty",
+                        "severity": "error",
+                        "xpath": "not(exists(f:emptyReason) and exists(f:entry))",
+                        "key": "cmp-2"
+                    },
+                    {
+                        "human": "A section must at least one of text, entries, or sub-sections",
+                        "severity": "error",
+                        "xpath": "exists(f:text) or exists(f:entry) or exists(f:section)",
+                        "key": "cmp-1"
+                    }
+                ],
+                "short": "Composition is broken into sections",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".component.structuredBody.component.section",
@@ -1196,122 +1213,116 @@
                         "identity": "rim"
                     }
                 ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:emptyReason) and exists(f:entry))",
-                        "human": "A section can only have an emptyReason if it is empty",
-                        "severity": "error",
-                        "key": "cmp-2"
-                    },
-                    {
-                        "xpath": "exists(f:text) or exists(f:entry) or exists(f:section)",
-                        "human": "A section must at least one of text, entries, or sub-sections",
-                        "severity": "error",
-                        "key": "cmp-1"
-                    }
-                ],
                 "path": "Composition.section",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "Section"
-                    }
-                ],
-                "short": "Composition is broken into sections",
-                "name": "section",
-                "definition": "The root of the sections that make up the composition.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.section"
-                }
+                "name": "section"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Composition.section.id",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Composition.section.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.section.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.section.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.section.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Composition.section.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.section.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Composition.section.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.title",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The label for this particular section.  This will be part of the rendered content for the document, and is often used to build a table of contents.",
+                "requirements": "Section headings are often standardized for different types of documents.  They give guidance to humans on how the document is organized.",
+                "short": "Label for section (e.g. for ToC)",
+                "min": 0,
+                "alias": [
+                    "header",
+                    "label",
+                    "caption"
+                ],
+                "comments": "The title identifies the section for a human reader. The title must be consistent with the narrative of the resource that is the target of the section.content reference. Generally, sections SHOULD have titles, but in some documents it is unnecessary or inappropriate. Typically, this is where a section has subsections that have their own adequately distinguishing title,  or documents that only have a single section. Most Implementation Guides will make section title to be a required element.",
+                "path": "Composition.section.title",
                 "mapping": [
                     {
                         "map": ".title",
@@ -1321,46 +1332,24 @@
                         "map": "./title",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "The title identifies the section for a human reader. The title must be consistent with the narrative of the resource that is the target of the section.content reference. Generally, sections SHOULD have titles, but in some documents it is unnecessary or inappropriate. Typically, this is where a section has subsections that have their own adequately distinguishing title,  or documents that only have a single section. Most Implementation Guides will make section title to be a required element.",
-                "path": "Composition.section.title",
-                "alias": [
-                    "header",
-                    "label",
-                    "caption"
-                ],
-                "min": 0,
-                "short": "Label for section (e.g. for ToC)",
-                "max": "1",
-                "requirements": "Section headings are often standardized for different types of documents.  They give guidance to humans on how the document is organized.",
-                "definition": "The label for this particular section.  This will be part of the rendered content for the document, and is often used to build a table of contents.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.title"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": ".code",
-                        "identity": "cda"
-                    },
-                    {
-                        "map": "./code",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.code",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A code identifying the kind of content contained within the section. This must be consistent with the section title.",
+                "requirements": "Provides computable standardized labels to topics within the document.",
+                "short": "Classification of section (recommended)",
+                "min": 0,
                 "binding": {
                     "description": "Classification of a section of a composition/document.",
                     "valueSetReference": {
@@ -1370,18 +1359,37 @@
                 },
                 "comments": "The code identifies the section for an automated processor of the document. This is particularly relevant when using profiles to control the structure of the document.   If the section has content (instead of sub-sections), the section.code does not change the meaning or interpretation of the resource that is the content of the section in the comments for the section.code.",
                 "path": "Composition.section.code",
-                "max": "1",
-                "min": 0,
-                "short": "Classification of section (recommended)",
-                "requirements": "Provides computable standardized labels to topics within the document.",
-                "definition": "A code identifying the kind of content contained within the section. This must be consistent with the section title.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.code"
-                }
+                "mapping": [
+                    {
+                        "map": ".code",
+                        "identity": "cda"
+                    },
+                    {
+                        "map": "./code",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "condition": [
+                    "cmp-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains the attested content of the section, used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative.",
+                "short": "Text summary of the section, for human interpretation",
+                "min": 0,
+                "comments": "Document profiles may define what content should be represented in the narrative to ensure clinical safety.",
+                "path": "Composition.section.text",
                 "mapping": [
                     {
                         "map": ".text",
@@ -1391,28 +1399,33 @@
                         "map": ".text",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Document profiles may define what content should be represented in the narrative to ensure clinical safety.",
-                "path": "Composition.section.text",
-                "max": "1",
-                "min": 0,
-                "short": "Text summary of the section, for human interpretation",
-                "condition": [
-                    "cmp-1"
-                ],
-                "definition": "A human-readable narrative that contains the attested content of the section, used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.text"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "working | snapshot | changes",
+                "definition": "How the entry list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted.",
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.mode",
+                    "max": "1"
+                },
+                "requirements": "Sections are used in various ways, and it must be known in what way it is safe to use the entries in them.",
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "The processing mode that applies to this section.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-mode"
+                    },
+                    "strength": "required"
+                },
                 "mapping": [
                     {
                         "map": "n/a",
@@ -1427,48 +1440,24 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "working | snapshot | changes",
-                "binding": {
-                    "description": "The processing mode that applies to this section.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-mode"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.mode"
-                },
-                "isModifier": true,
-                "path": "Composition.section.mode",
-                "requirements": "Sections are used in various ways, and it must be known in what way it is safe to use the entries in them.",
-                "definition": "How the entry list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted."
+                "path": "Composition.section.mode"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "cda"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].sequenceNumber > 1",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.orderedBy",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Specifies the order applied to the items in the section entries.",
+                "requirements": "Important for presentation and rendering.  Lists may be sorted to place more important information first or to group related entries.",
+                "short": "Order of section entries",
+                "min": 0,
                 "binding": {
                     "description": "What order applies to the items in the entry.",
                     "valueSetReference": {
@@ -1478,18 +1467,40 @@
                 },
                 "comments": "Applications SHOULD render ordered lists in the order provided, but MAY allow users to re-order based on their own preferences as well. If there is no order specified, the order is unknown, though there may still be some order.",
                 "path": "Composition.section.orderedBy",
-                "max": "1",
-                "min": 0,
-                "short": "Order of section entries",
-                "requirements": "Important for presentation and rendering.  Lists may be sorted to place more important information first or to group related entries.",
-                "definition": "Specifies the order applied to the items in the section entries.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.orderedBy"
-                }
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "cda"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].sequenceNumber > 1",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "condition": [
+                    "cmp-2"
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.entry",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A reference to the actual resource from which the narrative in the section is derived.",
+                "short": "A reference to data that supports this section",
+                "min": 0,
+                "comments": "If there are no entries in the list, an emptyReason SHOULD be provided.",
+                "path": "Composition.section.entry",
                 "mapping": [
                     {
                         "map": ".entry",
@@ -1499,31 +1510,35 @@
                         "map": ".outboundRelationship[typeCode=COMP] or  .participation[typeCode=SBJ]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "comments": "If there are no entries in the list, an emptyReason SHOULD be provided.",
-                "path": "Composition.section.entry",
-                "max": "*",
-                "min": 0,
-                "short": "A reference to data that supports this section",
+                ]
+            },
+            {
                 "condition": [
                     "cmp-2"
                 ],
-                "definition": "A reference to the actual resource from which the narrative in the section is derived.",
+                "max": "1",
+                "requirements": "Allows capturing things like \"none exist\" or \"not asked\" which can be important for most lists.",
+                "short": "Why the section is empty",
+                "definition": "If the section is empty, why the list is empty. An empty section typically has some text explaining the empty reason.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "Composition.section.entry"
-                }
-            },
-            {
+                    "path": "Composition.section.emptyReason",
+                    "max": "1"
+                },
+                "path": "Composition.section.emptyReason",
+                "comments": "The various reasons for an empty section make a significant interpretation to its interpretation. Note that this code is for use when the entire section content has been suppressed, and not for when individual items are omitted - implementers may consider using a text note or a flag on an entry in these cases.",
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "binding": {
+                    "description": "If a section is empty, why it is empty.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/list-empty-reason"
+                    },
+                    "strength": "preferred"
+                },
                 "mapping": [
                     {
                         "map": "n/a",
@@ -1534,36 +1549,19 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "min": 0,
-                "short": "Why the section is empty",
-                "condition": [
-                    "cmp-2"
-                ],
-                "binding": {
-                    "description": "If a section is empty, why it is empty.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/list-empty-reason"
-                    },
-                    "strength": "preferred"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Composition.section.emptyReason"
-                },
-                "comments": "The various reasons for an empty section make a significant interpretation to its interpretation. Note that this code is for use when the entire section content has been suppressed, and not for when individual items are omitted - implementers may consider using a text note or a flag on an entry in these cases.",
-                "path": "Composition.section.emptyReason",
-                "requirements": "Allows capturing things like \"none exist\" or \"not asked\" which can be important for most lists.",
-                "definition": "If the section is empty, why the list is empty. An empty section typically has some text explaining the empty reason."
+                "min": 0
             },
             {
-                "nameReference": "section",
+                "condition": [
+                    "cmp-1"
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Composition.section.section",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A nested sub-section within this section.",
                 "mapping": [
                     {
                         "map": ".component.section",
@@ -1574,26 +1572,28 @@
                         "identity": "rim"
                     }
                 ],
+                "short": "Nested Section",
+                "min": 0,
                 "comments": "Nested sections are primarily used to help human readers navigate to particular portions of the document.",
                 "path": "Composition.section.section",
-                "max": "*",
-                "min": 0,
-                "short": "Nested Section",
-                "condition": [
-                    "cmp-1"
-                ],
-                "definition": "A nested sub-section within this section.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Composition.section.section"
-                }
+                "nameReference": "section"
             }
         ]
     },
-    "name": "Clinical Document Profile for Composition",
     "description": "The base Composition is a general resource for compositions or documents about any kind of subject that might be encountered in healthcare including such things as guidelines, medicines, etc. A clinical document is focused on documents related to the provision of care process, where the subject is a patient, a group of patients, or a closely related concept. A clinical document has additional reqiurements around confidentiality that do not apply in the same way to other kinds of documents",
-    "status": "draft",
-    "date": "2015-03-17",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/clinicaldocument",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/Composition",
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org/special/committees/structure",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven, Inc. - Structured Documents WG"
 }

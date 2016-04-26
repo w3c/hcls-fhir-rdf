@@ -1,25 +1,1781 @@
 {
-    "mapping": [
+    "id": "Specimen",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A sample to be used for analysis.",
+                "short": "Sample for analysis",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "Role[classCode=SPEC]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.diagnostics",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Specimen"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Id for specimen.",
+                "short": "External Identifier",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.identifier",
+                "mapping": [
+                    {
+                        "map": "SPM-2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The availability of the specimen.",
+                "short": "available | unavailable | unsatisfactory | entered-in-error",
+                "min": 0,
+                "binding": {
+                    "description": "Codes providing the status/availability of a specimen.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Specimen.status",
+                "mapping": [
+                    {
+                        "map": "SPM-20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The kind of material that forms the specimen.",
+                "mapping": [
+                    {
+                        "map": "SPM-4 and possibly SPM-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Kind of material that forms the specimen",
+                "min": 0,
+                "binding": {
+                    "description": "The type of the specimen.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/v2-0487"
+                    },
+                    "strength": "example"
+                },
+                "comments": "The type can change the way that a specimen is handled, and drives what kind of analyses can properly be performed on the specimen. It is frequently used in diagnostic work flow decision making systems.",
+                "path": "Specimen.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Specimen"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Reference to the parent (source) specimen which is used when the specimen was either derived from or a component of another specimen.",
+                "short": "Specimen from which this specimen originated",
+                "min": 0,
+                "comments": "The parent specimen could be the source from which the\u00a0current specimen is derived by\u00a0some processing step\u00a0(e.g. an\u00a0aliquot or\u00a0isolate\u00a0or extracted nucleic acids\u00a0from clinical\u00a0samples)\u00a0or\u00a0one of many specimens that\u00a0were combined\u00a0to create a pooled sample.",
+                "path": "Specimen.parent",
+                "mapping": [
+                    {
+                        "map": ".scoper (if parent) .player.scopesRole[classCode=SPEC].player (if child)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Where the specimen came from. This may be from the patient(s) or from the environment or a device.",
+                "requirements": "Must know the subject context.",
+                "short": "Where the specimen came from. This may be from the patient(s) or from the environment or a device",
+                "min": 1,
+                "isSummary": true,
+                "path": "Specimen.subject",
+                "mapping": [
+                    {
+                        "map": ".scoper  or  .scoper.playsRole",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "1",
+                "definition": "The identifier assigned by the lab when accessioning specimen(s). This is not necessarily the same as the specimen identifier, depending on local lab procedures.",
+                "short": "Identifier assigned by the lab",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.accessionIdentifier",
+                "mapping": [
+                    {
+                        "map": "SPM-30 (v2.7+)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].act[classCode=ACSN, moodCode=EVN].id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Time when specimen was received for processing or testing.",
+                "short": "The time when specimen was received for processing",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.receivedTime",
+                "mapping": [
+                    {
+                        "map": "SPM-18",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].act[code=SPCREC, moodCode=EVN].effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.done",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "1",
+                "definition": "Details concerning the specimen collection.",
+                "short": "Collection details",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SPM-14",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].act[classCode=SPECCOLLECT, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Person who collected the specimen.",
+                "short": "Who collected the specimen",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.collection.collector",
+                "mapping": [
+                    {
+                        "map": "PRT",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=PFM].role",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "*",
+                "definition": "To communicate any details or issues encountered during the specimen collection procedure.",
+                "short": "Collector comments",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "OBX",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.comment"
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Time when specimen was collected from subject - the physiologically relevant time.",
+                "short": "Collection time",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.collection.collected[x]",
+                "mapping": [
+                    {
+                        "map": "SPM-17",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.init",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The quantity of specimen collected; for instance the volume of a blood sample, or the physical measurement of an anatomic pathology sample.",
+                "short": "The quantity of specimen collected",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SPM-12",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role[classCode=SPEC].player.quantity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.quantity"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A coded value specifying the technique that is used to perform the procedure.",
+                "short": "Technique used to perform collection",
+                "min": 0,
+                "binding": {
+                    "description": "The  technique that is used to perform the procedure",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-collection-method"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "SPM-7",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".methodCode",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.method"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Anatomical location from which the specimen was collected (if subject is a patient). This is the target site.  This element is not used for environmental specimens.",
+                "short": "Anatomical collection site",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing anatomical locations. May include laterality.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "comments": "If the use case requires  BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
+                "path": "Specimen.collection.bodySite",
+                "mapping": [
+                    {
+                        "map": "SPM-8 and SPM-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Details concerning treatment and processing steps for the specimen.",
+                "short": "Treatment and processing step details",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=SBJ].act[code=SPCTRT, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Textual description of procedure.",
+                "short": "Textual description of procedure",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A coded value specifying the procedure used to process the specimen.",
+                "short": "Indicates the treatment or processing step  applied to the specimen",
+                "min": 0,
+                "binding": {
+                    "description": "Type indicating the technique used to process the specimen",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-treatment-procedure"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.procedure"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Material used in the processing step.",
+                "short": "Material used in the processing step",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SPM-6",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=CSM].role[classCode=ADTV].code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.additive"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "The container holding the specimen.  The recursive nature of containers; i.e. blood in tube in tray in rack is not addressed here.",
+                "short": "Direct container of specimen (tube/slide, etc.)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".player.scopingRole[classCode=CONT].scoper",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Id for container. There may be multiple; a manufacturer's bar code, lab assigned identifier, etc. The container ID may differ from the specimen id in some circumstances.",
+                "short": "Id for the container",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.container.identifier",
+                "mapping": [
+                    {
+                        "map": "SAC-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Textual description of the container.",
+                "short": "Textual description of the container",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".desc",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The type of container associated with the specimen (e.g. slide, aliquot, etc.).",
+                "short": "Kind of container directly associated with specimen",
+                "min": 0,
+                "binding": {
+                    "description": "Type of specimen container",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-container-type"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "SPM-27",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.type"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The capacity (volume or other measure) the container may contain.",
+                "short": "Container volume or size",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "one of: SAC 16, SAC17 and SAC 20, or SAC 21 and SAC 20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".quantity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.capacity"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The quantity of specimen in the container; may be volume, dimensions, or other appropriate measurements, depending on the specimen type.",
+                "short": "Quantity of specimen within container",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SAC-23 (value) SAC-24 (units",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".playedRole[classCode=CONT].quantity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.specimenQuantity"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Introduced substance to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA.",
+                "short": "Additive associated with container",
+                "min": 0,
+                "binding": {
+                    "description": "Substance added to specimen container",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/v2-0371"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "SAC-27",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".scopesRole[classCode=ADTV].player",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.additive[x]"
+            }
+        ]
+    },
+    "name": "Specimen",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
         }
     ],
-    "id": "Specimen",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A sample to be used for analysis.",
+                "short": "Sample for analysis",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "Role[classCode=SPEC]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.diagnostics",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Specimen"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Specimen.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Specimen.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Specimen.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Specimen.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Specimen.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Id for specimen.",
+                "short": "External Identifier",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.identifier",
+                "mapping": [
+                    {
+                        "map": "SPM-2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The availability of the specimen.",
+                "short": "available | unavailable | unsatisfactory | entered-in-error",
+                "min": 0,
+                "binding": {
+                    "description": "Codes providing the status/availability of a specimen.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Specimen.status",
+                "mapping": [
+                    {
+                        "map": "SPM-20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The kind of material that forms the specimen.",
+                "mapping": [
+                    {
+                        "map": "SPM-4 and possibly SPM-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Kind of material that forms the specimen",
+                "min": 0,
+                "binding": {
+                    "description": "The type of the specimen.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/v2-0487"
+                    },
+                    "strength": "example"
+                },
+                "comments": "The type can change the way that a specimen is handled, and drives what kind of analyses can properly be performed on the specimen. It is frequently used in diagnostic work flow decision making systems.",
+                "path": "Specimen.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Specimen"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Reference to the parent (source) specimen which is used when the specimen was either derived from or a component of another specimen.",
+                "short": "Specimen from which this specimen originated",
+                "min": 0,
+                "comments": "The parent specimen could be the source from which the\u00a0current specimen is derived by\u00a0some processing step\u00a0(e.g. an\u00a0aliquot or\u00a0isolate\u00a0or extracted nucleic acids\u00a0from clinical\u00a0samples)\u00a0or\u00a0one of many specimens that\u00a0were combined\u00a0to create a pooled sample.",
+                "path": "Specimen.parent",
+                "mapping": [
+                    {
+                        "map": ".scoper (if parent) .player.scopesRole[classCode=SPEC].player (if child)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Where the specimen came from. This may be from the patient(s) or from the environment or a device.",
+                "requirements": "Must know the subject context.",
+                "short": "Where the specimen came from. This may be from the patient(s) or from the environment or a device",
+                "min": 1,
+                "isSummary": true,
+                "path": "Specimen.subject",
+                "mapping": [
+                    {
+                        "map": ".scoper  or  .scoper.playsRole",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "1",
+                "definition": "The identifier assigned by the lab when accessioning specimen(s). This is not necessarily the same as the specimen identifier, depending on local lab procedures.",
+                "short": "Identifier assigned by the lab",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.accessionIdentifier",
+                "mapping": [
+                    {
+                        "map": "SPM-30 (v2.7+)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].act[classCode=ACSN, moodCode=EVN].id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Time when specimen was received for processing or testing.",
+                "short": "The time when specimen was received for processing",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.receivedTime",
+                "mapping": [
+                    {
+                        "map": "SPM-18",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].act[code=SPCREC, moodCode=EVN].effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.done",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "1",
+                "definition": "Details concerning the specimen collection.",
+                "short": "Collection details",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SPM-14",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].act[classCode=SPECCOLLECT, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.collection.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.collection.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Person who collected the specimen.",
+                "short": "Who collected the specimen",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.collection.collector",
+                "mapping": [
+                    {
+                        "map": "PRT",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=PFM].role",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "*",
+                "definition": "To communicate any details or issues encountered during the specimen collection procedure.",
+                "short": "Collector comments",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "OBX",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.comment"
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Time when specimen was collected from subject - the physiologically relevant time.",
+                "short": "Collection time",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.collection.collected[x]",
+                "mapping": [
+                    {
+                        "map": "SPM-17",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.init",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The quantity of specimen collected; for instance the volume of a blood sample, or the physical measurement of an anatomic pathology sample.",
+                "short": "The quantity of specimen collected",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SPM-12",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role[classCode=SPEC].player.quantity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.quantity"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A coded value specifying the technique that is used to perform the procedure.",
+                "short": "Technique used to perform collection",
+                "min": 0,
+                "binding": {
+                    "description": "The  technique that is used to perform the procedure",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-collection-method"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "SPM-7",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".methodCode",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.collection.method"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Anatomical location from which the specimen was collected (if subject is a patient). This is the target site.  This element is not used for environmental specimens.",
+                "short": "Anatomical collection site",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing anatomical locations. May include laterality.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "comments": "If the use case requires  BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
+                "path": "Specimen.collection.bodySite",
+                "mapping": [
+                    {
+                        "map": "SPM-8 and SPM-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Details concerning treatment and processing steps for the specimen.",
+                "short": "Treatment and processing step details",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=SBJ].act[code=SPCTRT, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.treatment.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.treatment.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Textual description of procedure.",
+                "short": "Textual description of procedure",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A coded value specifying the procedure used to process the specimen.",
+                "short": "Indicates the treatment or processing step  applied to the specimen",
+                "min": 0,
+                "binding": {
+                    "description": "Type indicating the technique used to process the specimen",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-treatment-procedure"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.procedure"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Material used in the processing step.",
+                "short": "Material used in the processing step",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SPM-6",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=CSM].role[classCode=ADTV].code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.treatment.additive"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "The container holding the specimen.  The recursive nature of containers; i.e. blood in tube in tray in rack is not addressed here.",
+                "short": "Direct container of specimen (tube/slide, etc.)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".player.scopingRole[classCode=CONT].scoper",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.container.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Specimen.container.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Id for container. There may be multiple; a manufacturer's bar code, lab assigned identifier, etc. The container ID may differ from the specimen id in some circumstances.",
+                "short": "Id for the container",
+                "min": 0,
+                "isSummary": true,
+                "path": "Specimen.container.identifier",
+                "mapping": [
+                    {
+                        "map": "SAC-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Textual description of the container.",
+                "short": "Textual description of the container",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".desc",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The type of container associated with the specimen (e.g. slide, aliquot, etc.).",
+                "short": "Kind of container directly associated with specimen",
+                "min": 0,
+                "binding": {
+                    "description": "Type of specimen container",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/specimen-container-type"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "SPM-27",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.type"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The capacity (volume or other measure) the container may contain.",
+                "short": "Container volume or size",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "one of: SAC 16, SAC17 and SAC 20, or SAC 21 and SAC 20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".quantity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.capacity"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The quantity of specimen in the container; may be volume, dimensions, or other appropriate measurements, depending on the specimen type.",
+                "short": "Quantity of specimen within container",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "SAC-23 (value) SAC-24 (units",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".playedRole[classCode=CONT].quantity",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.specimenQuantity"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Introduced substance to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA.",
+                "short": "Additive associated with container",
+                "min": 0,
+                "binding": {
+                    "description": "Substance added to specimen container",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/v2-0371"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": "SAC-27",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".scopesRole[classCode=ADTV].player",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Specimen.container.additive[x]"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Specimen Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Specimen",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,1761 +1794,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Specimen",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Orders and Observations)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Role[classCode=SPEC]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.diagnostics",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "path": "Specimen",
-                "max": "*",
-                "min": 0,
-                "short": "Sample for analysis",
-                "definition": "A sample to be used for analysis."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Specimen.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Specimen.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Specimen.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Specimen.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Specimen.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Identifier",
-                "definition": "Id for specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Specimen.status",
-                "max": "1",
-                "min": 0,
-                "short": "available | unavailable | unsatisfactory | entered-in-error",
-                "binding": {
-                    "description": "Codes providing the status/availability of a specimen.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The availability of the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-4 and possibly SPM-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The type can change the way that a specimen is handled, and drives what kind of analyses can properly be performed on the specimen. It is frequently used in diagnostic work flow decision making systems.",
-                "path": "Specimen.type",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of material that forms the specimen",
-                "binding": {
-                    "description": "The type of the specimen.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/v2-0487"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The kind of material that forms the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".scoper (if parent) .player.scopesRole[classCode=SPEC].player (if child)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Specimen"
-                        ]
-                    }
-                ],
-                "comments": "The parent specimen could be the source from which the\u00a0current specimen is derived by\u00a0some processing step\u00a0(e.g. an\u00a0aliquot or\u00a0isolate\u00a0or extracted nucleic acids\u00a0from clinical\u00a0samples)\u00a0or\u00a0one of many specimens that\u00a0were combined\u00a0to create a pooled sample.",
-                "path": "Specimen.parent",
-                "max": "*",
-                "min": 0,
-                "short": "Specimen from which this specimen originated",
-                "definition": "Reference to the parent (source) specimen which is used when the specimen was either derived from or a component of another specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".scoper  or  .scoper.playsRole",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.subject",
-                "max": "1",
-                "min": 1,
-                "short": "Where the specimen came from. This may be from the patient(s) or from the environment or a device",
-                "requirements": "Must know the subject context.",
-                "definition": "Where the specimen came from. This may be from the patient(s) or from the environment or a device."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-30 (v2.7+)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].act[classCode=ACSN, moodCode=EVN].id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.accessionIdentifier",
-                "max": "1",
-                "min": 0,
-                "short": "Identifier assigned by the lab",
-                "definition": "The identifier assigned by the lab when accessioning specimen(s). This is not necessarily the same as the specimen identifier, depending on local lab procedures."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-18",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].act[code=SPCREC, moodCode=EVN].effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.done",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.receivedTime",
-                "max": "1",
-                "min": 0,
-                "short": "The time when specimen was received for processing",
-                "definition": "Time when specimen was received for processing or testing."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-14",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].act[classCode=SPECCOLLECT, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Specimen.collection",
-                "max": "1",
-                "min": 0,
-                "short": "Collection details",
-                "definition": "Details concerning the specimen collection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Specimen.collection.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.collection.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.collection.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PRT",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=PFM].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.collection.collector",
-                "max": "1",
-                "min": 0,
-                "short": "Who collected the specimen",
-                "definition": "Person who collected the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBX",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Specimen.collection.comment",
-                "max": "*",
-                "min": 0,
-                "short": "Collector comments",
-                "definition": "To communicate any details or issues encountered during the specimen collection procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-17",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.init",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.collection.collected[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Collection time",
-                "definition": "Time when specimen was collected from subject - the physiologically relevant time."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-12",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role[classCode=SPEC].player.quantity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Specimen.collection.quantity",
-                "max": "1",
-                "min": 0,
-                "short": "The quantity of specimen collected",
-                "definition": "The quantity of specimen collected; for instance the volume of a blood sample, or the physical measurement of an anatomic pathology sample."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-7",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".methodCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Specimen.collection.method",
-                "max": "1",
-                "min": 0,
-                "short": "Technique used to perform collection",
-                "binding": {
-                    "description": "The  technique that is used to perform the procedure",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-collection-method"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A coded value specifying the technique that is used to perform the procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-8 and SPM-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "If the use case requires  BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
-                "path": "Specimen.collection.bodySite",
-                "max": "1",
-                "min": 0,
-                "short": "Anatomical collection site",
-                "binding": {
-                    "description": "Codes describing anatomical locations. May include laterality.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Anatomical location from which the specimen was collected (if subject is a patient). This is the target site.  This element is not used for environmental specimens."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=SBJ].act[code=SPCTRT, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Specimen.treatment",
-                "max": "*",
-                "min": 0,
-                "short": "Treatment and processing step details",
-                "definition": "Details concerning treatment and processing steps for the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Specimen.treatment.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.treatment.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.treatment.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Specimen.treatment.description",
-                "max": "1",
-                "min": 0,
-                "short": "Textual description of procedure",
-                "definition": "Textual description of procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Specimen.treatment.procedure",
-                "max": "1",
-                "min": 0,
-                "short": "Indicates the treatment or processing step  applied to the specimen",
-                "binding": {
-                    "description": "Type indicating the technique used to process the specimen",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-treatment-procedure"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A coded value specifying the procedure used to process the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-6",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=CSM].role[classCode=ADTV].code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "path": "Specimen.treatment.additive",
-                "max": "*",
-                "min": 0,
-                "short": "Material used in the processing step",
-                "definition": "Material used in the processing step."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".player.scopingRole[classCode=CONT].scoper",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Specimen.container",
-                "max": "*",
-                "min": 0,
-                "short": "Direct container of specimen (tube/slide, etc.)",
-                "definition": "The container holding the specimen.  The recursive nature of containers; i.e. blood in tube in tray in rack is not addressed here."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Specimen.container.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.container.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Specimen.container.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SAC-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.container.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Id for the container",
-                "definition": "Id for container. There may be multiple; a manufacturer's bar code, lab assigned identifier, etc. The container ID may differ from the specimen id in some circumstances."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".desc",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Specimen.container.description",
-                "max": "1",
-                "min": 0,
-                "short": "Textual description of the container",
-                "definition": "Textual description of the container."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-27",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Specimen.container.type",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of container directly associated with specimen",
-                "binding": {
-                    "description": "Type of specimen container",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-container-type"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The type of container associated with the specimen (e.g. slide, aliquot, etc.)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "one of: SAC 16, SAC17 and SAC 20, or SAC 21 and SAC 20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".quantity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Specimen.container.capacity",
-                "max": "1",
-                "min": 0,
-                "short": "Container volume or size",
-                "definition": "The capacity (volume or other measure) the container may contain."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SAC-23 (value) SAC-24 (units",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".playedRole[classCode=CONT].quantity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Specimen.container.specimenQuantity",
-                "max": "1",
-                "min": 0,
-                "short": "Quantity of specimen within container",
-                "definition": "The quantity of specimen in the container; may be volume, dimensions, or other appropriate measurements, depending on the specimen type."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SAC-27",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".scopesRole[classCode=ADTV].player",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "path": "Specimen.container.additive[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Additive associated with container",
-                "binding": {
-                    "description": "Substance added to specimen container",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/v2-0371"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Introduced substance to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA."
-            }
-        ]
-    },
-    "name": "Specimen",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Role[classCode=SPEC]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.diagnostics",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "path": "Specimen",
-                "max": "*",
-                "min": 0,
-                "short": "Sample for analysis",
-                "definition": "A sample to be used for analysis."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Identifier",
-                "definition": "Id for specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Specimen.status",
-                "max": "1",
-                "min": 0,
-                "short": "available | unavailable | unsatisfactory | entered-in-error",
-                "binding": {
-                    "description": "Codes providing the status/availability of a specimen.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The availability of the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-4 and possibly SPM-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The type can change the way that a specimen is handled, and drives what kind of analyses can properly be performed on the specimen. It is frequently used in diagnostic work flow decision making systems.",
-                "path": "Specimen.type",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of material that forms the specimen",
-                "binding": {
-                    "description": "The type of the specimen.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/v2-0487"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The kind of material that forms the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".scoper (if parent) .player.scopesRole[classCode=SPEC].player (if child)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Specimen"
-                        ]
-                    }
-                ],
-                "comments": "The parent specimen could be the source from which the\u00a0current specimen is derived by\u00a0some processing step\u00a0(e.g. an\u00a0aliquot or\u00a0isolate\u00a0or extracted nucleic acids\u00a0from clinical\u00a0samples)\u00a0or\u00a0one of many specimens that\u00a0were combined\u00a0to create a pooled sample.",
-                "path": "Specimen.parent",
-                "max": "*",
-                "min": 0,
-                "short": "Specimen from which this specimen originated",
-                "definition": "Reference to the parent (source) specimen which is used when the specimen was either derived from or a component of another specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".scoper  or  .scoper.playsRole",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.subject",
-                "max": "1",
-                "min": 1,
-                "short": "Where the specimen came from. This may be from the patient(s) or from the environment or a device",
-                "requirements": "Must know the subject context.",
-                "definition": "Where the specimen came from. This may be from the patient(s) or from the environment or a device."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-30 (v2.7+)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].act[classCode=ACSN, moodCode=EVN].id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.accessionIdentifier",
-                "max": "1",
-                "min": 0,
-                "short": "Identifier assigned by the lab",
-                "definition": "The identifier assigned by the lab when accessioning specimen(s). This is not necessarily the same as the specimen identifier, depending on local lab procedures."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-18",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].act[code=SPCREC, moodCode=EVN].effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.done",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.receivedTime",
-                "max": "1",
-                "min": 0,
-                "short": "The time when specimen was received for processing",
-                "definition": "Time when specimen was received for processing or testing."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-14",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].act[classCode=SPECCOLLECT, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Specimen.collection",
-                "max": "1",
-                "min": 0,
-                "short": "Collection details",
-                "definition": "Details concerning the specimen collection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PRT",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=PFM].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.collection.collector",
-                "max": "1",
-                "min": 0,
-                "short": "Who collected the specimen",
-                "definition": "Person who collected the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBX",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Specimen.collection.comment",
-                "max": "*",
-                "min": 0,
-                "short": "Collector comments",
-                "definition": "To communicate any details or issues encountered during the specimen collection procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-17",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.init",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.collection.collected[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Collection time",
-                "definition": "Time when specimen was collected from subject - the physiologically relevant time."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-12",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role[classCode=SPEC].player.quantity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Specimen.collection.quantity",
-                "max": "1",
-                "min": 0,
-                "short": "The quantity of specimen collected",
-                "definition": "The quantity of specimen collected; for instance the volume of a blood sample, or the physical measurement of an anatomic pathology sample."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-7",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".methodCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Specimen.collection.method",
-                "max": "1",
-                "min": 0,
-                "short": "Technique used to perform collection",
-                "binding": {
-                    "description": "The  technique that is used to perform the procedure",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-collection-method"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A coded value specifying the technique that is used to perform the procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-8 and SPM-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "If the use case requires  BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
-                "path": "Specimen.collection.bodySite",
-                "max": "1",
-                "min": 0,
-                "short": "Anatomical collection site",
-                "binding": {
-                    "description": "Codes describing anatomical locations. May include laterality.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Anatomical location from which the specimen was collected (if subject is a patient). This is the target site.  This element is not used for environmental specimens."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=SBJ].act[code=SPCTRT, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Specimen.treatment",
-                "max": "*",
-                "min": 0,
-                "short": "Treatment and processing step details",
-                "definition": "Details concerning treatment and processing steps for the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Specimen.treatment.description",
-                "max": "1",
-                "min": 0,
-                "short": "Textual description of procedure",
-                "definition": "Textual description of procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Specimen.treatment.procedure",
-                "max": "1",
-                "min": 0,
-                "short": "Indicates the treatment or processing step  applied to the specimen",
-                "binding": {
-                    "description": "Type indicating the technique used to process the specimen",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-treatment-procedure"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A coded value specifying the procedure used to process the specimen."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-6",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=CSM].role[classCode=ADTV].code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "path": "Specimen.treatment.additive",
-                "max": "*",
-                "min": 0,
-                "short": "Material used in the processing step",
-                "definition": "Material used in the processing step."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".player.scopingRole[classCode=CONT].scoper",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Specimen.container",
-                "max": "*",
-                "min": 0,
-                "short": "Direct container of specimen (tube/slide, etc.)",
-                "definition": "The container holding the specimen.  The recursive nature of containers; i.e. blood in tube in tray in rack is not addressed here."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SAC-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Specimen.container.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Id for the container",
-                "definition": "Id for container. There may be multiple; a manufacturer's bar code, lab assigned identifier, etc. The container ID may differ from the specimen id in some circumstances."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".desc",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Specimen.container.description",
-                "max": "1",
-                "min": 0,
-                "short": "Textual description of the container",
-                "definition": "Textual description of the container."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SPM-27",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Specimen.container.type",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of container directly associated with specimen",
-                "binding": {
-                    "description": "Type of specimen container",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/specimen-container-type"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The type of container associated with the specimen (e.g. slide, aliquot, etc.)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "one of: SAC 16, SAC17 and SAC 20, or SAC 21 and SAC 20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".quantity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Specimen.container.capacity",
-                "max": "1",
-                "min": 0,
-                "short": "Container volume or size",
-                "definition": "The capacity (volume or other measure) the container may contain."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SAC-23 (value) SAC-24 (units",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".playedRole[classCode=CONT].quantity",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Specimen.container.specimenQuantity",
-                "max": "1",
-                "min": 0,
-                "short": "Quantity of specimen within container",
-                "definition": "The quantity of specimen in the container; may be volume, dimensions, or other appropriate measurements, depending on the specimen type."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SAC-27",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".scopesRole[classCode=ADTV].player",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "path": "Specimen.container.additive[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Additive associated with container",
-                "binding": {
-                    "description": "Substance added to specimen container",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/v2-0371"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Introduced substance to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Specimen Resource"
+    "publisher": "Health Level Seven International (Orders and Observations)"
 }

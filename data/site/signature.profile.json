@@ -1,14 +1,324 @@
 {
+    "id": "Signature",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A digital signature along with supporting context. The signature may be electronic/cryptographic in nature, or a graphical image representing a hand-written signature, or a signature process. Different Signature approaches have different utilities.",
+                "short": "A digital Signature - XML DigSig, JWT, Graphical image of signature, etc.",
+                "min": 0,
+                "comments": "The elements of the Signature Resource are for ease of access of these elements. Foro digital signatures (Xml DigSig, JWT), the non-repudiation proof comes from the Signature  validation, which includes validation of the referenced objects (e.g. Resources) (a.k.a., Content) in the XML-Signature Detached form.",
+                "path": "Signature",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "*",
+                "definition": "An indication of the reason that the entity signed this document. This may be explicitly included as part of the signature information and can be used when determining accountability for various actions concerning the document.",
+                "short": "Indication of the reason the entity signed the object(s)",
+                "min": 1,
+                "binding": {
+                    "description": "An indication of the reason that an entity signed the object",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/signature-type"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Examples include attesting to: authorship, correct transcription, and witness of specific event. Also known as a &quot;Commitment Type Indication&quot;.",
+                "path": "Signature.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "instant"
+                    }
+                ],
+                "max": "1",
+                "definition": "When the digital signature was signed.",
+                "short": "When the signature was created",
+                "min": 1,
+                "comments": "This should agree with the information in the signature.",
+                "path": "Signature.when",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to an application-usable description of the person that signed the certificate (e.g. the signature used their private key).",
+                "short": "Who signed the signature",
+                "min": 1,
+                "comments": "This should agree with the information in the signature.",
+                "path": "Signature.who[x]",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "A mime type that indicates the technical format of the signature. Important mime types are application/signature+xml for X ML DigSig, application/jwt for JWT, and image/* for a graphical image of a signature.",
+                "short": "The technical format of the signature",
+                "min": 1,
+                "binding": {
+                    "description": "The mime type of an attachment. Any valid mime type is allowed.",
+                    "strength": "required",
+                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt"
+                },
+                "isSummary": true,
+                "path": "Signature.contentType"
+            },
+            {
+                "type": [
+                    {
+                        "code": "base64Binary"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base64 encoding of the Signature content.",
+                "short": "The actual signature content (XML DigSig. JWT, picture, etc.)",
+                "min": 1,
+                "comments": "Where the signature type is an XML DigSig, the signed content is a FHIR Resource(s), the signature is of the XML form of the Resource(s) using  XML-Signature (XMLDIG) \"Detached Signature\" form.",
+                "path": "Signature.blob",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "Signature",
+    "abstract": false,
+    "requirements": "There are a number of places where content must be signed in healthcare.",
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "max": "*",
+                "definition": "A digital signature along with supporting context. The signature may be electronic/cryptographic in nature, or a graphical image representing a hand-written signature, or a signature process. Different Signature approaches have different utilities.",
+                "short": "A digital Signature - XML DigSig, JWT, Graphical image of signature, etc.",
+                "min": 0,
+                "comments": "The elements of the Signature Resource are for ease of access of these elements. Foro digital signatures (Xml DigSig, JWT), the non-repudiation proof comes from the Signature  validation, which includes validation of the referenced objects (e.g. Resources) (a.k.a., Content) in the XML-Signature Detached form.",
+                "path": "Signature",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Signature.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Signature.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "*",
+                "definition": "An indication of the reason that the entity signed this document. This may be explicitly included as part of the signature information and can be used when determining accountability for various actions concerning the document.",
+                "short": "Indication of the reason the entity signed the object(s)",
+                "min": 1,
+                "binding": {
+                    "description": "An indication of the reason that an entity signed the object",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/signature-type"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Examples include attesting to: authorship, correct transcription, and witness of specific event. Also known as a &quot;Commitment Type Indication&quot;.",
+                "path": "Signature.type",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "instant"
+                    }
+                ],
+                "max": "1",
+                "definition": "When the digital signature was signed.",
+                "short": "When the signature was created",
+                "min": 1,
+                "comments": "This should agree with the information in the signature.",
+                "path": "Signature.when",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to an application-usable description of the person that signed the certificate (e.g. the signature used their private key).",
+                "short": "Who signed the signature",
+                "min": 1,
+                "comments": "This should agree with the information in the signature.",
+                "path": "Signature.who[x]",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "A mime type that indicates the technical format of the signature. Important mime types are application/signature+xml for X ML DigSig, application/jwt for JWT, and image/* for a graphical image of a signature.",
+                "short": "The technical format of the signature",
+                "min": 1,
+                "binding": {
+                    "description": "The mime type of an attachment. Any valid mime type is allowed.",
+                    "strength": "required",
+                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt"
+                },
+                "isSummary": true,
+                "path": "Signature.contentType"
+            },
+            {
+                "type": [
+                    {
+                        "code": "base64Binary"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base64 encoding of the Signature content.",
+                "short": "The actual signature content (XML DigSig. JWT, picture, etc.)",
+                "min": 1,
+                "comments": "Where the signature type is an XML DigSig, the signed content is a FHIR Resource(s), the signature is of the XML form of the Resource(s) using  XML-Signature (XMLDIG) \"Detached Signature\" form.",
+                "path": "Signature.blob",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Signature Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/Signature",
+    "fhirVersion": "1.0.2",
     "mapping": [
         {
-            "name": "RIM",
             "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "identity": "rim",
+            "name": "RIM"
         }
     ],
-    "id": "Signature",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -20,315 +330,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "differential": {
-        "element": [
-            {
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The elements of the Signature Resource are for ease of access of these elements. Foro digital signatures (Xml DigSig, JWT), the non-repudiation proof comes from the Signature  validation, which includes validation of the referenced objects (e.g. Resources) (a.k.a., Content) in the XML-Signature Detached form.",
-                "path": "Signature",
-                "max": "*",
-                "min": 0,
-                "short": "A digital Signature - XML DigSig, JWT, Graphical image of signature, etc.",
-                "definition": "A digital signature along with supporting context. The signature may be electronic/cryptographic in nature, or a graphical image representing a hand-written signature, or a signature process. Different Signature approaches have different utilities."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Examples include attesting to: authorship, correct transcription, and witness of specific event. Also known as a &quot;Commitment Type Indication&quot;.",
-                "path": "Signature.type",
-                "max": "*",
-                "min": 1,
-                "short": "Indication of the reason the entity signed the object(s)",
-                "binding": {
-                    "description": "An indication of the reason that an entity signed the object",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/signature-type"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "An indication of the reason that the entity signed this document. This may be explicitly included as part of the signature information and can be used when determining accountability for various actions concerning the document."
-            },
-            {
-                "type": [
-                    {
-                        "code": "instant"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This should agree with the information in the signature.",
-                "path": "Signature.when",
-                "max": "1",
-                "min": 1,
-                "short": "When the signature was created",
-                "definition": "When the digital signature was signed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This should agree with the information in the signature.",
-                "path": "Signature.who[x]",
-                "max": "1",
-                "min": 1,
-                "short": "Who signed the signature",
-                "definition": "A reference to an application-usable description of the person that signed the certificate (e.g. the signature used their private key)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Signature.contentType",
-                "max": "1",
-                "min": 1,
-                "short": "The technical format of the signature",
-                "binding": {
-                    "description": "The mime type of an attachment. Any valid mime type is allowed.",
-                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt",
-                    "strength": "required"
-                },
-                "definition": "A mime type that indicates the technical format of the signature. Important mime types are application/signature+xml for X ML DigSig, application/jwt for JWT, and image/* for a graphical image of a signature."
-            },
-            {
-                "type": [
-                    {
-                        "code": "base64Binary"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Where the signature type is an XML DigSig, the signed content is a FHIR Resource(s), the signature is of the XML form of the Resource(s) using  XML-Signature (XMLDIG) \"Detached Signature\" form.",
-                "path": "Signature.blob",
-                "max": "1",
-                "min": 1,
-                "short": "The actual signature content (XML DigSig. JWT, picture, etc.)",
-                "definition": "The base64 encoding of the Signature content."
-            }
-        ]
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Signature",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The elements of the Signature Resource are for ease of access of these elements. Foro digital signatures (Xml DigSig, JWT), the non-repudiation proof comes from the Signature  validation, which includes validation of the referenced objects (e.g. Resources) (a.k.a., Content) in the XML-Signature Detached form.",
-                "path": "Signature",
-                "max": "*",
-                "min": 0,
-                "short": "A digital Signature - XML DigSig, JWT, Graphical image of signature, etc.",
-                "definition": "A digital signature along with supporting context. The signature may be electronic/cryptographic in nature, or a graphical image representing a hand-written signature, or a signature process. Different Signature approaches have different utilities."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Signature.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Signature.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Examples include attesting to: authorship, correct transcription, and witness of specific event. Also known as a &quot;Commitment Type Indication&quot;.",
-                "path": "Signature.type",
-                "max": "*",
-                "min": 1,
-                "short": "Indication of the reason the entity signed the object(s)",
-                "binding": {
-                    "description": "An indication of the reason that an entity signed the object",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/signature-type"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "An indication of the reason that the entity signed this document. This may be explicitly included as part of the signature information and can be used when determining accountability for various actions concerning the document."
-            },
-            {
-                "type": [
-                    {
-                        "code": "instant"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This should agree with the information in the signature.",
-                "path": "Signature.when",
-                "max": "1",
-                "min": 1,
-                "short": "When the signature was created",
-                "definition": "When the digital signature was signed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This should agree with the information in the signature.",
-                "path": "Signature.who[x]",
-                "max": "1",
-                "min": 1,
-                "short": "Who signed the signature",
-                "definition": "A reference to an application-usable description of the person that signed the certificate (e.g. the signature used their private key)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Signature.contentType",
-                "max": "1",
-                "min": 1,
-                "short": "The technical format of the signature",
-                "binding": {
-                    "description": "The mime type of an attachment. Any valid mime type is allowed.",
-                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt",
-                    "strength": "required"
-                },
-                "definition": "A mime type that indicates the technical format of the signature. Important mime types are application/signature+xml for X ML DigSig, application/jwt for JWT, and image/* for a graphical image of a signature."
-            },
-            {
-                "type": [
-                    {
-                        "code": "base64Binary"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Where the signature type is an XML DigSig, the signed content is a FHIR Resource(s), the signature is of the XML form of the Resource(s) using  XML-Signature (XMLDIG) \"Detached Signature\" form.",
-                "path": "Signature.blob",
-                "max": "1",
-                "min": 1,
-                "short": "The actual signature content (XML DigSig. JWT, picture, etc.)",
-                "definition": "The base64 encoding of the Signature content."
-            }
-        ]
-    },
-    "name": "Signature",
-    "requirements": "There are a number of places where content must be signed in healthcare.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Signature Type"
+    "publisher": "HL7 FHIR Standard"
 }

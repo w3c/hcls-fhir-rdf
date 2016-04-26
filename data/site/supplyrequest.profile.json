@@ -1,20 +1,838 @@
 {
-    "mapping": [
+    "id": "SupplyRequest",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A record of a request for a medication, substance or device used in the healthcare setting.",
+                "short": "Request for a medication, substance or device",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest",
+                "mapping": [
+                    {
+                        "map": "Supply[moodCode=RQO]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "workflow.order",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A link to a resource representing the person whom the ordered item is for.",
+                "short": "Patient for whom the item is supplied",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.patient",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The Practitioner , Organization or Patient who initiated this order for the supply.",
+                "short": "Who initiated this order",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.source"
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "When the request was made.",
+                "short": "When the request was made",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.date"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "1",
+                "definition": "Unique identifier for this supply request.",
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Unique identifier",
+                "min": 0,
+                "comments": "This is assigned by the orderer, and used to refer to this order in other external standards.",
+                "path": "SupplyRequest.identifier",
+                "isSummary": true
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Status of the supply request.",
+                "short": "requested | completed | failed | cancelled",
+                "min": 0,
+                "binding": {
+                    "description": "Status of the supply request",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "SupplyRequest.status",
+                "mapping": [
+                    {
+                        "map": ".statusCode, also existence of fulfillment events",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process.",
+                "short": "The kind of supply (central, non-stock, etc.)",
+                "min": 0,
+                "binding": {
+                    "description": "Category of supply request",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-kind"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "SupplyRequest.kind",
+                "mapping": [
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Medication"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The item that is requested to be supplied.",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=PRD].role",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Medication, Substance, or Device requested to be supplied",
+                "min": 0,
+                "comments": "Note that there's a difference between a prescription - an instruction to take a medication, along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit instructions.",
+                "path": "SupplyRequest.orderedItem",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Who is intended to fulfill the request.",
+                "short": "Who is intended to fulfill the request",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.supplier"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Why the supply item was requested.",
+                "short": "Why the supply item was requested",
+                "min": 0,
+                "binding": {
+                    "description": "Why the supply item was requested",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-reason"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "SupplyRequest.reason[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "1",
+                "definition": "When the request should be fulfilled.",
+                "short": "When the request should be fulfilled",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.when"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Code indicating when the request should be fulfilled.",
+                "short": "Fulfilment code",
+                "min": 0,
+                "binding": {
+                    "description": "When the request should be fulfilled",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-when"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Code may simply be a priority code.",
+                "path": "SupplyRequest.when.code",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Timing"
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal fulfillment schedule.",
+                "short": "Formal fulfillment schedule",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.when.schedule"
+            }
+        ]
+    },
+    "name": "SupplyRequest",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 0
         }
     ],
-    "id": "SupplyRequest",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A record of a request for a medication, substance or device used in the healthcare setting.",
+                "short": "Request for a medication, substance or device",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest",
+                "mapping": [
+                    {
+                        "map": "Supply[moodCode=RQO]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "workflow.order",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "SupplyRequest.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "SupplyRequest.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "SupplyRequest.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "SupplyRequest.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "SupplyRequest.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "SupplyRequest.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "SupplyRequest.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A link to a resource representing the person whom the ordered item is for.",
+                "short": "Patient for whom the item is supplied",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.patient",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The Practitioner , Organization or Patient who initiated this order for the supply.",
+                "short": "Who initiated this order",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.source"
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "When the request was made.",
+                "short": "When the request was made",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.date"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "1",
+                "definition": "Unique identifier for this supply request.",
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Unique identifier",
+                "min": 0,
+                "comments": "This is assigned by the orderer, and used to refer to this order in other external standards.",
+                "path": "SupplyRequest.identifier",
+                "isSummary": true
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Status of the supply request.",
+                "short": "requested | completed | failed | cancelled",
+                "min": 0,
+                "binding": {
+                    "description": "Status of the supply request",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "SupplyRequest.status",
+                "mapping": [
+                    {
+                        "map": ".statusCode, also existence of fulfillment events",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process.",
+                "short": "The kind of supply (central, non-stock, etc.)",
+                "min": 0,
+                "binding": {
+                    "description": "Category of supply request",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-kind"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "SupplyRequest.kind",
+                "mapping": [
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Medication"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The item that is requested to be supplied.",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=PRD].role",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Medication, Substance, or Device requested to be supplied",
+                "min": 0,
+                "comments": "Note that there's a difference between a prescription - an instruction to take a medication, along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit instructions.",
+                "path": "SupplyRequest.orderedItem",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Who is intended to fulfill the request.",
+                "short": "Who is intended to fulfill the request",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.supplier"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Why the supply item was requested.",
+                "short": "Why the supply item was requested",
+                "min": 0,
+                "binding": {
+                    "description": "Why the supply item was requested",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-reason"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "SupplyRequest.reason[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "1",
+                "definition": "When the request should be fulfilled.",
+                "short": "When the request should be fulfilled",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.when"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "SupplyRequest.when.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "SupplyRequest.when.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "SupplyRequest.when.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Code indicating when the request should be fulfilled.",
+                "short": "Fulfilment code",
+                "min": 0,
+                "binding": {
+                    "description": "When the request should be fulfilled",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-when"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Code may simply be a priority code.",
+                "path": "SupplyRequest.when.code",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Timing"
+                    }
+                ],
+                "max": "1",
+                "definition": "Formal fulfillment schedule.",
+                "short": "Formal fulfillment schedule",
+                "min": 0,
+                "isSummary": true,
+                "path": "SupplyRequest.when.schedule"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for SupplyRequest Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/SupplyRequest",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -33,823 +851,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/SupplyRequest",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Orders and Observations)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 0
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Supply[moodCode=RQO]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "workflow.order",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest",
-                "max": "*",
-                "min": 0,
-                "short": "Request for a medication, substance or device",
-                "definition": "A record of a request for a medication, substance or device used in the healthcare setting."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "SupplyRequest.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "SupplyRequest.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "SupplyRequest.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "SupplyRequest.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "SupplyRequest.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "SupplyRequest.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "SupplyRequest.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.patient",
-                "max": "1",
-                "min": 0,
-                "short": "Patient for whom the item is supplied",
-                "definition": "A link to a resource representing the person whom the ordered item is for."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.source",
-                "max": "1",
-                "min": 0,
-                "short": "Who initiated this order",
-                "definition": "The Practitioner , Organization or Patient who initiated this order for the supply."
-            },
-            {
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.date",
-                "max": "1",
-                "min": 0,
-                "short": "When the request was made",
-                "definition": "When the request was made."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is assigned by the orderer, and used to refer to this order in other external standards.",
-                "path": "SupplyRequest.identifier",
-                "max": "1",
-                "min": 0,
-                "short": "Unique identifier",
-                "definition": "Unique identifier for this supply request."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".statusCode, also existence of fulfillment events",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "SupplyRequest.status",
-                "max": "1",
-                "min": 0,
-                "short": "requested | completed | failed | cancelled",
-                "binding": {
-                    "description": "Status of the supply request",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Status of the supply request."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.kind",
-                "max": "1",
-                "min": 0,
-                "short": "The kind of supply (central, non-stock, etc.)",
-                "binding": {
-                    "description": "Category of supply request",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-kind"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=PRD].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Medication"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Note that there's a difference between a prescription - an instruction to take a medication, along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit instructions.",
-                "path": "SupplyRequest.orderedItem",
-                "max": "1",
-                "min": 0,
-                "short": "Medication, Substance, or Device requested to be supplied",
-                "definition": "The item that is requested to be supplied."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.supplier",
-                "max": "*",
-                "min": 0,
-                "short": "Who is intended to fulfill the request",
-                "definition": "Who is intended to fulfill the request."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.reason[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Why the supply item was requested",
-                "binding": {
-                    "description": "Why the supply item was requested",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Why the supply item was requested."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.when",
-                "max": "1",
-                "min": 0,
-                "short": "When the request should be fulfilled",
-                "definition": "When the request should be fulfilled."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "SupplyRequest.when.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "SupplyRequest.when.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "SupplyRequest.when.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Code may simply be a priority code.",
-                "path": "SupplyRequest.when.code",
-                "max": "1",
-                "min": 0,
-                "short": "Fulfilment code",
-                "binding": {
-                    "description": "When the request should be fulfilled",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-when"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Code indicating when the request should be fulfilled."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Timing"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.when.schedule",
-                "max": "1",
-                "min": 0,
-                "short": "Formal fulfillment schedule",
-                "definition": "Formal fulfillment schedule."
-            }
-        ]
-    },
-    "name": "SupplyRequest",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Supply[moodCode=RQO]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "workflow.order",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest",
-                "max": "*",
-                "min": 0,
-                "short": "Request for a medication, substance or device",
-                "definition": "A record of a request for a medication, substance or device used in the healthcare setting."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.patient",
-                "max": "1",
-                "min": 0,
-                "short": "Patient for whom the item is supplied",
-                "definition": "A link to a resource representing the person whom the ordered item is for."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.source",
-                "max": "1",
-                "min": 0,
-                "short": "Who initiated this order",
-                "definition": "The Practitioner , Organization or Patient who initiated this order for the supply."
-            },
-            {
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.date",
-                "max": "1",
-                "min": 0,
-                "short": "When the request was made",
-                "definition": "When the request was made."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is assigned by the orderer, and used to refer to this order in other external standards.",
-                "path": "SupplyRequest.identifier",
-                "max": "1",
-                "min": 0,
-                "short": "Unique identifier",
-                "definition": "Unique identifier for this supply request."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".statusCode, also existence of fulfillment events",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "SupplyRequest.status",
-                "max": "1",
-                "min": 0,
-                "short": "requested | completed | failed | cancelled",
-                "binding": {
-                    "description": "Status of the supply request",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Status of the supply request."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.kind",
-                "max": "1",
-                "min": 0,
-                "short": "The kind of supply (central, non-stock, etc.)",
-                "binding": {
-                    "description": "Category of supply request",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-kind"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=PRD].role",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Medication"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Note that there's a difference between a prescription - an instruction to take a medication, along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit instructions.",
-                "path": "SupplyRequest.orderedItem",
-                "max": "1",
-                "min": 0,
-                "short": "Medication, Substance, or Device requested to be supplied",
-                "definition": "The item that is requested to be supplied."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.supplier",
-                "max": "*",
-                "min": 0,
-                "short": "Who is intended to fulfill the request",
-                "definition": "Who is intended to fulfill the request."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.reason[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Why the supply item was requested",
-                "binding": {
-                    "description": "Why the supply item was requested",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Why the supply item was requested."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.when",
-                "max": "1",
-                "min": 0,
-                "short": "When the request should be fulfilled",
-                "definition": "When the request should be fulfilled."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Code may simply be a priority code.",
-                "path": "SupplyRequest.when.code",
-                "max": "1",
-                "min": 0,
-                "short": "Fulfilment code",
-                "binding": {
-                    "description": "When the request should be fulfilled",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/supplyrequest-when"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Code indicating when the request should be fulfilled."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Timing"
-                    }
-                ],
-                "isSummary": true,
-                "path": "SupplyRequest.when.schedule",
-                "max": "1",
-                "min": 0,
-                "short": "Formal fulfillment schedule",
-                "definition": "Formal fulfillment schedule."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for SupplyRequest Resource"
+    "publisher": "Health Level Seven International (Orders and Observations)"
 }

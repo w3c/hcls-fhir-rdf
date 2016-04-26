@@ -1,66 +1,26 @@
 {
-    "mapping": [
-        {
-            "name": "Quality Data Model",
-            "uri": "http://www.healthit.gov/quality-data-model",
-            "identity": "qdm"
-        },
-        {
-            "name": "Quality Improvement Domain Analysis Model",
-            "uri": "http://www.hl7.org/implement/standards/product_brief.cfm?product_id=378",
-            "identity": "qidam"
-        }
-    ],
     "id": "qicore-condition",
-    "constrainedType": "Condition",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org/special/committees/CQI",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "date": "2015-02-27",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "Condition"
+                    }
+                ],
+                "name": "QICore-Condition",
+                "max": "*",
                 "mapping": [
                     {
                         "map": "Diagnosis, Active, Inactive or Resolved",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Condition"
-                    }
-                ],
-                "path": "Condition",
                 "min": 0,
-                "name": "QICore-Condition",
-                "max": "*"
+                "path": "Condition"
             },
             {
-                "mapping": [
-                    {
-                        "map": "ManifestedSymptom.criticality",
-                        "identity": "qidam"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/condition-criticality"
-                        ]
-                    }
-                ],
-                "path": "Condition.extension",
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -68,8 +28,23 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "min": 0,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/condition-criticality"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
                 "name": "criticality",
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "ManifestedSymptom.criticality",
+                        "identity": "qidam"
+                    }
+                ],
+                "min": 0,
                 "binding": {
                     "description": "Indicates the potential impact of the condition",
                     "valueSetReference": {
@@ -77,58 +52,58 @@
                     },
                     "strength": "example"
                 },
-                "max": "1"
-            },
-            {
-                "name": "bodySiteInstance",
-                "mustSupport": true,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-bodysite"
-                        ]
-                    }
-                ],
                 "path": "Condition.extension"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
+                            "http://hl7.org/fhir/StructureDefinition/qicore-bodysite"
+                        ],
+                        "code": "Reference"
                     }
                 ],
+                "name": "bodySiteInstance",
+                "path": "Condition.extension"
+            },
+            {
                 "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
                 "path": "Condition.patient"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Condition.encounter"
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "Condition.asserter"
@@ -138,13 +113,13 @@
                 "path": "Condition.dateRecorded"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "primary code",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "binding": {
                     "description": "The code for the condition",
                     "valueSetReference": {
@@ -163,33 +138,33 @@
                 "path": "Condition.clinicalStatus"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "severity",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Condition.severity"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "start datetime",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Condition.onset[x]"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "stop datetime",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Condition.abatement[x]"
             },
             {
@@ -201,6 +176,7 @@
                 "path": "Condition.stage.summary"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "anatomical location site and laterality",
@@ -212,17 +188,35 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
                 "path": "Condition.bodySite"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/qicore-condition",
+    "name": "QICore-Condition",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)",
+    "constrainedType": "Condition",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "Condition",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Condition"
+                    }
+                ],
+                "name": "QICore-Condition",
+                "max": "*",
+                "definition": "Use to record detailed information about conditions, problems or diagnoses recognized by a clinician. There are many uses including: recording a diagnosis during an encounter; populating a problem list or a summary statement, such as a discharge summary.",
+                "short": "Detailed information about conditions, problems or diagnoses",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition",
                 "mapping": [
                     {
                         "map": "PPR message",
@@ -240,24 +234,7 @@
                         "map": "Diagnosis, Active, Inactive or Resolved",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Condition"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Condition",
-                "max": "*",
-                "min": 0,
-                "short": "Detailed information about conditions, problems or diagnoses",
-                "name": "QICore-Condition",
-                "definition": "Use to record detailed information about conditions, problems or diagnoses recognized by a clinician. There are many uses including: recording a diagnosis during an encounter; populating a problem list or a summary statement, such as a discharge summary.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition"
-                }
+                ]
             },
             {
                 "type": [
@@ -265,18 +242,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Condition.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Condition.id"
-                }
+                    "path": "Condition.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Condition.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -284,17 +261,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "Condition.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Condition.meta"
-                }
+                    "path": "Condition.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.meta"
             },
             {
                 "type": [
@@ -302,19 +279,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Condition.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Condition.implicitRules"
-                }
+                    "path": "Condition.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Condition.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -322,98 +299,86 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Condition.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Condition.language"
-                }
+                    "path": "Condition.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Condition.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Condition.text",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Condition.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Condition.contained",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Condition.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "Condition.extension",
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -421,41 +386,52 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Condition.extension",
                 "mapping": [
                     {
-                        "map": "ManifestedSymptom.criticality",
-                        "identity": "qidam"
+                        "map": "N/A",
+                        "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "base": {
+                    "min": 0,
+                    "path": "Condition.extension",
+                    "max": "*"
+                },
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/condition-criticality"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "Condition.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Extension",
                 "name": "criticality",
+                "max": "1",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "binding": {
                     "description": "Indicates the potential impact of the condition",
                     "valueSetReference": {
@@ -463,65 +439,83 @@
                     },
                     "strength": "example"
                 },
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.extension"
-                }
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-bodysite"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Condition.extension",
-                "max": "*",
-                "min": 0,
-                "short": "Extension",
-                "name": "bodySiteInstance",
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
-                        "map": "N/A",
-                        "identity": "rim"
+                        "map": "ManifestedSymptom.criticality",
+                        "identity": "qidam"
                     }
                 ],
+                "path": "Condition.extension"
+            },
+            {
+                "mustSupport": true,
+                "base": {
+                    "min": 0,
+                    "path": "Condition.extension",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-bodysite"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "name": "bodySiteInstance",
+                "max": "*",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
+                "path": "Condition.extension"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Condition.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Condition.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "This records identifiers associated with this condition that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "requirements": "Need to allow connection to a wider workflow.",
+                "short": "External Ids for this condition",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.identifier",
                 "mapping": [
                     {
                         "map": ".id",
@@ -531,27 +525,29 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Condition.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Ids for this condition",
-                "requirements": "Need to allow connection to a wider workflow.",
-                "definition": "This records identifiers associated with this condition that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.identifier"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Condition.patient",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates the patient who the condition record is associated with.",
+                "short": "Who has the condition?",
+                "min": 1,
                 "isSummary": true,
+                "path": "Condition.patient",
                 "mapping": [
                     {
                         "map": "PID-3",
@@ -565,29 +561,25 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Condition.patient",
-                "max": "1",
-                "min": 1,
-                "short": "Who has the condition?",
-                "definition": "Indicates the patient who the condition record is associated with.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Condition.patient"
-                }
+                ]
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Encounter during which the condition was first asserted.",
                 "mapping": [
                     {
                         "map": "PV1-19 (+PV1-54)",
@@ -602,28 +594,38 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
+                "short": "Encounter when condition first asserted",
+                "min": 0,
                 "comments": "This record indicates the encounter this particular record is associated with.  In the case of a \"new\" diagnosis reflecting ongoing/revised information about the condition, this might be distinct from the first encounter in which the underlying condition was first \"known\".",
                 "path": "Condition.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "Encounter when condition first asserted",
-                "definition": "Encounter during which the condition was first asserted.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.encounter"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.asserter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Individual who is making the condition statement.",
+                "short": "Person who asserts this condition",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.asserter",
                 "mapping": [
                     {
                         "map": "REL-7.1 identifier + REL-7.12 type code",
@@ -637,35 +639,22 @@
                         "map": "who.author",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Condition.asserter",
-                "max": "1",
-                "min": 0,
-                "short": "Person who asserts this condition",
-                "definition": "Individual who is making the condition statement.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.asserter"
-                }
+                ]
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.dateRecorded",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A date, when  the Condition statement was documented.",
                 "mapping": [
                     {
                         "map": "REL-11",
@@ -680,26 +669,37 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "mustSupport": true,
+                "short": "When first entered",
+                "min": 0,
                 "comments": "The Date Recorded represents the date when this particular Condition record was created in the EHR, not the date of the most recent update in terms of when severity, abatement, etc. were specified. \u00a0The date of the last record modification can be retrieved from the resource metadata.",
                 "path": "Condition.dateRecorded",
-                "max": "1",
-                "min": 0,
-                "short": "When first entered",
-                "definition": "A date, when  the Condition statement was documented.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.dateRecorded"
-                }
+                "isSummary": true
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Condition.code",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identification of the condition, problem or diagnosis.",
+                "short": "Identification of the condition, problem or diagnosis",
+                "min": 1,
+                "binding": {
+                    "description": "The code for the condition",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-problem"
+                    },
+                    "strength": "preferred"
+                },
                 "isSummary": true,
+                "path": "Condition.code",
                 "mapping": [
                     {
                         "map": "PRB-3",
@@ -717,32 +717,18 @@
                         "map": "primary code",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Condition.code",
-                "max": "1",
-                "min": 1,
-                "short": "Identification of the condition, problem or diagnosis",
-                "binding": {
-                    "description": "The code for the condition",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-problem"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "Identification of the condition, problem or diagnosis.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Condition.code"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "short": "complaint | symptom | finding | diagnosis",
+                "definition": "A category assigned to the condition.",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.category",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "'problem' if from PRB-3. 'diagnosis' if from DG1 segment in PV1 message",
@@ -757,14 +743,13 @@
                         "identity": "w5"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "The categorization is often highly contextual and may appear poorly differentiated or not very useful in other contexts.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "complaint | symptom | finding | diagnosis",
                 "binding": {
                     "description": "A category assigned to the condition.",
                     "valueSetReference": {
@@ -772,18 +757,34 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.category"
-                },
-                "mustSupport": true,
-                "comments": "The categorization is often highly contextual and may appear poorly differentiated or not very useful in other contexts.",
-                "path": "Condition.category",
-                "definition": "A category assigned to the condition."
+                "isSummary": true,
+                "path": "Condition.category"
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "active | relapse | remission | resolved",
+                "definition": "The clinical status of the condition.",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.clinicalStatus",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "The clinical status of the condition or diagnosis.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/condition-clinical"
+                    },
+                    "strength": "preferred"
+                },
                 "mapping": [
                     {
                         "map": "PRB-14 / DG1-6",
@@ -794,33 +795,33 @@
                         "identity": "w5"
                     }
                 ],
+                "path": "Condition.clinicalStatus"
+            },
+            {
+                "isModifier": true,
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "active | relapse | remission | resolved",
-                "binding": {
-                    "description": "The clinical status of the condition or diagnosis.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/condition-clinical"
-                    },
-                    "strength": "preferred"
+                "base": {
+                    "min": 1,
+                    "path": "Condition.verificationStatus",
+                    "max": "1"
                 },
                 "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.clinicalStatus"
+                "definition": "The verification status to support the clinical status of the condition.",
+                "short": "provisional | differential | confirmed | refuted | entered-in-error | unknown",
+                "min": 1,
+                "binding": {
+                    "description": "The verification status to support or decline the clinical status of the condition or diagnosis.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/condition-ver-status"
+                    },
+                    "strength": "required"
                 },
-                "mustSupport": true,
-                "isModifier": true,
-                "path": "Condition.clinicalStatus",
-                "definition": "The clinical status of the condition."
-            },
-            {
+                "isSummary": true,
+                "path": "Condition.verificationStatus",
                 "mapping": [
                     {
                         "map": "PRB-13",
@@ -834,33 +835,18 @@
                         "map": "status",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Condition.verificationStatus",
-                "max": "1",
-                "min": 1,
-                "short": "provisional | differential | confirmed | refuted | entered-in-error | unknown",
-                "binding": {
-                    "description": "The verification status to support or decline the clinical status of the condition or diagnosis.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/condition-ver-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The verification status to support the clinical status of the condition.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Condition.verificationStatus"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "short": "Subjective severity of condition",
+                "definition": "A subjective assessment of the severity of the condition as evaluated by the clinician.",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.severity",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "PRB-26 / ABS-3",
@@ -879,14 +865,13 @@
                         "identity": "qdm"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Coding of the severity with a terminology is preferred, where possible.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Subjective severity of condition",
                 "binding": {
                     "description": "A subjective assessment of the severity of the condition as evaluated by the clinician.",
                     "valueSetReference": {
@@ -894,19 +879,38 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.severity"
-                },
-                "mustSupport": true,
-                "comments": "Coding of the severity with a terminology is preferred, where possible.",
-                "path": "Condition.severity",
-                "definition": "A subjective assessment of the severity of the condition as evaluated by the clinician."
+                "isSummary": true,
+                "path": "Condition.severity"
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Age"
+                        ],
+                        "code": "Quantity"
+                    },
+                    {
+                        "code": "Period"
+                    },
+                    {
+                        "code": "Range"
+                    },
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.onset[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Estimated or actual date or date-time  the condition began, in the opinion of the clinician.",
                 "mapping": [
                     {
                         "map": "PRB-16",
@@ -925,64 +929,23 @@
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Age"
-                        ]
-                    },
-                    {
-                        "code": "Period"
-                    },
-                    {
-                        "code": "Range"
-                    },
-                    {
-                        "code": "string"
-                    }
-                ],
-                "mustSupport": true,
+                "short": "Estimated or actual date,  date-time, or age",
+                "min": 0,
                 "comments": "Age is generally used when the patient reports an age at which the Condition began to occur.",
                 "path": "Condition.onset[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Estimated or actual date,  date-time, or age",
-                "definition": "Estimated or actual date or date-time  the condition began, in the opinion of the clinician.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.onset[x]"
-                }
+                "isSummary": true
             },
             {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": ".effectiveTime.high or .inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"age at remission\"].value or .inboundRelationship[typeCode=SUBJ]source[classCode=CONC, moodCode=EVN].status=completed",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.done",
-                        "identity": "w5"
-                    },
-                    {
-                        "map": "stop datetime",
-                        "identity": "qdm"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "dateTime"
                     },
                     {
-                        "code": "Quantity",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Age"
-                        ]
+                        ],
+                        "code": "Quantity"
                     },
                     {
                         "code": "boolean"
@@ -997,137 +960,177 @@
                         "code": "string"
                     }
                 ],
-                "mustSupport": true,
-                "comments": "There is no explicit distinction between resolution and remission because in many cases the distinction is not clear. Age is generally used when the patient reports an age at which the Condition abated.  If there is no abatement element, it is unknown whether the condition has resolved or entered remission; applications and users should generally assume that the condition is still valid.",
-                "path": "Condition.abatement[x]",
-                "max": "1",
-                "min": 0,
-                "short": "If/when in resolution/remission",
-                "definition": "The date or estimated date that the condition resolved or went into remission. This is called \"abatement\" because of the many overloaded connotations associated with \"remission\" or \"resolution\" - Conditions are never really resolved, but they can abate.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Condition.abatement[x]"
-                }
-            },
-            {
-                "isSummary": true,
+                    "path": "Condition.abatement[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The date or estimated date that the condition resolved or went into remission. This is called \"abatement\" because of the many overloaded connotations associated with \"remission\" or \"resolution\" - Conditions are never really resolved, but they can abate.",
                 "mapping": [
                     {
-                        "map": "./inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"stage/grade\"]",
+                        "map": ".effectiveTime.high or .inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"age at remission\"].value or .inboundRelationship[typeCode=SUBJ]source[classCode=CONC, moodCode=EVN].status=completed",
                         "identity": "rim"
+                    },
+                    {
+                        "map": "when.done",
+                        "identity": "w5"
+                    },
+                    {
+                        "map": "stop datetime",
+                        "identity": "qdm"
                     }
                 ],
+                "short": "If/when in resolution/remission",
+                "min": 0,
+                "comments": "There is no explicit distinction between resolution and remission because in many cases the distinction is not clear. Age is generally used when the patient reports an age at which the Condition abated.  If there is no abatement element, it is unknown whether the condition has resolved or entered remission; applications and users should generally assume that the condition is still valid.",
+                "path": "Condition.abatement[x]",
+                "isSummary": true
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "mustSupport": true,
+                "base": {
+                    "min": 0,
+                    "path": "Condition.stage",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Clinical stage or grade of a condition. May include formal severity assessments.",
                 "constraint": [
                     {
-                        "xpath": "exists(f:summary) or exists(f:assessment)",
                         "human": "Stage SHALL have summary or assessment",
                         "severity": "error",
+                        "xpath": "exists(f:summary) or exists(f:assessment)",
                         "key": "con-1"
                     }
                 ],
-                "path": "Condition.stage",
-                "max": "1",
-                "min": 0,
                 "short": "Stage/grade, usually assessed formally",
-                "definition": "Clinical stage or grade of a condition. May include formal severity assessments.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.stage"
-                }
-            },
-            {
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.stage",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": "./inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"stage/grade\"]",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Condition.stage.id",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.stage.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.stage.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Condition.stage.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Condition.stage.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.stage.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.stage.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Condition.stage.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.stage.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Condition.stage.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.stage.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Condition.stage.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "condition": [
+                    "con-1"
+                ],
+                "max": "1",
+                "short": "Simple summary (disease specific)",
+                "definition": "A simple summary of the stage such as \"Stage 3\". The determination of the stage is disease-specific.",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.stage.summary",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "path": "Condition.stage.summary",
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "binding": {
+                    "description": "Codes describing condition stages (e.g. Cancer stages).",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/condition-stage"
+                    },
+                    "strength": "example"
+                },
                 "mapping": [
                     {
                         "map": "PRB-14",
@@ -1138,78 +1141,51 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Simple summary (disease specific)",
+                "min": 0
+            },
+            {
                 "condition": [
                     "con-1"
                 ],
-                "binding": {
-                    "description": "Codes describing condition stages (e.g. Cancer stages).",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/condition-stage"
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ClinicalImpression"
+                        ],
+                        "code": "Reference"
                     },
-                    "strength": "example"
-                },
-                "max": "1",
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Condition.stage.summary"
+                    "path": "Condition.stage.assessment",
+                    "max": "*"
                 },
-                "mustSupport": true,
-                "path": "Condition.stage.summary",
-                "definition": "A simple summary of the stage such as \"Stage 3\". The determination of the stage is disease-specific."
-            },
-            {
+                "max": "*",
+                "definition": "Reference to a formal record of the evidence on which the staging assessment is based.",
+                "short": "Formal record of assessment",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.stage.assessment",
                 "mapping": [
                     {
                         "map": ".self",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ClinicalImpression"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Condition.stage.assessment",
-                "max": "*",
-                "min": 0,
-                "short": "Formal record of assessment",
-                "condition": [
-                    "con-1"
-                ],
-                "definition": "Reference to a formal record of the evidence on which the staging assessment is based.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.stage.assessment"
-                }
+                ]
             },
             {
-                "isSummary": true,
                 "mapping": [
                     {
                         "map": ".outboundRelationship[typeCode=SPRT].target[classCode=OBS, moodCode=EVN]",
@@ -1221,130 +1197,129 @@
                         "code": "BackboneElement"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.evidence",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Supporting Evidence / manifestations that are the basis on which this condition is suspected or confirmed.",
                 "constraint": [
                     {
-                        "xpath": "exists(f:code) or exists(f:detail)",
                         "human": "evidence SHALL have code or details",
                         "severity": "error",
+                        "xpath": "exists(f:code) or exists(f:detail)",
                         "key": "con-2"
                     }
                 ],
+                "short": "Supporting evidence",
+                "min": 0,
                 "comments": "The evidence may be a simple list of coded symptoms/manifestations, or references to observations or formal assessments, or both.",
                 "path": "Condition.evidence",
-                "max": "*",
-                "min": 0,
-                "short": "Supporting evidence",
-                "definition": "Supporting Evidence / manifestations that are the basis on which this condition is suspected or confirmed.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.evidence"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Condition.evidence.id",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.evidence.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.evidence.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Condition.evidence.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Condition.evidence.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.evidence.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.evidence.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Condition.evidence.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.evidence.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Condition.evidence.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.evidence.modifierExtension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Condition.evidence.modifierExtension",
                 "mapping": [
                     {
-                        "map": "[code=\"diagnosis\"].value",
+                        "map": "N/A",
                         "identity": "rim"
                     }
+                ]
+            },
+            {
+                "condition": [
+                    "con-2"
                 ],
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "path": "Condition.evidence.code",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.evidence.code",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "A manifestation or symptom that led to the recording of this condition.",
                 "short": "Manifestation/symptom",
-                "condition": [
-                    "con-2"
-                ],
+                "min": 0,
                 "binding": {
                     "description": "Codes that describe the manifestation or symptoms of a condition.",
                     "valueSetReference": {
@@ -1352,44 +1327,55 @@
                     },
                     "strength": "example"
                 },
-                "definition": "A manifestation or symptom that led to the recording of this condition.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.evidence.code"
-                }
+                "isSummary": true,
+                "path": "Condition.evidence.code",
+                "mapping": [
+                    {
+                        "map": "[code=\"diagnosis\"].value",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "condition": [
+                    "con-2"
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.evidence.detail",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Links to other relevant information, including pathology reports.",
+                "short": "Supporting information found elsewhere",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.evidence.detail",
                 "mapping": [
                     {
                         "map": ".self",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Condition.evidence.detail",
-                "max": "*",
-                "min": 0,
-                "short": "Supporting information found elsewhere",
-                "condition": [
-                    "con-2"
-                ],
-                "definition": "Links to other relevant information, including pathology reports.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.evidence.detail"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "*",
+                "short": "Anatomical location, if relevant",
+                "definition": "The anatomical location where this condition manifests itself.",
+                "base": {
+                    "min": 0,
+                    "path": "Condition.bodySite",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": ".targetBodySiteCode",
@@ -1400,14 +1386,13 @@
                         "identity": "qdm"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "May be a summary code, or a reference to a very precise definition of the location, or both.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Anatomical location, if relevant",
                 "binding": {
                     "description": "Codes describing anatomical locations. May include laterality.",
                     "valueSetReference": {
@@ -1415,18 +1400,26 @@
                     },
                     "strength": "example"
                 },
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Condition.bodySite"
-                },
-                "mustSupport": true,
-                "comments": "May be a summary code, or a reference to a very precise definition of the location, or both.",
-                "path": "Condition.bodySite",
-                "definition": "The anatomical location where this condition manifests itself."
+                "isSummary": true,
+                "path": "Condition.bodySite"
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Condition.notes",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Additional information about the Condition. This is a general notes/comments entry  for description of the Condition, its diagnosis and prognosis.",
+                "short": "Additional information about the Condition",
+                "min": 0,
+                "isSummary": true,
+                "path": "Condition.notes",
                 "mapping": [
                     {
                         "map": "NTE child of PRB",
@@ -1436,29 +1429,36 @@
                         "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Condition.notes",
-                "max": "1",
-                "min": 0,
-                "short": "Additional information about the Condition",
-                "definition": "Additional information about the Condition. This is a general notes/comments entry  for description of the Condition, its diagnosis and prognosis.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Condition.notes"
-                }
+                ]
             }
         ]
     },
-    "name": "QICore-Condition",
     "description": "Profile of Condition for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
-    "status": "draft",
-    "date": "2015-02-27",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/qicore-condition",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "mapping": [
+        {
+            "uri": "http://www.healthit.gov/quality-data-model",
+            "identity": "qdm",
+            "name": "Quality Data Model"
+        },
+        {
+            "uri": "http://www.hl7.org/implement/standards/product_brief.cfm?product_id=378",
+            "identity": "qidam",
+            "name": "Quality Improvement Domain Analysis Model"
+        }
+    ],
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org/special/committees/CQI",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)"
 }

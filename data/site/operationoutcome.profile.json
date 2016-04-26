@@ -1,25 +1,659 @@
 {
-    "mapping": [
+    "id": "OperationOutcome",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A collection of error, warning or information messages that result from a system action.",
+                "mapping": [
+                    {
+                        "map": "Grouping is handled through multiple repetitions from whatever context references the outcomes (no specific grouper required)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.exchange",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Information about the success/failure of an action",
+                "min": 0,
+                "comments": "Can result from the failure of a REST call or be part of the response message returned from a request message.  If sent with extensions overriding particular issues, might even appear as part of a request message.",
+                "path": "OperationOutcome",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "An error, warning or information message that results from a system action.",
+                "short": "A single issue associated with the action",
+                "min": 1,
+                "isSummary": true,
+                "path": "OperationOutcome.issue",
+                "mapping": [
+                    {
+                        "map": "ERR",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "fatal | error | warning | information",
+                "definition": "Indicates whether the issue indicates a variation from successful processing.",
+                "mapping": [
+                    {
+                        "map": "ERR-4",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./typeCode[parent::AcknowledgmentDetail] or unique(./inboundRelationship[parent::Observation and typeCode='SUBJ' and isNormalActRelationship()]/source[classCode=\"OBS\" and moodCode=\"EVN\" and implies(code, ActCode#SEV and isNormalAct())/value[xsi:type=\"CD\"]",
+                        "identity": "rim"
+                    }
+                ],
+                "requirements": "Indicates how relevant the issue is to the overall success of the action.",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not confuse hints and warnings with errors.",
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "How the issue affects the success of the action.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/issue-severity"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "OperationOutcome.issue.severity"
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the most applicable code from the IssueType value set, and may additional provide its own code for the error in the details element.",
+                "requirements": "Expresses the issue in a human and computer-friendly way, allowing the requesting system to behave differently based on the type of issue.",
+                "short": "Error or warning code",
+                "min": 1,
+                "binding": {
+                    "description": "A code that describes the type of issue.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/issue-type"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "OperationOutcome.issue.code",
+                "mapping": [
+                    {
+                        "map": "ERR-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional details about the error. This may be a text description of the error, or a system code that identifies the error.",
+                "mapping": [
+                    {
+                        "map": "ERR-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./code",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Additional details about the error",
+                "min": 0,
+                "binding": {
+                    "description": "A code that provides details as the exact issue.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/operation-outcome"
+                    },
+                    "strength": "example"
+                },
+                "comments": "A human readable description of the error issue SHOULD be placed in details.text.",
+                "path": "OperationOutcome.issue.details",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional diagnostic information about the issue.  Typically, this may be a description of how a value is erroneous, or a stack dump to help trace the issue.",
+                "mapping": [
+                    {
+                        "map": "ERR-8",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./text[parent::AcknowledgmentDetail]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Additional diagnostic information about the issue",
+                "min": 0,
+                "comments": "Typically this field is used to provide troubleshooting information about the error.",
+                "path": "OperationOutcome.issue.diagnostics",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "*",
+                "definition": "A simple XPath limited to element names, repetition indicators and the default child access that identifies one of the elements in the resource that caused this issue to be raised.",
+                "requirements": "Allows systems to highlight or otherwise guide users to elements implicated in issues to allow them to be fixed more easily.",
+                "mapping": [
+                    {
+                        "map": "ERR-2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./location[parent::AcknowledgmentDetail]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "XPath of element(s) related to issue",
+                "min": 0,
+                "comments": "The root of the XPath is the resource or bundle that generated OperationOutcome.  Each XPath SHALL resolve to a single node.  The XPath syntax is used whether the referenced instance is expressed in XML or JSON.",
+                "path": "OperationOutcome.issue.location",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "OperationOutcome",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 2
         }
     ],
-    "id": "OperationOutcome",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A collection of error, warning or information messages that result from a system action.",
+                "mapping": [
+                    {
+                        "map": "Grouping is handled through multiple repetitions from whatever context references the outcomes (no specific grouper required)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.exchange",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Information about the success/failure of an action",
+                "min": 0,
+                "comments": "Can result from the failure of a REST call or be part of the response message returned from a request message.  If sent with extensions overriding particular issues, might even appear as part of a request message.",
+                "path": "OperationOutcome",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "OperationOutcome.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "OperationOutcome.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "OperationOutcome.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "OperationOutcome.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "OperationOutcome.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "OperationOutcome.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "OperationOutcome.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "OperationOutcome.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "An error, warning or information message that results from a system action.",
+                "short": "A single issue associated with the action",
+                "min": 1,
+                "isSummary": true,
+                "path": "OperationOutcome.issue",
+                "mapping": [
+                    {
+                        "map": "ERR",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "OperationOutcome.issue.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "OperationOutcome.issue.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "OperationOutcome.issue.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "fatal | error | warning | information",
+                "definition": "Indicates whether the issue indicates a variation from successful processing.",
+                "mapping": [
+                    {
+                        "map": "ERR-4",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./typeCode[parent::AcknowledgmentDetail] or unique(./inboundRelationship[parent::Observation and typeCode='SUBJ' and isNormalActRelationship()]/source[classCode=\"OBS\" and moodCode=\"EVN\" and implies(code, ActCode#SEV and isNormalAct())/value[xsi:type=\"CD\"]",
+                        "identity": "rim"
+                    }
+                ],
+                "requirements": "Indicates how relevant the issue is to the overall success of the action.",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not confuse hints and warnings with errors.",
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "How the issue affects the success of the action.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/issue-severity"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "OperationOutcome.issue.severity"
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the most applicable code from the IssueType value set, and may additional provide its own code for the error in the details element.",
+                "requirements": "Expresses the issue in a human and computer-friendly way, allowing the requesting system to behave differently based on the type of issue.",
+                "short": "Error or warning code",
+                "min": 1,
+                "binding": {
+                    "description": "A code that describes the type of issue.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/issue-type"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "OperationOutcome.issue.code",
+                "mapping": [
+                    {
+                        "map": "ERR-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional details about the error. This may be a text description of the error, or a system code that identifies the error.",
+                "mapping": [
+                    {
+                        "map": "ERR-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./code",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Additional details about the error",
+                "min": 0,
+                "binding": {
+                    "description": "A code that provides details as the exact issue.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/operation-outcome"
+                    },
+                    "strength": "example"
+                },
+                "comments": "A human readable description of the error issue SHOULD be placed in details.text.",
+                "path": "OperationOutcome.issue.details",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional diagnostic information about the issue.  Typically, this may be a description of how a value is erroneous, or a stack dump to help trace the issue.",
+                "mapping": [
+                    {
+                        "map": "ERR-8",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./text[parent::AcknowledgmentDetail]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Additional diagnostic information about the issue",
+                "min": 0,
+                "comments": "Typically this field is used to provide troubleshooting information about the error.",
+                "path": "OperationOutcome.issue.diagnostics",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "*",
+                "definition": "A simple XPath limited to element names, repetition indicators and the default child access that identifies one of the elements in the resource that caused this issue to be raised.",
+                "requirements": "Allows systems to highlight or otherwise guide users to elements implicated in issues to allow them to be fixed more easily.",
+                "mapping": [
+                    {
+                        "map": "ERR-2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./location[parent::AcknowledgmentDetail]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "XPath of element(s) related to issue",
+                "min": 0,
+                "comments": "The root of the XPath is the resource or bundle that generated OperationOutcome.  Each XPath SHALL resolve to a single node.  The XPath syntax is used whether the referenced instance is expressed in XML or JSON.",
+                "path": "OperationOutcome.issue.location",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for OperationOutcome Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/OperationOutcome",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,639 +672,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/OperationOutcome",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (FHIR Infrastructure)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 2
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Grouping is handled through multiple repetitions from whatever context references the outcomes (no specific grouper required)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.exchange",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Can result from the failure of a REST call or be part of the response message returned from a request message.  If sent with extensions overriding particular issues, might even appear as part of a request message.",
-                "path": "OperationOutcome",
-                "max": "*",
-                "min": 0,
-                "short": "Information about the success/failure of an action",
-                "definition": "A collection of error, warning or information messages that result from a system action."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "OperationOutcome.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OperationOutcome.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "OperationOutcome.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "OperationOutcome.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "OperationOutcome.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "OperationOutcome.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "OperationOutcome.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "OperationOutcome.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OperationOutcome.issue",
-                "max": "*",
-                "min": 1,
-                "short": "A single issue associated with the action",
-                "definition": "An error, warning or information message that results from a system action."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "OperationOutcome.issue.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "OperationOutcome.issue.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "OperationOutcome.issue.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-4",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./typeCode[parent::AcknowledgmentDetail] or unique(./inboundRelationship[parent::Observation and typeCode='SUBJ' and isNormalActRelationship()]/source[classCode=\"OBS\" and moodCode=\"EVN\" and implies(code, ActCode#SEV and isNormalAct())/value[xsi:type=\"CD\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "fatal | error | warning | information",
-                "binding": {
-                    "description": "How the issue affects the success of the action.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/issue-severity"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not confuse hints and warnings with errors.",
-                "path": "OperationOutcome.issue.severity",
-                "requirements": "Indicates how relevant the issue is to the overall success of the action.",
-                "definition": "Indicates whether the issue indicates a variation from successful processing."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "binding": {
-                    "description": "A code that describes the type of issue.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/issue-type"
-                    },
-                    "strength": "required"
-                },
-                "isSummary": true,
-                "path": "OperationOutcome.issue.code",
-                "max": "1",
-                "min": 1,
-                "short": "Error or warning code",
-                "requirements": "Expresses the issue in a human and computer-friendly way, allowing the requesting system to behave differently based on the type of issue.",
-                "definition": "Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the most applicable code from the IssueType value set, and may additional provide its own code for the error in the details element."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "A human readable description of the error issue SHOULD be placed in details.text.",
-                "path": "OperationOutcome.issue.details",
-                "max": "1",
-                "min": 0,
-                "short": "Additional details about the error",
-                "binding": {
-                    "description": "A code that provides details as the exact issue.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/operation-outcome"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Additional details about the error. This may be a text description of the error, or a system code that identifies the error."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-8",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./text[parent::AcknowledgmentDetail]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Typically this field is used to provide troubleshooting information about the error.",
-                "path": "OperationOutcome.issue.diagnostics",
-                "max": "1",
-                "min": 0,
-                "short": "Additional diagnostic information about the issue",
-                "definition": "Additional diagnostic information about the issue.  Typically, this may be a description of how a value is erroneous, or a stack dump to help trace the issue."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./location[parent::AcknowledgmentDetail]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The root of the XPath is the resource or bundle that generated OperationOutcome.  Each XPath SHALL resolve to a single node.  The XPath syntax is used whether the referenced instance is expressed in XML or JSON.",
-                "path": "OperationOutcome.issue.location",
-                "max": "*",
-                "min": 0,
-                "short": "XPath of element(s) related to issue",
-                "requirements": "Allows systems to highlight or otherwise guide users to elements implicated in issues to allow them to be fixed more easily.",
-                "definition": "A simple XPath limited to element names, repetition indicators and the default child access that identifies one of the elements in the resource that caused this issue to be raised."
-            }
-        ]
-    },
-    "name": "OperationOutcome",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Grouping is handled through multiple repetitions from whatever context references the outcomes (no specific grouper required)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.exchange",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Can result from the failure of a REST call or be part of the response message returned from a request message.  If sent with extensions overriding particular issues, might even appear as part of a request message.",
-                "path": "OperationOutcome",
-                "max": "*",
-                "min": 0,
-                "short": "Information about the success/failure of an action",
-                "definition": "A collection of error, warning or information messages that result from a system action."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "OperationOutcome.issue",
-                "max": "*",
-                "min": 1,
-                "short": "A single issue associated with the action",
-                "definition": "An error, warning or information message that results from a system action."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-4",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./typeCode[parent::AcknowledgmentDetail] or unique(./inboundRelationship[parent::Observation and typeCode='SUBJ' and isNormalActRelationship()]/source[classCode=\"OBS\" and moodCode=\"EVN\" and implies(code, ActCode#SEV and isNormalAct())/value[xsi:type=\"CD\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "fatal | error | warning | information",
-                "binding": {
-                    "description": "How the issue affects the success of the action.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/issue-severity"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not confuse hints and warnings with errors.",
-                "path": "OperationOutcome.issue.severity",
-                "requirements": "Indicates how relevant the issue is to the overall success of the action.",
-                "definition": "Indicates whether the issue indicates a variation from successful processing."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "binding": {
-                    "description": "A code that describes the type of issue.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/issue-type"
-                    },
-                    "strength": "required"
-                },
-                "isSummary": true,
-                "path": "OperationOutcome.issue.code",
-                "max": "1",
-                "min": 1,
-                "short": "Error or warning code",
-                "requirements": "Expresses the issue in a human and computer-friendly way, allowing the requesting system to behave differently based on the type of issue.",
-                "definition": "Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the most applicable code from the IssueType value set, and may additional provide its own code for the error in the details element."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "A human readable description of the error issue SHOULD be placed in details.text.",
-                "path": "OperationOutcome.issue.details",
-                "max": "1",
-                "min": 0,
-                "short": "Additional details about the error",
-                "binding": {
-                    "description": "A code that provides details as the exact issue.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/operation-outcome"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Additional details about the error. This may be a text description of the error, or a system code that identifies the error."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-8",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./text[parent::AcknowledgmentDetail]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Typically this field is used to provide troubleshooting information about the error.",
-                "path": "OperationOutcome.issue.diagnostics",
-                "max": "1",
-                "min": 0,
-                "short": "Additional diagnostic information about the issue",
-                "definition": "Additional diagnostic information about the issue.  Typically, this may be a description of how a value is erroneous, or a stack dump to help trace the issue."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR-2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./location[parent::AcknowledgmentDetail]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The root of the XPath is the resource or bundle that generated OperationOutcome.  Each XPath SHALL resolve to a single node.  The XPath syntax is used whether the referenced instance is expressed in XML or JSON.",
-                "path": "OperationOutcome.issue.location",
-                "max": "*",
-                "min": 0,
-                "short": "XPath of element(s) related to issue",
-                "requirements": "Allows systems to highlight or otherwise guide users to elements implicated in issues to allow them to be fixed more easily.",
-                "definition": "A simple XPath limited to element names, repetition indicators and the default child access that identifies one of the elements in the resource that caused this issue to be raised."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for OperationOutcome Resource"
+    "publisher": "Health Level Seven International (FHIR Infrastructure)"
 }

@@ -1,30 +1,1088 @@
 {
-    "mapping": [
+    "id": "Organization",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "The organization SHALL at least have a name or an id, and possibly more than one",
+                        "severity": "error",
+                        "xpath": "count(f:identifier | f:name) > 0",
+                        "key": "org-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, etc.",
+                "short": "A grouping of people or organizations with a common purpose",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "(also see master files messages)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Organization(classCode=ORG, determinerCode=INST)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "Organization",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "administrative.group",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Organization"
+            },
+            {
+                "condition": [
+                    "org-1"
+                ],
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems.",
+                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
+                "short": "Identifies this organization  across multiple systems",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.identifier",
+                "mapping": [
+                    {
+                        "map": "XON.10 / XON.3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".scopes[Role](classCode=IDENT)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Identifiers",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "defaultValueBoolean": true,
+                "max": "1",
+                "isModifier": true,
+                "short": "Whether the organization's record is still in active use",
+                "definition": "Whether the organization's record is still in active use.",
+                "mapping": [
+                    {
+                        "map": "No equivalent in HL7 v2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".status",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Status (however this concept in ServD more covers why the organization is active or not, could be delisted, deregistered, not operational yet) this could alternatively be derived from ./StartDate and ./EndDate and given a context date.",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ],
+                "requirements": "Need a flag to indicate a record is no longer to be used and should generally be hidden for the user in the UI.",
+                "path": "Organization.active",
+                "comments": "Default is true.",
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "isSummary": true,
+                "min": 0
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The kind of organization that this is.",
+                "requirements": "Need to be able to track the kind of organization that this is - different organization types have different uses.",
+                "mapping": [
+                    {
+                        "map": "No equivalent in v2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Kind of organization",
+                "min": 0,
+                "binding": {
+                    "description": "Used to categorize the organization",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/organization-type"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Organizations can be corporations, wards, sections, clinical teams, government departments, etc. Note that code is generally a classifier of the type of organization; in many applications, codes are used to identity a particular organization (say, ward) as opposed to another of the same type - these are identifiers, not codes.",
+                "path": "Organization.type",
+                "isSummary": true
+            },
+            {
+                "condition": [
+                    "org-1"
+                ],
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A name associated with the organization.",
+                "requirements": "Need to use the name as the label of the organization.",
+                "short": "Name used for the organization",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.name",
+                "mapping": [
+                    {
+                        "map": "XON.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".name",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": ".PreferredName/Name",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "org-3"
+                ],
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "The telecom of an organization can never be of use 'home'",
+                        "severity": "error",
+                        "xpath": "count(f:use[@value='home']) = 0",
+                        "key": "org-3"
+                    }
+                ],
+                "max": "*",
+                "definition": "A contact detail for the organization.",
+                "requirements": "Human contact for the organization.",
+                "short": "A contact detail for the organization",
+                "min": 0,
+                "comments": "The use code home is not to be used. Note that these contacts are not the contact details of people who are employed by or represent the organization, but official contacts for the organization itself.",
+                "path": "Organization.telecom",
+                "mapping": [
+                    {
+                        "map": "ORC-22?",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".telecom",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./ContactPoints",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "org-2"
+                ],
+                "type": [
+                    {
+                        "code": "Address"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "An address of an organization can never be of use 'home'",
+                        "severity": "error",
+                        "xpath": "count(f:use[@value='home']) = 0",
+                        "key": "org-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "An address for the organization.",
+                "requirements": "May need to keep track of the organization's addresses for contacting, billing or reporting requirements.",
+                "short": "An address for the organization",
+                "min": 0,
+                "comments": "Organization may have multiple addresses with different uses or applicable periods. The use code home is not to be used.",
+                "path": "Organization.address",
+                "mapping": [
+                    {
+                        "map": "ORC-23?",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".address",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./PrimaryAddress and ./OtherAddresses",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The organization of which this organization forms a part.",
+                "requirements": "Need to be able to track the hierarchy of organizations within an organization.",
+                "short": "The organization of which this organization forms a part",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.partOf",
+                "mapping": [
+                    {
+                        "map": "No equivalent in HL7 v2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".playedBy[classCode=Part].scoper",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Contact for the organization for a certain purpose.",
+                "requirements": "Need to keep track of assigned contact points within bigger organization.",
+                "short": "Contact for the organization for a certain purpose",
+                "min": 0,
+                "comments": "Where multiple contacts for the same purpose are provided there is a standard extension that can be used to determine which one is the preferred contact to use.",
+                "path": "Organization.contact",
+                "mapping": [
+                    {
+                        "map": ".contactParty",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates a purpose for which the contact can be reached.",
+                "requirements": "Need to distinguish between multiple contact persons.",
+                "short": "The type of contact",
+                "min": 0,
+                "binding": {
+                    "description": "The purpose for which you would contact a contact party",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contactentity-type"
+                    },
+                    "strength": "extensible"
+                },
+                "mapping": [
+                    {
+                        "map": "./type",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.purpose"
+            },
+            {
+                "type": [
+                    {
+                        "code": "HumanName"
+                    }
+                ],
+                "max": "1",
+                "definition": "A name associated with the contact.",
+                "requirements": "Need to be able to track the person by name.",
+                "short": "A name associated with the contact",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "PID-5, PID-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./name",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.name"
+            },
+            {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "max": "*",
+                "definition": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted.",
+                "requirements": "People have (primary) ways to contact them in some way such as phone, email.",
+                "short": "Contact details (telephone, email, etc.)  for a contact",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "PID-13, PID-14",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./telecom",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.telecom"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Address"
+                    }
+                ],
+                "max": "1",
+                "definition": "Visiting or postal addresses for the contact.",
+                "requirements": "May need to keep track of a contact party's address for contacting, billing or reporting requirements.",
+                "short": "Visiting or postal addresses for the contact",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "PID-11",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./addr",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.address"
+            }
+        ]
+    },
+    "name": "Organization",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "ServD",
-            "uri": "http://www.omg.org/spec/ServD/1.0/",
-            "identity": "servd"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
         }
     ],
-    "id": "Organization",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "The organization SHALL at least have a name or an id, and possibly more than one",
+                        "severity": "error",
+                        "xpath": "count(f:identifier | f:name) > 0",
+                        "key": "org-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, etc.",
+                "short": "A grouping of people or organizations with a common purpose",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "(also see master files messages)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Organization(classCode=ORG, determinerCode=INST)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "Organization",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "administrative.group",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Organization"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Organization.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Organization.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Organization.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Organization.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Organization.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "org-1"
+                ],
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems.",
+                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
+                "short": "Identifies this organization  across multiple systems",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.identifier",
+                "mapping": [
+                    {
+                        "map": "XON.10 / XON.3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".scopes[Role](classCode=IDENT)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Identifiers",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "defaultValueBoolean": true,
+                "max": "1",
+                "isModifier": true,
+                "short": "Whether the organization's record is still in active use",
+                "definition": "Whether the organization's record is still in active use.",
+                "mapping": [
+                    {
+                        "map": "No equivalent in HL7 v2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".status",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Status (however this concept in ServD more covers why the organization is active or not, could be delisted, deregistered, not operational yet) this could alternatively be derived from ./StartDate and ./EndDate and given a context date.",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ],
+                "requirements": "Need a flag to indicate a record is no longer to be used and should generally be hidden for the user in the UI.",
+                "path": "Organization.active",
+                "comments": "Default is true.",
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "isSummary": true,
+                "min": 0
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The kind of organization that this is.",
+                "requirements": "Need to be able to track the kind of organization that this is - different organization types have different uses.",
+                "mapping": [
+                    {
+                        "map": "No equivalent in v2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Kind of organization",
+                "min": 0,
+                "binding": {
+                    "description": "Used to categorize the organization",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/organization-type"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Organizations can be corporations, wards, sections, clinical teams, government departments, etc. Note that code is generally a classifier of the type of organization; in many applications, codes are used to identity a particular organization (say, ward) as opposed to another of the same type - these are identifiers, not codes.",
+                "path": "Organization.type",
+                "isSummary": true
+            },
+            {
+                "condition": [
+                    "org-1"
+                ],
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A name associated with the organization.",
+                "requirements": "Need to use the name as the label of the organization.",
+                "short": "Name used for the organization",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.name",
+                "mapping": [
+                    {
+                        "map": "XON.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".name",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": ".PreferredName/Name",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "org-3"
+                ],
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "The telecom of an organization can never be of use 'home'",
+                        "severity": "error",
+                        "xpath": "count(f:use[@value='home']) = 0",
+                        "key": "org-3"
+                    }
+                ],
+                "max": "*",
+                "definition": "A contact detail for the organization.",
+                "requirements": "Human contact for the organization.",
+                "short": "A contact detail for the organization",
+                "min": 0,
+                "comments": "The use code home is not to be used. Note that these contacts are not the contact details of people who are employed by or represent the organization, but official contacts for the organization itself.",
+                "path": "Organization.telecom",
+                "mapping": [
+                    {
+                        "map": "ORC-22?",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".telecom",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./ContactPoints",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "org-2"
+                ],
+                "type": [
+                    {
+                        "code": "Address"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "An address of an organization can never be of use 'home'",
+                        "severity": "error",
+                        "xpath": "count(f:use[@value='home']) = 0",
+                        "key": "org-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "An address for the organization.",
+                "requirements": "May need to keep track of the organization's addresses for contacting, billing or reporting requirements.",
+                "short": "An address for the organization",
+                "min": 0,
+                "comments": "Organization may have multiple addresses with different uses or applicable periods. The use code home is not to be used.",
+                "path": "Organization.address",
+                "mapping": [
+                    {
+                        "map": "ORC-23?",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".address",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./PrimaryAddress and ./OtherAddresses",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The organization of which this organization forms a part.",
+                "requirements": "Need to be able to track the hierarchy of organizations within an organization.",
+                "short": "The organization of which this organization forms a part",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.partOf",
+                "mapping": [
+                    {
+                        "map": "No equivalent in HL7 v2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".playedBy[classCode=Part].scoper",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Contact for the organization for a certain purpose.",
+                "requirements": "Need to keep track of assigned contact points within bigger organization.",
+                "short": "Contact for the organization for a certain purpose",
+                "min": 0,
+                "comments": "Where multiple contacts for the same purpose are provided there is a standard extension that can be used to determine which one is the preferred contact to use.",
+                "path": "Organization.contact",
+                "mapping": [
+                    {
+                        "map": ".contactParty",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.contact.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.contact.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates a purpose for which the contact can be reached.",
+                "requirements": "Need to distinguish between multiple contact persons.",
+                "short": "The type of contact",
+                "min": 0,
+                "binding": {
+                    "description": "The purpose for which you would contact a contact party",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contactentity-type"
+                    },
+                    "strength": "extensible"
+                },
+                "mapping": [
+                    {
+                        "map": "./type",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.purpose"
+            },
+            {
+                "type": [
+                    {
+                        "code": "HumanName"
+                    }
+                ],
+                "max": "1",
+                "definition": "A name associated with the contact.",
+                "requirements": "Need to be able to track the person by name.",
+                "short": "A name associated with the contact",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "PID-5, PID-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./name",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.name"
+            },
+            {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "max": "*",
+                "definition": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted.",
+                "requirements": "People have (primary) ways to contact them in some way such as phone, email.",
+                "short": "Contact details (telephone, email, etc.)  for a contact",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "PID-13, PID-14",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./telecom",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.telecom"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Address"
+                    }
+                ],
+                "max": "1",
+                "definition": "Visiting or postal addresses for the contact.",
+                "requirements": "May need to keep track of a contact party's address for contacting, billing or reporting requirements.",
+                "short": "Visiting or postal addresses for the contact",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "PID-11",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./addr",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.address"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Organization Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Organization",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://www.omg.org/spec/ServD/1.0/",
+            "identity": "servd",
+            "name": "ServD"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -43,1063 +1101,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Organization",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Patient Administration)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "(also see master files messages)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Organization(classCode=ORG, determinerCode=INST)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "Organization",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "administrative.group",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:identifier | f:name) > 0",
-                        "human": "The organization SHALL at least have a name or an id, and possibly more than one",
-                        "severity": "error",
-                        "key": "org-1"
-                    }
-                ],
-                "path": "Organization",
-                "max": "*",
-                "min": 0,
-                "short": "A grouping of people or organizations with a common purpose",
-                "definition": "A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, etc."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Organization.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Organization.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Organization.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Organization.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Organization.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XON.10 / XON.3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".scopes[Role](classCode=IDENT)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./Identifiers",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Identifies this organization  across multiple systems",
-                "condition": [
-                    "org-1"
-                ],
-                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
-                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "No equivalent in HL7 v2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".status",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./Status (however this concept in ServD more covers why the organization is active or not, could be delisted, deregistered, not operational yet) this could alternatively be derived from ./StartDate and ./EndDate and given a context date.",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Whether the organization's record is still in active use",
-                "max": "1",
-                "isModifier": true,
-                "comments": "Default is true.",
-                "path": "Organization.active",
-                "requirements": "Need a flag to indicate a record is no longer to be used and should generally be hidden for the user in the UI.",
-                "definition": "Whether the organization's record is still in active use.",
-                "defaultValueBoolean": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "No equivalent in v2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Used to categorize the organization",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/organization-type"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "comments": "Organizations can be corporations, wards, sections, clinical teams, government departments, etc. Note that code is generally a classifier of the type of organization; in many applications, codes are used to identity a particular organization (say, ward) as opposed to another of the same type - these are identifiers, not codes.",
-                "path": "Organization.type",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of organization",
-                "requirements": "Need to be able to track the kind of organization that this is - different organization types have different uses.",
-                "definition": "The kind of organization that this is."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XON.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".name",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": ".PreferredName/Name",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.name",
-                "max": "1",
-                "min": 0,
-                "short": "Name used for the organization",
-                "condition": [
-                    "org-1"
-                ],
-                "requirements": "Need to use the name as the label of the organization.",
-                "definition": "A name associated with the organization."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-22?",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".telecom",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./ContactPoints",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:use[@value='home']) = 0",
-                        "human": "The telecom of an organization can never be of use 'home'",
-                        "severity": "error",
-                        "key": "org-3"
-                    }
-                ],
-                "comments": "The use code home is not to be used. Note that these contacts are not the contact details of people who are employed by or represent the organization, but official contacts for the organization itself.",
-                "path": "Organization.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "A contact detail for the organization",
-                "condition": [
-                    "org-3"
-                ],
-                "requirements": "Human contact for the organization.",
-                "definition": "A contact detail for the organization."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-23?",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".address",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./PrimaryAddress and ./OtherAddresses",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Address"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:use[@value='home']) = 0",
-                        "human": "An address of an organization can never be of use 'home'",
-                        "severity": "error",
-                        "key": "org-2"
-                    }
-                ],
-                "comments": "Organization may have multiple addresses with different uses or applicable periods. The use code home is not to be used.",
-                "path": "Organization.address",
-                "max": "*",
-                "min": 0,
-                "short": "An address for the organization",
-                "condition": [
-                    "org-2"
-                ],
-                "requirements": "May need to keep track of the organization's addresses for contacting, billing or reporting requirements.",
-                "definition": "An address for the organization."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "No equivalent in HL7 v2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".playedBy[classCode=Part].scoper",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.partOf",
-                "max": "1",
-                "min": 0,
-                "short": "The organization of which this organization forms a part",
-                "requirements": "Need to be able to track the hierarchy of organizations within an organization.",
-                "definition": "The organization of which this organization forms a part."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".contactParty",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "comments": "Where multiple contacts for the same purpose are provided there is a standard extension that can be used to determine which one is the preferred contact to use.",
-                "path": "Organization.contact",
-                "max": "*",
-                "min": 0,
-                "short": "Contact for the organization for a certain purpose",
-                "requirements": "Need to keep track of assigned contact points within bigger organization.",
-                "definition": "Contact for the organization for a certain purpose."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Organization.contact.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.contact.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.contact.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./type",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "The purpose for which you would contact a contact party",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contactentity-type"
-                    },
-                    "strength": "extensible"
-                },
-                "path": "Organization.contact.purpose",
-                "max": "1",
-                "min": 0,
-                "short": "The type of contact",
-                "requirements": "Need to distinguish between multiple contact persons.",
-                "definition": "Indicates a purpose for which the contact can be reached."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-5, PID-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./name",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "HumanName"
-                    }
-                ],
-                "path": "Organization.contact.name",
-                "max": "1",
-                "min": 0,
-                "short": "A name associated with the contact",
-                "requirements": "Need to be able to track the person by name.",
-                "definition": "A name associated with the contact."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-13, PID-14",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./telecom",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "path": "Organization.contact.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "Contact details (telephone, email, etc.)  for a contact",
-                "requirements": "People have (primary) ways to contact them in some way such as phone, email.",
-                "definition": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-11",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./addr",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Address"
-                    }
-                ],
-                "path": "Organization.contact.address",
-                "max": "1",
-                "min": 0,
-                "short": "Visiting or postal addresses for the contact",
-                "requirements": "May need to keep track of a contact party's address for contacting, billing or reporting requirements.",
-                "definition": "Visiting or postal addresses for the contact."
-            }
-        ]
-    },
-    "name": "Organization",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "(also see master files messages)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Organization(classCode=ORG, determinerCode=INST)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "Organization",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "administrative.group",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:identifier | f:name) > 0",
-                        "human": "The organization SHALL at least have a name or an id, and possibly more than one",
-                        "severity": "error",
-                        "key": "org-1"
-                    }
-                ],
-                "path": "Organization",
-                "max": "*",
-                "min": 0,
-                "short": "A grouping of people or organizations with a common purpose",
-                "definition": "A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, etc."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XON.10 / XON.3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".scopes[Role](classCode=IDENT)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./Identifiers",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Identifies this organization  across multiple systems",
-                "condition": [
-                    "org-1"
-                ],
-                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
-                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "No equivalent in HL7 v2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".status",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./Status (however this concept in ServD more covers why the organization is active or not, could be delisted, deregistered, not operational yet) this could alternatively be derived from ./StartDate and ./EndDate and given a context date.",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Whether the organization's record is still in active use",
-                "max": "1",
-                "isModifier": true,
-                "comments": "Default is true.",
-                "path": "Organization.active",
-                "requirements": "Need a flag to indicate a record is no longer to be used and should generally be hidden for the user in the UI.",
-                "definition": "Whether the organization's record is still in active use.",
-                "defaultValueBoolean": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "No equivalent in v2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Used to categorize the organization",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/organization-type"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "comments": "Organizations can be corporations, wards, sections, clinical teams, government departments, etc. Note that code is generally a classifier of the type of organization; in many applications, codes are used to identity a particular organization (say, ward) as opposed to another of the same type - these are identifiers, not codes.",
-                "path": "Organization.type",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of organization",
-                "requirements": "Need to be able to track the kind of organization that this is - different organization types have different uses.",
-                "definition": "The kind of organization that this is."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XON.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".name",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": ".PreferredName/Name",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.name",
-                "max": "1",
-                "min": 0,
-                "short": "Name used for the organization",
-                "condition": [
-                    "org-1"
-                ],
-                "requirements": "Need to use the name as the label of the organization.",
-                "definition": "A name associated with the organization."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-22?",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".telecom",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./ContactPoints",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:use[@value='home']) = 0",
-                        "human": "The telecom of an organization can never be of use 'home'",
-                        "severity": "error",
-                        "key": "org-3"
-                    }
-                ],
-                "comments": "The use code home is not to be used. Note that these contacts are not the contact details of people who are employed by or represent the organization, but official contacts for the organization itself.",
-                "path": "Organization.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "A contact detail for the organization",
-                "condition": [
-                    "org-3"
-                ],
-                "requirements": "Human contact for the organization.",
-                "definition": "A contact detail for the organization."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-23?",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".address",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./PrimaryAddress and ./OtherAddresses",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Address"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:use[@value='home']) = 0",
-                        "human": "An address of an organization can never be of use 'home'",
-                        "severity": "error",
-                        "key": "org-2"
-                    }
-                ],
-                "comments": "Organization may have multiple addresses with different uses or applicable periods. The use code home is not to be used.",
-                "path": "Organization.address",
-                "max": "*",
-                "min": 0,
-                "short": "An address for the organization",
-                "condition": [
-                    "org-2"
-                ],
-                "requirements": "May need to keep track of the organization's addresses for contacting, billing or reporting requirements.",
-                "definition": "An address for the organization."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "No equivalent in HL7 v2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".playedBy[classCode=Part].scoper",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.partOf",
-                "max": "1",
-                "min": 0,
-                "short": "The organization of which this organization forms a part",
-                "requirements": "Need to be able to track the hierarchy of organizations within an organization.",
-                "definition": "The organization of which this organization forms a part."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".contactParty",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "comments": "Where multiple contacts for the same purpose are provided there is a standard extension that can be used to determine which one is the preferred contact to use.",
-                "path": "Organization.contact",
-                "max": "*",
-                "min": 0,
-                "short": "Contact for the organization for a certain purpose",
-                "requirements": "Need to keep track of assigned contact points within bigger organization.",
-                "definition": "Contact for the organization for a certain purpose."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "./type",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "The purpose for which you would contact a contact party",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contactentity-type"
-                    },
-                    "strength": "extensible"
-                },
-                "path": "Organization.contact.purpose",
-                "max": "1",
-                "min": 0,
-                "short": "The type of contact",
-                "requirements": "Need to distinguish between multiple contact persons.",
-                "definition": "Indicates a purpose for which the contact can be reached."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-5, PID-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./name",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "HumanName"
-                    }
-                ],
-                "path": "Organization.contact.name",
-                "max": "1",
-                "min": 0,
-                "short": "A name associated with the contact",
-                "requirements": "Need to be able to track the person by name.",
-                "definition": "A name associated with the contact."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-13, PID-14",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./telecom",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "path": "Organization.contact.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "Contact details (telephone, email, etc.)  for a contact",
-                "requirements": "People have (primary) ways to contact them in some way such as phone, email.",
-                "definition": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-11",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./addr",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Address"
-                    }
-                ],
-                "path": "Organization.contact.address",
-                "max": "1",
-                "min": 0,
-                "short": "Visiting or postal addresses for the contact",
-                "requirements": "May need to keep track of a contact party's address for contacting, billing or reporting requirements.",
-                "definition": "Visiting or postal addresses for the contact."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Organization Resource"
+    "publisher": "Health Level Seven International (Patient Administration)"
 }

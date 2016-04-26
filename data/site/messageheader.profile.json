@@ -1,24 +1,20 @@
 {
-    "mapping": [
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        }
-    ],
+    "id": "MessageHeader",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "The header for a message exchange that is either requesting or responding to an action.  The reference(s) that are the subject of the action as well as other information related to the action are typically transmitted in a bundle in which the MessageHeader resource instance is the first resource in the bundle.",
+                "short": "A resource that describes a message that is exchanged between systems",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader",
                 "mapping": [
                     {
                         "map": "MSH / MSA / ERR",
@@ -32,20 +28,21 @@
                         "map": "infrastructure.exchange",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader",
-                "max": "*",
-                "min": 0,
-                "short": "A resource that describes a message that is exchanged between systems",
-                "definition": "The header for a message exchange that is either requesting or responding to an action.  The reference(s) that are the subject of the action as well as other information related to the action are typically transmitted in a bundle in which the MessageHeader resource instance is the first resource in the bundle."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "instant"
+                    }
+                ],
+                "max": "1",
+                "definition": "The time that the message was sent.",
+                "requirements": "Allows limited detection of out-of-order and delayed transmission.  Also supports audit.",
+                "short": "Time that the message was sent",
+                "min": 1,
+                "isSummary": true,
+                "path": "MessageHeader.timestamp",
                 "mapping": [
                     {
                         "map": "MSH-7",
@@ -59,21 +56,29 @@
                         "map": "when.init",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "instant"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.timestamp",
-                "max": "1",
-                "min": 1,
-                "short": "Time that the message was sent",
-                "requirements": "Allows limited detection of out-of-order and delayed transmission.  Also supports audit.",
-                "definition": "The time that the message was sent."
+                ]
             },
             {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "Code that identifies the event this message represents and connects it with its definition. Events defined as part of the FHIR specification have the system value \"http://hl7.org/fhir/message-events\".",
+                "requirements": "Drives the behavior associated with this message.",
+                "short": "Code for the event this message represents",
+                "min": 1,
+                "binding": {
+                    "description": "One of the message events defined as part of FHIR.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/message-events"
+                    },
+                    "strength": "preferred"
+                },
+                "isSummary": true,
+                "path": "MessageHeader.event",
                 "mapping": [
                     {
                         "map": "MSH-9.2",
@@ -87,29 +92,21 @@
                         "map": "what",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "MessageHeader.event",
-                "max": "1",
-                "min": 1,
-                "short": "Code for the event this message represents",
-                "requirements": "Drives the behavior associated with this message.",
-                "definition": "Code that identifies the event this message represents and connects it with its definition. Events defined as part of the FHIR specification have the system value \"http://hl7.org/fhir/message-events\".",
-                "binding": {
-                    "description": "One of the message events defined as part of FHIR.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/message-events"
-                    },
-                    "strength": "preferred"
-                }
+                ]
             },
             {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "1",
+                "definition": "Information about the message that this message is a response to.  Only present if this message is a response.",
+                "short": "If this is a reply to prior message",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.response",
                 "mapping": [
                     {
                         "map": "MSA",
@@ -119,21 +116,21 @@
                         "map": "./conveyedAcknowledgement",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "MessageHeader.response",
-                "max": "1",
-                "min": 0,
-                "short": "If this is a reply to prior message",
-                "definition": "Information about the message that this message is a response to.  Only present if this message is a response."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The id of the message that this message is a response to.",
+                "requirements": "Allows receiver to know what message is being responded to.",
+                "short": "Id of original message",
+                "min": 1,
+                "isSummary": true,
+                "path": "MessageHeader.response.identifier",
                 "mapping": [
                     {
                         "map": "MSA-2",
@@ -143,21 +140,14 @@
                         "map": "./acknowledges.id[isNormalDatatype()]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.response.identifier",
-                "max": "1",
-                "min": 1,
-                "short": "Id of original message",
-                "requirements": "Allows receiver to know what message is being responded to.",
-                "definition": "The id of the message that this message is a response to."
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "ok | transient-error | fatal-error",
+                "definition": "Code that identifies the type of response to the message - whether it was successful or not, and whether it should be resent or not.",
                 "mapping": [
                     {
                         "map": "MSA-1",
@@ -168,14 +158,13 @@
                         "identity": "rim"
                     }
                 ],
+                "requirements": "Allows the sender of the acknowledge message to know if the request was successful or if action is needed.",
+                "comments": "This is a generic response to the request message. Specific data for the response will be found in MessageHeader.data.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "ok | transient-error | fatal-error",
                 "binding": {
                     "description": "The kind of response to a message",
                     "valueSetReference": {
@@ -183,14 +172,21 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "isModifier": true,
-                "comments": "This is a generic response to the request message. Specific data for the response will be found in MessageHeader.data.",
-                "path": "MessageHeader.response.code",
-                "requirements": "Allows the sender of the acknowledge message to know if the request was successful or if action is needed.",
-                "definition": "Code that identifies the type of response to the message - whether it was successful or not, and whether it should be resent or not."
+                "isSummary": true,
+                "path": "MessageHeader.response.code"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/OperationOutcome"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Full details of any issues found in the message.",
+                "requirements": "Allows the sender of the message to determine what the specific issues are.",
                 "mapping": [
                     {
                         "map": "ERR",
@@ -201,30 +197,31 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/OperationOutcome"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Specific list of hints/warnings/errors",
+                "min": 0,
                 "comments": "This SHALL be contained in the bundle. If any of the issues are errors, the response code SHALL be an error.",
                 "path": "MessageHeader.response.details",
-                "max": "1",
-                "min": 0,
-                "short": "Specific list of hints/warnings/errors",
-                "requirements": "Allows the sender of the message to determine what the specific issues are.",
-                "definition": "Full details of any issues found in the message."
+                "isSummary": true
             },
             {
-                "min": 1,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "MessageSource"
+                    }
+                ],
+                "max": "1",
+                "definition": "The source application from which this message originated.",
+                "requirements": "Allows replies, supports audit.",
+                "short": "Message Source Application",
+                "min": 1,
+                "isSummary": true,
+                "path": "MessageHeader.source",
                 "mapping": [
                     {
                         "map": "unique(./communicationFunction[typeCode=\"SND\"])",
@@ -234,21 +231,21 @@
                         "map": "who.actor",
                         "identity": "w5"
                     }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source",
-                "max": "1",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "MessageSource"
-                    }
-                ],
-                "short": "Message Source Application",
-                "requirements": "Allows replies, supports audit.",
-                "definition": "The source application from which this message originated."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Human-readable name for the source system.",
+                "requirements": "May be used to support audit.",
+                "short": "Name of system",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.name",
                 "mapping": [
                     {
                         "map": "MSH-3",
@@ -258,21 +255,21 @@
                         "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/name[type='ST' and isNormalDatatype()])",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "path": "MessageHeader.source.name",
                 "max": "1",
+                "definition": "May include configuration or other information useful in debugging.",
+                "requirements": "Supports audit and possibly interface engine behavior.",
+                "short": "Name of software running the system",
                 "min": 0,
-                "short": "Name of system",
-                "requirements": "May be used to support audit.",
-                "definition": "Human-readable name for the source system."
-            },
-            {
+                "isSummary": true,
+                "path": "MessageHeader.source.software",
                 "mapping": [
                     {
                         "map": "SFT-3 ( +SFT-1)",
@@ -282,21 +279,21 @@
                         "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/softwareName[isNormalDatatype()])",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "path": "MessageHeader.source.software",
                 "max": "1",
-                "min": 0,
-                "short": "Name of software running the system",
+                "definition": "Can convey versions of multiple systems in situations where a message passes through multiple hands.",
                 "requirements": "Supports audit and possibly interface engine behavior.",
-                "definition": "May include configuration or other information useful in debugging."
-            },
-            {
+                "short": "Version of software running",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.version",
                 "mapping": [
                     {
                         "map": "SFT-2",
@@ -306,21 +303,21 @@
                         "map": "(Not supported)",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source.version",
-                "max": "1",
-                "min": 0,
-                "short": "Version of software running",
-                "requirements": "Supports audit and possibly interface engine behavior.",
-                "definition": "Can convey versions of multiple systems in situations where a message passes through multiple hands."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "max": "1",
+                "definition": "An e-mail, phone, website or other contact point to use to resolve issues with message communications.",
+                "requirements": "Allows escalation of technical issues.",
+                "short": "Human contact for problems",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.contact",
                 "mapping": [
                     {
                         "map": "(MSH-22?)",
@@ -330,21 +327,17 @@
                         "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/scopesRole[normalRole() and classCode=\"CON\" and layer[classCode=\"PSN\"]/telecom[isNormalDatatype()])",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source.contact",
-                "max": "1",
-                "min": 0,
-                "short": "Human contact for problems",
-                "requirements": "Allows escalation of technical issues.",
-                "definition": "An e-mail, phone, website or other contact point to use to resolve issues with message communications."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the routing target to send acknowledgements to.",
+                "requirements": "Identifies where to send responses, may influence security permissions.",
                 "mapping": [
                     {
                         "map": "MSH-24",
@@ -355,27 +348,27 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Actual message source address or id",
+                "min": 1,
                 "comments": "The id may be a non-resolvable URI for systems that do not use standard network-based addresses.",
                 "path": "MessageHeader.source.endpoint",
-                "max": "1",
-                "min": 1,
-                "short": "Actual message source address or id",
-                "requirements": "Identifies where to send responses, may influence security permissions.",
-                "definition": "Identifies the routing target to send acknowledgements to."
+                "isSummary": true
             },
             {
-                "min": 0,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "MessageDestination"
+                    }
+                ],
+                "max": "*",
+                "definition": "The destination application which the message is intended for.",
+                "requirements": "Indicates where message is to be sent for routing purposes.  Allows verification of \"am I the intended recipient\".",
                 "mapping": [
                     {
                         "map": "./communicationFunction[typeCode=\"RCV\"]",
@@ -386,21 +379,25 @@
                         "identity": "w5"
                     }
                 ],
-                "isSummary": true,
+                "short": "Message Destination Application(s)",
+                "min": 0,
                 "comments": "There SHOULD be at least one destination, but in some circumstances, the source system is unaware of any particular destination system.",
                 "path": "MessageHeader.destination",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "MessageDestination"
-                    }
-                ],
-                "short": "Message Destination Application(s)",
-                "requirements": "Indicates where message is to be sent for routing purposes.  Allows verification of \"am I the intended recipient\".",
-                "definition": "The destination application which the message is intended for."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Human-readable name for the target system.",
+                "requirements": "May be used for routing of response and/or to support audit.",
+                "short": "Name of system",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.destination.name",
                 "mapping": [
                     {
                         "map": "MSH-5",
@@ -410,44 +407,40 @@
                         "map": "unique(./entity[determinerCode=\"INST\" and (classCode=(\"DEV\", \"PSN\", \"ORG\"]/name[type='ST' and isNormalDatatype()])",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.destination.name",
-                "max": "1",
-                "min": 0,
-                "short": "Name of system",
-                "requirements": "May be used for routing of response and/or to support audit.",
-                "definition": "Human-readable name for the target system."
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the target end system in situations where the initial message transmission is to an intermediary system.",
+                "requirements": "Supports multi-hop routing.",
+                "short": "Particular delivery destination within the destination",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.destination.target",
                 "mapping": [
                     {
                         "map": "unique(./entity[determinerCode=\"INST\" and (classCode=(\"DEV\", \"PSN\", \"ORG\"]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.destination.target",
-                "max": "1",
-                "min": 0,
-                "short": "Particular delivery destination within the destination",
-                "requirements": "Supports multi-hop routing.",
-                "definition": "Identifies the target end system in situations where the initial message transmission is to an intermediary system."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates where the message should be routed to.",
+                "requirements": "Identifies where to route the message.",
                 "mapping": [
                     {
                         "map": "MSH-25 (or MSH-6)",
@@ -458,21 +451,24 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Actual destination address or id",
+                "min": 1,
                 "comments": "The id may be a non-resolvable URI for systems that do not use standard network-based addresses.",
                 "path": "MessageHeader.destination.endpoint",
-                "max": "1",
-                "min": 1,
-                "short": "Actual destination address or id",
-                "requirements": "Identifies where to route the message.",
-                "definition": "Indicates where the message should be routed to."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person or device that performed the data entry leading to this message. Where there is more than one candidate, pick the most proximal to the message. Can provide other enterers in extensions.",
+                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
                 "mapping": [
                     {
                         "map": "EVN-5 / ORC-10 / PRT-5:PRT-4='EP' / ROL where ROL.3 is EP or ORC.10",
@@ -487,24 +483,24 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "The source of the data entry",
+                "min": 0,
                 "comments": "Usually only for the request, but can be used in a response.",
                 "path": "MessageHeader.enterer",
-                "max": "1",
-                "min": 0,
-                "short": "The source of the data entry",
-                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
-                "definition": "The person or device that performed the data entry leading to this message. Where there is more than one candidate, pick the most proximal to the message. Can provide other enterers in extensions."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical author of the message - the person or device that decided the described event should happen. Where there is more than one candidate, pick the most proximal to the MessageHeader. Can provide other authors in extensions.",
+                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
                 "mapping": [
                     {
                         "map": "ORC-19 / PRT-5:PRT-4='AUT' / ROL where ROL.3 is IP or ORC.12",
@@ -519,24 +515,34 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "The source of the decision",
+                "min": 0,
                 "comments": "Usually only for the request, but can be used in a response.",
                 "path": "MessageHeader.author",
-                "max": "1",
-                "min": 0,
-                "short": "The source of the decision",
-                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
-                "definition": "The logical author of the message - the person or device that decided the described event should happen. Where there is more than one candidate, pick the most proximal to the MessageHeader. Can provide other authors in extensions."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn't sufficient.",
+                "requirements": "Allows routing beyond just the application level.",
+                "short": "Intended \"real-world\" recipient for the data",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.receiver",
                 "mapping": [
                     {
                         "map": "PRT-5:PRT-4='WAYR' / PRT-8:PRT-4='WAYR'",
@@ -550,30 +556,26 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.receiver",
-                "max": "1",
-                "min": 0,
-                "short": "Intended \"real-world\" recipient for the data",
-                "requirements": "Allows routing beyond just the application level.",
-                "definition": "Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn't sufficient."
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person or organization that accepts overall responsibility for the contents of the message. The implication is that the message event happened under the policies of the responsible party.",
+                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
                 "mapping": [
                     {
                         "map": "ORC-12 /  PRT-5:PRT-4='OP' /  PRT-8:PRT-4='OP' / ROL where ROL.3 is RO or ORC.11",
@@ -588,30 +590,32 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Final responsibility for event",
+                "min": 0,
                 "comments": "Usually only for the request, but can be used in a response.",
                 "path": "MessageHeader.responsible",
-                "max": "1",
-                "min": 0,
-                "short": "Final responsibility for event",
-                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
-                "definition": "The person or organization that accepts overall responsibility for the contents of the message. The implication is that the message event happened under the policies of the responsible party."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Coded indication of the cause for the event - indicates  a reason for the occurrence of the event that is a focus of this message.",
+                "requirements": "Need to be able to track why resources are being changed and report in the audit log/history of the resource.  May affect authorization.",
+                "short": "Cause of event",
+                "min": 0,
+                "binding": {
+                    "description": "Reason for event occurrence",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/message-reason-encounter"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "MessageHeader.reason",
                 "mapping": [
                     {
                         "map": "EVN.4 / ORC.16 / OBR-31-reason for study / BPO-13-BP indication for use / RXO-20-indication / RXE-27-give indication / RXD-21-indication / RXG-22-indication / RXA-19-indication",
@@ -625,12 +629,1017 @@
                         "map": "why",
                         "identity": "w5"
                     }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
                 ],
+                "max": "*",
+                "definition": "The actual data of the message - a reference to the root/focus class of the event.",
+                "requirements": "Every message event is about actual data, a single resource, that is identified in the definition of the event, and perhaps some or all linked resources.",
+                "mapping": [
+                    {
+                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[typeCode=\"SUBJ\" and isNormalParticipation]/role or ./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/outboundRelationship[typeCode=\"SBJ\" and isNormalActRelatoinship]/target)",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "The actual content of the message",
+                "min": 0,
+                "comments": "The data is defined where the transaction type is defined. The transaction data is always included in the bundle that is the full message.  Only the root resource is specified.  The resources it references should be contained in the bundle but are not also listed here.  Multiple repetitions are allowed to cater for merges and other situations with multiple focal targets.",
+                "path": "MessageHeader.data",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "MessageHeader",
+    "abstract": false,
+    "requirements": "Many implementations are not prepared to use REST and need a messaging based infrastructure.",
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 2
+        }
+    ],
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "The header for a message exchange that is either requesting or responding to an action.  The reference(s) that are the subject of the action as well as other information related to the action are typically transmitted in a bundle in which the MessageHeader resource instance is the first resource in the bundle.",
+                "short": "A resource that describes a message that is exchanged between systems",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader",
+                "mapping": [
+                    {
+                        "map": "MSH / MSA / ERR",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Message",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.exchange",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "MessageHeader.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "MessageHeader.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "MessageHeader.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "MessageHeader.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "MessageHeader.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "instant"
+                    }
+                ],
+                "max": "1",
+                "definition": "The time that the message was sent.",
+                "requirements": "Allows limited detection of out-of-order and delayed transmission.  Also supports audit.",
+                "short": "Time that the message was sent",
+                "min": 1,
+                "isSummary": true,
+                "path": "MessageHeader.timestamp",
+                "mapping": [
+                    {
+                        "map": "MSH-7",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./creationTime[isNormalDatatype()]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.init",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "Coding"
+                    }
+                ],
+                "max": "1",
+                "definition": "Code that identifies the event this message represents and connects it with its definition. Events defined as part of the FHIR specification have the system value \"http://hl7.org/fhir/message-events\".",
+                "requirements": "Drives the behavior associated with this message.",
+                "short": "Code for the event this message represents",
+                "min": 1,
+                "binding": {
+                    "description": "One of the message events defined as part of FHIR.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/message-events"
+                    },
+                    "strength": "preferred"
+                },
+                "isSummary": true,
+                "path": "MessageHeader.event",
+                "mapping": [
+                    {
+                        "map": "MSH-9.2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./payload[classCode=\"CACT\" and moodCode=\"EVN\" and isNormalAct()]/code[isNormalDatatype()]/code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "what",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "1",
+                "definition": "Information about the message that this message is a response to.  Only present if this message is a response.",
+                "short": "If this is a reply to prior message",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.response",
+                "mapping": [
+                    {
+                        "map": "MSA",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./conveyedAcknowledgement",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "MessageHeader.response.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.response.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.response.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The id of the message that this message is a response to.",
+                "requirements": "Allows receiver to know what message is being responded to.",
+                "short": "Id of original message",
+                "min": 1,
+                "isSummary": true,
+                "path": "MessageHeader.response.identifier",
+                "mapping": [
+                    {
+                        "map": "MSA-2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./acknowledges.id[isNormalDatatype()]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "ok | transient-error | fatal-error",
+                "definition": "Code that identifies the type of response to the message - whether it was successful or not, and whether it should be resent or not.",
+                "mapping": [
+                    {
+                        "map": "MSA-1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./typeCode[isNormalDatatype()]",
+                        "identity": "rim"
+                    }
+                ],
+                "requirements": "Allows the sender of the acknowledge message to know if the request was successful or if action is needed.",
+                "comments": "This is a generic response to the request message. Specific data for the response will be found in MessageHeader.data.",
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "The kind of response to a message",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/response-code"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "MessageHeader.response.code"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/OperationOutcome"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Full details of any issues found in the message.",
+                "requirements": "Allows the sender of the message to determine what the specific issues are.",
+                "mapping": [
+                    {
+                        "map": "ERR",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Specific list of hints/warnings/errors",
+                "min": 0,
+                "comments": "This SHALL be contained in the bundle. If any of the issues are errors, the response code SHALL be an error.",
+                "path": "MessageHeader.response.details",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "MessageSource"
+                    }
+                ],
+                "max": "1",
+                "definition": "The source application from which this message originated.",
+                "requirements": "Allows replies, supports audit.",
+                "short": "Message Source Application",
+                "min": 1,
+                "isSummary": true,
+                "path": "MessageHeader.source",
+                "mapping": [
+                    {
+                        "map": "unique(./communicationFunction[typeCode=\"SND\"])",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "MessageHeader.source.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.source.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.source.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Human-readable name for the source system.",
+                "requirements": "May be used to support audit.",
+                "short": "Name of system",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.name",
+                "mapping": [
+                    {
+                        "map": "MSH-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/name[type='ST' and isNormalDatatype()])",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "May include configuration or other information useful in debugging.",
+                "requirements": "Supports audit and possibly interface engine behavior.",
+                "short": "Name of software running the system",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.software",
+                "mapping": [
+                    {
+                        "map": "SFT-3 ( +SFT-1)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/softwareName[isNormalDatatype()])",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Can convey versions of multiple systems in situations where a message passes through multiple hands.",
+                "requirements": "Supports audit and possibly interface engine behavior.",
+                "short": "Version of software running",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.version",
+                "mapping": [
+                    {
+                        "map": "SFT-2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "(Not supported)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "max": "1",
+                "definition": "An e-mail, phone, website or other contact point to use to resolve issues with message communications.",
+                "requirements": "Allows escalation of technical issues.",
+                "short": "Human contact for problems",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.source.contact",
+                "mapping": [
+                    {
+                        "map": "(MSH-22?)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/scopesRole[normalRole() and classCode=\"CON\" and layer[classCode=\"PSN\"]/telecom[isNormalDatatype()])",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the routing target to send acknowledgements to.",
+                "requirements": "Identifies where to send responses, may influence security permissions.",
+                "mapping": [
+                    {
+                        "map": "MSH-24",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./telecom[isNormalDatatype()]",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Actual message source address or id",
+                "min": 1,
+                "comments": "The id may be a non-resolvable URI for systems that do not use standard network-based addresses.",
+                "path": "MessageHeader.source.endpoint",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "MessageDestination"
+                    }
+                ],
+                "max": "*",
+                "definition": "The destination application which the message is intended for.",
+                "requirements": "Indicates where message is to be sent for routing purposes.  Allows verification of \"am I the intended recipient\".",
+                "mapping": [
+                    {
+                        "map": "./communicationFunction[typeCode=\"RCV\"]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Message Destination Application(s)",
+                "min": 0,
+                "comments": "There SHOULD be at least one destination, but in some circumstances, the source system is unaware of any particular destination system.",
+                "path": "MessageHeader.destination",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "MessageHeader.destination.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.destination.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MessageHeader.destination.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Human-readable name for the target system.",
+                "requirements": "May be used for routing of response and/or to support audit.",
+                "short": "Name of system",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.destination.name",
+                "mapping": [
+                    {
+                        "map": "MSH-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./entity[determinerCode=\"INST\" and (classCode=(\"DEV\", \"PSN\", \"ORG\"]/name[type='ST' and isNormalDatatype()])",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the target end system in situations where the initial message transmission is to an intermediary system.",
+                "requirements": "Supports multi-hop routing.",
+                "short": "Particular delivery destination within the destination",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.destination.target",
+                "mapping": [
+                    {
+                        "map": "unique(./entity[determinerCode=\"INST\" and (classCode=(\"DEV\", \"PSN\", \"ORG\"]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates where the message should be routed to.",
+                "requirements": "Identifies where to route the message.",
+                "mapping": [
+                    {
+                        "map": "MSH-25 (or MSH-6)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./telecom",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Actual destination address or id",
+                "min": 1,
+                "comments": "The id may be a non-resolvable URI for systems that do not use standard network-based addresses.",
+                "path": "MessageHeader.destination.endpoint",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person or device that performed the data entry leading to this message. Where there is more than one candidate, pick the most proximal to the message. Can provide other enterers in extensions.",
+                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
+                "mapping": [
+                    {
+                        "map": "EVN-5 / ORC-10 / PRT-5:PRT-4='EP' / ROL where ROL.3 is EP or ORC.10",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[typeCode=\"ENT\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/player[isNormalEntity() and classCode=(\"DEV\", \"PSN\") and determinerCode=\"INST\"])",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "The source of the data entry",
+                "min": 0,
+                "comments": "Usually only for the request, but can be used in a response.",
+                "path": "MessageHeader.enterer",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical author of the message - the person or device that decided the described event should happen. Where there is more than one candidate, pick the most proximal to the MessageHeader. Can provide other authors in extensions.",
+                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
+                "mapping": [
+                    {
+                        "map": "ORC-19 / PRT-5:PRT-4='AUT' / ROL where ROL.3 is IP or ORC.12",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=\"AUT\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/player[isNormalEntity() and classCode=(\"DEV\", \"PSN\") and determinerCode=\"INST\"])",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "The source of the decision",
+                "min": 0,
+                "comments": "Usually only for the request, but can be used in a response.",
+                "path": "MessageHeader.author",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn't sufficient.",
+                "requirements": "Allows routing beyond just the application level.",
+                "short": "Intended \"real-world\" recipient for the data",
+                "min": 0,
+                "isSummary": true,
+                "path": "MessageHeader.receiver",
+                "mapping": [
+                    {
+                        "map": "PRT-5:PRT-4='WAYR' / PRT-8:PRT-4='WAYR'",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "Not directly supported.  Could be shared using attentionLine.value with an appropriate keyWordText",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person or organization that accepts overall responsibility for the contents of the message. The implication is that the message event happened under the policies of the responsible party.",
+                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
+                "mapping": [
+                    {
+                        "map": "ORC-12 /  PRT-5:PRT-4='OP' /  PRT-8:PRT-4='OP' / ROL where ROL.3 is RO or ORC.11",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=\"RESP\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/player[isNormalEntity() and classCode=\"PSN\" and determinerCode=\"INST\"] or ./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=\"RESP\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/scoper[isNormalEntity() and classCode=\"ORG\" and determinerCode=\"INST\"])",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.witness",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Final responsibility for event",
+                "min": 0,
+                "comments": "Usually only for the request, but can be used in a response.",
+                "path": "MessageHeader.responsible",
+                "isSummary": true
+            },
+            {
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
+                "max": "1",
+                "definition": "Coded indication of the cause for the event - indicates  a reason for the occurrence of the event that is a focus of this message.",
+                "requirements": "Need to be able to track why resources are being changed and report in the audit log/history of the resource.  May affect authorization.",
+                "short": "Cause of event",
+                "min": 0,
                 "binding": {
                     "description": "Reason for event occurrence",
                     "valueSetReference": {
@@ -640,42 +1649,72 @@
                 },
                 "isSummary": true,
                 "path": "MessageHeader.reason",
-                "max": "1",
-                "min": 0,
-                "short": "Cause of event",
-                "requirements": "Need to be able to track why resources are being changed and report in the audit log/history of the resource.  May affect authorization.",
-                "definition": "Coded indication of the cause for the event - indicates  a reason for the occurrence of the event that is a focus of this message."
+                "mapping": [
+                    {
+                        "map": "EVN.4 / ORC.16 / OBR-31-reason for study / BPO-13-BP indication for use / RXO-20-indication / RXE-27-give indication / RXD-21-indication / RXG-22-indication / RXA-19-indication",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/reasonCode[isNormalDatatype()])",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "why",
+                        "identity": "w5"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "The actual data of the message - a reference to the root/focus class of the event.",
+                "requirements": "Every message event is about actual data, a single resource, that is identified in the definition of the event, and perhaps some or all linked resources.",
                 "mapping": [
                     {
                         "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[typeCode=\"SUBJ\" and isNormalParticipation]/role or ./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/outboundRelationship[typeCode=\"SBJ\" and isNormalActRelatoinship]/target)",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "The actual content of the message",
+                "min": 0,
                 "comments": "The data is defined where the transaction type is defined. The transaction data is always included in the bundle that is the full message.  Only the root resource is specified.  The resources it references should be contained in the bundle but are not also listed here.  Multiple repetitions are allowed to cater for merges and other situations with multiple focal targets.",
                 "path": "MessageHeader.data",
-                "max": "*",
-                "min": 0,
-                "short": "The actual content of the message",
-                "requirements": "Every message event is about actual data, a single resource, that is identified in the definition of the event, and perhaps some or all linked resources.",
-                "definition": "The actual data of the message - a reference to the root/focus class of the event."
+                "isSummary": true
             }
         ]
     },
-    "id": "MessageHeader",
+    "description": "Base StructureDefinition for MessageHeader Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/MessageHeader",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -694,1044 +1733,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/MessageHeader",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (FHIR Infrastructure)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 2
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "MSH / MSA / ERR",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Message",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.exchange",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader",
-                "max": "*",
-                "min": 0,
-                "short": "A resource that describes a message that is exchanged between systems",
-                "definition": "The header for a message exchange that is either requesting or responding to an action.  The reference(s) that are the subject of the action as well as other information related to the action are typically transmitted in a bundle in which the MessageHeader resource instance is the first resource in the bundle."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "MessageHeader.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "MessageHeader.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "MessageHeader.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "MessageHeader.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "MessageHeader.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSH-7",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./creationTime[isNormalDatatype()]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.init",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "instant"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.timestamp",
-                "max": "1",
-                "min": 1,
-                "short": "Time that the message was sent",
-                "requirements": "Allows limited detection of out-of-order and delayed transmission.  Also supports audit.",
-                "definition": "The time that the message was sent."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSH-9.2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./payload[classCode=\"CACT\" and moodCode=\"EVN\" and isNormalAct()]/code[isNormalDatatype()]/code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "what",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Coding"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "MessageHeader.event",
-                "max": "1",
-                "min": 1,
-                "short": "Code for the event this message represents",
-                "requirements": "Drives the behavior associated with this message.",
-                "definition": "Code that identifies the event this message represents and connects it with its definition. Events defined as part of the FHIR specification have the system value \"http://hl7.org/fhir/message-events\".",
-                "binding": {
-                    "description": "One of the message events defined as part of FHIR.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/message-events"
-                    },
-                    "strength": "preferred"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSA",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./conveyedAcknowledgement",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "MessageHeader.response",
-                "max": "1",
-                "min": 0,
-                "short": "If this is a reply to prior message",
-                "definition": "Information about the message that this message is a response to.  Only present if this message is a response."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "MessageHeader.response.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.response.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.response.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSA-2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./acknowledges.id[isNormalDatatype()]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.response.identifier",
-                "max": "1",
-                "min": 1,
-                "short": "Id of original message",
-                "requirements": "Allows receiver to know what message is being responded to.",
-                "definition": "The id of the message that this message is a response to."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSA-1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./typeCode[isNormalDatatype()]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "ok | transient-error | fatal-error",
-                "binding": {
-                    "description": "The kind of response to a message",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/response-code"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "This is a generic response to the request message. Specific data for the response will be found in MessageHeader.data.",
-                "path": "MessageHeader.response.code",
-                "requirements": "Allows the sender of the acknowledge message to know if the request was successful or if action is needed.",
-                "definition": "Code that identifies the type of response to the message - whether it was successful or not, and whether it should be resent or not."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ERR",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/OperationOutcome"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This SHALL be contained in the bundle. If any of the issues are errors, the response code SHALL be an error.",
-                "path": "MessageHeader.response.details",
-                "max": "1",
-                "min": 0,
-                "short": "Specific list of hints/warnings/errors",
-                "requirements": "Allows the sender of the message to determine what the specific issues are.",
-                "definition": "Full details of any issues found in the message."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "unique(./communicationFunction[typeCode=\"SND\"])",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source",
-                "max": "1",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "MessageSource"
-                    }
-                ],
-                "short": "Message Source Application",
-                "requirements": "Allows replies, supports audit.",
-                "definition": "The source application from which this message originated."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "MessageHeader.source.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.source.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.source.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSH-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/name[type='ST' and isNormalDatatype()])",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source.name",
-                "max": "1",
-                "min": 0,
-                "short": "Name of system",
-                "requirements": "May be used to support audit.",
-                "definition": "Human-readable name for the source system."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SFT-3 ( +SFT-1)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/softwareName[isNormalDatatype()])",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source.software",
-                "max": "1",
-                "min": 0,
-                "short": "Name of software running the system",
-                "requirements": "Supports audit and possibly interface engine behavior.",
-                "definition": "May include configuration or other information useful in debugging."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "SFT-2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "(Not supported)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source.version",
-                "max": "1",
-                "min": 0,
-                "short": "Version of software running",
-                "requirements": "Supports audit and possibly interface engine behavior.",
-                "definition": "Can convey versions of multiple systems in situations where a message passes through multiple hands."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(MSH-22?)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./entity[determinerCode=\"INST\" and classCode=\"DEV\"]/scopesRole[normalRole() and classCode=\"CON\" and layer[classCode=\"PSN\"]/telecom[isNormalDatatype()])",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.source.contact",
-                "max": "1",
-                "min": 0,
-                "short": "Human contact for problems",
-                "requirements": "Allows escalation of technical issues.",
-                "definition": "An e-mail, phone, website or other contact point to use to resolve issues with message communications."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSH-24",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./telecom[isNormalDatatype()]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The id may be a non-resolvable URI for systems that do not use standard network-based addresses.",
-                "path": "MessageHeader.source.endpoint",
-                "max": "1",
-                "min": 1,
-                "short": "Actual message source address or id",
-                "requirements": "Identifies where to send responses, may influence security permissions.",
-                "definition": "Identifies the routing target to send acknowledgements to."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mapping": [
-                    {
-                        "map": "./communicationFunction[typeCode=\"RCV\"]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "There SHOULD be at least one destination, but in some circumstances, the source system is unaware of any particular destination system.",
-                "path": "MessageHeader.destination",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "MessageDestination"
-                    }
-                ],
-                "short": "Message Destination Application(s)",
-                "requirements": "Indicates where message is to be sent for routing purposes.  Allows verification of \"am I the intended recipient\".",
-                "definition": "The destination application which the message is intended for."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "MessageHeader.destination.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.destination.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MessageHeader.destination.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSH-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./entity[determinerCode=\"INST\" and (classCode=(\"DEV\", \"PSN\", \"ORG\"]/name[type='ST' and isNormalDatatype()])",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.destination.name",
-                "max": "1",
-                "min": 0,
-                "short": "Name of system",
-                "requirements": "May be used for routing of response and/or to support audit.",
-                "definition": "Human-readable name for the target system."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "unique(./entity[determinerCode=\"INST\" and (classCode=(\"DEV\", \"PSN\", \"ORG\"]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.destination.target",
-                "max": "1",
-                "min": 0,
-                "short": "Particular delivery destination within the destination",
-                "requirements": "Supports multi-hop routing.",
-                "definition": "Identifies the target end system in situations where the initial message transmission is to an intermediary system."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "MSH-25 (or MSH-6)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./telecom",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The id may be a non-resolvable URI for systems that do not use standard network-based addresses.",
-                "path": "MessageHeader.destination.endpoint",
-                "max": "1",
-                "min": 1,
-                "short": "Actual destination address or id",
-                "requirements": "Identifies where to route the message.",
-                "definition": "Indicates where the message should be routed to."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "EVN-5 / ORC-10 / PRT-5:PRT-4='EP' / ROL where ROL.3 is EP or ORC.10",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[typeCode=\"ENT\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/player[isNormalEntity() and classCode=(\"DEV\", \"PSN\") and determinerCode=\"INST\"])",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.author",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Usually only for the request, but can be used in a response.",
-                "path": "MessageHeader.enterer",
-                "max": "1",
-                "min": 0,
-                "short": "The source of the data entry",
-                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
-                "definition": "The person or device that performed the data entry leading to this message. Where there is more than one candidate, pick the most proximal to the message. Can provide other enterers in extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-19 / PRT-5:PRT-4='AUT' / ROL where ROL.3 is IP or ORC.12",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=\"AUT\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/player[isNormalEntity() and classCode=(\"DEV\", \"PSN\") and determinerCode=\"INST\"])",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.author",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Usually only for the request, but can be used in a response.",
-                "path": "MessageHeader.author",
-                "max": "1",
-                "min": 0,
-                "short": "The source of the decision",
-                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
-                "definition": "The logical author of the message - the person or device that decided the described event should happen. Where there is more than one candidate, pick the most proximal to the MessageHeader. Can provide other authors in extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PRT-5:PRT-4='WAYR' / PRT-8:PRT-4='WAYR'",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "Not directly supported.  Could be shared using attentionLine.value with an appropriate keyWordText",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "MessageHeader.receiver",
-                "max": "1",
-                "min": 0,
-                "short": "Intended \"real-world\" recipient for the data",
-                "requirements": "Allows routing beyond just the application level.",
-                "definition": "Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn't sufficient."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-12 /  PRT-5:PRT-4='OP' /  PRT-8:PRT-4='OP' / ROL where ROL.3 is RO or ORC.11",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=\"RESP\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/player[isNormalEntity() and classCode=\"PSN\" and determinerCode=\"INST\"] or ./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[isHighest(priorityCode) and typeCode=\"RESP\" and isNormalParticipation]/role[classCode=\"ASSIGNED\" and isNormalRole()]/scoper[isNormalEntity() and classCode=\"ORG\" and determinerCode=\"INST\"])",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.witness",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Usually only for the request, but can be used in a response.",
-                "path": "MessageHeader.responsible",
-                "max": "1",
-                "min": 0,
-                "short": "Final responsibility for event",
-                "requirements": "Need to know for audit/traceback requirements and possibly for authorization.",
-                "definition": "The person or organization that accepts overall responsibility for the contents of the message. The implication is that the message event happened under the policies of the responsible party."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "EVN.4 / ORC.16 / OBR-31-reason for study / BPO-13-BP indication for use / RXO-20-indication / RXE-27-give indication / RXD-21-indication / RXG-22-indication / RXA-19-indication",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/reasonCode[isNormalDatatype()])",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "why",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Reason for event occurrence",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/message-reason-encounter"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "path": "MessageHeader.reason",
-                "max": "1",
-                "min": 0,
-                "short": "Cause of event",
-                "requirements": "Need to be able to track why resources are being changed and report in the audit log/history of the resource.  May affect authorization.",
-                "definition": "Coded indication of the cause for the event - indicates  a reason for the occurrence of the event that is a focus of this message."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "unique(./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/participation[typeCode=\"SUBJ\" and isNormalParticipation]/role or ./controlAct[classCode=\"CACT\" and classCode=\"EVN\" and isNormalAct()]/outboundRelationship[typeCode=\"SBJ\" and isNormalActRelatoinship]/target)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The data is defined where the transaction type is defined. The transaction data is always included in the bundle that is the full message.  Only the root resource is specified.  The resources it references should be contained in the bundle but are not also listed here.  Multiple repetitions are allowed to cater for merges and other situations with multiple focal targets.",
-                "path": "MessageHeader.data",
-                "max": "*",
-                "min": 0,
-                "short": "The actual content of the message",
-                "requirements": "Every message event is about actual data, a single resource, that is identified in the definition of the event, and perhaps some or all linked resources.",
-                "definition": "The actual data of the message - a reference to the root/focus class of the event."
-            }
-        ]
-    },
-    "name": "MessageHeader",
-    "requirements": "Many implementations are not prepared to use REST and need a messaging based infrastructure.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for MessageHeader Resource"
+    "publisher": "Health Level Seven International (FHIR Infrastructure)"
 }

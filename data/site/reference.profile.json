@@ -1,87 +1,213 @@
 {
-    "mapping": [
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        }
-    ],
     "id": "Reference",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
-                "mapping": [
-                    {
-                        "map": "The target of a resource reference is a RIM entry point (Act, Role, or Entity)",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "Element"
                     }
                 ],
-                "isSummary": true,
                 "constraint": [
                     {
-                        "xpath": "not(starts-with(f:reference/@value, '#')) or exists(ancestor::*[self::f:entry or self::f:parameter]/f:resource/f:*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')]|/*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')])",
                         "human": "SHALL have a local reference if the resource is provided inline",
                         "severity": "error",
+                        "xpath": "not(starts-with(f:reference/@value, '#')) or exists(ancestor::*[self::f:entry or self::f:parameter]/f:resource/f:*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')]|/*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')])",
                         "key": "ref-1"
                     }
                 ],
-                "path": "Reference",
                 "max": "*",
-                "min": 0,
+                "definition": "A reference from one resource to another.",
                 "short": "A reference from one resource to another",
-                "definition": "A reference from one resource to another."
-            },
-            {
+                "min": 0,
+                "isSummary": true,
+                "path": "Reference",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "The target of a resource reference is a RIM entry point (Act, Role, or Entity)",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Using absolute URLs provides a stable scalable approach suitable for a cloud/web context, while using relative/logical references provides a flexible approach suitable for use when trading across closed eco-system boundaries.   Absolute URLs do not need to point to a FHIR RESTful server, though this is the preferred approach. If the URL conforms to the structure \"/[type]/[id]\" then it should be assumed that the reference is to a FHIR RESTful server.",
-                "path": "Reference.reference",
-                "max": "1",
-                "min": 0,
-                "short": "Relative, internal or absolute URL reference",
+                ]
+            },
+            {
                 "condition": [
                     "ref-1"
                 ],
-                "definition": "A reference to a location at which the other resource is found. The reference may be a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with '#') refer to contained resources."
-            },
-            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a location at which the other resource is found. The reference may be a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with '#') refer to contained resources.",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
                 ],
+                "short": "Relative, internal or absolute URL reference",
+                "min": 0,
+                "comments": "Using absolute URLs provides a stable scalable approach suitable for a cloud/web context, while using relative/logical references provides a flexible approach suitable for use when trading across closed eco-system boundaries.   Absolute URLs do not need to point to a FHIR RESTful server, though this is the preferred approach. If the URL conforms to the structure \"/[type]/[id]\" then it should be assumed that the reference is to a FHIR RESTful server.",
+                "path": "Reference.reference",
+                "isSummary": true
+            },
+            {
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
+                "max": "1",
+                "definition": "Plain text narrative that identifies the resource in addition to the resource reference.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Text alternative for the resource",
+                "min": 0,
                 "comments": "This is generally not the same as the Resource.text of the referenced resource.  The purpose is to identify what's being referenced, not to fully describe it.",
                 "path": "Reference.display",
-                "max": "1",
-                "min": 0,
-                "short": "Text alternative for the resource",
-                "definition": "Plain text narrative that identifies the resource in addition to the resource reference."
+                "isSummary": true
             }
         ]
     },
+    "name": "Reference",
     "abstract": false,
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "SHALL have a local reference if the resource is provided inline",
+                        "severity": "error",
+                        "xpath": "not(starts-with(f:reference/@value, '#')) or exists(ancestor::*[self::f:entry or self::f:parameter]/f:resource/f:*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')]|/*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')])",
+                        "key": "ref-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "A reference from one resource to another.",
+                "short": "A reference from one resource to another",
+                "min": 0,
+                "isSummary": true,
+                "path": "Reference",
+                "mapping": [
+                    {
+                        "map": "The target of a resource reference is a RIM entry point (Act, Role, or Entity)",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Reference.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Reference.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "ref-1"
+                ],
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a location at which the other resource is found. The reference may be a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with '#') refer to contained resources.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Relative, internal or absolute URL reference",
+                "min": 0,
+                "comments": "Using absolute URLs provides a stable scalable approach suitable for a cloud/web context, while using relative/logical references provides a flexible approach suitable for use when trading across closed eco-system boundaries.   Absolute URLs do not need to point to a FHIR RESTful server, though this is the preferred approach. If the URL conforms to the structure \"/[type]/[id]\" then it should be assumed that the reference is to a FHIR RESTful server.",
+                "path": "Reference.reference",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Plain text narrative that identifies the resource in addition to the resource reference.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Text alternative for the resource",
+                "min": 0,
+                "comments": "This is generally not the same as the Resource.text of the referenced resource.  The purpose is to identify what's being referenced, not to fully describe it.",
+                "path": "Reference.display",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Reference Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/Reference",
+    "fhirVersion": "1.0.2",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        }
+    ],
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -93,131 +219,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "url": "http://hl7.org/fhir/StructureDefinition/Reference",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "The target of a resource reference is a RIM entry point (Act, Role, or Entity)",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "not(starts-with(f:reference/@value, '#')) or exists(ancestor::*[self::f:entry or self::f:parameter]/f:resource/f:*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')]|/*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')])",
-                        "human": "SHALL have a local reference if the resource is provided inline",
-                        "severity": "error",
-                        "key": "ref-1"
-                    }
-                ],
-                "path": "Reference",
-                "max": "*",
-                "min": 0,
-                "short": "A reference from one resource to another",
-                "definition": "A reference from one resource to another."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Reference.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Reference.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Using absolute URLs provides a stable scalable approach suitable for a cloud/web context, while using relative/logical references provides a flexible approach suitable for use when trading across closed eco-system boundaries.   Absolute URLs do not need to point to a FHIR RESTful server, though this is the preferred approach. If the URL conforms to the structure \"/[type]/[id]\" then it should be assumed that the reference is to a FHIR RESTful server.",
-                "path": "Reference.reference",
-                "max": "1",
-                "min": 0,
-                "short": "Relative, internal or absolute URL reference",
-                "condition": [
-                    "ref-1"
-                ],
-                "definition": "A reference to a location at which the other resource is found. The reference may be a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with '#') refer to contained resources."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is generally not the same as the Resource.text of the referenced resource.  The purpose is to identify what's being referenced, not to fully describe it.",
-                "path": "Reference.display",
-                "max": "1",
-                "min": 0,
-                "short": "Text alternative for the resource",
-                "definition": "Plain text narrative that identifies the resource in addition to the resource reference."
-            }
-        ]
-    },
-    "name": "Reference",
-    "description": "Base StructureDefinition for Reference Type",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "fhirVersion": "1.0.2"
+    "publisher": "HL7 FHIR Standard"
 }

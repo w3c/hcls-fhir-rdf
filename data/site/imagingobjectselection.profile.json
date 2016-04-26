@@ -1,24 +1,26 @@
 {
-    "mapping": [
-        {
-            "name": "DICOM",
-            "uri": "http://nema.org/dicom",
-            "identity": "dicom"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        }
-    ],
+    "id": "ImagingObjectSelection",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A manifest of a set of DICOM Service-Object Pair Instances (SOP Instances).  The referenced SOP Instances (images or other content) are for a single patient, and may be from one or more studies. The referenced SOP Instances have been selected for a purpose, such as quality assurance, conference, or consult. Reflecting that range of purposes, typical ImagingObjectSelection resources may include all SOP Instances in a study (perhaps for sharing through a Health Information Exchange); key images from multiple studies (for reference by a referring or treating physician); a multi-frame ultrasound instance (\"cine\" video clip) and a set of measurements taken from that instance (for inclusion in a teaching file); and so on.",
+                "short": "Key Object Selection",
+                "min": 0,
+                "alias": [
+                    "Manifest",
+                    "XDS-I summary",
+                    "Key Images",
+                    "KOS"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection",
                 "mapping": [
                     {
                         "map": "Key Object Selection SOP Class (1.2.840.10008.5.1.4.1.1.88.59)",
@@ -28,26 +30,24 @@
                         "map": "clinical.diagnostics",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection",
-                "alias": [
-                    "Manifest",
-                    "XDS-I summary",
-                    "Key Images",
-                    "KOS"
-                ],
-                "min": 0,
-                "short": "Key Object Selection",
-                "max": "*",
-                "definition": "A manifest of a set of DICOM Service-Object Pair Instances (SOP Instances).  The referenced SOP Instances (images or other content) are for a single patient, and may be from one or more studies. The referenced SOP Instances have been selected for a purpose, such as quality assurance, conference, or consult. Reflecting that range of purposes, typical ImagingObjectSelection resources may include all SOP Instances in a study (perhaps for sharing through a Health Information Exchange); key images from multiple studies (for reference by a referring or treating physician); a multi-frame ultrasound instance (\"cine\" video clip) and a set of measurements taken from that instance (for inclusion in a teaching file); and so on."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Instance UID of the DICOM KOS SOP Instances represented in this resource.",
+                "requirements": "DICOM SOP Instance is always assigned with a unique identifier (UID).",
+                "short": "Instance UID",
+                "min": 1,
+                "alias": [
+                    "SOPInstanceUID"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection.uid",
                 "mapping": [
                     {
                         "map": "(0008,0018) - SOP Instance UID (of the Key Object Selection SOP Class)",
@@ -61,24 +61,20 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.uid",
-                "alias": [
-                    "SOPInstanceUID"
-                ],
-                "min": 1,
-                "short": "Instance UID",
-                "max": "1",
-                "requirements": "DICOM SOP Instance is always assigned with a unique identifier (UID).",
-                "definition": "Instance UID of the DICOM KOS SOP Instances represented in this resource."
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A patient resource reference which is the patient subject of all DICOM SOP Instances in this ImagingObjectSelection.",
+                "requirements": "SOP Instances in ImagingObjectSelection must be from the same patient.",
                 "mapping": [
                     {
                         "map": "(0010,0010) - Patient Name (0010,0020) - Patient ID (0010,0021) - Issuer of Patient ID",
@@ -93,35 +89,29 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Patient of the selected objects",
+                "min": 1,
                 "comments": "SOP instances selected in the ImagingObjectSelection can be from different studies, but must be of the same patient.",
                 "path": "ImagingObjectSelection.patient",
-                "max": "1",
-                "min": 1,
-                "short": "Patient of the selected objects",
-                "requirements": "SOP Instances in ImagingObjectSelection must be from the same patient.",
-                "definition": "A patient resource reference which is the patient subject of all DICOM SOP Instances in this ImagingObjectSelection."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The reason for, or significance of, the selection of objects referenced in the resource.",
+                "requirements": "Need to represent the application purpose that the SOP instances in ImagingObjectSelection are selected for.",
                 "mapping": [
                     {
                         "map": "(0040,A043) - Concept Name Code Sequence in the SR root item",
                         "identity": "dicom"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
+                "short": "Reason for selection",
+                "min": 1,
                 "binding": {
                     "description": "The document title code of key object selection",
                     "valueSetReference": {
@@ -129,40 +119,74 @@
                     },
                     "strength": "required"
                 },
-                "isSummary": true,
                 "comments": "Coded concept of kind of the ImagingObjectSelection. Value set is defined in the DICOM standard Part 16, CID-7010.",
                 "path": "ImagingObjectSelection.title",
-                "max": "1",
-                "min": 1,
-                "short": "Reason for selection",
-                "requirements": "Need to represent the application purpose that the SOP instances in ImagingObjectSelection are selected for.",
-                "definition": "The reason for, or significance of, the selection of objects referenced in the resource."
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Text description of the DICOM SOP instances selected in the ImagingObjectSelection. This should be aligned with the content of the title element, and can provide further explanation of the SOP instances in the selection.",
+                "requirements": "Need to provide a narrative description of the SOP instances in the selection.",
                 "mapping": [
                     {
                         "map": "(0040,A160) - Text Value SR content item immediately under the root item, concept name code = (113012, DCM, \"Key Object Description\")",
                         "identity": "dicom"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Free text narrative description of the ImagingObjectSelection.",
-                "path": "ImagingObjectSelection.description",
+                "short": "Description text",
+                "min": 0,
                 "alias": [
                     "TextValue"
                 ],
-                "min": 0,
-                "short": "Description text",
-                "max": "1",
-                "requirements": "Need to provide a narrative description of the SOP instances in the selection.",
-                "definition": "Text description of the DICOM SOP instances selected in the ImagingObjectSelection. This should be aligned with the content of the title element, and can provide further explanation of the SOP instances in the selection."
+                "comments": "Free text narrative description of the ImagingObjectSelection.",
+                "path": "ImagingObjectSelection.description",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Author of ImagingObjectSelection. It can be a human author or a device which made the decision of the SOP instances selected. For example, a radiologist selected a set of imaging SOP instances to attach in a diagnostic report, and a CAD application may author a selection to describe SOP instances it used to generate a detection conclusion.",
+                "requirements": "Track the selection decision maker.",
+                "short": "Author (human or machine)",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.author",
                 "mapping": [
                     {
                         "map": "(0040,A730) - Content Sequence TID 1002 - Observer Context",
@@ -172,48 +196,24 @@
                         "map": "who.author",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.author",
-                "max": "1",
-                "min": 0,
-                "short": "Author (human or machine)",
-                "requirements": "Track the selection decision maker.",
-                "definition": "Author of ImagingObjectSelection. It can be a human author or a device which made the decision of the SOP instances selected. For example, a radiologist selected a set of imaging SOP instances to attach in a diagnostic report, and a CAD application may author a selection to describe SOP instances it used to generate a detection conclusion."
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Date and time when the selection of the referenced instances were made. It is (typically) different from the creation date of the selection resource, and from dates associated with the referenced instances (e.g. capture time of the referenced image).",
+                "requirements": "Date and time when the selection was made can be important to understand the content of selection.",
+                "short": "Authoring time of the selection",
+                "min": 0,
+                "alias": [
+                    "ObservationDateTime"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection.authoringTime",
                 "mapping": [
                     {
                         "map": "(0040,A032) - Observation Date Time",
@@ -227,292 +227,277 @@
                         "map": "when.recorded",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.authoringTime",
-                "alias": [
-                    "ObservationDateTime"
-                ],
-                "min": 0,
-                "short": "Authoring time of the selection",
-                "max": "1",
-                "requirements": "Date and time when the selection was made can be important to understand the content of selection.",
-                "definition": "Date and time when the selection of the referenced instances were made. It is (typically) different from the creation date of the selection resource, and from dates associated with the referenced instances (e.g. capture time of the referenced image)."
+                ]
             },
             {
-                "min": 1,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Study component represents the study level identity and locator information of the DICOM SOP instances in the selection. It is the top level identity of the hierachical identification of the instances.",
-                "path": "ImagingObjectSelection.study",
-                "max": "*",
                 "extension": [
                     {
                         "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
                         "valueString": "Study"
                     }
                 ],
-                "short": "Study identity of the selected instances",
+                "max": "*",
+                "definition": "Study identity and locating information of the DICOM SOP instances in the selection.",
                 "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. In addition, the locator at the study level provide a means of retrieving the entire study.",
-                "definition": "Study identity and locating information of the DICOM SOP instances in the selection."
+                "short": "Study identity of the selected instances",
+                "min": 1,
+                "comments": "Study component represents the study level identity and locator information of the DICOM SOP instances in the selection. It is the top level identity of the hierachical identification of the instances.",
+                "path": "ImagingObjectSelection.study",
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "(0020,000D) - Study Instance UID",
-                        "identity": "dicom"
-                    }
-                ],
                 "type": [
                     {
                         "code": "oid"
                     }
                 ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.uid",
+                "max": "1",
+                "definition": "Study instance UID of the SOP instances in the selection.",
+                "requirements": "Study instance UID is required to fully identify the DICOM SOP instances in the selection.",
+                "short": "Study instance UID",
+                "min": 1,
                 "alias": [
                     "StudyInstanceUID",
                     "Referenced study instance UID"
                 ],
-                "min": 1,
-                "short": "Study instance UID",
-                "max": "1",
-                "requirements": "Study instance UID is required to fully identify the DICOM SOP instances in the selection.",
-                "definition": "Study instance UID of the SOP instances in the selection."
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.uid",
+                "mapping": [
+                    {
+                        "map": "(0020,000D) - Study Instance UID",
+                        "identity": "dicom"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the study. Note that this URL retrieves all SOP instances of the study, not only those in the selection.",
+                "requirements": "WADO-RS URL enables retrieval of the entire study using DICOM WADO-RS API.",
                 "mapping": [
                     {
                         "map": "(0008,1190) - Retrieve URL",
                         "identity": "dicom"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Study level locator information is optional. If provided, this is the URL to retrieve the entire study with WADO-RS interaction, though only a subset of these are selected in the selection.",
-                "path": "ImagingObjectSelection.study.url",
+                "short": "Retrieve study URL",
+                "min": 0,
                 "alias": [
                     "RetrieveURL"
                 ],
-                "min": 0,
-                "short": "Retrieve study URL",
-                "max": "1",
-                "requirements": "WADO-RS URL enables retrieval of the entire study using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the study. Note that this URL retrieves all SOP instances of the study, not only those in the selection."
+                "comments": "Study level locator information is optional. If provided, this is the URL to retrieve the entire study with WADO-RS interaction, though only a subset of these are selected in the selection.",
+                "path": "ImagingObjectSelection.study.url",
+                "isSummary": true
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/ImagingStudy"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.imagingStudy",
                 "max": "1",
-                "min": 0,
-                "short": "Reference to ImagingStudy",
+                "definition": "Reference to the Imaging Study in FHIR form.",
                 "requirements": "Used to retrieve the ImagingStudy that contain the images referenced in the Imaging ObjectSelection.study.",
-                "definition": "Reference to the Imaging Study in FHIR form."
+                "short": "Reference to ImagingStudy",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.imagingStudy"
             },
             {
-                "min": 1,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Series component represents the series level identity and locator information of the DICOM SOP instances in the selection.",
-                "path": "ImagingObjectSelection.study.series",
-                "max": "*",
                 "extension": [
                     {
                         "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
                         "valueString": "Series"
                     }
                 ],
-                "short": "Series identity of the selected instances",
+                "max": "*",
+                "definition": "Series identity and locating information of the DICOM SOP instances in the selection.",
                 "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. In addition, the locator at the series level provide a means of retrieving the entire series.",
-                "definition": "Series identity and locating information of the DICOM SOP instances in the selection."
+                "short": "Series identity of the selected instances",
+                "min": 1,
+                "comments": "Series component represents the series level identity and locator information of the DICOM SOP instances in the selection.",
+                "path": "ImagingObjectSelection.study.series",
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "(0020,000E) - Series Instance UID",
-                        "identity": "dicom"
-                    }
-                ],
                 "type": [
                     {
                         "code": "oid"
                     }
                 ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.series.uid",
+                "max": "1",
+                "definition": "Series instance UID of the SOP instances in the selection.",
+                "requirements": "Series instance UID is required to fully identify the DICOM SOP instances in the selection.",
+                "short": "Series instance UID",
+                "min": 0,
                 "alias": [
                     "SeriesInstanceUID",
                     "Referenced series instance UID"
                 ],
-                "min": 0,
-                "short": "Series instance UID",
-                "max": "1",
-                "requirements": "Series instance UID is required to fully identify the DICOM SOP instances in the selection.",
-                "definition": "Series instance UID of the SOP instances in the selection."
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.series.uid",
+                "mapping": [
+                    {
+                        "map": "(0020,000E) - Series Instance UID",
+                        "identity": "dicom"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the series. Note that this URL retrieves all SOP instances of the series not only those in the selection.",
+                "requirements": "WADO-RS URL enables retrieval of the entire series using DICOM WADO-RS API.",
                 "mapping": [
                     {
                         "map": "(0008,1190) - Retrieve URL",
                         "identity": "dicom"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Series level locator information is optional. If provided, this is the URL to retrieve the entire series with WADO-RS interaction, though only a subset of these are selected in the selection.",
-                "path": "ImagingObjectSelection.study.series.url",
+                "short": "Retrieve series URL",
+                "min": 0,
                 "alias": [
                     "RetrieveURL"
                 ],
-                "min": 0,
-                "short": "Retrieve series URL",
-                "max": "1",
-                "requirements": "WADO-RS URL enables retrieval of the entire series using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the series. Note that this URL retrieves all SOP instances of the series not only those in the selection."
+                "comments": "Series level locator information is optional. If provided, this is the URL to retrieve the entire series with WADO-RS interaction, though only a subset of these are selected in the selection.",
+                "path": "ImagingObjectSelection.study.series.url",
+                "isSummary": true
             },
             {
-                "min": 1,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "comments": "SOP Instance component identify the instance selected, along with the study and series identities to form the DICOM identity hierachy.",
-                "path": "ImagingObjectSelection.study.series.instance",
-                "max": "*",
                 "extension": [
                     {
                         "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
                         "valueString": "Instance"
                     }
                 ],
-                "short": "The selected instance",
+                "max": "*",
+                "definition": "Identity and locating information of the selected DICOM SOP instances.",
                 "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. This is the instance level identity of the instance in the selection.",
-                "definition": "Identity and locating information of the selected DICOM SOP instances."
+                "short": "The selected instance",
+                "min": 1,
+                "comments": "SOP Instance component identify the instance selected, along with the study and series identities to form the DICOM identity hierachy.",
+                "path": "ImagingObjectSelection.study.series.instance",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "SOP class UID of the selected instance.",
+                "requirements": "DICOM SOP instances can be an image or other data object. The SOP class UID provide the accurate information about what type the instance is.",
                 "mapping": [
                     {
                         "map": "(0008,0016) SOP Class UID",
                         "identity": "dicom"
                     }
                 ],
+                "short": "SOP class UID of instance",
+                "min": 1,
+                "alias": [
+                    "SOPClassUID"
+                ],
+                "comments": "SOP class UID identifies the type of the selected instances, e.g. CT image, Gray scale softcopy presentation state, ECG waveform, etc.",
+                "path": "ImagingObjectSelection.study.series.instance.sopClass",
+                "isSummary": true
+            },
+            {
                 "type": [
                     {
                         "code": "oid"
                     }
                 ],
-                "isSummary": true,
-                "comments": "SOP class UID identifies the type of the selected instances, e.g. CT image, Gray scale softcopy presentation state, ECG waveform, etc.",
-                "path": "ImagingObjectSelection.study.series.instance.sopClass",
-                "alias": [
-                    "SOPClassUID"
-                ],
-                "min": 1,
-                "short": "SOP class UID of instance",
                 "max": "1",
-                "requirements": "DICOM SOP instances can be an image or other data object. The SOP class UID provide the accurate information about what type the instance is.",
-                "definition": "SOP class UID of the selected instance."
-            },
-            {
+                "definition": "SOP Instance UID of the selected instance.",
+                "requirements": "SOP instance UID is required to fully identify the DICOM SOP instance in the selection.",
                 "mapping": [
                     {
                         "map": "(0008,0018) - SOP Instance UID",
                         "identity": "dicom"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "SOP instance UID identifies the instance.",
-                "path": "ImagingObjectSelection.study.series.instance.uid",
+                "short": "Selected instance UID",
+                "min": 1,
                 "alias": [
                     "SOPInstanceUID",
                     "Referenced SOP instance UID"
                 ],
-                "min": 1,
-                "short": "Selected instance UID",
-                "max": "1",
-                "requirements": "SOP instance UID is required to fully identify the DICOM SOP instance in the selection.",
-                "definition": "SOP Instance UID of the selected instance."
+                "comments": "SOP instance UID identifies the instance.",
+                "path": "ImagingObjectSelection.study.series.instance.uid",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the DICOM SOP Instance.",
+                "requirements": "WADO-RS URL enables retrieval of the SOP instance using DICOM WADO-RS API.",
                 "mapping": [
                     {
                         "map": "(0008,1190) - Retrieve URL",
                         "identity": "dicom"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Instance level locator information is required.",
-                "path": "ImagingObjectSelection.study.series.instance.url",
+                "short": "Retrieve instance URL",
+                "min": 1,
                 "alias": [
                     "RetrieveURL"
                 ],
-                "min": 1,
-                "short": "Retrieve instance URL",
-                "max": "1",
-                "requirements": "WADO-RS URL enables retrieval of the SOP instance using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the DICOM SOP Instance."
+                "comments": "Instance level locator information is required.",
+                "path": "ImagingObjectSelection.study.series.instance.url",
+                "isSummary": true
             },
             {
-                "min": 0,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "comments": "This component may be used if the referenced image SOP Instance is a multi-frame image.",
-                "path": "ImagingObjectSelection.study.series.instance.frames",
-                "max": "*",
                 "extension": [
                     {
                         "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
                         "valueString": "Frames"
                     }
                 ],
-                "short": "The frame set",
+                "max": "*",
+                "definition": "Identity and location information of the frames in the selected instance.",
                 "requirements": "The specific set of frames referenced in this imaging object selection. The URL retrieves the pixel data, and is encapsulated in a multipart MIME response.",
-                "definition": "Identity and location information of the frames in the selected instance."
+                "short": "The frame set",
+                "min": 0,
+                "comments": "This component may be used if the referenced image SOP Instance is a multi-frame image.",
+                "path": "ImagingObjectSelection.study.series.instance.frames",
+                "isSummary": true
             },
             {
                 "type": [
@@ -520,41 +505,1043 @@
                         "code": "unsignedInt"
                     }
                 ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.series.instance.frames.frameNumbers",
                 "max": "*",
-                "min": 1,
-                "short": "Frame numbers",
+                "definition": "The frame numbers in the frame set.",
                 "requirements": "One or more non-duplicate frame numbers in the selected instance.",
-                "definition": "The frame numbers in the frame set."
+                "short": "Frame numbers",
+                "min": 1,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.series.instance.frames.frameNumbers"
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the DICOM frames.",
+                "requirements": "WADO-RS URL enables retrieval of the frames using DICOM WADO-RS API.",
                 "mapping": [
                     {
                         "map": "WADO-RS - RetrieveFrames",
                         "identity": "dicom"
                     }
                 ],
+                "short": "Retrieve frame URL",
+                "min": 1,
+                "comments": "Frame level locator information is required.",
+                "path": "ImagingObjectSelection.study.series.instance.frames.url",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "ImagingObjectSelection",
+    "abstract": false,
+    "requirements": "A FHIR representation of DICOM Key Object Selection (KOS) SOP Instances enables access to a set of selected DICOM SOP Instances.",
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
+        }
+    ],
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A manifest of a set of DICOM Service-Object Pair Instances (SOP Instances).  The referenced SOP Instances (images or other content) are for a single patient, and may be from one or more studies. The referenced SOP Instances have been selected for a purpose, such as quality assurance, conference, or consult. Reflecting that range of purposes, typical ImagingObjectSelection resources may include all SOP Instances in a study (perhaps for sharing through a Health Information Exchange); key images from multiple studies (for reference by a referring or treating physician); a multi-frame ultrasound instance (\"cine\" video clip) and a set of measurements taken from that instance (for inclusion in a teaching file); and so on.",
+                "short": "Key Object Selection",
+                "min": 0,
+                "alias": [
+                    "Manifest",
+                    "XDS-I summary",
+                    "Key Images",
+                    "KOS"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection",
+                "mapping": [
+                    {
+                        "map": "Key Object Selection SOP Class (1.2.840.10008.5.1.4.1.1.88.59)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": "clinical.diagnostics",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "ImagingObjectSelection.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.meta"
+            },
+            {
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "ImagingObjectSelection.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "ImagingObjectSelection.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "ImagingObjectSelection.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "ImagingObjectSelection.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Instance UID of the DICOM KOS SOP Instances represented in this resource.",
+                "requirements": "DICOM SOP Instance is always assigned with a unique identifier (UID).",
+                "short": "Instance UID",
+                "min": 1,
+                "alias": [
+                    "SOPInstanceUID"
+                ],
                 "isSummary": true,
+                "path": "ImagingObjectSelection.uid",
+                "mapping": [
+                    {
+                        "map": "(0008,0018) - SOP Instance UID (of the Key Object Selection SOP Class)",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A patient resource reference which is the patient subject of all DICOM SOP Instances in this ImagingObjectSelection.",
+                "requirements": "SOP Instances in ImagingObjectSelection must be from the same patient.",
+                "mapping": [
+                    {
+                        "map": "(0010,0010) - Patient Name (0010,0020) - Patient ID (0010,0021) - Issuer of Patient ID",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Patient of the selected objects",
+                "min": 1,
+                "comments": "SOP instances selected in the ImagingObjectSelection can be from different studies, but must be of the same patient.",
+                "path": "ImagingObjectSelection.patient",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The reason for, or significance of, the selection of objects referenced in the resource.",
+                "requirements": "Need to represent the application purpose that the SOP instances in ImagingObjectSelection are selected for.",
+                "mapping": [
+                    {
+                        "map": "(0040,A043) - Concept Name Code Sequence in the SR root item",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Reason for selection",
+                "min": 1,
+                "binding": {
+                    "description": "The document title code of key object selection",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/kos-title"
+                    },
+                    "strength": "required"
+                },
+                "comments": "Coded concept of kind of the ImagingObjectSelection. Value set is defined in the DICOM standard Part 16, CID-7010.",
+                "path": "ImagingObjectSelection.title",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Text description of the DICOM SOP instances selected in the ImagingObjectSelection. This should be aligned with the content of the title element, and can provide further explanation of the SOP instances in the selection.",
+                "requirements": "Need to provide a narrative description of the SOP instances in the selection.",
+                "mapping": [
+                    {
+                        "map": "(0040,A160) - Text Value SR content item immediately under the root item, concept name code = (113012, DCM, \"Key Object Description\")",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Description text",
+                "min": 0,
+                "alias": [
+                    "TextValue"
+                ],
+                "comments": "Free text narrative description of the ImagingObjectSelection.",
+                "path": "ImagingObjectSelection.description",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Author of ImagingObjectSelection. It can be a human author or a device which made the decision of the SOP instances selected. For example, a radiologist selected a set of imaging SOP instances to attach in a diagnostic report, and a CAD application may author a selection to describe SOP instances it used to generate a detection conclusion.",
+                "requirements": "Track the selection decision maker.",
+                "short": "Author (human or machine)",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.author",
+                "mapping": [
+                    {
+                        "map": "(0040,A730) - Content Sequence TID 1002 - Observer Context",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Date and time when the selection of the referenced instances were made. It is (typically) different from the creation date of the selection resource, and from dates associated with the referenced instances (e.g. capture time of the referenced image).",
+                "requirements": "Date and time when the selection was made can be important to understand the content of selection.",
+                "short": "Authoring time of the selection",
+                "min": 0,
+                "alias": [
+                    "ObservationDateTime"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection.authoringTime",
+                "mapping": [
+                    {
+                        "map": "(0040,A032) - Observation Date Time",
+                        "identity": "dicom"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "Study"
+                    }
+                ],
+                "max": "*",
+                "definition": "Study identity and locating information of the DICOM SOP instances in the selection.",
+                "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. In addition, the locator at the study level provide a means of retrieving the entire study.",
+                "short": "Study identity of the selected instances",
+                "min": 1,
+                "comments": "Study component represents the study level identity and locator information of the DICOM SOP instances in the selection. It is the top level identity of the hierachical identification of the instances.",
+                "path": "ImagingObjectSelection.study",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ImagingObjectSelection.study.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Study instance UID of the SOP instances in the selection.",
+                "requirements": "Study instance UID is required to fully identify the DICOM SOP instances in the selection.",
+                "short": "Study instance UID",
+                "min": 1,
+                "alias": [
+                    "StudyInstanceUID",
+                    "Referenced study instance UID"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.uid",
+                "mapping": [
+                    {
+                        "map": "(0020,000D) - Study Instance UID",
+                        "identity": "dicom"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the study. Note that this URL retrieves all SOP instances of the study, not only those in the selection.",
+                "requirements": "WADO-RS URL enables retrieval of the entire study using DICOM WADO-RS API.",
+                "mapping": [
+                    {
+                        "map": "(0008,1190) - Retrieve URL",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Retrieve study URL",
+                "min": 0,
+                "alias": [
+                    "RetrieveURL"
+                ],
+                "comments": "Study level locator information is optional. If provided, this is the URL to retrieve the entire study with WADO-RS interaction, though only a subset of these are selected in the selection.",
+                "path": "ImagingObjectSelection.study.url",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ImagingStudy"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Reference to the Imaging Study in FHIR form.",
+                "requirements": "Used to retrieve the ImagingStudy that contain the images referenced in the Imaging ObjectSelection.study.",
+                "short": "Reference to ImagingStudy",
+                "min": 0,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.imagingStudy"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "Series"
+                    }
+                ],
+                "max": "*",
+                "definition": "Series identity and locating information of the DICOM SOP instances in the selection.",
+                "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. In addition, the locator at the series level provide a means of retrieving the entire series.",
+                "short": "Series identity of the selected instances",
+                "min": 1,
+                "comments": "Series component represents the series level identity and locator information of the DICOM SOP instances in the selection.",
+                "path": "ImagingObjectSelection.study.series",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ImagingObjectSelection.study.series.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.series.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.series.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "Series instance UID of the SOP instances in the selection.",
+                "requirements": "Series instance UID is required to fully identify the DICOM SOP instances in the selection.",
+                "short": "Series instance UID",
+                "min": 0,
+                "alias": [
+                    "SeriesInstanceUID",
+                    "Referenced series instance UID"
+                ],
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.series.uid",
+                "mapping": [
+                    {
+                        "map": "(0020,000E) - Series Instance UID",
+                        "identity": "dicom"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the series. Note that this URL retrieves all SOP instances of the series not only those in the selection.",
+                "requirements": "WADO-RS URL enables retrieval of the entire series using DICOM WADO-RS API.",
+                "mapping": [
+                    {
+                        "map": "(0008,1190) - Retrieve URL",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Retrieve series URL",
+                "min": 0,
+                "alias": [
+                    "RetrieveURL"
+                ],
+                "comments": "Series level locator information is optional. If provided, this is the URL to retrieve the entire series with WADO-RS interaction, though only a subset of these are selected in the selection.",
+                "path": "ImagingObjectSelection.study.series.url",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "Instance"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identity and locating information of the selected DICOM SOP instances.",
+                "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. This is the instance level identity of the instance in the selection.",
+                "short": "The selected instance",
+                "min": 1,
+                "comments": "SOP Instance component identify the instance selected, along with the study and series identities to form the DICOM identity hierachy.",
+                "path": "ImagingObjectSelection.study.series.instance",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ImagingObjectSelection.study.series.instance.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.series.instance.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.series.instance.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "SOP class UID of the selected instance.",
+                "requirements": "DICOM SOP instances can be an image or other data object. The SOP class UID provide the accurate information about what type the instance is.",
+                "mapping": [
+                    {
+                        "map": "(0008,0016) SOP Class UID",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "SOP class UID of instance",
+                "min": 1,
+                "alias": [
+                    "SOPClassUID"
+                ],
+                "comments": "SOP class UID identifies the type of the selected instances, e.g. CT image, Gray scale softcopy presentation state, ECG waveform, etc.",
+                "path": "ImagingObjectSelection.study.series.instance.sopClass",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "oid"
+                    }
+                ],
+                "max": "1",
+                "definition": "SOP Instance UID of the selected instance.",
+                "requirements": "SOP instance UID is required to fully identify the DICOM SOP instance in the selection.",
+                "mapping": [
+                    {
+                        "map": "(0008,0018) - SOP Instance UID",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Selected instance UID",
+                "min": 1,
+                "alias": [
+                    "SOPInstanceUID",
+                    "Referenced SOP instance UID"
+                ],
+                "comments": "SOP instance UID identifies the instance.",
+                "path": "ImagingObjectSelection.study.series.instance.uid",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the DICOM SOP Instance.",
+                "requirements": "WADO-RS URL enables retrieval of the SOP instance using DICOM WADO-RS API.",
+                "mapping": [
+                    {
+                        "map": "(0008,1190) - Retrieve URL",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Retrieve instance URL",
+                "min": 1,
+                "alias": [
+                    "RetrieveURL"
+                ],
+                "comments": "Instance level locator information is required.",
+                "path": "ImagingObjectSelection.study.series.instance.url",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
+                        "valueString": "Frames"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identity and location information of the frames in the selected instance.",
+                "requirements": "The specific set of frames referenced in this imaging object selection. The URL retrieves the pixel data, and is encapsulated in a multipart MIME response.",
+                "short": "The frame set",
+                "min": 0,
+                "comments": "This component may be used if the referenced image SOP Instance is a multi-frame image.",
+                "path": "ImagingObjectSelection.study.series.instance.frames",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ImagingObjectSelection.study.series.instance.frames.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.series.instance.frames.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ImagingObjectSelection.study.series.instance.frames.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "unsignedInt"
+                    }
+                ],
+                "max": "*",
+                "definition": "The frame numbers in the frame set.",
+                "requirements": "One or more non-duplicate frame numbers in the selected instance.",
+                "short": "Frame numbers",
+                "min": 1,
+                "isSummary": true,
+                "path": "ImagingObjectSelection.study.series.instance.frames.frameNumbers"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "WADO-RS URL to retrieve the DICOM frames.",
+                "requirements": "WADO-RS URL enables retrieval of the frames using DICOM WADO-RS API.",
+                "mapping": [
+                    {
+                        "map": "WADO-RS - RetrieveFrames",
+                        "identity": "dicom"
+                    }
+                ],
+                "short": "Retrieve frame URL",
+                "min": 1,
                 "comments": "Frame level locator information is required.",
                 "path": "ImagingObjectSelection.study.series.instance.frames.url",
-                "max": "1",
-                "min": 1,
-                "short": "Retrieve frame URL",
-                "requirements": "WADO-RS URL enables retrieval of the frames using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the DICOM frames."
+                "isSummary": true
             }
         ]
     },
-    "id": "ImagingObjectSelection",
+    "description": "Base StructureDefinition for ImagingObjectSelection Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/ImagingObjectSelection",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://nema.org/dicom",
+            "identity": "dicom",
+            "name": "DICOM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -573,992 +1560,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/ImagingObjectSelection",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Imaging Integration)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Key Object Selection SOP Class (1.2.840.10008.5.1.4.1.1.88.59)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": "clinical.diagnostics",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection",
-                "alias": [
-                    "Manifest",
-                    "XDS-I summary",
-                    "Key Images",
-                    "KOS"
-                ],
-                "min": 0,
-                "short": "Key Object Selection",
-                "max": "*",
-                "definition": "A manifest of a set of DICOM Service-Object Pair Instances (SOP Instances).  The referenced SOP Instances (images or other content) are for a single patient, and may be from one or more studies. The referenced SOP Instances have been selected for a purpose, such as quality assurance, conference, or consult. Reflecting that range of purposes, typical ImagingObjectSelection resources may include all SOP Instances in a study (perhaps for sharing through a Health Information Exchange); key images from multiple studies (for reference by a referring or treating physician); a multi-frame ultrasound instance (\"cine\" video clip) and a set of measurements taken from that instance (for inclusion in a teaching file); and so on."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "ImagingObjectSelection.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "ImagingObjectSelection.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "ImagingObjectSelection.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "ImagingObjectSelection.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "ImagingObjectSelection.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0018) - SOP Instance UID (of the Key Object Selection SOP Class)",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.uid",
-                "alias": [
-                    "SOPInstanceUID"
-                ],
-                "min": 1,
-                "short": "Instance UID",
-                "max": "1",
-                "requirements": "DICOM SOP Instance is always assigned with a unique identifier (UID).",
-                "definition": "Instance UID of the DICOM KOS SOP Instances represented in this resource."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0010,0010) - Patient Name (0010,0020) - Patient ID (0010,0021) - Issuer of Patient ID",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "SOP instances selected in the ImagingObjectSelection can be from different studies, but must be of the same patient.",
-                "path": "ImagingObjectSelection.patient",
-                "max": "1",
-                "min": 1,
-                "short": "Patient of the selected objects",
-                "requirements": "SOP Instances in ImagingObjectSelection must be from the same patient.",
-                "definition": "A patient resource reference which is the patient subject of all DICOM SOP Instances in this ImagingObjectSelection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0040,A043) - Concept Name Code Sequence in the SR root item",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "The document title code of key object selection",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/kos-title"
-                    },
-                    "strength": "required"
-                },
-                "isSummary": true,
-                "comments": "Coded concept of kind of the ImagingObjectSelection. Value set is defined in the DICOM standard Part 16, CID-7010.",
-                "path": "ImagingObjectSelection.title",
-                "max": "1",
-                "min": 1,
-                "short": "Reason for selection",
-                "requirements": "Need to represent the application purpose that the SOP instances in ImagingObjectSelection are selected for.",
-                "definition": "The reason for, or significance of, the selection of objects referenced in the resource."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0040,A160) - Text Value SR content item immediately under the root item, concept name code = (113012, DCM, \"Key Object Description\")",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Free text narrative description of the ImagingObjectSelection.",
-                "path": "ImagingObjectSelection.description",
-                "alias": [
-                    "TextValue"
-                ],
-                "min": 0,
-                "short": "Description text",
-                "max": "1",
-                "requirements": "Need to provide a narrative description of the SOP instances in the selection.",
-                "definition": "Text description of the DICOM SOP instances selected in the ImagingObjectSelection. This should be aligned with the content of the title element, and can provide further explanation of the SOP instances in the selection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0040,A730) - Content Sequence TID 1002 - Observer Context",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": "who.author",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.author",
-                "max": "1",
-                "min": 0,
-                "short": "Author (human or machine)",
-                "requirements": "Track the selection decision maker.",
-                "definition": "Author of ImagingObjectSelection. It can be a human author or a device which made the decision of the SOP instances selected. For example, a radiologist selected a set of imaging SOP instances to attach in a diagnostic report, and a CAD application may author a selection to describe SOP instances it used to generate a detection conclusion."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0040,A032) - Observation Date Time",
-                        "identity": "dicom"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.authoringTime",
-                "alias": [
-                    "ObservationDateTime"
-                ],
-                "min": 0,
-                "short": "Authoring time of the selection",
-                "max": "1",
-                "requirements": "Date and time when the selection was made can be important to understand the content of selection.",
-                "definition": "Date and time when the selection of the referenced instances were made. It is (typically) different from the creation date of the selection resource, and from dates associated with the referenced instances (e.g. capture time of the referenced image)."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Study component represents the study level identity and locator information of the DICOM SOP instances in the selection. It is the top level identity of the hierachical identification of the instances.",
-                "path": "ImagingObjectSelection.study",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "Study"
-                    }
-                ],
-                "short": "Study identity of the selected instances",
-                "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. In addition, the locator at the study level provide a means of retrieving the entire study.",
-                "definition": "Study identity and locating information of the DICOM SOP instances in the selection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ImagingObjectSelection.study.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,000D) - Study Instance UID",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.uid",
-                "alias": [
-                    "StudyInstanceUID",
-                    "Referenced study instance UID"
-                ],
-                "min": 1,
-                "short": "Study instance UID",
-                "max": "1",
-                "requirements": "Study instance UID is required to fully identify the DICOM SOP instances in the selection.",
-                "definition": "Study instance UID of the SOP instances in the selection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1190) - Retrieve URL",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Study level locator information is optional. If provided, this is the URL to retrieve the entire study with WADO-RS interaction, though only a subset of these are selected in the selection.",
-                "path": "ImagingObjectSelection.study.url",
-                "alias": [
-                    "RetrieveURL"
-                ],
-                "min": 0,
-                "short": "Retrieve study URL",
-                "max": "1",
-                "requirements": "WADO-RS URL enables retrieval of the entire study using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the study. Note that this URL retrieves all SOP instances of the study, not only those in the selection."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ImagingStudy"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.imagingStudy",
-                "max": "1",
-                "min": 0,
-                "short": "Reference to ImagingStudy",
-                "requirements": "Used to retrieve the ImagingStudy that contain the images referenced in the Imaging ObjectSelection.study.",
-                "definition": "Reference to the Imaging Study in FHIR form."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Series component represents the series level identity and locator information of the DICOM SOP instances in the selection.",
-                "path": "ImagingObjectSelection.study.series",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "Series"
-                    }
-                ],
-                "short": "Series identity of the selected instances",
-                "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. In addition, the locator at the series level provide a means of retrieving the entire series.",
-                "definition": "Series identity and locating information of the DICOM SOP instances in the selection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ImagingObjectSelection.study.series.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.series.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.series.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0020,000E) - Series Instance UID",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.series.uid",
-                "alias": [
-                    "SeriesInstanceUID",
-                    "Referenced series instance UID"
-                ],
-                "min": 0,
-                "short": "Series instance UID",
-                "max": "1",
-                "requirements": "Series instance UID is required to fully identify the DICOM SOP instances in the selection.",
-                "definition": "Series instance UID of the SOP instances in the selection."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1190) - Retrieve URL",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Series level locator information is optional. If provided, this is the URL to retrieve the entire series with WADO-RS interaction, though only a subset of these are selected in the selection.",
-                "path": "ImagingObjectSelection.study.series.url",
-                "alias": [
-                    "RetrieveURL"
-                ],
-                "min": 0,
-                "short": "Retrieve series URL",
-                "max": "1",
-                "requirements": "WADO-RS URL enables retrieval of the entire series using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the series. Note that this URL retrieves all SOP instances of the series not only those in the selection."
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "SOP Instance component identify the instance selected, along with the study and series identities to form the DICOM identity hierachy.",
-                "path": "ImagingObjectSelection.study.series.instance",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "Instance"
-                    }
-                ],
-                "short": "The selected instance",
-                "requirements": "DICOM SOP instances are identified through the UIDs of the study - series - instance hierarchy. This is the instance level identity of the instance in the selection.",
-                "definition": "Identity and locating information of the selected DICOM SOP instances."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ImagingObjectSelection.study.series.instance.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.series.instance.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.series.instance.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0016) SOP Class UID",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "SOP class UID identifies the type of the selected instances, e.g. CT image, Gray scale softcopy presentation state, ECG waveform, etc.",
-                "path": "ImagingObjectSelection.study.series.instance.sopClass",
-                "alias": [
-                    "SOPClassUID"
-                ],
-                "min": 1,
-                "short": "SOP class UID of instance",
-                "max": "1",
-                "requirements": "DICOM SOP instances can be an image or other data object. The SOP class UID provide the accurate information about what type the instance is.",
-                "definition": "SOP class UID of the selected instance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,0018) - SOP Instance UID",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "oid"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "SOP instance UID identifies the instance.",
-                "path": "ImagingObjectSelection.study.series.instance.uid",
-                "alias": [
-                    "SOPInstanceUID",
-                    "Referenced SOP instance UID"
-                ],
-                "min": 1,
-                "short": "Selected instance UID",
-                "max": "1",
-                "requirements": "SOP instance UID is required to fully identify the DICOM SOP instance in the selection.",
-                "definition": "SOP Instance UID of the selected instance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(0008,1190) - Retrieve URL",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Instance level locator information is required.",
-                "path": "ImagingObjectSelection.study.series.instance.url",
-                "alias": [
-                    "RetrieveURL"
-                ],
-                "min": 1,
-                "short": "Retrieve instance URL",
-                "max": "1",
-                "requirements": "WADO-RS URL enables retrieval of the SOP instance using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the DICOM SOP Instance."
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This component may be used if the referenced image SOP Instance is a multi-frame image.",
-                "path": "ImagingObjectSelection.study.series.instance.frames",
-                "max": "*",
-                "extension": [
-                    {
-                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name",
-                        "valueString": "Frames"
-                    }
-                ],
-                "short": "The frame set",
-                "requirements": "The specific set of frames referenced in this imaging object selection. The URL retrieves the pixel data, and is encapsulated in a multipart MIME response.",
-                "definition": "Identity and location information of the frames in the selected instance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ImagingObjectSelection.study.series.instance.frames.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.series.instance.frames.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ImagingObjectSelection.study.series.instance.frames.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "unsignedInt"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ImagingObjectSelection.study.series.instance.frames.frameNumbers",
-                "max": "*",
-                "min": 1,
-                "short": "Frame numbers",
-                "requirements": "One or more non-duplicate frame numbers in the selected instance.",
-                "definition": "The frame numbers in the frame set."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "WADO-RS - RetrieveFrames",
-                        "identity": "dicom"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Frame level locator information is required.",
-                "path": "ImagingObjectSelection.study.series.instance.frames.url",
-                "max": "1",
-                "min": 1,
-                "short": "Retrieve frame URL",
-                "requirements": "WADO-RS URL enables retrieval of the frames using DICOM WADO-RS API.",
-                "definition": "WADO-RS URL to retrieve the DICOM frames."
-            }
-        ]
-    },
-    "name": "ImagingObjectSelection",
-    "requirements": "A FHIR representation of DICOM Key Object Selection (KOS) SOP Instances enables access to a set of selected DICOM SOP Instances.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for ImagingObjectSelection Resource"
+    "publisher": "Health Level Seven International (Imaging Integration)"
 }

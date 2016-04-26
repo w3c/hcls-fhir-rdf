@@ -1,61 +1,26 @@
 {
-    "mapping": [
-        {
-            "name": "Quality Data Model",
-            "uri": "http://www.healthit.gov/quality-data-model",
-            "identity": "qdm"
-        }
-    ],
     "id": "qicore-diagnosticorder",
-    "constrainedType": "DiagnosticOrder",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org/special/committees/CQI",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder",
+    "date": "2015-02-27",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "DiagnosticOrder"
+                    }
+                ],
+                "name": "QICore-DiagnosticOrder",
+                "max": "*",
                 "mapping": [
                     {
                         "map": "\"Diagnostic Study, Order\"; \"Diagnostic Study, Recommended\" (when DiagnosticOrder.status=\"recommended\")",
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "DiagnosticOrder"
-                    }
-                ],
-                "path": "DiagnosticOrder",
                 "min": 0,
-                "name": "QICore-DiagnosticOrder",
-                "max": "*"
+                "path": "DiagnosticOrder"
             },
             {
-                "mapping": [
-                    {
-                        "map": "negation rationale (when DiagnosticOrder.status=\"rejected\")",
-                        "identity": "qdm"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/diagnosticorder-reasonRejected"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.extension",
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -63,69 +28,84 @@
                     "ordered": false,
                     "rules": "open"
                 },
-                "max": "1",
-                "min": 0,
-                "short": "Reason order rejected",
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/diagnosticorder-reasonRejected"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
                 "name": "DiagnosticOrder.reasonRejected",
+                "max": "1",
+                "definition": "The coded reason why the order was rejected.",
+                "short": "Reason order rejected",
+                "min": 0,
                 "binding": {
                     "valueSetReference": {
                         "reference": "http://hl7.org/fhir/ValueSet/qicore-diagnosticorder-reason-rejected"
                     },
                     "strength": "example"
                 },
-                "definition": "The coded reason why the order was rejected."
-            },
-            {
-                "type": [
+                "mapping": [
                     {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-location"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
-                        ]
+                        "map": "negation rationale (when DiagnosticOrder.status=\"rejected\")",
+                        "identity": "qdm"
                     }
                 ],
+                "path": "DiagnosticOrder.extension"
+            },
+            {
                 "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-location"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
                 "path": "DiagnosticOrder.subject"
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "DiagnosticOrder.orderer"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
                 "path": "DiagnosticOrder.encounter"
             },
             {
@@ -147,22 +127,22 @@
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-observation"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-condition"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/DocumentReference"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "DiagnosticOrder.supportingInformation"
@@ -170,50 +150,50 @@
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-specimen"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "DiagnosticOrder.specimen"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "negation rationale (when DiagnosticOrder.status=\"rejected\")",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "DiagnosticOrder.status"
             },
             {
                 "path": "DiagnosticOrder.event"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "start datetime (where event.status=\"requested\"), stop datetime (where event.status=\"in-progress\")",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "path": "DiagnosticOrder.event.dateTime"
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-device"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "DiagnosticOrder.event.actor"
@@ -222,22 +202,6 @@
                 "path": "DiagnosticOrder.item"
             },
             {
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/diagnosticorder-precondition"
-                        ]
-                    }
-                ],
-                "name": "DiagnosticOrder.item.precondition",
-                "binding": {
-                    "description": "Code indicating condition, state, or problem that the patient is in or has prior to a therapy or procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/qicore-diagnosticorder-precondition"
-                    },
-                    "strength": "preferred"
-                },
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -245,16 +209,32 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/diagnosticorder-precondition"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "binding": {
+                    "description": "Code indicating condition, state, or problem that the patient is in or has prior to a therapy or procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/qicore-diagnosticorder-precondition"
+                    },
+                    "strength": "preferred"
+                },
+                "name": "DiagnosticOrder.item.precondition",
                 "path": "DiagnosticOrder.item.extension"
             },
             {
+                "mustSupport": true,
                 "mapping": [
                     {
                         "map": "primary code",
                         "identity": "qdm"
                     }
                 ],
-                "mustSupport": true,
                 "binding": {
                     "description": "LOINC codes for tests/services that can be performed by diagnostic services",
                     "valueSetReference": {
@@ -267,10 +247,10 @@
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/qicore-specimen"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "path": "DiagnosticOrder.item.specimen"
@@ -281,12 +261,29 @@
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/qicore-diagnosticorder",
+    "name": "QICore-DiagnosticOrder",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)",
+    "constrainedType": "DiagnosticOrder",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "DiagnosticOrder"
+                    }
+                ],
+                "name": "QICore-DiagnosticOrder",
+                "max": "*",
+                "definition": "A record of a request for a diagnostic investigation service to be performed.",
+                "short": "A request for a diagnostic service",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "Observation[classCode=OBS, moodCode=RQO, code<\"diagnostic order\"]",
@@ -301,22 +298,7 @@
                         "identity": "qdm"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "DiagnosticOrder"
-                    }
-                ],
-                "path": "DiagnosticOrder",
-                "max": "*",
-                "min": 0,
-                "short": "A request for a diagnostic service",
-                "name": "QICore-DiagnosticOrder",
-                "definition": "A record of a request for a diagnostic investigation service to be performed.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder"
-                }
+                "path": "DiagnosticOrder"
             },
             {
                 "type": [
@@ -324,18 +306,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "DiagnosticOrder.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.id"
-                }
+                    "path": "DiagnosticOrder.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "DiagnosticOrder.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -343,17 +325,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.meta"
-                }
+                    "path": "DiagnosticOrder.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticOrder.meta"
             },
             {
                 "type": [
@@ -361,19 +343,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "DiagnosticOrder.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.implicitRules"
-                }
+                    "path": "DiagnosticOrder.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "DiagnosticOrder.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -381,98 +363,86 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "DiagnosticOrder.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.language"
-                }
+                    "path": "DiagnosticOrder.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "DiagnosticOrder.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "DiagnosticOrder.text",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "DiagnosticOrder.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "DiagnosticOrder.contained",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "DiagnosticOrder.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "DiagnosticOrder.extension",
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -480,85 +450,134 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.extension",
                 "mapping": [
                     {
-                        "map": "negation rationale (when DiagnosticOrder.status=\"rejected\")",
-                        "identity": "qdm"
+                        "map": "N/A",
+                        "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.extension",
+                    "max": "*"
+                },
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/diagnosticorder-reasonRejected"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "DiagnosticOrder.extension",
-                "max": "1",
-                "min": 0,
-                "short": "Reason order rejected",
                 "name": "DiagnosticOrder.reasonRejected",
+                "max": "1",
+                "definition": "The coded reason why the order was rejected.",
+                "short": "Reason order rejected",
+                "min": 0,
                 "binding": {
                     "valueSetReference": {
                         "reference": "http://hl7.org/fhir/ValueSet/qicore-diagnosticorder-reason-rejected"
                     },
                     "strength": "example"
                 },
-                "definition": "The coded reason why the order was rejected.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
-                        "map": "N/A",
-                        "identity": "rim"
+                        "map": "negation rationale (when DiagnosticOrder.status=\"rejected\")",
+                        "identity": "qdm"
                     }
                 ],
+                "path": "DiagnosticOrder.extension"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-location"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.subject",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Who or what the investigation is to be performed on. This is usually a human patient, but diagnostic tests can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans).",
+                "short": "Who and/or what test is about",
+                "min": 1,
                 "isSummary": true,
+                "path": "DiagnosticOrder.subject",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=SBJ].role",
@@ -568,46 +587,28 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-location"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "DiagnosticOrder.subject",
-                "max": "1",
-                "min": 1,
-                "short": "Who and/or what test is about",
-                "definition": "Who or what the investigation is to be performed on. This is usually a human patient, but diagnostic tests can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans).",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.subject"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.orderer",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The practitioner that holds legal responsibility for ordering the investigation.",
+                "short": "Who ordered the test",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticOrder.orderer",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=AUT].role",
@@ -617,28 +618,21 @@
                         "map": "who.actor",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.orderer",
-                "max": "1",
-                "min": 0,
-                "short": "Who ordered the test",
-                "definition": "The practitioner that holds legal responsibility for ordering the investigation.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.orderer"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Identifiers assigned to this order instance by the orderer and/or  the receiver and/or order fulfiller.",
                 "mapping": [
                     {
                         "map": ".id",
@@ -649,26 +643,33 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Identifiers assigned to this order",
+                "min": 0,
                 "comments": "The identifier.type element is used to distinguish between the identifiers assigned by the orderer (known as the 'Placer' in HL7 v2) and the producer of the observations in response to the order (known as the 'Filler' in HL7 v2). For further discussion and examples see the [notes section](diagnosticorder.html#4.22.4) below.",
                 "path": "DiagnosticOrder.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Identifiers assigned to this order",
-                "definition": "Identifiers assigned to this order instance by the orderer and/or  the receiver and/or order fulfiller.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.identifier"
-                }
+                "isSummary": true
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "An encounter that provides additional information about the healthcare context in which this request is made.",
+                "short": "The encounter that this diagnostic order is associated with",
+                "min": 0,
                 "isSummary": true,
+                "path": "DiagnosticOrder.encounter",
                 "mapping": [
                     {
                         "map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
@@ -678,28 +679,32 @@
                         "map": "context",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-encounter"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "DiagnosticOrder.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "The encounter that this diagnostic order is associated with",
-                "definition": "An encounter that provides additional information about the healthcare context in which this request is made.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.encounter"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.reason",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "An explanation or justification for why this diagnostic investigation is being requested.   This is often for billing purposes.  May relate to the resources referred to in supportingInformation.",
+                "short": "Explanation/Justification for test",
+                "min": 0,
+                "binding": {
+                    "description": "The code for the condition",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-problem"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "This may be used to decide how the diagnostic investigation will be performed, or even if it will be performed at all.   Use CodeableConcept text element if the data is free (uncoded) text as shown in the [CT Scan example](diagnosticorder-example-di.html).",
+                "path": "DiagnosticOrder.reason",
                 "mapping": [
                     {
                         "map": ".reasonCode",
@@ -709,32 +714,44 @@
                         "map": "reason",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "This may be used to decide how the diagnostic investigation will be performed, or even if it will be performed at all.   Use CodeableConcept text element if the data is free (uncoded) text as shown in the [CT Scan example](diagnosticorder-example-di.html).",
-                "path": "DiagnosticOrder.reason",
-                "max": "*",
-                "min": 0,
-                "short": "Explanation/Justification for test",
-                "binding": {
-                    "description": "The code for the condition",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-problem"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "An explanation or justification for why this diagnostic investigation is being requested.   This is often for billing purposes.  May relate to the resources referred to in supportingInformation.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.reason"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-observation"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-condition"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.supportingInformation",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Additional clinical information about the patient or specimen that may influence test interpretations.  This includes observations explicitly requested by the producer(filler) to provide context or supporting information needed to complete the order.",
+                "short": "Additional clinical information",
+                "min": 0,
+                "alias": [
+                    "Ask at order entry question",
+                    "AOE"
+                ],
+                "comments": "This information includes diagnosis, clinical findings and other observations.  In laboratory ordering these are typically referred to as \"ask at order entry questions (AOEs)\". Examples include reporting the amount of inspired oxygen for blood gasses, the point in the menstrual cycle for cervical pap tests, and other conditions that influence test interpretations.",
+                "path": "DiagnosticOrder.supportingInformation",
                 "mapping": [
                     {
                         "map": "OBR-13",
@@ -744,71 +761,46 @@
                         "map": "outboundRelationship[typeCode=SPRT]/target[classCode=ACT, moodCode=EVN]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-observation"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-condition"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
-                        ]
-                    }
-                ],
-                "comments": "This information includes diagnosis, clinical findings and other observations.  In laboratory ordering these are typically referred to as \"ask at order entry questions (AOEs)\". Examples include reporting the amount of inspired oxygen for blood gasses, the point in the menstrual cycle for cervical pap tests, and other conditions that influence test interpretations.",
-                "path": "DiagnosticOrder.supportingInformation",
-                "alias": [
-                    "Ask at order entry question",
-                    "AOE"
-                ],
-                "min": 0,
-                "short": "Additional clinical information",
-                "max": "*",
-                "definition": "Additional clinical information about the patient or specimen that may influence test interpretations.  This includes observations explicitly requested by the producer(filler) to provide context or supporting information needed to complete the order.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.supportingInformation"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-specimen"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.specimen",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "One or more specimens that the diagnostic investigation is about.",
+                "short": "If the whole order relates to specific specimens",
+                "min": 0,
+                "comments": "Many investigation requests will create a need for specimens, but the request itself is not actually about the specimens. This is provided for when the diagnostic investigation is requested on already existing specimens.",
+                "path": "DiagnosticOrder.specimen",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=SPC].role",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-specimen"
-                        ]
-                    }
-                ],
-                "comments": "Many investigation requests will create a need for specimens, but the request itself is not actually about the specimens. This is provided for when the diagnostic investigation is requested on already existing specimens.",
-                "path": "DiagnosticOrder.specimen",
-                "max": "*",
-                "min": 0,
-                "short": "If the whole order relates to specific specimens",
-                "definition": "One or more specimens that the diagnostic investigation is about.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.specimen"
-                }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
+                "definition": "The status of the order.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.status",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
@@ -823,14 +815,13 @@
                         "identity": "qdm"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Typically the system placing the order sets the status to \"requested\". Thereafter, the order is maintained by the receiver that updates the status as the request is handled.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
                 "binding": {
                     "description": "The status of a diagnostic order.",
                     "valueSetReference": {
@@ -838,19 +829,22 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.status"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "comments": "Typically the system placing the order sets the status to \"requested\". Thereafter, the order is maintained by the receiver that updates the status as the request is handled.",
-                "path": "DiagnosticOrder.status",
-                "definition": "The status of the order."
+                "isSummary": true,
+                "path": "DiagnosticOrder.status"
             },
             {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.priority",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The clinical priority associated with this order.",
                 "mapping": [
                     {
                         "map": ".priorityCode",
@@ -861,17 +855,8 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The Order resource also has a priority. Generally, these should be the same, but they can be different. For instance, where the clinician indicates the order is urgent, but the subsequent workflow process overrules the priority for some reason. The effective default value is \"normal\".",
-                "path": "DiagnosticOrder.priority",
-                "max": "1",
-                "min": 0,
                 "short": "routine | urgent | stat | asap",
+                "min": 0,
                 "binding": {
                     "description": "The clinical priority of a diagnostic order.",
                     "valueSetReference": {
@@ -879,138 +864,133 @@
                     },
                     "strength": "required"
                 },
-                "definition": "The clinical priority associated with this order.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.priority"
-                }
+                "comments": "The Order resource also has a priority. Generally, these should be the same, but they can be different. For instance, where the clinician indicates the order is urgent, but the subsequent workflow process overrules the priority for some reason. The effective default value is \"normal\".",
+                "path": "DiagnosticOrder.priority",
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": ".inboundRelationship[typeCode=FLFS].source",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "comments": "This is not the same as an audit trail. It is a view of the important things that happened in the past. Typically, there would only be one entry for any given status, and systems may not record all the status events.",
-                "path": "DiagnosticOrder.event",
-                "max": "*",
-                "min": 0,
-                "short": "A list of events of interest in the lifecycle",
-                "definition": "A summary of the events of interest that have occurred as the request is processed; e.g. when the order was made, various processing steps (specimens received), when it was completed.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.event"
-                }
-            },
-            {
+                    "path": "DiagnosticOrder.event",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A summary of the events of interest that have occurred as the request is processed; e.g. when the order was made, various processing steps (specimens received), when it was completed.",
+                "short": "A list of events of interest in the lifecycle",
+                "min": 0,
+                "comments": "This is not the same as an audit trail. It is a view of the important things that happened in the past. Typically, there would only be one entry for any given status, and systems may not record all the status events.",
+                "path": "DiagnosticOrder.event",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": ".inboundRelationship[typeCode=FLFS].source",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.event.id",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.event.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.event.extension",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.event.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.event.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.event.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.event.modifierExtension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.event.modifierExtension",
                 "mapping": [
                     {
-                        "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
+                        "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.event.status",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.event.status",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 1,
+                "definition": "The status for the event.",
                 "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
+                "min": 1,
                 "binding": {
                     "description": "The status of a diagnostic order.",
                     "valueSetReference": {
@@ -1018,30 +998,30 @@
                     },
                     "strength": "required"
                 },
-                "definition": "The status for the event.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.status"
-                }
-            },
-            {
+                "isSummary": true,
+                "path": "DiagnosticOrder.event.status",
                 "mapping": [
                     {
-                        "map": ".text",
+                        "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.event.description",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.description",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "Additional information about the event that occurred - e.g. if the status remained unchanged.",
                 "short": "More information about the event and its context",
+                "min": 0,
                 "binding": {
                     "description": "Additional information about an event that occurred to a diagnostic order - e.g. if the status remained unchanged.",
                     "valueSetReference": {
@@ -1049,15 +1029,33 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Additional information about the event that occurred - e.g. if the status remained unchanged.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.description"
-                }
+                "isSummary": true,
+                "path": "DiagnosticOrder.event.description",
+                "mapping": [
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.event.dateTime",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The date/time at which the event occurred.",
+                "short": "The date at which the event happened",
+                "min": 1,
                 "isSummary": true,
+                "path": "DiagnosticOrder.event.dateTime",
                 "mapping": [
                     {
                         "map": ".effectiveTime",
@@ -1067,119 +1065,91 @@
                         "map": "start datetime (where event.status=\"requested\"), stop datetime (where event.status=\"in-progress\")",
                         "identity": "qdm"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "DiagnosticOrder.event.dateTime",
-                "max": "1",
-                "min": 1,
-                "short": "The date at which the event happened",
-                "definition": "The date/time at which the event occurred.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.dateTime"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.actor",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The person responsible for performing or recording the action.",
+                "short": "Who recorded or did this",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".participation[AUT or PFM]",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-device"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.event.actor",
-                "max": "1",
-                "min": 0,
-                "short": "Who recorded or did this",
-                "definition": "The person responsible for performing or recording the action.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.actor"
-                }
+                "path": "DiagnosticOrder.event.actor"
             },
             {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBS, moodCode=OBS]",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "comments": "There would always be at least one item in normal usage, but this is optional so that a workflow can quote order details without having to list the items.",
-                "path": "DiagnosticOrder.item",
-                "max": "*",
-                "min": 0,
-                "short": "The items the orderer requested",
-                "definition": "The specific diagnostic investigations that are requested as part of this request. Sometimes, there can only be one item per request, but in most contexts, more than one investigation can be requested.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item"
-                }
-            },
-            {
+                    "path": "DiagnosticOrder.item",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The specific diagnostic investigations that are requested as part of this request. Sometimes, there can only be one item per request, but in most contexts, more than one investigation can be requested.",
+                "short": "The items the orderer requested",
+                "min": 0,
+                "comments": "There would always be at least one item in normal usage, but this is optional so that a workflow can quote order details without having to list the items.",
+                "path": "DiagnosticOrder.item",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBS, moodCode=OBS]",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.item.id",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "DiagnosticOrder.item.extension",
+                "path": "DiagnosticOrder.item.id"
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -1187,35 +1157,52 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.item.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.extension",
+                    "max": "*"
+                },
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/diagnosticorder-precondition"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "path": "DiagnosticOrder.item.extension",
-                "max": "*",
-                "min": 0,
-                "short": "Extension",
                 "name": "DiagnosticOrder.item.precondition",
+                "max": "*",
+                "definition": "An Extension",
+                "short": "Extension",
+                "min": 0,
                 "binding": {
                     "description": "Code indicating condition, state, or problem that the patient is in or has prior to a therapy or procedure.",
                     "valueSetReference": {
@@ -1223,44 +1210,48 @@
                     },
                     "strength": "preferred"
                 },
-                "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.extension"
-                }
+                "path": "DiagnosticOrder.item.extension"
             },
             {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.item.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.item.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "short": "Code to indicate the item (test or panel) being ordered",
+                "definition": "A code that identifies a particular diagnostic investigation, or panel of investigations, that have been requested.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.item.code",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBX-4",
@@ -1275,14 +1266,13 @@
                         "identity": "qdm"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Many laboratory tests and radiology tests embed the specimen/organ system in the test name, for example,  serum or serum/plasma glucose, or a chest xray. The specimen may not be recorded separately from the test code.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Code to indicate the item (test or panel) being ordered",
                 "binding": {
                     "description": "LOINC codes for tests/services that can be performed by diagnostic services",
                     "valueSetReference": {
@@ -1290,58 +1280,56 @@
                     },
                     "strength": "preferred"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.code"
-                },
-                "mustSupport": true,
-                "comments": "Many laboratory tests and radiology tests embed the specimen/organ system in the test name, for example,  serum or serum/plasma glucose, or a chest xray. The specimen may not be recorded separately from the test code.",
-                "path": "DiagnosticOrder.item.code",
-                "definition": "A code that identifies a particular diagnostic investigation, or panel of investigations, that have been requested."
+                "isSummary": true,
+                "path": "DiagnosticOrder.item.code"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/qicore-specimen"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.specimen",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "If the item is related to a specific specimen.",
+                "short": "If this item relates to specific specimens",
+                "min": 0,
+                "comments": "A single specimen should not appear in both DiagnosticOrder.specimen and DiagnosticOrder.item.specimen.",
+                "path": "DiagnosticOrder.item.specimen",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=SPC].role",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/qicore-specimen"
-                        ]
-                    }
-                ],
-                "comments": "A single specimen should not appear in both DiagnosticOrder.specimen and DiagnosticOrder.item.specimen.",
-                "path": "DiagnosticOrder.item.specimen",
-                "max": "*",
-                "min": 0,
-                "short": "If this item relates to specific specimens",
-                "definition": "If the item is related to a specific specimen.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.specimen"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": "targetSiteCode",
-                        "identity": "rim"
-                    }
+                "min": 0,
+                "max": "1",
+                "alias": [
+                    "location"
                 ],
+                "short": "Location of requested test (if applicable)",
+                "definition": "Anatomical location where the request test should be performed.  This is the target site.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.bodySite",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "comments": "If the use case requires BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "min": 0,
-                "short": "Location of requested test (if applicable)",
                 "binding": {
                     "description": "Codes describing anatomical locations. May include laterality.",
                     "valueSetReference": {
@@ -1349,38 +1337,35 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.bodySite"
-                },
-                "mustSupport": true,
-                "comments": "If the use case requires BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
-                "path": "DiagnosticOrder.item.bodySite",
-                "alias": [
-                    "location"
+                "mapping": [
+                    {
+                        "map": "targetSiteCode",
+                        "identity": "rim"
+                    }
                 ],
-                "definition": "Anatomical location where the request test should be performed.  This is the target site."
+                "path": "DiagnosticOrder.item.bodySite"
             },
             {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.status",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The status of this individual item within the order.",
                 "mapping": [
                     {
                         "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the request has multiple items that have their own life cycles, then the items will have their own status while the overall diagnostic order is (usually) \"in-progress\".",
-                "path": "DiagnosticOrder.item.status",
-                "max": "1",
-                "min": 0,
                 "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
+                "min": 0,
                 "binding": {
                     "description": "The status of a diagnostic order.",
                     "valueSetReference": {
@@ -1388,61 +1373,76 @@
                     },
                     "strength": "required"
                 },
-                "definition": "The status of this individual item within the order.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.status"
-                }
+                "comments": "If the request has multiple items that have their own life cycles, then the items will have their own status while the overall diagnostic order is (usually) \"in-progress\".",
+                "path": "DiagnosticOrder.item.status",
+                "isSummary": true
             },
             {
-                "nameReference": "event",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.event",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A summary of the events of interest that have occurred as this item of the request is processed.",
                 "mapping": [
                     {
                         "map": ".inboundRelationship[typeCode=FLFS].source",
                         "identity": "rim"
                     }
                 ],
+                "short": "Events specific to this item",
+                "min": 0,
                 "isSummary": true,
                 "path": "DiagnosticOrder.item.event",
-                "max": "*",
-                "min": 0,
-                "short": "Events specific to this item",
-                "definition": "A summary of the events of interest that have occurred as this item of the request is processed.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.event"
-                }
+                "nameReference": "event"
             },
             {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.note",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Any other notes associated with this patient, specimen or order (e.g. \"patient hates needles\").",
+                "short": "Other notes and comments",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "path": "DiagnosticOrder.note",
-                "max": "*",
-                "min": 0,
-                "short": "Other notes and comments",
-                "definition": "Any other notes associated with this patient, specimen or order (e.g. \"patient hates needles\").",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.note"
-                }
+                "path": "DiagnosticOrder.note"
             }
         ]
     },
-    "name": "QICore-DiagnosticOrder",
     "description": "Profile of DiagnosticOrder for decision support/quality metrics. Defines the core set of elements and extensions for quality rule and measure authors.",
-    "status": "draft",
-    "date": "2015-02-27",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/qicore-diagnosticorder",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder",
+    "mapping": [
+        {
+            "uri": "http://www.healthit.gov/quality-data-model",
+            "identity": "qdm",
+            "name": "Quality Data Model"
+        }
+    ],
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org/special/committees/CQI",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Clinical Quality Information - QICore)"
 }

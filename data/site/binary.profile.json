@@ -1,19 +1,16 @@
 {
-    "mapping": [
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        }
-    ],
+    "id": "Binary",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A binary resource can contain any content, whether text, image, pdf, zip archive, etc.",
                 "mapping": [
                     {
                         "map": "N/A",
@@ -24,18 +21,11 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Pure binary content defined by some other format than FHIR",
+                "min": 0,
                 "comments": "Typically, Binary resources are used for handling content such as:  * CDA Documents (i.e. with XDS) * PDF Documents * Images (the Media resource is preferred for handling images, but not possible when the content is already binary - e.g. XDS).",
                 "path": "Binary",
-                "max": "*",
-                "min": 0,
-                "short": "Pure binary content defined by some other format than FHIR",
-                "definition": "A binary resource can contain any content, whether text, image, pdf, zip archive, etc."
+                "isSummary": true
             },
             {
                 "type": [
@@ -43,17 +33,17 @@
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "path": "Binary.contentType",
                 "max": "1",
-                "min": 1,
+                "definition": "MimeType of the binary content represented as a standard MimeType (BCP 13).",
                 "short": "MimeType of the binary content",
+                "min": 1,
                 "binding": {
                     "description": "The mime type of an attachment. Any valid mime type is allowed.",
-                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt",
-                    "strength": "required"
+                    "strength": "required",
+                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt"
                 },
-                "definition": "MimeType of the binary content represented as a standard MimeType (BCP 13)."
+                "isSummary": true,
+                "path": "Binary.contentType"
             },
             {
                 "type": [
@@ -61,20 +51,167 @@
                         "code": "base64Binary"
                     }
                 ],
-                "isSummary": true,
+                "max": "1",
+                "definition": "The actual content, base64 encoded.",
+                "short": "The actual content",
+                "min": 1,
                 "comments": "If the content type is itself base64 encoding, then this will be base64 encoded twice - what is created by un-base64ing the content must be the specified content type.",
                 "path": "Binary.content",
-                "max": "1",
-                "min": 1,
-                "short": "The actual content",
-                "definition": "The actual content, base64 encoded."
+                "isSummary": true
             }
         ]
     },
-    "id": "Binary",
-    "fhirVersion": "1.0.2",
+    "name": "Binary",
     "abstract": false,
+    "requirements": "There are situations where it is useful or required to handle pure binary content using the same framework as other resources.",
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
+        }
+    ],
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "A binary resource can contain any content, whether text, image, pdf, zip archive, etc.",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "infrastructure.structure",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Pure binary content defined by some other format than FHIR",
+                "min": 0,
+                "comments": "Typically, Binary resources are used for handling content such as:  * CDA Documents (i.e. with XDS) * PDF Documents * Images (the Media resource is preferred for handling images, but not possible when the content is already binary - e.g. XDS).",
+                "path": "Binary",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Binary.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Binary.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Binary.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Binary.language"
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "MimeType of the binary content represented as a standard MimeType (BCP 13).",
+                "short": "MimeType of the binary content",
+                "min": 1,
+                "binding": {
+                    "description": "The mime type of an attachment. Any valid mime type is allowed.",
+                    "strength": "required",
+                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt"
+                },
+                "isSummary": true,
+                "path": "Binary.contentType"
+            },
+            {
+                "type": [
+                    {
+                        "code": "base64Binary"
+                    }
+                ],
+                "max": "1",
+                "definition": "The actual content, base64 encoded.",
+                "short": "The actual content",
+                "min": 1,
+                "comments": "If the content type is itself base64 encoding, then this will be base64 encoded twice - what is created by un-base64ing the content must be the specified content type.",
+                "path": "Binary.content",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Binary Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Binary",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/Resource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -93,142 +230,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Resource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Binary",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (FHIR Infrastructure)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "infrastructure.structure",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Typically, Binary resources are used for handling content such as:  * CDA Documents (i.e. with XDS) * PDF Documents * Images (the Media resource is preferred for handling images, but not possible when the content is already binary - e.g. XDS).",
-                "path": "Binary",
-                "max": "*",
-                "min": 0,
-                "short": "Pure binary content defined by some other format than FHIR",
-                "definition": "A binary resource can contain any content, whether text, image, pdf, zip archive, etc."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Binary.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Binary.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Binary.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Binary.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Binary.contentType",
-                "max": "1",
-                "min": 1,
-                "short": "MimeType of the binary content",
-                "binding": {
-                    "description": "The mime type of an attachment. Any valid mime type is allowed.",
-                    "valueSetUri": "http://www.rfc-editor.org/bcp/bcp13.txt",
-                    "strength": "required"
-                },
-                "definition": "MimeType of the binary content represented as a standard MimeType (BCP 13)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "base64Binary"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the content type is itself base64 encoding, then this will be base64 encoded twice - what is created by un-base64ing the content must be the specified content type.",
-                "path": "Binary.content",
-                "max": "1",
-                "min": 1,
-                "short": "The actual content",
-                "definition": "The actual content, base64 encoded."
-            }
-        ]
-    },
-    "name": "Binary",
-    "requirements": "There are situations where it is useful or required to handle pure binary content using the same framework as other resources.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Binary Resource"
+    "publisher": "Health Level Seven International (FHIR Infrastructure)"
 }

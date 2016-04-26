@@ -1,19 +1,6 @@
 {
     "id": "uslab-do",
-    "constrainedType": "DiagnosticOrder",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder",
+    "date": "2014-11-17",
     "differential": {
         "element": [
             {
@@ -22,24 +9,15 @@
                         "code": "DiagnosticOrder"
                     }
                 ],
-                "path": "DiagnosticOrder",
+                "name": "USLab-DO",
+                "max": "*",
+                "min": 0,
                 "alias": [
                     "DO"
                 ],
-                "min": 0,
-                "name": "USLab-DO",
-                "max": "*"
+                "path": "DiagnosticOrder"
             },
             {
-                "type": [
-                    {
-                        "code": "Extension",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-cc-practitioner"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.extension",
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -47,174 +25,138 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-cc-practitioner"
+                        ],
+                        "code": "Extension"
+                    }
+                ],
+                "name": "USLabCC",
+                "max": "*",
+                "definition": "Copy to provider,organization, or patient.",
+                "short": "Copy to provider,organization, or patient",
+                "min": 0,
                 "alias": [
                     "CC",
                     "Copy to",
                     "Result Copies To"
                 ],
-                "min": 0,
-                "short": "Copy to provider,organization, or patient",
-                "name": "USLabCC",
-                "max": "*",
-                "definition": "Copy to provider,organization, or patient.",
-                "mustSupport": true
+                "path": "DiagnosticOrder.extension"
             },
             {
+                "mustSupport": true,
                 "min": 1,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-pract"
-                        ]
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "DiagnosticOrder.extension.valueReference",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-phpatient"
+                        ],
+                        "code": "Reference"
                     }
                 ],
                 "max": "1",
-                "mustSupport": true,
-                "path": "DiagnosticOrder.extension.valueReference"
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-phpatient"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.subject",
+                "requirements": "Limited to single patient per Diagnostic Order (Requisition).",
+                "min": 1,
                 "alias": [
                     "Patient"
                 ],
-                "min": 1,
-                "requirements": "Limited to single patient per Diagnostic Order (Requisition).",
-                "max": "1",
-                "mustSupport": true
+                "path": "DiagnosticOrder.subject"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-phpract"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-pract"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "path": "DiagnosticOrder.orderer",
+                "max": "1",
+                "requirements": "Limited to single orderer per Diagnostic Order (Requisition).",
+                "min": 1,
                 "alias": [
                     "Ordering Provider",
                     "OP",
                     "Submitter",
                     "Placer"
                 ],
-                "min": 1,
-                "requirements": "Limited to single orderer per Diagnostic Order (Requisition).",
-                "max": "1",
-                "mustSupport": true
+                "path": "DiagnosticOrder.orderer"
             },
             {
                 "mustSupport": true,
-                "path": "DiagnosticOrder.identifier",
+                "name": "USLabDOPlacerID",
+                "max": "1",
+                "requirements": "Limit to Globally unique IDs using a URI ( could be a URL).",
+                "min": 1,
                 "alias": [
                     "Placer ID"
                 ],
-                "min": 1,
-                "name": "USLabDOPlacerID",
-                "requirements": "Limit to Globally unique IDs using a URI ( could be a URL).",
-                "max": "1"
+                "path": "DiagnosticOrder.identifier"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "path": "DiagnosticOrder.identifier.use",
-                "min": 1,
+                "max": "1",
                 "fixedCode": "official",
-                "max": "1",
-                "mustSupport": true
+                "min": 1,
+                "path": "DiagnosticOrder.identifier.use"
             },
             {
                 "mustSupport": true,
-                "path": "DiagnosticOrder.identifier.system",
                 "max": "1",
-                "min": 1,
+                "definition": "Placer URI.",
                 "short": "Placer URI",
-                "definition": "Placer URI."
-            },
-            {
-                "mustSupport": true,
-                "path": "DiagnosticOrder.identifier.value",
-                "max": "1",
                 "min": 1,
-                "short": "Placer Identifier",
-                "definition": "Placer Identifier."
+                "path": "DiagnosticOrder.identifier.system"
             },
             {
-                "min": 0,
                 "mustSupport": true,
-                "max": "*",
-                "path": "DiagnosticOrder.reason"
+                "max": "1",
+                "definition": "Placer Identifier.",
+                "short": "Placer Identifier",
+                "min": 1,
+                "path": "DiagnosticOrder.identifier.value"
             },
             {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obscode"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obsquantity"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obsother"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obsratio"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obspanel"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-cond"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.supportingInformation",
+                "mustSupport": true,
+                "min": 0,
+                "path": "DiagnosticOrder.reason",
+                "max": "*"
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "@Profile",
@@ -223,53 +165,98 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obscode"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obsquantity"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obsother"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obsratio"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obspanel"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-cond"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "name": "USLabSupportingInformation",
+                "max": "*",
+                "requirements": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
+                "comments": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
+                "min": 0,
                 "alias": [
                     "AOE",
                     "Reason for Study"
                 ],
-                "min": 0,
-                "name": "USLabSupportingInformation",
-                "requirements": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
-                "max": "*",
-                "mustSupport": true,
-                "comments": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition."
+                "path": "DiagnosticOrder.supportingInformation"
             },
             {
+                "mustSupport": true,
                 "min": 0,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-spec"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "max": "*",
-                "mustSupport": true,
-                "path": "DiagnosticOrder.specimen"
+                "path": "DiagnosticOrder.specimen",
+                "max": "*"
             },
             {
+                "mustSupport": true,
                 "min": 1,
+                "path": "DiagnosticOrder.status",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "DiagnosticOrder.priority",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "DiagnosticOrder.event",
+                "max": "*"
+            },
+            {
                 "mustSupport": true,
                 "max": "1",
-                "path": "DiagnosticOrder.status"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "1",
-                "path": "DiagnosticOrder.priority"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "*",
-                "path": "DiagnosticOrder.event"
-            },
-            {
-                "mustSupport": true,
                 "comments": "These codes capture the Use cases for LOI.",
-                "path": "DiagnosticOrder.event.description",
                 "min": 1,
                 "binding": {
                     "description": "Information about an event that occurred to a diagnostic order that corresponds to the USLabOrder Use Cases",
@@ -278,52 +265,57 @@
                     },
                     "strength": "extensible"
                 },
+                "path": "DiagnosticOrder.event.description"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "DiagnosticOrder.event.description.coding",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "DiagnosticOrder.event.description.coding.system",
                 "max": "1"
             },
             {
-                "min": 1,
                 "mustSupport": true,
-                "max": "*",
-                "path": "DiagnosticOrder.event.description.coding"
-            },
-            {
                 "min": 1,
-                "mustSupport": true,
-                "max": "1",
-                "path": "DiagnosticOrder.event.description.coding.system"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "1",
-                "path": "DiagnosticOrder.event.description.coding.code"
+                "path": "DiagnosticOrder.event.description.coding.code",
+                "max": "1"
             },
             {
                 "mustSupport": true,
-                "constraint": [
-                    {
-                        "xpath": "f:matches(dateTime,/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z)/)",
-                        "human": "Datetime must be at least to day.",
-                        "severity": "error",
-                        "key": "inv-2"
-                    }
-                ],
-                "path": "DiagnosticOrder.event.dateTime",
-                "min": 1,
                 "condition": [
                     "inv-2"
                 ],
+                "constraint": [
+                    {
+                        "human": "Datetime must be at least to day.",
+                        "severity": "error",
+                        "xpath": "f:matches(dateTime,/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z)/)",
+                        "key": "inv-2"
+                    }
+                ],
+                "max": "1",
                 "requirements": "Minimum Precision to Day.",
-                "max": "1"
-            },
-            {
                 "min": 1,
-                "mustSupport": true,
-                "max": "*",
-                "path": "DiagnosticOrder.item"
+                "path": "DiagnosticOrder.event.dateTime"
             },
             {
                 "mustSupport": true,
+                "min": 1,
+                "path": "DiagnosticOrder.item",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "max": "1",
+                "definition": "The laboratory test, panel or battery that was ordered.",
+                "requirements": "Requires at least a code, code system an d display text.",
+                "short": "US Realm Laboratory Report Order Code",
+                "min": 1,
                 "binding": {
                     "description": "LOINC codes",
                     "valueSetReference": {
@@ -332,80 +324,95 @@
                     "strength": "extensible"
                 },
                 "comments": "Use the appropriate LOINC or local code as provided by laboratory.   FHIR Value set resources binding to each laboratory's compendium of service is done at implementation usign the FHIR Value set resources or some other mechanism.  Systems SHALL be capable of sending/consuming the local code if one exists.",
-                "path": "DiagnosticOrder.item.code",
-                "max": "1",
-                "min": 1,
-                "short": "US Realm Laboratory Report Order Code",
-                "requirements": "Requires at least a code, code system an d display text.",
-                "definition": "The laboratory test, panel or battery that was ordered."
+                "path": "DiagnosticOrder.item.code"
             },
             {
-                "min": 1,
                 "mustSupport": true,
-                "max": "*",
-                "path": "DiagnosticOrder.item.code.coding"
+                "min": 1,
+                "path": "DiagnosticOrder.item.code.coding",
+                "max": "*"
             },
             {
-                "min": 1,
                 "mustSupport": true,
-                "max": "1",
-                "path": "DiagnosticOrder.item.code.coding.system"
+                "min": 1,
+                "path": "DiagnosticOrder.item.code.coding.system",
+                "max": "1"
             },
             {
-                "min": 1,
                 "mustSupport": true,
-                "max": "1",
                 "comments": "Logical Observation Identifiers Names and Codes (LOINC) is a database and universal standard for identifying medical laboratory observations.",
-                "path": "DiagnosticOrder.item.code.coding.code"
+                "min": 1,
+                "path": "DiagnosticOrder.item.code.coding.code",
+                "max": "1"
             },
             {
-                "min": 0,
                 "mustSupport": true,
-                "max": "1",
                 "comments": "The LOINC  'long common name' is preferred although the LOINC 'short name' or the LOINC 'fully-specified name can also be used.  ( http://lionc.org.terms-of-use).",
-                "path": "DiagnosticOrder.item.code.coding.display"
-            },
-            {
                 "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "DiagnosticOrder.item.code.text"
+                "path": "DiagnosticOrder.item.code.coding.display",
+                "max": "1"
             },
             {
+                "mustSupport": true,
+                "min": 0,
+                "path": "DiagnosticOrder.item.code.text",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-spec"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "comments": "New specimen(s) related to the item event go here and not in DO.specimen.",
-                "path": "DiagnosticOrder.item.specimen",
-                "min": 0,
                 "max": "*",
-                "mustSupport": true
+                "comments": "New specimen(s) related to the item event go here and not in DO.specimen.",
+                "min": 0,
+                "path": "DiagnosticOrder.item.specimen"
             },
             {
                 "min": 0,
-                "max": "0",
-                "path": "DiagnosticOrder.item.bodySite"
+                "path": "DiagnosticOrder.item.bodySite",
+                "max": "0"
             },
             {
-                "min": 1,
                 "mustSupport": true,
-                "max": "1",
                 "comments": "Typically the system placing the order sets the status to requested. There after, the order is maintained by the receiver that updates the status as the request is handled.",
-                "path": "DiagnosticOrder.item.status"
+                "min": 1,
+                "path": "DiagnosticOrder.item.status",
+                "max": "1"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/uslab-do",
+    "name": "US Laboratory Diagnostic Order Profile",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Orders and Observations - US Lab)",
+    "constrainedType": "DiagnosticOrder",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "DiagnosticOrder"
+                    }
+                ],
+                "name": "USLab-DO",
+                "max": "*",
+                "definition": "A record of a request for a diagnostic investigation service to be performed.",
+                "short": "A request for a diagnostic service",
+                "min": 0,
+                "alias": [
+                    "DO"
+                ],
                 "mapping": [
                     {
                         "map": "Observation[classCode=OBS, moodCode=RQO, code<\"diagnostic order\"]",
@@ -416,25 +423,7 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "DiagnosticOrder"
-                    }
-                ],
-                "path": "DiagnosticOrder",
-                "alias": [
-                    "DO"
-                ],
-                "min": 0,
-                "short": "A request for a diagnostic service",
-                "name": "USLab-DO",
-                "max": "*",
-                "definition": "A record of a request for a diagnostic investigation service to be performed.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder"
-                }
+                "path": "DiagnosticOrder"
             },
             {
                 "type": [
@@ -442,18 +431,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "DiagnosticOrder.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.id"
-                }
+                    "path": "DiagnosticOrder.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "DiagnosticOrder.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -461,17 +450,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.meta"
-                }
+                    "path": "DiagnosticOrder.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticOrder.meta"
             },
             {
                 "type": [
@@ -479,19 +468,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "DiagnosticOrder.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.implicitRules"
-                }
+                    "path": "DiagnosticOrder.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "DiagnosticOrder.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -499,98 +488,86 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "DiagnosticOrder.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.language"
-                }
+                    "path": "DiagnosticOrder.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "DiagnosticOrder.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "DiagnosticOrder.text",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "DiagnosticOrder.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "DiagnosticOrder.contained",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "DiagnosticOrder.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "path": "DiagnosticOrder.extension",
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "url"
@@ -598,177 +575,218 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.extension"
-                },
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.extension",
+                    "max": "*"
+                },
                 "type": [
                     {
-                        "code": "Extension",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-cc-practitioner"
-                        ]
+                        ],
+                        "code": "Extension"
                     }
                 ],
-                "mustSupport": true,
-                "path": "DiagnosticOrder.extension",
+                "name": "USLabCC",
+                "max": "*",
+                "definition": "Copy to provider,organization, or patient.",
+                "short": "Copy to provider,organization, or patient",
+                "min": 0,
                 "alias": [
                     "CC",
                     "Copy to",
                     "Result Copies To"
                 ],
-                "min": 0,
-                "short": "Copy to provider,organization, or patient",
-                "name": "USLabCC",
-                "max": "*",
-                "definition": "Copy to provider,organization, or patient.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.extension"
-                }
+                "path": "DiagnosticOrder.extension"
             },
             {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Extension.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "DiagnosticOrder.extension.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Extension.id"
-                }
+                "path": "DiagnosticOrder.extension.id"
             },
             {
+                "base": {
+                    "min": 0,
+                    "path": "Extension.extension",
+                    "max": "*"
+                },
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "path": "DiagnosticOrder.extension.extension",
-                "max": "0",
-                "min": 0,
-                "short": "Extension",
                 "name": "extension",
+                "max": "0",
                 "definition": "An Extension",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Extension.extension"
-                }
+                "short": "Extension",
+                "min": 0,
+                "path": "DiagnosticOrder.extension.extension"
             },
             {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
-                "path": "DiagnosticOrder.extension.url",
+                "base": {
+                    "min": 1,
+                    "path": "Extension.url",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Source of the definition for the extension code - a logical name or a URL.",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 1,
-                "short": "identifies the meaning of the extension",
-                "fixedUri": "http://hl7.org/fhir/StructureDefinition/uslab-cc-practitioner",
-                "definition": "Source of the definition for the extension code - a logical name or a URL.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Extension.url"
-                },
-                "comments": "The definition may point directly to a computable or human-readable definition of the extensibility codes, or it may be a logical URI as declared in some other specification. The definition should be version specific.  This will ideally be the URI for the Resource Profile defining the extension, with the code for the extension after a #."
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
                 ],
+                "short": "identifies the meaning of the extension",
+                "min": 1,
+                "comments": "The definition may point directly to a computable or human-readable definition of the extensibility codes, or it may be a logical URI as declared in some other specification. The definition should be version specific.  This will ideally be the URI for the Resource Profile defining the extension, with the code for the extension after a #.",
+                "path": "DiagnosticOrder.extension.url",
+                "fixedUri": "http://hl7.org/fhir/StructureDefinition/uslab-cc-practitioner"
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/uslab-pract"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "mustSupport": true,
-                "path": "DiagnosticOrder.extension.valueReference",
-                "max": "1",
-                "min": 1,
-                "short": "Value of extension",
-                "definition": "Value of extension - may be a resource or one of a constrained set of the data types (see Extensibility in the spec for list).",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Extension.value[x]"
-                }
-            },
-            {
+                    "path": "Extension.value[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Value of extension - may be a resource or one of a constrained set of the data types (see Extensibility in the spec for list).",
+                "short": "Value of extension",
+                "min": 1,
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.extension.valueReference"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Limited to single patient per Diagnostic Order (Requisition).",
+                "short": "Who and/or what test is about",
+                "definition": "Who or what the investigation is to be performed on. This is usually a human patient, but diagnostic tests can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans).",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.subject",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-phpatient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "alias": [
+                    "Patient"
+                ],
                 "mapping": [
                     {
                         "map": ".participation[typeCode=SBJ].role",
@@ -779,38 +797,41 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-phpatient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Who and/or what test is about",
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.subject"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticOrder.subject",
-                "alias": [
-                    "Patient"
-                ],
-                "requirements": "Limited to single patient per Diagnostic Order (Requisition).",
-                "definition": "Who or what the investigation is to be performed on. This is usually a human patient, but diagnostic tests can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans)."
+                "path": "DiagnosticOrder.subject"
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Limited to single orderer per Diagnostic Order (Requisition).",
+                "short": "Who ordered the test",
+                "definition": "The practitioner that holds legal responsibility for ordering the investigation.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.orderer",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-phpract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-pract"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "alias": [
+                    "Ordering Provider",
+                    "OP",
+                    "Submitter",
+                    "Placer"
+                ],
                 "mapping": [
                     {
                         "map": ".participation[typeCode=AUT].role",
@@ -821,41 +842,20 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-phpract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-pract"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Who ordered the test",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.orderer"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticOrder.orderer",
-                "alias": [
-                    "Ordering Provider",
-                    "OP",
-                    "Submitter",
-                    "Placer"
-                ],
-                "requirements": "Limited to single orderer per Diagnostic Order (Requisition).",
-                "definition": "The practitioner that holds legal responsibility for ordering the investigation."
+                "path": "DiagnosticOrder.orderer"
             },
             {
+                "min": 1,
+                "name": "USLabDOPlacerID",
+                "max": "1",
+                "requirements": "Limit to Globally unique IDs using a URI ( could be a URL).",
+                "short": "Identifiers assigned to this order",
+                "definition": "Identifiers assigned to this order instance by the orderer and/or  the receiver and/or order fulfiller.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.identifier",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": ".id",
@@ -866,85 +866,91 @@
                         "identity": "w5"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "The identifier.type element is used to distinguish between the identifiers assigned by the orderer (known as the 'Placer' in HL7 v2) and the producer of the observations in response to the order (known as the 'Filler' in HL7 v2). For further discussion and examples see the [notes section](diagnosticorder.html#4.22.4) below.",
                 "type": [
                     {
                         "code": "Identifier"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Identifiers assigned to this order",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.identifier"
-                },
-                "mustSupport": true,
-                "comments": "The identifier.type element is used to distinguish between the identifiers assigned by the orderer (known as the 'Placer' in HL7 v2) and the producer of the observations in response to the order (known as the 'Filler' in HL7 v2). For further discussion and examples see the [notes section](diagnosticorder.html#4.22.4) below.",
-                "path": "DiagnosticOrder.identifier",
                 "alias": [
                     "Placer ID"
                 ],
-                "name": "USLabDOPlacerID",
-                "requirements": "Limit to Globally unique IDs using a URI ( could be a URL).",
-                "definition": "Identifiers assigned to this order instance by the orderer and/or  the receiver and/or order fulfiller."
+                "isSummary": true,
+                "path": "DiagnosticOrder.identifier"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.identifier.id",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.identifier.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.identifier.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Identifier.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.identifier.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Allows the appropriate identifier for a particular context of use to be selected from among a set of identifiers.",
+                "binding": {
+                    "description": "Identifies the purpose for this identifier, if known .",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/identifier-use"
+                    },
+                    "strength": "required"
+                },
+                "short": "usual | official | temp | secondary (If known)",
+                "definition": "The purpose of this identifier.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.use",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "N/A",
@@ -955,36 +961,29 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "fixedCode": "official",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary id for a permanent one. Applications can assume that an identifier is permanent unless it explicitly says that it is temporary.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "requirements": "Allows the appropriate identifier for a particular context of use to be selected from among a set of identifiers.",
-                "isSummary": true,
-                "min": 1,
-                "short": "usual | official | temp | secondary (If known)",
-                "binding": {
-                    "description": "Identifies the purpose for this identifier, if known .",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/identifier-use"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.use"
-                },
-                "mustSupport": true,
                 "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary id for a permanent one. Applications can assume that an identifier is permanent unless it explicitly says that it is temporary.",
-                "path": "DiagnosticOrder.identifier.use",
-                "fixedCode": "official",
-                "definition": "The purpose of this identifier."
+                "isSummary": true,
+                "path": "DiagnosticOrder.identifier.use"
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Allows users to make use of identifiers when the identifier system is not known.",
+                "short": "Description of identifier",
+                "definition": "A coded type for the identifier that can be used to determine which identifier to use for a specific purpose.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.type",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "CX.5",
@@ -995,14 +994,12 @@
                         "identity": "rim"
                     }
                 ],
+                "comments": "This element deals only with general categories of identifiers.  It SHOULD not be used for codes that correspond 1..1 with the Identifier.system. Some identifiers may fall into multiple categories due to common usage. \n\nWhere the system is known, a type is unnecessary because the type is always part of the system definition. However systems often need to handle identifiers where the system is not known. There is not a 1:1 relationship between type and system, since many different systems have the same type.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Description of identifier",
                 "binding": {
                     "description": "A coded type for an identifier that can be used to determine which identifier to use for a specific purpose.",
                     "valueSetReference": {
@@ -1010,18 +1007,20 @@
                     },
                     "strength": "extensible"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.type"
-                },
-                "comments": "This element deals only with general categories of identifiers.  It SHOULD not be used for codes that correspond 1..1 with the Identifier.system. Some identifiers may fall into multiple categories due to common usage. \n\nWhere the system is known, a type is unnecessary because the type is always part of the system definition. However systems often need to handle identifiers where the system is not known. There is not a 1:1 relationship between type and system, since many different systems have the same type.",
-                "path": "DiagnosticOrder.identifier.type",
-                "requirements": "Allows users to make use of identifiers when the identifier system is not known.",
-                "definition": "A coded type for the identifier that can be used to determine which identifier to use for a specific purpose."
+                "isSummary": true,
+                "path": "DiagnosticOrder.identifier.type"
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "There are many sequences of identifiers.  To perform matching, we need to know what sequence we're dealing with. The system identifies a particular sequence or set of unique identifiers.",
+                "short": "Placer URI",
+                "definition": "Placer URI.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.system",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "CX.4 / EI-2-4",
@@ -1036,27 +1035,27 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "exampleUri": "http://www.acme.com/identifiers/patient or urn:ietf:rfc:3986 if the Identifier.value itself is a full uri",
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "Placer URI",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.system"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticOrder.identifier.system",
-                "requirements": "There are many sequences of identifiers.  To perform matching, we need to know what sequence we're dealing with. The system identifies a particular sequence or set of unique identifiers.",
-                "definition": "Placer URI.",
-                "exampleUri": "http://www.acme.com/identifiers/patient or urn:ietf:rfc:3986 if the Identifier.value itself is a full uri"
+                "path": "DiagnosticOrder.identifier.system"
             },
             {
+                "exampleString": "123456",
+                "min": 1,
+                "max": "1",
+                "short": "Placer Identifier",
+                "definition": "Placer Identifier.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.value",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "CX.1 / EI.1",
@@ -1071,27 +1070,33 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "If the value is a full URI, then the system SHALL be urn:ietf:rfc:3986.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
                 "isSummary": true,
-                "exampleString": "123456",
-                "min": 1,
-                "short": "Placer Identifier",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.value"
-                },
-                "mustSupport": true,
-                "comments": "If the value is a full URI, then the system SHALL be urn:ietf:rfc:3986.",
-                "path": "DiagnosticOrder.identifier.value",
-                "definition": "Placer Identifier."
+                "path": "DiagnosticOrder.identifier.value"
             },
             {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.period",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Time period during which identifier is/was valid for use.",
+                "short": "Time period when id is/was valid for use",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticOrder.identifier.period",
                 "mapping": [
                     {
                         "map": "CX.7 + CX.8",
@@ -1105,25 +1110,24 @@
                         "map": "./StartDate and ./EndDate",
                         "identity": "servd"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.identifier.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when id is/was valid for use",
-                "definition": "Time period during which identifier is/was valid for use.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.period"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.assigner",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Organization that issued/manages the identifier.",
                 "mapping": [
                     {
                         "map": "CX.4 / (CX.4,CX.9,CX.10)",
@@ -1138,28 +1142,32 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Organization that issued id (may be just text)",
+                "min": 0,
                 "comments": "The reference may be just a text description of the assigner.",
                 "path": "DiagnosticOrder.identifier.assigner",
-                "max": "1",
-                "min": 0,
-                "short": "Organization that issued id (may be just text)",
-                "definition": "Organization that issued/manages the identifier.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.assigner"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "An encounter that provides additional information about the healthcare context in which this request is made.",
+                "short": "The encounter that this diagnostic order is associated with",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticOrder.encounter",
                 "mapping": [
                     {
                         "map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
@@ -1169,45 +1177,24 @@
                         "map": "context",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Encounter"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "The encounter that this diagnostic order is associated with",
-                "definition": "An encounter that provides additional information about the healthcare context in which this request is made.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.encounter"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": ".reasonCode",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "comments": "This may be used to decide how the diagnostic investigation will be performed, or even if it will be performed at all.   Use CodeableConcept text element if the data is free (uncoded) text as shown in the [CT Scan example](diagnosticorder-example-di.html).",
-                "path": "DiagnosticOrder.reason",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.reason",
+                    "max": "*"
+                },
                 "max": "*",
-                "min": 0,
+                "definition": "An explanation or justification for why this diagnostic investigation is being requested.   This is often for billing purposes.  May relate to the resources referred to in supportingInformation.",
                 "short": "Explanation/Justification for test",
+                "min": 0,
                 "binding": {
                     "description": "Diagnosis or problem codes justifying the reason for requesting the diagnostic investigation.",
                     "valueSetReference": {
@@ -1215,45 +1202,16 @@
                     },
                     "strength": "example"
                 },
-                "definition": "An explanation or justification for why this diagnostic investigation is being requested.   This is often for billing purposes.  May relate to the resources referred to in supportingInformation.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.reason"
-                }
-            },
-            {
+                "comments": "This may be used to decide how the diagnostic investigation will be performed, or even if it will be performed at all.   Use CodeableConcept text element if the data is free (uncoded) text as shown in the [CT Scan example](diagnosticorder-example-di.html).",
+                "path": "DiagnosticOrder.reason",
                 "mapping": [
                     {
-                        "map": "OBR-13",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "outboundRelationship[typeCode=SPRT]/target[classCode=ACT, moodCode=EVN]",
+                        "map": ".reasonCode",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.supportingInformation",
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "@Profile",
@@ -1262,22 +1220,116 @@
                     "ordered": false,
                     "rules": "open"
                 },
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.supportingInformation",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Additional clinical information about the patient or specimen that may influence test interpretations.  This includes observations explicitly requested by the producer(filler) to provide context or supporting information needed to complete the order.",
+                "short": "Additional clinical information",
+                "min": 0,
                 "alias": [
                     "Ask at order entry question",
                     "AOE"
                 ],
+                "comments": "This information includes diagnosis, clinical findings and other observations.  In laboratory ordering these are typically referred to as \"ask at order entry questions (AOEs)\". Examples include reporting the amount of inspired oxygen for blood gasses, the point in the menstrual cycle for cervical pap tests, and other conditions that influence test interpretations.",
+                "path": "DiagnosticOrder.supportingInformation",
+                "mapping": [
+                    {
+                        "map": "OBR-13",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "outboundRelationship[typeCode=SPRT]/target[classCode=ACT, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
                 "min": 0,
-                "short": "Additional clinical information",
+                "name": "USLabSupportingInformation",
                 "max": "*",
+                "requirements": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
+                "short": "Additional clinical information",
                 "definition": "Additional clinical information about the patient or specimen that may influence test interpretations.  This includes observations explicitly requested by the producer(filler) to provide context or supporting information needed to complete the order.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.supportingInformation"
+                    "path": "DiagnosticOrder.supportingInformation",
+                    "max": "*"
                 },
-                "comments": "This information includes diagnosis, clinical findings and other observations.  In laboratory ordering these are typically referred to as \"ask at order entry questions (AOEs)\". Examples include reporting the amount of inspired oxygen for blood gasses, the point in the menstrual cycle for cervical pap tests, and other conditions that influence test interpretations."
-            },
-            {
+                "mustSupport": true,
+                "comments": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obscode"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obsquantity"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obsother"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obsratio"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-obspanel"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-cond"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "alias": [
+                    "Ask at order entry question",
+                    "AOE",
+                    "AOE",
+                    "Reason for Study"
+                ],
                 "mapping": [
                     {
                         "map": "OBR-13",
@@ -1288,100 +1340,47 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obscode"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obsquantity"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obsother"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obsratio"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-obspanel"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-cond"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DocumentReference"
-                        ]
-                    }
-                ],
-                "min": 0,
-                "short": "Additional clinical information",
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.supportingInformation"
-                },
-                "mustSupport": true,
-                "comments": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
-                "path": "DiagnosticOrder.supportingInformation",
-                "alias": [
-                    "Ask at order entry question",
-                    "AOE",
-                    "AOE",
-                    "Reason for Study"
-                ],
-                "name": "USLabSupportingInformation",
-                "requirements": "AOES are captured in the USLabObservation resource and Reasons for the testing in USLabCondition.",
-                "definition": "Additional clinical information about the patient or specimen that may influence test interpretations.  This includes observations explicitly requested by the producer(filler) to provide context or supporting information needed to complete the order."
+                "path": "DiagnosticOrder.supportingInformation"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-spec"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.specimen",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "One or more specimens that the diagnostic investigation is about.",
+                "short": "If the whole order relates to specific specimens",
+                "min": 0,
+                "comments": "Many investigation requests will create a need for specimens, but the request itself is not actually about the specimens. This is provided for when the diagnostic investigation is requested on already existing specimens.",
+                "path": "DiagnosticOrder.specimen",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=SPC].role",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-spec"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "Many investigation requests will create a need for specimens, but the request itself is not actually about the specimens. This is provided for when the diagnostic investigation is requested on already existing specimens.",
-                "path": "DiagnosticOrder.specimen",
-                "max": "*",
-                "min": 0,
-                "short": "If the whole order relates to specific specimens",
-                "definition": "One or more specimens that the diagnostic investigation is about.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.specimen"
-                }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
+                "definition": "The status of the order.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.status",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
@@ -1392,14 +1391,13 @@
                         "identity": "w5"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Typically the system placing the order sets the status to \"requested\". Thereafter, the order is maintained by the receiver that updates the status as the request is handled.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
                 "binding": {
                     "description": "The status of a diagnostic order.",
                     "valueSetReference": {
@@ -1407,19 +1405,19 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.status"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "comments": "Typically the system placing the order sets the status to \"requested\". Thereafter, the order is maintained by the receiver that updates the status as the request is handled.",
-                "path": "DiagnosticOrder.status",
-                "definition": "The status of the order."
+                "isSummary": true,
+                "path": "DiagnosticOrder.status"
             },
             {
+                "min": 1,
+                "max": "1",
+                "short": "routine | urgent | stat | asap",
+                "definition": "The clinical priority associated with this order.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.priority",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".priorityCode",
@@ -1430,14 +1428,13 @@
                         "identity": "w5"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "The Order resource also has a priority. Generally, these should be the same, but they can be different. For instance, where the clinician indicates the order is urgent, but the subsequent workflow process overrules the priority for some reason. The effective default value is \"normal\".",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "routine | urgent | stat | asap",
                 "binding": {
                     "description": "The clinical priority of a diagnostic order.",
                     "valueSetReference": {
@@ -1445,143 +1442,133 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.priority"
-                },
-                "mustSupport": true,
-                "comments": "The Order resource also has a priority. Generally, these should be the same, but they can be different. For instance, where the clinician indicates the order is urgent, but the subsequent workflow process overrules the priority for some reason. The effective default value is \"normal\".",
-                "path": "DiagnosticOrder.priority",
-                "definition": "The clinical priority associated with this order."
+                "isSummary": true,
+                "path": "DiagnosticOrder.priority"
             },
             {
-                "mapping": [
-                    {
-                        "map": ".inboundRelationship[typeCode=FLFS].source",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "mustSupport": true,
-                "comments": "This is not the same as an audit trail. It is a view of the important things that happened in the past. Typically, there would only be one entry for any given status, and systems may not record all the status events.",
-                "path": "DiagnosticOrder.event",
-                "max": "*",
-                "min": 1,
-                "short": "A list of events of interest in the lifecycle",
-                "definition": "A summary of the events of interest that have occurred as the request is processed; e.g. when the order was made, various processing steps (specimens received), when it was completed.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.event"
-                }
-            },
-            {
+                    "path": "DiagnosticOrder.event",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A summary of the events of interest that have occurred as the request is processed; e.g. when the order was made, various processing steps (specimens received), when it was completed.",
+                "short": "A list of events of interest in the lifecycle",
+                "min": 1,
+                "comments": "This is not the same as an audit trail. It is a view of the important things that happened in the past. Typically, there would only be one entry for any given status, and systems may not record all the status events.",
+                "path": "DiagnosticOrder.event",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": ".inboundRelationship[typeCode=FLFS].source",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.event.id",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.event.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.event.extension",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.event.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.event.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.event.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.event.modifierExtension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.event.modifierExtension",
                 "mapping": [
                     {
-                        "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
+                        "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.event.status",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.event.status",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 1,
+                "definition": "The status for the event.",
                 "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
+                "min": 1,
                 "binding": {
                     "description": "The status of a diagnostic order.",
                     "valueSetReference": {
@@ -1589,28 +1576,38 @@
                     },
                     "strength": "required"
                 },
-                "definition": "The status for the event.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.status"
-                }
+                "isSummary": true,
+                "path": "DiagnosticOrder.event.status",
+                "mapping": [
+                    {
+                        "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "short": "More information about the event and its context",
+                "definition": "Additional information about the event that occurred - e.g. if the status remained unchanged.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.description",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".text",
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "These codes capture the Use cases for LOI.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "More information about the event and its context",
                 "binding": {
                     "description": "Information about an event that occurred to a diagnostic order that corresponds to the USLabOrder Use Cases",
                     "valueSetReference": {
@@ -1618,72 +1615,74 @@
                     },
                     "strength": "extensible"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.description"
-                },
-                "mustSupport": true,
-                "comments": "These codes capture the Use cases for LOI.",
-                "path": "DiagnosticOrder.event.description",
-                "definition": "Additional information about the event that occurred - e.g. if the status remained unchanged."
+                "isSummary": true,
+                "path": "DiagnosticOrder.event.description"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.event.description.id",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "CodeableConcept.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.event.description.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.event.description.extension",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "CodeableConcept.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.event.description.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "*",
+                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
+                "short": "Code defined by a terminology system",
+                "definition": "A reference to a code defined by a terminology system.",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.coding",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": "fhir:CodeableConcept.coding rdfs:subPropertyOf dt:CD.coding",
@@ -1698,81 +1697,81 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
                 "type": [
                     {
                         "code": "Coding"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "Code defined by a terminology system",
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "CodeableConcept.coding"
-                },
-                "mustSupport": true,
-                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
-                "path": "DiagnosticOrder.event.description.coding",
-                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
-                "definition": "A reference to a code defined by a terminology system."
+                "path": "DiagnosticOrder.event.description.coding"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.event.description.coding.id",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.event.description.coding.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.event.description.coding.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Coding.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.event.description.coding.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Need to be unambiguous about the source of the definition of the symbol.",
+                "short": "Identity of the terminology system",
+                "definition": "The identification of the code system that defines the meaning of the symbol in the code.",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.system",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "fhir:Coding.system rdfs:subPropertyOf dt:CDCoding.codeSystem",
@@ -1787,27 +1786,29 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "The URI may be an OID (urn:oid:...) or a UUID (urn:uuid:...).  OIDs and UUIDs SHALL be references to the HL7 OID registry. Otherwise, the URI should come from HL7's list of FHIR defined special URIs or it should de-reference to some definition that establish the system clearly and unambiguously.",
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "Identity of the terminology system",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.system"
-                },
-                "mustSupport": true,
-                "comments": "The URI may be an OID (urn:oid:...) or a UUID (urn:uuid:...).  OIDs and UUIDs SHALL be references to the HL7 OID registry. Otherwise, the URI should come from HL7's list of FHIR defined special URIs or it should de-reference to some definition that establish the system clearly and unambiguously.",
-                "path": "DiagnosticOrder.event.description.coding.system",
-                "requirements": "Need to be unambiguous about the source of the definition of the symbol.",
-                "definition": "The identification of the code system that defines the meaning of the symbol in the code."
+                "path": "DiagnosticOrder.event.description.coding.system"
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Coding.version",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The version of the code system which was used when choosing this code. Note that a well-maintained code system does not need the version reported, because the meaning of codes is consistent across versions. However this cannot consistently be assured. and when the meaning is not guaranteed to be consistent, the version SHOULD be exchanged.",
                 "mapping": [
                     {
                         "map": "fhir:Coding.version rdfs:subPropertyOf dt:CDCoding.codeSystemVersion",
@@ -1822,26 +1823,31 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Version of the system - if relevant",
+                "min": 0,
                 "comments": "Where the terminology does not clearly define what string should be used to identify code system versions, the recommendation is to use the date (expressed in FHIR date format) on which that version was officially published as the version date.",
                 "path": "DiagnosticOrder.event.description.coding.version",
-                "max": "1",
-                "min": 0,
-                "short": "Version of the system - if relevant",
-                "definition": "The version of the code system which was used when choosing this code. Note that a well-maintained code system does not need the version reported, because the meaning of codes is consistent across versions. However this cannot consistently be assured. and when the meaning is not guaranteed to be consistent, the version SHOULD be exchanged.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.version"
-                }
+                "isSummary": true
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Coding.code",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A symbol in syntax defined by the system. The symbol may be a predefined code or an expression in a syntax defined by the coding system (e.g. post-coordination).",
+                "requirements": "Need to refer to a particular code in the system.",
+                "short": "Symbol in syntax defined by the system",
+                "min": 1,
                 "isSummary": true,
+                "path": "DiagnosticOrder.event.description.coding.code",
                 "mapping": [
                     {
                         "map": "fhir:Coding.code rdfs:subPropertyOf dt:CDCoding.code",
@@ -1855,26 +1861,26 @@
                         "map": "./code",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "DiagnosticOrder.event.description.coding.code",
-                "max": "1",
-                "min": 1,
-                "short": "Symbol in syntax defined by the system",
-                "requirements": "Need to refer to a particular code in the system.",
-                "definition": "A symbol in syntax defined by the system. The symbol may be a predefined code or an expression in a syntax defined by the coding system (e.g. post-coordination).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.code"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Coding.display",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A representation of the meaning of the code in the system, following the rules of the system.",
+                "requirements": "Need to be able to carry a human-readable meaning of the code for readers that do not know  the system.",
+                "short": "Representation defined by the system",
+                "min": 0,
+                "isSummary": true,
+                "path": "DiagnosticOrder.event.description.coding.display",
                 "mapping": [
                     {
                         "map": "fhir:Coding.display rdfs:subPropertyOf dt:CDCoding.displayName",
@@ -1888,26 +1894,22 @@
                         "map": "CV.displayName",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DiagnosticOrder.event.description.coding.display",
-                "max": "1",
-                "min": 0,
-                "short": "Representation defined by the system",
-                "requirements": "Need to be able to carry a human-readable meaning of the code for readers that do not know  the system.",
-                "definition": "A representation of the meaning of the code in the system, following the rules of the system.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.display"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Coding.userSelected",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates that this coding was chosen by a user directly - i.e. off a pick list of available items (codes or displays).",
+                "requirements": "This has been identified as a clinical safety criterium - that this exact system/code pair was chosen explicitly, rather than inferred by the system based on some rules or language processing.",
                 "mapping": [
                     {
                         "map": "fhir:Coding.userSelected fhir:mapsTo dt:CDCoding.codingRationale. fhir:Coding.userSelected fhir:hasMap fhir:Coding.userSelected.map. fhir:Coding.userSelected.map a fhir:Map;   fhir:target dt:CDCoding.codingRationale. fhir:Coding.userSelected\\#true a [     fhir:source \"true\";     fhir:target dt:CDCoding.codingRationale\\#O   ]",
@@ -1922,26 +1924,26 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isSummary": true,
+                "short": "If this coding was chosen directly by the user",
+                "min": 0,
                 "comments": "Amongst a set of alternatives, a directly chosen code is the most appropriate starting point for new translations. There is some ambiguity about what exactly 'directly chosen' implies, and trading partner agreement may be needed to clarify the use of this element and its consequences more completely.",
                 "path": "DiagnosticOrder.event.description.coding.userSelected",
-                "max": "1",
-                "min": 0,
-                "short": "If this coding was chosen directly by the user",
-                "requirements": "This has been identified as a clinical safety criterium - that this exact system/code pair was chosen explicitly, rather than inferred by the system based on some rules or language processing.",
-                "definition": "Indicates that this coding was chosen by a user directly - i.e. off a pick list of available items (codes or displays).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.userSelected"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.",
+                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
                 "mapping": [
                     {
                         "map": "fhir:CodeableConcept.text rdfs:subPropertyOf dt:CD.originalText",
@@ -1956,201 +1958,198 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
+                "short": "Plain text representation of the concept",
+                "min": 0,
+                "comments": "Very often the text is the same as a displayName of one of the codings.",
+                "path": "DiagnosticOrder.event.description.text",
+                "isSummary": true
+            },
+            {
+                "min": 1,
+                "max": "1",
+                "requirements": "Minimum Precision to Day.",
+                "short": "The date at which the event happened",
+                "definition": "The date/time at which the event occurred.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.event.dateTime",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "constraint": [
                     {
-                        "code": "string"
+                        "human": "Datetime must be at least to day.",
+                        "severity": "error",
+                        "xpath": "f:matches(dateTime,/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z)/)",
+                        "key": "inv-2"
                     }
                 ],
                 "isSummary": true,
-                "comments": "Very often the text is the same as a displayName of one of the codings.",
-                "path": "DiagnosticOrder.event.description.text",
-                "max": "1",
-                "min": 0,
-                "short": "Plain text representation of the concept",
-                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
-                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "CodeableConcept.text"
-                }
-            },
-            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": ".effectiveTime",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "f:matches(dateTime,/\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z)/)",
-                        "human": "Datetime must be at least to day.",
-                        "severity": "error",
-                        "key": "inv-2"
-                    }
-                ],
-                "min": 1,
-                "short": "The date at which the event happened",
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.dateTime"
-                },
-                "mustSupport": true,
-                "path": "DiagnosticOrder.event.dateTime",
-                "requirements": "Minimum Precision to Day.",
-                "definition": "The date/time at which the event occurred."
+                "path": "DiagnosticOrder.event.dateTime"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.event.actor",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The person responsible for performing or recording the action.",
+                "short": "Who recorded or did this",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".participation[AUT or PFM]",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "path": "DiagnosticOrder.event.actor",
-                "max": "1",
-                "min": 0,
-                "short": "Who recorded or did this",
-                "definition": "The person responsible for performing or recording the action.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.event.actor"
-                }
+                "path": "DiagnosticOrder.event.actor"
             },
             {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBS, moodCode=OBS]",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "mustSupport": true,
-                "comments": "There would always be at least one item in normal usage, but this is optional so that a workflow can quote order details without having to list the items.",
-                "path": "DiagnosticOrder.item",
-                "max": "*",
-                "min": 1,
-                "short": "The items the orderer requested",
-                "definition": "The specific diagnostic investigations that are requested as part of this request. Sometimes, there can only be one item per request, but in most contexts, more than one investigation can be requested.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item"
-                }
-            },
-            {
+                    "path": "DiagnosticOrder.item",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The specific diagnostic investigations that are requested as part of this request. Sometimes, there can only be one item per request, but in most contexts, more than one investigation can be requested.",
+                "short": "The items the orderer requested",
+                "min": 1,
+                "comments": "There would always be at least one item in normal usage, but this is optional so that a workflow can quote order details without having to list the items.",
+                "path": "DiagnosticOrder.item",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=OBS, moodCode=OBS]",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.item.id",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.item.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.item.extension",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.item.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.item.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.item.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Requires at least a code, code system an d display text.",
+                "short": "US Realm Laboratory Report Order Code",
+                "definition": "The laboratory test, panel or battery that was ordered.",
+                "base": {
+                    "min": 1,
+                    "path": "DiagnosticOrder.item.code",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "OBX-4",
@@ -2161,14 +2160,13 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Use the appropriate LOINC or local code as provided by laboratory.   FHIR Value set resources binding to each laboratory's compendium of service is done at implementation usign the FHIR Value set resources or some other mechanism.  Systems SHALL be capable of sending/consuming the local code if one exists.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "US Realm Laboratory Report Order Code",
                 "binding": {
                     "description": "LOINC codes",
                     "valueSetReference": {
@@ -2176,73 +2174,74 @@
                     },
                     "strength": "extensible"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.code"
-                },
-                "mustSupport": true,
-                "comments": "Use the appropriate LOINC or local code as provided by laboratory.   FHIR Value set resources binding to each laboratory's compendium of service is done at implementation usign the FHIR Value set resources or some other mechanism.  Systems SHALL be capable of sending/consuming the local code if one exists.",
-                "path": "DiagnosticOrder.item.code",
-                "requirements": "Requires at least a code, code system an d display text.",
-                "definition": "The laboratory test, panel or battery that was ordered."
+                "isSummary": true,
+                "path": "DiagnosticOrder.item.code"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.item.code.id",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "CodeableConcept.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.item.code.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.item.code.extension",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "CodeableConcept.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.item.code.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "*",
+                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
+                "short": "Code defined by a terminology system",
+                "definition": "A reference to a code defined by a terminology system.",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.coding",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": "fhir:CodeableConcept.coding rdfs:subPropertyOf dt:CD.coding",
@@ -2257,81 +2256,81 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
                 "type": [
                     {
                         "code": "Coding"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "Code defined by a terminology system",
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "CodeableConcept.coding"
-                },
-                "mustSupport": true,
-                "comments": "Codes may be defined very casually in enumerations, or code lists, up to very formal definitions such as SNOMED CT - see the HL7 v3 Core Principles for more information.  Ordering of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of the coding values will be labelled as UserSelected = true.",
-                "path": "DiagnosticOrder.item.code.coding",
-                "requirements": "Allows for translations and alternate encodings within a code system.  Also supports communication of the same instance to systems requiring different encodings.",
-                "definition": "A reference to a code defined by a terminology system."
+                "path": "DiagnosticOrder.item.code.coding"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DiagnosticOrder.item.code.coding.id",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DiagnosticOrder.item.code.coding.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DiagnosticOrder.item.code.coding.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Coding.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DiagnosticOrder.item.code.coding.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Need to be unambiguous about the source of the definition of the symbol.",
+                "short": "Identity of the terminology system",
+                "definition": "The identification of the code system that defines the meaning of the symbol in the code.",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.system",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "fhir:Coding.system rdfs:subPropertyOf dt:CDCoding.codeSystem",
@@ -2346,27 +2345,29 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "The URI may be an OID (urn:oid:...) or a UUID (urn:uuid:...).  OIDs and UUIDs SHALL be references to the HL7 OID registry. Otherwise, the URI should come from HL7's list of FHIR defined special URIs or it should de-reference to some definition that establish the system clearly and unambiguously.",
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "Identity of the terminology system",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.system"
-                },
-                "mustSupport": true,
-                "comments": "The URI may be an OID (urn:oid:...) or a UUID (urn:uuid:...).  OIDs and UUIDs SHALL be references to the HL7 OID registry. Otherwise, the URI should come from HL7's list of FHIR defined special URIs or it should de-reference to some definition that establish the system clearly and unambiguously.",
-                "path": "DiagnosticOrder.item.code.coding.system",
-                "requirements": "Need to be unambiguous about the source of the definition of the symbol.",
-                "definition": "The identification of the code system that defines the meaning of the symbol in the code."
+                "path": "DiagnosticOrder.item.code.coding.system"
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Coding.version",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The version of the code system which was used when choosing this code. Note that a well-maintained code system does not need the version reported, because the meaning of codes is consistent across versions. However this cannot consistently be assured. and when the meaning is not guaranteed to be consistent, the version SHOULD be exchanged.",
                 "mapping": [
                     {
                         "map": "fhir:Coding.version rdfs:subPropertyOf dt:CDCoding.codeSystemVersion",
@@ -2381,25 +2382,23 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Version of the system - if relevant",
+                "min": 0,
                 "comments": "Where the terminology does not clearly define what string should be used to identify code system versions, the recommendation is to use the date (expressed in FHIR date format) on which that version was officially published as the version date.",
                 "path": "DiagnosticOrder.item.code.coding.version",
-                "max": "1",
-                "min": 0,
-                "short": "Version of the system - if relevant",
-                "definition": "The version of the code system which was used when choosing this code. Note that a well-maintained code system does not need the version reported, because the meaning of codes is consistent across versions. However this cannot consistently be assured. and when the meaning is not guaranteed to be consistent, the version SHOULD be exchanged.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.version"
-                }
+                "isSummary": true
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Need to refer to a particular code in the system.",
+                "short": "Symbol in syntax defined by the system",
+                "definition": "A symbol in syntax defined by the system. The symbol may be a predefined code or an expression in a syntax defined by the coding system (e.g. post-coordination).",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.code",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "fhir:Coding.code rdfs:subPropertyOf dt:CDCoding.code",
@@ -2414,27 +2413,27 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Logical Observation Identifiers Names and Codes (LOINC) is a database and universal standard for identifying medical laboratory observations.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "Symbol in syntax defined by the system",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.code"
-                },
-                "mustSupport": true,
-                "comments": "Logical Observation Identifiers Names and Codes (LOINC) is a database and universal standard for identifying medical laboratory observations.",
-                "path": "DiagnosticOrder.item.code.coding.code",
-                "requirements": "Need to refer to a particular code in the system.",
-                "definition": "A symbol in syntax defined by the system. The symbol may be a predefined code or an expression in a syntax defined by the coding system (e.g. post-coordination)."
+                "path": "DiagnosticOrder.item.code.coding.code"
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Need to be able to carry a human-readable meaning of the code for readers that do not know  the system.",
+                "short": "Representation defined by the system",
+                "definition": "A representation of the meaning of the code in the system, following the rules of the system.",
+                "base": {
+                    "min": 0,
+                    "path": "Coding.display",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "fhir:Coding.display rdfs:subPropertyOf dt:CDCoding.displayName",
@@ -2449,27 +2448,30 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "The LOINC  'long common name' is preferred although the LOINC 'short name' or the LOINC 'fully-specified name can also be used.  ( http://lionc.org.terms-of-use).",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
                 "isSummary": true,
-                "min": 0,
-                "short": "Representation defined by the system",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.display"
-                },
-                "mustSupport": true,
-                "comments": "The LOINC  'long common name' is preferred although the LOINC 'short name' or the LOINC 'fully-specified name can also be used.  ( http://lionc.org.terms-of-use).",
-                "path": "DiagnosticOrder.item.code.coding.display",
-                "requirements": "Need to be able to carry a human-readable meaning of the code for readers that do not know  the system.",
-                "definition": "A representation of the meaning of the code in the system, following the rules of the system."
+                "path": "DiagnosticOrder.item.code.coding.display"
             },
             {
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Coding.userSelected",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates that this coding was chosen by a user directly - i.e. off a pick list of available items (codes or displays).",
+                "requirements": "This has been identified as a clinical safety criterium - that this exact system/code pair was chosen explicitly, rather than inferred by the system based on some rules or language processing.",
                 "mapping": [
                     {
                         "map": "fhir:Coding.userSelected fhir:mapsTo dt:CDCoding.codingRationale. fhir:Coding.userSelected fhir:hasMap fhir:Coding.userSelected.map. fhir:Coding.userSelected.map a fhir:Map;   fhir:target dt:CDCoding.codingRationale. fhir:Coding.userSelected\\#true a [     fhir:source \"true\";     fhir:target dt:CDCoding.codingRationale\\#O   ]",
@@ -2484,26 +2486,23 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isSummary": true,
+                "short": "If this coding was chosen directly by the user",
+                "min": 0,
                 "comments": "Amongst a set of alternatives, a directly chosen code is the most appropriate starting point for new translations. There is some ambiguity about what exactly 'directly chosen' implies, and trading partner agreement may be needed to clarify the use of this element and its consequences more completely.",
                 "path": "DiagnosticOrder.item.code.coding.userSelected",
-                "max": "1",
-                "min": 0,
-                "short": "If this coding was chosen directly by the user",
-                "requirements": "This has been identified as a clinical safety criterium - that this exact system/code pair was chosen explicitly, rather than inferred by the system based on some rules or language processing.",
-                "definition": "Indicates that this coding was chosen by a user directly - i.e. off a pick list of available items (codes or displays).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Coding.userSelected"
-                }
+                "isSummary": true
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
+                "short": "Plain text representation of the concept",
+                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.",
+                "base": {
+                    "min": 0,
+                    "path": "CodeableConcept.text",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "fhir:CodeableConcept.text rdfs:subPropertyOf dt:CD.originalText",
@@ -2518,74 +2517,57 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Very often the text is the same as a displayName of one of the codings.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
                 "isSummary": true,
-                "min": 0,
-                "short": "Plain text representation of the concept",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "CodeableConcept.text"
-                },
-                "mustSupport": true,
-                "comments": "Very often the text is the same as a displayName of one of the codings.",
-                "path": "DiagnosticOrder.item.code.text",
-                "requirements": "The codes from the terminologies do not always capture the correct meaning with all the nuances of the human using them, or sometimes there is no appropriate code at all. In these cases, the text is used to capture the full meaning of the source.",
-                "definition": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user."
+                "path": "DiagnosticOrder.item.code.text"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/uslab-spec"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.specimen",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "If the item is related to a specific specimen.",
+                "short": "If this item relates to specific specimens",
+                "min": 0,
+                "comments": "New specimen(s) related to the item event go here and not in DO.specimen.",
+                "path": "DiagnosticOrder.item.specimen",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=SPC].role",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/uslab-spec"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "New specimen(s) related to the item event go here and not in DO.specimen.",
-                "path": "DiagnosticOrder.item.specimen",
-                "max": "*",
-                "min": 0,
-                "short": "If this item relates to specific specimens",
-                "definition": "If the item is related to a specific specimen.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.specimen"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": "targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "comments": "If the use case requires BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
-                "path": "DiagnosticOrder.item.bodySite",
-                "alias": [
-                    "location"
-                ],
-                "min": 0,
-                "short": "Location of requested test (if applicable)",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.bodySite",
+                    "max": "1"
+                },
                 "max": "0",
+                "definition": "Anatomical location where the request test should be performed.  This is the target site.",
                 "binding": {
                     "description": "Codes describing anatomical locations. May include laterality.",
                     "valueSetReference": {
@@ -2593,28 +2575,43 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Anatomical location where the request test should be performed.  This is the target site.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.bodySite"
-                }
+                "short": "Location of requested test (if applicable)",
+                "min": 0,
+                "alias": [
+                    "location"
+                ],
+                "comments": "If the use case requires BodySite to be handled as a separate resource instead of an inline coded element (e.g. to identify and track separately)  then use the standard extension [body-site-instance](extension-body-site-instance.html).",
+                "path": "DiagnosticOrder.item.bodySite",
+                "mapping": [
+                    {
+                        "map": "targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
+                "definition": "The status of this individual item within the order.",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.status",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": ".statusCode also influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists",
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Typically the system placing the order sets the status to requested. There after, the order is maintained by the receiver that updates the status as the request is handled.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed",
                 "binding": {
                     "description": "The status of a diagnostic order.",
                     "valueSetReference": {
@@ -2622,65 +2619,68 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DiagnosticOrder.item.status"
-                },
-                "mustSupport": true,
-                "comments": "Typically the system placing the order sets the status to requested. There after, the order is maintained by the receiver that updates the status as the request is handled.",
-                "path": "DiagnosticOrder.item.status",
-                "definition": "The status of this individual item within the order."
+                "isSummary": true,
+                "path": "DiagnosticOrder.item.status"
             },
             {
-                "nameReference": "event",
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.item.event",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A summary of the events of interest that have occurred as this item of the request is processed.",
                 "mapping": [
                     {
                         "map": ".inboundRelationship[typeCode=FLFS].source",
                         "identity": "rim"
                     }
                 ],
+                "short": "Events specific to this item",
+                "min": 0,
                 "isSummary": true,
                 "path": "DiagnosticOrder.item.event",
-                "max": "*",
-                "min": 0,
-                "short": "Events specific to this item",
-                "definition": "A summary of the events of interest that have occurred as this item of the request is processed.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.item.event"
-                }
+                "nameReference": "event"
             },
             {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DiagnosticOrder.note",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Any other notes associated with this patient, specimen or order (e.g. \"patient hates needles\").",
+                "short": "Other notes and comments",
+                "min": 0,
                 "mapping": [
                     {
                         "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "path": "DiagnosticOrder.note",
-                "max": "*",
-                "min": 0,
-                "short": "Other notes and comments",
-                "definition": "Any other notes associated with this patient, specimen or order (e.g. \"patient hates needles\").",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DiagnosticOrder.note"
-                }
+                "path": "DiagnosticOrder.note"
             }
         ]
     },
-    "name": "US Laboratory Diagnostic Order Profile",
     "description": "Constraints and extensions for the US Realm laboratory ordering in ambulatory care setting",
-    "status": "draft",
-    "date": "2014-11-17",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/uslab-do",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder",
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Orders and Observations - US Lab)"
 }

@@ -51,5 +51,5 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
     ],
-    requires=['dirlistproc', 'requests', 'jsonasobj', 'rdflib', 'rdflib_jsonld', 'pyjxslt'] + v34_requires,
+    install_requires=['dirlistproc', 'requests', 'jsonasobj', 'rdflib', 'rdflib_jsonld', 'pyjxslt'] + v34_requires,
 )

@@ -1,19 +1,263 @@
 {
+    "id": "Range",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "If present, low SHALL have a lower value than high",
+                        "severity": "error",
+                        "xpath": "not(exists(f:low/f:value/@value)) or not(exists(f:high/f:value/@value)) or (number(f:low/f:value/@value) <= number(f:high/f:value/@value))",
+                        "key": "rng-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "A set of ordered Quantities defined by a low and high limit.",
+                "mapping": [
+                    {
+                        "map": "NR and also possibly SN (but see also quantity)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "IVL<QTY[not(type=\"TS\")]> [lowClosed=\"true\" and highClosed=\"true\"]or URG<QTY[not(type=\"TS\")]>",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Set of values bounded by low and high",
+                "min": 0,
+                "comments": "The stated low and high value are assumed to have arbitrarily high precision when it comes to determining which values are in the range. I.e. 1.99 is not in the range 2 -> 3.",
+                "path": "Range",
+                "isSummary": true
+            },
+            {
+                "condition": [
+                    "rng-2"
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The low limit. The boundary is inclusive.",
+                "mapping": [
+                    {
+                        "map": "NR.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./low",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Low limit",
+                "min": 0,
+                "comments": "If the low element is missing, the low boundary is not known.",
+                "path": "Range.low",
+                "isSummary": true
+            },
+            {
+                "condition": [
+                    "rng-2"
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The high limit. The boundary is inclusive.",
+                "mapping": [
+                    {
+                        "map": "NR.2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./high",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "High limit",
+                "min": 0,
+                "comments": "If the high element is missing, the high boundary is not known.",
+                "path": "Range.high",
+                "isSummary": true
+            }
+        ]
+    },
+    "name": "Range",
+    "abstract": false,
+    "requirements": "Need to be able to specify ranges of values.",
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "If present, low SHALL have a lower value than high",
+                        "severity": "error",
+                        "xpath": "not(exists(f:low/f:value/@value)) or not(exists(f:high/f:value/@value)) or (number(f:low/f:value/@value) <= number(f:high/f:value/@value))",
+                        "key": "rng-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "A set of ordered Quantities defined by a low and high limit.",
+                "mapping": [
+                    {
+                        "map": "NR and also possibly SN (but see also quantity)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "IVL<QTY[not(type=\"TS\")]> [lowClosed=\"true\" and highClosed=\"true\"]or URG<QTY[not(type=\"TS\")]>",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Set of values bounded by low and high",
+                "min": 0,
+                "comments": "The stated low and high value are assumed to have arbitrarily high precision when it comes to determining which values are in the range. I.e. 1.99 is not in the range 2 -> 3.",
+                "path": "Range",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Range.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Range.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "rng-2"
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The low limit. The boundary is inclusive.",
+                "mapping": [
+                    {
+                        "map": "NR.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./low",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Low limit",
+                "min": 0,
+                "comments": "If the low element is missing, the low boundary is not known.",
+                "path": "Range.low",
+                "isSummary": true
+            },
+            {
+                "condition": [
+                    "rng-2"
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "The high limit. The boundary is inclusive.",
+                "mapping": [
+                    {
+                        "map": "NR.2",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./high",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "High limit",
+                "min": 0,
+                "comments": "If the high element is missing, the high boundary is not known.",
+                "path": "Range.high",
+                "isSummary": true
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Range Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/Range",
+    "fhirVersion": "1.0.2",
     "mapping": [
         {
-            "name": "HL7 v2",
             "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "identity": "v2",
+            "name": "HL7 v2"
         },
         {
-            "name": "RIM",
             "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "identity": "rim",
+            "name": "RIM"
         }
     ],
-    "id": "Range",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -25,249 +269,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "differential": {
-        "element": [
-            {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "NR and also possibly SN (but see also quantity)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "IVL<QTY[not(type=\"TS\")]> [lowClosed=\"true\" and highClosed=\"true\"]or URG<QTY[not(type=\"TS\")]>",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:low/f:value/@value)) or not(exists(f:high/f:value/@value)) or (number(f:low/f:value/@value) <= number(f:high/f:value/@value))",
-                        "human": "If present, low SHALL have a lower value than high",
-                        "severity": "error",
-                        "key": "rng-2"
-                    }
-                ],
-                "comments": "The stated low and high value are assumed to have arbitrarily high precision when it comes to determining which values are in the range. I.e. 1.99 is not in the range 2 -> 3.",
-                "path": "Range",
-                "max": "*",
-                "min": 0,
-                "short": "Set of values bounded by low and high",
-                "definition": "A set of ordered Quantities defined by a low and high limit."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "NR.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./low",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the low element is missing, the low boundary is not known.",
-                "path": "Range.low",
-                "max": "1",
-                "min": 0,
-                "short": "Low limit",
-                "condition": [
-                    "rng-2"
-                ],
-                "definition": "The low limit. The boundary is inclusive."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "NR.2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./high",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the high element is missing, the high boundary is not known.",
-                "path": "Range.high",
-                "max": "1",
-                "min": 0,
-                "short": "High limit",
-                "condition": [
-                    "rng-2"
-                ],
-                "definition": "The high limit. The boundary is inclusive."
-            }
-        ]
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Range",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "NR and also possibly SN (but see also quantity)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "IVL<QTY[not(type=\"TS\")]> [lowClosed=\"true\" and highClosed=\"true\"]or URG<QTY[not(type=\"TS\")]>",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:low/f:value/@value)) or not(exists(f:high/f:value/@value)) or (number(f:low/f:value/@value) <= number(f:high/f:value/@value))",
-                        "human": "If present, low SHALL have a lower value than high",
-                        "severity": "error",
-                        "key": "rng-2"
-                    }
-                ],
-                "comments": "The stated low and high value are assumed to have arbitrarily high precision when it comes to determining which values are in the range. I.e. 1.99 is not in the range 2 -> 3.",
-                "path": "Range",
-                "max": "*",
-                "min": 0,
-                "short": "Set of values bounded by low and high",
-                "definition": "A set of ordered Quantities defined by a low and high limit."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Range.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Range.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "NR.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./low",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the low element is missing, the low boundary is not known.",
-                "path": "Range.low",
-                "max": "1",
-                "min": 0,
-                "short": "Low limit",
-                "condition": [
-                    "rng-2"
-                ],
-                "definition": "The low limit. The boundary is inclusive."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "NR.2",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./high",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If the high element is missing, the high boundary is not known.",
-                "path": "Range.high",
-                "max": "1",
-                "min": 0,
-                "short": "High limit",
-                "condition": [
-                    "rng-2"
-                ],
-                "definition": "The high limit. The boundary is inclusive."
-            }
-        ]
-    },
-    "name": "Range",
-    "requirements": "Need to be able to specify ranges of values.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Range Type"
+    "publisher": "HL7 FHIR Standard"
 }

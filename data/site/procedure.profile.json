@@ -1,25 +1,1738 @@
 {
-    "mapping": [
+    "id": "Procedure",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "Reason not performed is only permitted if notPerformed indicator is true",
+                        "severity": "error",
+                        "xpath": "not(exists(f:reasonNotPerformed)) or f:notPerformed/@value=true()",
+                        "key": "pro-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "An action that is or was performed on a patient. This can be a physical intervention like an operation, or less invasive like counseling or hypnotherapy.",
+                "short": "An action that is being or was performed on a patient",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "Procedure[moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.general",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Procedure"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "This records identifiers associated with this procedure that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "requirements": "Need to allow connection to a wider workflow.",
+                "short": "External Identifiers for this procedure",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.identifier",
+                "mapping": [
+                    {
+                        "map": "Some combination of ORC-2 / ORC-3 / OBR-2 / OBR-3 / IPC-1 / IPC-2 / IPC-3 / IPC-4",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person, animal or group on which the procedure was performed.",
+                "short": "Who the procedure was performed on",
+                "min": 1,
+                "isSummary": true,
+                "path": "Procedure.subject",
+                "mapping": [
+                    {
+                        "map": "PID-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "A code specifying the state of the procedure. Generally this will be in-progress or completed state.",
+                "short": "in-progress | aborted | completed | entered-in-error",
+                "min": 1,
+                "binding": {
+                    "description": "A code specifying the state of the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Procedure.status"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A code that classifies the procedure for searching, sorting and display purposes (e.g. \"Surgical Procedure\").",
+                "short": "Classification of the procedure",
+                "min": 0,
+                "binding": {
+                    "description": "A code that classifies a procedure for searching, sorting and display purposes.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-category"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.category",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"LIST\", moodCode=\"EVN\"].code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The specific procedure that is performed. Use text if the exact nature of the procedure cannot be coded (e.g. \"Laparoscopic Appendectomy\").",
+                "short": "Identification of the procedure",
+                "min": 1,
+                "binding": {
+                    "description": "A code to identify a specific procedure .",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-code"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.code",
+                "mapping": [
+                    {
+                        "map": "OBR-44/OBR-45",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "defaultValueBoolean": false,
+                "max": "1",
+                "definition": "Set this to true if the record is saying that the procedure was NOT performed.",
+                "short": "True if procedure was not performed as scheduled",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".actionNegationInd",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.notPerformed"
+            },
+            {
+                "condition": [
+                    "pro-1"
+                ],
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "A code indicating why the procedure was not performed.",
+                "short": "Reason procedure was not performed",
+                "min": 0,
+                "binding": {
+                    "description": "A code that identifies the reason a procedure was not performed.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".reason.Observation.value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.reasonNotPerformed"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Detailed and structured anatomical location information. Multiple locations are allowed - e.g. multiple punch biopsies of a lesion.",
+                "short": "Target body sites",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing anatomical locations. May include laterality.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.bodySite",
+                "mapping": [
+                    {
+                        "map": "OBX-20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The reason why the procedure was performed. This may be due to a Condition, may be coded entity of some type, or may simply be present as text.",
+                "mapping": [
+                    {
+                        "map": ".reasonCode",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Reason procedure performed",
+                "min": 0,
+                "binding": {
+                    "description": "A code that identifies the reason a procedure is  required.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-reason"
+                    },
+                    "strength": "example"
+                },
+                "comments": "e.g. endoscopy for dilatation and biopsy, combination diagnosis and therapeutic.",
+                "path": "Procedure.reason[x]",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Limited to 'real' people rather than equipment.",
+                "short": "The people who performed the procedure",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.performer",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=PFM]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The practitioner who was involved in the procedure.",
+                "short": "The reference to the practitioner",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.performer.actor",
+                "mapping": [
+                    {
+                        "map": "ORC-19/PRT-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "For example: surgeon, anaethetist, endoscopist.",
+                "short": "The role the actor was in",
+                "min": 0,
+                "binding": {
+                    "description": "A code that identifies the role of a performer of the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/performer-role"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.performer.role",
+                "mapping": [
+                    {
+                        "map": "Some combination of STF-18 / PRA-3 / PRT-4 / ROL-3 / ORC-12 / OBR-16 / PV1-7 / PV1-8 / PV1-9 / PV1-17 / OBX-25",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".functionCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date(time)/period over which the procedure was performed. Allows a period to support complex procedures that span more than one date, and also allows for the length of the procedure to be captured.",
+                "short": "Date/Period the procedure was performed",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.performed[x]",
+                "mapping": [
+                    {
+                        "map": "OBR-7",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.done",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The encounter during which the procedure was performed.",
+                "short": "The encounter associated with the procedure",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.encounter",
+                "mapping": [
+                    {
+                        "map": "PV1-19",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "context",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The location where the procedure actually happened.  E.g. a newborn at home, a tracheostomy at a restaurant.",
+                "requirements": "Ties a procedure to where the records are likely kept.",
+                "short": "Where the procedure happened",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.location",
+                "mapping": [
+                    {
+                        "map": "where",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The outcome of the procedure - did it resolve reasons for the procedure being performed?",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=OUT].target.text",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "The result of procedure",
+                "min": 0,
+                "binding": {
+                    "description": "An outcome of a procedure - whether it was resolved or otherwise.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-outcome"
+                    },
+                    "strength": "example"
+                },
+                "comments": "If outcome contains narrative text only, it can be captured using the CodeableConcept.text.",
+                "path": "Procedure.outcome",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "This could be a histology result, pathology report, surgical report, etc..",
+                "short": "Any report resulting from the procedure",
+                "min": 0,
+                "comments": "There could potentially be multiple reports - e.g. if this was a procedure which took multiple biopsies resulting in a number of anatomical pathology reports.",
+                "path": "Procedure.report",
+                "mapping": [
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Any complications that occurred during the procedure, or in the immediate post-performance period. These are generally tracked separately from the notes, which will typically describe the procedure itself rather than any 'post procedure' issues.",
+                "short": "Complication following the procedure",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing complications that resulted from a procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/condition-code"
+                    },
+                    "strength": "example"
+                },
+                "comments": "If complications are only expressed by the narrative text, they can be captured using the CodeableConcept.text.",
+                "path": "Procedure.complication",
+                "mapping": [
+                    {
+                        "map": "Need specialization of OUT for this.",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "If the procedure required specific follow up - e.g. removal of sutures. The followup may be represented as a simple note, or could potentially be more complex in which case the CarePlan resource can be used.",
+                "short": "Instructions for follow up",
+                "min": 0,
+                "binding": {
+                    "description": "Specific follow up required for a procedure e.g. removal of sutures.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-followup"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=ACT, moodCode=INT].code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.followUp"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/CarePlan"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ReferralRequest"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a resource that contains details of the request for this procedure.",
+                "short": "A request for this procedure",
+                "min": 0,
+                "path": "Procedure.request"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "max": "*",
+                "definition": "Any other notes about the procedure.  E.g. the operative notes.",
+                "short": "Additional information about the procedure",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "NTE",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.notes"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "A device that is implanted, removed or otherwise manipulated (calibration, battery replacement, fitting a prosthesis, attaching a wound-vac, etc.) as a focal portion of the Procedure.",
+                "short": "Device changed in procedure",
+                "min": 0,
+                "path": "Procedure.focalDevice"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The kind of change that happened to the device during the procedure.",
+                "short": "Kind of change to device",
+                "min": 0,
+                "binding": {
+                    "description": "A kind of change that happened to the device during the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/device-action"
+                    },
+                    "strength": "required"
+                },
+                "path": "Procedure.focalDevice.action"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The device that was manipulated (changed) during the procedure.",
+                "short": "Device that was changed",
+                "min": 1,
+                "path": "Procedure.focalDevice.manipulated"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Medication"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifies medications, devices and any other substance used as part of the procedure.",
+                "requirements": "Used for tracking contamination, etc.",
+                "short": "Items used during procedure",
+                "min": 0,
+                "comments": "For devices actually implanted or removed, use Procedure.device.",
+                "path": "Procedure.used"
+            }
+        ]
+    },
+    "name": "Procedure",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
         }
     ],
-    "id": "Procedure",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "Reason not performed is only permitted if notPerformed indicator is true",
+                        "severity": "error",
+                        "xpath": "not(exists(f:reasonNotPerformed)) or f:notPerformed/@value=true()",
+                        "key": "pro-1"
+                    }
+                ],
+                "max": "*",
+                "definition": "An action that is or was performed on a patient. This can be a physical intervention like an operation, or less invasive like counseling or hypnotherapy.",
+                "short": "An action that is being or was performed on a patient",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "Procedure[moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.general",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Procedure"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Procedure.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Procedure.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Procedure.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Procedure.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Procedure.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Procedure.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Procedure.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "This records identifiers associated with this procedure that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "requirements": "Need to allow connection to a wider workflow.",
+                "short": "External Identifiers for this procedure",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.identifier",
+                "mapping": [
+                    {
+                        "map": "Some combination of ORC-2 / ORC-3 / OBR-2 / OBR-3 / IPC-1 / IPC-2 / IPC-3 / IPC-4",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The person, animal or group on which the procedure was performed.",
+                "short": "Who the procedure was performed on",
+                "min": 1,
+                "isSummary": true,
+                "path": "Procedure.subject",
+                "mapping": [
+                    {
+                        "map": "PID-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "A code specifying the state of the procedure. Generally this will be in-progress or completed state.",
+                "short": "in-progress | aborted | completed | entered-in-error",
+                "min": 1,
+                "binding": {
+                    "description": "A code specifying the state of the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Procedure.status"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "A code that classifies the procedure for searching, sorting and display purposes (e.g. \"Surgical Procedure\").",
+                "short": "Classification of the procedure",
+                "min": 0,
+                "binding": {
+                    "description": "A code that classifies a procedure for searching, sorting and display purposes.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-category"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.category",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"LIST\", moodCode=\"EVN\"].code",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The specific procedure that is performed. Use text if the exact nature of the procedure cannot be coded (e.g. \"Laparoscopic Appendectomy\").",
+                "short": "Identification of the procedure",
+                "min": 1,
+                "binding": {
+                    "description": "A code to identify a specific procedure .",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-code"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.code",
+                "mapping": [
+                    {
+                        "map": "OBR-44/OBR-45",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".code",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "defaultValueBoolean": false,
+                "max": "1",
+                "definition": "Set this to true if the record is saying that the procedure was NOT performed.",
+                "short": "True if procedure was not performed as scheduled",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".actionNegationInd",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.notPerformed"
+            },
+            {
+                "condition": [
+                    "pro-1"
+                ],
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "A code indicating why the procedure was not performed.",
+                "short": "Reason procedure was not performed",
+                "min": 0,
+                "binding": {
+                    "description": "A code that identifies the reason a procedure was not performed.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".reason.Observation.value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.reasonNotPerformed"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Detailed and structured anatomical location information. Multiple locations are allowed - e.g. multiple punch biopsies of a lesion.",
+                "short": "Target body sites",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing anatomical locations. May include laterality.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.bodySite",
+                "mapping": [
+                    {
+                        "map": "OBX-20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".targetSiteCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The reason why the procedure was performed. This may be due to a Condition, may be coded entity of some type, or may simply be present as text.",
+                "mapping": [
+                    {
+                        "map": ".reasonCode",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Reason procedure performed",
+                "min": 0,
+                "binding": {
+                    "description": "A code that identifies the reason a procedure is  required.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-reason"
+                    },
+                    "strength": "example"
+                },
+                "comments": "e.g. endoscopy for dilatation and biopsy, combination diagnosis and therapeutic.",
+                "path": "Procedure.reason[x]",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Limited to 'real' people rather than equipment.",
+                "short": "The people who performed the procedure",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.performer",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=PFM]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.performer.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Procedure.performer.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Procedure.performer.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The practitioner who was involved in the procedure.",
+                "short": "The reference to the practitioner",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.performer.actor",
+                "mapping": [
+                    {
+                        "map": "ORC-19/PRT-5",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "For example: surgeon, anaethetist, endoscopist.",
+                "short": "The role the actor was in",
+                "min": 0,
+                "binding": {
+                    "description": "A code that identifies the role of a performer of the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/performer-role"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Procedure.performer.role",
+                "mapping": [
+                    {
+                        "map": "Some combination of STF-18 / PRA-3 / PRT-4 / ROL-3 / ORC-12 / OBR-16 / PV1-7 / PV1-8 / PV1-9 / PV1-17 / OBX-25",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".functionCode",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    },
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date(time)/period over which the procedure was performed. Allows a period to support complex procedures that span more than one date, and also allows for the length of the procedure to be captured.",
+                "short": "Date/Period the procedure was performed",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.performed[x]",
+                "mapping": [
+                    {
+                        "map": "OBR-7",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".effectiveTime",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.done",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The encounter during which the procedure was performed.",
+                "short": "The encounter associated with the procedure",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.encounter",
+                "mapping": [
+                    {
+                        "map": "PV1-19",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "context",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The location where the procedure actually happened.  E.g. a newborn at home, a tracheostomy at a restaurant.",
+                "requirements": "Ties a procedure to where the records are likely kept.",
+                "short": "Where the procedure happened",
+                "min": 0,
+                "isSummary": true,
+                "path": "Procedure.location",
+                "mapping": [
+                    {
+                        "map": "where",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The outcome of the procedure - did it resolve reasons for the procedure being performed?",
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=OUT].target.text",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "The result of procedure",
+                "min": 0,
+                "binding": {
+                    "description": "An outcome of a procedure - whether it was resolved or otherwise.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-outcome"
+                    },
+                    "strength": "example"
+                },
+                "comments": "If outcome contains narrative text only, it can be captured using the CodeableConcept.text.",
+                "path": "Procedure.outcome",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "This could be a histology result, pathology report, surgical report, etc..",
+                "short": "Any report resulting from the procedure",
+                "min": 0,
+                "comments": "There could potentially be multiple reports - e.g. if this was a procedure which took multiple biopsies resulting in a number of anatomical pathology reports.",
+                "path": "Procedure.report",
+                "mapping": [
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN]",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Any complications that occurred during the procedure, or in the immediate post-performance period. These are generally tracked separately from the notes, which will typically describe the procedure itself rather than any 'post procedure' issues.",
+                "short": "Complication following the procedure",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing complications that resulted from a procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/condition-code"
+                    },
+                    "strength": "example"
+                },
+                "comments": "If complications are only expressed by the narrative text, they can be captured using the CodeableConcept.text.",
+                "path": "Procedure.complication",
+                "mapping": [
+                    {
+                        "map": "Need specialization of OUT for this.",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "If the procedure required specific follow up - e.g. removal of sutures. The followup may be represented as a simple note, or could potentially be more complex in which case the CarePlan resource can be used.",
+                "short": "Instructions for follow up",
+                "min": 0,
+                "binding": {
+                    "description": "Specific follow up required for a procedure e.g. removal of sutures.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/procedure-followup"
+                    },
+                    "strength": "example"
+                },
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=ACT, moodCode=INT].code",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.followUp"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/CarePlan"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ReferralRequest"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a resource that contains details of the request for this procedure.",
+                "short": "A request for this procedure",
+                "min": 0,
+                "path": "Procedure.request"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "max": "*",
+                "definition": "Any other notes about the procedure.  E.g. the operative notes.",
+                "short": "Additional information about the procedure",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "NTE",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.notes"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "A device that is implanted, removed or otherwise manipulated (calibration, battery replacement, fitting a prosthesis, attaching a wound-vac, etc.) as a focal portion of the Procedure.",
+                "short": "Device changed in procedure",
+                "min": 0,
+                "path": "Procedure.focalDevice"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Procedure.focalDevice.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Procedure.focalDevice.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Procedure.focalDevice.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The kind of change that happened to the device during the procedure.",
+                "short": "Kind of change to device",
+                "min": 0,
+                "binding": {
+                    "description": "A kind of change that happened to the device during the procedure.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/device-action"
+                    },
+                    "strength": "required"
+                },
+                "path": "Procedure.focalDevice.action"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The device that was manipulated (changed) during the procedure.",
+                "short": "Device that was changed",
+                "min": 1,
+                "path": "Procedure.focalDevice.manipulated"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Medication"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Substance"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifies medications, devices and any other substance used as part of the procedure.",
+                "requirements": "Used for tracking contamination, etc.",
+                "short": "Items used during procedure",
+                "min": 0,
+                "comments": "For devices actually implanted or removed, use Procedure.device.",
+                "path": "Procedure.used"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Procedure Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Procedure",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,1718 +1751,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Procedure",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Patient Care)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Procedure[moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.general",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:reasonNotPerformed)) or f:notPerformed/@value=true()",
-                        "human": "Reason not performed is only permitted if notPerformed indicator is true",
-                        "severity": "error",
-                        "key": "pro-1"
-                    }
-                ],
-                "path": "Procedure",
-                "max": "*",
-                "min": 0,
-                "short": "An action that is being or was performed on a patient",
-                "definition": "An action that is or was performed on a patient. This can be a physical intervention like an operation, or less invasive like counseling or hypnotherapy."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Procedure.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Procedure.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Procedure.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Procedure.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Procedure.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Procedure.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Procedure.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Some combination of ORC-2 / ORC-3 / OBR-2 / OBR-3 / IPC-1 / IPC-2 / IPC-3 / IPC-4",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Identifiers for this procedure",
-                "requirements": "Need to allow connection to a wider workflow.",
-                "definition": "This records identifiers associated with this procedure that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.subject",
-                "max": "1",
-                "min": 1,
-                "short": "Who the procedure was performed on",
-                "definition": "The person, animal or group on which the procedure was performed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Procedure.status",
-                "max": "1",
-                "min": 1,
-                "short": "in-progress | aborted | completed | entered-in-error",
-                "binding": {
-                    "description": "A code specifying the state of the procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "A code specifying the state of the procedure. Generally this will be in-progress or completed state."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"LIST\", moodCode=\"EVN\"].code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.category",
-                "max": "1",
-                "min": 0,
-                "short": "Classification of the procedure",
-                "binding": {
-                    "description": "A code that classifies a procedure for searching, sorting and display purposes.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-category"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A code that classifies the procedure for searching, sorting and display purposes (e.g. \"Surgical Procedure\")."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBR-44/OBR-45",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.code",
-                "max": "1",
-                "min": 1,
-                "short": "Identification of the procedure",
-                "binding": {
-                    "description": "A code to identify a specific procedure .",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-code"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The specific procedure that is performed. Use text if the exact nature of the procedure cannot be coded (e.g. \"Laparoscopic Appendectomy\")."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".actionNegationInd",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isModifier": true,
-                "defaultValueBoolean": false,
-                "path": "Procedure.notPerformed",
-                "max": "1",
-                "min": 0,
-                "short": "True if procedure was not performed as scheduled",
-                "definition": "Set this to true if the record is saying that the procedure was NOT performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".reason.Observation.value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Procedure.reasonNotPerformed",
-                "max": "*",
-                "min": 0,
-                "short": "Reason procedure was not performed",
-                "condition": [
-                    "pro-1"
-                ],
-                "binding": {
-                    "description": "A code that identifies the reason a procedure was not performed.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A code indicating why the procedure was not performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBX-20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.bodySite",
-                "max": "*",
-                "min": 0,
-                "short": "Target body sites",
-                "binding": {
-                    "description": "Codes describing anatomical locations. May include laterality.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Detailed and structured anatomical location information. Multiple locations are allowed - e.g. multiple punch biopsies of a lesion."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".reasonCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "e.g. endoscopy for dilatation and biopsy, combination diagnosis and therapeutic.",
-                "path": "Procedure.reason[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Reason procedure performed",
-                "binding": {
-                    "description": "A code that identifies the reason a procedure is  required.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The reason why the procedure was performed. This may be due to a Condition, may be coded entity of some type, or may simply be present as text."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=PFM]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performer",
-                "max": "*",
-                "min": 0,
-                "short": "The people who performed the procedure",
-                "definition": "Limited to 'real' people rather than equipment."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Procedure.performer.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Procedure.performer.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Procedure.performer.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-19/PRT-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performer.actor",
-                "max": "1",
-                "min": 0,
-                "short": "The reference to the practitioner",
-                "definition": "The practitioner who was involved in the procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Some combination of STF-18 / PRA-3 / PRT-4 / ROL-3 / ORC-12 / OBR-16 / PV1-7 / PV1-8 / PV1-9 / PV1-17 / OBX-25",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".functionCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performer.role",
-                "max": "1",
-                "min": 0,
-                "short": "The role the actor was in",
-                "binding": {
-                    "description": "A code that identifies the role of a performer of the procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/performer-role"
-                    },
-                    "strength": "example"
-                },
-                "definition": "For example: surgeon, anaethetist, endoscopist."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBR-7",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.done",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performed[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Date/Period the procedure was performed",
-                "definition": "The date(time)/period over which the procedure was performed. Allows a period to support complex procedures that span more than one date, and also allows for the length of the procedure to be captured."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PV1-19",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "context",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Encounter"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "The encounter associated with the procedure",
-                "definition": "The encounter during which the procedure was performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "where",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.location",
-                "max": "1",
-                "min": 0,
-                "short": "Where the procedure happened",
-                "requirements": "Ties a procedure to where the records are likely kept.",
-                "definition": "The location where the procedure actually happened.  E.g. a newborn at home, a tracheostomy at a restaurant."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=OUT].target.text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If outcome contains narrative text only, it can be captured using the CodeableConcept.text.",
-                "path": "Procedure.outcome",
-                "max": "1",
-                "min": 0,
-                "short": "The result of procedure",
-                "binding": {
-                    "description": "An outcome of a procedure - whether it was resolved or otherwise.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-outcome"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The outcome of the procedure - did it resolve reasons for the procedure being performed?"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
-                        ]
-                    }
-                ],
-                "comments": "There could potentially be multiple reports - e.g. if this was a procedure which took multiple biopsies resulting in a number of anatomical pathology reports.",
-                "path": "Procedure.report",
-                "max": "*",
-                "min": 0,
-                "short": "Any report resulting from the procedure",
-                "definition": "This could be a histology result, pathology report, surgical report, etc.."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Need specialization of OUT for this.",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "If complications are only expressed by the narrative text, they can be captured using the CodeableConcept.text.",
-                "path": "Procedure.complication",
-                "max": "*",
-                "min": 0,
-                "short": "Complication following the procedure",
-                "binding": {
-                    "description": "Codes describing complications that resulted from a procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/condition-code"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Any complications that occurred during the procedure, or in the immediate post-performance period. These are generally tracked separately from the notes, which will typically describe the procedure itself rather than any 'post procedure' issues."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=ACT, moodCode=INT].code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Procedure.followUp",
-                "max": "*",
-                "min": 0,
-                "short": "Instructions for follow up",
-                "binding": {
-                    "description": "Specific follow up required for a procedure e.g. removal of sutures.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-followup"
-                    },
-                    "strength": "example"
-                },
-                "definition": "If the procedure required specific follow up - e.g. removal of sutures. The followup may be represented as a simple note, or could potentially be more complex in which case the CarePlan resource can be used."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/CarePlan"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ReferralRequest"
-                        ]
-                    }
-                ],
-                "path": "Procedure.request",
-                "max": "1",
-                "min": 0,
-                "short": "A request for this procedure",
-                "definition": "A reference to a resource that contains details of the request for this procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "NTE",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "path": "Procedure.notes",
-                "max": "*",
-                "min": 0,
-                "short": "Additional information about the procedure",
-                "definition": "Any other notes about the procedure.  E.g. the operative notes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Procedure.focalDevice",
-                "max": "*",
-                "min": 0,
-                "short": "Device changed in procedure",
-                "definition": "A device that is implanted, removed or otherwise manipulated (calibration, battery replacement, fitting a prosthesis, attaching a wound-vac, etc.) as a focal portion of the Procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Procedure.focalDevice.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Procedure.focalDevice.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Procedure.focalDevice.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Procedure.focalDevice.action",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of change to device",
-                "binding": {
-                    "description": "A kind of change that happened to the device during the procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/device-action"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The kind of change that happened to the device during the procedure."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "path": "Procedure.focalDevice.manipulated",
-                "max": "1",
-                "min": 1,
-                "short": "Device that was changed",
-                "definition": "The device that was manipulated (changed) during the procedure."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Medication"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "comments": "For devices actually implanted or removed, use Procedure.device.",
-                "path": "Procedure.used",
-                "max": "*",
-                "min": 0,
-                "short": "Items used during procedure",
-                "requirements": "Used for tracking contamination, etc.",
-                "definition": "Identifies medications, devices and any other substance used as part of the procedure."
-            }
-        ]
-    },
-    "name": "Procedure",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "Procedure[moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.general",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:reasonNotPerformed)) or f:notPerformed/@value=true()",
-                        "human": "Reason not performed is only permitted if notPerformed indicator is true",
-                        "severity": "error",
-                        "key": "pro-1"
-                    }
-                ],
-                "path": "Procedure",
-                "max": "*",
-                "min": 0,
-                "short": "An action that is being or was performed on a patient",
-                "definition": "An action that is or was performed on a patient. This can be a physical intervention like an operation, or less invasive like counseling or hypnotherapy."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Some combination of ORC-2 / ORC-3 / OBR-2 / OBR-3 / IPC-1 / IPC-2 / IPC-3 / IPC-4",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Identifiers for this procedure",
-                "requirements": "Need to allow connection to a wider workflow.",
-                "definition": "This records identifiers associated with this procedure that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.subject",
-                "max": "1",
-                "min": 1,
-                "short": "Who the procedure was performed on",
-                "definition": "The person, animal or group on which the procedure was performed."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Procedure.status",
-                "max": "1",
-                "min": 1,
-                "short": "in-progress | aborted | completed | entered-in-error",
-                "binding": {
-                    "description": "A code specifying the state of the procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "A code specifying the state of the procedure. Generally this will be in-progress or completed state."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"LIST\", moodCode=\"EVN\"].code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.category",
-                "max": "1",
-                "min": 0,
-                "short": "Classification of the procedure",
-                "binding": {
-                    "description": "A code that classifies a procedure for searching, sorting and display purposes.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-category"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A code that classifies the procedure for searching, sorting and display purposes (e.g. \"Surgical Procedure\")."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBR-44/OBR-45",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".code",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.code",
-                "max": "1",
-                "min": 1,
-                "short": "Identification of the procedure",
-                "binding": {
-                    "description": "A code to identify a specific procedure .",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-code"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The specific procedure that is performed. Use text if the exact nature of the procedure cannot be coded (e.g. \"Laparoscopic Appendectomy\")."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".actionNegationInd",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isModifier": true,
-                "defaultValueBoolean": false,
-                "path": "Procedure.notPerformed",
-                "max": "1",
-                "min": 0,
-                "short": "True if procedure was not performed as scheduled",
-                "definition": "Set this to true if the record is saying that the procedure was NOT performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".reason.Observation.value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Procedure.reasonNotPerformed",
-                "max": "*",
-                "min": 0,
-                "short": "Reason procedure was not performed",
-                "condition": [
-                    "pro-1"
-                ],
-                "binding": {
-                    "description": "A code that identifies the reason a procedure was not performed.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-not-performed-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "A code indicating why the procedure was not performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBX-20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".targetSiteCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.bodySite",
-                "max": "*",
-                "min": 0,
-                "short": "Target body sites",
-                "binding": {
-                    "description": "Codes describing anatomical locations. May include laterality.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/body-site"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Detailed and structured anatomical location information. Multiple locations are allowed - e.g. multiple punch biopsies of a lesion."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".reasonCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "e.g. endoscopy for dilatation and biopsy, combination diagnosis and therapeutic.",
-                "path": "Procedure.reason[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Reason procedure performed",
-                "binding": {
-                    "description": "A code that identifies the reason a procedure is  required.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The reason why the procedure was performed. This may be due to a Condition, may be coded entity of some type, or may simply be present as text."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=PFM]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performer",
-                "max": "*",
-                "min": 0,
-                "short": "The people who performed the procedure",
-                "definition": "Limited to 'real' people rather than equipment."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "ORC-19/PRT-5",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performer.actor",
-                "max": "1",
-                "min": 0,
-                "short": "The reference to the practitioner",
-                "definition": "The practitioner who was involved in the procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Some combination of STF-18 / PRA-3 / PRT-4 / ROL-3 / ORC-12 / OBR-16 / PV1-7 / PV1-8 / PV1-9 / PV1-17 / OBX-25",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".functionCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performer.role",
-                "max": "1",
-                "min": 0,
-                "short": "The role the actor was in",
-                "binding": {
-                    "description": "A code that identifies the role of a performer of the procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/performer-role"
-                    },
-                    "strength": "example"
-                },
-                "definition": "For example: surgeon, anaethetist, endoscopist."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "OBR-7",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.done",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    },
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.performed[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Date/Period the procedure was performed",
-                "definition": "The date(time)/period over which the procedure was performed. Allows a period to support complex procedures that span more than one date, and also allows for the length of the procedure to be captured."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PV1-19",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "context",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Encounter"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "The encounter associated with the procedure",
-                "definition": "The encounter during which the procedure was performed."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "where",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Procedure.location",
-                "max": "1",
-                "min": 0,
-                "short": "Where the procedure happened",
-                "requirements": "Ties a procedure to where the records are likely kept.",
-                "definition": "The location where the procedure actually happened.  E.g. a newborn at home, a tracheostomy at a restaurant."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=OUT].target.text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "If outcome contains narrative text only, it can be captured using the CodeableConcept.text.",
-                "path": "Procedure.outcome",
-                "max": "1",
-                "min": 0,
-                "short": "The result of procedure",
-                "binding": {
-                    "description": "An outcome of a procedure - whether it was resolved or otherwise.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-outcome"
-                    },
-                    "strength": "example"
-                },
-                "definition": "The outcome of the procedure - did it resolve reasons for the procedure being performed?"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
-                        ]
-                    }
-                ],
-                "comments": "There could potentially be multiple reports - e.g. if this was a procedure which took multiple biopsies resulting in a number of anatomical pathology reports.",
-                "path": "Procedure.report",
-                "max": "*",
-                "min": 0,
-                "short": "Any report resulting from the procedure",
-                "definition": "This could be a histology result, pathology report, surgical report, etc.."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Need specialization of OUT for this.",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "If complications are only expressed by the narrative text, they can be captured using the CodeableConcept.text.",
-                "path": "Procedure.complication",
-                "max": "*",
-                "min": 0,
-                "short": "Complication following the procedure",
-                "binding": {
-                    "description": "Codes describing complications that resulted from a procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/condition-code"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Any complications that occurred during the procedure, or in the immediate post-performance period. These are generally tracked separately from the notes, which will typically describe the procedure itself rather than any 'post procedure' issues."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=COMP].target[classCode=ACT, moodCode=INT].code",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Procedure.followUp",
-                "max": "*",
-                "min": 0,
-                "short": "Instructions for follow up",
-                "binding": {
-                    "description": "Specific follow up required for a procedure e.g. removal of sutures.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/procedure-followup"
-                    },
-                    "strength": "example"
-                },
-                "definition": "If the procedure required specific follow up - e.g. removal of sutures. The followup may be represented as a simple note, or could potentially be more complex in which case the CarePlan resource can be used."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/CarePlan"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/DiagnosticOrder"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ReferralRequest"
-                        ]
-                    }
-                ],
-                "path": "Procedure.request",
-                "max": "1",
-                "min": 0,
-                "short": "A request for this procedure",
-                "definition": "A reference to a resource that contains details of the request for this procedure."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "NTE",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "path": "Procedure.notes",
-                "max": "*",
-                "min": 0,
-                "short": "Additional information about the procedure",
-                "definition": "Any other notes about the procedure.  E.g. the operative notes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "Procedure.focalDevice",
-                "max": "*",
-                "min": 0,
-                "short": "Device changed in procedure",
-                "definition": "A device that is implanted, removed or otherwise manipulated (calibration, battery replacement, fitting a prosthesis, attaching a wound-vac, etc.) as a focal portion of the Procedure."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Procedure.focalDevice.action",
-                "max": "1",
-                "min": 0,
-                "short": "Kind of change to device",
-                "binding": {
-                    "description": "A kind of change that happened to the device during the procedure.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/device-action"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The kind of change that happened to the device during the procedure."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "path": "Procedure.focalDevice.manipulated",
-                "max": "1",
-                "min": 1,
-                "short": "Device that was changed",
-                "definition": "The device that was manipulated (changed) during the procedure."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Medication"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Substance"
-                        ]
-                    }
-                ],
-                "comments": "For devices actually implanted or removed, use Procedure.device.",
-                "path": "Procedure.used",
-                "max": "*",
-                "min": 0,
-                "short": "Items used during procedure",
-                "requirements": "Used for tracking contamination, etc.",
-                "definition": "Identifies medications, devices and any other substance used as part of the procedure."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Procedure Resource"
+    "publisher": "Health Level Seven International (Patient Care)"
 }

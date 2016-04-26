@@ -1,48 +1,44 @@
 {
-    "mapping": [
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
-        },
-        {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        }
-    ],
+    "id": "AllergyIntolerance",
+    "date": "2015-10-24T07:41:03+11:00",
     "differential": {
         "element": [
             {
-                "mapping": [
-                    {
-                        "map": "clinical.general",
-                        "identity": "w5"
-                    }
-                ],
                 "type": [
                     {
                         "code": "DomainResource"
                     }
                 ],
-                "comments": "Substances include, but are not limited to: a therapeutic substance administered correctly at an appropriate dosage for the individual; food; material derived from plants or animals; or venom from insect stings.",
-                "path": "AllergyIntolerance",
+                "max": "*",
+                "definition": "Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance.",
+                "short": "Allergy or Intolerance (generally: Risk Of Adverse reaction to a substance)",
+                "min": 0,
                 "alias": [
                     "Allergy",
                     "Intolerance",
                     "Adverse Reaction"
                 ],
-                "min": 0,
-                "short": "Allergy or Intolerance (generally: Risk Of Adverse reaction to a substance)",
-                "max": "*",
-                "definition": "Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance."
+                "comments": "Substances include, but are not limited to: a therapeutic substance administered correctly at an appropriate dosage for the individual; food; material derived from plants or animals; or venom from insect stings.",
+                "path": "AllergyIntolerance",
+                "mapping": [
+                    {
+                        "map": "clinical.general",
+                        "identity": "w5"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "This records identifiers associated with this allergy/intolerance concern that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "short": "External ids for this item",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.identifier",
                 "mapping": [
                     {
                         "map": "IAM-7",
@@ -56,18 +52,7 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External ids for this item",
-                "definition": "This records identifiers associated with this allergy/intolerance concern that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."
+                ]
             },
             {
                 "type": [
@@ -75,14 +60,25 @@
                         "code": "dateTime"
                     }
                 ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.onset",
                 "max": "1",
-                "min": 0,
+                "definition": "Record of the date and/or time of the onset of the Allergy or Intolerance.",
                 "short": "Date(/time) when manifestations showed",
-                "definition": "Record of the date and/or time of the onset of the Allergy or Intolerance."
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.onset"
             },
             {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Date when the sensitivity was recorded.",
+                "short": "When recorded",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.recordedDate",
                 "mapping": [
                     {
                         "map": "IAM-20",
@@ -96,20 +92,32 @@
                         "map": "when.recorded",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.recordedDate",
-                "max": "1",
-                "min": 0,
-                "short": "When recorded",
-                "definition": "Date when the sensitivity was recorded."
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Individual who recorded the record and takes responsibility for its conten.",
+                "short": "Who recorded the sensitivity",
+                "min": 0,
+                "alias": [
+                    "Author"
+                ],
+                "isSummary": true,
+                "path": "AllergyIntolerance.recorder",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=AUT].role",
@@ -119,32 +127,26 @@
                         "map": "who.author",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.recorder",
-                "alias": [
-                    "Author"
-                ],
-                "min": 0,
-                "short": "Who recorded the sensitivity",
-                "max": "1",
-                "definition": "Individual who recorded the record and takes responsibility for its conten."
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The patient who has the allergy or intolerance.",
+                "short": "Who the sensitivity is for",
+                "min": 1,
+                "alias": [
+                    "Patient"
+                ],
+                "isSummary": true,
+                "path": "AllergyIntolerance.patient",
                 "mapping": [
                     {
                         "map": "(PID-3)",
@@ -158,26 +160,31 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.patient",
-                "alias": [
-                    "Patient"
-                ],
-                "min": 1,
-                "short": "Who the sensitivity is for",
-                "max": "1",
-                "definition": "The patient who has the allergy or intolerance."
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The source of the information about the allergy that is recorded.",
                 "mapping": [
                     {
                         "map": "IAM-14 (if patient) / IAM-18 (if practitioner)",
@@ -188,37 +195,15 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The recorder takes repsonsibility for the content, but can reference the source from where they got it.",
-                "path": "AllergyIntolerance.reporter",
+                "short": "Source of the information about the allergy",
+                "min": 0,
                 "alias": [
                     "Source",
                     "Informant"
                 ],
-                "min": 0,
-                "short": "Source of the information about the allergy",
-                "max": "1",
-                "definition": "The source of the information about the allergy that is recorded."
+                "comments": "The recorder takes repsonsibility for the content, but can reference the source from where they got it.",
+                "path": "AllergyIntolerance.reporter",
+                "isSummary": true
             },
             {
                 "mapping": [
@@ -236,15 +221,8 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "comments": "It is strongly recommended that the substance be coded with a terminology, where possible. For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10, UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology available. Additional details about a substance can be specified in the text.",
-                "path": "AllergyIntolerance.substance",
-                "alias": [
-                    "Agent"
-                ],
-                "min": 1,
-                "short": "Substance, (or class) considered to be responsible for risk",
                 "max": "1",
+                "definition": "Identification of a substance, or a class of substances, that is considered to be responsible for the adverse reaction risk.",
                 "binding": {
                     "description": "Type of the substance and Negation codes for reporting no known allergies.",
                     "valueSetReference": {
@@ -252,9 +230,24 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Identification of a substance, or a class of substances, that is considered to be responsible for the adverse reaction risk."
+                "short": "Substance, (or class) considered to be responsible for risk",
+                "min": 1,
+                "alias": [
+                    "Agent"
+                ],
+                "comments": "It is strongly recommended that the substance be coded with a terminology, where possible. For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10, UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology available. Additional details about a substance can be specified in the text.",
+                "path": "AllergyIntolerance.substance",
+                "isSummary": true
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "alias": [
+                    "State"
+                ],
+                "short": "active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error",
+                "definition": "Assertion about certainty associated with the propensity, or potential risk, of a reaction to the identified Substance.",
                 "mapping": [
                     {
                         "map": "IAM-17",
@@ -265,14 +258,12 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved' and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation of the Adverse Reaction List. Some implementations may choose to make this field mandatory.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error",
                 "binding": {
                     "description": "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance.",
                     "valueSetReference": {
@@ -280,14 +271,8 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "isModifier": true,
-                "comments": "Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved' and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation of the Adverse Reaction List. Some implementations may choose to make this field mandatory.",
-                "path": "AllergyIntolerance.status",
-                "alias": [
-                    "State"
-                ],
-                "definition": "Assertion about certainty associated with the propensity, or potential risk, of a reaction to the identified Substance."
+                "isSummary": true,
+                "path": "AllergyIntolerance.status"
             },
             {
                 "mapping": [
@@ -301,18 +286,8 @@
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The default criticality value for any propensity to an adverse reaction should be 'Low Risk', indicating at the very least a relative contraindication to deliberate or voluntary exposure to the Substance. 'High Risk' is flagged if the clinician has identified a propensity for a more serious or potentially life-threatening reaction, such as anaphylaxis, and implies an absolute contraindication to deliberate or voluntary exposure to the substance. If this element is missing, the criticality is unknown (though it may be known elsewhere).",
-                "path": "AllergyIntolerance.criticality",
-                "alias": [
-                    "Severity",
-                    "Seriousness",
-                    "Contra-indication",
-                    "Risk"
-                ],
-                "min": 0,
-                "short": "CRITL | CRITH | CRITU",
                 "max": "1",
+                "definition": "Estimate of the potential clinical harm, or seriousness, of the reaction to the identified Substance.",
                 "binding": {
                     "description": "Estimate of the potential clinical harm, or seriousness, of a reaction to an identified Substance.",
                     "valueSetReference": {
@@ -320,7 +295,17 @@
                     },
                     "strength": "required"
                 },
-                "definition": "Estimate of the potential clinical harm, or seriousness, of the reaction to the identified Substance."
+                "short": "CRITL | CRITH | CRITU",
+                "min": 0,
+                "alias": [
+                    "Severity",
+                    "Seriousness",
+                    "Contra-indication",
+                    "Risk"
+                ],
+                "comments": "The default criticality value for any propensity to an adverse reaction should be 'Low Risk', indicating at the very least a relative contraindication to deliberate or voluntary exposure to the Substance. 'High Risk' is flagged if the clinician has identified a propensity for a more serious or potentially life-threatening reaction, such as anaphylaxis, and implies an absolute contraindication to deliberate or voluntary exposure to the substance. If this element is missing, the criticality is unknown (though it may be known elsewhere).",
+                "path": "AllergyIntolerance.criticality",
+                "isSummary": true
             },
             {
                 "mapping": [
@@ -338,16 +323,8 @@
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Allergic (typically immune-mediated) reactions have been traditionally regarded as an indicator for potential escalation to significant future risk. Contemporary knowledge suggests that some reactions previously thought to be immune-mediated are, in fact, non-immune, but in some cases can still pose a life threatening risk. It is acknowledged that many clinicians may not be in a position to distinguish the mechanism of a particular reaction. Often the term \"allergy\" is used rather generically and may overlap with the use of \"intolerance\" - in practice the boundaries between these two concepts may not be well-defined or understood. This data element is included nevertheless, because many legacy systems have captured this attribute. Immunologic testing may provide supporting evidence for the basis of the reaction and the causative substance, but no tests are 100% sensitive or specific for sensitivity to a particular substance. If, as is commonly the case, it is unclear whether the reaction is due to an allergy or an intolerance, then the type element should be omitted from the resource.",
-                "path": "AllergyIntolerance.type",
-                "alias": [
-                    "Category",
-                    "Class"
-                ],
-                "min": 0,
-                "short": "allergy | intolerance - Underlying mechanism (if known)",
                 "max": "1",
+                "definition": "Identification of the underlying physiological mechanism for the reaction risk.",
                 "binding": {
                     "description": "Identification of the underlying physiological mechanism for a Reaction Risk.",
                     "valueSetReference": {
@@ -355,7 +332,15 @@
                     },
                     "strength": "required"
                 },
-                "definition": "Identification of the underlying physiological mechanism for the reaction risk."
+                "short": "allergy | intolerance - Underlying mechanism (if known)",
+                "min": 0,
+                "alias": [
+                    "Category",
+                    "Class"
+                ],
+                "comments": "Allergic (typically immune-mediated) reactions have been traditionally regarded as an indicator for potential escalation to significant future risk. Contemporary knowledge suggests that some reactions previously thought to be immune-mediated are, in fact, non-immune, but in some cases can still pose a life threatening risk. It is acknowledged that many clinicians may not be in a position to distinguish the mechanism of a particular reaction. Often the term \"allergy\" is used rather generically and may overlap with the use of \"intolerance\" - in practice the boundaries between these two concepts may not be well-defined or understood. This data element is included nevertheless, because many legacy systems have captured this attribute. Immunologic testing may provide supporting evidence for the basis of the reaction and the causative substance, but no tests are 100% sensitive or specific for sensitivity to a particular substance. If, as is commonly the case, it is unclear whether the reaction is due to an allergy or an intolerance, then the type element should be omitted from the resource.",
+                "path": "AllergyIntolerance.type",
+                "isSummary": true
             },
             {
                 "mapping": [
@@ -369,18 +354,8 @@
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "comments": "This data element has been included because it is currently being captured in some clinical systems. This data can be derived from the Substance where coding systems are used, and is effectively redundant in that situation.",
-                "path": "AllergyIntolerance.category",
-                "alias": [
-                    "Category",
-                    "Type",
-                    "Reaction Type",
-                    "Class"
-                ],
-                "min": 0,
-                "short": "food | medication | environment | other - Category of Substance",
                 "max": "1",
+                "definition": "Category of the identified Substance.",
                 "binding": {
                     "description": "Category of an identified Substance.",
                     "valueSetReference": {
@@ -388,7 +363,17 @@
                     },
                     "strength": "required"
                 },
-                "definition": "Category of the identified Substance."
+                "short": "food | medication | environment | other - Category of Substance",
+                "min": 0,
+                "alias": [
+                    "Category",
+                    "Type",
+                    "Reaction Type",
+                    "Class"
+                ],
+                "comments": "This data element has been included because it is currently being captured in some clinical systems. This data can be derived from the Substance where coding systems are used, and is effectively redundant in that situation.",
+                "path": "AllergyIntolerance.category",
+                "isSummary": true
             },
             {
                 "type": [
@@ -396,13 +381,13 @@
                         "code": "dateTime"
                     }
                 ],
-                "isSummary": true,
+                "max": "1",
+                "definition": "Represents the date and/or time of the last known occurrence of a reaction event.",
+                "short": "Date(/time) of last known occurrence of a reaction",
+                "min": 0,
                 "comments": "This date may be replicated by one of the Onset of Reaction dates. Where a textual representation of the date of last occurrence is required e.g. 'In Childhood, '10 years ago' the Comment element should be used.",
                 "path": "AllergyIntolerance.lastOccurence",
-                "max": "1",
-                "min": 0,
-                "short": "Date(/time) of last known occurrence of a reaction",
-                "definition": "Represents the date and/or time of the last known occurrence of a reaction event."
+                "isSummary": true
             },
             {
                 "type": [
@@ -410,12 +395,12 @@
                         "code": "Annotation"
                     }
                 ],
-                "comments": "For example: including reason for flagging a seriousness of 'High Risk'; and instructions related to future exposure or administration of the Substance, such as administration within an Intensive Care Unit or under corticosteroid cover. The notes should be related to an allergy or intolerance as a condition in general and not related to any particular episode of it. For episode notes and descriptions, use AllergyIntolerance.event.description and  AllergyIntolerance.event.notes.",
-                "path": "AllergyIntolerance.note",
                 "max": "1",
-                "min": 0,
+                "definition": "Additional narrative about the propensity for the Adverse Reaction, not captured in other fields.",
                 "short": "Additional text not captured in other fields",
-                "definition": "Additional narrative about the propensity for the Adverse Reaction, not captured in other fields."
+                "min": 0,
+                "comments": "For example: including reason for flagging a seriousness of 'High Risk'; and instructions related to future exposure or administration of the Substance, such as administration within an Intensive Care Unit or under corticosteroid cover. The notes should be related to an allergy or intolerance as a condition in general and not related to any particular episode of it. For episode notes and descriptions, use AllergyIntolerance.event.description and  AllergyIntolerance.event.notes.",
+                "path": "AllergyIntolerance.note"
             },
             {
                 "type": [
@@ -423,11 +408,11 @@
                         "code": "BackboneElement"
                     }
                 ],
-                "path": "AllergyIntolerance.reaction",
                 "max": "*",
-                "min": 0,
+                "definition": "Details about each adverse reaction event linked to exposure to the identified Substance.",
                 "short": "Adverse Reaction Events linked to exposure to substance",
-                "definition": "Details about each adverse reaction event linked to exposure to the identified Substance."
+                "min": 0,
+                "path": "AllergyIntolerance.reaction"
             },
             {
                 "type": [
@@ -435,12 +420,10 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Coding of the specific substance with a terminology capable of triggering decision support should be used wherever possible.  The substance field allows for the use of a specific substance or a group or class of substances, for example \"Penicillins\". The specific substance field could be used for Amoxycillin. Duplication is acceptable when a specific substance has been recorded in the 'substance' field.",
-                "path": "AllergyIntolerance.reaction.substance",
                 "max": "1",
-                "min": 0,
+                "definition": "Identification of the specific substance considered to be responsible for the Adverse Reaction event. Note: the substance for a specific reaction may be different to the substance identified as the cause of the risk, but must be consistent with it. For instance, it may be a more specific substance (e.g. a brand medication) or a composite substance that includes the identified substance. It must be clinically safe to only process the AllergyIntolerance.substance and ignore the AllergyIntolerance.event.substance.",
                 "short": "Specific substance considered to be responsible for event",
+                "min": 0,
                 "binding": {
                     "description": "Codes defining the type of the substance.",
                     "valueSetReference": {
@@ -448,7 +431,9 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Identification of the specific substance considered to be responsible for the Adverse Reaction event. Note: the substance for a specific reaction may be different to the substance identified as the cause of the risk, but must be consistent with it. For instance, it may be a more specific substance (e.g. a brand medication) or a composite substance that includes the identified substance. It must be clinically safe to only process the AllergyIntolerance.substance and ignore the AllergyIntolerance.event.substance."
+                "comments": "Coding of the specific substance with a terminology capable of triggering decision support should be used wherever possible.  The substance field allows for the use of a specific substance or a group or class of substances, for example \"Penicillins\". The specific substance field could be used for Amoxycillin. Duplication is acceptable when a specific substance has been recorded in the 'substance' field.",
+                "path": "AllergyIntolerance.reaction.substance",
+                "isSummary": true
             },
             {
                 "type": [
@@ -456,14 +441,8 @@
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.reaction.certainty",
-                "alias": [
-                    "Cause"
-                ],
-                "min": 0,
-                "short": "unlikely | likely | confirmed - clinical certainty about the specific substance",
                 "max": "1",
+                "definition": "Statement about the degree of clinical certainty that the specific substance was the cause of the manifestation in this reaction event.",
                 "binding": {
                     "description": "Statement about the degree of clinical certainty that a Specific Substance was the cause of the Manifestation in an reaction event.",
                     "valueSetReference": {
@@ -471,7 +450,13 @@
                     },
                     "strength": "required"
                 },
-                "definition": "Statement about the degree of clinical certainty that the specific substance was the cause of the manifestation in this reaction event."
+                "short": "unlikely | likely | confirmed - clinical certainty about the specific substance",
+                "min": 0,
+                "alias": [
+                    "Cause"
+                ],
+                "isSummary": true,
+                "path": "AllergyIntolerance.reaction.certainty"
             },
             {
                 "type": [
@@ -479,16 +464,8 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Manifestation can be expressed as a single word, phrase or brief description. For example: nausea, rash or no reaction. It is preferable that manifestation should be coded with a terminology, where possible. The values entered here may be used to display on an application screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.  Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.",
-                "path": "AllergyIntolerance.reaction.manifestation",
-                "alias": [
-                    "Symptoms",
-                    "Signs"
-                ],
-                "min": 1,
-                "short": "Clinical symptoms/signs associated with the Event",
                 "max": "*",
+                "definition": "Clinical symptoms and/or signs that are observed or associated with the adverse reaction event.",
                 "binding": {
                     "description": "Clinical symptoms and/or signs that are observed or associated with an Adverse Reaction Event.",
                     "valueSetReference": {
@@ -496,7 +473,15 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Clinical symptoms and/or signs that are observed or associated with the adverse reaction event."
+                "short": "Clinical symptoms/signs associated with the Event",
+                "min": 1,
+                "alias": [
+                    "Symptoms",
+                    "Signs"
+                ],
+                "comments": "Manifestation can be expressed as a single word, phrase or brief description. For example: nausea, rash or no reaction. It is preferable that manifestation should be coded with a terminology, where possible. The values entered here may be used to display on an application screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.  Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.",
+                "path": "AllergyIntolerance.reaction.manifestation",
+                "isSummary": true
             },
             {
                 "type": [
@@ -504,16 +489,16 @@
                         "code": "string"
                     }
                 ],
-                "comments": "Use the description to provide any details of a particular event of the occurred reaction such as circumstances, reaction specifics, what happened before/after. Information, related to the event, but not describing a particular care should be captured in the comment field. For example: at the age of four, the patient was given penicillin for strep throat and subsequently developed severe hives.",
-                "path": "AllergyIntolerance.reaction.description",
+                "max": "1",
+                "definition": "Text description about the reaction as a whole, including details of the manifestation if required.",
+                "short": "Description of the event as a whole",
+                "min": 0,
                 "alias": [
                     "Narrative",
                     "Text"
                 ],
-                "min": 0,
-                "short": "Description of the event as a whole",
-                "max": "1",
-                "definition": "Text description about the reaction as a whole, including details of the manifestation if required."
+                "comments": "Use the description to provide any details of a particular event of the occurred reaction such as circumstances, reaction specifics, what happened before/after. Information, related to the event, but not describing a particular care should be captured in the comment field. For example: at the age of four, the patient was given penicillin for strep throat and subsequently developed severe hives.",
+                "path": "AllergyIntolerance.reaction.description"
             },
             {
                 "type": [
@@ -521,12 +506,12 @@
                         "code": "dateTime"
                     }
                 ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.reaction.onset",
                 "max": "1",
-                "min": 0,
+                "definition": "Record of the date and/or time of the onset of the Reaction.",
                 "short": "Date(/time) when manifestations showed",
-                "definition": "Record of the date and/or time of the onset of the Reaction."
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.reaction.onset"
             },
             {
                 "type": [
@@ -534,12 +519,10 @@
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "comments": "It is acknowledged that this assessment is very subjective. There may be some some specific practice domains where objective scales have been applied. Objective scales can be included in this model as extensions.",
-                "path": "AllergyIntolerance.reaction.severity",
                 "max": "1",
-                "min": 0,
+                "definition": "Clinical assessment of the severity of the reaction event as a whole, potentially considering multiple different manifestations.",
                 "short": "mild | moderate | severe (of event as a whole)",
+                "min": 0,
                 "binding": {
                     "description": "Clinical assessment of the severity of a reaction event as a whole, potentially considering multiple different manifestations.",
                     "valueSetReference": {
@@ -547,7 +530,9 @@
                     },
                     "strength": "required"
                 },
-                "definition": "Clinical assessment of the severity of the reaction event as a whole, potentially considering multiple different manifestations."
+                "comments": "It is acknowledged that this assessment is very subjective. There may be some some specific practice domains where objective scales have been applied. Objective scales can be included in this model as extensions.",
+                "path": "AllergyIntolerance.reaction.severity",
+                "isSummary": true
             },
             {
                 "type": [
@@ -555,12 +540,10 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Coding of the route of exposure with a terminology should be used wherever possible.",
-                "path": "AllergyIntolerance.reaction.exposureRoute",
                 "max": "1",
-                "min": 0,
+                "definition": "Identification of the route by which the subject was exposed to the substance.",
                 "short": "How the subject was exposed to the substance",
+                "min": 0,
                 "binding": {
                     "description": "A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject.",
                     "valueSetReference": {
@@ -568,7 +551,9 @@
                     },
                     "strength": "example"
                 },
-                "definition": "Identification of the route by which the subject was exposed to the substance."
+                "comments": "Coding of the route of exposure with a terminology should be used wherever possible.",
+                "path": "AllergyIntolerance.reaction.exposureRoute",
+                "isSummary": true
             },
             {
                 "type": [
@@ -576,19 +561,848 @@
                         "code": "Annotation"
                     }
                 ],
-                "comments": "Use this field to record information indirectly related to a particular event and not captured in the description. For example: Clinical records are no longer available, recorded based on information provided to the patient by her mother and her mother is deceased.",
-                "path": "AllergyIntolerance.reaction.note",
                 "max": "1",
-                "min": 0,
+                "definition": "Additional text about the adverse reaction event not captured in other fields.",
                 "short": "Text about event not captured in other fields",
-                "definition": "Additional text about the adverse reaction event not captured in other fields."
+                "min": 0,
+                "comments": "Use this field to record information indirectly related to a particular event and not captured in the description. For example: Clinical records are no longer available, recorded based on information provided to the patient by her mother and her mother is deceased.",
+                "path": "AllergyIntolerance.reaction.note"
             }
         ]
     },
-    "id": "AllergyIntolerance",
-    "fhirVersion": "1.0.2",
+    "name": "AllergyIntolerance",
     "abstract": false,
+    "requirements": "To record a clinical assessment of a propensity, or potential risk to an individual, of an adverse reaction upon future exposure to the specified substance, or class of substance.",
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
+        }
+    ],
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance.",
+                "short": "Allergy or Intolerance (generally: Risk Of Adverse reaction to a substance)",
+                "min": 0,
+                "alias": [
+                    "Allergy",
+                    "Intolerance",
+                    "Adverse Reaction"
+                ],
+                "comments": "Substances include, but are not limited to: a therapeutic substance administered correctly at an appropriate dosage for the individual; food; material derived from plants or animals; or venom from insect stings.",
+                "path": "AllergyIntolerance",
+                "mapping": [
+                    {
+                        "map": "clinical.general",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "AllergyIntolerance.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "AllergyIntolerance.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "AllergyIntolerance.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "AllergyIntolerance.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "AllergyIntolerance.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "AllergyIntolerance.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "AllergyIntolerance.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "This records identifiers associated with this allergy/intolerance concern that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "short": "External ids for this item",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.identifier",
+                "mapping": [
+                    {
+                        "map": "IAM-7",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Record of the date and/or time of the onset of the Allergy or Intolerance.",
+                "short": "Date(/time) when manifestations showed",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.onset"
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Date when the sensitivity was recorded.",
+                "short": "When recorded",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.recordedDate",
+                "mapping": [
+                    {
+                        "map": "IAM-20",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=AUT].time",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Individual who recorded the record and takes responsibility for its conten.",
+                "short": "Who recorded the sensitivity",
+                "min": 0,
+                "alias": [
+                    "Author"
+                ],
+                "isSummary": true,
+                "path": "AllergyIntolerance.recorder",
+                "mapping": [
+                    {
+                        "map": ".participation[typeCode=AUT].role",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.author",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The patient who has the allergy or intolerance.",
+                "short": "Who the sensitivity is for",
+                "min": 1,
+                "alias": [
+                    "Patient"
+                ],
+                "isSummary": true,
+                "path": "AllergyIntolerance.patient",
+                "mapping": [
+                    {
+                        "map": "(PID-3)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=SBJ].role[classCode=PAT]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "The source of the information about the allergy that is recorded.",
+                "mapping": [
+                    {
+                        "map": "IAM-14 (if patient) / IAM-18 (if practitioner)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "who.source",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Source of the information about the allergy",
+                "min": 0,
+                "alias": [
+                    "Source",
+                    "Informant"
+                ],
+                "comments": "The recorder takes repsonsibility for the content, but can reference the source from where they got it.",
+                "path": "AllergyIntolerance.reporter",
+                "isSummary": true
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "AL1-3 / IAM-3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "what",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identification of a substance, or a class of substances, that is considered to be responsible for the adverse reaction risk.",
+                "binding": {
+                    "description": "Type of the substance and Negation codes for reporting no known allergies.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code"
+                    },
+                    "strength": "example"
+                },
+                "short": "Substance, (or class) considered to be responsible for risk",
+                "min": 1,
+                "alias": [
+                    "Agent"
+                ],
+                "comments": "It is strongly recommended that the substance be coded with a terminology, where possible. For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10, UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology available. Additional details about a substance can be specified in the text.",
+                "path": "AllergyIntolerance.substance",
+                "isSummary": true
+            },
+            {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "alias": [
+                    "State"
+                ],
+                "short": "active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error",
+                "definition": "Assertion about certainty associated with the propensity, or potential risk, of a reaction to the identified Substance.",
+                "mapping": [
+                    {
+                        "map": "IAM-17",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ],
+                "comments": "Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved' and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation of the Adverse Reaction List. Some implementations may choose to make this field mandatory.",
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "AllergyIntolerance.status"
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "grade",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Estimate of the potential clinical harm, or seriousness, of the reaction to the identified Substance.",
+                "binding": {
+                    "description": "Estimate of the potential clinical harm, or seriousness, of a reaction to an identified Substance.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-criticality"
+                    },
+                    "strength": "required"
+                },
+                "short": "CRITL | CRITH | CRITU",
+                "min": 0,
+                "alias": [
+                    "Severity",
+                    "Seriousness",
+                    "Contra-indication",
+                    "Risk"
+                ],
+                "comments": "The default criticality value for any propensity to an adverse reaction should be 'Low Risk', indicating at the very least a relative contraindication to deliberate or voluntary exposure to the Substance. 'High Risk' is flagged if the clinician has identified a propensity for a more serious or potentially life-threatening reaction, such as anaphylaxis, and implies an absolute contraindication to deliberate or voluntary exposure to the substance. If this element is missing, the criticality is unknown (though it may be known elsewhere).",
+                "path": "AllergyIntolerance.criticality",
+                "isSummary": true
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "IAM-9",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identification of the underlying physiological mechanism for the reaction risk.",
+                "binding": {
+                    "description": "Identification of the underlying physiological mechanism for a Reaction Risk.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-type"
+                    },
+                    "strength": "required"
+                },
+                "short": "allergy | intolerance - Underlying mechanism (if known)",
+                "min": 0,
+                "alias": [
+                    "Category",
+                    "Class"
+                ],
+                "comments": "Allergic (typically immune-mediated) reactions have been traditionally regarded as an indicator for potential escalation to significant future risk. Contemporary knowledge suggests that some reactions previously thought to be immune-mediated are, in fact, non-immune, but in some cases can still pose a life threatening risk. It is acknowledged that many clinicians may not be in a position to distinguish the mechanism of a particular reaction. Often the term \"allergy\" is used rather generically and may overlap with the use of \"intolerance\" - in practice the boundaries between these two concepts may not be well-defined or understood. This data element is included nevertheless, because many legacy systems have captured this attribute. Immunologic testing may provide supporting evidence for the basis of the reaction and the causative substance, but no tests are 100% sensitive or specific for sensitivity to a particular substance. If, as is commonly the case, it is unclear whether the reaction is due to an allergy or an intolerance, then the type element should be omitted from the resource.",
+                "path": "AllergyIntolerance.type",
+                "isSummary": true
+            },
+            {
+                "mapping": [
+                    {
+                        "map": "class",
+                        "identity": "w5"
+                    }
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Category of the identified Substance.",
+                "binding": {
+                    "description": "Category of an identified Substance.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-category"
+                    },
+                    "strength": "required"
+                },
+                "short": "food | medication | environment | other - Category of Substance",
+                "min": 0,
+                "alias": [
+                    "Category",
+                    "Type",
+                    "Reaction Type",
+                    "Class"
+                ],
+                "comments": "This data element has been included because it is currently being captured in some clinical systems. This data can be derived from the Substance where coding systems are used, and is effectively redundant in that situation.",
+                "path": "AllergyIntolerance.category",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Represents the date and/or time of the last known occurrence of a reaction event.",
+                "short": "Date(/time) of last known occurrence of a reaction",
+                "min": 0,
+                "comments": "This date may be replicated by one of the Onset of Reaction dates. Where a textual representation of the date of last occurrence is required e.g. 'In Childhood, '10 years ago' the Comment element should be used.",
+                "path": "AllergyIntolerance.lastOccurence",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional narrative about the propensity for the Adverse Reaction, not captured in other fields.",
+                "short": "Additional text not captured in other fields",
+                "min": 0,
+                "comments": "For example: including reason for flagging a seriousness of 'High Risk'; and instructions related to future exposure or administration of the Substance, such as administration within an Intensive Care Unit or under corticosteroid cover. The notes should be related to an allergy or intolerance as a condition in general and not related to any particular episode of it. For episode notes and descriptions, use AllergyIntolerance.event.description and  AllergyIntolerance.event.notes.",
+                "path": "AllergyIntolerance.note"
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Details about each adverse reaction event linked to exposure to the identified Substance.",
+                "short": "Adverse Reaction Events linked to exposure to substance",
+                "min": 0,
+                "path": "AllergyIntolerance.reaction"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "AllergyIntolerance.reaction.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "AllergyIntolerance.reaction.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "AllergyIntolerance.reaction.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identification of the specific substance considered to be responsible for the Adverse Reaction event. Note: the substance for a specific reaction may be different to the substance identified as the cause of the risk, but must be consistent with it. For instance, it may be a more specific substance (e.g. a brand medication) or a composite substance that includes the identified substance. It must be clinically safe to only process the AllergyIntolerance.substance and ignore the AllergyIntolerance.event.substance.",
+                "short": "Specific substance considered to be responsible for event",
+                "min": 0,
+                "binding": {
+                    "description": "Codes defining the type of the substance.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/substance-code"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Coding of the specific substance with a terminology capable of triggering decision support should be used wherever possible.  The substance field allows for the use of a specific substance or a group or class of substances, for example \"Penicillins\". The specific substance field could be used for Amoxycillin. Duplication is acceptable when a specific substance has been recorded in the 'substance' field.",
+                "path": "AllergyIntolerance.reaction.substance",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Statement about the degree of clinical certainty that the specific substance was the cause of the manifestation in this reaction event.",
+                "binding": {
+                    "description": "Statement about the degree of clinical certainty that a Specific Substance was the cause of the Manifestation in an reaction event.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/reaction-event-certainty"
+                    },
+                    "strength": "required"
+                },
+                "short": "unlikely | likely | confirmed - clinical certainty about the specific substance",
+                "min": 0,
+                "alias": [
+                    "Cause"
+                ],
+                "isSummary": true,
+                "path": "AllergyIntolerance.reaction.certainty"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Clinical symptoms and/or signs that are observed or associated with the adverse reaction event.",
+                "binding": {
+                    "description": "Clinical symptoms and/or signs that are observed or associated with an Adverse Reaction Event.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/manifestation-codes"
+                    },
+                    "strength": "example"
+                },
+                "short": "Clinical symptoms/signs associated with the Event",
+                "min": 1,
+                "alias": [
+                    "Symptoms",
+                    "Signs"
+                ],
+                "comments": "Manifestation can be expressed as a single word, phrase or brief description. For example: nausea, rash or no reaction. It is preferable that manifestation should be coded with a terminology, where possible. The values entered here may be used to display on an application screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.  Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.",
+                "path": "AllergyIntolerance.reaction.manifestation",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Text description about the reaction as a whole, including details of the manifestation if required.",
+                "short": "Description of the event as a whole",
+                "min": 0,
+                "alias": [
+                    "Narrative",
+                    "Text"
+                ],
+                "comments": "Use the description to provide any details of a particular event of the occurred reaction such as circumstances, reaction specifics, what happened before/after. Information, related to the event, but not describing a particular care should be captured in the comment field. For example: at the age of four, the patient was given penicillin for strep throat and subsequently developed severe hives.",
+                "path": "AllergyIntolerance.reaction.description"
+            },
+            {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "definition": "Record of the date and/or time of the onset of the Reaction.",
+                "short": "Date(/time) when manifestations showed",
+                "min": 0,
+                "isSummary": true,
+                "path": "AllergyIntolerance.reaction.onset"
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Clinical assessment of the severity of the reaction event as a whole, potentially considering multiple different manifestations.",
+                "short": "mild | moderate | severe (of event as a whole)",
+                "min": 0,
+                "binding": {
+                    "description": "Clinical assessment of the severity of a reaction event as a whole, potentially considering multiple different manifestations.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/reaction-event-severity"
+                    },
+                    "strength": "required"
+                },
+                "comments": "It is acknowledged that this assessment is very subjective. There may be some some specific practice domains where objective scales have been applied. Objective scales can be included in this model as extensions.",
+                "path": "AllergyIntolerance.reaction.severity",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identification of the route by which the subject was exposed to the substance.",
+                "short": "How the subject was exposed to the substance",
+                "min": 0,
+                "binding": {
+                    "description": "A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/route-codes"
+                    },
+                    "strength": "example"
+                },
+                "comments": "Coding of the route of exposure with a terminology should be used wherever possible.",
+                "path": "AllergyIntolerance.reaction.exposureRoute",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "max": "1",
+                "definition": "Additional text about the adverse reaction event not captured in other fields.",
+                "short": "Text about event not captured in other fields",
+                "min": 0,
+                "comments": "Use this field to record information indirectly related to a particular event and not captured in the description. For example: Clinical records are no longer available, recorded based on information provided to the patient by her mother and her mother is deceased.",
+                "path": "AllergyIntolerance.reaction.note"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for AllergyIntolerance Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/AllergyIntolerance",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        },
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -607,819 +1421,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/AllergyIntolerance",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Patient Care)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "clinical.general",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "comments": "Substances include, but are not limited to: a therapeutic substance administered correctly at an appropriate dosage for the individual; food; material derived from plants or animals; or venom from insect stings.",
-                "path": "AllergyIntolerance",
-                "alias": [
-                    "Allergy",
-                    "Intolerance",
-                    "Adverse Reaction"
-                ],
-                "min": 0,
-                "short": "Allergy or Intolerance (generally: Risk Of Adverse reaction to a substance)",
-                "max": "*",
-                "definition": "Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "AllergyIntolerance.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "AllergyIntolerance.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "AllergyIntolerance.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "AllergyIntolerance.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "AllergyIntolerance.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "AllergyIntolerance.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "AllergyIntolerance.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IAM-7",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External ids for this item",
-                "definition": "This records identifiers associated with this allergy/intolerance concern that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."
-            },
-            {
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.onset",
-                "max": "1",
-                "min": 0,
-                "short": "Date(/time) when manifestations showed",
-                "definition": "Record of the date and/or time of the onset of the Allergy or Intolerance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IAM-20",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=AUT].time",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.recordedDate",
-                "max": "1",
-                "min": 0,
-                "short": "When recorded",
-                "definition": "Date when the sensitivity was recorded."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".participation[typeCode=AUT].role",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.author",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.recorder",
-                "alias": [
-                    "Author"
-                ],
-                "min": 0,
-                "short": "Who recorded the sensitivity",
-                "max": "1",
-                "definition": "Individual who recorded the record and takes responsibility for its conten."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "(PID-3)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=SBJ].role[classCode=PAT]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.patient",
-                "alias": [
-                    "Patient"
-                ],
-                "min": 1,
-                "short": "Who the sensitivity is for",
-                "max": "1",
-                "definition": "The patient who has the allergy or intolerance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IAM-14 (if patient) / IAM-18 (if practitioner)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "who.source",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The recorder takes repsonsibility for the content, but can reference the source from where they got it.",
-                "path": "AllergyIntolerance.reporter",
-                "alias": [
-                    "Source",
-                    "Informant"
-                ],
-                "min": 0,
-                "short": "Source of the information about the allergy",
-                "max": "1",
-                "definition": "The source of the information about the allergy that is recorded."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "AL1-3 / IAM-3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "what",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "It is strongly recommended that the substance be coded with a terminology, where possible. For example, some terminologies used include RxNorm, SNOMED CT, DM+D, NDFRT, ICD-9, IDC-10, UNI, ATC and CPT. Plain text should only be used if there is no appropriate terminology available. Additional details about a substance can be specified in the text.",
-                "path": "AllergyIntolerance.substance",
-                "alias": [
-                    "Agent"
-                ],
-                "min": 1,
-                "short": "Substance, (or class) considered to be responsible for risk",
-                "max": "1",
-                "binding": {
-                    "description": "Type of the substance and Negation codes for reporting no known allergies.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Identification of a substance, or a class of substances, that is considered to be responsible for the adverse reaction risk."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IAM-17",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error",
-                "binding": {
-                    "description": "Assertion about certainty associated with a propensity, or potential risk, of a reaction to the identified Substance.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-status"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "Decision support would typically raise alerts for 'Unconfirmed', 'Confirmed', and 'Resolved' and ignore a 'Refuted' reaction. In particular, 'Refuted' may be useful for reconciliation of the Adverse Reaction List. Some implementations may choose to make this field mandatory.",
-                "path": "AllergyIntolerance.status",
-                "alias": [
-                    "State"
-                ],
-                "definition": "Assertion about certainty associated with the propensity, or potential risk, of a reaction to the identified Substance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "grade",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The default criticality value for any propensity to an adverse reaction should be 'Low Risk', indicating at the very least a relative contraindication to deliberate or voluntary exposure to the Substance. 'High Risk' is flagged if the clinician has identified a propensity for a more serious or potentially life-threatening reaction, such as anaphylaxis, and implies an absolute contraindication to deliberate or voluntary exposure to the substance. If this element is missing, the criticality is unknown (though it may be known elsewhere).",
-                "path": "AllergyIntolerance.criticality",
-                "alias": [
-                    "Severity",
-                    "Seriousness",
-                    "Contra-indication",
-                    "Risk"
-                ],
-                "min": 0,
-                "short": "CRITL | CRITH | CRITU",
-                "max": "1",
-                "binding": {
-                    "description": "Estimate of the potential clinical harm, or seriousness, of a reaction to an identified Substance.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-criticality"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Estimate of the potential clinical harm, or seriousness, of the reaction to the identified Substance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "IAM-9",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Allergic (typically immune-mediated) reactions have been traditionally regarded as an indicator for potential escalation to significant future risk. Contemporary knowledge suggests that some reactions previously thought to be immune-mediated are, in fact, non-immune, but in some cases can still pose a life threatening risk. It is acknowledged that many clinicians may not be in a position to distinguish the mechanism of a particular reaction. Often the term \"allergy\" is used rather generically and may overlap with the use of \"intolerance\" - in practice the boundaries between these two concepts may not be well-defined or understood. This data element is included nevertheless, because many legacy systems have captured this attribute. Immunologic testing may provide supporting evidence for the basis of the reaction and the causative substance, but no tests are 100% sensitive or specific for sensitivity to a particular substance. If, as is commonly the case, it is unclear whether the reaction is due to an allergy or an intolerance, then the type element should be omitted from the resource.",
-                "path": "AllergyIntolerance.type",
-                "alias": [
-                    "Category",
-                    "Class"
-                ],
-                "min": 0,
-                "short": "allergy | intolerance - Underlying mechanism (if known)",
-                "max": "1",
-                "binding": {
-                    "description": "Identification of the underlying physiological mechanism for a Reaction Risk.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-type"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Identification of the underlying physiological mechanism for the reaction risk."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "class",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This data element has been included because it is currently being captured in some clinical systems. This data can be derived from the Substance where coding systems are used, and is effectively redundant in that situation.",
-                "path": "AllergyIntolerance.category",
-                "alias": [
-                    "Category",
-                    "Type",
-                    "Reaction Type",
-                    "Class"
-                ],
-                "min": 0,
-                "short": "food | medication | environment | other - Category of Substance",
-                "max": "1",
-                "binding": {
-                    "description": "Category of an identified Substance.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/allergy-intolerance-category"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Category of the identified Substance."
-            },
-            {
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This date may be replicated by one of the Onset of Reaction dates. Where a textual representation of the date of last occurrence is required e.g. 'In Childhood, '10 years ago' the Comment element should be used.",
-                "path": "AllergyIntolerance.lastOccurence",
-                "max": "1",
-                "min": 0,
-                "short": "Date(/time) of last known occurrence of a reaction",
-                "definition": "Represents the date and/or time of the last known occurrence of a reaction event."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "comments": "For example: including reason for flagging a seriousness of 'High Risk'; and instructions related to future exposure or administration of the Substance, such as administration within an Intensive Care Unit or under corticosteroid cover. The notes should be related to an allergy or intolerance as a condition in general and not related to any particular episode of it. For episode notes and descriptions, use AllergyIntolerance.event.description and  AllergyIntolerance.event.notes.",
-                "path": "AllergyIntolerance.note",
-                "max": "1",
-                "min": 0,
-                "short": "Additional text not captured in other fields",
-                "definition": "Additional narrative about the propensity for the Adverse Reaction, not captured in other fields."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "path": "AllergyIntolerance.reaction",
-                "max": "*",
-                "min": 0,
-                "short": "Adverse Reaction Events linked to exposure to substance",
-                "definition": "Details about each adverse reaction event linked to exposure to the identified Substance."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "AllergyIntolerance.reaction.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "AllergyIntolerance.reaction.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "AllergyIntolerance.reaction.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Coding of the specific substance with a terminology capable of triggering decision support should be used wherever possible.  The substance field allows for the use of a specific substance or a group or class of substances, for example \"Penicillins\". The specific substance field could be used for Amoxycillin. Duplication is acceptable when a specific substance has been recorded in the 'substance' field.",
-                "path": "AllergyIntolerance.reaction.substance",
-                "max": "1",
-                "min": 0,
-                "short": "Specific substance considered to be responsible for event",
-                "binding": {
-                    "description": "Codes defining the type of the substance.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/substance-code"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Identification of the specific substance considered to be responsible for the Adverse Reaction event. Note: the substance for a specific reaction may be different to the substance identified as the cause of the risk, but must be consistent with it. For instance, it may be a more specific substance (e.g. a brand medication) or a composite substance that includes the identified substance. It must be clinically safe to only process the AllergyIntolerance.substance and ignore the AllergyIntolerance.event.substance."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.reaction.certainty",
-                "alias": [
-                    "Cause"
-                ],
-                "min": 0,
-                "short": "unlikely | likely | confirmed - clinical certainty about the specific substance",
-                "max": "1",
-                "binding": {
-                    "description": "Statement about the degree of clinical certainty that a Specific Substance was the cause of the Manifestation in an reaction event.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/reaction-event-certainty"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Statement about the degree of clinical certainty that the specific substance was the cause of the manifestation in this reaction event."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Manifestation can be expressed as a single word, phrase or brief description. For example: nausea, rash or no reaction. It is preferable that manifestation should be coded with a terminology, where possible. The values entered here may be used to display on an application screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.  Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.",
-                "path": "AllergyIntolerance.reaction.manifestation",
-                "alias": [
-                    "Symptoms",
-                    "Signs"
-                ],
-                "min": 1,
-                "short": "Clinical symptoms/signs associated with the Event",
-                "max": "*",
-                "binding": {
-                    "description": "Clinical symptoms and/or signs that are observed or associated with an Adverse Reaction Event.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/manifestation-codes"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Clinical symptoms and/or signs that are observed or associated with the adverse reaction event."
-            },
-            {
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "comments": "Use the description to provide any details of a particular event of the occurred reaction such as circumstances, reaction specifics, what happened before/after. Information, related to the event, but not describing a particular care should be captured in the comment field. For example: at the age of four, the patient was given penicillin for strep throat and subsequently developed severe hives.",
-                "path": "AllergyIntolerance.reaction.description",
-                "alias": [
-                    "Narrative",
-                    "Text"
-                ],
-                "min": 0,
-                "short": "Description of the event as a whole",
-                "max": "1",
-                "definition": "Text description about the reaction as a whole, including details of the manifestation if required."
-            },
-            {
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
-                "path": "AllergyIntolerance.reaction.onset",
-                "max": "1",
-                "min": 0,
-                "short": "Date(/time) when manifestations showed",
-                "definition": "Record of the date and/or time of the onset of the Reaction."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "It is acknowledged that this assessment is very subjective. There may be some some specific practice domains where objective scales have been applied. Objective scales can be included in this model as extensions.",
-                "path": "AllergyIntolerance.reaction.severity",
-                "max": "1",
-                "min": 0,
-                "short": "mild | moderate | severe (of event as a whole)",
-                "binding": {
-                    "description": "Clinical assessment of the severity of a reaction event as a whole, potentially considering multiple different manifestations.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/reaction-event-severity"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Clinical assessment of the severity of the reaction event as a whole, potentially considering multiple different manifestations."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Coding of the route of exposure with a terminology should be used wherever possible.",
-                "path": "AllergyIntolerance.reaction.exposureRoute",
-                "max": "1",
-                "min": 0,
-                "short": "How the subject was exposed to the substance",
-                "binding": {
-                    "description": "A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/route-codes"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Identification of the route by which the subject was exposed to the substance."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "comments": "Use this field to record information indirectly related to a particular event and not captured in the description. For example: Clinical records are no longer available, recorded based on information provided to the patient by her mother and her mother is deceased.",
-                "path": "AllergyIntolerance.reaction.note",
-                "max": "1",
-                "min": 0,
-                "short": "Text about event not captured in other fields",
-                "definition": "Additional text about the adverse reaction event not captured in other fields."
-            }
-        ]
-    },
-    "name": "AllergyIntolerance",
-    "requirements": "To record a clinical assessment of a propensity, or potential risk to an individual, of an adverse reaction upon future exposure to the specified substance, or class of substance.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for AllergyIntolerance Resource"
+    "publisher": "Health Level Seven International (Patient Care)"
 }

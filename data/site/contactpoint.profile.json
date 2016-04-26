@@ -1,24 +1,462 @@
 {
+    "id": "ContactPoint",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "A system is required if a value is provided.",
+                        "severity": "error",
+                        "xpath": "not(exists(f:value)) or exists(f:system)",
+                        "key": "cpt-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc.",
+                "short": "Details of a Technology mediated contact point (phone, fax, email, etc.)",
+                "min": 0,
+                "isSummary": true,
+                "path": "ContactPoint",
+                "mapping": [
+                    {
+                        "map": "XTN",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "TEL",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "ContactPoint",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "cpt-2"
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Telecommunications form for contact point - what communications system is required to make use of the contact.",
+                "short": "phone | fax | email | pager | other",
+                "min": 0,
+                "binding": {
+                    "description": "Telecommunications form for contact point",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-system"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "ContactPoint.system",
+                "mapping": [
+                    {
+                        "map": "XTN.3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./scheme",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./ContactPointType",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address).",
+                "requirements": "Need to support legacy numbers that are not in a tightly controlled format.",
+                "mapping": [
+                    {
+                        "map": "XTN.1 (or XTN.12)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./url",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Value",
+                        "identity": "servd"
+                    }
+                ],
+                "short": "The actual contact point details",
+                "min": 0,
+                "comments": "Additional text data such as phone extension numbers, or notes about use of the contact are sometimes included in the value.",
+                "path": "ContactPoint.value",
+                "isSummary": true
+            },
+            {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "home | work | temp | old | mobile - purpose of this contact point",
+                "definition": "Identifies the purpose for the contact point.",
+                "mapping": [
+                    {
+                        "map": "XTN.2 - but often indicated by field",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./use)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./ContactPointPurpose",
+                        "identity": "servd"
+                    }
+                ],
+                "requirements": "Need to track the way a person uses this contact, so a user can choose which is appropriate for their purpose.",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old contact etc.for a current/permanent one. Applications can assume that a contact is current unless it explicitly says that it is temporary or old.",
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "Use of contact point",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-use"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "ContactPoint.use"
+            },
+            {
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Specifies a preferred order in which to use a set of contacts. Contacts are ranked with lower values coming before higher values.",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Specify preferred order of use (1 = highest)",
+                "min": 0,
+                "comments": "Note that rank does not necessarily follow the order in which the contacts are represented in the instance.",
+                "path": "ContactPoint.rank",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Time period when the contact point was/is in use.",
+                "short": "Time period when the contact point was/is in use",
+                "min": 0,
+                "isSummary": true,
+                "path": "ContactPoint.period",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./useablePeriod[type=\"IVL<TS>\"]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./StartDate and ./EndDate",
+                        "identity": "servd"
+                    }
+                ]
+            }
+        ]
+    },
+    "name": "ContactPoint",
+    "abstract": false,
+    "requirements": "Need to track phone, fax, mobile, sms numbers, email addresses, twitter tags, etc.",
+    "status": "draft",
+    "kind": "datatype",
+    "base": "http://hl7.org/fhir/StructureDefinition/Element",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Element"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "human": "A system is required if a value is provided.",
+                        "severity": "error",
+                        "xpath": "not(exists(f:value)) or exists(f:system)",
+                        "key": "cpt-2"
+                    }
+                ],
+                "max": "*",
+                "definition": "Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc.",
+                "short": "Details of a Technology mediated contact point (phone, fax, email, etc.)",
+                "min": 0,
+                "isSummary": true,
+                "path": "ContactPoint",
+                "mapping": [
+                    {
+                        "map": "XTN",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "TEL",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "ContactPoint",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "ContactPoint.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "ContactPoint.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "condition": [
+                    "cpt-2"
+                ],
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Telecommunications form for contact point - what communications system is required to make use of the contact.",
+                "short": "phone | fax | email | pager | other",
+                "min": 0,
+                "binding": {
+                    "description": "Telecommunications form for contact point",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-system"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "ContactPoint.system",
+                "mapping": [
+                    {
+                        "map": "XTN.3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./scheme",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./ContactPointType",
+                        "identity": "servd"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address).",
+                "requirements": "Need to support legacy numbers that are not in a tightly controlled format.",
+                "mapping": [
+                    {
+                        "map": "XTN.1 (or XTN.12)",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./url",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Value",
+                        "identity": "servd"
+                    }
+                ],
+                "short": "The actual contact point details",
+                "min": 0,
+                "comments": "Additional text data such as phone extension numbers, or notes about use of the contact are sometimes included in the value.",
+                "path": "ContactPoint.value",
+                "isSummary": true
+            },
+            {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "home | work | temp | old | mobile - purpose of this contact point",
+                "definition": "Identifies the purpose for the contact point.",
+                "mapping": [
+                    {
+                        "map": "XTN.2 - but often indicated by field",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "unique(./use)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./ContactPointPurpose",
+                        "identity": "servd"
+                    }
+                ],
+                "requirements": "Need to track the way a person uses this contact, so a user can choose which is appropriate for their purpose.",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old contact etc.for a current/permanent one. Applications can assume that a contact is current unless it explicitly says that it is temporary or old.",
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "Use of contact point",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-use"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "ContactPoint.use"
+            },
+            {
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "max": "1",
+                "definition": "Specifies a preferred order in which to use a set of contacts. Contacts are ranked with lower values coming before higher values.",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "Specify preferred order of use (1 = highest)",
+                "min": 0,
+                "comments": "Note that rank does not necessarily follow the order in which the contacts are represented in the instance.",
+                "path": "ContactPoint.rank",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "max": "1",
+                "definition": "Time period when the contact point was/is in use.",
+                "short": "Time period when the contact point was/is in use",
+                "min": 0,
+                "isSummary": true,
+                "path": "ContactPoint.period",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": "./useablePeriod[type=\"IVL<TS>\"]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./StartDate and ./EndDate",
+                        "identity": "servd"
+                    }
+                ]
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for ContactPoint Type",
+    "url": "http://hl7.org/fhir/StructureDefinition/ContactPoint",
+    "fhirVersion": "1.0.2",
     "mapping": [
         {
-            "name": "HL7 v2",
             "uri": "http://hl7.org/v2",
-            "identity": "v2"
+            "identity": "v2",
+            "name": "HL7 v2"
         },
         {
-            "name": "RIM",
             "uri": "http://hl7.org/v3",
-            "identity": "rim"
+            "identity": "rim",
+            "name": "RIM"
         },
         {
-            "name": "ServD",
             "uri": "http://www.omg.org/spec/ServD/1.0/",
-            "identity": "servd"
+            "identity": "servd",
+            "name": "ServD"
         }
     ],
-    "id": "ContactPoint",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
     "contact": [
         {
@@ -30,443 +468,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Element",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "XTN",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "TEL",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "ContactPoint",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:value)) or exists(f:system)",
-                        "human": "A system is required if a value is provided.",
-                        "severity": "error",
-                        "key": "cpt-2"
-                    }
-                ],
-                "path": "ContactPoint",
-                "max": "*",
-                "min": 0,
-                "short": "Details of a Technology mediated contact point (phone, fax, email, etc.)",
-                "definition": "Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XTN.3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./scheme",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./ContactPointType",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ContactPoint.system",
-                "max": "1",
-                "min": 0,
-                "short": "phone | fax | email | pager | other",
-                "condition": [
-                    "cpt-2"
-                ],
-                "binding": {
-                    "description": "Telecommunications form for contact point",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-system"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Telecommunications form for contact point - what communications system is required to make use of the contact."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XTN.1 (or XTN.12)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./url",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./Value",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Additional text data such as phone extension numbers, or notes about use of the contact are sometimes included in the value.",
-                "path": "ContactPoint.value",
-                "max": "1",
-                "min": 0,
-                "short": "The actual contact point details",
-                "requirements": "Need to support legacy numbers that are not in a tightly controlled format.",
-                "definition": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XTN.2 - but often indicated by field",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./use)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./ContactPointPurpose",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "home | work | temp | old | mobile - purpose of this contact point",
-                "binding": {
-                    "description": "Use of contact point",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-use"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old contact etc.for a current/permanent one. Applications can assume that a contact is current unless it explicitly says that it is temporary or old.",
-                "path": "ContactPoint.use",
-                "requirements": "Need to track the way a person uses this contact, so a user can choose which is appropriate for their purpose.",
-                "definition": "Identifies the purpose for the contact point."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Note that rank does not necessarily follow the order in which the contacts are represented in the instance.",
-                "path": "ContactPoint.rank",
-                "max": "1",
-                "min": 0,
-                "short": "Specify preferred order of use (1 = highest)",
-                "definition": "Specifies a preferred order in which to use a set of contacts. Contacts are ranked with lower values coming before higher values."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./useablePeriod[type=\"IVL<TS>\"]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./StartDate and ./EndDate",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ContactPoint.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when the contact point was/is in use",
-                "definition": "Time period when the contact point was/is in use."
-            }
-        ]
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/ContactPoint",
-    "kind": "datatype",
-    "publisher": "HL7 FHIR Standard",
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "XTN",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "TEL",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "ContactPoint",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Element"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "not(exists(f:value)) or exists(f:system)",
-                        "human": "A system is required if a value is provided.",
-                        "severity": "error",
-                        "key": "cpt-2"
-                    }
-                ],
-                "path": "ContactPoint",
-                "max": "*",
-                "min": 0,
-                "short": "Details of a Technology mediated contact point (phone, fax, email, etc.)",
-                "definition": "Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "ContactPoint.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "ContactPoint.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XTN.3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./scheme",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./ContactPointType",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ContactPoint.system",
-                "max": "1",
-                "min": 0,
-                "short": "phone | fax | email | pager | other",
-                "condition": [
-                    "cpt-2"
-                ],
-                "binding": {
-                    "description": "Telecommunications form for contact point",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-system"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Telecommunications form for contact point - what communications system is required to make use of the contact."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XTN.1 (or XTN.12)",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./url",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./Value",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Additional text data such as phone extension numbers, or notes about use of the contact are sometimes included in the value.",
-                "path": "ContactPoint.value",
-                "max": "1",
-                "min": 0,
-                "short": "The actual contact point details",
-                "requirements": "Need to support legacy numbers that are not in a tightly controlled format.",
-                "definition": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "XTN.2 - but often indicated by field",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "unique(./use)",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./ContactPointPurpose",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "home | work | temp | old | mobile - purpose of this contact point",
-                "binding": {
-                    "description": "Use of contact point",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-use"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old contact etc.for a current/permanent one. Applications can assume that a contact is current unless it explicitly says that it is temporary or old.",
-                "path": "ContactPoint.use",
-                "requirements": "Need to track the way a person uses this contact, so a user can choose which is appropriate for their purpose.",
-                "definition": "Identifies the purpose for the contact point."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "Note that rank does not necessarily follow the order in which the contacts are represented in the instance.",
-                "path": "ContactPoint.rank",
-                "max": "1",
-                "min": 0,
-                "short": "Specify preferred order of use (1 = highest)",
-                "definition": "Specifies a preferred order in which to use a set of contacts. Contacts are ranked with lower values coming before higher values."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": "./useablePeriod[type=\"IVL<TS>\"]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "./StartDate and ./EndDate",
-                        "identity": "servd"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "ContactPoint.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when the contact point was/is in use",
-                "definition": "Time period when the contact point was/is in use."
-            }
-        ]
-    },
-    "name": "ContactPoint",
-    "requirements": "Need to track phone, fax, mobile, sms numbers, email addresses, twitter tags, etc.",
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for ContactPoint Type"
+    "publisher": "HL7 FHIR Standard"
 }

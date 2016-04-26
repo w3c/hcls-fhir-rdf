@@ -1,19 +1,6 @@
 {
     "id": "xdsdocumentmanifest",
-    "constrainedType": "DocumentManifest",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://www.hl7.org",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DocumentManifest",
+    "date": "2012-06-24",
     "differential": {
         "element": [
             {
@@ -22,57 +9,57 @@
                         "code": "DocumentManifest"
                     }
                 ],
-                "path": "DocumentManifest",
-                "max": "*",
-                "min": 0,
-                "short": "SubmissionSet",
                 "name": "XDSDocumentManifest",
-                "definition": "A manifest that defines a set of documents."
+                "max": "*",
+                "definition": "A manifest that defines a set of documents.",
+                "short": "SubmissionSet",
+                "min": 0,
+                "path": "DocumentManifest"
             },
             {
-                "min": 1,
                 "short": "SubmissionSet.uniqueId",
-                "definition": "A globally unique identifier for the SubmissionSet assigned by the creating entity.",
+                "min": 1,
+                "max": "1",
                 "path": "DocumentManifest.masterIdentifier",
-                "max": "1"
+                "definition": "A globally unique identifier for the SubmissionSet assigned by the creating entity."
             },
             {
                 "short": "SubmissionSet.patientId",
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "definition": "the subject of care whose longitudinal record is being reflected in this SubmissionSet.",
-                "path": "DocumentManifest.subject"
+                "path": "DocumentManifest.subject",
+                "definition": "the subject of care whose longitudinal record is being reflected in this SubmissionSet."
             },
             {
                 "short": "SubmissionSet.intendedRecipient\u00a0",
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "definition": "The organization(s) or person(s) for whom the SubmissionSet is intended.",
-                "path": "DocumentManifest.recipient"
+                "path": "DocumentManifest.recipient",
+                "definition": "The organization(s) or person(s) for whom the SubmissionSet is intended."
             },
             {
                 "short": "SubmissionSet.contentTypeCode",
@@ -81,29 +68,29 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "definition": "The code specifying the type of clinical activity that resulted in placing the documents in this SubmissionSet.",
-                "path": "DocumentManifest.type"
+                "path": "DocumentManifest.type",
+                "definition": "The code specifying the type of clinical activity that resulted in placing the documents in this SubmissionSet."
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
+                        ],
+                        "code": "Reference"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "path": "DocumentManifest.author",
                 "max": "*",
-                "min": 1,
+                "definition": "The humans and/or machines that authored the document  in the SubmissionSet. This attribute contains the sub-attributes: authorInstitution, authorPerson, authorRole, authorSpecialty.",
                 "short": "SubmissionSet.author",
-                "definition": "The humans and/or machines that authored the document  in the SubmissionSet. This attribute contains the sub-attributes: authorInstitution, authorPerson, authorRole, authorSpecialty."
+                "min": 1,
+                "path": "DocumentManifest.author"
             },
             {
                 "short": "SubmissionSet.submissionTime",
@@ -112,8 +99,8 @@
                         "code": "dateTime"
                     }
                 ],
-                "definition": "Point in time at the creating entity when the SubmissionSet was created.",
-                "path": "DocumentManifest.created"
+                "path": "DocumentManifest.created",
+                "definition": "Point in time at the creating entity when the SubmissionSet was created."
             },
             {
                 "short": "SubmissionSet.sourceId",
@@ -122,8 +109,8 @@
                         "code": "uri"
                     }
                 ],
-                "definition": "OID identifying the instance of the creating entity that contributed the SubmissionSet.",
-                "path": "DocumentManifest.source"
+                "path": "DocumentManifest.source",
+                "definition": "OID identifying the instance of the creating entity that contributed the SubmissionSet."
             },
             {
                 "short": "SubmissionSet.availabilityStatus",
@@ -139,8 +126,8 @@
                     },
                     "strength": "required"
                 },
-                "definition": "The lifecycle status of the SubmissionSet.",
-                "path": "DocumentManifest.status"
+                "path": "DocumentManifest.status",
+                "definition": "The lifecycle status of the SubmissionSet."
             },
             {
                 "short": "SubmissionSet.title",
@@ -149,22 +136,41 @@
                         "code": "string"
                     }
                 ],
-                "definition": "Human-readable description of the source document. This is sometimes known as the \"title\".",
-                "path": "DocumentManifest.description"
+                "path": "DocumentManifest.description",
+                "definition": "Human-readable description of the source document. This is sometimes known as the \"title\"."
             },
             {
                 "short": "SubmissionSet.documentEntry",
-                "definition": "The list of resources that describe the parts of this document reference. Usually, these would be document references, but direct references to binary attachments and images are also allowed.",
-                "path": "DocumentManifest.content"
+                "path": "DocumentManifest.content",
+                "definition": "The list of resources that describe the parts of this document reference. Usually, these would be document references, but direct references to binary attachments and images are also allowed."
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/xdsdocumentmanifest",
+    "name": "XDS profile for Document Reference",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "HL7",
+    "constrainedType": "DocumentManifest",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "DocumentManifest"
+                    }
+                ],
+                "name": "XDSDocumentManifest",
+                "max": "*",
+                "definition": "A manifest that defines a set of documents.",
+                "short": "SubmissionSet",
+                "min": 0,
+                "isSummary": true,
+                "path": "DocumentManifest",
                 "mapping": [
                     {
                         "map": "Act[classCode=FOLDER, moodCode=EVN]",
@@ -174,24 +180,7 @@
                         "map": "infrastructure.documents",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "DocumentManifest"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DocumentManifest",
-                "max": "*",
-                "min": 0,
-                "short": "SubmissionSet",
-                "name": "XDSDocumentManifest",
-                "definition": "A manifest that defines a set of documents.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest"
-                }
+                ]
             },
             {
                 "type": [
@@ -199,18 +188,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "DocumentManifest.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.id"
-                }
+                    "path": "DocumentManifest.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "DocumentManifest.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -218,17 +207,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "DocumentManifest.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.meta"
-                }
+                    "path": "DocumentManifest.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "DocumentManifest.meta"
             },
             {
                 "type": [
@@ -236,19 +225,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "DocumentManifest.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.implicitRules"
-                }
+                    "path": "DocumentManifest.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "DocumentManifest.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -256,143 +245,159 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "DocumentManifest.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.language"
-                }
+                    "path": "DocumentManifest.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "DocumentManifest.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "DocumentManifest.text",
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "DocumentManifest.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "DocumentManifest.contained",
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "DocumentManifest.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "DocumentManifest.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DocumentManifest.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DocumentManifest.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.masterIdentifier",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A globally unique identifier for the SubmissionSet assigned by the creating entity.",
+                "short": "SubmissionSet.uniqueId",
+                "min": 1,
+                "isSummary": true,
+                "path": "DocumentManifest.masterIdentifier",
                 "mapping": [
                     {
                         "map": "SubmissionSet.uniqueId",
@@ -406,25 +411,25 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Identifier"
                     }
                 ],
-                "isSummary": true,
-                "path": "DocumentManifest.masterIdentifier",
-                "max": "1",
-                "min": 1,
-                "short": "SubmissionSet.uniqueId",
-                "definition": "A globally unique identifier for the SubmissionSet assigned by the creating entity.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.masterIdentifier"
-                }
-            },
-            {
+                    "path": "DocumentManifest.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Other identifiers associated with the document manifest, including version independent  identifiers.",
+                "short": "Other identifiers for the manifest",
+                "min": 0,
+                "isSummary": true,
+                "path": "DocumentManifest.identifier",
                 "mapping": [
                     {
                         "map": "SubmissionSet.entryUUID",
@@ -442,25 +447,28 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DocumentManifest.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Other identifiers for the manifest",
-                "definition": "Other identifiers associated with the document manifest, including version independent  identifiers.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.identifier"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.subject",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "the subject of care whose longitudinal record is being reflected in this SubmissionSet.",
+                "short": "SubmissionSet.patientId",
+                "min": 0,
+                "isSummary": true,
+                "path": "DocumentManifest.subject",
                 "mapping": [
                     {
                         "map": "SubmissionSet.patientId",
@@ -474,28 +482,36 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "DocumentManifest.subject",
-                "max": "1",
-                "min": 0,
-                "short": "SubmissionSet.patientId",
-                "definition": "the subject of care whose longitudinal record is being reflected in this SubmissionSet.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.subject"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.recipient",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The organization(s) or person(s) for whom the SubmissionSet is intended.",
                 "mapping": [
                     {
                         "map": "SubmissionSet.intendedRecipient",
@@ -510,40 +526,36 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "SubmissionSet.intendedRecipient\u00a0",
+                "min": 0,
                 "comments": "How the recipient receives the document set or is notified of it is up to the implementation. This element is just a statement of intent. If the recipient is a person, and it is not known whether the person is a patient or a practitioner, RelatedPerson would be the default choice.",
                 "path": "DocumentManifest.recipient",
-                "max": "*",
-                "min": 0,
-                "short": "SubmissionSet.intendedRecipient\u00a0",
-                "definition": "The organization(s) or person(s) for whom the SubmissionSet is intended.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.recipient"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.type",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The code specifying the type of clinical activity that resulted in placing the documents in this SubmissionSet.",
+                "short": "SubmissionSet.contentTypeCode",
+                "min": 0,
+                "binding": {
+                    "description": "Precise type of clinical document.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/c80-doc-typecodes"
+                    },
+                    "strength": "preferred"
+                },
+                "isSummary": true,
+                "path": "DocumentManifest.type",
                 "mapping": [
                     {
                         "map": "SubmissionSet.contentTypeCode",
@@ -557,32 +569,30 @@
                         "map": "class",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DocumentManifest.type",
-                "max": "1",
-                "min": 0,
-                "short": "SubmissionSet.contentTypeCode",
-                "binding": {
-                    "description": "Precise type of clinical document.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/c80-doc-typecodes"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "The code specifying the type of clinical activity that resulted in placing the documents in this SubmissionSet.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.type"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Device"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.author",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The humans and/or machines that authored the document  in the SubmissionSet. This attribute contains the sub-attributes: authorInstitution, authorPerson, authorRole, authorSpecialty.",
                 "mapping": [
                     {
                         "map": "SubmissionSet.author",
@@ -597,34 +607,25 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Device"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "SubmissionSet.author",
+                "min": 1,
                 "comments": "Not necessarily who did the actual data entry (i.e. typist) or who was the source (informant).",
                 "path": "DocumentManifest.author",
-                "max": "*",
-                "min": 1,
-                "short": "SubmissionSet.author",
-                "definition": "The humans and/or machines that authored the document  in the SubmissionSet. This attribute contains the sub-attributes: authorInstitution, authorPerson, authorRole, authorSpecialty.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.author"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.created",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Point in time at the creating entity when the SubmissionSet was created.",
                 "mapping": [
                     {
                         "map": "SubmissionSet.submissionTime",
@@ -639,25 +640,29 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "isSummary": true,
+                "short": "SubmissionSet.submissionTime",
+                "min": 0,
                 "comments": "Creation time is used for tracking, organizing versions and searching. This is the creation time of the document set, not the documents on which it is based.",
                 "path": "DocumentManifest.created",
-                "max": "1",
-                "min": 0,
-                "short": "SubmissionSet.submissionTime",
-                "definition": "Point in time at the creating entity when the SubmissionSet was created.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.created"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.source",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "OID identifying the instance of the creating entity that contributed the SubmissionSet.",
+                "short": "SubmissionSet.sourceId",
+                "min": 0,
+                "isSummary": true,
+                "path": "DocumentManifest.source",
                 "mapping": [
                     {
                         "map": "SubmissionSet.sourceId",
@@ -667,25 +672,33 @@
                         "map": ".participation[typeCode=PFM].time",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isSummary": true,
-                "path": "DocumentManifest.source",
-                "max": "1",
-                "min": 0,
-                "short": "SubmissionSet.sourceId",
-                "definition": "OID identifying the instance of the creating entity that contributed the SubmissionSet.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.source"
-                }
+                ]
             },
             {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "DocumentManifest.status",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The lifecycle status of the SubmissionSet.",
+                "short": "SubmissionSet.availabilityStatus",
+                "min": 1,
+                "binding": {
+                    "description": "The status of the document reference.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/document-reference-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "DocumentManifest.status",
                 "mapping": [
                     {
                         "map": "SubmissionSet status",
@@ -699,33 +712,22 @@
                         "map": "status",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "DocumentManifest.status",
-                "max": "1",
-                "min": 1,
-                "short": "SubmissionSet.availabilityStatus",
-                "binding": {
-                    "description": "The status of the document reference.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/document-reference-status"
-                    },
-                    "strength": "required"
-                },
-                "definition": "The lifecycle status of the SubmissionSet.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DocumentManifest.status"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.description",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Human-readable description of the source document. This is sometimes known as the \"title\".",
+                "requirements": "Helps humans to assess whether the document is of interest.",
                 "mapping": [
                     {
                         "map": "SubmissionSet.title",
@@ -736,134 +738,139 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
+                "short": "SubmissionSet.title",
+                "min": 0,
                 "comments": "What the document is about, rather than a terse summary of the document. It is commonly the case that records do not have a title and are collectively referred to by the display name of Record code (e.g. a \"consultation\" or \"progress note\").",
                 "path": "DocumentManifest.description",
-                "max": "1",
-                "min": 0,
-                "short": "SubmissionSet.title",
-                "requirements": "Helps humans to assess whether the document is of interest.",
-                "definition": "Human-readable description of the source document. This is sometimes known as the \"title\".",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.description"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "path": "DocumentManifest.content",
-                "max": "*",
-                "min": 1,
-                "short": "SubmissionSet.documentEntry",
-                "definition": "The list of resources that describe the parts of this document reference. Usually, these would be document references, but direct references to binary attachments and images are also allowed.",
                 "base": {
                     "min": 1,
-                    "max": "*",
-                    "path": "DocumentManifest.content"
-                }
-            },
-            {
+                    "path": "DocumentManifest.content",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "The list of resources that describe the parts of this document reference. Usually, these would be document references, but direct references to binary attachments and images are also allowed.",
+                "short": "SubmissionSet.documentEntry",
+                "min": 1,
+                "isSummary": true,
+                "path": "DocumentManifest.content",
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DocumentManifest.content.id",
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.content.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.content.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DocumentManifest.content.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DocumentManifest.content.extension",
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.content.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.content.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DocumentManifest.content.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.content.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DocumentManifest.content.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.content.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DocumentManifest.content.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Attachment"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Resource"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "DocumentManifest.content.p[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The list of references to document content, or Attachment that consist of the parts of this document manifest. Usually, these would be document references, but direct references to Media or Attachments are also allowed.",
                 "mapping": [
                     {
                         "map": "SubmissionSet DocumentEntry(s)",
@@ -874,138 +881,120 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Attachment"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Contents of this set of documents",
+                "min": 1,
                 "comments": "The intended focus of the DocumentManifest is for the reference to target either DocumentReference or Media Resources, and most implementation guides will restrict to these resources. The reference is to \"Any\" to support EN 13606 usage, where an extract is DocumentManifest that references  List and Composition resources.",
                 "path": "DocumentManifest.content.p[x]",
-                "max": "1",
-                "min": 1,
-                "short": "Contents of this set of documents",
-                "definition": "The list of references to document content, or Attachment that consist of the parts of this document manifest. Usually, these would be document references, but direct references to Media or Attachments are also allowed.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "DocumentManifest.content.p[x]"
-                }
+                "isSummary": true
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "isSummary": true,
-                "comments": "May be identifiers or resources that caused the DocumentManifest to be created.",
-                "path": "DocumentManifest.related",
-                "max": "*",
-                "min": 0,
-                "short": "Related things",
-                "definition": "Related identifiers or resources associated with the DocumentManifest.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.related"
-                }
-            },
-            {
+                    "path": "DocumentManifest.related",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Related identifiers or resources associated with the DocumentManifest.",
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "short": "Related things",
+                "min": 0,
+                "comments": "May be identifiers or resources that caused the DocumentManifest to be created.",
+                "path": "DocumentManifest.related",
+                "isSummary": true
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "DocumentManifest.related.id",
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.related.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.related.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "DocumentManifest.related.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DocumentManifest.related.extension",
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.related.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.related.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DocumentManifest.related.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "DocumentManifest.related.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "DocumentManifest.related.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "DocumentManifest.related.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "DocumentManifest.related.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
                 "type": [
@@ -1013,46 +1002,57 @@
                         "code": "Identifier"
                     }
                 ],
-                "isSummary": true,
-                "comments": "If both identifier and ref elements are present they shall refer to the same thing.",
-                "path": "DocumentManifest.related.identifier",
-                "max": "1",
-                "min": 0,
-                "short": "Identifiers of things that are related",
-                "definition": "Related identifier to this DocumentManifest.  For example, Order numbers, accession numbers, XDW workflow numbers.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.related.identifier"
-                }
+                    "path": "DocumentManifest.related.identifier",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Related identifier to this DocumentManifest.  For example, Order numbers, accession numbers, XDW workflow numbers.",
+                "short": "Identifiers of things that are related",
+                "min": 0,
+                "comments": "If both identifier and ref elements are present they shall refer to the same thing.",
+                "path": "DocumentManifest.related.identifier",
+                "isSummary": true
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
-                "comments": "If both identifier and ref elements are present they shall refer to the same thing.",
-                "path": "DocumentManifest.related.ref",
-                "max": "1",
-                "min": 0,
-                "short": "Related Resource",
-                "definition": "Related Resource to this DocumentManifest. For example, Order, DiagnosticOrder,  Procedure, EligibilityRequest, etc.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "DocumentManifest.related.ref"
-                }
+                    "path": "DocumentManifest.related.ref",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Related Resource to this DocumentManifest. For example, Order, DiagnosticOrder,  Procedure, EligibilityRequest, etc.",
+                "short": "Related Resource",
+                "min": 0,
+                "comments": "If both identifier and ref elements are present they shall refer to the same thing.",
+                "path": "DocumentManifest.related.ref",
+                "isSummary": true
             }
         ]
     },
-    "name": "XDS profile for Document Reference",
     "description": "SubmissionSet",
-    "status": "draft",
-    "date": "2012-06-24",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/xdsdocumentmanifest",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/DocumentManifest",
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://www.hl7.org",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "HL7"
 }

@@ -1,34 +1,592 @@
 {
+    "id": "daf-immunization",
+    "date": "2014-08-21",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "Immunization"
+                    }
+                ],
+                "name": "DAF-Immunization",
+                "max": "*",
+                "mapping": [
+                    {
+                        "map": "ImmunizationPerformanceOccurrence",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "mapping": [
+                    {
+                        "map": "identifier",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.identifier"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "path": "Immunization.status",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "performanceTime",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 1,
+                "path": "Immunization.date"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Vaccine Product Type (bind to CVX).",
+                "short": "Vaccine Product Type (bind to CVX)",
+                "min": 1,
+                "binding": {
+                    "description": "This identifies the CVX code system",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-cvx"
+                    },
+                    "strength": "preferred"
+                },
+                "mapping": [
+                    {
+                        "map": "vaccine",
+                        "identity": "quick"
+                    }
+                ],
+                "path": "Immunization.vaccineCode"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "subject",
+                        "identity": "quick"
+                    }
+                ],
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "alias": [
+                    "Patient"
+                ],
+                "path": "Immunization.patient"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "reported",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 1,
+                "path": "Immunization.reported"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "performedBy",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.performer"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "orderedBy",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.requester"
+            },
+            {
+                "min": 0,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "Immunization.encounter",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Vaccine Manufacturer.",
+                "short": "Vaccine Manufacturer",
+                "min": 0,
+                "comments": "Not in QUICK as resource.",
+                "path": "Immunization.manufacturer"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "vaccine.lotNumber",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.lotNumber"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "vaccine.expiry",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.expirationDate"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "dosage.approachBodySite.anatomicalLocation",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "binding": {
+                    "description": "This identifies the body site at which the substance was administered",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
+                    },
+                    "strength": "preferred"
+                },
+                "path": "Immunization.site"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "dosage.route",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "binding": {
+                    "description": "This identifies the route of substance administration.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-medication-route"
+                    },
+                    "strength": "preferred"
+                },
+                "path": "Immunization.route"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "dosage.doseQuantity",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.doseQuantity"
+            },
+            {
+                "mustSupport": true,
+                "mapping": [
+                    {
+                        "map": "indication",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.explanation",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "mapping": [
+                    {
+                        "map": "indication.reason",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.explanation.reason"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "path": "Immunization.explanation.reasonNotGiven",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "Immunization.reaction",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "path": "Immunization.reaction.date",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "max": "1",
+                "comments": "Not in QUICK.",
+                "min": 0,
+                "path": "Immunization.reaction.reported"
+            },
+            {
+                "mustSupport": true,
+                "mapping": [
+                    {
+                        "map": "protocol",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.vaccinationProtocol",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.doseSequence",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 1,
+                "path": "Immunization.vaccinationProtocol.doseSequence"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.description",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.vaccinationProtocol.description"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.authority",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.vaccinationProtocol.authority"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.series",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.vaccinationProtocol.series"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.seriesDoses",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.vaccinationProtocol.seriesDoses"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.targetDisease",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 1,
+                "path": "Immunization.vaccinationProtocol.targetDisease"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.doseStatus",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 1,
+                "path": "Immunization.vaccinationProtocol.doseStatus"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "mapping": [
+                    {
+                        "map": "protocol.doseStatusReason",
+                        "identity": "quick"
+                    }
+                ],
+                "min": 0,
+                "path": "Immunization.vaccinationProtocol.doseStatusReason"
+            }
+        ]
+    },
+    "name": "U.S. Data Access Framework (DAF) Immunization Profile",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "constrainedType": "Immunization",
+    "base": "http://hl7.org/fhir/StructureDefinition/Immunization",
+    "description": "Defines constraints and extensions on the Immunization resource for use in querying and retrieving patient's immunization information.",
+    "url": "http://hl7.org/fhir/StructureDefinition/daf-immunization",
+    "fhirVersion": "1.0.2",
+    "display": "DAF-Immunization",
     "mapping": [
         {
-            "name": "Quality Improvement and Clinical Knowledge (QUICK)",
             "uri": "http://wiki.siframework.org/CQF",
-            "identity": "quick"
+            "identity": "quick",
+            "name": "Quality Improvement and Clinical Knowledge (QUICK)"
         }
     ],
-    "id": "daf-immunization",
-    "fhirVersion": "1.0.2",
-    "abstract": false,
     "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://www.healthit.gov",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Immunization",
-    "display": "DAF-Immunization",
-    "url": "http://hl7.org/fhir/StructureDefinition/daf-immunization",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Infrastructure and Messaging - Data Access Framework)",
-    "constrainedType": "Immunization",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "Immunization",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Immunization"
+                    }
+                ],
+                "name": "DAF-Immunization",
+                "max": "*",
+                "definition": "Describes the event of a patient being administered a vaccination or a record of a vaccination as reported by a patient, a clinician or another party and may include vaccine reaction information and what vaccination protocol was followed.",
+                "constraint": [
+                    {
+                        "human": "If immunization was administered (wasNotGiven=false) then explanation.reasonNotGiven SHALL be absent.",
+                        "severity": "error",
+                        "xpath": "not(f:wasNotGiven/@value=false() and exists(f:explanation/f:reasonNotGiven))",
+                        "key": "imm-2"
+                    },
+                    {
+                        "human": "If immunization was not administred (wasNotGiven=true) then there SHALL be no reaction nor explanation.reason present",
+                        "severity": "error",
+                        "xpath": "not(f:wasNotGiven/@value=true() and (count(f:reaction) > 0 or exists(f:explanation/f:reason)))",
+                        "key": "imm-1"
+                    }
+                ],
+                "short": "Immunization event information",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "VXU_V04",
@@ -47,36 +605,7 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Immunization"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "not(f:wasNotGiven/@value=false() and exists(f:explanation/f:reasonNotGiven))",
-                        "human": "If immunization was administered (wasNotGiven=false) then explanation.reasonNotGiven SHALL be absent.",
-                        "severity": "error",
-                        "key": "imm-2"
-                    },
-                    {
-                        "xpath": "not(f:wasNotGiven/@value=true() and (count(f:reaction) > 0 or exists(f:explanation/f:reason)))",
-                        "human": "If immunization was not administred (wasNotGiven=true) then there SHALL be no reaction nor explanation.reason present",
-                        "severity": "error",
-                        "key": "imm-1"
-                    }
-                ],
-                "path": "Immunization",
-                "max": "*",
-                "min": 0,
-                "short": "Immunization event information",
-                "name": "DAF-Immunization",
-                "definition": "Describes the event of a patient being administered a vaccination or a record of a vaccination as reported by a patient, a clinician or another party and may include vaccine reaction information and what vaccination protocol was followed.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization"
-                }
+                "path": "Immunization"
             },
             {
                 "type": [
@@ -84,18 +613,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Immunization.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Immunization.id"
-                }
+                    "path": "Immunization.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Immunization.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -103,17 +632,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "Immunization.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Immunization.meta"
-                }
+                    "path": "Immunization.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Immunization.meta"
             },
             {
                 "type": [
@@ -121,19 +650,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Immunization.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Immunization.implicitRules"
-                }
+                    "path": "Immunization.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Immunization.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -141,143 +670,158 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Immunization.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Immunization.language"
-                }
+                    "path": "Immunization.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Immunization.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Immunization.text",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Immunization.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Immunization.contained",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Immunization.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Immunization.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A unique identifier assigned to this immunization record.",
+                "short": "Business identifier",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/id",
@@ -296,24 +840,19 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "Business identifier",
-                "definition": "A unique identifier assigned to this immunization record.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.identifier"
-                }
+                "path": "Immunization.identifier"
             },
             {
+                "min": 1,
+                "max": "1",
+                "isModifier": true,
+                "short": "in-progress | on-hold | completed | entered-in-error | stopped",
+                "definition": "Indicates the current status of the vaccination event.",
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.status",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "statusCode",
@@ -324,14 +863,13 @@
                         "identity": "w5"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Will generally be set to show that the immunization has been completed.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "in-progress | on-hold | completed | entered-in-error | stopped",
                 "binding": {
                     "description": "A set of codes indicating the current status of an Immunization",
                     "valueSetReference": {
@@ -339,19 +877,27 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Immunization.status"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "comments": "Will generally be set to show that the immunization has been completed.",
-                "path": "Immunization.status",
-                "definition": "Indicates the current status of the vaccination event."
+                "isSummary": true,
+                "path": "Immunization.status"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.date",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Date vaccine administered or was to be administered.",
+                "short": "Vaccination administration date",
+                "min": 1,
+                "comments": "When immunizations are given a specific date and time should always be known.   When immunizations are patient reported, a specific date might not be known. \u00a0Although partial dates are allowed, an adult patient might not be able to recall the year a childhood immunization was given.",
+                "path": "Immunization.date",
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/effectiveTime/value",
@@ -373,26 +919,31 @@
                         "map": "performanceTime",
                         "identity": "quick"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "When immunizations are given a specific date and time should always be known.   When immunizations are patient reported, a specific date might not be known. \u00a0Although partial dates are allowed, an adult patient might not be able to recall the year a childhood immunization was given.",
-                "path": "Immunization.date",
-                "max": "1",
-                "min": 1,
-                "short": "Vaccination administration date",
-                "definition": "Date vaccine administered or was to be administered.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.date"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.vaccineCode",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Vaccine Product Type (bind to CVX).",
+                "short": "Vaccine Product Type (bind to CVX)",
+                "min": 1,
+                "binding": {
+                    "description": "This identifies the CVX code system",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-cvx"
+                    },
+                    "strength": "preferred"
+                },
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/consumable/manfacturedProduct/manufacturedMaterial/realmCode/code",
@@ -415,31 +966,30 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccineCode",
-                "max": "1",
-                "min": 1,
-                "short": "Vaccine Product Type (bind to CVX)",
-                "binding": {
-                    "description": "This identifies the CVX code system",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-cvx"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "Vaccine Product Type (bind to CVX).",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Immunization.vaccineCode"
-                }
+                "path": "Immunization.vaccineCode"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.patient",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The patient who either received or did not receive the immunization.",
+                "short": "Who was immunized",
+                "min": 1,
+                "alias": [
+                    "Patient"
+                ],
                 "mapping": [
                     {
                         "map": "PID-3",
@@ -458,30 +1008,24 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.patient",
-                "alias": [
-                    "Patient"
-                ],
-                "min": 1,
-                "short": "Who was immunized",
-                "max": "1",
-                "definition": "The patient who either received or did not receive the immunization.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Immunization.patient"
-                }
+                "path": "Immunization.patient"
             },
             {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.wasNotGiven",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates if the vaccination was or was not given.",
+                "short": "Flag for whether immunization was given",
+                "min": 1,
                 "mapping": [
                     {
                         "map": "[actionNegationInd=true].reasonCode",
@@ -492,24 +1036,26 @@
                         "identity": "w5"
                     }
                 ],
+                "path": "Immunization.wasNotGiven"
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "boolean"
                     }
                 ],
-                "isModifier": true,
-                "path": "Immunization.wasNotGiven",
-                "max": "1",
-                "min": 1,
-                "short": "Flag for whether immunization was given",
-                "definition": "Indicates if the vaccination was or was not given.",
                 "base": {
                     "min": 1,
-                    "max": "1",
-                    "path": "Immunization.wasNotGiven"
-                }
-            },
-            {
+                    "path": "Immunization.reported",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "True if this administration was reported rather than directly administered.",
+                "short": "Indicates a self-reported record",
+                "min": 1,
+                "comments": "May need source of reported info (e.g. parent), but leave out for now.",
+                "path": "Immunization.reported",
                 "mapping": [
                     {
                         "map": "RXA-9",
@@ -527,26 +1073,33 @@
                         "map": "reported",
                         "identity": "quick"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "May need source of reported info (e.g. parent), but leave out for now.",
-                "path": "Immunization.reported",
-                "max": "1",
-                "min": 1,
-                "short": "Indicates a self-reported record",
-                "definition": "True if this administration was reported rather than directly administered.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Immunization.reported"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.performer",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Clinician who administered the vaccine.",
+                "short": "Who administered vaccine",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/performer/assignedEntity/assignedPerson/name",
@@ -569,33 +1122,35 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.performer",
-                "max": "1",
-                "min": 0,
-                "short": "Who administered vaccine",
-                "definition": "Clinician who administered the vaccine.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.performer"
-                }
+                "path": "Immunization.performer"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.requester",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Clinician who ordered the vaccination.",
+                "short": "Who ordered vaccination",
+                "min": 0,
+                "comments": "Other participants - delegate to Provenance resource.",
+                "path": "Immunization.requester",
                 "mapping": [
                     {
                         "map": "ORC-12",
@@ -613,35 +1168,26 @@
                         "map": "orderedBy",
                         "identity": "quick"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "Other participants - delegate to Provenance resource.",
-                "path": "Immunization.requester",
-                "max": "1",
-                "min": 0,
-                "short": "Who ordered vaccination",
-                "definition": "Clinician who ordered the vaccination.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.requester"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-encounter"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.encounter",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The visit or admission or other contact between patient and health care provider the immunization was performed as part of.",
+                "short": "Encounter administered as part of",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "PV1-19",
@@ -656,26 +1202,29 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-encounter"
-                        ]
-                    }
-                ],
-                "path": "Immunization.encounter",
-                "max": "1",
-                "min": 0,
-                "short": "Encounter administered as part of",
-                "definition": "The visit or admission or other contact between patient and health care provider the immunization was performed as part of.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.encounter"
-                }
+                "path": "Immunization.encounter"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.manufacturer",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Vaccine Manufacturer.",
+                "short": "Vaccine Manufacturer",
+                "min": 0,
+                "comments": "Not in QUICK as resource.",
+                "path": "Immunization.manufacturer",
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/consumable/manfacturedProduct/manufacuturerOrganization/name",
@@ -689,29 +1238,26 @@
                         "map": ".participation[typeCode=CSM].role[classCode=INST].scopedRole.scoper[classCode=ORG]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "Not in QUICK as resource.",
-                "path": "Immunization.manufacturer",
-                "max": "1",
-                "min": 0,
-                "short": "Vaccine Manufacturer",
-                "definition": "Vaccine Manufacturer.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.manufacturer"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Location"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.location",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The service delivery location where the vaccine administration occurred.",
+                "short": "Where vaccination occurred",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "RXA-27  (or RXA-11, deprecated as of v2.7)",
@@ -726,26 +1272,24 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Location"
-                        ]
-                    }
-                ],
-                "path": "Immunization.location",
-                "max": "1",
-                "min": 0,
-                "short": "Where vaccination occurred",
-                "definition": "The service delivery location where the vaccine administration occurred.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.location"
-                }
+                "path": "Immunization.location"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.lotNumber",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Lot number of the  vaccine product.",
+                "short": "Vaccine lot number",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/consumable/manfacturedProduct/manufacturedMaterial/lotNumberText",
@@ -764,24 +1308,24 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.lotNumber",
-                "max": "1",
-                "min": 0,
-                "short": "Vaccine lot number",
-                "definition": "Lot number of the  vaccine product.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.lotNumber"
-                }
+                "path": "Immunization.lotNumber"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.expirationDate",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Date vaccine batch expires.",
+                "short": "Vaccine expiration date",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "RXA-16",
@@ -796,24 +1340,31 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.expirationDate",
-                "max": "1",
-                "min": 0,
-                "short": "Vaccine expiration date",
-                "definition": "Date vaccine batch expires.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.expirationDate"
-                }
+                "path": "Immunization.expirationDate"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.site",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Body site where vaccine was administered.",
+                "short": "Body site vaccine  was administered",
+                "min": 0,
+                "binding": {
+                    "description": "This identifies the body site at which the substance was administered",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
+                    },
+                    "strength": "preferred"
+                },
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/approachSiteCode/code",
@@ -832,31 +1383,31 @@
                         "identity": "quick"
                     }
                 ],
+                "path": "Immunization.site"
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "path": "Immunization.site",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.route",
+                    "max": "1"
+                },
                 "max": "1",
+                "definition": "The path by which the vaccine product is taken into the body.",
+                "short": "How vaccine entered body",
                 "min": 0,
-                "short": "Body site vaccine  was administered",
                 "binding": {
-                    "description": "This identifies the body site at which the substance was administered",
+                    "description": "This identifies the route of substance administration.",
                     "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-medication-route"
                     },
                     "strength": "preferred"
                 },
-                "definition": "Body site where vaccine was administered.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.site"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "ClinicalDocument/component/StructuredBody/component/section/entry/substanceAdministration/routeCode/code",
@@ -875,31 +1426,18 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.route",
-                "max": "1",
-                "min": 0,
-                "short": "How vaccine entered body",
-                "binding": {
-                    "description": "This identifies the route of substance administration.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-medication-route"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "The path by which the vaccine product is taken into the body.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.route"
-                }
+                "path": "Immunization.route"
             },
             {
+                "min": 0,
+                "max": "1",
+                "short": "A fixed quantity (no comparator)",
+                "definition": "The comparator is not used on a SimpleQuantity",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.doseQuantity",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "SN (see also Range) or CQ",
@@ -914,67 +1452,73 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "mustSupport": true,
                 "constraint": [
                     {
-                        "xpath": "not(exists(f:code)) or exists(f:system)",
                         "human": "If a code for the unit is present, the system SHALL also be present",
                         "severity": "error",
+                        "xpath": "not(exists(f:code)) or exists(f:system)",
                         "key": "qty-3"
                     },
                     {
-                        "xpath": "not(exists(f:comparator))",
                         "human": "The comparator is not used on a SimpleQuantity",
                         "severity": "error",
+                        "xpath": "not(exists(f:comparator))",
                         "key": "sqty-1"
                     }
                 ],
-                "min": 0,
-                "short": "A fixed quantity (no comparator)",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.doseQuantity"
-                },
-                "mustSupport": true,
                 "comments": "The context of use may frequently define what kind of quantity this is and therefore what kind of units can be used. The context of use may also restrict the values for the comparator.",
-                "path": "Immunization.doseQuantity",
-                "definition": "The comparator is not used on a SimpleQuantity"
-            },
-            {
-                "mapping": [
+                "type": [
                     {
-                        "map": "note",
-                        "identity": "rim"
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
                     }
                 ],
+                "isSummary": true,
+                "path": "Immunization.doseQuantity"
+            },
+            {
                 "type": [
                     {
                         "code": "Annotation"
                     }
                 ],
-                "isSummary": true,
-                "path": "Immunization.note",
-                "max": "*",
-                "min": 0,
-                "short": "Vaccination notes",
-                "definition": "Extra information about the immunization that is not conveyed by the other attributes.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "Immunization.note"
-                }
+                    "path": "Immunization.note",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Extra information about the immunization that is not conveyed by the other attributes.",
+                "short": "Vaccination notes",
+                "min": 0,
+                "isSummary": true,
+                "path": "Immunization.note",
+                "mapping": [
+                    {
+                        "map": "note",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.explanation",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Reasons why a vaccine was or was not administered.",
+                "short": "Administration/non-administration reasons",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
@@ -985,108 +1529,115 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.explanation",
-                "max": "1",
-                "min": 0,
-                "short": "Administration/non-administration reasons",
-                "definition": "Reasons why a vaccine was or was not administered.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.explanation"
-                }
+                "path": "Immunization.explanation"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Immunization.explanation.id",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.explanation.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.explanation.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Immunization.explanation.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.explanation.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.explanation.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.explanation.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.explanation.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.explanation.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.explanation.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.explanation.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.explanation.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.explanation.reason",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Reasons why a vaccine was administered.",
+                "short": "Why immunization occurred",
+                "min": 0,
+                "binding": {
+                    "description": "The reason why a vaccine was administered",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/immunization-reason"
+                    },
+                    "strength": "example"
+                },
                 "mapping": [
                     {
                         "map": "[actionNegationInd=false].reasonCode",
@@ -1097,31 +1648,31 @@
                         "identity": "quick"
                     }
                 ],
+                "path": "Immunization.explanation.reason"
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "path": "Immunization.explanation.reason",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.explanation.reasonNotGiven",
+                    "max": "*"
+                },
                 "max": "*",
+                "definition": "Reason why a vaccine was not administered.",
+                "short": "Why immunization did not occur",
                 "min": 0,
-                "short": "Why immunization occurred",
                 "binding": {
-                    "description": "The reason why a vaccine was administered",
+                    "description": "The reason why a vaccine was not administered",
                     "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/immunization-reason"
+                        "reference": "http://hl7.org/fhir/ValueSet/no-immunization-reason"
                     },
                     "strength": "example"
                 },
-                "definition": "Reasons why a vaccine was administered.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.explanation.reason"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "RXA-18",
@@ -1132,31 +1683,26 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.explanation.reasonNotGiven",
-                "max": "*",
-                "min": 0,
-                "short": "Why immunization did not occur",
-                "binding": {
-                    "description": "The reason why a vaccine was not administered",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/no-immunization-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Reason why a vaccine was not administered.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.explanation.reasonNotGiven"
-                }
+                "path": "Immunization.explanation.reasonNotGiven"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Categorical data indicating that an adverse event is associated in time to an immunization.",
+                "short": "Details of a reaction that follows immunization",
+                "min": 0,
+                "comments": "A reaction may be an indication of an allergy or intolerance and, if this is determined to be the case,  it should be recorded as a new [[[AllergyIntolerance]]] resource instance as most systems will not query against  past Immunization.reaction elements.",
+                "path": "Immunization.reaction",
                 "mapping": [
                     {
                         "map": "OBX-3",
@@ -1166,110 +1712,108 @@
                         "map": "Observation[classCode=obs].code",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "A reaction may be an indication of an allergy or intolerance and, if this is determined to be the case,  it should be recorded as a new [[[AllergyIntolerance]]] resource instance as most systems will not query against  past Immunization.reaction elements.",
-                "path": "Immunization.reaction",
-                "max": "*",
-                "min": 0,
-                "short": "Details of a reaction that follows immunization",
-                "definition": "Categorical data indicating that an adverse event is associated in time to an immunization.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.reaction"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Immunization.reaction.id",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.reaction.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Immunization.reaction.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.reaction.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.reaction.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.reaction.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.reaction.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.reaction.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.reaction.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "dateTime"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction.date",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Date of reaction to the immunization.",
+                "short": "When reaction started",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "OBX-14 (ideally this would be reported in an IAM segment, but IAM is not part of the HL7 v2 VXU message - most likely would appear in OBX segments if at all)",
@@ -1280,24 +1824,26 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.reaction.date",
-                "max": "1",
-                "min": 0,
-                "short": "When reaction started",
-                "definition": "Date of reaction to the immunization.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.reaction.date"
-                }
+                "path": "Immunization.reaction.date"
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction.detail",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Details of the reaction.",
+                "short": "Additional information on reaction",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "OBX-5",
@@ -1308,26 +1854,26 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    }
-                ],
-                "path": "Immunization.reaction.detail",
-                "max": "1",
-                "min": 0,
-                "short": "Additional information on reaction",
-                "definition": "Details of the reaction.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.reaction.detail"
-                }
+                "path": "Immunization.reaction.detail"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.reaction.reported",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Self-reported indicator.",
+                "short": "Indicates self-reported reaction",
+                "min": 0,
+                "comments": "Not in QUICK.",
+                "path": "Immunization.reaction.reported",
                 "mapping": [
                     {
                         "map": "(no such concept seems to exist for allergy/adverse reaction in HL7 v2)",
@@ -1337,26 +1883,24 @@
                         "map": ".participation[typeCode=INF].role[classCode=PAT] (this syntax for self-reported=true)",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "mustSupport": true,
-                "comments": "Not in QUICK.",
-                "path": "Immunization.reaction.reported",
-                "max": "1",
-                "min": 0,
-                "short": "Indicates self-reported reaction",
-                "definition": "Self-reported indicator.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.reaction.reported"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Contains information about the protocol(s) under which the vaccine was administered.",
+                "short": "What protocol was followed",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "(HL7 v2 doesn't seem to provide for this)",
@@ -1371,108 +1915,108 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol",
-                "max": "*",
-                "min": 0,
-                "short": "What protocol was followed",
-                "definition": "Contains information about the protocol(s) under which the vaccine was administered.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.vaccinationProtocol"
-                }
+                "path": "Immunization.vaccinationProtocol"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Immunization.vaccinationProtocol.id",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Immunization.vaccinationProtocol.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.vaccinationProtocol.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.vaccinationProtocol.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.vaccinationProtocol.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Immunization.vaccinationProtocol.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Immunization.vaccinationProtocol.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Immunization.vaccinationProtocol.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.vaccinationProtocol.doseSequence",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Nominal position in a series.",
+                "short": "Dose number within series",
+                "min": 1,
                 "mapping": [
                     {
                         "map": "outboundRelationship[typeCode=INST].target[classCode=SBADM].inboundRelationship[typeCode=COMP].sequenceNumber",
@@ -1483,24 +2027,24 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.doseSequence",
-                "max": "1",
-                "min": 1,
-                "short": "Dose number within series",
-                "definition": "Nominal position in a series.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.doseSequence"
-                }
+                "path": "Immunization.vaccinationProtocol.doseSequence"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.description",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Contains the description about the protocol under which the vaccine was administered.",
+                "short": "Details of vaccine protocol",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "outboundRelationship[typeCode=INST].target[classCode=SBADM].inboundRelationship[typeCode=COMP].source[classCode=SBADM].text",
@@ -1511,24 +2055,27 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.description",
-                "max": "1",
-                "min": 0,
-                "short": "Details of vaccine protocol",
-                "definition": "Contains the description about the protocol under which the vaccine was administered.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.description"
-                }
+                "path": "Immunization.vaccinationProtocol.description"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.authority",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates the authority who published the protocol.  E.g. ACIP.",
+                "short": "Who is responsible for protocol",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "outboundRelationship[typeCode=INST].target[classCode=SBADM].inboundRelationship[typeCode=COMP].source[classCode=SBADM].participation[typeCode=AUT].COCT_MT090200UV",
@@ -1539,27 +2086,24 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.authority",
-                "max": "1",
-                "min": 0,
-                "short": "Who is responsible for protocol",
-                "definition": "Indicates the authority who published the protocol.  E.g. ACIP.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.authority"
-                }
+                "path": "Immunization.vaccinationProtocol.authority"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.series",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "One possible path to achieve presumed immunity against a disease - within the context of an authority.",
+                "short": "Name of vaccine series",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "outboundRelationship[typeCode=INST].target[classCode=SBADM]",
@@ -1570,24 +2114,24 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.series",
-                "max": "1",
-                "min": 0,
-                "short": "Name of vaccine series",
-                "definition": "One possible path to achieve presumed immunity against a disease - within the context of an authority.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.series"
-                }
+                "path": "Immunization.vaccinationProtocol.series"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.seriesDoses",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The recommended number of doses to achieve immunity.",
+                "short": "Recommended number of doses for immunity",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "outboundRelationship[typeCode=INST].target[classCode=SBADM].inboundRelationship[typeCode=COMP].source[classCode=SBADM].text",
@@ -1598,24 +2142,31 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.seriesDoses",
-                "max": "1",
-                "min": 0,
-                "short": "Recommended number of doses for immunity",
-                "definition": "The recommended number of doses to achieve immunity.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.seriesDoses"
-                }
+                "path": "Immunization.vaccinationProtocol.seriesDoses"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.vaccinationProtocol.targetDisease",
+                    "max": "*"
+                },
+                "max": "1",
+                "definition": "The targeted disease.",
+                "short": "Disease immunized against",
+                "min": 1,
+                "binding": {
+                    "description": "The disease target of the vaccination protocol",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/vaccination-protocol-dose-target"
+                    },
+                    "strength": "example"
+                },
                 "mapping": [
                     {
                         "map": "outboundRelationship.target[classCode=OBS].code",
@@ -1626,31 +2177,33 @@
                         "identity": "quick"
                     }
                 ],
+                "path": "Immunization.vaccinationProtocol.targetDisease"
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.targetDisease",
+                "base": {
+                    "min": 1,
+                    "path": "Immunization.vaccinationProtocol.doseStatus",
+                    "max": "1"
+                },
                 "max": "1",
+                "definition": "Indicates if the immunization event should \"count\" against  the protocol.",
+                "short": "Indicates if dose counts towards immunity",
                 "min": 1,
-                "short": "Disease immunized against",
                 "binding": {
-                    "description": "The disease target of the vaccination protocol",
+                    "description": "The status of the vaccination protocol (i.e. should this count)",
                     "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/vaccination-protocol-dose-target"
+                        "reference": "http://hl7.org/fhir/ValueSet/vaccination-protocol-dose-status"
                     },
                     "strength": "example"
                 },
-                "definition": "The targeted disease.",
-                "base": {
-                    "min": 1,
-                    "max": "*",
-                    "path": "Immunization.vaccinationProtocol.targetDisease"
-                }
-            },
-            {
+                "comments": "May need to differentiate between status declarations by a provider vs. a CDS engine.",
+                "path": "Immunization.vaccinationProtocol.doseStatus",
                 "mapping": [
                     {
                         "map": ".participation[typeCode=CSM].role[classCode=INST].scopedRole.scoper[classCode=MMAT].playedRole[classCode=INGR].scopedRole.scoper[classCode=MMAT].playedRole[classCode=HLTHCHRT].participation[typeCode=SBJ].observation[classCode=OBS].value",
@@ -1660,33 +2213,31 @@
                         "map": "protocol.doseStatus",
                         "identity": "quick"
                     }
-                ],
+                ]
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "comments": "May need to differentiate between status declarations by a provider vs. a CDS engine.",
-                "path": "Immunization.vaccinationProtocol.doseStatus",
+                "base": {
+                    "min": 0,
+                    "path": "Immunization.vaccinationProtocol.doseStatusReason",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 1,
-                "short": "Indicates if dose counts towards immunity",
+                "definition": "Provides an explanation as to why an immunization event should or should not count against the protocol.",
+                "short": "Why dose does (not) count",
+                "min": 0,
                 "binding": {
-                    "description": "The status of the vaccination protocol (i.e. should this count)",
+                    "description": "The reason for the determining if a vaccination should count or why vaccination should not count.",
                     "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/vaccination-protocol-dose-status"
+                        "reference": "http://hl7.org/fhir/ValueSet/vaccination-protocol-dose-status-reason"
                     },
                     "strength": "example"
                 },
-                "definition": "Indicates if the immunization event should \"count\" against  the protocol.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.doseStatus"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": ".participation[typeCode=CSM].role[classCode=INST].scopedRole.scoper[classCode=MMAT].playedRole[classCode=INGR].scopedRole.scoper[classCode=MMAT].playedRole[classCode=HLTHCHRT].participation[typeCode=SBJ].observation[classCode=OBS].reasonCode",
@@ -1697,570 +2248,19 @@
                         "identity": "quick"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Immunization.vaccinationProtocol.doseStatusReason",
-                "max": "1",
-                "min": 0,
-                "short": "Why dose does (not) count",
-                "binding": {
-                    "description": "The reason for the determining if a vaccination should count or why vaccination should not count.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/vaccination-protocol-dose-status-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Provides an explanation as to why an immunization event should or should not count against the protocol.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Immunization.vaccinationProtocol.doseStatusReason"
+                "path": "Immunization.vaccinationProtocol.doseStatusReason"
+            }
+        ]
+    },
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://www.healthit.gov",
+                    "system": "other"
                 }
-            }
-        ]
-    },
-    "name": "U.S. Data Access Framework (DAF) Immunization Profile",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "ImmunizationPerformanceOccurrence",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Immunization"
-                    }
-                ],
-                "path": "Immunization",
-                "min": 0,
-                "name": "DAF-Immunization",
-                "max": "*"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "identifier",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "path": "Immunization.identifier",
-                "min": 0,
-                "max": "*",
-                "mustSupport": true
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "Immunization.status"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "performanceTime",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "path": "Immunization.date",
-                "min": 1,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "vaccine",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.vaccineCode",
-                "max": "1",
-                "min": 1,
-                "short": "Vaccine Product Type (bind to CVX)",
-                "binding": {
-                    "description": "This identifies the CVX code system",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-cvx"
-                    },
-                    "strength": "preferred"
-                },
-                "definition": "Vaccine Product Type (bind to CVX).",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "subject",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    }
-                ],
-                "path": "Immunization.patient",
-                "alias": [
-                    "Patient"
-                ],
-                "min": 1,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "reported",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "path": "Immunization.reported",
-                "min": 1,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "performedBy",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "path": "Immunization.performer",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "orderedBy",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "path": "Immunization.requester",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-encounter"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "path": "Immunization.encounter"
-            },
-            {
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "comments": "Not in QUICK as resource.",
-                "path": "Immunization.manufacturer",
-                "max": "1",
-                "min": 0,
-                "short": "Vaccine Manufacturer",
-                "definition": "Vaccine Manufacturer.",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "vaccine.lotNumber",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Immunization.lotNumber",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "vaccine.expiry",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "path": "Immunization.expirationDate",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "dosage.approachBodySite.anatomicalLocation",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.site",
-                "min": 0,
-                "binding": {
-                    "description": "This identifies the body site at which the substance was administered",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
-                    },
-                    "strength": "preferred"
-                },
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "dosage.route",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.route",
-                "min": 0,
-                "binding": {
-                    "description": "This identifies the route of substance administration.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-medication-route"
-                    },
-                    "strength": "preferred"
-                },
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "dosage.doseQuantity",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
-                    }
-                ],
-                "path": "Immunization.doseQuantity",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "min": 0,
-                "mapping": [
-                    {
-                        "map": "indication",
-                        "identity": "quick"
-                    }
-                ],
-                "mustSupport": true,
-                "max": "1",
-                "path": "Immunization.explanation"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "indication.reason",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.explanation.reason",
-                "min": 0,
-                "max": "*",
-                "mustSupport": true
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "max": "*",
-                "mustSupport": true,
-                "path": "Immunization.explanation.reasonNotGiven"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "*",
-                "path": "Immunization.reaction"
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "dateTime"
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "Immunization.reaction.date"
-            },
-            {
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "comments": "Not in QUICK.",
-                "path": "Immunization.reaction.reported",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "min": 0,
-                "mapping": [
-                    {
-                        "map": "protocol",
-                        "identity": "quick"
-                    }
-                ],
-                "mustSupport": true,
-                "max": "*",
-                "path": "Immunization.vaccinationProtocol"
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.doseSequence",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.doseSequence",
-                "min": 1,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.description",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.description",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.authority",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-organization"
-                        ]
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.authority",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.series",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.series",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.seriesDoses",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.seriesDoses",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.targetDisease",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.targetDisease",
-                "min": 1,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.doseStatus",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.doseStatus",
-                "min": 1,
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "protocol.doseStatusReason",
-                        "identity": "quick"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "Immunization.vaccinationProtocol.doseStatusReason",
-                "min": 0,
-                "max": "1",
-                "mustSupport": true
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2014-08-21",
-    "description": "Defines constraints and extensions on the Immunization resource for use in querying and retrieving patient's immunization information."
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Infrastructure and Messaging - Data Access Framework)"
 }

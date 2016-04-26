@@ -1,27 +1,205 @@
 {
     "id": "daf-medicationstatement",
-    "fhirVersion": "1.0.2",
+    "date": "2014-08-21",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "MedicationStatement"
+                    }
+                ],
+                "name": "DAF-MedicationStatement",
+                "max": "*",
+                "definition": "Statement that a medication is/was actively taken by a patient.",
+                "min": 0,
+                "path": "MedicationStatement"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.identifier",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "MedicationStatement.patient",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-relatedperson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "MedicationStatement.informationSource",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.wasNotTaken",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.reasonNotTaken",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "path": "MedicationStatement.effectivePeriod",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-medication"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "MedicationStatement.medication",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.dosage",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.dosage.timing",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "min": 0,
+                "binding": {
+                    "description": "This identifies the body site at which the substance was administered",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
+                    },
+                    "strength": "preferred"
+                },
+                "path": "MedicationStatement.dosage.siteCodeableConcept"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "binding": {
+                    "description": "This identifies the route of substance administration.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/daf-medication-route"
+                    },
+                    "strength": "preferred"
+                },
+                "path": "MedicationStatement.dosage.route",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.dosage.quantity[x]",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.dosage.rate[x]",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "MedicationStatement.dosage.maxDosePerPeriod",
+                "max": "1"
+            }
+        ]
+    },
+    "name": "U.S. Data Access Framework (DAF) MedicationStatement Profile",
     "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://www.healthit.gov",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-    "display": "DAF-MedicationStatement",
-    "url": "http://hl7.org/fhir/StructureDefinition/daf-medicationstatement",
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Infrastructure and Messaging - Data Access Framework)",
     "constrainedType": "MedicationStatement",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "MedicationStatement"
+                    }
+                ],
+                "name": "DAF-MedicationStatement",
+                "max": "*",
+                "definition": "Statement that a medication is/was actively taken by a patient.",
+                "constraint": [
+                    {
+                        "human": "Reason for use is only permitted if wasNotTaken is false",
+                        "severity": "error",
+                        "xpath": "not(exists(*[starts-with(local-name(.), 'reasonForUse')]) and f:wasNotTaken/@value=true())",
+                        "key": "mst-2"
+                    },
+                    {
+                        "human": "Reason not taken is only permitted if wasNotTaken is true",
+                        "severity": "error",
+                        "xpath": "not(exists(f:reasonNotTaken) and f:wasNotTaken/@value=false())",
+                        "key": "mst-1"
+                    }
+                ],
+                "short": "Record of medication being taken by a patient",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement",
                 "mapping": [
                     {
                         "map": "SubstanceAdministration",
@@ -31,38 +209,7 @@
                         "map": "clinical.medication",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "MedicationStatement"
-                    }
-                ],
-                "isSummary": true,
-                "constraint": [
-                    {
-                        "xpath": "not(exists(*[starts-with(local-name(.), 'reasonForUse')]) and f:wasNotTaken/@value=true())",
-                        "human": "Reason for use is only permitted if wasNotTaken is false",
-                        "severity": "error",
-                        "key": "mst-2"
-                    },
-                    {
-                        "xpath": "not(exists(f:reasonNotTaken) and f:wasNotTaken/@value=false())",
-                        "human": "Reason not taken is only permitted if wasNotTaken is true",
-                        "severity": "error",
-                        "key": "mst-1"
-                    }
-                ],
-                "path": "MedicationStatement",
-                "max": "*",
-                "min": 0,
-                "short": "Record of medication being taken by a patient",
-                "name": "DAF-MedicationStatement",
-                "definition": "Statement that a medication is/was actively taken by a patient.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement"
-                }
+                ]
             },
             {
                 "type": [
@@ -70,18 +217,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "MedicationStatement.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.id"
-                }
+                    "path": "MedicationStatement.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "MedicationStatement.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -89,17 +236,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationStatement.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.meta"
-                }
+                    "path": "MedicationStatement.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement.meta"
             },
             {
                 "type": [
@@ -107,19 +254,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "MedicationStatement.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.implicitRules"
-                }
+                    "path": "MedicationStatement.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "MedicationStatement.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -127,144 +274,160 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "MedicationStatement.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.language"
-                }
+                    "path": "MedicationStatement.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "MedicationStatement.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "MedicationStatement.text",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "MedicationStatement.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "MedicationStatement.contained",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "MedicationStatement.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "MedicationStatement.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationStatement.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationStatement.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.identifier",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "External identifier - FHIR will generate its own internal identifiers (probably URLs) which do not need to be explicitly managed by the resource.  The identifier here is one that would be used by another non-FHIR system - for example an automated medication pump would provide a record each time it operated; an administration while the patient was off the ward might be made with a different system and entered after the event.  Particularly important if these records have to be updated.",
+                "short": "External identifier",
+                "min": 0,
                 "isSummary": true,
+                "path": "MedicationStatement.identifier",
                 "mapping": [
                     {
                         "map": "SubstanceAdministration.id",
@@ -274,26 +437,29 @@
                         "map": "id",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "MedicationStatement.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External identifier",
-                "definition": "External identifier - FHIR will generate its own internal identifiers (probably URLs) which do not need to be explicitly managed by the resource.  The identifier here is one that would be used by another non-FHIR system - for example an automated medication pump would provide a record each time it operated; an administration while the patient was off the ward might be made with a different system and entered after the event.  Particularly important if these records have to be updated.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.identifier"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "MedicationStatement.patient",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The person or animal who is/was taking the medication.",
+                "short": "Who is/was taking  the medication",
+                "min": 1,
                 "isSummary": true,
+                "path": "MedicationStatement.patient",
                 "mapping": [
                     {
                         "map": "PID-3-Patient ID List",
@@ -307,64 +473,45 @@
                         "map": "who.focus",
                         "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "MedicationStatement.patient",
-                "max": "1",
-                "min": 1,
-                "short": "Who is/was taking  the medication",
-                "definition": "The person or animal who is/was taking the medication.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "MedicationStatement.patient"
-                }
+                ]
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/daf-relatedperson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "path": "MedicationStatement.informationSource",
+                "max": "1",
+                "definition": "The person who provided the information about the taking of this medication.",
                 "isSummary": true,
+                "min": 0,
                 "mapping": [
                     {
                         "map": "who.source",
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-relatedperson"
-                        ]
-                    }
-                ],
-                "mustSupport": true,
-                "path": "MedicationStatement.informationSource",
-                "min": 0,
-                "definition": "The person who provided the information about the taking of this medication.",
-                "max": "1",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.informationSource"
+                    "path": "MedicationStatement.informationSource",
+                    "max": "1"
                 }
             },
             {
@@ -373,30 +520,34 @@
                         "code": "dateTime"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationStatement.dateAsserted",
-                "max": "1",
-                "min": 0,
-                "short": "When the statement was asserted?",
-                "definition": "The date when the medication statement was asserted by the information source.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dateAsserted"
-                }
+                    "path": "MedicationStatement.dateAsserted",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The date when the medication statement was asserted by the information source.",
+                "short": "When the statement was asserted?",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement.dateAsserted"
             },
             {
+                "isModifier": true,
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "MedicationStatement.status",
+                "base": {
+                    "min": 1,
+                    "path": "MedicationStatement.status",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 1,
+                "definition": "A code representing the patient or other source's judgment about the state of the medication used that this statement is about.  Generally this will be active or completed.",
                 "short": "active | completed | entered-in-error | intended",
+                "min": 1,
                 "binding": {
                     "description": "A set of codes indicating the current status of a MedicationStatement.",
                     "valueSetReference": {
@@ -404,14 +555,28 @@
                     },
                     "strength": "required"
                 },
-                "definition": "A code representing the patient or other source's judgment about the state of the medication used that this statement is about.  Generally this will be active or completed.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "MedicationStatement.status"
-                }
+                "isSummary": true,
+                "path": "MedicationStatement.status"
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "True if medication is/was not being taken",
+                "definition": "Set this to true if the record is saying that the medication was NOT taken.",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.wasNotTaken",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "meaningWhenMissing": "If this is missing, then the medication was taken",
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "boolean"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": "SubstanceAdministration.actionNegationInd",
@@ -422,43 +587,27 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "boolean"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "True if medication is/was not being taken",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.wasNotTaken"
-                },
-                "mustSupport": true,
-                "isModifier": true,
-                "path": "MedicationStatement.wasNotTaken",
-                "meaningWhenMissing": "If this is missing, then the medication was taken",
-                "definition": "Set this to true if the record is saying that the medication was NOT taken."
+                "path": "MedicationStatement.wasNotTaken"
             },
             {
-                "mapping": [
-                    {
-                        "map": "SubstanceAdministration->Reason->Observation->Value",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "mst-1"
                 ],
+                "max": "1",
+                "short": "True if asserting medication was not given",
+                "definition": "A code indicating why the medication was not taken.",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.reasonNotTaken",
+                    "max": "*"
+                },
+                "mustSupport": true,
+                "path": "MedicationStatement.reasonNotTaken",
+                "isSummary": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "True if asserting medication was not given",
-                "condition": [
-                    "mst-1"
                 ],
                 "binding": {
                     "description": "A set of codes indicating the reason why the MedicationAdministration is negated.",
@@ -467,15 +616,13 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.reasonNotTaken"
-                },
-                "mustSupport": true,
-                "path": "MedicationStatement.reasonNotTaken",
-                "definition": "A code indicating why the medication was not taken."
+                "mapping": [
+                    {
+                        "map": "SubstanceAdministration->Reason->Observation->Value",
+                        "identity": "rim"
+                    }
+                ],
+                "min": 0
             },
             {
                 "type": [
@@ -483,16 +630,17 @@
                         "code": "CodeableConcept"
                     },
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
                 "path": "MedicationStatement.reasonForUse[x]",
-                "min": 0,
+                "max": "1",
                 "definition": "A reason for why the medication is being/was taken.",
+                "isSummary": true,
+                "min": 0,
                 "binding": {
                     "description": "Codes identifying why the medication is being taken.",
                     "valueSetReference": {
@@ -500,15 +648,26 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.reasonForUse[x]"
+                    "path": "MedicationStatement.reasonForUse[x]",
+                    "max": "1"
                 }
             },
             {
-                "isSummary": true,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.effective[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The interval of time during which it is being asserted that the patient was taking the medication (or was not taking, when the wasNotGiven element is true).",
                 "mapping": [
                     {
                         "map": "SubstanceAdministration.effectiveTime",
@@ -519,23 +678,11 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "mustSupport": true,
+                "short": "Over what period was medication consumed?",
+                "min": 0,
                 "comments": "If the medication is still being taken at the time the statement is recorded, the \"end\" date will be omitted.",
                 "path": "MedicationStatement.effectivePeriod",
-                "max": "1",
-                "min": 0,
-                "short": "Over what period was medication consumed?",
-                "definition": "The interval of time during which it is being asserted that the patient was taking the medication (or was not taking, when the wasNotGiven element is true).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.effective[x]"
-                }
+                "isSummary": true
             },
             {
                 "type": [
@@ -543,41 +690,59 @@
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationStatement.note",
-                "max": "1",
-                "min": 0,
-                "short": "Further information about the statement",
-                "definition": "Provides extra information about the medication statement that is not conveyed by the other attributes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.note"
-                }
+                    "path": "MedicationStatement.note",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Provides extra information about the medication statement that is not conveyed by the other attributes.",
+                "short": "Further information about the statement",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement.note"
             },
             {
                 "type": [
                     {
-                        "code": "Reference",
                         "profile": [
                             "http://hl7.org/fhir/StructureDefinition/Resource"
-                        ]
+                        ],
+                        "code": "Reference"
                     }
                 ],
-                "isSummary": true,
-                "comments": "Likely references would be to MedicationOrder, MedicationDispense, Claim, Observation or QuestionnaireAnswers.",
-                "path": "MedicationStatement.supportingInformation",
-                "max": "*",
-                "min": 0,
-                "short": "Additional supporting information",
-                "definition": "Allows linking the MedicationStatement to the underlying MedicationOrder, or to other information that supports the MedicationStatement.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.supportingInformation"
-                }
+                    "path": "MedicationStatement.supportingInformation",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Allows linking the MedicationStatement to the underlying MedicationOrder, or to other information that supports the MedicationStatement.",
+                "short": "Additional supporting information",
+                "min": 0,
+                "comments": "Likely references would be to MedicationOrder, MedicationDispense, Claim, Observation or QuestionnaireAnswers.",
+                "path": "MedicationStatement.supportingInformation",
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Medication"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 1,
+                    "path": "MedicationStatement.medication[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications.",
                 "mapping": [
                     {
                         "map": "SubstanceAdministration>Component>SubstanceAdministrationRequest.consumable",
@@ -588,138 +753,120 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Medication"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "What medication was taken",
+                "min": 1,
                 "comments": "If only a code is specified, then it needs to be a code for a specific product.  If more information is required, then the use of the medication resource is recommended.  Note: do not use Medication.name to describe the medication this statement concerns. When the only available information is a text description of the medication, Medication.code.text should be used.",
                 "path": "MedicationStatement.medication[x]",
-                "max": "1",
-                "min": 1,
-                "short": "What medication was taken",
-                "definition": "Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications.",
-                "base": {
-                    "min": 1,
-                    "max": "1",
-                    "path": "MedicationStatement.medication[x]"
-                }
+                "isSummary": true
             },
             {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": "SubstanceAdministration>Component>SubstanceAdministrationRequest",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage",
-                "max": "*",
-                "min": 0,
-                "short": "Details of how medication was taken",
-                "definition": "Indicates how the medication is/was used by the patient.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.dosage"
-                }
-            },
-            {
+                    "path": "MedicationStatement.dosage",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "Indicates how the medication is/was used by the patient.",
+                "short": "Details of how medication was taken",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement.dosage",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": "SubstanceAdministration>Component>SubstanceAdministrationRequest",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "MedicationStatement.dosage.id",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "MedicationStatement.dosage.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationStatement.dosage.extension",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.dosage.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationStatement.dosage.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "MedicationStatement.dosage.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "MedicationStatement.dosage.modifierExtension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "MedicationStatement.dosage.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
                 "type": [
@@ -727,50 +874,44 @@
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationStatement.dosage.text",
-                "max": "1",
-                "min": 0,
-                "short": "Reported dosage information",
-                "definition": "Free text dosage information as reported about a patient's medication use. When coded dosage information is present, the free text may still be present for display to humans.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.text"
-                }
+                    "path": "MedicationStatement.dosage.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Free text dosage information as reported about a patient's medication use. When coded dosage information is present, the free text may still be present for display to humans.",
+                "short": "Reported dosage information",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement.dosage.text"
             },
             {
-                "isSummary": true,
-                "mapping": [
-                    {
-                        "map": ".effectiveTime",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "Timing"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage.timing",
-                "max": "1",
-                "min": 0,
-                "short": "When/how often was medication taken",
-                "definition": "The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  \"Every  8 hours\"; \"Three times a day\"; \"1/2 an hour before breakfast for 10 days from 23-Dec 2011:\";  \"15 Oct 2013, 17 Oct 2013 and 1 Nov 2013\".",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.timing"
-                }
-            },
-            {
+                    "path": "MedicationStatement.dosage.timing",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  \"Every  8 hours\"; \"Three times a day\"; \"1/2 an hour before breakfast for 10 days from 23-Dec 2011:\";  \"15 Oct 2013, 17 Oct 2013 and 1 Nov 2013\".",
+                "short": "When/how often was medication taken",
+                "min": 0,
+                "isSummary": true,
+                "path": "MedicationStatement.dosage.timing",
                 "mapping": [
                     {
-                        "map": "boolean: .outboundRelationship[typeCode=PRCN].negationInd (inversed - so negationInd = true means asNeeded=false  CodeableConcept: .outboundRelationship[typCode=PRCN].target[classCode=OBS, moodCode=EVN, isCriterionInd=true, code=\"Assertion\"].value",
+                        "map": ".effectiveTime",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "boolean"
@@ -779,40 +920,44 @@
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "path": "MedicationStatement.dosage.asNeeded[x]",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.asNeeded[x]",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "Indicates whether the Medication is only taken when needed within a specific dosing schedule (Boolean option), or it indicates the precondition for taking the Medication (CodeableConcept).  \n\nSpecifically if 'boolean' datatype is selected, then the following logic applies:  If set to True, this indicates that the medication is only taken when needed, within the specified schedule.",
                 "short": "Take \"as needed\" (for x)",
+                "min": 0,
                 "binding": {
                     "description": "A coded concept identifying the precondition that should be met or evaluated prior to consuming or administering a medication dose.  For example \"pain\", \"30 minutes prior to sexual intercourse\", \"on flare-up\" etc.",
                     "strength": "example"
                 },
-                "definition": "Indicates whether the Medication is only taken when needed within a specific dosing schedule (Boolean option), or it indicates the precondition for taking the Medication (CodeableConcept).  \n\nSpecifically if 'boolean' datatype is selected, then the following logic applies:  If set to True, this indicates that the medication is only taken when needed, within the specified schedule.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.asNeeded[x]"
-                }
-            },
-            {
                 "isSummary": true,
+                "path": "MedicationStatement.dosage.asNeeded[x]",
                 "mapping": [
                     {
-                        "map": ".approachSiteCode",
+                        "map": "boolean: .outboundRelationship[typeCode=PRCN].negationInd (inversed - so negationInd = true means asNeeded=false  CodeableConcept: .outboundRelationship[typCode=PRCN].target[classCode=OBS, moodCode=EVN, isCriterionInd=true, code=\"Assertion\"].value",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage.siteCodeableConcept",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.site[x]",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "A coded specification of or a reference to the anatomic site where the medication first enters the body.",
                 "short": "Where (on body) medication is/was administered",
+                "min": 0,
                 "binding": {
                     "description": "This identifies the body site at which the substance was administered",
                     "valueSetReference": {
@@ -820,31 +965,31 @@
                     },
                     "strength": "preferred"
                 },
-                "definition": "A coded specification of or a reference to the anatomic site where the medication first enters the body.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.site[x]"
-                }
-            },
-            {
                 "isSummary": true,
+                "path": "MedicationStatement.dosage.siteCodeableConcept",
                 "mapping": [
                     {
-                        "map": ".routeCode",
+                        "map": ".approachSiteCode",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage.route",
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.route",
+                    "max": "1"
+                },
                 "max": "1",
-                "min": 0,
+                "definition": "A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject.",
                 "short": "How the medication entered the body",
+                "min": 0,
                 "binding": {
                     "description": "This identifies the route of substance administration.",
                     "valueSetReference": {
@@ -852,290 +997,145 @@
                     },
                     "strength": "preferred"
                 },
-                "definition": "A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.route"
-                }
+                "isSummary": true,
+                "path": "MedicationStatement.dosage.route",
+                "mapping": [
+                    {
+                        "map": ".routeCode",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.method",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A coded value indicating the method by which the medication is intended to be or was introduced into or on the body.  This attribute will most often NOT be populated.  It is most commonly used for injections.  For example, Slow Push, Deep IV.",
                 "mapping": [
                     {
                         "map": ".methodCode",
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "One of the reasons this attribute is not used often, is that the method is often pre-coordinated with the route and/or form of administration.  This means the codes used in route or form may pre-coordinate the method in the route code or the form code.  The implementation decision about what coding system to use for route or form code will determine how frequently the method code will be populated e.g. if route or form code pre-coordinate method code, then this attribute will not be populated often; if there is no pre-coordination then method code may  be used frequently.",
-                "path": "MedicationStatement.dosage.method",
-                "max": "1",
-                "min": 0,
                 "short": "Technique used to administer medication",
+                "min": 0,
                 "binding": {
                     "description": "A coded concept describing the technique by which the medicine is administered.",
                     "strength": "example"
                 },
-                "definition": "A coded value indicating the method by which the medication is intended to be or was introduced into or on the body.  This attribute will most often NOT be populated.  It is most commonly used for injections.  For example, Slow Push, Deep IV.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.method"
-                }
+                "comments": "One of the reasons this attribute is not used often, is that the method is often pre-coordinated with the route and/or form of administration.  This means the codes used in route or form may pre-coordinate the method in the route code or the form code.  The implementation decision about what coding system to use for route or form code will determine how frequently the method code will be populated e.g. if route or form code pre-coordinate method code, then this attribute will not be populated often; if there is no pre-coordination then method code may  be used frequently.",
+                "path": "MedicationStatement.dosage.method",
+                "isSummary": true
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
+                        ],
+                        "code": "Quantity"
+                    },
+                    {
+                        "code": "Range"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "MedicationStatement.dosage.quantity[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The amount of therapeutic or other substance given at one administration event.",
+                "short": "Amount administered in one dose",
+                "min": 0,
                 "isSummary": true,
+                "path": "MedicationStatement.dosage.quantity[x]",
                 "mapping": [
                     {
                         "map": ".doseQuantity",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/SimpleQuantity"
-                        ]
+                        "code": "Ratio"
                     },
                     {
                         "code": "Range"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage.quantity[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Amount administered in one dose",
-                "definition": "The amount of therapeutic or other substance given at one administration event.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.quantity[x]"
-                }
-            },
-            {
+                    "path": "MedicationStatement.dosage.rate[x]",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Identifies the speed with which the medication was or will be introduced into the patient. Typically the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr.  May also be expressed as a rate per unit of time e.g. 500 ml per 2 hours.   Currently we do not specify a default of '1' in the denominator, but this is being discussed. Other examples: 200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.",
+                "short": "Dose quantity per unit of time",
+                "min": 0,
                 "isSummary": true,
+                "path": "MedicationStatement.dosage.rate[x]",
                 "mapping": [
                     {
                         "map": ".rateQuantity",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "Ratio"
-                    },
-                    {
-                        "code": "Range"
                     }
                 ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage.rate[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Dose quantity per unit of time",
-                "definition": "Identifies the speed with which the medication was or will be introduced into the patient. Typically the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr.  May also be expressed as a rate per unit of time e.g. 500 ml per 2 hours.   Currently we do not specify a default of '1' in the denominator, but this is being discussed. Other examples: 200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.rate[x]"
-                }
-            },
-            {
+                    "path": "MedicationStatement.dosage.maxDosePerPeriod",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The maximum total quantity of a therapeutic substance that may be administered to a subject over the period of time.  For example, 1000mg in 24 hours.",
+                "short": "Maximum dose that was consumed per unit of time",
+                "min": 0,
                 "isSummary": true,
+                "path": "MedicationStatement.dosage.maxDosePerPeriod",
                 "mapping": [
                     {
                         "map": ".maxDoseQuantity",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Ratio"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "MedicationStatement.dosage.maxDosePerPeriod",
-                "max": "1",
-                "min": 0,
-                "short": "Maximum dose that was consumed per unit of time",
-                "definition": "The maximum total quantity of a therapeutic substance that may be administered to a subject over the period of time.  For example, 1000mg in 24 hours.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "MedicationStatement.dosage.maxDosePerPeriod"
+                ]
+            }
+        ]
+    },
+    "description": "Defines constraints and extensions on the MedicationStatement resource for use in querying and retrieving patient's medication information.",
+    "url": "http://hl7.org/fhir/StructureDefinition/daf-medicationstatement",
+    "fhirVersion": "1.0.2",
+    "display": "DAF-MedicationStatement",
+    "base": "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://www.healthit.gov",
+                    "system": "other"
                 }
-            }
-        ]
-    },
-    "name": "U.S. Data Access Framework (DAF) MedicationStatement Profile",
-    "differential": {
-        "element": [
-            {
-                "type": [
-                    {
-                        "code": "MedicationStatement"
-                    }
-                ],
-                "path": "MedicationStatement",
-                "min": 0,
-                "definition": "Statement that a medication is/was actively taken by a patient.",
-                "name": "DAF-MedicationStatement",
-                "max": "*"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "*",
-                "path": "MedicationStatement.identifier"
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "MedicationStatement.patient"
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-pract"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-relatedperson"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "MedicationStatement.informationSource"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "MedicationStatement.wasNotTaken"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "MedicationStatement.reasonNotTaken"
-            },
-            {
-                "min": 0,
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "MedicationStatement.effectivePeriod"
-            },
-            {
-                "min": 1,
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/daf-medication"
-                        ]
-                    }
-                ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "MedicationStatement.medication"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "*",
-                "path": "MedicationStatement.dosage"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "MedicationStatement.dosage.timing"
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "path": "MedicationStatement.dosage.siteCodeableConcept",
-                "min": 0,
-                "binding": {
-                    "description": "This identifies the body site at which the substance was administered",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-bodysite"
-                    },
-                    "strength": "preferred"
-                },
-                "max": "1",
-                "mustSupport": true
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "binding": {
-                    "description": "This identifies the route of substance administration.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/daf-medication-route"
-                    },
-                    "strength": "preferred"
-                },
-                "max": "1",
-                "path": "MedicationStatement.dosage.route"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "MedicationStatement.dosage.quantity[x]"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "MedicationStatement.dosage.rate[x]"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "MedicationStatement.dosage.maxDosePerPeriod"
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2014-08-21",
-    "description": "Defines constraints and extensions on the MedicationStatement resource for use in querying and retrieving patient's medication information."
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Infrastructure and Messaging - Data Access Framework)"
 }

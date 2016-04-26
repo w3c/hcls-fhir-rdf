@@ -1,19 +1,6 @@
 {
     "id": "uslab-cctarget",
-    "constrainedType": "Organization",
-    "abstract": false,
-    "resourceType": "StructureDefinition",
-    "contact": [
-        {
-            "telecom": [
-                {
-                    "value": "http://hl7.org",
-                    "system": "other"
-                }
-            ]
-        }
-    ],
-    "base": "http://hl7.org/fhir/StructureDefinition/Organization",
+    "date": "2014-11-17",
     "differential": {
         "element": [
             {
@@ -22,32 +9,25 @@
                         "code": "Organization"
                     }
                 ],
+                "name": "USLab-CCTarget",
+                "max": "*",
+                "definition": "This is used when the orderer designates another organization such as a public health agency to receive results.",
                 "constraint": [
                     {
-                        "xpath": "exists(f:name) or exists(f:identifier)",
                         "human": "Shall have Organization.name and/or Organization.identifier.",
                         "severity": "error",
+                        "xpath": "exists(f:name) or exists(f:identifier)",
                         "key": "inv-1"
                     }
                 ],
-                "path": "Organization",
+                "short": "Copy to Organization",
+                "min": 0,
                 "alias": [
                     "Ordering Facility"
                 ],
-                "min": 0,
-                "short": "Copy to Organization",
-                "name": "USLab-CCTarget",
-                "max": "*",
-                "definition": "This is used when the orderer designates another organization such as a public health agency to receive results."
+                "path": "Organization"
             },
             {
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Organization.identifier",
                 "slicing": {
                     "discriminator": [
                         "system"
@@ -55,95 +35,105 @@
                     "ordered": true,
                     "rules": "open"
                 },
-                "min": 0,
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
                 "name": "USlabCCFacilityNPI",
                 "max": "*",
+                "comments": "The first identifier shall be the NPI facility ID.",
+                "min": 0,
                 "condition": [
                     "inv-1"
                 ],
-                "comments": "The first identifier shall be the NPI facility ID."
+                "path": "Organization.identifier"
             },
             {
-                "min": 1,
                 "mustSupport": true,
-                "max": "1",
-                "path": "Organization.identifier.use"
+                "min": 1,
+                "path": "Organization.identifier.use",
+                "max": "1"
             },
             {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
-                "path": "Organization.identifier.system",
-                "max": "1",
-                "min": 1,
-                "short": "See http://hl7.org/fhir/sid/us-npi",
                 "fixedUri": "http://hl7.org/fhir/sid/us-npi",
+                "max": "1",
                 "definition": "See http://hl7.org/fhir/sid/us-npi.",
-                "mustSupport": true
+                "short": "See http://hl7.org/fhir/sid/us-npi",
+                "min": 1,
+                "path": "Organization.identifier.system"
             },
             {
                 "mustSupport": true,
-                "path": "Organization.identifier.value",
                 "max": "1",
-                "min": 1,
+                "definition": "NPI  organization Identifier.",
                 "short": "NPI  organization Identifier",
-                "definition": "NPI  organization Identifier."
+                "min": 1,
+                "path": "Organization.identifier.value"
             },
             {
-                "min": 0,
                 "condition": [
                     "inv-1"
                 ],
-                "max": "1",
                 "mustSupport": true,
-                "path": "Organization.name"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "*",
-                "path": "Organization.telecom"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "1",
-                "path": "Organization.telecom.system"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "1",
-                "path": "Organization.telecom.value"
-            },
-            {
-                "min": 1,
-                "mustSupport": true,
-                "max": "*",
-                "path": "Organization.address"
-            },
-            {
                 "min": 0,
+                "path": "Organization.name",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "Organization.telecom",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "Organization.telecom.system",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "Organization.telecom.value",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 1,
+                "path": "Organization.address",
+                "max": "*"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "Organization.address.use",
+                "max": "1"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "Organization.address.line",
+                "max": "2"
+            },
+            {
+                "mustSupport": true,
+                "min": 0,
+                "path": "Organization.address.city",
+                "max": "1"
+            },
+            {
                 "mustSupport": true,
                 "max": "1",
-                "path": "Organization.address.use"
-            },
-            {
+                "requirements": "State SHALL be the two letter USPS alphabetic codes.",
                 "min": 0,
-                "mustSupport": true,
-                "max": "2",
-                "path": "Organization.address.line"
-            },
-            {
-                "min": 0,
-                "mustSupport": true,
-                "max": "1",
-                "path": "Organization.address.city"
-            },
-            {
-                "mustSupport": true,
                 "binding": {
                     "description": "Two letter USPS alphabetic codes.",
                     "valueSetReference": {
@@ -151,97 +141,128 @@
                     },
                     "strength": "required"
                 },
-                "path": "Organization.address.state",
-                "min": 0,
-                "requirements": "State SHALL be the two letter USPS alphabetic codes.",
-                "max": "1"
+                "path": "Organization.address.state"
             },
             {
                 "mustSupport": true,
-                "constraint": [
-                    {
-                        "xpath": "f:matches(issued,[0-9]{5}(-[0-9]{4}){0,1} )",
-                        "human": "(Zip or Postal Code) SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes or as A9A9A9 for Canadian postal codes.",
-                        "severity": "error",
-                        "key": "inv-2"
-                    }
-                ],
-                "path": "Organization.address.postalCode",
-                "max": "1",
-                "min": 0,
-                "short": "US Zip Codes",
                 "condition": [
                     "inv-2"
                 ],
+                "constraint": [
+                    {
+                        "human": "(Zip or Postal Code) SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes or as A9A9A9 for Canadian postal codes.",
+                        "severity": "error",
+                        "xpath": "f:matches(issued,[0-9]{5}(-[0-9]{4}){0,1} )",
+                        "key": "inv-2"
+                    }
+                ],
+                "max": "1",
+                "definition": "US Zip Codes.",
                 "requirements": "Zip or Postal Code SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes.",
-                "definition": "US Zip Codes."
+                "short": "US Zip Codes",
+                "min": 0,
+                "path": "Organization.address.postalCode"
             },
             {
                 "mustSupport": true,
+                "max": "1",
+                "definition": "ISO 3166 3 letter Country Code.",
+                "requirements": "Country SHALL be ISO 3166 3 letter codes.",
+                "short": "ISO 3166 3 letter Country Code",
+                "min": 0,
                 "binding": {
                     "description": "ISO 2 letter country codes.",
-                    "valueSetUri": "http://www.iso.org/iso/country_codes.htm",
-                    "strength": "required"
+                    "strength": "required",
+                    "valueSetUri": "http://www.iso.org/iso/country_codes.htm"
                 },
-                "path": "Organization.address.country",
-                "max": "1",
-                "min": 0,
-                "short": "ISO 3166 3 letter Country Code",
-                "requirements": "Country SHALL be ISO 3166 3 letter codes.",
-                "definition": "ISO 3166 3 letter Country Code."
+                "path": "Organization.address.country"
             },
             {
                 "mustSupport": true,
-                "path": "Organization.contact",
                 "max": "1",
-                "min": 0,
+                "definition": "The official contact for the laboratory is the medical director.",
                 "short": "Medical Director",
-                "definition": "The official contact for the laboratory is the medical director."
+                "min": 0,
+                "path": "Organization.contact"
             },
             {
+                "mustSupport": true,
                 "min": 0,
                 "type": [
                     {
                         "code": "HumanName"
                     }
                 ],
-                "max": "1",
-                "mustSupport": true,
-                "path": "Organization.contact.name"
+                "path": "Organization.contact.name",
+                "max": "1"
             },
             {
+                "mustSupport": true,
                 "min": 1,
-                "mustSupport": true,
-                "max": "1",
-                "path": "Organization.contact.name.family"
+                "path": "Organization.contact.name.family",
+                "max": "1"
             },
             {
-                "min": 0,
                 "mustSupport": true,
-                "max": "2",
                 "comments": "Can be first and middle name or initial.",
-                "path": "Organization.contact.name.given"
+                "min": 0,
+                "path": "Organization.contact.name.given",
+                "max": "2"
             },
             {
-                "min": 0,
                 "mustSupport": true,
-                "max": "1",
-                "path": "Organization.contact.name.prefix"
+                "min": 0,
+                "path": "Organization.contact.name.prefix",
+                "max": "1"
             },
             {
-                "min": 0,
                 "mustSupport": true,
-                "max": "1",
-                "path": "Organization.contact.name.suffix"
+                "min": 0,
+                "path": "Organization.contact.name.suffix",
+                "max": "1"
             }
         ]
     },
-    "url": "http://hl7.org/fhir/StructureDefinition/uslab-cctarget",
+    "name": "US Laboratory Organization Profile",
+    "abstract": false,
+    "status": "draft",
     "kind": "resource",
-    "publisher": "Health Level Seven International (Orders and Observations - US Lab)",
+    "constrainedType": "Organization",
     "snapshot": {
         "element": [
             {
+                "base": {
+                    "min": 0,
+                    "path": "Organization",
+                    "max": "*"
+                },
+                "type": [
+                    {
+                        "code": "Organization"
+                    }
+                ],
+                "name": "USLab-CCTarget",
+                "max": "*",
+                "definition": "This is used when the orderer designates another organization such as a public health agency to receive results.",
+                "constraint": [
+                    {
+                        "human": "The organization SHALL at least have a name or an id, and possibly more than one",
+                        "severity": "error",
+                        "xpath": "count(f:identifier | f:name) > 0",
+                        "key": "org-1"
+                    },
+                    {
+                        "human": "Shall have Organization.name and/or Organization.identifier.",
+                        "severity": "error",
+                        "xpath": "exists(f:name) or exists(f:identifier)",
+                        "key": "inv-1"
+                    }
+                ],
+                "short": "Copy to Organization",
+                "min": 0,
+                "alias": [
+                    "Ordering Facility"
+                ],
                 "mapping": [
                     {
                         "map": "(also see master files messages)",
@@ -260,39 +281,7 @@
                         "identity": "w5"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Organization"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:identifier | f:name) > 0",
-                        "human": "The organization SHALL at least have a name or an id, and possibly more than one",
-                        "severity": "error",
-                        "key": "org-1"
-                    },
-                    {
-                        "xpath": "exists(f:name) or exists(f:identifier)",
-                        "human": "Shall have Organization.name and/or Organization.identifier.",
-                        "severity": "error",
-                        "key": "inv-1"
-                    }
-                ],
-                "path": "Organization",
-                "alias": [
-                    "Ordering Facility"
-                ],
-                "min": 0,
-                "short": "Copy to Organization",
-                "name": "USLab-CCTarget",
-                "max": "*",
-                "definition": "This is used when the orderer designates another organization such as a public health agency to receive results.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization"
-                }
+                "path": "Organization"
             },
             {
                 "type": [
@@ -300,18 +289,18 @@
                         "code": "id"
                     }
                 ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Organization.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Organization.id"
-                }
+                    "path": "Organization.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Organization.id",
+                "isSummary": true
             },
             {
                 "type": [
@@ -319,17 +308,17 @@
                         "code": "Meta"
                     }
                 ],
-                "isSummary": true,
-                "path": "Organization.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Organization.meta"
-                }
+                    "path": "Organization.meta",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.meta"
             },
             {
                 "type": [
@@ -337,19 +326,19 @@
                         "code": "uri"
                     }
                 ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Organization.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Organization.implicitRules"
-                }
+                    "path": "Organization.implicitRules",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Organization.implicitRules",
+                "isSummary": true
             },
             {
                 "type": [
@@ -357,167 +346,143 @@
                         "code": "code"
                     }
                 ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Organization.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written.",
                 "base": {
                     "min": 0,
-                    "max": "1",
-                    "path": "Organization.language"
-                }
+                    "path": "Organization.language",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Organization.language"
             },
             {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
+                "condition": [
+                    "dom-1"
                 ],
                 "type": [
                     {
                         "code": "Narrative"
                     }
                 ],
-                "condition": [
-                    "dom-1"
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Organization.text",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
                 "alias": [
                     "narrative",
                     "html",
                     "xhtml",
                     "display"
                 ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.text"
-                }
-            },
-            {
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Organization.text",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "Act.text?",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Resource"
                     }
                 ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Organization.contained",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contained",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
                 "alias": [
                     "inline resources",
                     "anonymous resources",
                     "contained resources"
                 ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.contained"
-                }
-            },
-            {
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Organization.contained",
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
                 ],
                 "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
                 "path": "Organization.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.extension"
-                }
-            },
-            {
                 "mapping": [
                     {
                         "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.modifierExtension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.modifierExtension",
                 "mapping": [
                     {
-                        "map": "XON.10 / XON.3",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".scopes[Role](classCode=IDENT)",
+                        "map": "N/A",
                         "identity": "rim"
-                    },
-                    {
-                        "map": "./Identifiers",
-                        "identity": "servd"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "isSummary": true,
+                ]
+            },
+            {
                 "slicing": {
                     "discriminator": [
                         "system"
@@ -526,21 +491,24 @@
                     "rules": "open"
                 },
                 "min": 0,
+                "max": "*",
+                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
                 "short": "Identifies this organization  across multiple systems",
+                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.identifier",
+                    "max": "*"
+                },
                 "condition": [
                     "org-1"
                 ],
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.identifier"
-                },
-                "path": "Organization.identifier",
-                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
-                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems."
-            },
-            {
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": "XON.10 / XON.3",
@@ -559,85 +527,123 @@
                         "identity": "w5"
                     }
                 ],
+                "path": "Organization.identifier"
+            },
+            {
+                "condition": [
+                    "org-1"
+                ],
+                "name": "USlabCCFacilityNPI",
+                "max": "*",
+                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
+                "short": "Identifies this organization  across multiple systems",
+                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.identifier",
+                    "max": "*"
+                },
+                "mapping": [
+                    {
+                        "map": "XON.10 / XON.3",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".scopes[Role](classCode=IDENT)",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "./Identifiers",
+                        "identity": "servd"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "mustSupport": true,
+                "path": "Organization.identifier",
+                "comments": "The first identifier shall be the NPI facility ID.",
                 "type": [
                     {
                         "code": "Identifier"
                     }
                 ],
                 "isSummary": true,
-                "min": 0,
-                "short": "Identifies this organization  across multiple systems",
-                "condition": [
-                    "org-1"
-                ],
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.identifier"
-                },
-                "mustSupport": true,
-                "comments": "The first identifier shall be the NPI facility ID.",
-                "path": "Organization.identifier",
-                "name": "USlabCCFacilityNPI",
-                "requirements": "Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.",
-                "definition": "Identifier for the organization that is used to identify the organization across multiple disparate systems."
+                "min": 0
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Organization.identifier.id",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Organization.identifier.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.identifier.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Identifier.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.identifier.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Allows the appropriate identifier for a particular context of use to be selected from among a set of identifiers.",
+                "binding": {
+                    "description": "Identifies the purpose for this identifier, if known .",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/identifier-use"
+                    },
+                    "strength": "required"
+                },
+                "short": "usual | official | temp | secondary (If known)",
+                "definition": "The purpose of this identifier.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.use",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "N/A",
@@ -648,35 +654,28 @@
                         "identity": "rim"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary id for a permanent one. Applications can assume that an identifier is permanent unless it explicitly says that it is temporary.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "usual | official | temp | secondary (If known)",
-                "binding": {
-                    "description": "Identifies the purpose for this identifier, if known .",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/identifier-use"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.use"
-                },
-                "mustSupport": true,
                 "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary id for a permanent one. Applications can assume that an identifier is permanent unless it explicitly says that it is temporary.",
-                "path": "Organization.identifier.use",
-                "requirements": "Allows the appropriate identifier for a particular context of use to be selected from among a set of identifiers.",
-                "definition": "The purpose of this identifier."
+                "isSummary": true,
+                "path": "Organization.identifier.use"
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Allows users to make use of identifiers when the identifier system is not known.",
+                "short": "Description of identifier",
+                "definition": "A coded type for the identifier that can be used to determine which identifier to use for a specific purpose.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.type",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "CX.5",
@@ -687,14 +686,12 @@
                         "identity": "rim"
                     }
                 ],
+                "comments": "This element deals only with general categories of identifiers.  It SHOULD not be used for codes that correspond 1..1 with the Identifier.system. Some identifiers may fall into multiple categories due to common usage. \n\nWhere the system is known, a type is unnecessary because the type is always part of the system definition. However systems often need to handle identifiers where the system is not known. There is not a 1:1 relationship between type and system, since many different systems have the same type.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Description of identifier",
                 "binding": {
                     "description": "A coded type for an identifier that can be used to determine which identifier to use for a specific purpose.",
                     "valueSetReference": {
@@ -702,18 +699,21 @@
                     },
                     "strength": "extensible"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.type"
-                },
-                "comments": "This element deals only with general categories of identifiers.  It SHOULD not be used for codes that correspond 1..1 with the Identifier.system. Some identifiers may fall into multiple categories due to common usage. \n\nWhere the system is known, a type is unnecessary because the type is always part of the system definition. However systems often need to handle identifiers where the system is not known. There is not a 1:1 relationship between type and system, since many different systems have the same type.",
-                "path": "Organization.identifier.type",
-                "requirements": "Allows users to make use of identifiers when the identifier system is not known.",
-                "definition": "A coded type for the identifier that can be used to determine which identifier to use for a specific purpose."
+                "isSummary": true,
+                "path": "Organization.identifier.type"
             },
             {
+                "min": 1,
+                "fixedUri": "http://hl7.org/fhir/sid/us-npi",
+                "max": "1",
+                "requirements": "There are many sequences of identifiers.  To perform matching, we need to know what sequence we're dealing with. The system identifies a particular sequence or set of unique identifiers.",
+                "short": "See http://hl7.org/fhir/sid/us-npi",
+                "definition": "See http://hl7.org/fhir/sid/us-npi.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.system",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "CX.4 / EI-2-4",
@@ -728,28 +728,27 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "exampleUri": "http://www.acme.com/identifiers/patient or urn:ietf:rfc:3986 if the Identifier.value itself is a full uri",
                 "type": [
                     {
                         "code": "uri"
                     }
                 ],
-                "requirements": "There are many sequences of identifiers.  To perform matching, we need to know what sequence we're dealing with. The system identifies a particular sequence or set of unique identifiers.",
                 "isSummary": true,
-                "min": 1,
-                "short": "See http://hl7.org/fhir/sid/us-npi",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.system"
-                },
-                "mustSupport": true,
-                "path": "Organization.identifier.system",
-                "fixedUri": "http://hl7.org/fhir/sid/us-npi",
-                "definition": "See http://hl7.org/fhir/sid/us-npi.",
-                "exampleUri": "http://www.acme.com/identifiers/patient or urn:ietf:rfc:3986 if the Identifier.value itself is a full uri"
+                "path": "Organization.identifier.system"
             },
             {
+                "exampleString": "123456",
+                "min": 1,
+                "max": "1",
+                "short": "NPI  organization Identifier",
+                "definition": "NPI  organization Identifier.",
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.value",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "CX.1 / EI.1",
@@ -764,27 +763,33 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "If the value is a full URI, then the system SHALL be urn:ietf:rfc:3986.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
                 "isSummary": true,
-                "exampleString": "123456",
-                "min": 1,
-                "short": "NPI  organization Identifier",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.value"
-                },
-                "mustSupport": true,
-                "comments": "If the value is a full URI, then the system SHALL be urn:ietf:rfc:3986.",
-                "path": "Organization.identifier.value",
-                "definition": "NPI  organization Identifier."
+                "path": "Organization.identifier.value"
             },
             {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.period",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Time period during which identifier is/was valid for use.",
+                "short": "Time period when id is/was valid for use",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.identifier.period",
                 "mapping": [
                     {
                         "map": "CX.7 + CX.8",
@@ -798,25 +803,24 @@
                         "map": "./StartDate and ./EndDate",
                         "identity": "servd"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.identifier.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when id is/was valid for use",
-                "definition": "Time period during which identifier is/was valid for use.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.period"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Identifier.assigner",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Organization that issued/manages the identifier.",
                 "mapping": [
                     {
                         "map": "CX.4 / (CX.4,CX.9,CX.10)",
@@ -831,28 +835,23 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
+                "short": "Organization that issued id (may be just text)",
+                "min": 0,
                 "comments": "The reference may be just a text description of the assigner.",
                 "path": "Organization.identifier.assigner",
-                "max": "1",
-                "min": 0,
-                "short": "Organization that issued id (may be just text)",
-                "definition": "Organization that issued/manages the identifier.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Identifier.assigner"
-                }
+                "isSummary": true
             },
             {
+                "defaultValueBoolean": true,
+                "max": "1",
+                "isModifier": true,
+                "short": "Whether the organization's record is still in active use",
+                "definition": "Whether the organization's record is still in active use.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.active",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "No equivalent in HL7 v2",
@@ -871,28 +870,28 @@
                         "identity": "w5"
                     }
                 ],
+                "requirements": "Need a flag to indicate a record is no longer to be used and should generally be hidden for the user in the UI.",
+                "path": "Organization.active",
+                "comments": "Default is true.",
                 "type": [
                     {
                         "code": "boolean"
                     }
                 ],
                 "isSummary": true,
-                "min": 0,
-                "short": "Whether the organization's record is still in active use",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.active"
-                },
-                "isModifier": true,
-                "comments": "Default is true.",
-                "path": "Organization.active",
-                "requirements": "Need a flag to indicate a record is no longer to be used and should generally be hidden for the user in the UI.",
-                "definition": "Whether the organization's record is still in active use.",
-                "defaultValueBoolean": true
+                "min": 0
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Need to be able to track the kind of organization that this is - different organization types have different uses.",
+                "short": "Kind of organization",
+                "definition": "The kind of organization that this is.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.type",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "No equivalent in v2",
@@ -911,14 +910,12 @@
                         "identity": "w5"
                     }
                 ],
+                "comments": "Organizations can be corporations, wards, sections, clinical teams, government departments, etc. Note that code is generally a classifier of the type of organization; in many applications, codes are used to identity a particular organization (say, ward) as opposed to another of the same type - these are identifiers, not codes.",
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Kind of organization",
                 "binding": {
                     "description": "Used to categorize the organization",
                     "valueSetReference": {
@@ -926,18 +923,30 @@
                     },
                     "strength": "example"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.type"
-                },
-                "comments": "Organizations can be corporations, wards, sections, clinical teams, government departments, etc. Note that code is generally a classifier of the type of organization; in many applications, codes are used to identity a particular organization (say, ward) as opposed to another of the same type - these are identifiers, not codes.",
-                "path": "Organization.type",
-                "requirements": "Need to be able to track the kind of organization that this is - different organization types have different uses.",
-                "definition": "The kind of organization that this is."
+                "isSummary": true,
+                "path": "Organization.type"
             },
             {
+                "condition": [
+                    "org-1"
+                ],
+                "max": "1",
+                "requirements": "Need to use the name as the label of the organization.",
+                "short": "Name used for the organization",
+                "definition": "A name associated with the organization.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.name",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "path": "Organization.name",
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": "XON.1",
@@ -952,29 +961,37 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Name used for the organization",
-                "condition": [
-                    "org-1"
-                ],
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.name"
-                },
-                "mustSupport": true,
-                "path": "Organization.name",
-                "requirements": "Need to use the name as the label of the organization.",
-                "definition": "A name associated with the organization."
+                "min": 0
             },
             {
+                "path": "Organization.telecom",
+                "condition": [
+                    "org-3"
+                ],
+                "max": "*",
+                "requirements": "Human contact for the organization.",
+                "short": "A contact detail for the organization",
+                "definition": "A contact detail for the organization.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.telecom",
+                    "max": "*"
+                },
+                "mustSupport": true,
+                "constraint": [
+                    {
+                        "human": "The telecom of an organization can never be of use 'home'",
+                        "severity": "error",
+                        "xpath": "count(f:use[@value='home']) = 0",
+                        "key": "org-3"
+                    }
+                ],
+                "comments": "The use code home is not to be used. Note that these contacts are not the contact details of people who are employed by or represent the organization, but official contacts for the organization itself.",
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": "ORC-22?",
@@ -989,91 +1006,89 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:use[@value='home']) = 0",
-                        "human": "The telecom of an organization can never be of use 'home'",
-                        "severity": "error",
-                        "key": "org-3"
-                    }
-                ],
-                "min": 1,
-                "short": "A contact detail for the organization",
-                "condition": [
-                    "org-3"
-                ],
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.telecom"
-                },
-                "mustSupport": true,
-                "comments": "The use code home is not to be used. Note that these contacts are not the contact details of people who are employed by or represent the organization, but official contacts for the organization itself.",
-                "path": "Organization.telecom",
-                "requirements": "Human contact for the organization.",
-                "definition": "A contact detail for the organization."
+                "min": 1
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Organization.telecom.id",
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "ContactPoint.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Organization.telecom.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.telecom.extension",
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "ContactPoint.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.telecom.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "condition": [
+                    "cpt-2"
+                ],
+                "max": "1",
+                "short": "phone | fax | email | pager | other",
+                "definition": "Telecommunications form for contact point - what communications system is required to make use of the contact.",
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.system",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "path": "Organization.telecom.system",
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "binding": {
+                    "description": "Telecommunications form for contact point",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-system"
+                    },
+                    "strength": "required"
+                },
                 "mapping": [
                     {
                         "map": "XTN.3",
@@ -1088,35 +1103,19 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "min": 1,
-                "short": "phone | fax | email | pager | other",
-                "condition": [
-                    "cpt-2"
-                ],
-                "binding": {
-                    "description": "Telecommunications form for contact point",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/contact-point-system"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "ContactPoint.system"
-                },
-                "mustSupport": true,
-                "path": "Organization.telecom.system",
-                "definition": "Telecommunications form for contact point - what communications system is required to make use of the contact."
+                "min": 1
             },
             {
+                "min": 1,
+                "max": "1",
+                "requirements": "Need to support legacy numbers that are not in a tightly controlled format.",
+                "short": "The actual contact point details",
+                "definition": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address).",
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.value",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "XTN.1 (or XTN.12)",
@@ -1131,27 +1130,27 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Additional text data such as phone extension numbers, or notes about use of the contact are sometimes included in the value.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
                 "isSummary": true,
-                "min": 1,
-                "short": "The actual contact point details",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "ContactPoint.value"
-                },
-                "mustSupport": true,
-                "comments": "Additional text data such as phone extension numbers, or notes about use of the contact are sometimes included in the value.",
-                "path": "Organization.telecom.value",
-                "requirements": "Need to support legacy numbers that are not in a tightly controlled format.",
-                "definition": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address)."
+                "path": "Organization.telecom.value"
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "home | work | temp | old | mobile - purpose of this contact point",
+                "definition": "Identifies the purpose for the contact point.",
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.use",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "XTN.2 - but often indicated by field",
@@ -1166,14 +1165,13 @@
                         "identity": "servd"
                     }
                 ],
+                "requirements": "Need to track the way a person uses this contact, so a user can choose which is appropriate for their purpose.",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old contact etc.for a current/permanent one. Applications can assume that a contact is current unless it explicitly says that it is temporary or old.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "home | work | temp | old | mobile - purpose of this contact point",
                 "binding": {
                     "description": "Use of contact point",
                     "valueSetReference": {
@@ -1181,19 +1179,22 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "ContactPoint.use"
-                },
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old contact etc.for a current/permanent one. Applications can assume that a contact is current unless it explicitly says that it is temporary or old.",
-                "path": "Organization.telecom.use",
-                "requirements": "Need to track the way a person uses this contact, so a user can choose which is appropriate for their purpose.",
-                "definition": "Identifies the purpose for the contact point."
+                "isSummary": true,
+                "path": "Organization.telecom.use"
             },
             {
+                "type": [
+                    {
+                        "code": "positiveInt"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.rank",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Specifies a preferred order in which to use a set of contacts. Contacts are ranked with lower values coming before higher values.",
                 "mapping": [
                     {
                         "map": "n/a",
@@ -1204,25 +1205,29 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "positiveInt"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Specify preferred order of use (1 = highest)",
+                "min": 0,
                 "comments": "Note that rank does not necessarily follow the order in which the contacts are represented in the instance.",
                 "path": "Organization.telecom.rank",
-                "max": "1",
-                "min": 0,
-                "short": "Specify preferred order of use (1 = highest)",
-                "definition": "Specifies a preferred order in which to use a set of contacts. Contacts are ranked with lower values coming before higher values.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "ContactPoint.rank"
-                }
+                "isSummary": true
             },
             {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "ContactPoint.period",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Time period when the contact point was/is in use.",
+                "short": "Time period when the contact point was/is in use",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.telecom.period",
                 "mapping": [
                     {
                         "map": "N/A",
@@ -1236,25 +1241,37 @@
                         "map": "./StartDate and ./EndDate",
                         "identity": "servd"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.telecom.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when the contact point was/is in use",
-                "definition": "Time period when the contact point was/is in use.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "ContactPoint.period"
-                }
+                ]
             },
             {
+                "path": "Organization.address",
+                "condition": [
+                    "org-2"
+                ],
+                "max": "*",
+                "requirements": "May need to keep track of the organization's addresses for contacting, billing or reporting requirements.",
+                "short": "An address for the organization",
+                "definition": "An address for the organization.",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.address",
+                    "max": "*"
+                },
+                "mustSupport": true,
+                "constraint": [
+                    {
+                        "human": "An address of an organization can never be of use 'home'",
+                        "severity": "error",
+                        "xpath": "count(f:use[@value='home']) = 0",
+                        "key": "org-2"
+                    }
+                ],
+                "comments": "Organization may have multiple addresses with different uses or applicable periods. The use code home is not to be used.",
+                "type": [
+                    {
+                        "code": "Address"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": "ORC-23?",
@@ -1269,91 +1286,80 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Address"
-                    }
-                ],
-                "constraint": [
-                    {
-                        "xpath": "count(f:use[@value='home']) = 0",
-                        "human": "An address of an organization can never be of use 'home'",
-                        "severity": "error",
-                        "key": "org-2"
-                    }
-                ],
-                "min": 1,
-                "short": "An address for the organization",
-                "condition": [
-                    "org-2"
-                ],
-                "max": "*",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.address"
-                },
-                "mustSupport": true,
-                "comments": "Organization may have multiple addresses with different uses or applicable periods. The use code home is not to be used.",
-                "path": "Organization.address",
-                "requirements": "May need to keep track of the organization's addresses for contacting, billing or reporting requirements.",
-                "definition": "An address for the organization."
+                "min": 1
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Organization.address.id",
+                "base": {
+                    "min": 0,
+                    "path": "Address.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Organization.address.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.address.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Address.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Address.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.address.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Allows an appropriate address to be chosen from a list of many.",
+                "binding": {
+                    "description": "The use of an address",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/address-use"
+                    },
+                    "strength": "required"
+                },
+                "short": "home | work | temp | old - purpose of this address",
+                "definition": "The purpose of this address.",
+                "base": {
+                    "min": 0,
+                    "path": "Address.use",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "XAD.7",
@@ -1368,37 +1374,43 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old address etc.for a current/permanent one. Applications can assume that an address is current unless it explicitly says that it is temporary or old.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
+                "exampleCode": "home",
                 "isSummary": true,
-                "min": 0,
-                "short": "home | work | temp | old - purpose of this address",
+                "path": "Organization.address.use",
+                "isModifier": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Address.type",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.",
                 "binding": {
-                    "description": "The use of an address",
+                    "description": "The type of an address (physical / postal)",
                     "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/address-use"
+                        "reference": "http://hl7.org/fhir/ValueSet/address-type"
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.use"
-                },
-                "exampleCode": "home",
-                "mustSupport": true,
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old address etc.for a current/permanent one. Applications can assume that an address is current unless it explicitly says that it is temporary or old.",
-                "path": "Organization.address.use",
-                "requirements": "Allows an appropriate address to be chosen from a list of many.",
-                "definition": "The purpose of this address."
-            },
-            {
+                "short": "postal | physical | both",
+                "min": 0,
                 "exampleCode": "both",
+                "isSummary": true,
+                "path": "Organization.address.type",
                 "mapping": [
                     {
                         "map": "address type parameter",
@@ -1412,32 +1424,20 @@
                         "map": "unique(./use)",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.address.type",
-                "max": "1",
-                "min": 0,
-                "short": "postal | physical | both",
-                "binding": {
-                    "description": "The type of an address (physical / postal)",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/address-type"
-                    },
-                    "strength": "required"
-                },
-                "definition": "Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.type"
-                }
+                ]
             },
             {
+                "exampleString": "137 Nowhere Street, Erewhon 9132",
+                "min": 0,
+                "max": "1",
+                "requirements": "A renderable, unencoded form.",
+                "short": "Text representation of the address",
+                "definition": "A full text representation of the address.",
+                "base": {
+                    "min": 0,
+                    "path": "Address.text",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "address label parameter",
@@ -1452,27 +1452,34 @@
                         "identity": "rim"
                     }
                 ],
+                "comments": "Can provide both a text representation and parts.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
                 "isSummary": true,
-                "path": "Organization.address.text",
-                "min": 0,
-                "short": "Text representation of the address",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.text"
-                },
-                "comments": "Can provide both a text representation and parts.",
-                "exampleString": "137 Nowhere Street, Erewhon 9132",
-                "requirements": "A renderable, unencoded form.",
-                "definition": "A full text representation of the address."
+                "path": "Organization.address.text"
             },
             {
+                "exampleString": "137 Nowhere Street",
+                "min": 0,
+                "max": "2",
+                "requirements": "home | work | temp | old - purpose of this address.",
+                "short": "Street name, number, direction & P.O. Box etc.",
+                "definition": "This component contains the house number, apartment number, street name, street direction,  P.O. Box number, delivery hints, and similar address information.",
+                "base": {
+                    "min": 0,
+                    "path": "Address.line",
+                    "max": "*"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
                 "mapping": [
                     {
                         "map": "street",
@@ -1491,27 +1498,29 @@
                         "identity": "servd"
                     }
                 ],
+                "path": "Organization.address.line"
+            },
+            {
+                "exampleString": "Erewhon",
+                "min": 0,
+                "max": "1",
+                "short": "Name of city, town etc.",
+                "definition": "The name of the city, town, village or other community or delivery center.",
+                "base": {
+                    "min": 0,
+                    "path": "Address.city",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "path": "Organization.address.line",
-                "min": 0,
-                "short": "Street name, number, direction & P.O. Box etc.",
-                "max": "2",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Address.line"
-                },
-                "mustSupport": true,
-                "exampleString": "137 Nowhere Street",
-                "requirements": "home | work | temp | old - purpose of this address.",
-                "definition": "This component contains the house number, apartment number, street name, street direction,  P.O. Box number, delivery hints, and similar address information."
-            },
-            {
+                "alias": [
+                    "Municpality"
+                ],
                 "mapping": [
                     {
                         "map": "locality",
@@ -1530,29 +1539,19 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.address.city",
-                "min": 0,
-                "short": "Name of city, town etc.",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.city"
-                },
-                "mustSupport": true,
-                "exampleString": "Erewhon",
-                "alias": [
-                    "Municpality"
-                ],
-                "definition": "The name of the city, town, village or other community or delivery center."
+                "path": "Organization.address.city"
             },
             {
+                "exampleString": "Madison",
+                "min": 0,
+                "max": "1",
+                "short": "District name (aka county)",
+                "definition": "The name of the administrative area (county).",
+                "base": {
+                    "min": 0,
+                    "path": "Address.district",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "XAD.9",
@@ -1563,29 +1562,47 @@
                         "identity": "rim"
                     }
                 ],
+                "comments": "District is sometimes known as county, but in some regions 'county' in used in place of city (municipality), so county name should be conveyed in city instead.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "exampleString": "Madison",
-                "min": 0,
-                "short": "District name (aka county)",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.district"
-                },
-                "comments": "District is sometimes known as county, but in some regions 'county' in used in place of city (municipality), so county name should be conveyed in city instead.",
-                "path": "Organization.address.district",
                 "alias": [
                     "County"
                 ],
-                "definition": "The name of the administrative area (county)."
+                "isSummary": true,
+                "path": "Organization.address.district"
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "State SHALL be the two letter USPS alphabetic codes.",
+                "binding": {
+                    "description": "Two letter USPS alphabetic codes.",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/usps-state"
+                    },
+                    "strength": "required"
+                },
+                "short": "Sub-unit of country (abbreviations ok)",
+                "definition": "Sub-unit of a country with limited sovereignty in a federally organized country. A code may be used if codes are in common use (i.e. US 2 letter state codes).",
+                "base": {
+                    "min": 0,
+                    "path": "Address.state",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "isSummary": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "alias": [
+                    "Province",
+                    "Territory"
+                ],
                 "mapping": [
                     {
                         "map": "region",
@@ -1604,37 +1621,38 @@
                         "identity": "servd"
                     }
                 ],
+                "path": "Organization.address.state"
+            },
+            {
+                "exampleString": "9132",
+                "min": 0,
+                "max": "1",
+                "requirements": "Zip or Postal Code SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes.",
+                "short": "US Zip Codes",
+                "definition": "US Zip Codes.",
+                "base": {
+                    "min": 0,
+                    "path": "Address.postalCode",
+                    "max": "1"
+                },
+                "mustSupport": true,
+                "constraint": [
+                    {
+                        "human": "(Zip or Postal Code) SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes or as A9A9A9 for Canadian postal codes.",
+                        "severity": "error",
+                        "xpath": "f:matches(issued,[0-9]{5}(-[0-9]{4}){0,1} )",
+                        "key": "inv-2"
+                    }
+                ],
+                "isSummary": true,
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Sub-unit of country (abbreviations ok)",
-                "binding": {
-                    "description": "Two letter USPS alphabetic codes.",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/usps-state"
-                    },
-                    "strength": "required"
-                },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.state"
-                },
-                "mustSupport": true,
-                "path": "Organization.address.state",
                 "alias": [
-                    "Province",
-                    "Territory"
+                    "Zip"
                 ],
-                "requirements": "State SHALL be the two letter USPS alphabetic codes.",
-                "definition": "Sub-unit of a country with limited sovereignty in a federally organized country. A code may be used if codes are in common use (i.e. US 2 letter state codes)."
-            },
-            {
                 "mapping": [
                     {
                         "map": "code",
@@ -1653,38 +1671,19 @@
                         "identity": "servd"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.address.postalCode",
-                "constraint": [
-                    {
-                        "xpath": "f:matches(issued,[0-9]{5}(-[0-9]{4}){0,1} )",
-                        "human": "(Zip or Postal Code) SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes or as A9A9A9 for Canadian postal codes.",
-                        "severity": "error",
-                        "key": "inv-2"
-                    }
-                ],
-                "min": 0,
-                "short": "US Zip Codes",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.postalCode"
-                },
-                "mustSupport": true,
-                "exampleString": "9132",
-                "alias": [
-                    "Zip"
-                ],
-                "requirements": "Zip or Postal Code SHALL be formatted as 99999[-9999] for US Zip or ZIP +4 codes.",
-                "definition": "US Zip Codes."
+                "path": "Organization.address.postalCode"
             },
             {
+                "min": 0,
+                "max": "1",
+                "requirements": "Country SHALL be ISO 3166 3 letter codes.",
+                "short": "ISO 3166 3 letter Country Code",
+                "definition": "ISO 3166 3 letter Country Code.",
+                "base": {
+                    "min": 0,
+                    "path": "Address.country",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "country",
@@ -1703,32 +1702,43 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "ISO 3166 3 letter codes can be used in place of a full country name.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "ISO 3166 3 letter Country Code",
                 "binding": {
                     "description": "ISO 2 letter country codes.",
-                    "valueSetUri": "http://www.iso.org/iso/country_codes.htm",
-                    "strength": "required"
+                    "strength": "required",
+                    "valueSetUri": "http://www.iso.org/iso/country_codes.htm"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.country"
-                },
-                "mustSupport": true,
-                "comments": "ISO 3166 3 letter codes can be used in place of a full country name.",
-                "path": "Organization.address.country",
-                "requirements": "Country SHALL be ISO 3166 3 letter codes.",
-                "definition": "ISO 3166 3 letter Country Code."
+                "isSummary": true,
+                "path": "Organization.address.country"
             },
             {
+                "examplePeriod": {
+                    "end": "2010-07-01",
+                    "start": "2010-03-23"
+                },
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Address.period",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Time period when address was/is in use.",
+                "requirements": "Allows addresses to be placed in historical context.",
+                "short": "Time period when address was/is in use",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.address.period",
                 "mapping": [
                     {
                         "map": "XAD.12 / XAD.13 + XAD.14",
@@ -1742,30 +1752,29 @@
                         "map": "./StartDate and ./EndDate",
                         "identity": "servd"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "examplePeriod": {
-                    "start": "2010-03-23",
-                    "end": "2010-07-01"
-                },
-                "path": "Organization.address.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when address was/is in use",
-                "requirements": "Allows addresses to be placed in historical context.",
-                "definition": "Time period when address was/is in use.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Address.period"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.partOf",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "The organization of which this organization forms a part.",
+                "requirements": "Need to be able to track the hierarchy of organizations within an organization.",
+                "short": "The organization of which this organization forms a part",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.partOf",
                 "mapping": [
                     {
                         "map": "No equivalent in HL7 v2",
@@ -1779,150 +1788,134 @@
                         "map": "n/a",
                         "identity": "servd"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.partOf",
-                "max": "1",
-                "min": 0,
-                "short": "The organization of which this organization forms a part",
-                "requirements": "Need to be able to track the hierarchy of organizations within an organization.",
-                "definition": "The organization of which this organization forms a part.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.partOf"
-                }
+                ]
             },
             {
-                "mapping": [
-                    {
-                        "map": ".contactParty",
-                        "identity": "rim"
-                    }
-                ],
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "BackboneElement"
                     }
                 ],
-                "mustSupport": true,
-                "comments": "Where multiple contacts for the same purpose are provided there is a standard extension that can be used to determine which one is the preferred contact to use.",
-                "path": "Organization.contact",
-                "max": "1",
-                "min": 0,
-                "short": "Medical Director",
-                "requirements": "Need to keep track of assigned contact points within bigger organization.",
-                "definition": "The official contact for the laboratory is the medical director.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "Organization.contact"
-                }
-            },
-            {
+                    "path": "Organization.contact",
+                    "max": "*"
+                },
+                "max": "1",
+                "definition": "The official contact for the laboratory is the medical director.",
+                "requirements": "Need to keep track of assigned contact points within bigger organization.",
+                "short": "Medical Director",
+                "min": 0,
+                "comments": "Where multiple contacts for the same purpose are provided there is a standard extension that can be used to determine which one is the preferred contact to use.",
+                "path": "Organization.contact",
                 "mapping": [
                     {
-                        "map": "n/a",
+                        "map": ".contactParty",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Organization.contact.id",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.contact.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Organization.contact.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.contact.extension",
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.contact.extension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.contact.extension",
                 "mapping": [
                     {
-                        "map": "N/A",
+                        "map": "n/a",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.modifierExtension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
                 "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.contact.modifierExtension",
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content",
                     "modifiers"
                 ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.contact.modifierExtension"
-                }
-            },
-            {
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.contact.modifierExtension",
                 "mapping": [
                     {
-                        "map": "./type",
+                        "map": "N/A",
                         "identity": "rim"
                     }
-                ],
+                ]
+            },
+            {
                 "type": [
                     {
                         "code": "CodeableConcept"
                     }
                 ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.purpose",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates a purpose for which the contact can be reached.",
+                "requirements": "Need to distinguish between multiple contact persons.",
+                "short": "The type of contact",
+                "min": 0,
                 "binding": {
                     "description": "The purpose for which you would contact a contact party",
                     "valueSetReference": {
@@ -1930,19 +1923,31 @@
                     },
                     "strength": "extensible"
                 },
-                "path": "Organization.contact.purpose",
-                "max": "1",
-                "min": 0,
-                "short": "The type of contact",
-                "requirements": "Need to distinguish between multiple contact persons.",
-                "definition": "Indicates a purpose for which the contact can be reached.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.contact.purpose"
-                }
+                "mapping": [
+                    {
+                        "map": "./type",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Organization.contact.purpose"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "HumanName"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.name",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A name associated with the contact.",
+                "requirements": "Need to be able to track the person by name.",
+                "short": "A name associated with the contact",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "PID-5, PID-9",
@@ -1953,79 +1958,73 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "HumanName"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Organization.contact.name",
-                "max": "1",
-                "min": 0,
-                "short": "A name associated with the contact",
-                "requirements": "Need to be able to track the person by name.",
-                "definition": "A name associated with the contact.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.contact.name"
-                }
+                "path": "Organization.contact.name"
             },
             {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
                 "type": [
                     {
                         "code": "id"
                     }
                 ],
-                "path": "Organization.contact.name.id",
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.id",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
                 "representation": [
                     "xmlAttr"
                 ],
-                "max": "1",
-                "min": 0,
                 "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references).",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "HumanName.id"
-                }
-            },
-            {
+                "min": 0,
                 "mapping": [
                     {
                         "map": "n/a",
                         "identity": "rim"
                     }
                 ],
+                "path": "Organization.contact.name.id"
+            },
+            {
                 "type": [
                     {
                         "code": "Extension"
                     }
                 ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Organization.contact.name.extension",
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.extension",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
                 "alias": [
                     "extensions",
                     "user content"
                 ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "HumanName.extension"
-                }
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Organization.contact.name.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
             },
             {
+                "min": 0,
+                "max": "1",
+                "isModifier": true,
+                "short": "usual | official | temp | nickname | anonymous | old | maiden",
+                "definition": "Identifies the purpose for this name.",
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.use",
+                    "max": "1"
+                },
                 "mapping": [
                     {
                         "map": "XPN.7, but often indicated by which field contains the name",
@@ -2040,14 +2039,13 @@
                         "identity": "servd"
                     }
                 ],
+                "requirements": "Allows the appropriate name for a particular context of use to be selected from among a set of names.",
+                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old name etc.for a current/permanent one. Applications can assume that a name is current unless it explicitly says that it is temporary or old.",
                 "type": [
                     {
                         "code": "code"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "usual | official | temp | nickname | anonymous | old | maiden",
                 "binding": {
                     "description": "The use of a human name",
                     "valueSetReference": {
@@ -2055,19 +2053,23 @@
                     },
                     "strength": "required"
                 },
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "HumanName.use"
-                },
-                "isModifier": true,
-                "comments": "This is labeled as \"Is Modifier\" because applications should not mistake a temporary or old name etc.for a current/permanent one. Applications can assume that a name is current unless it explicitly says that it is temporary or old.",
-                "path": "Organization.contact.name.use",
-                "requirements": "Allows the appropriate name for a particular context of use to be selected from among a set of names.",
-                "definition": "Identifies the purpose for this name."
+                "isSummary": true,
+                "path": "Organization.contact.name.use"
             },
             {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.text",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "A full text representation of the name.",
+                "requirements": "A renderable, unencoded form.",
                 "mapping": [
                     {
                         "map": "implied by XPN.11",
@@ -2078,26 +2080,22 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
+                "short": "Text representation of the full name",
+                "min": 0,
                 "comments": "Can provide both a text representation and structured parts.",
                 "path": "Organization.contact.name.text",
-                "max": "1",
-                "min": 0,
-                "short": "Text representation of the full name",
-                "requirements": "A renderable, unencoded form.",
-                "definition": "A full text representation of the name.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "HumanName.text"
-                }
+                "isSummary": true
             },
             {
+                "min": 1,
+                "max": "1",
+                "short": "Family name (often called 'Surname')",
+                "definition": "The part of a name that links to the genealogy. In some cultures (e.g. Eritrea) the family name of a son is the first name of his father.",
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.family",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": "XPN.1",
@@ -2112,29 +2110,29 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "For family name, hyphenated names such as \"Smith-Jones\" are a single name, but names with spaces such as \"Smith Jones\" are broken into multiple parts.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "min": 1,
-                "short": "Family name (often called 'Surname')",
-                "max": "1",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "HumanName.family"
-                },
-                "mustSupport": true,
-                "comments": "For family name, hyphenated names such as \"Smith-Jones\" are a single name, but names with spaces such as \"Smith Jones\" are broken into multiple parts.",
-                "path": "Organization.contact.name.family",
                 "alias": [
                     "surname"
                 ],
-                "definition": "The part of a name that links to the genealogy. In some cultures (e.g. Eritrea) the family name of a son is the first name of his father."
+                "isSummary": true,
+                "path": "Organization.contact.name.family"
             },
             {
+                "min": 0,
+                "max": "2",
+                "short": "Given names (not always 'first'). Includes middle names",
+                "definition": "Given name.",
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.given",
+                    "max": "*"
+                },
                 "mapping": [
                     {
                         "map": "XPN.2 + XPN.3",
@@ -2149,31 +2147,38 @@
                         "identity": "servd"
                     }
                 ],
+                "mustSupport": true,
+                "comments": "Can be first and middle name or initial.",
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "isSummary": true,
-                "min": 0,
-                "short": "Given names (not always 'first'). Includes middle names",
-                "max": "2",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "HumanName.given"
-                },
-                "mustSupport": true,
-                "comments": "Can be first and middle name or initial.",
-                "path": "Organization.contact.name.given",
                 "alias": [
                     "first name",
                     "middle name"
                 ],
-                "definition": "Given name."
+                "isSummary": true,
+                "path": "Organization.contact.name.given"
             },
             {
+                "mustSupport": true,
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.prefix",
+                    "max": "*"
+                },
+                "max": "1",
+                "definition": "Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that appears at the start of the name.",
+                "short": "Parts that come before the name",
+                "min": 0,
                 "isSummary": true,
+                "path": "Organization.contact.name.prefix",
                 "mapping": [
                     {
                         "map": "XPN.5",
@@ -2187,26 +2192,26 @@
                         "map": "./TitleCode",
                         "identity": "servd"
                     }
-                ],
+                ]
+            },
+            {
+                "mustSupport": true,
                 "type": [
                     {
                         "code": "string"
                     }
                 ],
-                "mustSupport": true,
-                "path": "Organization.contact.name.prefix",
-                "max": "1",
-                "min": 0,
-                "short": "Parts that come before the name",
-                "definition": "Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that appears at the start of the name.",
                 "base": {
                     "min": 0,
-                    "max": "*",
-                    "path": "HumanName.prefix"
-                }
-            },
-            {
+                    "path": "HumanName.suffix",
+                    "max": "*"
+                },
+                "max": "1",
+                "definition": "Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that appears at the end of the name.",
+                "short": "Parts that come after the name",
+                "min": 0,
                 "isSummary": true,
+                "path": "Organization.contact.name.suffix",
                 "mapping": [
                     {
                         "map": "XPN/4",
@@ -2216,25 +2221,26 @@
                         "map": "./part[partType = SFX]",
                         "identity": "rim"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "mustSupport": true,
-                "path": "Organization.contact.name.suffix",
-                "max": "1",
-                "min": 0,
-                "short": "Parts that come after the name",
-                "definition": "Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that appears at the end of the name.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "HumanName.suffix"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "Period"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "HumanName.period",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Indicates the period of time when this name was valid for the named person.",
+                "requirements": "Allows names to be placed in historical context.",
+                "short": "Time period when name was/is in use",
+                "min": 0,
+                "isSummary": true,
+                "path": "Organization.contact.name.period",
                 "mapping": [
                     {
                         "map": "XPN.13 + XPN.14",
@@ -2248,26 +2254,24 @@
                         "map": "./StartDate and ./EndDate",
                         "identity": "servd"
                     }
-                ],
-                "type": [
-                    {
-                        "code": "Period"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Organization.contact.name.period",
-                "max": "1",
-                "min": 0,
-                "short": "Time period when name was/is in use",
-                "requirements": "Allows names to be placed in historical context.",
-                "definition": "Indicates the period of time when this name was valid for the named person.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "HumanName.period"
-                }
+                ]
             },
             {
+                "type": [
+                    {
+                        "code": "ContactPoint"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.telecom",
+                    "max": "*"
+                },
+                "max": "*",
+                "definition": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted.",
+                "requirements": "People have (primary) ways to contact them in some way such as phone, email.",
+                "short": "Contact details (telephone, email, etc.)  for a contact",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "PID-13, PID-14",
@@ -2278,24 +2282,24 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "ContactPoint"
-                    }
-                ],
-                "path": "Organization.contact.telecom",
-                "max": "*",
-                "min": 0,
-                "short": "Contact details (telephone, email, etc.)  for a contact",
-                "requirements": "People have (primary) ways to contact them in some way such as phone, email.",
-                "definition": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted.",
-                "base": {
-                    "min": 0,
-                    "max": "*",
-                    "path": "Organization.contact.telecom"
-                }
+                "path": "Organization.contact.telecom"
             },
             {
+                "type": [
+                    {
+                        "code": "Address"
+                    }
+                ],
+                "base": {
+                    "min": 0,
+                    "path": "Organization.contact.address",
+                    "max": "1"
+                },
+                "max": "1",
+                "definition": "Visiting or postal addresses for the contact.",
+                "requirements": "May need to keep track of a contact party's address for contacting, billing or reporting requirements.",
+                "short": "Visiting or postal addresses for the contact",
+                "min": 0,
                 "mapping": [
                     {
                         "map": "PID-11",
@@ -2306,28 +2310,24 @@
                         "identity": "rim"
                     }
                 ],
-                "type": [
-                    {
-                        "code": "Address"
-                    }
-                ],
-                "path": "Organization.contact.address",
-                "max": "1",
-                "min": 0,
-                "short": "Visiting or postal addresses for the contact",
-                "requirements": "May need to keep track of a contact party's address for contacting, billing or reporting requirements.",
-                "definition": "Visiting or postal addresses for the contact.",
-                "base": {
-                    "min": 0,
-                    "max": "1",
-                    "path": "Organization.contact.address"
-                }
+                "path": "Organization.contact.address"
             }
         ]
     },
-    "name": "US Laboratory Organization Profile",
     "description": "Copy to Organization",
-    "status": "draft",
-    "date": "2014-11-17",
-    "fhirVersion": "1.0.2"
+    "url": "http://hl7.org/fhir/StructureDefinition/uslab-cctarget",
+    "fhirVersion": "1.0.2",
+    "base": "http://hl7.org/fhir/StructureDefinition/Organization",
+    "resourceType": "StructureDefinition",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "value": "http://hl7.org",
+                    "system": "other"
+                }
+            ]
+        }
+    ],
+    "publisher": "Health Level Seven International (Orders and Observations - US Lab)"
 }

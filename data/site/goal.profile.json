@@ -1,25 +1,1143 @@
 {
-    "mapping": [
+    "id": "Goal",
+    "date": "2015-10-24T07:41:03+11:00",
+    "differential": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.",
+                "short": "Describes the intended objective(s) for a patient, group or organization",
+                "min": 0,
+                "comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
+                "path": "Goal",
+                "mapping": [
+                    {
+                        "map": "GOL.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode<=OBJ].",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.careprovision",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "This records identifiers associated with this care plan that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "requirements": "Need to allow connection to a wider workflow.",
+                "short": "External Ids for this goal",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Goal.identifier"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the patient, group or organization for whom the goal is being established.",
+                "requirements": "Subject is optional to support annonymized reporting.",
+                "short": "Who this goal is intended for",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.subject",
+                "mapping": [
+                    {
+                        "map": "PID-3-patient ID list",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=PAT].role[classCode=PAT]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "date"
+                    },
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date or event after which the goal should begin being pursued.",
+                "requirements": "Goals can be established prior to there being an intention to start pursuing them; e.g. Goals for post-surgical recovery established prior to surgery.",
+                "short": "When goal pursuit begins",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing events that can trigger the initiation of a goal",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-start-event"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Goal.start[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "date"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Duration"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates either the date or the duration after start by which the goal should be met.",
+                "requirements": "Identifies when the goal should be evaluated.",
+                "short": "Reach goal on or before",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.target[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Indicates a category the goal falls within.",
+                "requirements": "Allows goals to be filtered and sorted.",
+                "short": "E.g. Treatment, dietary, behavioral, etc.",
+                "min": 0,
+                "binding": {
+                    "description": "Codes for grouping and sorting goals",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-category"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Goal.category"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Human-readable description of a specific desired objective of care.",
+                "requirements": "Without a description of what's trying to be achieved, element has no purpose.",
+                "short": "What's the desired outcome?",
+                "min": 1,
+                "isSummary": true,
+                "path": "Goal.description",
+                "mapping": [
+                    {
+                        "map": "GOL-3.2-goal ID.text",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates whether the goal has been reached and is still considered relevant.",
+                "requirements": "Allows measuring outcome and whether goal needs to be further tracked.",
+                "short": "proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled",
+                "min": 1,
+                "binding": {
+                    "description": "Indicates whether the goal has been met and is still being targeted",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Goal.status",
+                "mapping": [
+                    {
+                        "map": "GOL-18-goal life cycle status",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".statusCode in-progress = active (classCode = OBJ) achieved = complete sustaining = active (classCode=OBJC) cancelled = aborted",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc.",
+                "mapping": [
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "When goal status took effect",
+                "min": 0,
+                "comments": "To see the date for past statuses, query history.",
+                "path": "Goal.statusDate",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Captures the reason for the current status.",
+                "short": "Reason for current status",
+                "min": 0,
+                "binding": {
+                    "description": "Codes to identify the reason for a goal's current status",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-status-reason"
+                    },
+                    "strength": "example"
+                },
+                "comments": "This will typically be captured for statuses such as rejected, on-hold or cancelled, but could be present for others.",
+                "path": "Goal.statusReason"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates whose goal this is - patient goal, practitioner goal, etc.",
+                "mapping": [
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Who's responsible for creating Goal?",
+                "min": 0,
+                "comments": "This is the individual reponsible for establishing the goal, not necessarily who recorded it.  (For that, use the Provenance resource.).",
+                "path": "Goal.author",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the mutually agreed level of importance associated with reaching/sustaining the goal.",
+                "requirements": "Used for sorting and presenting goals.",
+                "mapping": [
+                    {
+                        "map": ".priorityCode",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "high | medium |low",
+                "min": 0,
+                "binding": {
+                    "description": "The level of importance associated with a goal",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-priority"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Extensions are available to track priorities as established by each participant (i.e. Priority from the patient's perspective, different practitioners' perspectives, family member's perspectives)\n\nThe ordinal extension on Coding can be used to convey a numerically comparable ranking to priority.  (Keep in mind that different coding systems may use a \"low value=important\".",
+                "path": "Goal.priority",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/MedicationStatement"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "The identified conditions and other health record elements that are intended to be addressed by the goal.",
+                "requirements": "Allows specific goals to explicitly linked to the concerns they're dealing with - makes the goal more understandable.",
+                "short": "Issues addressed by this goal",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=SUBJ].target[classCode=CONC]",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Goal.addresses"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "max": "*",
+                "definition": "Any comments related to the goal.",
+                "requirements": "There's a need to capture information about the goal that doesn't actually describe the goal.",
+                "short": "Comments about the goal",
+                "min": 0,
+                "comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
+                "path": "Goal.note",
+                "mapping": [
+                    {
+                        "map": "GOL-16-goal evaluation + NTE?",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifies the change (or lack of change) at the point where the goal was deepmed to be cancelled or achieved.",
+                "requirements": "Outcome tracking is a key aspect of care planning.",
+                "short": "What was end result of goal?",
+                "min": 0,
+                "comments": "Note that this should not duplicate the goal status.",
+                "path": "Goal.outcome"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Details of what's changed (or not changed).",
+                "short": "Code or observation that resulted from goal",
+                "min": 0,
+                "binding": {
+                    "description": "The result of the goal; e.g. \"25% increase in shoulder mobility\", \"Anxiety reduced to moderate levels\".  \"15 kg weight loss sustained over 6 months\"",
+                    "strength": "example"
+                },
+                "path": "Goal.outcome.result[x]"
+            }
+        ]
+    },
+    "name": "Goal",
+    "abstract": false,
+    "status": "draft",
+    "kind": "resource",
+    "extension": [
         {
-            "name": "HL7 v2",
-            "uri": "http://hl7.org/v2",
-            "identity": "v2"
-        },
-        {
-            "name": "RIM",
-            "uri": "http://hl7.org/v3",
-            "identity": "rim"
-        },
-        {
-            "name": "W5 Mapping",
-            "uri": "http://hl7.org/fhir/w5",
-            "identity": "w5"
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+            "valueInteger": 1
         }
     ],
-    "id": "Goal",
+    "snapshot": {
+        "element": [
+            {
+                "type": [
+                    {
+                        "code": "DomainResource"
+                    }
+                ],
+                "max": "*",
+                "definition": "Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.",
+                "short": "Describes the intended objective(s) for a patient, group or organization",
+                "min": 0,
+                "comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
+                "path": "Goal",
+                "mapping": [
+                    {
+                        "map": "GOL.1",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".outboundRelationship[typeCode<=OBJ].",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "clinical.careprovision",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.",
+                "short": "Logical id of this artifact",
+                "min": 0,
+                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
+                "path": "Goal.id",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "Meta"
+                    }
+                ],
+                "max": "1",
+                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource.",
+                "short": "Metadata about the resource",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.meta"
+            },
+            {
+                "type": [
+                    {
+                        "code": "uri"
+                    }
+                ],
+                "max": "1",
+                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content.",
+                "isModifier": true,
+                "short": "A set of rules under which this content was created",
+                "min": 0,
+                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
+                "path": "Goal.implicitRules",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "The base language in which the resource is written.",
+                "short": "Language of the resource content",
+                "min": 0,
+                "binding": {
+                    "description": "A human language.",
+                    "strength": "required",
+                    "valueSetUri": "http://tools.ietf.org/html/bcp47"
+                },
+                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
+                "path": "Goal.language"
+            },
+            {
+                "condition": [
+                    "dom-1"
+                ],
+                "type": [
+                    {
+                        "code": "Narrative"
+                    }
+                ],
+                "max": "1",
+                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+                "short": "Text summary of the resource, for human interpretation",
+                "min": 0,
+                "alias": [
+                    "narrative",
+                    "html",
+                    "xhtml",
+                    "display"
+                ],
+                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+                "path": "Goal.text",
+                "mapping": [
+                    {
+                        "map": "Act.text?",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Resource"
+                    }
+                ],
+                "max": "*",
+                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+                "short": "Contained, inline Resources",
+                "min": 0,
+                "alias": [
+                    "inline resources",
+                    "anonymous resources",
+                    "contained resources"
+                ],
+                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+                "path": "Goal.contained",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.extension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Identifier"
+                    }
+                ],
+                "max": "*",
+                "definition": "This records identifiers associated with this care plan that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+                "requirements": "Need to allow connection to a wider workflow.",
+                "short": "External Ids for this goal",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".id",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "id",
+                        "identity": "w5"
+                    }
+                ],
+                "path": "Goal.identifier"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Group"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Organization"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the patient, group or organization for whom the goal is being established.",
+                "requirements": "Subject is optional to support annonymized reporting.",
+                "short": "Who this goal is intended for",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.subject",
+                "mapping": [
+                    {
+                        "map": "PID-3-patient ID list",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".participation[typeCode=PAT].role[classCode=PAT]",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "who.focus",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "date"
+                    },
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "The date or event after which the goal should begin being pursued.",
+                "requirements": "Goals can be established prior to there being an intention to start pursuing them; e.g. Goals for post-surgical recovery established prior to surgery.",
+                "short": "When goal pursuit begins",
+                "min": 0,
+                "binding": {
+                    "description": "Codes describing events that can trigger the initiation of a goal",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-start-event"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Goal.start[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "date"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Duration"
+                        ],
+                        "code": "Quantity"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates either the date or the duration after start by which the goal should be met.",
+                "requirements": "Identifies when the goal should be evaluated.",
+                "short": "Reach goal on or before",
+                "min": 0,
+                "isSummary": true,
+                "path": "Goal.target[x]"
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "*",
+                "definition": "Indicates a category the goal falls within.",
+                "requirements": "Allows goals to be filtered and sorted.",
+                "short": "E.g. Treatment, dietary, behavioral, etc.",
+                "min": 0,
+                "binding": {
+                    "description": "Codes for grouping and sorting goals",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-category"
+                    },
+                    "strength": "example"
+                },
+                "isSummary": true,
+                "path": "Goal.category"
+            },
+            {
+                "type": [
+                    {
+                        "code": "string"
+                    }
+                ],
+                "max": "1",
+                "definition": "Human-readable description of a specific desired objective of care.",
+                "requirements": "Without a description of what's trying to be achieved, element has no purpose.",
+                "short": "What's the desired outcome?",
+                "min": 1,
+                "isSummary": true,
+                "path": "Goal.description",
+                "mapping": [
+                    {
+                        "map": "GOL-3.2-goal ID.text",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".text",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "isModifier": true,
+                "type": [
+                    {
+                        "code": "code"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates whether the goal has been reached and is still considered relevant.",
+                "requirements": "Allows measuring outcome and whether goal needs to be further tracked.",
+                "short": "proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled",
+                "min": 1,
+                "binding": {
+                    "description": "Indicates whether the goal has been met and is still being targeted",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-status"
+                    },
+                    "strength": "required"
+                },
+                "isSummary": true,
+                "path": "Goal.status",
+                "mapping": [
+                    {
+                        "map": "GOL-18-goal life cycle status",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".statusCode in-progress = active (classCode = OBJ) achieved = complete sustaining = active (classCode=OBJC) cancelled = aborted",
+                        "identity": "rim"
+                    },
+                    {
+                        "map": "status",
+                        "identity": "w5"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "date"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc.",
+                "mapping": [
+                    {
+                        "map": "when.recorded",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "When goal status took effect",
+                "min": 0,
+                "comments": "To see the date for past statuses, query history.",
+                "path": "Goal.statusDate",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Captures the reason for the current status.",
+                "short": "Reason for current status",
+                "min": 0,
+                "binding": {
+                    "description": "Codes to identify the reason for a goal's current status",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-status-reason"
+                    },
+                    "strength": "example"
+                },
+                "comments": "This will typically be captured for statuses such as rejected, on-hold or cancelled, but could be present for others.",
+                "path": "Goal.statusReason"
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Patient"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Indicates whose goal this is - patient goal, practitioner goal, etc.",
+                "mapping": [
+                    {
+                        "map": "who.actor",
+                        "identity": "w5"
+                    }
+                ],
+                "short": "Who's responsible for creating Goal?",
+                "min": 0,
+                "comments": "This is the individual reponsible for establishing the goal, not necessarily who recorded it.  (For that, use the Provenance resource.).",
+                "path": "Goal.author",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    }
+                ],
+                "max": "1",
+                "definition": "Identifies the mutually agreed level of importance associated with reaching/sustaining the goal.",
+                "requirements": "Used for sorting and presenting goals.",
+                "mapping": [
+                    {
+                        "map": ".priorityCode",
+                        "identity": "rim"
+                    }
+                ],
+                "short": "high | medium |low",
+                "min": 0,
+                "binding": {
+                    "description": "The level of importance associated with a goal",
+                    "valueSetReference": {
+                        "reference": "http://hl7.org/fhir/ValueSet/goal-priority"
+                    },
+                    "strength": "preferred"
+                },
+                "comments": "Extensions are available to track priorities as established by each participant (i.e. Priority from the patient's perspective, different practitioners' perspectives, family member's perspectives)\n\nThe ordinal extension on Coding can be used to convey a numerically comparable ranking to priority.  (Keep in mind that different coding systems may use a \"low value=important\".",
+                "path": "Goal.priority",
+                "isSummary": true
+            },
+            {
+                "type": [
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Condition"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/MedicationStatement"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
+                        ],
+                        "code": "Reference"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "*",
+                "definition": "The identified conditions and other health record elements that are intended to be addressed by the goal.",
+                "requirements": "Allows specific goals to explicitly linked to the concerns they're dealing with - makes the goal more understandable.",
+                "short": "Issues addressed by this goal",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": ".outboundRelationship[typeCode=SUBJ].target[classCode=CONC]",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Goal.addresses"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Annotation"
+                    }
+                ],
+                "max": "*",
+                "definition": "Any comments related to the goal.",
+                "requirements": "There's a need to capture information about the goal that doesn't actually describe the goal.",
+                "short": "Comments about the goal",
+                "min": 0,
+                "comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
+                "path": "Goal.note",
+                "mapping": [
+                    {
+                        "map": "GOL-16-goal evaluation + NTE?",
+                        "identity": "v2"
+                    },
+                    {
+                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "BackboneElement"
+                    }
+                ],
+                "max": "*",
+                "definition": "Identifies the change (or lack of change) at the point where the goal was deepmed to be cancelled or achieved.",
+                "requirements": "Outcome tracking is a key aspect of care planning.",
+                "short": "What was end result of goal?",
+                "min": 0,
+                "comments": "Note that this should not duplicate the goal status.",
+                "path": "Goal.outcome"
+            },
+            {
+                "type": [
+                    {
+                        "code": "id"
+                    }
+                ],
+                "max": "1",
+                "definition": "unique id for the element within a resource (for internal references).",
+                "representation": [
+                    "xmlAttr"
+                ],
+                "short": "xml:id (or equivalent in JSON)",
+                "min": 0,
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ],
+                "path": "Goal.outcome.id"
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "short": "Additional Content defined by implementations",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.outcome.extension",
+                "mapping": [
+                    {
+                        "map": "n/a",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "Extension"
+                    }
+                ],
+                "max": "*",
+                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+                "isModifier": true,
+                "short": "Extensions that cannot be ignored",
+                "min": 0,
+                "alias": [
+                    "extensions",
+                    "user content",
+                    "modifiers"
+                ],
+                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
+                "path": "Goal.outcome.modifierExtension",
+                "mapping": [
+                    {
+                        "map": "N/A",
+                        "identity": "rim"
+                    }
+                ]
+            },
+            {
+                "type": [
+                    {
+                        "code": "CodeableConcept"
+                    },
+                    {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/Observation"
+                        ],
+                        "code": "Reference"
+                    }
+                ],
+                "max": "1",
+                "definition": "Details of what's changed (or not changed).",
+                "short": "Code or observation that resulted from goal",
+                "min": 0,
+                "binding": {
+                    "description": "The result of the goal; e.g. \"25% increase in shoulder mobility\", \"Anxiety reduced to moderate levels\".  \"15 kg weight loss sustained over 6 months\"",
+                    "strength": "example"
+                },
+                "path": "Goal.outcome.result[x]"
+            }
+        ]
+    },
+    "description": "Base StructureDefinition for Goal Resource",
+    "url": "http://hl7.org/fhir/StructureDefinition/Goal",
     "fhirVersion": "1.0.2",
-    "abstract": false,
+    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "mapping": [
+        {
+            "uri": "http://hl7.org/v2",
+            "identity": "v2",
+            "name": "HL7 v2"
+        },
+        {
+            "uri": "http://hl7.org/v3",
+            "identity": "rim",
+            "name": "RIM"
+        },
+        {
+            "uri": "http://hl7.org/fhir/w5",
+            "identity": "w5",
+            "name": "W5 Mapping"
+        }
+    ],
     "resourceType": "StructureDefinition",
+    "meta": {
+        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
+    },
     "contact": [
         {
             "telecom": [
@@ -38,1123 +1156,5 @@
             ]
         }
     ],
-    "base": "http://hl7.org/fhir/StructureDefinition/DomainResource",
-    "meta": {
-        "lastUpdated": "2015-10-24T07:41:03.495+11:00"
-    },
-    "url": "http://hl7.org/fhir/StructureDefinition/Goal",
-    "kind": "resource",
-    "publisher": "Health Level Seven International (Patient Care)",
-    "extension": [
-        {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
-            "valueInteger": 1
-        }
-    ],
-    "snapshot": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "GOL.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode<=OBJ].",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.careprovision",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
-                "path": "Goal",
-                "max": "*",
-                "min": 0,
-                "short": "Describes the intended objective(s) for a patient, group or organization",
-                "definition": "Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc."
-            },
-            {
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "The only time that a resource does not have an id is when it is being submitted to the server using a create operation. Bundles always have an id, though it is usually a generated UUID.",
-                "path": "Goal.id",
-                "max": "1",
-                "min": 0,
-                "short": "Logical id of this artifact",
-                "definition": "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
-            },
-            {
-                "type": [
-                    {
-                        "code": "Meta"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.meta",
-                "max": "1",
-                "min": 0,
-                "short": "Metadata about the resource",
-                "definition": "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
-            },
-            {
-                "type": [
-                    {
-                        "code": "uri"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "comments": "Asserting this rule set restricts the content to be only understood by a limited set of trading partners. This inherently limits the usefulness of the data in the long term. However, the existing health eco-system is highly fractured, and not yet ready to define, collect, and exchange data in a generally computable sense. Wherever possible, implementers and/or specification writers should avoid using this element as much as possible.",
-                "path": "Goal.implicitRules",
-                "max": "1",
-                "min": 0,
-                "short": "A set of rules under which this content was created",
-                "definition": "A reference to a set of rules that were followed when the resource was constructed, and which must be understood when processing the content."
-            },
-            {
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "comments": "Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute).",
-                "path": "Goal.language",
-                "max": "1",
-                "min": 0,
-                "short": "Language of the resource content",
-                "binding": {
-                    "description": "A human language.",
-                    "valueSetUri": "http://tools.ietf.org/html/bcp47",
-                    "strength": "required"
-                },
-                "definition": "The base language in which the resource is written."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "Act.text?",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Narrative"
-                    }
-                ],
-                "comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
-                "path": "Goal.text",
-                "alias": [
-                    "narrative",
-                    "html",
-                    "xhtml",
-                    "display"
-                ],
-                "min": 0,
-                "short": "Text summary of the resource, for human interpretation",
-                "max": "1",
-                "definition": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
-                "condition": [
-                    "dom-1"
-                ]
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Resource"
-                    }
-                ],
-                "comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
-                "path": "Goal.contained",
-                "alias": [
-                    "inline resources",
-                    "anonymous resources",
-                    "contained resources"
-                ],
-                "min": 0,
-                "short": "Contained, inline Resources",
-                "max": "*",
-                "definition": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "path": "Goal.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Ids for this goal",
-                "requirements": "Need to allow connection to a wider workflow.",
-                "definition": "This records identifiers associated with this care plan that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-3-patient ID list",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=PAT].role[classCode=PAT]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.subject",
-                "max": "1",
-                "min": 0,
-                "short": "Who this goal is intended for",
-                "requirements": "Subject is optional to support annonymized reporting.",
-                "definition": "Identifies the patient, group or organization for whom the goal is being established."
-            },
-            {
-                "type": [
-                    {
-                        "code": "date"
-                    },
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Codes describing events that can trigger the initiation of a goal",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-start-event"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "path": "Goal.start[x]",
-                "max": "1",
-                "min": 0,
-                "short": "When goal pursuit begins",
-                "requirements": "Goals can be established prior to there being an intention to start pursuing them; e.g. Goals for post-surgical recovery established prior to surgery.",
-                "definition": "The date or event after which the goal should begin being pursued."
-            },
-            {
-                "type": [
-                    {
-                        "code": "date"
-                    },
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Duration"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.target[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Reach goal on or before",
-                "requirements": "Identifies when the goal should be evaluated.",
-                "definition": "Indicates either the date or the duration after start by which the goal should be met."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Codes for grouping and sorting goals",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-category"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "path": "Goal.category",
-                "max": "*",
-                "min": 0,
-                "short": "E.g. Treatment, dietary, behavioral, etc.",
-                "requirements": "Allows goals to be filtered and sorted.",
-                "definition": "Indicates a category the goal falls within."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GOL-3.2-goal ID.text",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.description",
-                "max": "1",
-                "min": 1,
-                "short": "What's the desired outcome?",
-                "requirements": "Without a description of what's trying to be achieved, element has no purpose.",
-                "definition": "Human-readable description of a specific desired objective of care."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GOL-18-goal life cycle status",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".statusCode in-progress = active (classCode = OBJ) achieved = complete sustaining = active (classCode=OBJC) cancelled = aborted",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Goal.status",
-                "max": "1",
-                "min": 1,
-                "short": "proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled",
-                "requirements": "Allows measuring outcome and whether goal needs to be further tracked.",
-                "definition": "Indicates whether the goal has been reached and is still considered relevant.",
-                "binding": {
-                    "description": "Indicates whether the goal has been met and is still being targeted",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-status"
-                    },
-                    "strength": "required"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "To see the date for past statuses, query history.",
-                "path": "Goal.statusDate",
-                "max": "1",
-                "min": 0,
-                "short": "When goal status took effect",
-                "definition": "Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "This will typically be captured for statuses such as rejected, on-hold or cancelled, but could be present for others.",
-                "path": "Goal.statusReason",
-                "max": "1",
-                "min": 0,
-                "short": "Reason for current status",
-                "binding": {
-                    "description": "Codes to identify the reason for a goal's current status",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-status-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Captures the reason for the current status."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is the individual reponsible for establishing the goal, not necessarily who recorded it.  (For that, use the Provenance resource.).",
-                "path": "Goal.author",
-                "max": "1",
-                "min": 0,
-                "short": "Who's responsible for creating Goal?",
-                "definition": "Indicates whose goal this is - patient goal, practitioner goal, etc."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".priorityCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "The level of importance associated with a goal",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-priority"
-                    },
-                    "strength": "preferred"
-                },
-                "isSummary": true,
-                "comments": "Extensions are available to track priorities as established by each participant (i.e. Priority from the patient's perspective, different practitioners' perspectives, family member's perspectives)\n\nThe ordinal extension on Coding can be used to convey a numerically comparable ranking to priority.  (Keep in mind that different coding systems may use a \"low value=important\".",
-                "path": "Goal.priority",
-                "max": "1",
-                "min": 0,
-                "short": "high | medium |low",
-                "requirements": "Used for sorting and presenting goals.",
-                "definition": "Identifies the mutually agreed level of importance associated with reaching/sustaining the goal."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=SUBJ].target[classCode=CONC]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/MedicationStatement"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
-                        ]
-                    }
-                ],
-                "path": "Goal.addresses",
-                "max": "*",
-                "min": 0,
-                "short": "Issues addressed by this goal",
-                "requirements": "Allows specific goals to explicitly linked to the concerns they're dealing with - makes the goal more understandable.",
-                "definition": "The identified conditions and other health record elements that are intended to be addressed by the goal."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GOL-16-goal evaluation + NTE?",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
-                "path": "Goal.note",
-                "max": "*",
-                "min": 0,
-                "short": "Comments about the goal",
-                "requirements": "There's a need to capture information about the goal that doesn't actually describe the goal.",
-                "definition": "Any comments related to the goal."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "comments": "Note that this should not duplicate the goal status.",
-                "path": "Goal.outcome",
-                "max": "*",
-                "min": 0,
-                "short": "What was end result of goal?",
-                "requirements": "Outcome tracking is a key aspect of care planning.",
-                "definition": "Identifies the change (or lack of change) at the point where the goal was deepmed to be cancelled or achieved."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "id"
-                    }
-                ],
-                "path": "Goal.outcome.id",
-                "representation": [
-                    "xmlAttr"
-                ],
-                "max": "1",
-                "min": 0,
-                "short": "xml:id (or equivalent in JSON)",
-                "definition": "unique id for the element within a resource (for internal references)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "n/a",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.outcome.extension",
-                "alias": [
-                    "extensions",
-                    "user content"
-                ],
-                "min": 0,
-                "short": "Additional Content defined by implementations",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "N/A",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Extension"
-                    }
-                ],
-                "isModifier": true,
-                "comments": "There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.",
-                "path": "Goal.outcome.modifierExtension",
-                "alias": [
-                    "extensions",
-                    "user content",
-                    "modifiers"
-                ],
-                "min": 0,
-                "short": "Extensions that cannot be ignored",
-                "max": "*",
-                "definition": "May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    }
-                ],
-                "path": "Goal.outcome.result[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Code or observation that resulted from goal",
-                "binding": {
-                    "description": "The result of the goal; e.g. \"25% increase in shoulder mobility\", \"Anxiety reduced to moderate levels\".  \"15 kg weight loss sustained over 6 months\"",
-                    "strength": "example"
-                },
-                "definition": "Details of what's changed (or not changed)."
-            }
-        ]
-    },
-    "name": "Goal",
-    "differential": {
-        "element": [
-            {
-                "mapping": [
-                    {
-                        "map": "GOL.1",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".outboundRelationship[typeCode<=OBJ].",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "clinical.careprovision",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "DomainResource"
-                    }
-                ],
-                "comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
-                "path": "Goal",
-                "max": "*",
-                "min": 0,
-                "short": "Describes the intended objective(s) for a patient, group or organization",
-                "definition": "Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".id",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "id",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Identifier"
-                    }
-                ],
-                "path": "Goal.identifier",
-                "max": "*",
-                "min": 0,
-                "short": "External Ids for this goal",
-                "requirements": "Need to allow connection to a wider workflow.",
-                "definition": "This records identifiers associated with this care plan that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "PID-3-patient ID list",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".participation[typeCode=PAT].role[classCode=PAT]",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "who.focus",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Group"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Organization"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.subject",
-                "max": "1",
-                "min": 0,
-                "short": "Who this goal is intended for",
-                "requirements": "Subject is optional to support annonymized reporting.",
-                "definition": "Identifies the patient, group or organization for whom the goal is being established."
-            },
-            {
-                "type": [
-                    {
-                        "code": "date"
-                    },
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Codes describing events that can trigger the initiation of a goal",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-start-event"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "path": "Goal.start[x]",
-                "max": "1",
-                "min": 0,
-                "short": "When goal pursuit begins",
-                "requirements": "Goals can be established prior to there being an intention to start pursuing them; e.g. Goals for post-surgical recovery established prior to surgery.",
-                "definition": "The date or event after which the goal should begin being pursued."
-            },
-            {
-                "type": [
-                    {
-                        "code": "date"
-                    },
-                    {
-                        "code": "Quantity",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Duration"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.target[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Reach goal on or before",
-                "requirements": "Identifies when the goal should be evaluated.",
-                "definition": "Indicates either the date or the duration after start by which the goal should be met."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "Codes for grouping and sorting goals",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-category"
-                    },
-                    "strength": "example"
-                },
-                "isSummary": true,
-                "path": "Goal.category",
-                "max": "*",
-                "min": 0,
-                "short": "E.g. Treatment, dietary, behavioral, etc.",
-                "requirements": "Allows goals to be filtered and sorted.",
-                "definition": "Indicates a category the goal falls within."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GOL-3.2-goal ID.text",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".text",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "string"
-                    }
-                ],
-                "isSummary": true,
-                "path": "Goal.description",
-                "max": "1",
-                "min": 1,
-                "short": "What's the desired outcome?",
-                "requirements": "Without a description of what's trying to be achieved, element has no purpose.",
-                "definition": "Human-readable description of a specific desired objective of care."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GOL-18-goal life cycle status",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".statusCode in-progress = active (classCode = OBJ) achieved = complete sustaining = active (classCode=OBJC) cancelled = aborted",
-                        "identity": "rim"
-                    },
-                    {
-                        "map": "status",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "code"
-                    }
-                ],
-                "isModifier": true,
-                "isSummary": true,
-                "path": "Goal.status",
-                "max": "1",
-                "min": 1,
-                "short": "proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled",
-                "requirements": "Allows measuring outcome and whether goal needs to be further tracked.",
-                "definition": "Indicates whether the goal has been reached and is still considered relevant.",
-                "binding": {
-                    "description": "Indicates whether the goal has been met and is still being targeted",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-status"
-                    },
-                    "strength": "required"
-                }
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "when.recorded",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "date"
-                    }
-                ],
-                "isSummary": true,
-                "comments": "To see the date for past statuses, query history.",
-                "path": "Goal.statusDate",
-                "max": "1",
-                "min": 0,
-                "short": "When goal status took effect",
-                "definition": "Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "comments": "This will typically be captured for statuses such as rejected, on-hold or cancelled, but could be present for others.",
-                "path": "Goal.statusReason",
-                "max": "1",
-                "min": 0,
-                "short": "Reason for current status",
-                "binding": {
-                    "description": "Codes to identify the reason for a goal's current status",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-status-reason"
-                    },
-                    "strength": "example"
-                },
-                "definition": "Captures the reason for the current status."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "who.actor",
-                        "identity": "w5"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Patient"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Practitioner"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RelatedPerson"
-                        ]
-                    }
-                ],
-                "isSummary": true,
-                "comments": "This is the individual reponsible for establishing the goal, not necessarily who recorded it.  (For that, use the Provenance resource.).",
-                "path": "Goal.author",
-                "max": "1",
-                "min": 0,
-                "short": "Who's responsible for creating Goal?",
-                "definition": "Indicates whose goal this is - patient goal, practitioner goal, etc."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".priorityCode",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    }
-                ],
-                "binding": {
-                    "description": "The level of importance associated with a goal",
-                    "valueSetReference": {
-                        "reference": "http://hl7.org/fhir/ValueSet/goal-priority"
-                    },
-                    "strength": "preferred"
-                },
-                "isSummary": true,
-                "comments": "Extensions are available to track priorities as established by each participant (i.e. Priority from the patient's perspective, different practitioners' perspectives, family member's perspectives)\n\nThe ordinal extension on Coding can be used to convey a numerically comparable ranking to priority.  (Keep in mind that different coding systems may use a \"low value=important\".",
-                "path": "Goal.priority",
-                "max": "1",
-                "min": 0,
-                "short": "high | medium |low",
-                "requirements": "Used for sorting and presenting goals.",
-                "definition": "Identifies the mutually agreed level of importance associated with reaching/sustaining the goal."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": ".outboundRelationship[typeCode=SUBJ].target[classCode=CONC]",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Condition"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/MedicationStatement"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/NutritionOrder"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/ProcedureRequest"
-                        ]
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/RiskAssessment"
-                        ]
-                    }
-                ],
-                "path": "Goal.addresses",
-                "max": "*",
-                "min": 0,
-                "short": "Issues addressed by this goal",
-                "requirements": "Allows specific goals to explicitly linked to the concerns they're dealing with - makes the goal more understandable.",
-                "definition": "The identified conditions and other health record elements that are intended to be addressed by the goal."
-            },
-            {
-                "mapping": [
-                    {
-                        "map": "GOL-16-goal evaluation + NTE?",
-                        "identity": "v2"
-                    },
-                    {
-                        "map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value",
-                        "identity": "rim"
-                    }
-                ],
-                "type": [
-                    {
-                        "code": "Annotation"
-                    }
-                ],
-                "comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
-                "path": "Goal.note",
-                "max": "*",
-                "min": 0,
-                "short": "Comments about the goal",
-                "requirements": "There's a need to capture information about the goal that doesn't actually describe the goal.",
-                "definition": "Any comments related to the goal."
-            },
-            {
-                "type": [
-                    {
-                        "code": "BackboneElement"
-                    }
-                ],
-                "comments": "Note that this should not duplicate the goal status.",
-                "path": "Goal.outcome",
-                "max": "*",
-                "min": 0,
-                "short": "What was end result of goal?",
-                "requirements": "Outcome tracking is a key aspect of care planning.",
-                "definition": "Identifies the change (or lack of change) at the point where the goal was deepmed to be cancelled or achieved."
-            },
-            {
-                "type": [
-                    {
-                        "code": "CodeableConcept"
-                    },
-                    {
-                        "code": "Reference",
-                        "profile": [
-                            "http://hl7.org/fhir/StructureDefinition/Observation"
-                        ]
-                    }
-                ],
-                "path": "Goal.outcome.result[x]",
-                "max": "1",
-                "min": 0,
-                "short": "Code or observation that resulted from goal",
-                "binding": {
-                    "description": "The result of the goal; e.g. \"25% increase in shoulder mobility\", \"Anxiety reduced to moderate levels\".  \"15 kg weight loss sustained over 6 months\"",
-                    "strength": "example"
-                },
-                "definition": "Details of what's changed (or not changed)."
-            }
-        ]
-    },
-    "status": "draft",
-    "date": "2015-10-24T07:41:03+11:00",
-    "description": "Base StructureDefinition for Goal Resource"
+    "publisher": "Health Level Seven International (Patient Care)"
 }
