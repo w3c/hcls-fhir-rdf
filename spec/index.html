@@ -8,27 +8,29 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
 -->
 <html>
 	<head>
-		<title>FHIR RDF Sample side by side comparisons</title>
+		<title>FHIR RDF Specification</title>
 		<meta charset="utf-8"/>
 		<script src="https://www.w3.org/Tools/respec/respec-w3c-common" async class="remove"></script>
 		<script class="remove">
 			var respecConfig = {
 				edDraftURI: "http://w3c.github.io/hcls-fhir-rdf/spec/",
 				issueBase: "https://github.com/w3c/hcls-fhir-rdf/issues",
-				specStatus: "unofficial",
+				specStatus: "ED",
 				shortName:  "fhir-rdf",
 				editors: [
 					{
-						name:       "Anthony Mallia",
-						url:        "amallia@edmondsci.com",
-						company:    "Edmond Scientific",
-						companyURL: "http://edmondsci.com/"
+						name:       "Harold Solbrig",
+						url:        "http://www.mayo.edu/research/faculty/solbrig-harold-r-m-s/bio-20022700",
+						company:    "Mayo Clinic",
+						companyURL: "http://www.mayo.edu/",
+            w3cid:      "36739"
 					},
 					{
 						name:       "Eric Prud'hommeaux",
 						url:        "http://www.w3.org/People/Eric/",
 						company:    "W3C/MIT",
-						companyURL: "http://www.w3.org/"
+						companyURL: "http://www.w3.org/",
+            w3cid:      "2112"
 					}
 				],
 				wg:           "Semantic Web in Health Care and Life Sciences Interest Group",
@@ -44,11 +46,48 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
               value: "Issues list",
               href: "https://github.com/w3c/hcls-fhir-rdf/issues"
           }]
-          }]
+          }],
+         	localBiblio:  {
+         	  "FHIR": {
+         	  	title:    "Fast Healthcare Interoperability Resources",
+         	  	href:     "http://hl7-fhir.github.io/",
+         	  	"authors": [
+         	  	  "Grahame Grieve",
+                "Lloyd Mckenzie"
+         	  	],
+         	  	publisher: "HL7"
+         	  },
+         	  "FHIRStructureDefintion": {
+         	  	title:    "FHIR StructureDefintion",
+         	  	href:     "http://hl7-fhir.github.io/structuredefinition",
+         	  	"authors": [
+         	  	  "Grahame Grieve",
+                "Lloyd Mckenzie"
+         	  	],
+         	  	publisher: "HL7"
+         	  },
+         	  "FHIRObservation": {
+         	  	title:    "FHIR Observation",
+         	  	href:     "http://hl7-fhir.github.io/structuredefinition",
+         	  	"authors": [
+         	  	  "Grahame Grieve",
+                "Lloyd Mckenzie"
+         	  	],
+         	  	publisher: "HL7"
+         	  },
+         	  "ShExSpec": {
+         	  	title:    "Shape Expressions Language Specification",
+         	  	href:     "http://shexspec.github.io/semantics/",
+         	  	"authors": [
+         	  		"Iovka Boneva"
+         	  	],
+         	  	publisher: "independent"
+         	  },
+          }
 			};
 		</script>
 		<!-- script src="https://www.w3.org/scripts/jquery/2.1/jquery.min.js"></script--> 
-		<style>
+		<style type="text/css">
       .special { color: red; }
       .inferred { color: green; }
       pre.FHIRXML {
@@ -105,28 +144,20 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
           padding-bottom: 0in;
           border-style: none;
       }
-pre.spec {
-    border: 1px solid #dcdcdc;
-    font-size: 11px;
-    background: #FFFFE0;
-    padding: 5px;
-    width: 650px;
-    white-space: pre-wrap;
-}
 .spec a.dict { color: purple; }
-pre.spec a {
+.spec a {
     color: darkgreen;
     text-decoration: none;
     border: 0;
 }
-pre.spec a:hover, a:focus {
+.spec a:hover, a:focus {
     color: #2a6496;
     text-decoration: underline;
 }
 .description { color: navy; }
 .description a { color: navy; }
-pre.spec .description a { color: navy; } /* override pre.spec a */
-.Table1 pre.spec {
+.spec .description a { color: navy; } /* override .spec a */
+.Table1 .spec {
     border-top-style: none;
     border-bottom-style: none;
     padding-top: 0;
@@ -146,6 +177,123 @@ img.scaled {
 .todo { color:red; border: thin solid red; }
 .todo:before { content: "TODO" }
 .contentious { color: red; }
+div.panel { float:left; }
+div.panel > div {
+    border-style: solid;
+    border-width: thick;
+    margin: .5em; /* margin between panels */
+}
+div.structure {
+    padding-bottom: 1ex;
+    padding-top: 1ex;
+}
+div.structure h2 { margin: 0; }
+div.structure { margin: 0; }
+div.structure table td:nth-child(1) { /* name column */
+    line-height: 1ex;
+    vertical-align: top;
+}
+div.structure table td:nth-child(2) { /* type column */
+    max-width: 15em
+}
+
+.heading { text-align: center; }
+span.heading { font-size: 140%; color: #005A9C; } /* emulate h2 in pre */
+/*td { line-height: 0 }*/
+td img:first-child { padding-right: 0.2em; }
+
+/* gray stuff */
+.Patient       { background-color: #EEE; border-color: #BBB; }
+.Practitioner  { background-color: #EEE; border-color: #BBB; }
+a.Patient      { background-color: #DDD; border: thin solid #BBB; }
+a.Practitioner { background-color: #DDD; border: thin solid #BBB; }
+
+/* meds constellation */
+.Medication  { background-color: #EFF; border-color: #BEE; }
+.MedicationOrder       { background-color: #FEF; border-color: #EBE; }
+.MedicationDispense    { background-color: #FFE; border-color: #EEB; }
+.Timing      { background-color: #EEF; border-color: #BBE; }
+.Ratio       { background-color: #EFE; border-color: #BEB; }
+.Range       { background-color: #FEE; border-color: #EBB; }
+a.Medication { background-color: #DFF; border: thin solid #BEE; }
+a.MedicationOrder      { background-color: #FDF; border: thin solid #EBE; }
+a.MedicationDispense   { background-color: #FFD; border: thin solid #EEB; }
+a.Timing     { background-color: #DDF; border: thin solid #BBE; }
+a.Ratio      { background-color: #DFD; border: thin solid #BEB; }
+a.Range      { background-color: #FDD; border: thin solid #EBB; }
+
+/* labs constellation */
+.DiagnosticOrder       { background-color: #FEF; border-color: #EBE; }
+.DiagnosticReport    { background-color: #FFE; border-color: #EEB; }
+.Observation  { background-color: #EFF; border-color: #BEE; }
+.Quantity      { background-color: #EEF; border-color: #BBE; }
+.Specimen       { background-color: #EFE; border-color: #BEB; }
+.Condition       { background-color: #FEE; border-color: #EBB; }
+a.DiagnosticOrder      { background-color: #FDF; border: thin solid #EBE; }
+a.DiagnosticReport   { background-color: #FFD; border: thin solid #EEB; }
+a.Observation { background-color: #DFF; border: thin solid #BEE; }
+a.Quantity     { background-color: #DDF; border: thin solid #BBE; }
+a.Specimen      { background-color: #DFD; border: thin solid #BEB; }
+a.Condition      { background-color: #FDD; border: thin solid #EBB; }
+
+
+div.data {
+    border-style: solid;
+    border-width: thick;
+}
+
+div.data pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
+}
+
+pre h2 { display: inline;
+    font: 120% fixed;
+}
+div pre { margin-left: 1em; }
+.spec a { text-decoration: none; }
+td:first-of-type a:first-of-type { color: purple; }
+.shexc a:first-of-type { color: purple; }
+.spec h2 a {
+    color: #005A9C;
+}
+.comment { color: #C00; }
+      td, th {
+      padding-top: 0;
+      padding-bottom: 0;
+      }
+      table {
+      width: 100%;
+      border-spacing:0;
+      border-collapse:collapse;
+      }
+.highlight { border-top: thin solid #777; border-bottom: thin solid #777; background-color: #FFF; }
+
+.post-collapsed::before { color: #733; content: "expand"; }
+.collapsible::before { color: #733; content: "collapse"; }
+.collapsible { color: #733; }
+/*.shex { display: none; }*/
+
+.outdent { margin-left: -1em; }
+
+      .math{
+      font-style: normal;
+      font-family: monospace;
+      }
+
+      .abstrsynt{
+      margin-left: 0;
+      margin-right: 2ex;
+      margin-top: 0.1ex;
+      margin-bottom: 0.1ex;
+      /* border: double 1px #888888; */
+      border: thin solid #888888;
+      padding: 1ex 2ex 0.5ex 2ex;
+      page-break-inside: avoid;
+      background-color: #F0F8F8;
+      }
+
 		</style>
 	</head>
 	<body>
@@ -154,19 +302,11 @@ img.scaled {
 			<p>
         This document defines the RDF representation of FHIR Resources.
 			</p>
-        <div class="todo">
-        <p class="note">This document is in the process of being broken into two documents:
-	<ul>
-		<li><a href="http://w3c.github.io/hcls-fhir-rdf/spec/rdf.html">FHIR RDF Representation</a> -- to eventually become <a href="https://hl7-fhir.github.io/rdf.html">the official FHIR RDF page</li>
-		<li><a href="http://w3c.github.io/hcls-fhir-rdf/spec/ontology.html">FHIR OWL Ontology</a> -- to eventually become <a href="https://hl7-fhir.github.io/ontology.html">the official FHIR ontology page</li>
-	</ul>
-	</p>
-	</div>
 		</section>
 
 		<section id="sotd"><!-- filled in automagically --></section>
 
-		<section class='introductory'>
+		<!-- section class='introductory'>
 		  <h2>Revision History</h2>
 			<p>
 				The detailed list of changes and their diffs can be found in the <a href="https://github.com/w3c/hcls-fhir-rdf/commits/gh-pages/spec/index.html">Git repository</a>.
@@ -174,14 +314,137 @@ img.scaled {
 			<ul>
 				<li><b>2016-01-19</b>: transcribed from Word doc (ericP)</li>
 			</ul>
+		</section -->
+
+	  <section id="notation">
+	    <h2>Notation</h2>
+      <p>
+        The abstact syntax consists of productions defining data structures and labeled members of those data structures.
+        Each member had either a type or a union (choice) of types.
+        Each type is either a reference to another production, RDF type, or SPARQL literal term (e.g. <a href="http://www.w3.org/TR/sparql11-query/#operandDataTypes"><code>numeric</code></a>), or the template type of <code>List</code> or <code>Set</code>, which signify <a href="https://en.wikipedia.org/wiki/List_(mathematics)">logical lists</a> or <a href="https://en.wikipedia.org/wiki/Set_(mathematics)">logical sets</a> of a type.
+        Sets are unordered and duplicates members have no significance; the set <code>(1, 1, 2, 3, 5)</code> is the same as the set <code>(5, 1, 3, 2)</code>.
+      </p>
+      <p>
+        For example, the text:
+      </p>
+      <div class="abstrsynt">
+        <p><span class="math" id="dfn-StructureDefinition">StructureDefinition ::= name:string, type:FHIRResource|PrimativeType, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span></p>
+      </div>
+      <p>
+        signifies that a <code>StructureDefinition</code> has three components called <code>name</code>, <code>type</code> and <code>declarations</code>.
+        The <code>name</code> is a <code>string</code>,
+        the <code>type</code> is either a <a href="#dfn-FHIRResource"><code>FHIRResource</code></a> or a <a href="#dfn-PrimativeType"><code>PrimativeType</code></a>,
+        and the <code>declarations</code> are a list of <a href="#dfn-PropertyDeclaration"><code>PropertyDeclaration</code>s</a>.
+        <a href="#FHIRResource"><code>FHIRResource</code></a>, <a href="#PrimativeType"><code>PrimativeType</code></a> and <a href="#PropertyDeclaration"><code>PropertyDeclaration</code></a> are productions within this document.
+      </p>
+	    <p>
+        The following HTML tags and CSS classes are used to highlight the roles of text in this document:
+	    </p>
+	    <ul>
+        <li>&lt;dfn&gt;<dfn id="dfn-shacl-defined-term">defined term</dfn>&lt;dfn&gt;</li>
+        <li>&lt;a class="internalDFN"&gt;<a title="SHACL defined term" href="#dfn-shacl-defined-term" class="internalDFN">defined term</a>&lt;/a&gt;</li>
+        <li><sup class="eval">eval</sup> &mdash; link to evaluation semantics</li>
+	    </ul>
+	  </section>
+
+		<section id="intro" class="introductory">
+      <h2>Introduction</h2>
+      <p>
+        HL7 Fast Healthcare Interoperability Resources (FHIR) is an emerging standard for the exchange of electronic healthcare information [[FHIR]].
+        FHIR defines a collection of "resources" that "can easily be assembled into working systems that solve real world clinical and administrative problems at a fraction of the price of existing alternatives."
+        This assembly process typically requires "profiling" -- the adaptation of the FHIR base resources for use in clinical data exchange.
+        The core FHIR resources are described by FHIR-specific schema structures using the StructureDefinition resource. [[FHIRStructureDefintion]]
+        The FHIR specification also defines how resource instances should be represented in XML and JSON.
+      </p>
 		</section>
 
-		<section id="legend" class="introductory">
-      <h2>Legend</h2>
-      <p class="Standard">Most of the RDF is generated by verbatim logic (e.g. An unidentified element becomes an anonymous individual - &nbsp;blank node).</p>
-      <p class="Standard">Where RDF is generated by special transformation it is <span class="special">marked in red</span></p>
-      <p class="Standard">Where RDF is inferred by a reasoner it is <span class="inferred">marked in green</span>. </p>
-		</section>
+		<section id="FHIRResources">
+      <h2>FHIR Resources</h2>
+      <p>
+        The FHIR specification defines a collection of “resources” which define the basic units of exchange for clinical information in the FHIR domain1.
+        As of June 9, 2016, the development version of the FHIR core specification [[FHIR]] included 113 resources for the exchange of information about care plans, risk assessments, patients, organizations, appointments, observations, etc.  along with a number of “container” resources such as Composition, Bundle and MessageHeader .
+      </p>
+      <p>
+        FHIR resources are defined using the FHIR StructureDefinition [[FHIRStructureDefintion]] resource, which provides the metamodel for all FHIR resources, including StructureDefinition itself.
+        FHIR resource definitions are represented in a human readable form through a custom FHIR-specific representation on the FHIR web site.
+        Alternative representations include customized XML and JSON templates and a Unified Modeling Language (UML)-like graphic format.
+        A combination of XML Schema and Schematron provides a formal definition of the representation of FHIR data in XML.
+      </p>
+
+		  <section id="StrucDefn">
+        <h2>Structure Definition</h2>
+        <p>
+          Structure Definitions enumerate sets of properties for abstract, hierarchical data structures.
+          This captures structural constraints, such as the name and cardinality of properties, as well as definitions and meta data about properties.
+          Structure Definitions can be textually represented in JSON or XML or graphically in HTML, as in this sample from FHIR Observation: [[FHIRObservation]]
+        </p>
+        <table>
+          <tbody>
+            <tr><th class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/formats.html#table" title="The logical name of the element">Name</a></th><th class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/formats.html#table" title="Reference to the type of the element">Type</a></th><th class="hierarchy">ₙ</th></tr><tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_resource.png" alt="✉" title="Resource" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation" title="Observation : Measurements and simple assertions made about a patient, device or other subject.">Observation</a><a id="Observation"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/domainresource.html">DomainResource</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.identifier" title="Observation.identifier : A unique identifier for the simple observation instance.">identifier</a><a id="Observation.identifier"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Identifier">Identifier</a></td><td class="hierarchy">*</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_primitive.png" alt="▭" title="Primitive Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.status" title="Observation.status : The status of the result value.">status</a><a id="Observation.status"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#code">code</a></td><td class="hierarchy">1</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.code" title="Observation.code : Describes what was observed. Sometimes this is called the observation &quot;name&quot;.">code</a><a id="Observation.code"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy">1</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_reference.png" alt="☞" title="Reference to another Resource" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.subject" title="Observation.subject : The patient, or group of patients, location, or device whose characteristics (direct or indirect) are described by the observation and into whose record the observation is placed.  Comments: Indirect characteristics may be those of a specimen, fetus, donor,  other observer (for example a relative or EMT), or any observation made about the subject.">subject</a><a id="Observation.subject"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/references.html">Reference</a>(<a href="file:/home/eric/WWW/2016/FHIR-tutorial/patient.html">Patient</a> | <a href="file:/home/eric/WWW/2016/FHIR-tutorial/group.html">Group</a> | <a href="file:/home/eric/WWW/2016/FHIR-tutorial/device.html">Device</a> | <a href="file:/home/eric/WWW/2016/FHIR-tutorial/location.html">Location</a>)</td><td class="hierarchy">?</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_choice.gif" alt="?" title="Choice of Types" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.effective_x_" title="Observation.effective[x] : The time or time-period the observed value is asserted as being true. For biological subjects - e.g. human patients - this is usually called the &quot;physiologically relevant time&quot;. This is usually either the time of the procedure or of specimen collection, but very often the source of the date/time is not known, only the date/time itself.">effective[x]</a><a id="Observation.effective_x_"> </a></td><td class="hierarchy"></td><td class="hierarchy">?</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_primitive.png" alt="▭" title="Primitive Data Type" class="hierarchy"/> <span title="A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.">effectiveDateTime</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#dateTime">dateTime</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A time period defined by a start and end date and optionally time.">effectivePeriod</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Period">Period</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_element.gif" alt="⧇" title="Element" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component" title="Observation.component : Some observations have multiple component observations.  These component observations are expressed as separate code value pairs that share the same attributes.  Examples include systolic and diastolic component observations for blood pressure measurement and multiple component observations for genetics observations.">component</a><a id="Observation.component"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/backboneelement.html">BackboneElement</a></td><td class="hierarchy">*</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component.code" title="Observation.component.code : Describes what was observed. Sometimes this is called the observation &quot;code&quot;.">code</a><a id="Observation.component.code"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy">1</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_choice.gif" alt="?" title="Choice of Types" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component.value_x_" title="Observation.component.value[x] : The information determined as a result of making the observation, if the information has a simple value.">value[x]</a><a id="Observation.component.value_x_"> </a></td><td class="hierarchy"></td><td class="hierarchy">?</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.">valueQuantity</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Quantity">Quantity</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.">valueCodeableConcept</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A time period defined by a start and end date and optionally time.">valuePeriod</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Period">Period</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component.dataAbsentReason" title="Observation.component.dataAbsentReason : Provides a reason why the expected value in the element Observation.value[x] is missing.">dataAbsentReason</a><a id="Observation.component.dataAbsentReason"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy">?</td></tr>
+          </tbody>
+        </table>
+        <p>
+          This can be read as a narrative:
+        </p>
+        <ul>
+          <li>This StructureDefinition defines the structure of the FHIR <code>Observation</code> resource, which is an extension of the <code>DomainResource</code> resource.</li>
+          <li>It has an arbitrary number ('*') <code>identifier</code> properties with values of type <code>Identifier</code> (defined elsewhere).</li>
+          <li>It has exactly one <code>status</code> with a value of type <code>code</code>. Status codes are typically constrained to a specific value set.</li>
+          <li>It has exactly one <code>code</code> with a value of type <code>CodeableConcept</code>. CodeableConcept are a FHIR representation of the <a href="http://www.hl7.org/documentcenter/public_temp_B17B2B88-1C23-BA17-0C4C9F6052CBAFB4/standards/v3/iso_datatypes/iso-21090-datatypes.xsd#CD">ISO 21090 CD datatype</a>.</li>
+          <li>It has an optional <code>subject</code> which is a FHIR Reference to a resource of type <code>Patient</code>, <code>Group</code>, <code>Device</code>, or <code>Location</code>).</li>
+          <li>It has an optional <code>effective</code> period which is reallized as either an <code>effectiveDateTime</code> property with a value type of <code>dateTime</code> or an <code>effectivePeriod</code> property with a value type of <code>Period</code>.</li>
+          <li>It has any number of <code>components</code> which are nested structures consisting of:
+          <ul>
+            <li>exactly one <code>code</code> with a value of type <code>CodeableConcept</code>.</li>
+            <li>an optional <code>value</code> which is reallized as one of:
+            <ul>
+              <li>an <code>valueQuantity</code> property with a value type of <code>Quantity</code>.</li>
+              <li>an <code>valueCodeableConcept</code> property with a value type of <code>CodeableConcept</code>.</li>
+              <li>an <code>valuePeriod</code> property with a value type of <code>Period</code>.</li>
+            </ul></li>
+            <li>an optional <code>dataAbsentReason</code> with a value of type <code>CodeableConcept</code>.</li>
+          </ul>
+          </li>
+        </ul>
+        <p>
+          Note also that clinical data statements include semantics which require rigorous examination during interpretation.
+          In particular, properties like <code>dataAbsentReason</code> can change the interpretation of the data.
+          This is monotonic, but requires that such fields <em>always</em> be checked when examining data.
+        </p>
+      </section>
+
+		  <section id="Expressivity">
+        <h2>Expressivity</h2>
+        <p>
+          The structural components of StructureDefinitions can be represented with an abstract syntax:
+        </p>
+        <pre class="abstrsynt">
+<span class="math" id="dfn-StructureDefinition">StructureDefinition ::= name:string, type:FHIRResource|PrimativeType, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
+<span class="math" id="dfn-PropertyDeclaration">PropertyDeclaration ::= expr:<a href="#dfdn-PropertyExpression">PropertyExpression</a>, cardinality:<a href="#dfdn-Cardinality">Cardinality</a></span>
+<span class="math" id="dfn-PropertyExpression">PropertyExpression  ::= <a href="#dfdn-PropertyChoice">PropertyChoice</a> | <a href="#dfdn-BackboneElement">BackboneElement</a> | <a href="#dfdn-Property">Property</a></span>
+<span class="math" id="dfn-PropertyChoice">PropertyChoice      ::= List[<a href="#dfdn-Property">Property</a>]</span>
+<span class="math" id="dfn-BackboneElement">BackboneElement     ::= List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
+<span class="math" id="dfn-Property">Property            ::= name:string, type:<a href="#dfdn-FHIRResource">FHIRResource</a>|<a href="#dfdn-ResourceReference">ResourceReference</a></span>
+<span class="math" id="dfn-ResourceReference">ResourceReference   ::= reference:<a href="#dfdn-FHIRResource">FHIRResource</a></span>
+<span class="math" id="dfn-Cardinality">Cardinality         ::= '?' | '1' | '+' | '*'</span>
+<span class="math" id="dfn-FHIRResource">FHIRResource        ::= string</span>
+<span class="math" id="dfn-PrimativeType">PrimativeType       ::= string</span></pre>
+      </section>
+    </section>
 
 		<section id="DefaultMapping">
       <h2>Default Mapping</h2>
