@@ -530,9 +530,7 @@ td:first-of-type a:first-of-type { color: purple; }
 PREFIX fhirvs: &lt;http://hl7.org/fhir/ValueSet/&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; 
 BASE &lt;http://hl7.org/fhir/shape/&gt;
-
 start=&lt;Observation&gt; AND {fhir:nodeRole [fhir:treeRoot]}
-
 
 # Measurements and simple assertions
 &lt;Observation&gt; CLOSED {
@@ -540,22 +538,13 @@ start=&lt;Observation&gt; AND {fhir:nodeRole [fhir:treeRoot]}
     fhir:nodeRole [fhir:treeRoot]?;
     fhir:Resource.id @&lt;id&gt;?;                # Logical id of this artifact
     fhir:Resource.meta @&lt;Meta&gt;?;            # Metadata about the resource
-    fhir:Resource.implicitRules @&lt;uri&gt;?;    # A set of rules under which this 
-                                            # content was created 
-    fhir:Resource.language @&lt;code&gt;?;        # Language of the resource content
     fhir:DomainResource.text @&lt;Narrative&gt;?;  # Text summary of the resource, for 
                                             # human interpretation 
-    fhir:DomainResource.contained @&lt;Resource&gt;*;  # Contained, inline Resources
-    fhir:extension @&lt;Extension&gt;*;           # Additional Content defined by 
-                                            # implementations 
-    fhir:modifierExtension @&lt;Extension&gt;*;   # Extensions that cannot be ignored
     fhir:Observation.identifier @&lt;Identifier&gt;*;  # Unique Id for this particular 
                                             # observation 
     fhir:Observation.status @&lt;code&gt; AND
     	{fhir:value @fhirvs:observation-status};  # registered | preliminary | final | 
                                             # amended + 
-    fhir:Observation.category @&lt;CodeableConcept&gt;*;  # Classification of  type of 
-                                            # observation 
     fhir:Observation.code @&lt;CodeableConcept&gt;;  # Type of observation (code / type)
     fhir:Observation.subject                # Who and/or what this is about
     (   @&lt;PatientReference&gt; OR
@@ -563,46 +552,11 @@ start=&lt;Observation&gt; AND {fhir:nodeRole [fhir:treeRoot]}
         @&lt;DeviceReference&gt; OR
         @&lt;LocationReference&gt;
     )?;
-    fhir:Observation.encounter @&lt;EncounterReference&gt;?;  # Healthcare event during which this 
-                                            # observation is made 
     (                                       # Clinically relevant 
                                             # time/time-period for observation 
         fhir:Observation.effectiveDateTime @&lt;dateTime&gt;  |
         fhir:Observation.effectivePeriod @&lt;Period&gt; 
     )?;
-    fhir:Observation.issued @&lt;instant&gt;?;    # Date/Time this was made available
-    fhir:Observation.performer              # Who is responsible for the 
-                                            # observation 
-    (   @&lt;PractitionerReference&gt; OR
-        @&lt;OrganizationReference&gt; OR
-        @&lt;PatientReference&gt; OR
-        @&lt;RelatedPersonReference&gt;
-    )*;
-    (                                       # Actual result
-        fhir:Observation.valueQuantity @&lt;Quantity&gt;  |
-        fhir:Observation.valueCodeableConcept @&lt;CodeableConcept&gt;  |
-        fhir:Observation.valueString @&lt;string&gt;  |
-        fhir:Observation.valueRange @&lt;Range&gt;  |
-        fhir:Observation.valueRatio @&lt;Ratio&gt;  |
-        fhir:Observation.valueSampledData @&lt;SampledData&gt;  |
-        fhir:Observation.valueAttachment @&lt;Attachment&gt;  |
-        fhir:Observation.valueTime @&lt;time&gt;  |
-        fhir:Observation.valueDateTime @&lt;dateTime&gt;  |
-        fhir:Observation.valuePeriod @&lt;Period&gt; 
-    )?;
-    fhir:Observation.dataAbsentReason @&lt;CodeableConcept&gt;?;  # Why the result is missing
-    fhir:Observation.interpretation @&lt;CodeableConcept&gt;?;  # High, low, normal, etc.
-    fhir:Observation.comment @&lt;string&gt;?;    # Comments about result
-    fhir:Observation.bodySite @&lt;CodeableConcept&gt;?;  # Observed body part
-    fhir:Observation.method @&lt;CodeableConcept&gt;?;  # How it was done
-    fhir:Observation.specimen @&lt;SpecimenReference&gt;?;  # Specimen used for this observation
-    fhir:Observation.device                 # (Measurement) Device
-    (   @&lt;DeviceReference&gt; OR
-        @&lt;DeviceMetricReference&gt;
-    )?;
-    fhir:Observation.referenceRange @&lt;Observation.referenceRange&gt;*;  # Provides guide for interpretation
-    fhir:Observation.related @&lt;Observation.related&gt;*;  # Resource related to this 
-                                            # observation 
     fhir:Observation.component @&lt;Observation.component&gt;*;  # Component results
     fhir:index xsd:integer?                 # Relative position in a list
 }</pre>
