@@ -387,7 +387,7 @@ td:first-of-type a:first-of-type { color: purple; }
           This captures structural constraints, such as the name and cardinality of properties, as well as definitions and meta data about properties.
           Structure Definitions can be textually represented in JSON or XML or graphically in HTML, as in this sample from FHIR Observation: [[FHIRObservation]]
         </p>
-        <table>
+        <table class="fhir">
           <tbody>
             <tr><th class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/formats.html#table" title="The logical name of the element">Name</a></th><th class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/formats.html#table" title="Reference to the type of the element">Type</a></th><th class="hierarchy">ₙ</th></tr><tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_resource.png" alt="✉" title="Resource" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation" title="Observation : Measurements and simple assertions made about a patient, device or other subject.">Observation</a><a id="Observation"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/domainresource.html">DomainResource</a></td><td class="hierarchy"></td></tr>
             <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.identifier" title="Observation.identifier : A unique identifier for the simple observation instance.">identifier</a><a id="Observation.identifier"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Identifier">Identifier</a></td><td class="hierarchy">*</td></tr>
@@ -433,6 +433,182 @@ td:first-of-type a:first-of-type { color: purple; }
           Note also that clinical data statements include semantics which require rigorous examination during interpretation.
           In particular, properties like <code>dataAbsentReason</code> can change the interpretation of the data.
           This is monotonic, but requires that such fields <em>always</em> be checked when examining data.
+        </p>
+        <p>
+          The FHIR documentation includes RDF examples in [[Turtle]] and structural schemas in [[ShEx]].
+          The following is an example RDF graph which complies with the above excerpt of a FHIR StructureDefinition:
+        </p>
+        <pre class="shex">@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
+@prefix loinc: &lt;http://loinc.org/owl#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix sct: &lt;http://snomed.info/id/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# - resource -------------------------------------------------------------------
+
+&lt;http://hl7.org/fhir/Observationblood-pressure&gt; a fhir:Observation;
+  fhir:nodeRole fhir:treeRoot;
+  fhir:Resource.id [ fhir:value "blood-pressure"];
+  fhir:Resource.meta [
+     fhir:Meta.lastUpdated [ fhir:value "2014-01-30T22:35:23+11:00"^^xsd:dateTime ]
+  ];
+  fhir:DomainResource.text [
+     fhir:Narrative.status [ fhir:value "generated" ];
+     fhir:Narrative.div "&lt;div xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;p&gt;…&lt;/p&gt;&lt;/div&gt;"
+  ];
+  fhir:Observation.identifier [
+     fhir:index 0;
+     fhir:Identifier.system [ fhir:value "urn:ietf:rfc:3986" ];
+     fhir:Identifier.value [ fhir:value "urn:uuid:187e0c12-8dd2-67e2-99b2-bf273c878281" ]
+  ];
+  fhir:Observation.status [ fhir:value "final"];
+  fhir:Observation.code [
+     fhir:CodeableConcept.coding [
+       fhir:index 0;
+       fhir:concept loinc:55284-4;
+       fhir:Coding.system [ fhir:value "http://loinc.org" ];
+       fhir:Coding.code [ fhir:value "55284-4" ];
+       fhir:Coding.display [ fhir:value "Blood pressure systolic &amp; diastolic" ]
+     ]
+  ];
+  fhir:Observation.subject [
+     fhir:link &lt;http://hl7.org/fhir/Patient/example&gt;;
+     fhir:Reference.reference [ fhir:value "Patient/example" ]
+  ];
+  fhir:Observation.effectiveDateTime [ fhir:value "2012-09-17"^^xsd:date];
+  fhir:Observation.component [
+     fhir:index 0;
+     fhir:Observation.component.code [
+       fhir:CodeableConcept.coding [
+         fhir:index 0;
+         fhir:concept loinc:8480-6;
+         fhir:Coding.system [ fhir:value "http://loinc.org" ];
+         fhir:Coding.code [ fhir:value "8480-6" ];
+         fhir:Coding.display [ fhir:value "Systolic blood pressure" ]
+       ], [
+         fhir:index 1;
+         fhir:concept sct:271649006;
+         fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
+         fhir:Coding.code [ fhir:value "271649006" ];
+         fhir:Coding.display [ fhir:value "Systolic blood pressure" ]
+       ]
+     ];
+     fhir:Observation.component.valueQuantity [
+       fhir:Quantity.value [ fhir:value "107"^^xsd:decimal ];
+       fhir:Quantity.unit [ fhir:value "mmHg" ];
+       fhir:Quantity.system [ fhir:value "http://unitsofmeasure.org" ];
+       fhir:Quantity.code [ fhir:value "mm[Hg]" ]
+     ]
+  ] .
+
+&lt;http://hl7.org/fhir/Patient/example&gt; a fhir:Patient .</pre>
+        <p>
+          Note that this is an almost "maximal" example.
+          An minimal example would include only the properties with a minimum cardinality of 1, e.g.
+        </p>
+        <pre class="shex">
+# - resource -------------------------------------------------------------------
+
+&lt;http://hl7.org/fhir/Observationblood-pressure&gt; a fhir:Observation;
+  fhir:nodeRole fhir:treeRoot;
+  fhir:Observation.status [ fhir:value "final"];
+  fhir:Observation.code [
+     fhir:CodeableConcept.coding [
+       fhir:index 0;
+       fhir:concept loinc:55284-4;
+       fhir:Coding.system [ fhir:value "http://loinc.org" ];
+       fhir:Coding.code [ fhir:value "55284-4" ];
+       fhir:Coding.display [ fhir:value "Blood pressure systolic &amp; diastolic" ]
+     ]
+  ] .</pre>
+
+        <p>
+          The ShEx for the above StructureDefinition is:
+        </p>
+        <pre class="shex">PREFIX fhir: &lt;http://hl7.org/fhir/&gt; 
+PREFIX fhirvs: &lt;http://hl7.org/fhir/ValueSet/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; 
+BASE &lt;http://hl7.org/fhir/shape/&gt;
+
+start=&lt;Observation&gt; AND {fhir:nodeRole [fhir:treeRoot]}
+
+
+# Measurements and simple assertions
+&lt;Observation&gt; CLOSED {
+    a [fhir:Observation];
+    fhir:nodeRole [fhir:treeRoot]?;
+    fhir:Resource.id @&lt;id&gt;?;                # Logical id of this artifact
+    fhir:Resource.meta @&lt;Meta&gt;?;            # Metadata about the resource
+    fhir:Resource.implicitRules @&lt;uri&gt;?;    # A set of rules under which this 
+                                            # content was created 
+    fhir:Resource.language @&lt;code&gt;?;        # Language of the resource content
+    fhir:DomainResource.text @&lt;Narrative&gt;?;  # Text summary of the resource, for 
+                                            # human interpretation 
+    fhir:DomainResource.contained @&lt;Resource&gt;*;  # Contained, inline Resources
+    fhir:extension @&lt;Extension&gt;*;           # Additional Content defined by 
+                                            # implementations 
+    fhir:modifierExtension @&lt;Extension&gt;*;   # Extensions that cannot be ignored
+    fhir:Observation.identifier @&lt;Identifier&gt;*;  # Unique Id for this particular 
+                                            # observation 
+    fhir:Observation.status @&lt;code&gt; AND
+    	{fhir:value @fhirvs:observation-status};  # registered | preliminary | final | 
+                                            # amended + 
+    fhir:Observation.category @&lt;CodeableConcept&gt;*;  # Classification of  type of 
+                                            # observation 
+    fhir:Observation.code @&lt;CodeableConcept&gt;;  # Type of observation (code / type)
+    fhir:Observation.subject                # Who and/or what this is about
+    (   @&lt;PatientReference&gt; OR
+        @&lt;GroupReference&gt; OR
+        @&lt;DeviceReference&gt; OR
+        @&lt;LocationReference&gt;
+    )?;
+    fhir:Observation.encounter @&lt;EncounterReference&gt;?;  # Healthcare event during which this 
+                                            # observation is made 
+    (                                       # Clinically relevant 
+                                            # time/time-period for observation 
+        fhir:Observation.effectiveDateTime @&lt;dateTime&gt;  |
+        fhir:Observation.effectivePeriod @&lt;Period&gt; 
+    )?;
+    fhir:Observation.issued @&lt;instant&gt;?;    # Date/Time this was made available
+    fhir:Observation.performer              # Who is responsible for the 
+                                            # observation 
+    (   @&lt;PractitionerReference&gt; OR
+        @&lt;OrganizationReference&gt; OR
+        @&lt;PatientReference&gt; OR
+        @&lt;RelatedPersonReference&gt;
+    )*;
+    (                                       # Actual result
+        fhir:Observation.valueQuantity @&lt;Quantity&gt;  |
+        fhir:Observation.valueCodeableConcept @&lt;CodeableConcept&gt;  |
+        fhir:Observation.valueString @&lt;string&gt;  |
+        fhir:Observation.valueRange @&lt;Range&gt;  |
+        fhir:Observation.valueRatio @&lt;Ratio&gt;  |
+        fhir:Observation.valueSampledData @&lt;SampledData&gt;  |
+        fhir:Observation.valueAttachment @&lt;Attachment&gt;  |
+        fhir:Observation.valueTime @&lt;time&gt;  |
+        fhir:Observation.valueDateTime @&lt;dateTime&gt;  |
+        fhir:Observation.valuePeriod @&lt;Period&gt; 
+    )?;
+    fhir:Observation.dataAbsentReason @&lt;CodeableConcept&gt;?;  # Why the result is missing
+    fhir:Observation.interpretation @&lt;CodeableConcept&gt;?;  # High, low, normal, etc.
+    fhir:Observation.comment @&lt;string&gt;?;    # Comments about result
+    fhir:Observation.bodySite @&lt;CodeableConcept&gt;?;  # Observed body part
+    fhir:Observation.method @&lt;CodeableConcept&gt;?;  # How it was done
+    fhir:Observation.specimen @&lt;SpecimenReference&gt;?;  # Specimen used for this observation
+    fhir:Observation.device                 # (Measurement) Device
+    (   @&lt;DeviceReference&gt; OR
+        @&lt;DeviceMetricReference&gt;
+    )?;
+    fhir:Observation.referenceRange @&lt;Observation.referenceRange&gt;*;  # Provides guide for interpretation
+    fhir:Observation.related @&lt;Observation.related&gt;*;  # Resource related to this 
+                                            # observation 
+    fhir:Observation.component @&lt;Observation.component&gt;*;  # Component results
+    fhir:index xsd:integer?                 # Relative position in a list
+}</pre>
+
+        <p>
+          Note that this ShEx depends on other ShEx declarations such as Identifier, code, CodeableConcept.
         </p>
       </section>
 
