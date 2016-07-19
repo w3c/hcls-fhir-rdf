@@ -294,6 +294,13 @@ td:first-of-type a:first-of-type { color: purple; }
       background-color: #F0F8F8;
       }
 
+      .fhir {
+      background-color: #F0F0F8;
+      }
+      .shex {
+      background-color: #F0F8F0;
+      }
+
 		</style>
 	</head>
 	<body>
@@ -429,38 +436,61 @@ td:first-of-type a:first-of-type { color: purple; }
         </p>
       </section>
 
-		  <section id="Expressivity">
-        <h2>Expressivity</h2>
-        <p>
-          The structural components of StructureDefinitions can be represented with an abstract syntax:
-        </p>
-        <pre class="abstrsynt">
-<span class="math" id="dfn-StructureDefinition">StructureDefinition ::= name:string, type:FHIRResource|PrimativeType, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
-<span class="math" id="dfn-PropertyDeclaration">PropertyDeclaration ::= expr:<a href="#dfdn-PropertyExpression">PropertyExpression</a>, cardinality:<a href="#dfdn-Cardinality">Cardinality</a></span>
-<span class="math" id="dfn-PropertyExpression">PropertyExpression  ::= <a href="#dfdn-PropertyChoice">PropertyChoice</a> | <a href="#dfdn-BackboneElement">BackboneElement</a> | <a href="#dfdn-Property">Property</a></span>
-<span class="math" id="dfn-PropertyChoice">PropertyChoice      ::= List[<a href="#dfdn-Property">Property</a>]</span>
-<span class="math" id="dfn-BackboneElement">BackboneElement     ::= List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
-<span class="math" id="dfn-Property">Property            ::= name:string, type:<a href="#dfdn-FHIRResource">FHIRResource</a>|<a href="#dfdn-ResourceReference">ResourceReference</a></span>
-<span class="math" id="dfn-ResourceReference">ResourceReference   ::= reference:<a href="#dfdn-FHIRResource">FHIRResource</a></span>
-<span class="math" id="dfn-Cardinality">Cardinality         ::= '?' | '1' | '+' | '*'</span>
-<span class="math" id="dfn-FHIRResource">FHIRResource        ::= string</span>
-<span class="math" id="dfn-PrimativeType">PrimativeType       ::= string</span></pre>
-      </section>
-
 		  <section id="MappingStrategy">
         <h2>Schema Mapping Strategy</h2>
         <p>
           StructureDefinitions are a domain-specific schema language in that they fully define the structural requirements of the abstract data model.
-          These are mapped to Shape Expressions by defining a default interpretation of the constraints in StructureDefinitions as ShEx supplemented by specific mappings for all leaf nodes, CodeableConcepts, and Resource References.
+          The structural schema for the RDF representation is expressed in Shape Expressions.
+          <span class="fhir">StructureDefinitions</span> are mapped to <span class="shex">Shape Expressions</span> by defining a default interpretation of the constraints in StructureDefinitions as ShEx supplemented by specific mappings for all leaf nodes, CodeableConcepts, and Resource References.
         </p>
       </section>
+
+		  <section id="FHIRAS">
+        <h2>FHIR Abstract Syntax</h2>
+        <p>
+          The structural components of StructureDefinitions can be represented with an abstract syntax:
+        </p>
+        <pre class="abstrsynt fhir">
+<span class="math" id="dfn-StructureDefinition">StructureDefinition ::= name:string, type:FHIRResource|PrimativeType, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
+<span class="math" id="dfn-PropertyDeclaration">PropertyDeclaration ::= expr:<a href="#dfdn-PropertyExpression">PropertyExpression</a>, cardinality:<a href="#dfdn-Cardinality">Cardinality</a></span>
+<span class="math" id="dfn-PropertyExpression" >PropertyExpression  ::= <a href="#dfdn-PropertyChoice">PropertyChoice</a> | <a href="#dfdn-BackboneElement">BackboneElement</a> | <a href="#dfdn-Property">Property</a></span>
+<span class="math" id="dfn-PropertyChoice"     >PropertyChoice      ::= List[<a href="#dfdn-Property">Property</a>]</span>
+<span class="math" id="dfn-BackboneElement"    >BackboneElement     ::= List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
+<span class="math" id="dfn-Property"           >Property            ::= name:string, type:<a href="#dfdn-FHIRResource">FHIRResource</a>|<a href="#dfdn-ResourceReference">ResourceReference</a></span>
+<span class="math" id="dfn-ResourceReference"  >ResourceReference   ::= reference:<a href="#dfdn-FHIRResource">FHIRResource</a></span>
+<span class="math" id="dfn-Cardinality"        >Cardinality         ::= '?' | '1' | '+' | '*'</span>
+<span class="math" id="dfn-FHIRResource"       >FHIRResource        ::= string</span>
+<span class="math" id="dfn-PrimativeType"      >PrimativeType       ::= string</span></pre>
+      </section>
+
+		  <section id="SHEXAS">
+        <h2>ShEx Abstract Syntax</h2>
+        <p>
+          The semantics of Shape Expressions is defined in terms of this abstract syntax, the relevent subset is exerpted here:
+        </p>
+        <pre class="abstrsynt shex">
+<span class="math" id="dfn-ShapeDefinition" > ShapeDefinition  ::= label:string, shapeExpr:ShapeExpression</span>
+<span class="math" id="dfn-ShapeExpression" > ShapeExpression  ::= ShapeAnd | ShapeOr | Shape</span>
+<span class="math" id="dfn-ShapeAnd"        > ShapeAnd         ::= shapeExprs:List[ShapeExpression]</span>
+<span class="math" id="dfn-ShapeOr"         > ShapeOr          ::= shapeExprs:List[ShapeExpression]</span>
+<span class="math" id="dfn-Shape"           > Shape            ::= label:string, nodeConstraint:NodeConstraint*, expression:TripleExpression?</span>
+<span class="math" id="dfn-TripleExpression"> TripleExpression ::= SomeOf | AllOf | TripleConstraint</span>
+<span class="math" id="dfn-AllOf"           > AllOf            ::= expressions:List[tripleExpression]</span>
+<span class="math" id="dfn-SomeOf"          > SomeOf           ::= expressions:List[tripleExpression]</span>
+<span class="math" id="dfn-TripleConstraint"> TripleConstraint ::= predicate:URI, valueExpr:ShapeExpression</span>
+<span class="math" id="dfn-NodeConstraint"  > NodeConstraint   ::= NodeKind|Datatype|Shape|XSDFacet</span></pre>
+      </section>
+
     </section>
 
 		<section id="DefaultMapping">
       <h2>Default Mapping</h2>
       <p>
-        The default interpretation of a StructureDefinition as an RDF Schema is defined as follows:
+        Unless a more specific rule below applies, the interpretation of a StructureDefinition as an RDF Schema is defined as follows:
       </p>
+      <ul>
+        <li>A <a href="#dfn-StructureDefinition" class="fhir">StructureDefinition</a> entails a <a href="#dfn-ShapeDefinition" class="shex">ShapeDefinition</a></li>
+      </ul>
 		  <section id="InstanceMapping">
         <h2>Instance Mapping</h2>
         <p>
