@@ -435,7 +435,7 @@ td:first-of-type a:first-of-type { color: purple; }
           This is monotonic, but requires that such fields <em>always</em> be checked when examining data.
         </p>
         <p>
-          The FHIR documentation includes RDF examples in [[Turtle]] and structural schemas in [[ShEx]].
+          The FHIR documentation includes RDF examples in [[Turtle]] and structural schemas in [[ShExSpec]].
           The following is an example RDF graph which complies with the above excerpt of a FHIR StructureDefinition:
         </p>
         <pre class="shex">@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
@@ -619,7 +619,9 @@ start=&lt;Observation&gt; AND {fhir:nodeRole [fhir:treeRoot]}
         Unless a more specific rule below applies, the <code>DefaultMapping</code> interpretation of a StructureDefinition as an RDF Schema is defined as follows:
       </p>
       <ul>
-        <li>A <a href="#dfn-StructureDefinition" class="fhir">StructureDefinition(label:X, shapeExpr:Y)</a> entails a <a href="#dfn-ShapeDefinition" class="shex">ShapeDefinition(label:concat("http://hl7.org/fhir/", X), DefaultMapping(Y))</a></li>
+        <li>A <a href="#dfn-StructureDefinition" class="fhir">StructureDefinition(name:string, type:FHIRResource, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>])</a> entails a <a href="#dfn-ShapeDefinition" class="shex">ShapeDefinition(label:concat("http://hl7.org/fhir/", name), DefaultMapping(declarations))</a></li>
+        <li>declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>] entails a <a href="#dfn-AllOf" class="shex">of DefaultMapping(d)</a> for each <a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a> d in declarations.</li>
+        <li>A <a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a> entails </li>
       </ul>
 		  <section id="InstanceMapping">
         <h2>Instance Mapping</h2>
