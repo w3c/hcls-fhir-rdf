@@ -1,16 +1,16 @@
 # hcls-fhir-rdf
-Sketching out an RDF representation for FHIR
+Sketching out an RDF representation for FHIR 
 
 ## State of affairs
-1.  The ShEx generation script has been significantly overhauled.  Outstanding issues: 
+The ShEx and RDF generation functions have been implemented directly within the [FHIR publishing process](http://gforge.hl7.org/gf/project/fhir).   
 
-    * namedReference isn't handled correctly, meaning that things like Bundle.entry.link do not appear in the ShEx
-    * primitive data types are not addressed correctly.  We need to specifically create ShEx equivalents for elements such as date.profile, which have ```"_code"``` rather than ```"code"```
+Code for the RDF generator can be found in [TurtleParser.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Felementmodel%2FTurtleParser.java&) and [RdfBaseParser.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Fformats%2FRdfParserBase.java)
 
-2. The XSLT generation function is broken at this point.  We need to update it to reflect the changes above.
-3. Code needs some cleaning and documentation to make it clearer how the FHIR schema is mapped into ShEx and XML
+Code for the ShEx generation can be found in [ShExGenerator.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Fconformance%2FShExGenerator.java)
 
+**The RDF and ShEx generation code in this repository is no longer maintained.**
 
+---------
 
 ## Directories
 * data - the current stable FHIR specification
