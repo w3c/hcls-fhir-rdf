@@ -8,27 +8,29 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
 -->
 <html>
 	<head>
-		<title>FHIR RDF Sample side by side comparisons</title>
+		<title>FHIR RDF Specification</title>
 		<meta charset="utf-8"/>
 		<script src="https://www.w3.org/Tools/respec/respec-w3c-common" async class="remove"></script>
 		<script class="remove">
 			var respecConfig = {
 				edDraftURI: "http://w3c.github.io/hcls-fhir-rdf/spec/",
 				issueBase: "https://github.com/w3c/hcls-fhir-rdf/issues",
-				specStatus: "unofficial",
+				specStatus: "ED",
 				shortName:  "fhir-rdf",
 				editors: [
 					{
-						name:       "Anthony Mallia",
-						url:        "amallia@edmondsci.com",
-						company:    "Edmond Scientific",
-						companyURL: "http://edmondsci.com/"
+						name:       "Harold Solbrig",
+						url:        "http://www.mayo.edu/research/faculty/solbrig-harold-r-m-s/bio-20022700",
+						company:    "Mayo Clinic",
+						companyURL: "http://www.mayo.edu/",
+            w3cid:      "36739"
 					},
 					{
 						name:       "Eric Prud'hommeaux",
 						url:        "http://www.w3.org/People/Eric/",
 						company:    "W3C/MIT",
-						companyURL: "http://www.w3.org/"
+						companyURL: "http://www.w3.org/",
+            w3cid:      "2112"
 					}
 				],
 				wg:           "Semantic Web in Health Care and Life Sciences Interest Group",
@@ -44,11 +46,48 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
               value: "Issues list",
               href: "https://github.com/w3c/hcls-fhir-rdf/issues"
           }]
-          }]
+          }],
+         	localBiblio:  {
+         	  "FHIR": {
+         	  	title:    "Fast Healthcare Interoperability Resources",
+         	  	href:     "http://hl7-fhir.github.io/",
+         	  	"authors": [
+         	  	  "Grahame Grieve",
+                "Lloyd Mckenzie"
+         	  	],
+         	  	publisher: "HL7"
+         	  },
+         	  "FHIRStructureDefintion": {
+         	  	title:    "FHIR StructureDefintion",
+         	  	href:     "http://hl7-fhir.github.io/structuredefinition",
+         	  	"authors": [
+         	  	  "Grahame Grieve",
+                "Lloyd Mckenzie"
+         	  	],
+         	  	publisher: "HL7"
+         	  },
+         	  "FHIRObservation": {
+         	  	title:    "FHIR Observation",
+         	  	href:     "http://hl7-fhir.github.io/structuredefinition",
+         	  	"authors": [
+         	  	  "Grahame Grieve",
+                "Lloyd Mckenzie"
+         	  	],
+         	  	publisher: "HL7"
+         	  },
+         	  "ShExSpec": {
+         	  	title:    "Shape Expressions Language Specification",
+         	  	href:     "http://shexspec.github.io/semantics/",
+         	  	"authors": [
+         	  		"Iovka Boneva"
+         	  	],
+         	  	publisher: "independent"
+         	  },
+          }
 			};
 		</script>
 		<!-- script src="https://www.w3.org/scripts/jquery/2.1/jquery.min.js"></script--> 
-		<style>
+		<style type="text/css">
       .special { color: red; }
       .inferred { color: green; }
       pre.FHIRXML {
@@ -105,28 +144,20 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
           padding-bottom: 0in;
           border-style: none;
       }
-pre.spec {
-    border: 1px solid #dcdcdc;
-    font-size: 11px;
-    background: #FFFFE0;
-    padding: 5px;
-    width: 650px;
-    white-space: pre-wrap;
-}
 .spec a.dict { color: purple; }
-pre.spec a {
+.spec a {
     color: darkgreen;
     text-decoration: none;
     border: 0;
 }
-pre.spec a:hover, a:focus {
+.spec a:hover, a:focus {
     color: #2a6496;
     text-decoration: underline;
 }
 .description { color: navy; }
 .description a { color: navy; }
-pre.spec .description a { color: navy; } /* override pre.spec a */
-.Table1 pre.spec {
+.spec .description a { color: navy; } /* override .spec a */
+.Table1 .spec {
     border-top-style: none;
     border-bottom-style: none;
     padding-top: 0;
@@ -146,6 +177,130 @@ img.scaled {
 .todo { color:red; border: thin solid red; }
 .todo:before { content: "TODO" }
 .contentious { color: red; }
+div.panel { float:left; }
+div.panel > div {
+    border-style: solid;
+    border-width: thick;
+    margin: .5em; /* margin between panels */
+}
+div.structure {
+    padding-bottom: 1ex;
+    padding-top: 1ex;
+}
+div.structure h2 { margin: 0; }
+div.structure { margin: 0; }
+div.structure table td:nth-child(1) { /* name column */
+    line-height: 1ex;
+    vertical-align: top;
+}
+div.structure table td:nth-child(2) { /* type column */
+    max-width: 15em
+}
+
+.heading { text-align: center; }
+span.heading { font-size: 140%; color: #005A9C; } /* emulate h2 in pre */
+/*td { line-height: 0 }*/
+td img:first-child { padding-right: 0.2em; }
+
+/* gray stuff */
+.Patient       { background-color: #EEE; border-color: #BBB; }
+.Practitioner  { background-color: #EEE; border-color: #BBB; }
+a.Patient      { background-color: #DDD; border: thin solid #BBB; }
+a.Practitioner { background-color: #DDD; border: thin solid #BBB; }
+
+/* meds constellation */
+.Medication  { background-color: #EFF; border-color: #BEE; }
+.MedicationOrder       { background-color: #FEF; border-color: #EBE; }
+.MedicationDispense    { background-color: #FFE; border-color: #EEB; }
+.Timing      { background-color: #EEF; border-color: #BBE; }
+.Ratio       { background-color: #EFE; border-color: #BEB; }
+.Range       { background-color: #FEE; border-color: #EBB; }
+a.Medication { background-color: #DFF; border: thin solid #BEE; }
+a.MedicationOrder      { background-color: #FDF; border: thin solid #EBE; }
+a.MedicationDispense   { background-color: #FFD; border: thin solid #EEB; }
+a.Timing     { background-color: #DDF; border: thin solid #BBE; }
+a.Ratio      { background-color: #DFD; border: thin solid #BEB; }
+a.Range      { background-color: #FDD; border: thin solid #EBB; }
+
+/* labs constellation */
+.DiagnosticOrder       { background-color: #FEF; border-color: #EBE; }
+.DiagnosticReport    { background-color: #FFE; border-color: #EEB; }
+.Observation  { background-color: #EFF; border-color: #BEE; }
+.Quantity      { background-color: #EEF; border-color: #BBE; }
+.Specimen       { background-color: #EFE; border-color: #BEB; }
+.Condition       { background-color: #FEE; border-color: #EBB; }
+a.DiagnosticOrder      { background-color: #FDF; border: thin solid #EBE; }
+a.DiagnosticReport   { background-color: #FFD; border: thin solid #EEB; }
+a.Observation { background-color: #DFF; border: thin solid #BEE; }
+a.Quantity     { background-color: #DDF; border: thin solid #BBE; }
+a.Specimen      { background-color: #DFD; border: thin solid #BEB; }
+a.Condition      { background-color: #FDD; border: thin solid #EBB; }
+
+
+div.data {
+    border-style: solid;
+    border-width: thick;
+}
+
+div.data pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
+}
+
+pre h2 { display: inline;
+    font: 120% fixed;
+}
+div pre { margin-left: 1em; }
+.spec a { text-decoration: none; }
+td:first-of-type a:first-of-type { color: purple; }
+.shexc a:first-of-type { color: purple; }
+.spec h2 a {
+    color: #005A9C;
+}
+.comment { color: #C00; }
+      td, th {
+      padding-top: 0;
+      padding-bottom: 0;
+      }
+      table {
+      width: 100%;
+      border-spacing:0;
+      border-collapse:collapse;
+      }
+.highlight { border-top: thin solid #777; border-bottom: thin solid #777; background-color: #FFF; }
+
+.post-collapsed::before { color: #733; content: "expand"; }
+.collapsible::before { color: #733; content: "collapse"; }
+.collapsible { color: #733; }
+/*.shex { display: none; }*/
+
+.outdent { margin-left: -1em; }
+
+      .math{
+      font-style: normal;
+      font-family: monospace;
+      }
+
+      .abstrsynt{
+      margin-left: 0;
+      margin-right: 2ex;
+      margin-top: 0.1ex;
+      margin-bottom: 0.1ex;
+      /* border: double 1px #888888; */
+      border: thin solid #888888;
+      padding: 1ex 2ex 0.5ex 2ex;
+      page-break-inside: avoid;
+      background-color: #F0F8F8;
+      }
+
+      .fhir {
+      background-color: #F0F0F8;
+      }
+      .shex {
+      background-color: #F0F8F0;
+      }
+
 		</style>
 	</head>
 	<body>
@@ -154,19 +309,11 @@ img.scaled {
 			<p>
         This document defines the RDF representation of FHIR Resources.
 			</p>
-        <div class="todo">
-        <p class="note">This document is in the process of being broken into two documents:
-	<ul>
-		<li><a href="http://w3c.github.io/hcls-fhir-rdf/spec/rdf.html">FHIR RDF Representation</a> -- to eventually become <a href="https://hl7-fhir.github.io/rdf.html">the official FHIR RDF page</li>
-		<li><a href="http://w3c.github.io/hcls-fhir-rdf/spec/ontology.html">FHIR OWL Ontology</a> -- to eventually become <a href="https://hl7-fhir.github.io/ontology.html">the official FHIR ontology page</li>
-	</ul>
-	</p>
-	</div>
 		</section>
 
 		<section id="sotd"><!-- filled in automagically --></section>
 
-		<section class='introductory'>
+		<!-- section class='introductory'>
 		  <h2>Revision History</h2>
 			<p>
 				The detailed list of changes and their diffs can be found in the <a href="https://github.com/w3c/hcls-fhir-rdf/commits/gh-pages/spec/index.html">Git repository</a>.
@@ -174,1530 +321,339 @@ img.scaled {
 			<ul>
 				<li><b>2016-01-19</b>: transcribed from Word doc (ericP)</li>
 			</ul>
+		</section -->
+
+	  <section id="notation">
+	    <h2>Notation</h2>
+      <p>
+        This document uses an abstact syntax consisting of productions defining data structures and labeled members of those data structures.
+        Each member had either a type or a union (choice) of types.
+        Each type is either a reference to another production, RDF type, or SPARQL literal term (e.g. <a href="http://www.w3.org/TR/sparql11-query/#operandDataTypes"><code>numeric</code></a>), or the template type of <code>List</code> or <code>Set</code>, which signify <a href="https://en.wikipedia.org/wiki/List_(mathematics)">logical lists</a> or <a href="https://en.wikipedia.org/wiki/Set_(mathematics)">logical sets</a> of a type.
+        Sets are unordered and duplicates members have no significance; the set <code>(1, 1, 2, 3, 5)</code> is the same as the set <code>(5, 1, 3, 2)</code>.
+      </p>
+      <p>
+        For example, the text:
+      </p>
+      <div class="abstrsynt">
+        <p><span class="math" id="dfn-StructureDefinition">StructureDefinition ::= name:string, type:FHIRResource|PrimativeType, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span></p>
+      </div>
+      <p>
+        signifies that a <code>StructureDefinition</code> has three components called <code>name</code>, <code>type</code> and <code>declarations</code>.
+        The <code>name</code> is a <code>string</code>,
+        the <code>type</code> is either a <a href="#dfn-FHIRResource"><code>FHIRResource</code></a> or a <a href="#dfn-PrimativeType"><code>PrimativeType</code></a>,
+        and the <code>declarations</code> are a list of <a href="#dfn-PropertyDeclaration"><code>PropertyDeclaration</code>s</a>.
+        <a href="#FHIRResource"><code>FHIRResource</code></a>, <a href="#PrimativeType"><code>PrimativeType</code></a> and <a href="#PropertyDeclaration"><code>PropertyDeclaration</code></a> are productions within this document.
+      </p>
+	    <p>
+        The following HTML tags and CSS classes are used to highlight the roles of text in this document:
+	    </p>
+	    <ul>
+        <li>&lt;dfn&gt;<dfn id="dfn-shacl-defined-term">defined term</dfn>&lt;dfn&gt;</li>
+        <li>&lt;a class="internalDFN"&gt;<a title="SHACL defined term" href="#dfn-shacl-defined-term" class="internalDFN">defined term</a>&lt;/a&gt;</li>
+        <li><sup class="eval">eval</sup> &mdash; link to evaluation semantics</li>
+	    </ul>
+	  </section>
+
+		<section id="intro" class="introductory">
+      <h2>Introduction</h2>
+      <p>
+        HL7 Fast Healthcare Interoperability Resources (FHIR) is an emerging standard for the exchange of electronic healthcare information [[FHIR]].
+        FHIR defines a collection of "resources" that "can easily be assembled into working systems that solve real world clinical and administrative problems at a fraction of the price of existing alternatives."
+        This assembly process typically requires "profiling" -- the adaptation of the FHIR base resources for use in clinical data exchange.
+        The core FHIR resources are described by FHIR-specific schema structures using the StructureDefinition resource. [[FHIRStructureDefintion]]
+        FHIR is represented in XML, JSON and RDF.
+      </p>
 		</section>
 
-		<section id="legend" class="introductory">
-      <h2>Legend</h2>
-      <p class="Standard">Most of the RDF is generated by verbatim logic (e.g. An unidentified element becomes an anonymous individual - &nbsp;blank node).</p>
-      <p class="Standard">Where RDF is generated by special transformation it is <span class="special">marked in red</span></p>
-      <p class="Standard">Where RDF is inferred by a reasoner it is <span class="inferred">marked in green</span>. </p>
-		</section>
+		<section id="FHIRResources">
+      <h2>FHIR Resources</h2>
+      <p>
+        The FHIR specification [[FHIR]] defines <code>resources</code>, which are stand-alone data structures capturing independent clinical statements about observations, diagnoses, allergies, medications, procedures, etc.
+        This separation of concearns leverages a simple web architecture to enable a atomic creation and updates to these statements.
+        (Contrast this with e.g. CCDA which defines a single document covering these different topics.)
+        As of June 9, 2016, the development version of the FHIR core specification [[FHIR]] included 113 resources for the exchange of information about care plans, risk assessments, patients, organizations, appointments, observations, etc.  along with a number of “container” resources such as Composition, Bundle and MessageHeader .
+      </p>
+      <p>
+        FHIR resources are defined using the FHIR StructureDefinition [[FHIRStructureDefintion]] resource, which provides the metamodel for all FHIR resources, including StructureDefinition itself.
+        FHIR resource definitions are represented in a human readable form through a custom FHIR-specific representation on the FHIR web site.
+        Alternative representations include customized XML and JSON templates and a Unified Modeling Language (UML)-like graphic format.
+        A combination of XML Schema and Schematron provides a formal definition of the representation of FHIR data in XML.
+      </p>
+
+		  <section id="StrucDefn">
+        <h2>Structure Definition</h2>
+        <p>
+          Structure Definitions enumerate sets of properties for abstract, hierarchical data structures.
+          This captures structural constraints, such as the name and cardinality of properties, as well as definitions and meta data about properties.
+          Structure Definitions can be textually represented in JSON or XML or graphically in HTML, as in this sample from FHIR Observation: [[FHIRObservation]]
+        </p>
+        <table class="fhir">
+          <tbody>
+            <tr><th class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/formats.html#table" title="The logical name of the element">Name</a></th><th class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/formats.html#table" title="Reference to the type of the element">Type</a></th><th class="hierarchy">ₙ</th></tr><tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_resource.png" alt="✉" title="Resource" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation" title="Observation : Measurements and simple assertions made about a patient, device or other subject.">Observation</a><a id="Observation"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/domainresource.html">DomainResource</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.identifier" title="Observation.identifier : A unique identifier for the simple observation instance.">identifier</a><a id="Observation.identifier"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Identifier">Identifier</a></td><td class="hierarchy">*</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_primitive.png" alt="▭" title="Primitive Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.status" title="Observation.status : The status of the result value.">status</a><a id="Observation.status"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#code">code</a></td><td class="hierarchy">1</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.code" title="Observation.code : Describes what was observed. Sometimes this is called the observation &quot;name&quot;.">code</a><a id="Observation.code"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy">1</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_reference.png" alt="☞" title="Reference to another Resource" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.subject" title="Observation.subject : The patient, or group of patients, location, or device whose characteristics (direct or indirect) are described by the observation and into whose record the observation is placed.  Comments: Indirect characteristics may be those of a specimen, fetus, donor,  other observer (for example a relative or EMT), or any observation made about the subject.">subject</a><a id="Observation.subject"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/references.html">Reference</a>(<a href="file:/home/eric/WWW/2016/FHIR-tutorial/patient.html">Patient</a> | <a href="file:/home/eric/WWW/2016/FHIR-tutorial/group.html">Group</a> | <a href="file:/home/eric/WWW/2016/FHIR-tutorial/device.html">Device</a> | <a href="file:/home/eric/WWW/2016/FHIR-tutorial/location.html">Location</a>)</td><td class="hierarchy">?</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_choice.gif" alt="?" title="Choice of Types" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.effective_x_" title="Observation.effective[x] : The time or time-period the observed value is asserted as being true. For biological subjects - e.g. human patients - this is usually called the &quot;physiologically relevant time&quot;. This is usually either the time of the procedure or of specimen collection, but very often the source of the date/time is not known, only the date/time itself.">effective[x]</a><a id="Observation.effective_x_"> </a></td><td class="hierarchy"></td><td class="hierarchy">?</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_primitive.png" alt="▭" title="Primitive Data Type" class="hierarchy"/> <span title="A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.">effectiveDateTime</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#dateTime">dateTime</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A time period defined by a start and end date and optionally time.">effectivePeriod</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Period">Period</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_element.gif" alt="⧇" title="Element" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component" title="Observation.component : Some observations have multiple component observations.  These component observations are expressed as separate code value pairs that share the same attributes.  Examples include systolic and diastolic component observations for blood pressure measurement and multiple component observations for genetics observations.">component</a><a id="Observation.component"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/backboneelement.html">BackboneElement</a></td><td class="hierarchy">*</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component.code" title="Observation.component.code : Describes what was observed. Sometimes this is called the observation &quot;code&quot;.">code</a><a id="Observation.component.code"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy">1</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_choice.gif" alt="?" title="Choice of Types" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component.value_x_" title="Observation.component.value[x] : The information determined as a result of making the observation, if the information has a simple value.">value[x]</a><a id="Observation.component.value_x_"> </a></td><td class="hierarchy"></td><td class="hierarchy">?</td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.">valueQuantity</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Quantity">Quantity</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin.png" alt="├" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.">valueCodeableConcept</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vline.png" alt="│" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <span title="A time period defined by a start and end date and optionally time.">valuePeriod</span></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#Period">Period</a></td><td class="hierarchy"></td></tr>
+            <tr><td class="hierarchy"><img src="http://hl7-fhir.github.io/tbl_spacer.png" alt="" class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_blank.png" alt=" " class="hierarchy"/><img src="http://hl7-fhir.github.io/tbl_vjoin_end.png" alt="└" class="hierarchy"/><img src="http://hl7-fhir.github.io/icon_datatype.gif" alt="⧆" title="Data Type" class="hierarchy"/> <a href="file:/home/eric/WWW/2016/FHIR-tutorial/observation-definitions.html#Observation.component.dataAbsentReason" title="Observation.component.dataAbsentReason : Provides a reason why the expected value in the element Observation.value[x] is missing.">dataAbsentReason</a><a id="Observation.component.dataAbsentReason"> </a></td><td class="hierarchy"><a href="file:/home/eric/WWW/2016/FHIR-tutorial/datatypes.html#CodeableConcept">CodeableConcept</a></td><td class="hierarchy">?</td></tr>
+          </tbody>
+        </table>
+        <p>
+          This can be read as a narrative:
+        </p>
+        <ul>
+          <li>This StructureDefinition defines the structure of the FHIR <code>Observation</code> resource, which is an extension of the <code>DomainResource</code> resource.</li>
+          <li>It has an arbitrary number ('*') <code>identifier</code> properties with values of type <code>Identifier</code> (defined elsewhere).</li>
+          <li>It has exactly one <code>status</code> with a value of type <code>code</code>. Status codes are typically constrained to a specific value set.</li>
+          <li>It has exactly one <code>code</code> with a value of type <code>CodeableConcept</code>. CodeableConcept are a FHIR representation of the <a href="http://www.hl7.org/documentcenter/public_temp_B17B2B88-1C23-BA17-0C4C9F6052CBAFB4/standards/v3/iso_datatypes/iso-21090-datatypes.xsd#CD">ISO 21090 CD datatype</a>.</li>
+          <li>It has an optional <code>subject</code> which is a FHIR Reference to a resource of type <code>Patient</code>, <code>Group</code>, <code>Device</code>, or <code>Location</code>).</li>
+          <li>It has an optional <code>effective</code> period which is reallized as either an <code>effectiveDateTime</code> property with a value type of <code>dateTime</code> or an <code>effectivePeriod</code> property with a value type of <code>Period</code>.</li>
+          <li>It has any number of <code>components</code> which are nested structures consisting of:
+          <ul>
+            <li>exactly one <code>code</code> with a value of type <code>CodeableConcept</code>.</li>
+            <li>an optional <code>value</code> which is reallized as one of:
+            <ul>
+              <li>an <code>valueQuantity</code> property with a value type of <code>Quantity</code>.</li>
+              <li>an <code>valueCodeableConcept</code> property with a value type of <code>CodeableConcept</code>.</li>
+              <li>an <code>valuePeriod</code> property with a value type of <code>Period</code>.</li>
+            </ul></li>
+            <li>an optional <code>dataAbsentReason</code> with a value of type <code>CodeableConcept</code>.</li>
+          </ul>
+          </li>
+        </ul>
+        <p>
+          Note also that clinical data statements include semantics which require rigorous examination during interpretation.
+          In particular, properties like <code>dataAbsentReason</code> can change the interpretation of the data.
+          This is monotonic, but requires that such fields <em>always</em> be checked when examining data.
+        </p>
+        <p>
+          The FHIR documentation includes RDF examples in [[Turtle]] and structural schemas in [[ShExSpec]].
+          The following is an example RDF graph which complies with the above excerpt of a FHIR StructureDefinition:
+        </p>
+        <pre class="shex">@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
+@prefix loinc: &lt;http://loinc.org/owl#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix sct: &lt;http://snomed.info/id/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+# - resource -------------------------------------------------------------------
+
+&lt;http://hl7.org/fhir/Observationblood-pressure&gt; a fhir:Observation;
+  fhir:nodeRole fhir:treeRoot;
+  fhir:Resource.id [ fhir:value "blood-pressure"];
+  fhir:Resource.meta [
+     fhir:Meta.lastUpdated [ fhir:value "2014-01-30T22:35:23+11:00"^^xsd:dateTime ]
+  ];
+  fhir:DomainResource.text [
+     fhir:Narrative.status [ fhir:value "generated" ];
+     fhir:Narrative.div "&lt;div xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;p&gt;…&lt;/p&gt;&lt;/div&gt;"
+  ];
+  fhir:Observation.identifier [
+     fhir:index 0;
+     fhir:Identifier.system [ fhir:value "urn:ietf:rfc:3986" ];
+     fhir:Identifier.value [ fhir:value "urn:uuid:187e0c12-8dd2-67e2-99b2-bf273c878281" ]
+  ];
+  fhir:Observation.status [ fhir:value "final"];
+  fhir:Observation.code [
+     fhir:CodeableConcept.coding [
+       fhir:index 0;
+       fhir:concept loinc:55284-4;
+       fhir:Coding.system [ fhir:value "http://loinc.org" ];
+       fhir:Coding.code [ fhir:value "55284-4" ];
+       fhir:Coding.display [ fhir:value "Blood pressure systolic &amp; diastolic" ]
+     ]
+  ];
+  fhir:Observation.subject [
+     fhir:link &lt;http://hl7.org/fhir/Patient/example&gt;;
+     fhir:Reference.reference [ fhir:value "Patient/example" ]
+  ];
+  fhir:Observation.effectiveDateTime [ fhir:value "2012-09-17"^^xsd:date];
+  fhir:Observation.component [
+     fhir:index 0;
+     fhir:Observation.component.code [
+       fhir:CodeableConcept.coding [
+         fhir:index 0;
+         fhir:concept loinc:8480-6;
+         fhir:Coding.system [ fhir:value "http://loinc.org" ];
+         fhir:Coding.code [ fhir:value "8480-6" ];
+         fhir:Coding.display [ fhir:value "Systolic blood pressure" ]
+       ], [
+         fhir:index 1;
+         fhir:concept sct:271649006;
+         fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
+         fhir:Coding.code [ fhir:value "271649006" ];
+         fhir:Coding.display [ fhir:value "Systolic blood pressure" ]
+       ]
+     ];
+     fhir:Observation.component.valueQuantity [
+       fhir:Quantity.value [ fhir:value "107"^^xsd:decimal ];
+       fhir:Quantity.unit [ fhir:value "mmHg" ];
+       fhir:Quantity.system [ fhir:value "http://unitsofmeasure.org" ];
+       fhir:Quantity.code [ fhir:value "mm[Hg]" ]
+     ]
+  ] .
+
+&lt;http://hl7.org/fhir/Patient/example&gt; a fhir:Patient .</pre>
+        <p>
+          Note that this is an almost "maximal" example.
+          An minimal example would include only the properties with a minimum cardinality of 1, e.g.
+        </p>
+        <pre class="shex">
+# - resource -------------------------------------------------------------------
+
+&lt;http://hl7.org/fhir/Observationblood-pressure&gt; a fhir:Observation;
+  fhir:nodeRole fhir:treeRoot;
+  fhir:Observation.status [ fhir:value "final"];
+  fhir:Observation.code [
+     fhir:CodeableConcept.coding [
+       fhir:index 0;
+       fhir:concept loinc:55284-4;
+       fhir:Coding.system [ fhir:value "http://loinc.org" ];
+       fhir:Coding.code [ fhir:value "55284-4" ];
+       fhir:Coding.display [ fhir:value "Blood pressure systolic &amp; diastolic" ]
+     ]
+  ] .</pre>
+
+        <p>
+          The ShEx for the above StructureDefinition is:
+        </p>
+        <pre class="shex">PREFIX fhir: &lt;http://hl7.org/fhir/&gt; 
+PREFIX fhirvs: &lt;http://hl7.org/fhir/ValueSet/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; 
+BASE &lt;http://hl7.org/fhir/shape/&gt;
+start=&lt;Observation&gt; AND {fhir:nodeRole [fhir:treeRoot]}
+
+# Measurements and simple assertions
+&lt;Observation&gt; CLOSED {
+    a [fhir:Observation];
+    fhir:nodeRole [fhir:treeRoot]?;
+    fhir:Resource.id @&lt;id&gt;?;                # Logical id of this artifact
+    fhir:Resource.meta @&lt;Meta&gt;?;            # Metadata about the resource
+    fhir:DomainResource.text @&lt;Narrative&gt;?;  # Text summary of the resource, for 
+                                            # human interpretation 
+    fhir:Observation.identifier @&lt;Identifier&gt;*;  # Unique Id for this particular 
+                                            # observation 
+    fhir:Observation.status @&lt;code&gt; AND
+    	{fhir:value @fhirvs:observation-status};  # registered | preliminary | final | 
+                                            # amended + 
+    fhir:Observation.code @&lt;CodeableConcept&gt;;  # Type of observation (code / type)
+    fhir:Observation.subject                # Who and/or what this is about
+    (   @&lt;PatientReference&gt; OR
+        @&lt;GroupReference&gt; OR
+        @&lt;DeviceReference&gt; OR
+        @&lt;LocationReference&gt;
+    )?;
+    (                                       # Clinically relevant 
+                                            # time/time-period for observation 
+        fhir:Observation.effectiveDateTime @&lt;dateTime&gt;  |
+        fhir:Observation.effectivePeriod @&lt;Period&gt; 
+    )?;
+    fhir:Observation.component @&lt;Observation.component&gt;*;  # Component results
+    fhir:index xsd:integer?                 # Relative position in a list
+}</pre>
+
+        <p>
+          Note that this ShEx depends on other ShEx declarations such as Identifier, code, CodeableConcept.
+        </p>
+      </section>
+
+		  <section id="MappingStrategy">
+        <h2>Schema Mapping Strategy</h2>
+        <p>
+          StructureDefinitions are a domain-specific schema language in that they fully define the structural requirements of the abstract data model.
+          The structural schema for the RDF representation is expressed in Shape Expressions.
+          <span class="fhir">StructureDefinitions</span> are mapped to <span class="shex">Shape Expressions</span> by defining a default interpretation of the constraints in StructureDefinitions as ShEx supplemented by specific mappings for all leaf nodes, CodeableConcepts, and Resource References.
+        </p>
+      </section>
+
+		  <section id="FHIRAS">
+        <h2>FHIR Abstract Syntax</h2>
+        <p>
+          The structural components of StructureDefinitions can be represented with an abstract syntax:
+        </p>
+        <pre class="abstrsynt fhir">
+<span class="math" id="dfn-StructureDefinition">StructureDefinition ::= name:string, type:FHIRResource|PrimativeType, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
+<span class="math" id="dfn-PropertyDeclaration">PropertyDeclaration ::= expr:<a href="#dfdn-PropertyExpression">PropertyExpression</a>, cardinality:<a href="#dfdn-Cardinality">Cardinality</a></span>
+<span class="math" id="dfn-PropertyExpression" >PropertyExpression  ::= <a href="#dfdn-PropertyChoice">PropertyChoice</a> | <a href="#dfdn-BackboneElement">BackboneElement</a> | <a href="#dfdn-Property">Property</a></span>
+<span class="math" id="dfn-PropertyChoice"     >PropertyChoice      ::= List[<a href="#dfdn-Property">Property</a>]</span>
+<span class="math" id="dfn-BackboneElement"    >BackboneElement     ::= List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>]</span>
+<span class="math" id="dfn-Property"           >Property            ::= name:string, type:<a href="#dfdn-FHIRResource">FHIRResource</a>|<a href="#dfdn-ResourceReference">ResourceReference</a></span>
+<span class="math" id="dfn-ResourceReference"  >ResourceReference   ::= reference:<a href="#dfdn-FHIRResource">FHIRResource</a></span>
+<span class="math" id="dfn-Cardinality"        >Cardinality         ::= '?' | '1' | '+' | '*'</span>
+<span class="math" id="dfn-FHIRResource"       >FHIRResource        ::= string</span>
+<span class="math" id="dfn-PrimativeType"      >PrimativeType       ::= string</span></pre>
+      </section>
+
+		  <section id="SHEXAS">
+        <h2>ShEx Abstract Syntax</h2>
+        <p>
+          The semantics of Shape Expressions is defined in terms of this abstract syntax, the relevent subset is exerpted here:
+        </p>
+        <pre class="abstrsynt shex">
+<span class="math" id="dfn-ShapeDefinition" > ShapeDefinition  ::= label:string, shapeExpr:ShapeExpression</span>
+<span class="math" id="dfn-ShapeExpression" > ShapeExpression  ::= ShapeAnd | ShapeOr | Shape</span>
+<span class="math" id="dfn-ShapeAnd"        > ShapeAnd         ::= shapeExprs:List[ShapeExpression]</span>
+<span class="math" id="dfn-ShapeOr"         > ShapeOr          ::= shapeExprs:List[ShapeExpression]</span>
+<span class="math" id="dfn-Shape"           > Shape            ::= label:string, nodeConstraint:NodeConstraint*, expression:TripleExpression?</span>
+<span class="math" id="dfn-TripleExpression"> TripleExpression ::= SomeOf | AllOf | TripleConstraint</span>
+<span class="math" id="dfn-AllOf"           > AllOf            ::= expressions:List[tripleExpression]</span>
+<span class="math" id="dfn-SomeOf"          > SomeOf           ::= expressions:List[tripleExpression]</span>
+<span class="math" id="dfn-TripleConstraint"> TripleConstraint ::= predicate:URI, valueExpr:ShapeExpression</span>
+<span class="math" id="dfn-NodeConstraint"  > NodeConstraint   ::= NodeKind|Datatype|Shape|XSDFacet</span></pre>
+      </section>
+
+    </section>
 
 		<section id="DefaultMapping">
       <h2>Default Mapping</h2>
       <p>
-        In general the mapping between types, elements in XML and Classes, individuals in RDF is generally the same.
-        This section defines that default mapping and other section describe deviations from the default mapping.
+        Unless a more specific rule below applies, the <code>DefaultMapping</code> interpretation of a StructureDefinition as an RDF Schema is defined as follows:
       </p>
+      <ul>
+        <li>A <a href="#dfn-StructureDefinition" class="fhir">StructureDefinition(name:string, type:FHIRResource, declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>])</a> entails a <a href="#dfn-ShapeDefinition" class="shex">ShapeDefinition(label:concat("http://hl7.org/fhir/", name), DefaultMapping(declarations))</a></li>
+        <li>declarations:List[<a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a>] entails a <a href="#dfn-AllOf" class="shex">of DefaultMapping(d)</a> for each <a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a> d in declarations.</li>
+        <li>A <a href="#dfdn-PropertyDeclaration">PropertyDeclaration</a> entails </li>
+      </ul>
 		  <section id="InstanceMapping">
         <h2>Instance Mapping</h2>
         <p>
-          In XML the element instances are nested using tags.
+          ...
         </p>
 		    <section id="Element">
           <h2>Element</h2>
           <p>
-            An XML element corresponds to a RDF/OWL individual.
-            In many cases unless the element has identity the mapping is to an anonymous individual.
-            Where identity has been given to the element then it maps to a anamed individual.
-          </p>
-		    </section>
-		    <section id="XMLTag">
-          <h2>XML Tag</h2>
-          <p>
-            The XML tag is mapped to an Object Property Assertion of the Object Property defined for the tag name.
-          </p>
-		    </section>
-		    <section id="XMLAttribute">
-          <h2>XML Attribute</h2>
-          <p>
-            An XML attribute represents a simple type and in FHIR is always “value”.
-            FHIR datatypes have attributes of XSD datatypes.
-          </p>
-          <p>
-            <span class="code">  fhir:CodingBase.display [ <span class="inferred">a fhir:string</span>; fhir:value "Admin"] ;</span><br/>
-            Shows an anonymous individual in [] of datatype fhir:string with value data property “Admin”.
+            ...
           </p>
 		    </section>
 		  </section>
-      <section id="DefaultTypeMapping">
-        <h2>Default Type Mapping</h2>
-		    <section id="ComplexTypeToClass">
-          <h2>Complex Type to Class</h2>
-          <p>
-            A Complex type in XSD maps to an owl:Class.
-            The elements of the Complex type map to Object Properties.
-          </p>
-          <p>
-            Sequences do not get represented in RDF/OWL but the ordering can be declared with annotation properties (see later section on ordering).
-          </p>
-		    </section>
-		    <section id="NestedElements">
-          <h2>Nested Elements</h2>
-          <p>
-            An XML tag is unique within the namespace that it is declared in.
-            FHIR does not use global declarations.
-            The XML tag is mapped to an Object Property where the name is prefixed with the Class name in which it was declared.
-            A tag “bar” declared in a complex type “Foo” would become an Object Property “Foo.bar”.
-            This is aligned with the structural definition mechanism in FHIR.
-          </p>
-		    </section>
-		    <section>
-          <h2>Datatypes</h2>
-          <p>
-            In RDF the value attribute of a datatype is a Data Property named “value” with undefined range.
-            Each FHIR data type has a restriction on the range of the Data Property (see section on Datatypes).
-          </p>
-		    </section>
-		  </section>
-		  <section>
-        <h2>Structural Definition Mapping</h2>
-        <p>
-          A structural definition includes element definitions.
-        </p>
-		    <section>
-          <h2>Structural Definition Example</h2>
-          <pre class="FHIRXML">
-&lt;?<span class="ul">xml</span> version="1.0" encoding="UTF-8"?&gt;
-&lt;StructureDefinition <span class="ul">xmlns</span>="http://hl7.org/fhir"&gt;
-  &lt;id value="example"/&gt;
-  &lt;text&gt;
----
-  &lt;/text&gt;
-  &lt;url value="http://hl7.org/fhir/StructureDefinition/example"/&gt;
-  &lt;name value="Example <span class="ul">Lipid</span> Profile"/&gt;
-  &lt;publisher value="<span class="ul">Grahame</span> Grieve"/&gt;
-  &lt;contact&gt;
-    &lt;<span class="ul">telecom</span>&gt;
-      &lt;system value="<span class="ul">url</span>"/&gt;
-      &lt;value value="<span class="ul">grahame@healthintersections.com.au</span>"/&gt;
-    &lt;/<span class="ul">telecom</span>&gt;
-  &lt;/contact&gt;
-  &lt;description value="Describes how the lab report is used for a standard <span class="ul">Lipid</span> Profile - <span class="ul">Cholesterol</span>, <span class="ul">Triglyceride</span> and
-<span class="ul">Cholesterol</span> fractions. Uses LOINC codes"/&gt;
-  &lt;status value="draft"/&gt;
-  &lt;date value="2012-05-12"/&gt;
-  &lt;type value="constraint"/&gt;
-  &lt;abstract value="false"/&gt;
-  &lt;snapshot&gt;
-    &lt;element&gt;
-------
-    &lt;/element&gt;
-  &lt;/snapshot&gt;
-&lt;/StructureDefinition&gt;
-          </pre>
-		    </section>
-		    <section>
-          <h2>Element XML Example</h2>
-          <p>
-            The following is the Element Definition for fhir:Reference:
-          </p>
-          <pre class="FHIRXML">
- &lt;entry&gt;
-   &lt;fullUrl value="http://hl7.org/fhir/DataElement/Reference"/&gt;
-    &lt;resource&gt;
-      &lt;DataElement&gt;
-         &lt;id value="Reference"/&gt;
-          &lt;meta&gt;
-            &lt;lastUpdated value="2015-12-31T00:38:37.614+00:00"/&gt;
-         &lt;/meta&gt;
-         &lt;url value="http://hl7.org/fhir/DataElement/Reference"/&gt;
-         &lt;status value="draft"/&gt;
-         &lt;experimental value="true"/&gt;
-         &lt;stringency value="fully-specified"/&gt;
-          &lt;element&gt;
-            &lt;path value="Reference"/&gt;
-            &lt;short value="A reference from one resource to another"/&gt;
-            &lt;definition value="A reference from one resource to another."/&gt;
-            &lt;min value="0"/&gt;
-            &lt;max value="*"/&gt;
-            &lt;type&gt;
-                &lt;code value="Element"/&gt;
-            &lt;/type&gt;
-            &lt;constraint&gt;
-                &lt;extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-expression"&gt;
-                  &lt;valueString value="reference.startsWith("#").not() or ($context.reference.substring(1).log("url") in $resource.contained.id.log("ids"))"/&gt;
-               &lt;/extension&gt;
-               &lt;key value="ref-1"/&gt;
-               &lt;severity value="error"/&gt;
-               &lt;human value="SHALL have a local reference if the resource is provided inline"/&gt;
-               &lt;xpath value="not(starts-with(f:reference/@value, '#')) or exists(ancestor::*[self::f:entry or self::f:parameter]/f:resource/f:*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')]|/*/f:contained/f:*[f:id/@value=substring-after(current()/f:reference/@value, '#')])"/&gt;
-            &lt;/constraint&gt;
-            &lt;isSummary value="true"/&gt;
-            &lt;mapping&gt;
-               &lt;identity value="rim"/&gt;
-               &lt;map value="The target of a resource reference is a RIM entry point (Act, Role, or Entity)"/&gt;
-            &lt;/mapping&gt;
-         &lt;/element&gt;
-      &lt;/DataElement&gt;
-   &lt;/resource&gt;
-&lt;/entry 
-          </pre>
-		    </section>
-		    <section>
-          <h2>Element Property example</h2>
-          <pre class="FHIRXML">
- &lt;entry&gt;
-   &lt;fullUrl value="http://hl7.org/fhir/DataElement/Reference.display"/&gt;
-    &lt;resource&gt;
-      &lt;DataElement&gt;
-         &lt;id value="Reference.display"/&gt;
-          &lt;meta&gt;
-            &lt;lastUpdated value="2015-12-31T00:38:37.614+00:00"/&gt;
-         &lt;/meta&gt;
-         &lt;url value="http://hl7.org/fhir/DataElement/Reference.display"/&gt;
-         &lt;status value="draft"/&gt;
-         &lt;experimental value="true"/&gt;
-         &lt;stringency value="fully-specified"/&gt;
-          &lt;element&gt;
-            &lt;path value="Reference.display"/&gt;
-            &lt;short value="Text alternative for the resource"/&gt;
-            &lt;definition value="Plain text narrative that identifies the resource in addition to the resource reference."/&gt;
-            &lt;comments value="This is generally not the same as the Resource.text of the referenced resource. The purpose is to identify what's being referenced, not to fully describe it."/&gt;
-            &lt;min value="0"/&gt;
-            &lt;max value="1"/&gt;
-            &lt;type&gt;
-                &lt;code value="string"/&gt;
-            &lt;/type&gt;
-            &lt;isSummary value="true"/&gt;
-            &lt;mapping&gt;
-               &lt;identity value="rim"/&gt;
-               &lt;map value="N/A"/&gt;
-            &lt;/mapping&gt;
-         &lt;/element&gt;
-      &lt;/DataElement&gt;
-   &lt;/resource&gt;
-&lt;/entry&gt; 
-          </pre>
-		    </section>
-		    <section>
-          <h2> Element Example “Reference” in OWL</h2>
-          <pre class="FHIRXML">
-###  http://hl7.org/fhir/Reference
-fhir:Reference rdf:type owl:Class ;
-               
-               rdfs:subClassOf fhir:Element ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.link ;
-                                 owl:allValuesFrom fhir:DomainResource
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.display ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.display ;
-                                 owl:allValuesFrom fhir:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.reference ;
-                                 owl:allValuesFrom fhir:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.reference ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.link ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ;
-               fhir:lastUpdated "2015-12-31T00:38:37.614+00:00"^^xsd:dateTime ;
-               fhir:isSummary "true"^^xsd:boolean ;
-               fhir:experimental "true"^^xsd:boolean ;
-               fhir:concept_definition "A reference from one resource to another" ;
-               fhir:status "draft" ;
-               fhir:stringency "fully-specified" ;
-               fhir:short "A reference from one resource to another" .
-          </pre>
-          <p>
-            The object property restrictions are all defined in the containing element as opposed to FHIR Element definitions.
-          </p>
-		    </section>
-		    <section>
-          <h2>Property “Reference.display” example in OWL</h2>
-          <pre class="FHIRXML">
-###  http://hl7.org/fhir/Reference.display
-fhir:Reference.display rdf:type owl:ObjectProperty ;
-                       rdfs:domain fhir:Reference ;
-                       rdfs:subPropertyOf fhir:objectProperty ;
-                       rdfs:range fhir:string .
-          </pre>
-		    </section>
-		    <section>
-          <h2>Element Definition to OWL mapping</h2>
-          <table class="Table1">
-            <tr class="Table11">
-              <th>FHIR Element Definition</th>
-              <th style="width:45%">FHIR OWL Definitions</th>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">&lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition" title="Captures constraints on each element within the resource, profile, or extension." class="dict"><b>[name]</b></a> xmlns="http://hl7.org/fhir"&gt; <span style="float: right"><a href="http://hl7-fhir.github.io/xml.html" title="Documentation for this format"><img src="http://hl7-fhir.github.io/help.png" alt="doco" style="height: 2ex" /></a></span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;!-- from Element: <a href="http://hl7-fhir.github.io/extensibility.html">extension</a> --&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.path" title="The path identifies the element and is expressed as a &quot;.&quot;-separated list of ancestor elements, beginning with the name of the resource or extension." class="dict"><b>path</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">The path of the element (see the Detailed Descriptions)</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                fhir:”[string]” rdf:type owl:Class ;<br/>
-                fhir: ”[string]” rdf:type owl:ObjectProperty ;
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.representation" title="Codes that define how this element is represented in instances, when the deviation varies from the normal case." class="dict"><b>representation</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span class="description"><a href="valueset-property-representation.html">How this element is represented in instances</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.name" title="The name of this element definition (to refer to it from other element definitions using ElementDefinition.nameReference). This is a unique name referring to a specific set of constraints applied to this element. One use of this is to provide a name to different slices of the same element." class="dict"><b>name</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Name for this particular element definition (reference target)</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.label" title="The text to display beside the element indicating its meaning or to use to prompt for the element in a user display or form." class="dict"><b>label</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Name for element to display with or prompt for element</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                rdfs:label
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.code" title="A code that provides the meaning for the element according to a particular terminology." class="dict"><b>code</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#Coding">Coding</a></span> <span class="description"><a href="valueset-observation-codes.html">Defining code</a></span><span style="color: Gray"> --&gt;</span>&lt;/code&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.slicing" title="Indicates that the element is sliced into a set of alternative definitions (i.e. in a structure definition, there are multiple different constraints on a single element in the base resource). Slicing can be used in any resource that has cardinality ..* on the base resource, or any resource with a choice of types. The set of slices is any elements that come after this in the element sequence that have the same path, until a shorter path occurs (the shorter path terminates the set)." class="dict"><b>slicing</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..1</b></span> This element is sliced - slices follow --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.slicing.discriminator" title="Designates which child elements are used to discriminate between the slices when processing an instance. If one or more discriminators are provided, the value of the child elements in the instance data SHALL completely distinguish which slice the element in the resource matches based on the allowed values for those elements in each of the slices." class="dict"><b>discriminator</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span class="description"><a href="terminologies.html#unbound">Element values that used to distinguish the slices</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.slicing.description" title="A human-readable text description of how the slicing works. If there is no discriminator, this is required to be present to provide whatever information is possible about how the slices can be differentiated." class="dict"><b>description</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-1: If there are no discriminators, there must be a definition"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Text description of how slicing works (or not)</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.slicing.ordered" title="If the matching elements have to occur in the same order as defined in the profile." class="dict"><b>ordered</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#boolean">boolean</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">If elements must be in same order as slices</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.slicing.rules" title="Whether additional slices are allowed or not. When the slices are ordered, profile authors can also say that additional slices are only allowed at the end." class="dict"><b>rules</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="valueset-resource-slicing-rules.html">closed | open | openAtEnd</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;/slicing&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.short" title="A concise description of what this element means (e.g. for use in autogenerated summaries)." class="dict"><b>short</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Concise definition for xml presentation</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                fhir:short "" .
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.definition" title="Provides a complete explanation of the meaning of the data element for human readability.  For the case of elements derived from existing elements (e.g. constraints), the definition SHALL be consistent with the base definition, but convey the meaning of the element in the particular context of use of the resource." class="dict"><b>definition</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#markdown">markdown</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Full formal definition as narrative text</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                fhir:concept_definition "" ;
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.comments" title="Explanatory notes and implementation guidance about the data element, including notes about how to use the data properly, exceptions to proper use, etc." class="dict"><b>comments</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#markdown">markdown</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Comments about the use of this element</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.requirements" title="This element is for traceability of why the element was created and why the constraints exist as they do. This may be used to point to source materials or specifications that drove the structure of this element." class="dict"><b>requirements</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#markdown">markdown</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Why is this needed?</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.alias" title="Identifies additional names by which this element might also be known." class="dict"><b>alias</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span class="description"><a href="terminologies.html#unbound">Other names</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.min" title="The minimum number of times this element SHALL appear in the instance." class="dict"><b>min</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#integer">integer</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-2: Min &lt;= Max"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Minimum Cardinality</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                <pre>[ rdf:type owl:Restriction ;
-  owl:onProperty fhir:”[property]” ;
-  owl:minCardinality "[N]"^^xsd:nonNegativeInteger] ,</pre>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.max" title="The maximum number of times this element is permitted to appear in the instance." class="dict"><b>max</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-3: Max SHALL be a number or &quot;*&quot;; eld-2: Min &lt;= Max"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Maximum Cardinality (a number or *)</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                <pre>[ rdf:type owl:Restriction ;
-  owl:onProperty fhir:”[property]” ;
-  owl:minCardinality "[N]"^^xsd:nonNegativeInteger] ,</pre>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.base" title="Information about the base definition of the element, provided to make it unncessary for tools to trace the deviation of the element through the derived and related profiles. This information is only provided where the element definition represents a constraint on another element definition, and must be present if there is a base element definition." class="dict"><b>base</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..1</b></span> Base definition information for tools --&gt;</span></pre>
-              </td>
-              <td>
-                owl:subClassOf<br/>
-                owl:subPropertyOf
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.base.path" title="The Path that identifies the base element - this matches the ElementDefinition.path for that element. Across FHIR, there is only one base definition of any element - that is, an element definition on a [[[StructureDefinition]]] without a StructureDefinition.base." class="dict"><b>path</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Path that identifies the base element</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.base.min" title="Minimum cardinality of the base element identified by the path." class="dict"><b>min</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#integer">integer</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Min cardinality of the base element</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.base.max" title="Maximum cardinality of the base element identified by the path." class="dict"><b>max</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Max cardinality of the base element</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;/base&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.type" title="The data type or resource that the value of this element is permitted to be." class="dict"><b>type</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="eld-13: Types must be unique by the combination of code and profile"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..*</b></span> Data type and Profile for this element --&gt;</span></pre>
-              </td>
-              <td>
-                rdf:type
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.type.code" title="Name of Data type or Resource that is a(or the) type used for this element." class="dict"><b>code</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="valueset-defined-types.html">Name of Data type or Resource</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.type.profile" title="Identifies a profile structure or implementation Guide that SHALL hold for resources or datatypes referenced as the type of this element. Can be a local reference - to another structure in this profile, or a reference to a structure in another profile. When more than one profile is specified, the content must conform to all of them. When an implementation guide is specified, the resource SHALL conform to at least one profile defined in the implementation guide." class="dict"><b>profile</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span class="description"><a href="terminologies.html#unbound">Profile (StructureDefinition) to apply (or IG)</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.type.aggregation" title="If the type is a reference to another resource, how the resource is or can be aggregated - is it a contained resource, or a reference, and if the context is a bundle, is it included in the bundle." class="dict"><b>aggregation</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-4: Aggregation may only be specified if one of the allowed types for the element is a resource"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..*</b></span> <span class="description"><a href="valueset-resource-aggregation-mode.html">contained | referenced | bundled - how aggregated</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;/type&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.nameReference" title="Identifies the name of a slice defined elsewhere in the profile whose constraints should be applied to the current element." class="dict"><b>nameReference</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-5: Either a namereference or a fixed value (but not both) is permitted"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span class="description"><a href="terminologies.html#unbound">To another element constraint (by element.name)</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.defaultValue[x]" title="The value that should be used if there is no value stated in the instance (e.g. 'if not otherwise specified, the abstract is false')." class="dict"><b>defaultValue[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-15: default value and meaningWhenMissing are mutually exclusive"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#open">*</a></span> <span class="description"><a href="terminologies.html#unbound">Specified value it missing from instance</a></span><span style="color: Gray"> --&gt;</span>&lt;/defaultValue[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.meaningWhenMissing" title="The Implicit meaning that is to be understood when this element is missing (e.g. 'when this element is missing, the period is ongoing'." class="dict"><b>meaningWhenMissing</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#markdown">markdown</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-15: default value and meaningWhenMissing are mutually exclusive"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Implicit meaning when this element is missing</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.fixed[x]" title="Specifies a value that SHALL be exactly the value  for this element in the instance. For purposes of comparison, non-significant whitespace is ignored, and all values must be an exact match (case and accent sensitive). Missing elements/attributes must also be missing." class="dict"><b>fixed[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-5: Either a namereference or a fixed value (but not both) is permitted; eld-6: Fixed value may only be specified if there is one type; eld-8: Pattern and value are mutually exclusive"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#open">*</a></span> <span class="description"><a href="terminologies.html#unbound">Value must be exactly this</a></span><span style="color: Gray"> --&gt;</span>&lt;/fixed[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.pattern[x]" title="Specifies a value that the value in the instance SHALL follow - that is, any value in the pattern must be found in the instance. Other additional values may be found too. This is effectively constraint by example.  The values of elements present in the pattern must match exactly (case-sensitive, accent-sensitive, etc.)." class="dict"><b>pattern[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-5: Either a namereference or a fixed value (but not both) is permitted; eld-7: Pattern may only be specified if there is one type; eld-8: Pattern and value are mutually exclusive"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#open">*</a></span> <span class="description"><a href="terminologies.html#unbound">Value must have at least these property values</a></span><span style="color: Gray"> --&gt;</span>&lt;/pattern[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.example[x]" title="A sample value for this element demonstrating the type of information that would typically be captured." class="dict"><b>example[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#open">*</a></span> <span class="description"><a href="terminologies.html#unbound">Example value: [as defined for type]</a></span><span style="color: Gray"> --&gt;</span>&lt;/example[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.minValue[x]" title="The minimum allowed value for the element. The value is inclusive. This is allowed for the types date, dateTime, instant, time, decimal, integer, and Quantity." class="dict"><b>minValue[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#open">*</a></span> <span class="description"><a href="terminologies.html#unbound">Minimum Allowed Value (for some types)</a></span><span style="color: Gray"> --&gt;</span>&lt;/minValue[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.maxValue[x]" title="The maximum allowed value for the element. The value is inclusive. This is allowed for the types date, dateTime, instant, time, decimal, integer, and Quantity." class="dict"><b>maxValue[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#open">*</a></span> <span class="description"><a href="terminologies.html#unbound">Maximum Allowed Value (for some types)</a></span><span style="color: Gray"> --&gt;</span>&lt;/maxValue[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.maxLength" title="Indicates the maximum length in characters that is permitted to be present in conformant instances and which is expected to be supported by conformant consumers that support the element." class="dict"><b>maxLength</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#integer">integer</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Max length for strings</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.condition" title="A reference to an invariant that may make additional statements about the cardinality or value in the instance." class="dict"><b>condition</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#id">id</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span class="description"><a href="terminologies.html#unbound">Reference to invariant about presence</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.constraint" title="Formal constraints such as co-occurrence and other constraints that can be computationally evaluated within the context of the instance." class="dict"><b>constraint</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Condition that must evaluate to true --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.constraint.key" title="Allows identification of which elements have their cardinalities impacted by the constraint.  Will not be referenced for constraints that do not affect cardinality." class="dict"><b>key</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#id">id</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-14: Constraints must be unique by key"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Target of 'condition' reference above</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.constraint.requirements" title="Description of why this constraint is necessary or appropriate." class="dict"><b>requirements</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Why this constraint necessary or appropriate</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.constraint.severity" title="Identifies the impact constraint violation has on the conformance of the instance." class="dict"><b>severity</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="valueset-constraint-severity.html">error | warning</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.constraint.human" title="Text that can be used to describe the constraint in messages identifying that the constraint has been violated." class="dict"><b>human</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Human description of constraint</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.constraint.xpath" title="An XPath expression of constraint that can be executed to see if this constraint is met." class="dict"><b>xpath</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">XPath expression of constraint</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;/constraint&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.mustSupport" title="If true, implementations that produce or consume resources SHALL provide &quot;support&quot; for the element in some meaningful way.  If false, the element may be ignored and not supported." class="dict"><b>mustSupport</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#boolean">boolean</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">If the element must supported</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.isModifier" title="If true, the value of this element affects the interpretation of the element or resource that contains it, and the value of the element cannot be ignored. Typically, this is used for status, negation and qualification codes. The effect of this is that the element cannot be ignored by systems: they SHALL either recognize the element and process it, and/or a pre-determination has been made that it is not relevant to their particular system." class="dict"><b>isModifier</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#boolean">boolean</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">If this modifies the meaning of other elements</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.isSummary" title="Whether the element should be included if a client requests a search with the parameter _summary=true." class="dict"><b>isSummary</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#boolean">boolean</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Include when _summary = true?</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                fhir:isSummary ""^^xsd:boolean ;
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.binding" title="Binds to a value set if this element is coded (code, Coding, CodeableConcept)." class="dict"><b>binding</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="eld-11: Binding can only be present for coded elements, string, and uri"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> ValueSet details if this is coded --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.binding.strength" title="Indicates the degree of conformance expectations associated with this binding - that is, the degree to which the provided value set must be adhered to in the instances." class="dict"><b>strength</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="valueset-binding-strength.html">required | extensible | preferred | example</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                Only required and extensible are mapped to owl:restriction.
-                Other are mapped to owl:annotation.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.binding.description" title="Describes the intended use of this particular set of codes." class="dict"><b>description</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-10: provide either a reference or a description (or both)"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span class="description"><a href="terminologies.html#unbound">Human explanation of the value set</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-                <pre>[ rdf:type owl:Restriction ;
-  owl:onProperty fhir:”[property]” ;
-  owl:allValuesFrom ‘[value-set]” ] ,</pre>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.binding.valueSet[x]" title="Points to the value set or external definition (e.g. implicit value set) that identifies the set of codes to be used." class="dict"><b>valueSet[x]</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="eld-10: provide either a reference or a description (or both); eld-12: URI SHALL start with http:// or https://"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a>|<a href="http://hl7-fhir.github.io/references.html#Reference">Reference</a>(<a href="http://hl7-fhir.github.io/valueset.html#ValueSet">ValueSet</a>)</span> <span class="description"><a href="terminologies.html#unbound">Source of value set</a></span><span style="color: Gray"> --&gt;</span>&lt;/valueSet[x]&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;/binding&gt;</pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec"> &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.mapping" title="Identifies a concept from an external specification that roughly corresponds to this element." class="dict"><b>mapping</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Map element to another set of definitions --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.mapping.identity" title="An internal reference to the definition of a mapping." class="dict"><b>identity</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#id">id</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Reference to mapping declaration</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.mapping.language" title="Identifies the computable language in which mapping.map is expressed." class="dict"><b>language</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span class="description"><a href="http://www.rfc-editor.org/bcp/bcp13.txt">Computable language of mapping <img src="http://hl7-fhir.github.io/external.png" style="text-align: baseline" /></a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <pre class="spec">  &lt;<a href="http://hl7-fhir.github.io/elementdefinition-definitions.html#ElementDefinition.mapping.map" title="Expresses what part of the target specification corresponds to this element." class="dict"><b>map</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span class="description"><a href="terminologies.html#unbound">Details of the mapping</a></span><span style="color: Gray"> --&gt;</span></pre>
-              </td>
-              <td>
-              </td>
-            </tr>
-          </table>
-		    </section>
+      <section id="CodeableConcept">
+        <h2>CodeableConcept</h2>
 		  </section>
 		</section>
 
 		<section>
-      <h2>Message and Resource identity</h2>
-		  <section>
-        <h2>XML Identity</h2>
-		    <section>
-          <h2>XML Identity</h2>
-          <p>
-            The read RESTful interaction
-          </p>
-          <p>
-            <span class="code">  fhir:CodingBase.display [ <span class="inferred">a fhir:string</span>; fhir:value "Admin"] ;</span><br/>
-            Causes a return of the mime type file which has an identity of [base]/[type]/[id].[mime-type].
-            These four parts form the dereferenceable URI and the identity of that file.
-          </p>
-		    </section>
-		    <section>
-          <h2>XML Resource identity</h2>
-          <p>
-            The XML Root tag binds the root element to a Complex Type.
-            In FHIR the tag and the Complex Type have the same value however this is not always true in XML.
-          </p>
-          <pre class="FHIRXML">
-&lt;<span class="greyback">AllergyIntolerance</span> xmlns=http://hl7.org/fhir &gt;
-  &lt;id value="1"/&gt;
-  &lt;text&gt;
-  &lt;/text&gt;
-&lt;!--   the date that this entry was recorded   --&gt;
-  &lt;recordedDate value="2010-03-01"/&gt;
-&lt;!--   the patient that actually has the risk of adverse reaction   --&gt;
-  &lt;patient&gt;
-    &lt;reference value="http://record/Patient/PeterPatient"/&gt;
-    &lt;display value="Peter Patient"/&gt;
-  &lt;/patient&gt;
-&lt;!--   substance, coded from SNOMED CT--&gt;
-  &lt;substance&gt;
-    &lt;coding&gt;
-      &lt;system value="http://snomed.info/id/"/&gt;
-      &lt;code value="90614001"/&gt;
-      &lt;display value="beta-Lactam antibiotic"/&gt;
-    &lt;/coding&gt;
-  &lt;/substance&gt;
-  &lt;status value="confirmed"/&gt;
-  &lt;criticality value="high"/&gt;
-  &lt;category value="medication"/&gt;
-&lt;/AllergyIntolerance&gt;
-          </pre>
-          <p>
-            The id value represents only a segment of the identifier.
-            The type is taken from the root element and the base is not included in the Resource so it is not clear in FHIR that the Resource can be clearly disambiguated.
-          </p>
-		    </section>
-		  </section>
-		  <section>
-        <h2>RDF/OWL identities</h2>
-        <pre class="FHIRRDF">
-@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
-@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
-@prefix fhir: &lt;http://hl7.org/fhir/&gt; .
-@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-&lt;http://record/AllergyIntolerance/1&gt; rdf:type owl:Ontology ; owl:imports &lt;http://hl7.org/fhir&gt; .
-&lt;http://record/AllergyIntolerance/1&gt; rdf:type &lt;http://PatientSafetyProfile/AllergyIntolerance&gt; , owl:NamedIndividual ;
-   fhir:Resource.id [ rdf:type fhir:id ; fhir:value "1" ] ;
-   fhir:AllergyIntolerance.status [ rdf:type fhir:code ;
-      fhir:ConceptBase.coding [ fhir:CodingBase.code [ fhir:value "confirmed" ]  ]
-   ] ;
-   fhir:AllergyIntolerance.patient [ rdf:type fhir:Reference ;
-      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient" ] ;
-      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
-   ] ;
-   fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept , &lt;http://snomed.info/id/90614001&gt;;
-      fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
-         fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
-         fhir:CodingBase.system [ rdf:type fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
-         fhir:CodingBase.display [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
-      ] ;
-      fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
-   ] .        </pre>
-		    <section>
-          <h2>RDF File identity</h2>
-          <p>
-            The identity of the RDF file is its file name (e.g. http://record/AllergyIntolerance/1.ttl)
-          </p>
-
-          <p>
-            The first three segment (without the mime-type) are the name of the Ontology.
-          </p>
-
-          <p>
-            <span class="code">&lt;http://record/AllergyIntolerance/1&gt; rdf:type owl:Ontology ;</span><br/>
-            The file is an ontology.
-            This is required since there appears to be a restriction on import statements importing the same ontology more than once.
-            This is independent of prefixes of the elements.
-          </p>
-		    </section>
-		    <section>
-          <h2>RDF Individual identity</h2>
-          <p>
-            The name of the individual is derived from the URL identity of the resource.
-            The class of the individual is declared using rdf:type:<br/>
-            <span class="code">&lt;http://record/AllergyIntolerance/1&gt; rdf:type &lt;http://PatientSafetyProfile/AllergyIntolerance&gt;, owl:NamedIndividual ;</span><br/>
-            In simple resources the identity of the message is mapped to the identity of the root element.
-            However they may have different types.
-          </p>
-          <p>
-            In this case the name of the individual is the same as the name of the ontology.
-            This appears to work.
-          </p>
-          <p>
-            In Bundles the identity of the message (bundle) is different from the identities of contained resources.
-          </p>
-
-          <p>
-Note that the type of the resource is qualified by the profile which is obtained from Meta.profile (see Profile section later).
-          </p>
-		    </section>
-		    <section>
-          <h2> Ontology triples</h2>
-          <p>
-            The ontology identity is linked to the import predicate which links to the fhir ontology:<br/>
-            <span class="code">&lt;http://record/AllergyIntolerance/1&gt; rdf:type owl:Ontology ; owl:imports &lt;http://hl7.org/fhir&gt; .</span><br/>
-            The import statement is required for Turtle files so that the loading can distinguish between Object Properties and Annotation Properties.
-          </p>
-		    </section>
-		  </section>
-		</section>
-
-		<section>
-      <h2> Datatypes (section 1.18.0.1)</h2>
-      <p>
-        Difference in the treatment of datatypes code, string and uri as classes with primitive values as rdf:Datatypes.
-        Datatypes are transformed into OWL Classes where the value is expressed as a an OWL DataProperty with restrictions (facets etc).
-      </p>
-		  <section>
-        <h2> Id</h2>
-		    <section>
-          <h2> Id instance</h2>
-          <p>
-          </p>
-		    </section>
-		    <section>
-          <h2> Id schema</h2>
-          <pre class="FHIRRDF">
-fhir:id rdf:type owl:Class ;
-        rdfs:subClassOf fhir:Element ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty fhir:value ;
-                          owl:allValuesFrom [ rdf:type rdfs:Datatype ;
-                                              owl:onDatatype xsd:string ;
-                                              owl:withRestrictions ( [ xsd:pattern <span class="scalar">"[A- Za -z0-9\\-\\.]{1,64}"</span> ] )
-                                            ]
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty fhir:value ;
-                          owl:maxQualifiedCardinality <span class="scalar">"1"</span>^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ;
-        rdfs:comment "Any combination of letters, numerals, ‘-' and ‘.’ with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive." .
-          </pre>
-		    </section>
-		  </section>
-		  <section>
-        <h2>Decimal</h2>
-        <p>
-          Decimal has an additional DataProperty fhir:fractionaDigits which allows the explicit declaration of scale.
-        </p>
-		    <section>
-          <h2>Decimal OWL instance</h2>
-          <p>
-            <span class="code">[ a fhir:decimal ; fhir:value 123.4 ; fhir:fractionalDigits 3 ]</span>
-          </p>
-		    </section>
-		    <section>
-          <h2>Decimal OWL Schema</h2>
-          <pre class="FHIRRDF">
-fhir:decimal rdf:type owl:Class ;
-             rdfs:subClassOf fhir:Element ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:fractionDigits ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:nonNegativeInteger
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:fractionDigits ;
-                               owl:allValuesFrom xsd:nonNegativeInteger
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:value ;
-                               owl:allValuesFrom xsd:decimal
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:value ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:decimal
-                             ] ;
-             rdfs:comment <span class="scalar">"A rational number with implicit precision"</span> .
-          </pre>
-		    </section>
-		  </section>
-		  <section>
-        <h2>FHIR CodeableConcept and Coding Structure Definition</h2>
-		    <section>
-          <h2>FHIR XML</h2>
-          <p>
-            Codeable Concept example
-          </p>
-          <pre class="FHIRXML">
-  &lt;substance&gt;
-    &lt;coding&gt;
-      &lt;system value="http://snomed.info/sct"/&gt;
-      &lt;code value="90614001"/&gt;
-      &lt;display value=" beta-lactam (antibiotic)"/&gt;
-    &lt;/coding&gt;
-    &lt;text value=" beta-lactam (antibiotic)"/&gt;
-  &lt;/substance&gt;
-          </pre>
-          <p>
-            CodeableConcept Structural Definition
-          </p>
-          <pre class="spec">
-&lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#CodeableConcept" class="dict">[name]</a> xmlns="http://hl7.org/fhir"&gt;
- &lt;!-- from Element: <a href="http://hl7-fhir.github.io/extensibility.html">extension</a> --&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#CodeableConcept.coding" class="dict">coding</a> &gt;&lt;!-- <span style="color: brown"><b>0..*</b></span> <a href="http://hl7-fhir.github.io/datatypes.html#Coding">Coding</a> <span class="description">Code defined by a terminology system</span> --&gt;&lt;/coding&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#CodeableConcept.text" class="dict">text</a> value="[ <a href="http://hl7-fhir.github.io/datatypes.html#string">string</a> ]"/&gt;&lt;!-- <span style="color: brown"><b>0..1</b></span> <span class="description">Plain text representation of the concept</span> --&gt;
-&lt;/[name]&gt; 
-          </pre>
-          <p>
-            Coding Structural Definition
-          </p>
-          <pre class="spec">
-&lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#Coding" class="dict">[name]</a> xmlns="http://hl7.org/fhir"&gt;
- &lt;!-- from Element: extension --&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#Coding.system" class="dict">system</a> value="[ <a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a> ]"/&gt;&lt;!-- <span style="color: brown"><b>0..1</b></span> <span class="description">Identity of the terminology system</span> --&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#Coding.version" class="dict">version</a> value="[ <a href="http://hl7-fhir.github.io/datatypes.html#string">string</a> ]"/&gt;&lt;!-- <span style="color: brown"><b>0..1</b></span> <span class="description">Version of the system - if relevant</span> --&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#Coding.display" class="dict">code</a> value="[ <a href="http://hl7-fhir.github.io/datatypes.html#code">code</a> ]"/&gt;&lt;!-- <span style="color: brown"><b>0..1</b></span> <span class="description">Symbol in syntax defined by the system</span> --&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#Coding.display" class="dict">display</a> value="[ <a href="http://hl7-fhir.github.io/datatypes.html#string">string</a> ]"/&gt;&lt;!-- <span style="color: brown"><b>0..1</b></span> <span class="description">Representation defined by the system</span> --&gt;
- &lt; <a href="http://hl7-fhir.github.io/datatypes-definitions.html#Coding.primarpy" class="dict">primary</a> value="[ <a href="http://hl7-fhir.github.io/datatypes.html#boolean">boolean</a> ]"/&gt;&lt;!-- <span style="color: brown"><b>0..1</b></span> <span class="description">If this code was chosen directly by the user</span> --&gt;
-&lt;/[name]&gt;
-          </pre>
-		    </section>
-		    <section>
-          <h2>RDF Data for Codeable Concept Instance</h2>
-          <p>
-            The RDF variant for fhir:Code, fhir:Coding and fhir:CodeableConcept are not straight translations of the FHIR representation.
-            3 new additional classes are introduced – codeBase, CodingBase and ConceptBase. 
-          </p>
-          <pre class="FHIRRDF">
-   fhir:AllergyIntolerance.substance [ rdf:type fhir:CodeableConcept ;
-      fhir:ConceptBase.coding [ rdf:type fhir:CodingBase ;
-         fhir:CodingBase.code [ rdf:type fhir:codeBase ; fhir:value "90614001" ] ;
-         fhir:CodingBase.system [ rdf:type fhir:uri ; fhir:value "http://snomed.info/sct" ] ;
-         fhir:CodingBase.display [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
-      ] ;
-      fhir:ConceptBase.text [ rdf:type fhir:string ; fhir:value "beta-lactam (antibiotic)" ]
-   ] .
-          </pre>
-          <p>
-            The fhir:CodeableConcept type assertion allows round trip back to the original XML type.
-            The same approach will be taken for fhir:Coding and fhir:code.
-          </p>
-
-          <p>
-          This approach will be implemented by creating ConceptBase, CodingBase and codeBase individuals as blank nodes.
-          </p>
-		    </section>
-		    <section>
-          <h2>FHIR OWL Schema</h2>
-          <p>
-            ConceptBase has subclasses fhir:CodeableConcept, fhir:Coding and fhir:code.
-            <img class="scaled" src="img/CodableConcept.png" alt="CodableConcept protege screenshot"/>
-            <img class="scaled" src="img/CodableConcept-2.png" alt="CodableConcept protege screenshot"/>
-          </p>
-          <pre class="FHIRRDF">
- [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( fhir:CodingBase
-                fhir:ConceptBase
-                fhir:codeBase
-              )
-] .
-          </pre>
-          <pre class="FHIRRDF">
-#################################################################
-#    Classes
-#################################################################
-###  http://hl7.org/fhir/ConceptBase
-fhir:ConceptBase rdf:type owl:Class ;
-                 rdfs:subClassOf fhir:Datatype ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:ConceptBase.coding ;
-                                   owl:allValuesFrom fhir:CodingBase
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:ConceptBase.text ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:ConceptBase.text ;
-                                   owl:allValuesFrom fhir:string
-                                 ]
-.
-###  http://hl7.org/fhir/CodingBase
-fhir:CodingBase rdf:type owl:Class ;
-                 rdfs:subClassOf fhir:Element ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.system ;
-                                   owl:allValuesFrom fhir:uri
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.system ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.version ;
-                                   owl:allValuesFrom fhir:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.version ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.code ;
-                                   owl:allValuesFrom fhir:codeBase
-                                 ]
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.code ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.display ;
-                                   owl:allValuesFrom fhir:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.display ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.primary ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty fhir:CodingBase.primary ;
-                                   owl:allValuesFrom fhir:boolean
-                                 ] .
-          </pre>
-          <pre class="FHIRRDF">
-fhir:codeBase rdf:type owl:Class ;
-              rdfs:subClassOf fhir:Element ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty fhir:value ;
-                                owl:allValuesFrom xsd:token
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty fhir:value ;
-                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onDataRange xsd:token
-                              ] .
-          </pre>
-          <p>
-            The concrete subclasses of ConceptBase apply the additional restrictions:
-          </p>
-          <pre class="FHIRRDF">
-###  http://hl7.org/fhir/CodeableConcept
-fhir:CodeableConcept rdf:type owl:Class ;
-   rdfs:subClassOf fhir:ConceptBase ;
-   rdfs:comment "The set of possible coded values this coding was chosen from or constrained by." .
-          </pre>
-          <pre class="FHIRRDF">
-###  http://hl7.org/fhir/Coding
-fhir:Coding rdf:type owl:Class ;
-            rdfs:subClassOf fhir:ConceptBase ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:ConceptBase.text ;
-                              owl:maxCardinality "0"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:ConceptBase.coding ;
-                              owl:cardinality "1"^^xsd:nonNegativeInteger
-                            ] .
-          </pre>
-          <pre class="FHIRRDF">
-fhir:code rdf:type owl:Class ;
-   rdfs:subClassOf fhir:ConceptBase , [ rdf:type owl:Restriction ;
-      owl:onProperty fhir:ConceptBase.coding ;
-      owl:allValuesFrom [ rdf:type owl:Class ;
-      owl:intersectionOf ( fhir:CodingBase
-                           [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:CodingBase.code ;
-                              owl:cardinality "1"^^xsd:nonNegativeInteger
-                           ]
-                           [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:CodingBase.display ;
-                              owl:maxCardinality "0"^^xsd:nonNegativeInteger
-                           ]
-                           [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:CodingBase.primary ;
-                              owl:maxCardinality "0"^^xsd:nonNegativeInteger
-                           ]
-                           [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:CodingBase.system ;
-                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                           ]
-                           [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:CodingBase.version ;
-                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                           ]
-                         )
-                       ]
-   ] ,
-   [ rdf:type owl:Restriction ;
-      owl:onProperty fhir:ConceptBase.coding ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger
-   ] .
-          </pre>
-		    </section>
-		  </section>
-		</section>
-
-		<section class="todo">
-      <h2>Terminology</h2>
-		</section>
-
-		<section>
-      <h2>Resource References</h2>
-		  <section>
-        <h2>FHIR XML</h2>
-        <div class="todo">
-        <p class="note">the orig here looked a bit like a ransom note -- wasn't sure what to replicate.</p>
-        <pre class="FHIRXML">
- &lt; <span class="greyback">AllergyIntolerance</span> xmlns="http://hl7.org/fhir" &gt;
-  &lt; id value="1" /&gt;
-  &lt; text &gt;
-   
-  &lt;/ text &gt;
-&lt;!--   the date that this entry was recorded   --&gt;
-  &lt; recordedDate value="2010-03-01" /&gt;
-&lt;!--   the patient that actually has the risk of adverse reaction   --&gt;
-  &lt; patient &gt;
-    &lt; reference value = "http://record/Patient/PeterPatient" /&gt;
-    &lt; display value = "Peter Patient" /&gt;
-  &lt;/ patient &gt;
-&lt;/ <span class="greyback">AllergyIntolerance</span> &gt; 
-        </pre>
-        </div>
-		  </section>
-		  <section>
-        <h2>RDF Data After processing (acquiring the resource and importing)</h2>
-        <pre class="FHIRRDF">
-fhir:AllergyIntolerance.patient [ fhir:Reference.display [ fhir:value "Peter Patient" ] ;
-                                fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient" ] ;
-                                <span class="contentious">fhir:Reference.link &lt;http://record/Patient/PeterPatient&gt;</span>
-                               ] ; 
-        </pre>
-        <p>
-          Note that Reference object has been supplemented by the URI of the Reference.link.
-        </p>
-        <p>
-          AllergyIntolerance.patient.link can represent the property chain as shown earlier.
-          A reverse property of the property chain can get the resources for a particular patient.
-        </p>
-        <pre class="FHIRRDF">
-###  http://hl7.org/fhir/AllergyForPatient
-fhir:AllergyForPatient rdf:type owl:ObjectProperty ;
-                       owl:inverseOf fhir:AllergyIntolerance.patient.link .
-###  http://hl7.org/fhir/AllergyIntolerance.patient.link
-fhir:AllergyIntolerance.patient.link rdf:type owl:ObjectProperty ;
-                       owl:propertyChainAxiom ( fhir:AllergyIntolerance.patient fhir:Reference.link ) .
-        </pre>
-        <p>
-          The Reference.link is declared when the resource has been imported and closure has been achieved.
-          This allows the consumer to determine whether the import has happened or not and can trigger that function.
-          If the Reference.link is pre-established there will be no indication in the import and the Resource instance will be empty.
-        </p>
-		  </section>
-		  <section>
-        <h2>FHIR OWL Schema</h2>
-        <pre class="FHIRRDF">
-###  http://hl7.org/fhir/Reference
-fhir:Reference rdf:type owl:Class ;
-               rdfs:subClassOf fhir:Element ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.reference ;
-                                 owl:allValuesFrom fhir:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.reference ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.display ;
-                                 owl:allValuesFrom fhir:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.display ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.link ;
-                                 owl:allValuesFrom fhir:DomainResource
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty fhir:Reference.link ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] .
-        </pre>
-		  </section>
+      <h2>Resource Identity</h2>
 		</section>
 
 		<section>
       <h2>Containment</h2>
-      <p>
-        Containment is where a resource or container contains other resources.
-      </p>
-      <p>
-        It applies to Bundle, Contained and Parameters.
-      </p>
-		  <section>
-        <h2>Bundle</h2>
-        <p>
-          One common operation performed with resources is to gather a collection of resources into a single instance with containing context.
-          In FHIR this is referred to as "bundling" the resources together. These resource bundles are useful for a variety of different reasons, including: 
-        </p>
-        <ul>
-          <li>Returning a set of resources that meet some criteria as part of a server operation (see <a href="http://hl7-fhir.github.io/http.html#search">RESTful Search</a>)</li>
-          <li>Returning a set of versions of resources as part of the history operation on a server (see <a href="http://hl7-fhir.github.io/http.html#history">History</a>)</li>
-          <li>Sending a set of resources as part of a message exchange (see <a href="http://hl7-fhir.github.io/messaging.html">Messaging</a>)</li>
-          <li>Grouping a self-contained set of resources to act as an exchangeable and persistable collection with clinical integrity - e.g. a clinical document (see <a href="http://hl7-fhir.github.io/documents.html">Documents</a>)</li>
-          <li>Creating/updating/deleting a set of resources on a server as a single operation (including doing so as a single atomic transaction) (see <a href="http://hl7-fhir.github.io/http.html#transaction">Transactions</a>)</li>
-          <li>Storing a collection of resources</li>
-        </ul>
-		    <section>
-          <h2>Bundle XML instance</h2>
-          <pre class="FHIRXML">
-&lt;Bundle xmlns="http://hl7.org/fhir"&gt;
-  &lt;id value="bundle-example"/&gt;&lt;!--   this example bundle is a search set   --&gt;
-  &lt;meta&gt;
-    &lt;lastUpdated value="2014-08-18T01:43:30Z"/&gt;
-  &lt;/meta&gt;&lt;!--   when the search was executed   --&gt;
-  &lt;type value="searchset"/&gt;&lt;!--   the base URL of the server is responding to the search   --&gt;
-  &lt;base value="http://example.com/base"/&gt;&lt;!--   the total number of matches. This is a stupid example - there's a grand total of 3 matches, and we're only going to return the first 1, with a next link, in order to demonstrate what a page link looks like   --&gt;
-  &lt;total value="3"/&gt;
-  &lt;link&gt;
-    &lt;relation value="self"/&gt;
-    &lt;url value="https://example.com/base/MedicationPrescription?patient=347&amp;amp;_include=MedicationPrescription.medication"/&gt;
-  &lt;/link&gt;&lt;!--   now, the link to the next set of results.
-  Note that a big set of results will include prev, first, last links as well as next   --&gt;
-  &lt;link&gt;
-    &lt;relation value="next"/&gt;
-    &lt;url value="https://example.com/base/MedicationPrescription?patient=347&amp;amp;searchId=ff15fd40-ff71-4b48-b366-09c706bed9d0&amp;amp;page=2"/&gt;
-  &lt;/link&gt;&lt;!--   now, the actual entries   --&gt;
-  &lt;entry&gt;
-    &lt;resource&gt;
-      &lt;MedicationPrescription&gt;&lt;!--   the matching resource   --&gt;
-        &lt;id value="3123"/&gt;
-        &lt;text&gt;
-          Omitted
-        &lt;/text&gt;
-        &lt;patient&gt;
-          &lt;reference value="Patient/347"/&gt;
-        &lt;/patient&gt;
-        &lt;medication&gt;
-          &lt;reference value="Medication/example"/&gt;
-        &lt;/medication&gt;
-      &lt;/MedicationPrescription&gt;
-    &lt;/resource&gt;
-    &lt;search&gt;&lt;!--   this resource included as a match to the search criteria. Servers are not required to populate this, but should, because there are a few cases where it might be ambiguous whether a resource is added because it's a match or an include  --&gt;
-      &lt;mode value="match"/&gt;&lt;!--   score. For matches where the criteria are not determinate,
-        e.g. text search on narrative, the server can include a score to indicate
-        how well the resource matches the conditions. Since this search is by patient
-        identifier, there's nothing fuzzy about it, but for example purposes:   --&gt;
-      &lt;score value="1"/&gt;
-    &lt;/search&gt;
-  &lt;/entry&gt;
-  &lt;entry&gt;
-    &lt;resource&gt;
-      &lt;Medication&gt;
-        &lt;id value="example"/&gt;
-        &lt;text&gt;
-        &lt;/text&gt;
-      &lt;/Medication&gt;
-    &lt;/resource&gt;&lt;!--   snip   --&gt;
-    &lt;search&gt;&lt;!--   added because the client asked to include the medications   --&gt;
-      &lt;mode value="include"/&gt;
-    &lt;/search&gt;
-  &lt;/entry&gt;
-&lt;/Bundle&gt;
-          </pre>
-		    </section>
-		    <section>
-          <h2>Bundle XML content description</h2>
-          <pre class="spec">
-&lt; <a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle" title="A container for a collection of resources." class="dict"><b>Bundle</b></a> xmlns="http://hl7.org/fhir"&gt; <span style="float: right"><a href="http://hl7-fhir.github.io/xml.html" title="Documentation for this format"><img src="http://hl7-fhir.github.io/help.png" alt="doco" /></a></span>
- &lt;!-- from <a href="http://hl7-fhir.github.io/resource.html">Resource</a>: <a href="http://hl7-fhir.github.io/resource.html#id">id</a>, <a href="http://hl7-fhir.github.io/resource.html#meta">meta</a>, <a href="http://hl7-fhir.github.io/resource.html#implicitRules">implicitRules</a>, and <a href="http://hl7-fhir.github.io/resource.html#language">language</a> --&gt;
- &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.type" title="Indicates the purpose of this bundle- how it was intended to be used." class="dict"><b>type</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/valueset-bundle-type.html">document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection</a></span><span style="color: Gray"> --&gt;</span>
- &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.total" title="If a set of search matches, this is the total number of matches for the search (as opposed to the number of results in this bundle)." class="dict"><b>total</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#unsignedInt">unsignedInt</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown" title="bdl-1: total only when a search or history"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">If search, the total number of matches</a></span><span style="color: Gray"> --&gt;</span>
- &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.link" title="A series of links that provide context to this bundle." class="dict"><b>link</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Links related to this Bundle --&gt;</span>
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.link.relation" title="A name which details the functional use for this link - see [[http://www.iana.org/assignments/link-relations/link-relations.xhtml]]." class="dict"><b>relation</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">http://www.iana.org/assignments/link-relations/link-relations.xhtml</a></span><span style="color: Gray"> --&gt;</span>
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.link.url" title="The reference details for the link." class="dict"><b>url</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Reference details for the link</a></span><span style="color: Gray"> --&gt;</span>
- &lt;/link&gt;
- &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry" title="An entry in a bundle resource - will either contain a resource, or information about a resource (transactions and history only)." class="dict"><b>entry</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown"><b>0..*</b></span> Entry in the bundle - will have a resource, or information --&gt;</span>
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.link" title="A series of links that provide context to this entry." class="dict"><b>link</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..*</b></span> <span style="color: darkgreen">Content as for Bundle.link</span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Links related to this entry</a></span><span style="color: Gray"> --&gt;</span>&lt;/link&gt;
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.fullUrl" title="The Absolute URL for the resource. This must be provided for all resources. The fullUrl SHALL not disagree with the id in the resource. The fullUrl is a version independent reference to the resource." class="dict"><b>fullUrl</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Absolute URL for resource (server address, or UUID/OID)</a></span><span style="color: Gray"> --&gt;</span>
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.resource" title="The Resources for the entry." class="dict"><b>resource</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/resource.html#Resource">Resource</a></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">A resource in the bundle</a></span><span style="color: Gray"> --&gt;</span>&lt;/resource&gt;
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.search" title="Information about the search process that lead to the creation of this entry." class="dict"><b>search</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="bdl-2: entry.search only when a search"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> Search related information --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.search.mode" title="Why this entry is in the result set - whether it's included as a match or because of an _include requirement." class="dict"><b>mode</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/valueset-search-entry-mode.html">match | include | outcome - why this is in the result set</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.search.score" title="When searching, the server's search ranking score for the entry." class="dict"><b>score</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#decimal">decimal</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Search ranking (between 0 and 1)</a></span><span style="color: Gray"> --&gt;</span>
-  &lt;/search&gt;
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request" title="Additional information about how this entry should be processed as part of a transaction." class="dict"><b>request</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="bdl-3: entry.request only for some types of bundles"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> Transaction Related Information --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.method" title="The HTTP verb for this entry in either a update history, or a transaction/ transaction response." class="dict"><b>method</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#code">code</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/valueset-http-verb.html">GET | POST | PUT | DELETE</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.url" title="The URL for this entry, relative to the root (the address to which the request is posted)." class="dict"><b>url</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">URL for HTTP equivalent of this entry</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifNoneMatch" title="If the ETag values match, return a 304 Not modified status. See the API documentation for [&quot;Conditional Read&quot;](http.html#cread)." class="dict"><b>ifNoneMatch</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For managing cache currency</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifModifiedSince" title="Only perform the operation if the last updated date matches. See the API documentation for [&quot;Conditional Read&quot;](http.html#cread)." class="dict"><b>ifModifiedSince</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#instant">instant</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For managing update contention</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifMatch" title="Only perform the operation if the Etag value matches. For more information, see the API section [&quot;Managing Resource Contention&quot;](http.html#concurrency)." class="dict"><b>ifMatch</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For managing update contention</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.request.ifNoneExist" title="Instruct the server not to perform the create if a specified resource already exists. For further information, see the API documentation for [&quot;Conditional Create&quot;](http.html#ccreate). This is just the query portion of the URL - what follows the &quot;?&quot; (not including the &quot;?&quot;)." class="dict"><b>ifNoneExist</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">For conditional creates</a></span><span style="color: Gray"> --&gt;</span>
-  &lt;/request&gt;
-  &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response" title="Additional information about how this entry should be processed as part of a transaction." class="dict"><b>response</b></a>&gt;  <span style="color: Gray">&lt;!-- <span style="color: brown" title="bdl-4: entry.response only for some types of bundles"><b><img src="http://hl7-fhir.github.io/lock.png" alt="??" /> 0..1</b></span> Transaction Related Information --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.status" title="The status code returned by processing this entry." class="dict"><b>status</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>1..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Status return code for entry</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.location" title="The location header created by processing this operation." class="dict"><b>location</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#uri">uri</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">The location, if the operation returns a location</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.etag" title="The etag for the resource, it the operation for the entry produced a versioned resource." class="dict"><b>etag</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#string">string</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">The etag for the resource (if relevant)</a></span><span style="color: Gray"> --&gt;</span>
-   &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.entry.response.lastModified" title="The date/time that the resource was modified on the server." class="dict"><b>lastModified</b></a> value="[<span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#instant">instant</a></span>]"/&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Server's date time modified</a></span><span style="color: Gray"> --&gt;</span>
-  &lt;/response&gt;
- &lt;/entry&gt;
- &lt;<a href="http://hl7-fhir.github.io/bundle-definitions.html#Bundle.signature" title="Digital Signature - base64 encoded. XML DigSIg or a JWT." class="dict"><b>signature</b></a>&gt;<span style="color: Gray">&lt;!--</span> <span style="color: brown"><b>0..1</b></span> <span style="color: darkgreen"><a href="http://hl7-fhir.github.io/datatypes.html#Signature">Signature</a></span> <span style="color: navy"><a style="color: navy" href="http://hl7-fhir.github.io/terminologies.html#unbound">Digital Signature</a></span><span style="color: Gray"> --&gt;</span>&lt;/signature&gt;
-&lt;/Bundle&gt;
-          </pre>
-		    </section>
-		    <section>
-          <h2>Bundle RDF Content</h2>
-          <pre class="FHIRRDF">
-&lt;http://record/medpres1&gt; rdf:type owl:Ontology ; owl:imports &lt;http://hl7.org/fhir&gt; .
-###  http://record/medpres1/bundle1
-&lt;http://record/medpres1/bundle1&gt; rdf:type fhir:Bundle , owl:NamedIndividual ;
-   fhir:Bundle.entry [ rdf:type fhir:Bundle.Entry ;
-      fhir:Bundle.Entry.resource &lt; http://record/MedicationPrescription/1 &gt;
-   ] ;
-   fhir:Bundle.type [ fhir:value "searchset"];
-   fhir:Bundle.link [ rdf:type fhir:uri ; fhir:value "self"] ;
-   fhir:Bundle.total [ rdf:type fhir:unsignedInt ; fhir:value 3 ];
-   fhir:Resource.meta [ rdf:type fhir:Meta ; fhir:Meta.lastUpdated
-      [ rdf:type fhir:instant ; fhir:value "2015-08-02T00:00:00"^^xsd:dateTime]
-   ]  .
-###  http://record/MedicationPrescription/1
-&lt;http://record/MedicationPrescription/1&gt; rdf:type profile:MedicationPrescription , owl:NamedIndividual ;
-   fhir:MedicationOrder.medicationReference [ rdf:type fhir:Reference ;
-      fhir:Reference.link &lt;http://record/Medication/1&gt; ;
-      fhir:Reference.reference [ fhir:value http://record/Medication/1 ] ;
-      fhir:Reference.display [ fhir:value "Amoxicillin (product)" ]
-   ] ;
-   fhir:MedicationOrder.patient [ rdf:type fhir:Reference ;
-      fhir:Reference.link &lt;http://record/Patient/PeterPatient&gt; ;
-      fhir:Reference.display [ fhir:value "Peter Patient" ] ;
-      fhir:Reference.reference [ fhir:value "http://record/Patient/PeterPatient"
-   ]
-] .
-          </pre>
-          <p>
-            A Bundle may or may not have an Id (inherited from Resource) therefore it can be referenced as an Ontology e.g. record/Bundle/123.
-            It may therefore be a named or anonymous individual.
-          </p>
-		    </section>
-		    <section>
-          <h2>Bundle RDF Schema</h2>
-          <pre class="FHIRRDF">
-###  http://hl7.org/fhir/Bundle
-fhir:Bundle rdf:type owl:Class ;
-   rdfs:subClassOf fhir:Resource ,
-      [ rdf:type owl:Restriction ; owl:onProperty fhir:Bundle.total ;
-         owl:onClass fhir:unsignedInt ;
-                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:Bundle.entry ;
-                              owl:allValuesFrom fhir:Bundle.Entry
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:Bundle.signature ;
-                              owl:onClass fhir:Signature ;
-                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:Bundle.type ;
-                              owl:onClass fhir:code ;
-                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty fhir:Bundle.link ;
-                              owl:allValuesFrom fhir:Bundle.Link
-                            ] .
-###  http://hl7.org/fhir/Bundle.Entry
-fhir:Bundle.Entry rdf:type owl:Class ;
-                  rdfs:subClassOf fhir:BackboneElement ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty fhir:Bundle.Entry.search ;
-                                    owl:onClass fhir:Bundle.Search ;
-                                    owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty fhir:Bundle.Entry.link ;
-                                    owl:onClass fhir:Bundle.Link ;
-                                    owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty fhir:Bundle.Entry.resource ;
-                                    owl:onClass fhir:Resource ;
-                                    owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty fhir:Bundle.Entry.fullURI ;
-                                    owl:onClass fhir:uri ;
-                                    owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                  ] .
-          </pre>
-		    </section>
-		  </section>
 		</section>
 
 		<section>
-      <h2> Ordering</h2>
-		  <section>
-        <h2>Githib example</h2>
-        <p>
-          No example
-        </p>
-		  </section>
-		  <section>
-        <h2>RDF individual ordering example</h2>
-        <p>
-          Simple integer DataProperty fhir:index can be applied to individuals of subclasses of fhir:Element          
-        </p>
-        <pre class="FHIRRDF">
-###  http://hl7.org/fhir/index
-fhir:index rdf:type owl:DatatypeProperty ;
-           rdfs:range fhir:index-primitive .
-###  http://hl7.org/fhir/index-primitive
-fhir:index-primitive rdf:type rdfs:Datatype ;
-                     owl:equivalentClass [ rdf:type rdfs:Datatype ;
-                                           owl:onDatatype xsd:integer ;
-                                           owl:withRestrictions ( [ xsd:minInclusive 1 ] )
-                     ] .
-###  http://hl7.org/fhir/Element
-fhir:Element rdf:type owl:Class ;
-             rdfs:label "Element" ;
-             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:Element.extension ;
-                               owl:someValuesFrom fhir:Extension
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:Element.id ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange fhir:id-primitive
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty fhir:index ;
-                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange fhir:index-primitive
-                             ] ;
-             rdfs:comment "The base element used for all FHIR elements and resources - allows for them to be extended with extensions" .
- .
-        </pre>
-        <p>
-          In general fhir:value and fhir:Element.id are converted to an attribute in XML. fhir:index dictates the sequence only.
-        </p>
-		  </section>
-		  <section>
-        <h2>RDF Object Property Ordering example</h2>
-        <p>
-          Where object properties need to be ordered to construct the sequence of properties in XML, the fhir:index is defined as an annotation property on the Object Property.
-          The example of ordered properties inside CodingBase is shown:
-        </p>
-        <pre class="FHIRRDF">
-###  http://hl7.org/fhir/index
-fhir:index rdf:type owl:AnnotationProperty .
-        </pre>
-        <pre class="FHIRRDF">
-###  http://hl7.org/fhir/CodingBase.system
-fhir:CodingBase.system rdf:type owl:ObjectProperty ;
-                         fhir:index 1 ;
-###  http://hl7.org/fhir/CodingBase.version
-fhir:CodingBase.version rdf:type owl:ObjectProperty ;
-                          fhir:index 2 .
-###  http://hl7.org/fhir/CodingBase.code
-fhir:CodingBase.code rdf:type owl:ObjectProperty ;
-                       fhir:index 3 .
-###  http://hl7.org/fhir/CodingBase.display
-fhir:CodingBase.display rdf:type owl:ObjectProperty ;
-                          fhir:index 4 ;
-###  http://hl7.org/fhir/CodingBase.primary
-fhir:CodingBase.primary rdf:type owl:ObjectProperty ;
-                          fhir:index 5 ;
-        </pre>
-		  </section>
+      <h2>Ordering</h2>
 		</section>
 
 		<section>
       <h2>Profiles</h2>
-      <p>
-        The example shows a ‘profile” ontology restricting the Valueset of Substance:
-      </p>
-      <p>
-        The AllergyIntolerance Resource is declared again inside the Profile ontology. 
-      </p>
-      <pre class="FHIRRDF">
-&lt;http://record/AllergyIntolerance/1&gt; rdf:type &lt;http://PatientSafetyProfile/AllergyIntolerance&gt;, owl:NamedIndividual ;
-      </pre>
-      <p>
-        profile:AllergyIntolerance.substance defines a restriction to be applied to the valueset for substance
-      </p>
-      <pre class="FHIRRDF">
-@prefix profile: &lt;http://PatientSafetyProfile/&gt; .
-###  http://PatientSafetyProfile/AllergyIntolerance
-profile:AllergyIntolerance rdf:type owl:Class ;
-   rdfs:subClassOf fhir:AllergyIntolerance , [ rdf:type owl:Restriction ;
-      owl:onProperty &lt;http://hl7.org/fhir/AllergyIntolerance/AllergyIntolerance.substance&gt; ;
-      owl:allValuesFrom profile:substance-type
-   ] .
-      </pre>
-      <p>
-        The valueset definition applies:
-      </p>
-      <pre class="FHIRRDF">
-###  http://PatientSafetyProfile/substance-type
-&lt;http://PatientSafetyProfile/substance-type&gt; rdf:type owl:Class ;
-  rdfs:subClassOf fhir:ValueSets ,
-  [ rdf:type owl:Class ;
-    owl:unionOf (
-      &lt;http://snomed.info/id/105590001&gt;
-      &lt;http://snomed.info/id/373873005&gt;
-    )
-  ] .
-       </pre>
 		</section>
 
 		<section>
