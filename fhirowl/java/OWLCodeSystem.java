@@ -8,6 +8,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.vocabulary.OWL2;
+import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.SKOS;
 import org.hl7.fhir.r4.model.CodeSystem;
@@ -28,6 +29,7 @@ public class OWLCodeSystem {
         model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         model.setNsPrefix(RDFNamespace.W5.getPrefix(), RDFNamespace.W5.getURI());
         model.setNsPrefix(RDFNamespace.FHIR.getPrefix(), RDFNamespace.FHIR.getURI());
+        model.setNsPrefix("skos", SKOS.getURI());
 
         CSNS = new RDFNamespace(cs.getId(), cs.getUrl() + '/');
         model.setNsPrefix(CSNS.getPrefix(), CSNS.getURI());
