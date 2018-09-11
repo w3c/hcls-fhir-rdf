@@ -1,0 +1,65 @@
+@prefix v3-RoleLinkType: <http://hl7.org/fhir/v3/RoleLinkType/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-RoleLinkType:IDENT
+        a                owl:Class ;
+        rdfs:label       "Identification" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "Description: The source role provides identification for the target role. The source role must be IDENT. The player entity of the source role is constrained to be the same as (i.e. the equivalent of, or equal to) the player of the target role if present. If the player is absent from the source role, then it is assumed to be the same as the player of the target role." ;
+        skos:prefLabel   "Identification" .
+
+v3-RoleLinkType:REL  a   owl:Class ;
+        rdfs:label       "related" ;
+        skos:definition  "An action taken with respect to a subject Entity by a regulatory or authoritative body with supervisory capacity over that entity. The action is taken in response to behavior by the subject Entity that body finds to be undesirable.\r\n\n                        Suspension, license restrictions, monetary fine, letter of reprimand, mandated training, mandated supervision, etc.Examples:" ;
+        skos:prefLabel   "related" .
+
+v3-RoleLinkType:  a      owl:Ontology ;
+        rdfs:comment     "**** MISSING DEFINITIONS ****" ;
+        rdfs:label       "v3 Code System RoleLinkType" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/RoleLinkType/2016-11-11" ;
+        owl:versionInfo  "v3 Code System RoleLinkType(2016-11-11)" .
+
+v3-RoleLinkType:BACKUP
+        a                owl:Class ;
+        rdfs:label       "is backup for" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "This relationship indicates the source Role is available to the target Role as a backup. An entity in a backup role will be available as a substitute or replacement in the event that the entity assigned the role is unavailable. In medical roles where it is critical that the function be performed and there is a possibility that the individual assigned may be ill or otherwise indisposed, another individual is assigned to cover for the individual originally assigned the role. A backup may be required to be identified, but unless the backup is actually used, he/she would not assume the assigned entity role." ;
+        skos:prefLabel   "is backup for" .
+
+v3-RoleLinkType:REPL  a  owl:Class ;
+        rdfs:label       "replaces" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "This relationship indicates that the source Role replaces (or subsumes) the target Role.  Allows for new identifiers and/or new effective time for a registry entry or a certification, etc." ;
+        skos:prefLabel   "replaces" .
+
+v3-RoleLinkType:INDAUTH
+        a                owl:Class ;
+        rdfs:label       "has indirect authority over" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "The source Role has indirect authority over the target role in a chain of authority." ;
+        skos:prefLabel   "has indirect authority over" .
+
+v3-RoleLinkType:DIRAUTH
+        a                owl:Class ;
+        rdfs:label       "has direct authority over" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "The source Role has direct authority over the target role in a chain of authority." ;
+        skos:prefLabel   "has direct authority over" .
+
+v3-RoleLinkType:PART  a  owl:Class ;
+        rdfs:label       "has part" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "The target Role is part of the Source Role." ;
+        skos:prefLabel   "has part" .
+
+v3-RoleLinkType:CONT  a  owl:Class ;
+        rdfs:label       "has contact" ;
+        rdfs:subClassOf  v3-RoleLinkType:REL ;
+        skos:definition  "This relationship indicates the target Role provides or receives information regarding the target role.  For example, AssignedEntity is a contact for a ServiceDeliveryLocation." ;
+        skos:prefLabel   "has contact" .

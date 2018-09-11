@@ -1,0 +1,55 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix request-status: <http://hl7.org/fhir/request-status/> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+request-status:suspended
+        a                owl:Class ;
+        rdfs:label       "Suspended" ;
+        skos:definition  "The authorization/request to act has been temporarily withdrawn but is expected to resume in the future" ;
+        skos:prefLabel   "Suspended" .
+
+request-status:unknown
+        a                owl:Class ;
+        rdfs:label       "Unknown" ;
+        skos:definition  "The authoring system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" . One of the listed statuses is presumed to apply,  but the system creating the request doesn't know." ;
+        skos:prefLabel   "Unknown" .
+
+request-status:draft  a  owl:Class ;
+        rdfs:label       "Draft" ;
+        skos:definition  "The request has been created but is not yet complete or ready for action" ;
+        skos:prefLabel   "Draft" .
+
+request-status:completed
+        a                owl:Class ;
+        rdfs:label       "Completed" ;
+        skos:definition  "Activity against the request has been sufficiently completed to the satisfaction of the requester" ;
+        skos:prefLabel   "Completed" .
+
+request-status:cancelled
+        a                owl:Class ;
+        rdfs:label       "Cancelled" ;
+        skos:definition  "The authorization/request to act has been terminated prior to the full completion of the intended actions.  No further activity should occur." ;
+        skos:prefLabel   "Cancelled" .
+
+request-status:entered-in-error
+        a                owl:Class ;
+        rdfs:label       "Entered in Error" ;
+        skos:definition  "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".)" ;
+        skos:prefLabel   "Entered in Error" .
+
+request-status:  a       owl:Ontology ;
+        rdfs:comment     "Codes identifying the stage lifecycle stage of a request" ;
+        rdfs:label       "RequestStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/request-status/3.1.0" ;
+        owl:versionInfo  "RequestStatus(3.1.0)" .
+
+request-status:active
+        a                owl:Class ;
+        rdfs:label       "Active" ;
+        skos:definition  "The request is ready to be acted upon" ;
+        skos:prefLabel   "Active" .

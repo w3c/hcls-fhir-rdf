@@ -1,0 +1,83 @@
+@prefix concept-map-equivalence: <http://hl7.org/fhir/concept-map-equivalence/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+concept-map-equivalence:inexact
+        a                owl:Class ;
+        rdfs:label       "Inexact" ;
+        rdfs:subClassOf  concept-map-equivalence:relatedto ;
+        skos:definition  "The target mapping overlaps with the source concept, but both source and target cover additional meaning, or the definitions are imprecise and it is uncertain whether they have the same boundaries to their meaning. The sense in which the mapping is narrower SHALL be described in the comments in this case, and applications should be careful when attempting to use these mappings operationally." ;
+        skos:prefLabel   "Inexact" .
+
+concept-map-equivalence:narrower
+        a                owl:Class ;
+        rdfs:label       "Narrower" ;
+        rdfs:subClassOf  concept-map-equivalence:relatedto ;
+        skos:definition  "The target mapping is narrower in meaning than the source concept. The sense in which the mapping is narrower SHALL be described in the comments in this case, and applications should be careful when attempting to use these mappings operationally." ;
+        skos:prefLabel   "Narrower" .
+
+concept-map-equivalence:unmatched
+        a                owl:Class ;
+        rdfs:label       "Unmatched" ;
+        skos:definition  "There is no match for this concept in the destination concept system." ;
+        skos:prefLabel   "Unmatched" .
+
+concept-map-equivalence:wider
+        a                owl:Class ;
+        rdfs:label       "Wider" ;
+        rdfs:subClassOf  concept-map-equivalence:relatedto ;
+        skos:definition  "The target mapping is wider in meaning than the source concept." ;
+        skos:prefLabel   "Wider" .
+
+concept-map-equivalence:
+        a                owl:Ontology ;
+        rdfs:comment     "The degree of equivalence between concepts." ;
+        rdfs:label       "ConceptMapEquivalence" ;
+        owl:versionIRI   "http://hl7.org/fhir/concept-map-equivalence/3.1.0" ;
+        owl:versionInfo  "ConceptMapEquivalence(3.1.0)" .
+
+concept-map-equivalence:specializes
+        a                owl:Class ;
+        rdfs:label       "Specializes" ;
+        rdfs:subClassOf  concept-map-equivalence:relatedto ;
+        skos:definition  "The target mapping specializes the meaning of the source concept (e.g. the target is-a source)." ;
+        skos:prefLabel   "Specializes" .
+
+concept-map-equivalence:disjoint
+        a                owl:Class ;
+        rdfs:label       "Disjoint" ;
+        rdfs:subClassOf  concept-map-equivalence:unmatched ;
+        skos:definition  "This is an explicit assertion that there is no mapping between the source and target concept." ;
+        skos:prefLabel   "Disjoint" .
+
+concept-map-equivalence:equal
+        a                owl:Class ;
+        rdfs:label       "Equal" ;
+        rdfs:subClassOf  concept-map-equivalence:equivalent ;
+        skos:definition  "The definitions of the concepts are exactly the same (i.e. only grammatical differences) and structural implications of meaning are identical or irrelevant (i.e. intentionally identical)." ;
+        skos:prefLabel   "Equal" .
+
+concept-map-equivalence:subsumes
+        a                owl:Class ;
+        rdfs:label       "Subsumes" ;
+        rdfs:subClassOf  concept-map-equivalence:relatedto ;
+        skos:definition  "The target mapping subsumes the meaning of the source concept (e.g. the source is-a target)." ;
+        skos:prefLabel   "Subsumes" .
+
+concept-map-equivalence:equivalent
+        a                owl:Class ;
+        rdfs:label       "Equivalent" ;
+        rdfs:subClassOf  concept-map-equivalence:relatedto ;
+        skos:definition  "The definitions of the concepts mean the same thing (including when structural implications of meaning are considered) (i.e. extensionally identical)." ;
+        skos:prefLabel   "Equivalent" .
+
+concept-map-equivalence:relatedto
+        a                owl:Class ;
+        rdfs:label       "Related To" ;
+        skos:definition  "The concepts are related to each other, and have at least some overlap in meaning, but the exact relationship is not known" ;
+        skos:prefLabel   "Related To" .

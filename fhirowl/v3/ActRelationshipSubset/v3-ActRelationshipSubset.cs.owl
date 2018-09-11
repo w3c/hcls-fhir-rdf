@@ -1,0 +1,108 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix v3-ActRelationshipSubset: <http://hl7.org/fhir/v3/ActRelationshipSubset/> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ActRelationshipSubset:_ParticipationSubset
+        a                owl:Class ;
+        rdfs:label       "ParticipationSubset" ;
+        skos:definition  "Used to indicate that the participation is a filtered subset of the total participations of the same type owned by the Act. \r\n\n                        Used when there is a need to limit the participations to the first, the last, the next or some other filtered subset." ;
+        skos:prefLabel   "ParticipationSubset" .
+
+v3-ActRelationshipSubset:LAST
+        a                owl:Class ;
+        rdfs:label       "expected last" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:FUTURE ;
+        skos:definition  "Restricted to the latest known occurrence that is scheduled to occur. The Act with the highest known effective time." ;
+        skos:prefLabel   "expected last" .
+
+v3-ActRelationshipSubset:FUTSUM
+        a                owl:Class ;
+        rdfs:label       "future summary" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:FUTURE ;
+        skos:definition  "Represents a 'summary' of all acts that are scheduled to occur in the future (whose effective time is greater than 'now' where is the time the instance is authored.). The effectiveTime represents the outer boundary of all occurrences, repeatNumber represents the total number of repetitions, etc." ;
+        skos:prefLabel   "future summary" .
+
+v3-ActRelationshipSubset:MAX
+        a                owl:Class ;
+        rdfs:label       "maximum" ;
+        skos:definition  "The occurrence whose value attribute is greater than all other occurrences at the time the instance is created." ;
+        skos:prefLabel   "maximum" .
+
+v3-ActRelationshipSubset:PAST
+        a                owl:Class ;
+        rdfs:label       "previous" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:_ParticipationSubset ;
+        skos:definition  "An occurrence that occurred or was scheduled to occur in the past. An Act whose effective time is less than 'now'. ('now' is the time the instance is authored.)" ;
+        skos:prefLabel   "previous" .
+
+v3-ActRelationshipSubset:
+        a                owl:Ontology ;
+        rdfs:comment     " <ns1:p>Used to indicate that the target of the relationship will be a filtered subset of the total related set of targets.</ns1:p><ns1:p>Used when there is a need to limit the number of components to the first, the last, the next, the total, the average or some other filtered or calculated subset.</ns1:p>" ;
+        rdfs:label       "v3 Code System ActRelationshipSubset" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ActRelationshipSubset/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ActRelationshipSubset(2016-11-11)" .
+
+v3-ActRelationshipSubset:FUTURE
+        a                owl:Class ;
+        rdfs:label       "expected future" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:_ParticipationSubset ;
+        skos:definition  "An occurrence that is scheduled to occur in the future. An Act whose effective time is greater than 'now', where 'now' is the time the instance is authored." ;
+        skos:prefLabel   "expected future" .
+
+v3-ActRelationshipSubset:FIRST
+        a                owl:Class ;
+        rdfs:label       "first known" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:PAST ;
+        skos:definition  "Restricted to the earliest known occurrence that occurred or was scheduled to occur in the past. The Act with the lowest effective time. ('now' is the time the instance is authored.)" ;
+        skos:prefLabel   "first known" .
+
+v3-ActRelationshipSubset:NEXT
+        a                owl:Class ;
+        rdfs:label       "expected next" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:FUTURE ;
+        skos:definition  "Restricted to the nearest recent known occurrence scheduled to occur in the future. The Act with the lowest effective time, still greater than 'now'. ('now' is the time the instance is authored.)" ;
+        skos:prefLabel   "expected next" .
+
+v3-ActRelationshipSubset:ActRelationshipPastSubset
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipPastSubset" ;
+        skos:definition  "ActRelationshipPastSubset" ;
+        skos:prefLabel   "ActRelationshipPastSubset" .
+
+v3-ActRelationshipSubset:ActRelationshipExpectedSubset
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipExpectedSubset" ;
+        skos:definition  "ActRelationshipExpectedSubset" ;
+        skos:prefLabel   "ActRelationshipExpectedSubset" .
+
+v3-ActRelationshipSubset:SUM
+        a                owl:Class ;
+        rdfs:label       "summary" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:_ParticipationSubset ;
+        skos:definition  "Represents a 'summary' of all acts that have occurred or were scheduled to occur and which are scheduled to occur in the future. The effectiveTime represents the outer boundary of all occurrences, repeatNumber represents the total number of repetitions, etc." ;
+        skos:prefLabel   "summary" .
+
+v3-ActRelationshipSubset:MIN
+        a                owl:Class ;
+        rdfs:label       "minimum" ;
+        skos:definition  "The occurrence whose value attribute is less than all other occurrences at the time the instance is created." ;
+        skos:prefLabel   "minimum" .
+
+v3-ActRelationshipSubset:RECENT
+        a                owl:Class ;
+        rdfs:label       "most recent" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:PAST ;
+        skos:definition  "Restricted to the most recent known occurrence that occurred or was scheduled to occur in the past. The Act with the most recent effective time, still less than 'now'. ('now' is the time the instance is authored.)" ;
+        skos:prefLabel   "most recent" .
+
+v3-ActRelationshipSubset:PREVSUM
+        a                owl:Class ;
+        rdfs:label       "previous summary" ;
+        rdfs:subClassOf  v3-ActRelationshipSubset:PAST ;
+        skos:definition  "Represents a 'summary' of all acts that previously occurred or were scheduled to occur. The effectiveTime represents the outer boundary of all occurrences, repeatNumber represents the total number of repetitions, etc. ('now' is the time the instance is authored.)" ;
+        skos:prefLabel   "previous summary" .

@@ -1,0 +1,94 @@
+@prefix goal-status: <http://hl7.org/fhir/goal-status/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+goal-status:rejected  a  owl:Class ;
+        rdfs:label       "Rejected" ;
+        skos:definition  "A proposed goal was rejected" ;
+        skos:prefLabel   "Rejected" .
+
+goal-status:planned  a   owl:Class ;
+        rdfs:label       "Planned" ;
+        rdfs:subClassOf  goal-status:accepted ;
+        skos:definition  "A goal is planned for this patient" ;
+        skos:prefLabel   "Planned" .
+
+goal-status:entered-in-error
+        a                owl:Class ;
+        rdfs:label       "Entered In Error" ;
+        skos:definition  "The goal was entered in error and voided." ;
+        skos:prefLabel   "Entered In Error" .
+
+goal-status:achieved  a  owl:Class ;
+        rdfs:label       "Achieved" ;
+        rdfs:subClassOf  goal-status:accepted ;
+        skos:definition  "The goal has been met and no further action is needed" ;
+        skos:prefLabel   "Achieved" .
+
+goal-status:behind-target
+        a                owl:Class ;
+        rdfs:label       "Behind Target" ;
+        rdfs:subClassOf  goal-status:in-progress ;
+        skos:definition  "The goal is behind the planned timelines" ;
+        skos:prefLabel   "Behind Target" .
+
+goal-status:accepted  a  owl:Class ;
+        rdfs:label       "Accepted" ;
+        skos:definition  "A proposed goal was accepted or acknowledged" ;
+        skos:prefLabel   "Accepted" .
+
+goal-status:proposed  a  owl:Class ;
+        rdfs:label       "Proposed" ;
+        skos:definition  "A goal is proposed for this patient" ;
+        skos:prefLabel   "Proposed" .
+
+goal-status:sustaining
+        a                owl:Class ;
+        rdfs:label       "Sustaining" ;
+        rdfs:subClassOf  goal-status:in-progress ;
+        skos:definition  "The goal has been met, but ongoing activity is needed to sustain the goal objective" ;
+        skos:prefLabel   "Sustaining" .
+
+goal-status:in-progress
+        a                owl:Class ;
+        rdfs:label       "In Progress" ;
+        rdfs:subClassOf  goal-status:accepted ;
+        skos:definition  "The goal is being sought but has not yet been reached.  (Also applies if goal was reached in the past but there has been regression and goal is being sought again)" ;
+        skos:prefLabel   "In Progress" .
+
+goal-status:ahead-of-target
+        a                owl:Class ;
+        rdfs:label       "Ahead of Target" ;
+        rdfs:subClassOf  goal-status:in-progress ;
+        skos:definition  "The goal is ahead of the planned timelines" ;
+        skos:prefLabel   "Ahead of Target" .
+
+goal-status:on-hold  a   owl:Class ;
+        rdfs:label       "On Hold" ;
+        rdfs:subClassOf  goal-status:accepted ;
+        skos:definition  "The goal remains a long term objective but is no longer being actively pursued for a temporary period of time." ;
+        skos:prefLabel   "On Hold" .
+
+goal-status:cancelled
+        a                owl:Class ;
+        rdfs:label       "Cancelled" ;
+        skos:definition  "The previously accepted goal is no longer being sought" ;
+        skos:prefLabel   "Cancelled" .
+
+goal-status:  a          owl:Ontology ;
+        rdfs:comment     "Indicates whether the goal has been met and is still being targeted" ;
+        rdfs:label       "GoalStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/goal-status/3.1.0" ;
+        owl:versionInfo  "GoalStatus(3.1.0)" .
+
+goal-status:on-target
+        a                owl:Class ;
+        rdfs:label       "On Target" ;
+        rdfs:subClassOf  goal-status:in-progress ;
+        skos:definition  "The goal is on schedule for the planned timelines" ;
+        skos:prefLabel   "On Target" .

@@ -1,0 +1,100 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix v3-HL7UpdateMode: <http://hl7.org/fhir/v3/HL7UpdateMode/> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-HL7UpdateMode:N  a    owl:Class ;
+        rdfs:label       "No Change" ;
+        skos:definition  "Description:There was (or is to be) no change to the item. This is primarily used when this element has not changed, but other attributes in the instance have changed." ;
+        skos:prefLabel   "No Change" .
+
+v3-HL7UpdateMode:V  a    owl:Class ;
+        rdfs:label       "Verify" ;
+        skos:definition  "Verify - this message element must match a value already in the receiving systems database in order to process the message." ;
+        skos:prefLabel   "Verify" .
+
+v3-HL7UpdateMode:ESC  a  owl:Class ;
+        rdfs:label       "Set Change" ;
+        rdfs:subClassOf  v3-HL7UpdateMode:_SetUpdateMode ;
+        skos:definition  "Change the item on the receiving system that corresponds to this message element; do not process if a matching element does not exist." ;
+        skos:prefLabel   "Set Change" .
+
+v3-HL7UpdateMode:REF  a  owl:Class ;
+        rdfs:label       "Reference" ;
+        skos:definition  "Description:This item provides enough information to allow a processing system to locate the full applicable record by identifying the object." ;
+        skos:prefLabel   "Reference" .
+
+v3-HL7UpdateMode:_SetUpdateMode
+        a                owl:Class ;
+        rdfs:label       "SetUpdateMode" ;
+        skos:definition  "These concepts apply when the element and/or message is updating a set of items." ;
+        skos:prefLabel   "SetUpdateMode" .
+
+v3-HL7UpdateMode:R  a    owl:Class ;
+        rdfs:label       "Replace" ;
+        skos:definition  "Description:The item existed previously and has (or is to be) revised. (If an item does not already exist, this may be treated as an error condition.)" ;
+        skos:prefLabel   "Replace" .
+
+v3-HL7UpdateMode:ESA  a  owl:Class ;
+        rdfs:label       "Set Add" ;
+        rdfs:subClassOf  v3-HL7UpdateMode:_SetUpdateMode ;
+        skos:definition  "Add the message element to the collection of items on the receiving system that correspond to the message element." ;
+        skos:prefLabel   "Set Add" .
+
+v3-HL7UpdateMode:A  a    owl:Class ;
+        rdfs:label       "Add" ;
+        skos:definition  "Description:The item was (or is to be) added, having not been present immediately before. (If it is already present, this may be treated as an error condition.)" ;
+        skos:prefLabel   "Add" .
+
+v3-HL7UpdateMode:AR  a   owl:Class ;
+        rdfs:label       "Add or Replace" ;
+        skos:definition  "Description:The item was (or is to be) either added or replaced." ;
+        skos:prefLabel   "Add or Replace" .
+
+v3-HL7UpdateMode:K  a    owl:Class ;
+        rdfs:label       "Key" ;
+        skos:definition  "Description:This item is part of the identifying information for this object." ;
+        skos:prefLabel   "Key" .
+
+v3-HL7UpdateMode:I  a    owl:Class ;
+        rdfs:label       "Ignore" ;
+        skos:definition  "Ignore this role, it is not relevant to the update." ;
+        skos:prefLabel   "Ignore" .
+
+v3-HL7UpdateMode:U  a    owl:Class ;
+        rdfs:label       "Unknown" ;
+        skos:definition  "Description:Description:</b>It is not specified whether or what kind of change has occurred to the item, or whether the item is present as a reference or identifying property." ;
+        skos:prefLabel   "Unknown" .
+
+v3-HL7UpdateMode:ESAC
+        a                owl:Class ;
+        rdfs:label       "Set Add or Change" ;
+        rdfs:subClassOf  v3-HL7UpdateMode:_SetUpdateMode ;
+        skos:definition  "Change the item on the receiving system that corresponds to this message element; if a matching element does not exist, add a new one created with the values in the message." ;
+        skos:prefLabel   "Set Add or Change" .
+
+v3-HL7UpdateMode:  a     owl:Ontology ;
+        rdfs:comment     " The possible modes of updating that occur when an attribute is received by a system that already contains values for that attribute." ;
+        rdfs:label       "v3 Code System HL7UpdateMode" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/HL7UpdateMode/2016-11-11" ;
+        owl:versionInfo  "v3 Code System HL7UpdateMode(2016-11-11)" .
+
+v3-HL7UpdateMode:ESD  a  owl:Class ;
+        rdfs:label       "Set Delete" ;
+        rdfs:subClassOf  v3-HL7UpdateMode:_SetUpdateMode ;
+        skos:definition  "Delete the item on the receiving system that corresponds to this message element." ;
+        skos:prefLabel   "Set Delete" .
+
+v3-HL7UpdateMode:D  a    owl:Class ;
+        rdfs:label       "Remove" ;
+        skos:definition  "Description:The item was (or is to be) removed (sometimes referred to as deleted). If the item is part of a collection, delete any matching items." ;
+        skos:prefLabel   "Remove" .
+
+v3-HL7UpdateMode:AU  a   owl:Class ;
+        rdfs:label       "Add or Update" ;
+        skos:definition  "Description: AU: If this item exists, update it with these values. If it does not exist, create it with these values. If the item is part of the collection, update each item that matches this item, and if no items match, add a new item to the collection." ;
+        skos:prefLabel   "Add or Update" .

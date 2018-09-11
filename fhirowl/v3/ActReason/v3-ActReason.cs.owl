@@ -1,0 +1,1629 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix v3-ActReason: <http://hl7.org/fhir/v3/ActReason/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ActReason:REMITADV
+        a                owl:Class ;
+        rdfs:label       "remittance advice" ;
+        rdfs:subClassOf  v3-ActReason:HPAYMT ;
+        skos:definition  "To perform one or more operations on information about the amount remitted for a health care claim." ;
+        skos:prefLabel   "remittance advice" .
+
+v3-ActReason:FINAN  a    owl:Class ;
+        rdfs:label       "financial eligibility" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for a program based on financial criteria.\r\n\n                        \n                           Example:  A person whose family income is below a financial threshold for eligibility for Medicaid or SCHIP." ;
+        skos:prefLabel   "financial eligibility" .
+
+v3-ActReason:_ActNoImmunizationReason
+        a                owl:Class ;
+        rdfs:label       "ActNoImmunizationReason" ;
+        skos:definition  "A coded description of the reason for why a patient did not receive a scheduled immunization.\r\n\n                        (important for public health strategy" ;
+        skos:prefLabel   "ActNoImmunizationReason" .
+
+v3-ActReason:OVRPS  a    owl:Class ;
+        rdfs:label       "public safety override" ;
+        rdfs:subClassOf  v3-ActReason:_ActConsentInformationAccessOverrideReason ;
+        skos:definition  "To perform one or more operations on information to which the patient has not consented for public safety reasons.\r\n\n                        \n                           Usage Notes: The patient, while able to give consent, has not.  However, the provider believes that access to masked patient information is justified because of concerns related to public safety." ;
+        skos:prefLabel   "public safety override" .
+
+v3-ActReason:DRUGHIGH
+        a                owl:Class ;
+        rdfs:label       "drug level too high" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The current level of the medication in the patient's system is too high.  The medication is suspended to allow the level to subside to a safer level." ;
+        skos:prefLabel   "drug level too high" .
+
+v3-ActReason:_StatusRevisionRefusalReasonCode
+        a                owl:Class ;
+        rdfs:label       "StatusRevisionRefusalReasonCode" ;
+        skos:definition  "Indicates why the act revision (status update) is being refused." ;
+        skos:prefLabel   "StatusRevisionRefusalReasonCode" .
+
+v3-ActReason:RETRO  a   owl:Class ;
+        rdfs:label      "RETRO" ;
+        skos:prefLabel  "RETRO" .
+
+v3-ActReason:REGUL  a    owl:Class ;
+        rdfs:label       "regulatory review" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Description:Review for the purpose of regulatory compliance." ;
+        skos:prefLabel   "regulatory review" .
+
+v3-ActReason:FRR02  a    owl:Class ;
+        rdfs:label       "stale-dated order" ;
+        rdfs:subClassOf  v3-ActReason:_ActSupplyFulfillmentRefusalReason ;
+        skos:definition  "Definition:Order has not been fulfilled within a reasonable amount of time, and may not be current." ;
+        skos:prefLabel   "stale-dated order" .
+
+v3-ActReason:MEMADMIN
+        a                owl:Class ;
+        rdfs:label       "member administration" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information to administer health care coverage to an enrollee under a policy or program." ;
+        skos:prefLabel   "member administration" .
+
+v3-ActReason:HOUTCOMS
+        a                owl:Class ;
+        rdfs:label       "health outcome measure" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for assessing results and comparative effectiveness achieved by health care practices and interventions." ;
+        skos:prefLabel   "health outcome measure" .
+
+v3-ActReason:CONTRA  a   owl:Class ;
+        rdfs:label       "contraindication" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventAbortReason ;
+        skos:definition  "Definition:Contraindication identified" ;
+        skos:prefLabel   "contraindication" .
+
+v3-ActReason:DECSD  a    owl:Class ;
+        rdfs:label       "deceased" ;
+        rdfs:subClassOf  v3-ActReason:_ActIneligibilityReason ;
+        skos:definition  "Client deceased." ;
+        skos:prefLabel   "deceased" .
+
+v3-ActReason:_ClinicalResearchEventReason
+        a                owl:Class ;
+        rdfs:label       "ClinicalResearchEventReason" ;
+        skos:definition  "Definition:Specifies the reason that an event occurred in a clinical research study." ;
+        skos:prefLabel   "ClinicalResearchEventReason" .
+
+v3-ActReason:HSYSADMIN
+        a                owl:Class ;
+        rdfs:label       "health system administration" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information to administer the electronic systems used for the delivery of health care." ;
+        skos:prefLabel   "health system administration" .
+
+v3-ActReason:ENADMIN  a  owl:Class ;
+        rdfs:label       "entity administration" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities conducted to administer information relating to entities involves with an activity, product, or service" ;
+        skos:prefLabel   "entity administration" .
+
+v3-ActReason:NOUSRPERM
+        a                owl:Class ;
+        rdfs:label       "no user permission" ;
+        rdfs:subClassOf  v3-ActReason:NOPERM ;
+        skos:definition  "Description: The user does not have permission." ;
+        skos:prefLabel   "no user permission" .
+
+v3-ActReason:UMDATA  a   owl:Class ;
+        rdfs:label       "unmerge data" ;
+        rdfs:subClassOf  v3-ActReason:_GenericUpdateReasonCode ;
+        skos:definition  "Information is separated from the record." ;
+        skos:prefLabel   "unmerge data" .
+
+v3-ActReason:ESP  a      owl:Class ;
+        rdfs:label       "Employee and spouse" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available to an employee and his or her spouse." ;
+        skos:prefLabel   "Employee and spouse" .
+
+v3-ActReason:PROA  a    owl:Class ;
+        rdfs:label      "PROA" ;
+        skos:prefLabel  "PROA" .
+
+v3-ActReason:LTC  a      owl:Class ;
+        rdfs:label       "long term care use" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventStockReasonCode ;
+        skos:definition  "Definition:The bulk supply will be administered within a long term care facility." ;
+        skos:prefLabel   "long term care use" .
+
+v3-ActReason:OUTCOMS  a  owl:Class ;
+        rdfs:label       "outcome measure" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities conducted for the purposes of assessing the results of an activity, product, or service" ;
+        skos:prefLabel   "outcome measure" .
+
+v3-ActReason:OS  a       owl:Class ;
+        rdfs:label       "out of stock" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionReason ;
+        skos:definition  "In the case of 'substitution', indicates that the substitution occurred because the ordered item was not in stock.  In the case of 'no substitution', indicates that a cheaper equivalent was not substituted because it was not in stock." ;
+        skos:prefLabel   "out of stock" .
+
+v3-ActReason:CLINTRCH
+        a                owl:Class ;
+        rdfs:label       "clinical trial research" ;
+        rdfs:subClassOf  v3-ActReason:HRESCH ;
+        skos:definition  "To perform one or more operations on information for conducting scientific investigations in accordance with clinical trial protocols to obtain health care knowledge." ;
+        skos:prefLabel   "clinical trial research" .
+
+v3-ActReason:ADMREV  a   owl:Class ;
+        rdfs:label       "administrative review" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Definition: To evaluate for service authorization, payment, reporting, or performance/outcome measures." ;
+        skos:prefLabel   "administrative review" .
+
+v3-ActReason:PROVUNAUTH
+        a                owl:Class ;
+        rdfs:label       "provider not authorized" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdministrationPermissionRefusalReasonCode ;
+        skos:definition  "Definition:Provider is not authorized to prescribe or dispense" ;
+        skos:prefLabel   "provider not authorized" .
+
+v3-ActReason:PATINELIG
+        a                owl:Class ;
+        rdfs:label       "patient not eligible" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdministrationPermissionRefusalReasonCode ;
+        skos:definition  "Definition:Patient not eligible for drug" ;
+        skos:prefLabel   "patient not eligible" .
+
+v3-ActReason:ECH  a      owl:Class ;
+        rdfs:label       "Employee and children" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available to an employee and his or her children." ;
+        skos:prefLabel   "Employee and children" .
+
+v3-ActReason:AGE  a      owl:Class ;
+        rdfs:label       "age eligibility" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for a program based on age.\r\n\n                        \n                           Example:  In the U.S., a person who is 65 years of age or older is eligible for Medicare." ;
+        skos:prefLabel   "age eligibility" .
+
+v3-ActReason:PAYMT  a    owl:Class ;
+        rdfs:label       "payment" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationPrivacyReason ;
+        skos:definition  "Description:Administrative, financial, and contractual processes related to payment for an activity, product, or service" ;
+        skos:prefLabel   "payment" .
+
+v3-ActReason:OVRTPS  a   owl:Class ;
+        rdfs:label       "third party safety override" ;
+        rdfs:subClassOf  v3-ActReason:_ActConsentInformationAccessOverrideReason ;
+        skos:definition  "To perform one or more operations on information to which the patient has not consented for third party safety.  \r\n\n                        \n                           Usage Notes: The patient, while able to give consent, has not.  However, the provider believes that access to masked patient information is justified because of concerns related to the health and safety of one or more third parties." ;
+        skos:prefLabel   "third party safety override" .
+
+v3-ActReason:DIS  a      owl:Class ;
+        rdfs:label       "disability" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes a claimant under a disability income insurance policy or a disability rehabilitation program because of a health condition or injury which limits the person's ability to earn an income or function without institutionalization." ;
+        skos:prefLabel   "disability" .
+
+v3-ActReason:FOABORT  a  owl:Class ;
+        rdfs:label       "order aborted" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventAbortReason ;
+        skos:definition  "Definition:Order to be fulfilled was aborted" ;
+        skos:prefLabel   "order aborted" .
+
+v3-ActReason:RR  a       owl:Class ;
+        rdfs:label       "regulatory requirement" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionReason ;
+        skos:definition  "Indicates that the decision to substitute or to not substitute was driven by a jurisdictional regulatory requirement mandating or prohibiting substitution." ;
+        skos:prefLabel   "regulatory requirement" .
+
+v3-ActReason:_ActInformationManagementReason
+        a                owl:Class ;
+        rdfs:label       "ActInformationManagementReason" ;
+        skos:definition  "Description:The rationale or purpose for an act relating to information management, such as archiving information for the purpose of complying with an enterprise data retention policy." ;
+        skos:prefLabel   "ActInformationManagementReason" .
+
+v3-ActReason:_PharmacySupplyEventAbortReason
+        a                owl:Class ;
+        rdfs:label       "PharmacySupplyEventAbortReason" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Definition:Identifies why the dispense event was not completed." ;
+        skos:prefLabel   "PharmacySupplyEventAbortReason" .
+
+v3-ActReason:_ControlActReason
+        a                owl:Class ;
+        rdfs:label       "ControlActReason" ;
+        skos:definition  "Identifies why a specific query, request, or other trigger event occurred." ;
+        skos:prefLabel   "ControlActReason" .
+
+v3-ActReason:ADMINERROR
+        a                owl:Class ;
+        rdfs:label       "administrative error in order" ;
+        rdfs:subClassOf  v3-ActReason:_ModifyPrescriptionReasonType ;
+        skos:definition  "Order was created with incorrect data and is changed to reflect the intended accuracy of the order." ;
+        skos:prefLabel   "administrative error in order" .
+
+v3-ActReason:INCPROV  a  owl:Class ;
+        rdfs:label       "incorrect provider" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvoiceCancelReason ;
+        skos:definition  "The provider specified with the Invoice is not correct." ;
+        skos:prefLabel   "incorrect provider" .
+
+v3-ActReason:_ActAccommodationReason
+        a                owl:Class ;
+        rdfs:label       "ActAccommodationReason" ;
+        skos:definition  "Identifies the reason the patient is assigned to this accommodation type" ;
+        skos:prefLabel   "ActAccommodationReason" .
+
+v3-ActReason:REGERR  a   owl:Class ;
+        rdfs:label       "registered in error" ;
+        rdfs:subClassOf  v3-ActReason:_ActIneligibilityReason ;
+        skos:definition  "Client was registered in error." ;
+        skos:prefLabel   "registered in error" .
+
+v3-ActReason:  a         owl:Ontology ;
+        rdfs:comment     " A set of codes specifying the motivation, cause, or rationale of an Act, when such rationale is not reasonably represented as an ActRelationship of type \"has reason\" linking to another Act.  Examples:\r\nExample reasons that might qualify for being coded in this field might be: \"routine requirement\", \"infectious disease reporting requirement\", \"on patient request\", \"required by law\"." ;
+        rdfs:label       "v3 Code System ActReason" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ActReason/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ActReason(2016-11-11)" .
+
+v3-ActReason:_ActHealthInformationManagementReason
+        a                owl:Class ;
+        rdfs:label       "ActHealthInformationManagementReason" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationManagementReason ;
+        skos:definition  "Description:The rationale or purpose for an act relating to health information management, such as archiving information for the purpose of complying with an organization policy or jurisdictional law relating to  data retention." ;
+        skos:prefLabel   "ActHealthInformationManagementReason" .
+
+v3-ActReason:PRGRPT  a   owl:Class ;
+        rdfs:label       "program reporting" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities conducted to meet program accounting requirements related to an activity, product, or service" ;
+        skos:prefLabel   "program reporting" .
+
+v3-ActReason:SUPNWK  a   owl:Class ;
+        rdfs:label       "support network" ;
+        rdfs:subClassOf  v3-ActReason:PATRQT ;
+        skos:definition  "To perform one or more operations on information in response to a request by a person authorized by the patient." ;
+        skos:prefLabel   "support network" .
+
+v3-ActReason:GOV  a      owl:Class ;
+        rdfs:label       "government" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used within government processes." ;
+        skos:prefLabel   "government" .
+
+v3-ActReason:_GenericUpdateReasonCode
+        a                owl:Class ;
+        rdfs:label       "GenericUpdateReasonCode" ;
+        skos:definition  "Description:Identifies why a change is being made to a  record." ;
+        skos:prefLabel   "GenericUpdateReasonCode" .
+
+v3-ActReason:VACEFF  a   owl:Class ;
+        rdfs:label       "vaccine efficacy concerns" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:The intended vaccine has expired or is otherwise believed to no longer be effective.\r\n\n                        \n                           Example:Due to temperature exposure." ;
+        skos:prefLabel   "vaccine efficacy concerns" .
+
+v3-ActReason:FRR05  a    owl:Class ;
+        rdfs:label       "ethical/religious" ;
+        rdfs:subClassOf  v3-ActReason:_ActSupplyFulfillmentRefusalReason ;
+        skos:definition  "Definition:The dispenser has ethical, religious or moral objections to fulfilling the order/dispensing the product." ;
+        skos:prefLabel   "ethical/religious" .
+
+v3-ActReason:_MedicationOrderAbortReasonCode
+        a                owl:Class ;
+        rdfs:label       "medication order abort reason" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Description:Indicates the reason the medication order should be aborted." ;
+        skos:prefLabel   "medication order abort reason" .
+
+v3-ActReason:UNKWNTARGET
+        a                owl:Class ;
+        rdfs:label       "unknown target" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestFulfillerRevisionRefusalReasonCode ;
+        skos:definition  "Definition:The target facility does not recognize the dispensing facility." ;
+        skos:prefLabel   "unknown target" .
+
+v3-ActReason:NOMATCH  a  owl:Class ;
+        rdfs:label       "no match" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationRefusalReasonType ;
+        skos:definition  "Description: There is no match." ;
+        skos:prefLabel   "no match" .
+
+v3-ActReason:NOPERM  a   owl:Class ;
+        rdfs:label       "no permission" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationRefusalReasonType ;
+        skos:definition  "Description: There is no permission." ;
+        skos:prefLabel   "no permission" .
+
+v3-ActReason:INVOICE  a  owl:Class ;
+        rdfs:label      "INVOICE" ;
+        skos:prefLabel  "INVOICE" .
+
+v3-ActReason:PATDEC  a   owl:Class ;
+        rdfs:label       "patient changed mind" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventAbortReason ;
+        skos:definition  "Definition:Patient changed their mind regarding obtaining medication" ;
+        skos:prefLabel   "patient changed mind" .
+
+v3-ActReason:EMP  a      owl:Class ;
+        rdfs:label       "Employee only" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available only to an employee." ;
+        skos:prefLabel   "Employee only" .
+
+v3-ActReason:NOTCOVER
+        a                owl:Class ;
+        rdfs:label       "not covered" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:The product does not have (or no longer has) coverage under the patientaTMs insurance policy." ;
+        skos:prefLabel   "not covered" .
+
+v3-ActReason:QUANTCHG
+        a                owl:Class ;
+        rdfs:label       "change supply quantity" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventAbortReason ;
+        skos:definition  "Definition:Patient requested a revised quantity of medication" ;
+        skos:prefLabel   "change supply quantity" .
+
+v3-ActReason:HCOMPL  a   owl:Class ;
+        rdfs:label       "health compliance" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for conducting activities required to meet a mandate." ;
+        skos:prefLabel   "health compliance" .
+
+v3-ActReason:PERFMSR  a  owl:Class ;
+        rdfs:label       "performance measure" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for monitoring performance of recommended health care practices and interventions." ;
+        skos:prefLabel   "performance measure" .
+
+v3-ActReason:RESCH  a    owl:Class ;
+        rdfs:label       "research" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationPrivacyReason ;
+        skos:definition  "Description:Investigative activities conducted for the purposes of obtaining knowledge" ;
+        skos:prefLabel   "research" .
+
+v3-ActReason:POPHLTH  a  owl:Class ;
+        rdfs:label       "population health" ;
+        rdfs:subClassOf  v3-ActReason:TREAT ;
+        skos:definition  "To perform one or more operations on information for provision of health care to a population of living subjects, e.g., needle exchange program." ;
+        skos:prefLabel   "population health" .
+
+v3-ActReason:FIN  a      owl:Class ;
+        rdfs:label       "No Financial Backing" ;
+        rdfs:subClassOf  v3-ActReason:_SchedulingActReason ;
+        skos:definition  "Patient unable to pay and not covered by insurance" ;
+        skos:prefLabel   "No Financial Backing" .
+
+v3-ActReason:MONIT  a    owl:Class ;
+        rdfs:label       "response to monitoring" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:Monitoring the patient while taking the medication, the decision has been made that the therapy is no longer appropriate." ;
+        skos:prefLabel   "response to monitoring" .
+
+v3-ActReason:PurposeOfUse
+        a                owl:Class ;
+        rdfs:label       "purpose of use" ;
+        rdfs:subClassOf  v3-ActReason:_ActHealthInformationManagementReason ;
+        skos:definition  "Reason for performing one or more operations on information, which may be permitted by source system's security policy in accordance with one or more privacy policies and consent directives.\r\n\n                        \n                           Usage Notes: The rationale or purpose for an act relating to the management of personal health information, such as collecting personal health information for research or public health purposes." ;
+        skos:prefLabel   "purpose of use" .
+
+v3-ActReason:_SubstanceAdminSubstitutionReason
+        a                owl:Class ;
+        rdfs:label       "SubstanceAdminSubstitutionReason" ;
+        skos:definition  "SubstanceAdminSubstitutionReason" ;
+        skos:prefLabel   "SubstanceAdminSubstitutionReason" .
+
+v3-ActReason:PREFUS  a   owl:Class ;
+        rdfs:label       "patient refuse" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:The patient refused to take the product." ;
+        skos:prefLabel   "patient refuse" .
+
+v3-ActReason:PRNA  a     owl:Class ;
+        rdfs:label       "product not available" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Description:This product is not available or manufactured." ;
+        skos:prefLabel   "product not available" .
+
+v3-ActReason:ELIGVER  a  owl:Class ;
+        rdfs:label       "eligibility verification" ;
+        rdfs:subClassOf  v3-ActReason:COVERAGE ;
+        skos:definition  "To perform one or more operations on information used for conducting eligibility verification of coverage in a program or policy.  May entail provider contacting coverage source (e.g., government health program such as workers compensation or health plan) for confirmation of enrollment, eligibility for specific services, and any applicable copays." ;
+        skos:prefLabel   "eligibility verification" .
+
+v3-ActReason:ONHOLD  a   owl:Class ;
+        rdfs:label       "medication on hold" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:This medication is on hold." ;
+        skos:prefLabel   "medication on hold" .
+
+v3-ActReason:INEFFECT
+        a                owl:Class ;
+        rdfs:label       "ineffective" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:The therapy has been found to not have the desired therapeutic benefit on the patient." ;
+        skos:prefLabel   "ineffective" .
+
+v3-ActReason:ALTCHOICE
+        a                owl:Class ;
+        rdfs:label       "try another treatment first" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:This therapy has been ordered as a backup to a preferred therapy.  This order will be released when and if the preferred therapy is unsuccessful." ;
+        skos:prefLabel   "try another treatment first" .
+
+v3-ActReason:PREG  a     owl:Class ;
+        rdfs:label       "parent is pregnant/breast feeding" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The patient is pregnant or breast feeding.  The therapy will be resumed when the pregnancy is complete and the patient is no longer breastfeeding." ;
+        skos:prefLabel   "parent is pregnant/breast feeding" .
+
+v3-ActReason:HOPERAT  a  owl:Class ;
+        rdfs:label       "healthcare operations" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information used for conducting administrative and contractual activities related to the provision of health care." ;
+        skos:prefLabel   "healthcare operations" .
+
+v3-ActReason:PAT  a      owl:Class ;
+        rdfs:label       "Patient request" ;
+        rdfs:subClassOf  v3-ActReason:_ActAccommodationReason ;
+        skos:definition  "The Patient requested the action" ;
+        skos:prefLabel   "Patient request" .
+
+v3-ActReason:BONUS  a   owl:Class ;
+        rdfs:label      "BONUS" ;
+        skos:prefLabel  "BONUS" .
+
+v3-ActReason:ALGINT  a   owl:Class ;
+        rdfs:label       "allergy intolerance" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionNotAllowedReason ;
+        skos:definition  "Definition: Patient has had a prior allergic intolerance response to alternate product or one of its components." ;
+        skos:prefLabel   "allergy intolerance" .
+
+v3-ActReason:HPRGRP  a   owl:Class ;
+        rdfs:label       "health program reporting" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for conducting activities to meet program accounting requirements." ;
+        skos:prefLabel   "health program reporting" .
+
+v3-ActReason:HOSPADM  a  owl:Class ;
+        rdfs:label       "admission to hospital" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The patient has been admitted to a care facility and their community medications are suspended until hospital discharge." ;
+        skos:prefLabel   "admission to hospital" .
+
+v3-ActReason:PNC  a      owl:Class ;
+        rdfs:label       "property and casualty condition" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes a claimant under a property and casualty insurance policy because of a related health condition or injury resulting from a circumstance covered under the terms of the policy. \r\n\n                        \n                           Example:  A person is a claimant under a homeowners insurance policy because of an injury sustained on the policyholderaTMs premises." ;
+        skos:prefLabel   "property and casualty condition" .
+
+v3-ActReason:_ActInformationPrivacyReason
+        a                owl:Class ;
+        rdfs:label       "ActInformationPrivacyReason" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationManagementReason ;
+        skos:definition  "Description:The rationale or purpose for an act relating to the management of personal information, such as disclosing personal tax information for the purpose of complying with a court order." ;
+        skos:prefLabel   "ActInformationPrivacyReason" .
+
+v3-ActReason:PATSFTY  a  owl:Class ;
+        rdfs:label       "patient safety" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information in processes related to ensuring the safety of health care." ;
+        skos:prefLabel   "patient safety" .
+
+v3-ActReason:TRAN  a    owl:Class ;
+        rdfs:label      "TRAN" ;
+        skos:prefLabel  "TRAN" .
+
+v3-ActReason:RECALL  a   owl:Class ;
+        rdfs:label       "product recalled" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:The manufacturer or other agency has requested that stocks of a medication be removed from circulation." ;
+        skos:prefLabel   "product recalled" .
+
+v3-ActReason:THREAT  a   owl:Class ;
+        rdfs:label       "threat" ;
+        rdfs:subClassOf  v3-ActReason:PUBHLTH ;
+        skos:definition  "To perform one or more operations on information used to prevent injury or disease to living subjects who may be the target of violence." ;
+        skos:prefLabel   "threat" .
+
+v3-ActReason:PRODRECALL
+        a                owl:Class ;
+        rdfs:label       "product recall" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvalidReason ;
+        skos:definition  "Description: The substance was recalled by the manufacturer." ;
+        skos:prefLabel   "product recall" .
+
+v3-ActReason:NOSERMTCH
+        a                owl:Class ;
+        rdfs:label       "no service match" ;
+        rdfs:subClassOf  v3-ActReason:NOMATCH ;
+        skos:definition  "Description: There is no match for the service in the master file repository." ;
+        skos:prefLabel   "no service match" .
+
+v3-ActReason:PROG  a     owl:Class ;
+        rdfs:label       "program use" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventStockReasonCode ;
+        skos:definition  "Definition:The bulk supply is intended for dispensing according to a specific program.\r\n\n                        \n                           Example:Mass immunization." ;
+        skos:prefLabel   "program use" .
+
+v3-ActReason:MARKT  a    owl:Class ;
+        rdfs:label       "marketing" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationPrivacyReason ;
+        skos:definition  "Description:" ;
+        skos:prefLabel   "marketing" .
+
+v3-ActReason:NPT  a      owl:Class ;
+        rdfs:label       "non-protocol" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchObservationReason ;
+        skos:definition  "Definition:The observation or test was neither defined or scheduled in the study protocol." ;
+        skos:prefLabel   "non-protocol" .
+
+v3-ActReason:MED  a      owl:Class ;
+        rdfs:label       "Medical Status Altered" ;
+        rdfs:subClassOf  v3-ActReason:_SchedulingActReason ;
+        skos:definition  "The medical condition of the Patient has changed" ;
+        skos:prefLabel   "Medical Status Altered" .
+
+v3-ActReason:PHILISOP
+        a                owl:Class ;
+        rdfs:label       "philosophical objection" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:The patient or their guardian objects to receiving the vaccine because of philosophical beliefs." ;
+        skos:prefLabel   "philosophical objection" .
+
+v3-ActReason:NEWDATA  a  owl:Class ;
+        rdfs:label       "new information" ;
+        rdfs:subClassOf  v3-ActReason:_GenericUpdateReasonCode ;
+        skos:definition  "Description:New information has become available to supplement the record." ;
+        skos:prefLabel   "new information" .
+
+v3-ActReason:RSRCH  a    owl:Class ;
+        rdfs:label       "research" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Definition:To provide research data, as authorized by the patient." ;
+        skos:prefLabel   "research" .
+
+v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode
+        a                owl:Class ;
+        rdfs:label       "CombinedPharmacyOrderSuspendReasonCode" ;
+        skos:definition  "Description:Indicates why the prescription should be suspended." ;
+        skos:prefLabel   "CombinedPharmacyOrderSuspendReasonCode" .
+
+v3-ActReason:DONAT  a    owl:Class ;
+        rdfs:label       "donation" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for cadaveric organ, eye or tissue donation." ;
+        skos:prefLabel   "donation" .
+
+v3-ActReason:_ModifyPrescriptionReasonType
+        a                owl:Class ;
+        rdfs:label       "ModifyPrescriptionReasonType" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Types of reason why a prescription is being changed." ;
+        skos:prefLabel   "ModifyPrescriptionReasonType" .
+
+v3-ActReason:WRNGVER  a  owl:Class ;
+        rdfs:label       "wrong version" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationRefusalReasonType ;
+        skos:definition  "Description: The record and version requested to update is not the current version." ;
+        skos:prefLabel   "wrong version" .
+
+v3-ActReason:INTOL  a    owl:Class ;
+        rdfs:label       "intolerance" ;
+        rdfs:subClassOf  v3-ActReason:_SupplyOrderAbortReasonCode ;
+        skos:definition  "Description:The patient has an intolerance to the medication." ;
+        skos:prefLabel   "intolerance" .
+
+v3-ActReason:PROTUNMET
+        a                owl:Class ;
+        rdfs:label       "protocol not met" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdministrationPermissionRefusalReasonCode ;
+        skos:definition  "Definition:Patient does not meet required protocol" ;
+        skos:prefLabel   "protocol not met" .
+
+v3-ActReason:PPT  a      owl:Class ;
+        rdfs:label       "per protocol" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchObservationReason ;
+        skos:definition  "Definition:The observation or test occurred due to it being defined in the research protocol, and during an activity or event that was scheduled in the protocol." ;
+        skos:prefLabel   "per protocol" .
+
+v3-ActReason:SCH  a      owl:Class ;
+        rdfs:label       "scheduled" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchEventReason ;
+        skos:definition  "Definition:The event occurred due to it being scheduled in the research protocol." ;
+        skos:prefLabel   "scheduled" .
+
+v3-ActReason:NEEDAPMT
+        a                owl:Class ;
+        rdfs:label       "patient must make appointment" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:Patient must see prescriber prior to further fills." ;
+        skos:prefLabel   "patient must make appointment" .
+
+v3-ActReason:FRAUD  a    owl:Class ;
+        rdfs:label       "fraud" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for fraud detection and prevention processes." ;
+        skos:prefLabel   "fraud" .
+
+v3-ActReason:_ActInvoiceCancelReason
+        a                owl:Class ;
+        rdfs:label       "ActInvoiceCancelReason" ;
+        skos:definition  "Domain specifies the codes used to describe reasons why a Provider is cancelling an Invoice or Invoice Grouping." ;
+        skos:prefLabel   "ActInvoiceCancelReason" .
+
+v3-ActReason:LOCKED  a   owl:Class ;
+        rdfs:label       "locked" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestFulfillerRevisionRefusalReasonCode ;
+        skos:definition  "Definition:The prescription may not be reassigned from the original pharmacy." ;
+        skos:prefLabel   "locked" .
+
+v3-ActReason:FAM  a      owl:Class ;
+        rdfs:label       "Family" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available to a subscriber's family." ;
+        skos:prefLabel   "Family" .
+
+v3-ActReason:HACCRED  a  owl:Class ;
+        rdfs:label       "health accreditation" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information for conducting activities related to meeting accreditation criteria." ;
+        skos:prefLabel   "health accreditation" .
+
+v3-ActReason:OPERAT  a   owl:Class ;
+        rdfs:label       "operations" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationPrivacyReason ;
+        skos:definition  "Description:Administrative and contractual processes required to support an activity, product, or service" ;
+        skos:prefLabel   "operations" .
+
+v3-ActReason:FRR03  a    owl:Class ;
+        rdfs:label       "incomplete data" ;
+        rdfs:subClassOf  v3-ActReason:_ActSupplyFulfillmentRefusalReason ;
+        skos:definition  "Definition:Data needed to safely act on the order which was expected to become available independent of the order is not yet available\r\n\n                        \n                           Example:Lab results, diagnostic imaging, etc." ;
+        skos:prefLabel   "incomplete data" .
+
+v3-ActReason:NOPICK  a   owl:Class ;
+        rdfs:label       "not picked up" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventAbortReason ;
+        skos:definition  "Definition:Patient did not come to get medication" ;
+        skos:prefLabel   "not picked up" .
+
+v3-ActReason:PRCREV  a   owl:Class ;
+        rdfs:label       "practice review" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Definition:To evaluate the provider's current practice for professional-improvement reasons." ;
+        skos:prefLabel   "practice review" .
+
+v3-ActReason:TRM  a      owl:Class ;
+        rdfs:label       "termination" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchEventReason ;
+        skos:definition  "Definition:The event occurred in order to terminate the subject's participation in the study." ;
+        skos:prefLabel   "termination" .
+
+v3-ActReason:VACSAF  a   owl:Class ;
+        rdfs:label       "vaccine safety concerns" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:The patient or their guardian objects to receiving the vaccine because of concerns over its safety." ;
+        skos:prefLabel   "vaccine safety concerns" .
+
+v3-ActReason:NOPRODMTCH
+        a                owl:Class ;
+        rdfs:label       "no product match" ;
+        rdfs:subClassOf  v3-ActReason:NOMATCH ;
+        skos:definition  "Description: There is no match for the product in the master file repository." ;
+        skos:prefLabel   "no product match" .
+
+v3-ActReason:HLEGAL  a   owl:Class ;
+        rdfs:label       "legal" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information for conducting activities required by legal proceeding." ;
+        skos:prefLabel   "legal" .
+
+v3-ActReason:SRVC  a     owl:Class ;
+        rdfs:label       "service" ;
+        rdfs:subClassOf  v3-ActReason:_ActInformationPrivacyReason ;
+        skos:definition  "Description:Provision of a service, product, or capability to an individual or organization" ;
+        skos:prefLabel   "service" .
+
+v3-ActReason:STOPMED  a  owl:Class ;
+        rdfs:label       "prescriber stopped medication for patient" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Renewing or original prescriber informed patient to stop using the medication." ;
+        skos:prefLabel   "prescriber stopped medication for patient" .
+
+v3-ActReason:BLK  a      owl:Class ;
+        rdfs:label       "Unexpected Block (of Schedule)" ;
+        rdfs:subClassOf  v3-ActReason:_SchedulingActReason ;
+        skos:definition  "The time slots previously allocated are now blocked and no longer available for booking Appointments" ;
+        skos:prefLabel   "Unexpected Block (of Schedule)" .
+
+v3-ActReason:NOTPAT  a   owl:Class ;
+        rdfs:label       "patient no longer in this practice" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:Patient no longer or has never been under this prescribers care." ;
+        skos:prefLabel   "patient no longer in this practice" .
+
+v3-ActReason:NOTAVAIL
+        a                owl:Class ;
+        rdfs:label       "prescriber not available" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:Original prescriber is no longer available to prescribe and no other prescriber has taken responsibility for the patient." ;
+        skos:prefLabel   "prescriber not available" .
+
+v3-ActReason:INCPOLICY
+        a                owl:Class ;
+        rdfs:label       "incorrect policy" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvoiceCancelReason ;
+        skos:definition  "The policy specified with the Invoice is not correct.  For example, it may belong to another Adjudicator or Covered Party." ;
+        skos:prefLabel   "incorrect policy" .
+
+v3-ActReason:_SupplyOrderAbortReasonCode
+        a                owl:Class ;
+        rdfs:label       "supply order abort reason" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Definition:A collection of concepts that indicates why the prescription should no longer be allowed to be dispensed (but can still administer what is already being dispensed)." ;
+        skos:prefLabel   "supply order abort reason" .
+
+v3-ActReason:LEGAL  a    owl:Class ;
+        rdfs:label       "subpoena" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Definition:To provide information as a result of a subpoena." ;
+        skos:prefLabel   "subpoena" .
+
+v3-ActReason:COLDCHNBRK
+        a                owl:Class ;
+        rdfs:label       "cold chain break" ;
+        rdfs:subClassOf  v3-ActReason:ADVSTORAGE ;
+        skos:definition  "Description: Cold chain was not maintained for the substance." ;
+        skos:prefLabel   "cold chain break" .
+
+v3-ActReason:EXPLOT  a   owl:Class ;
+        rdfs:label       "expired lot" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvalidReason ;
+        skos:definition  "Description: The lot from which the substance was drawn was expired." ;
+        skos:prefLabel   "expired lot" .
+
+v3-ActReason:INCINVOICE
+        a                owl:Class ;
+        rdfs:label       "incorrect billing" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvoiceCancelReason ;
+        skos:definition  "The billing information, specified in the Invoice Elements, is not correct.  This could include incorrect costing for items included in the Invoice." ;
+        skos:prefLabel   "incorrect billing" .
+
+v3-ActReason:_SubstanceAdministrationPermissionRefusalReasonCode
+        a                owl:Class ;
+        rdfs:label       "SubstanceAdministrationPermissionRefusalReasonCode" ;
+        skos:definition  "Definition:Indicates why the requested authorization to prescribe or dispense a medication has been refused." ;
+        skos:prefLabel   "SubstanceAdministrationPermissionRefusalReasonCode" .
+
+v3-ActReason:COMPCON  a  owl:Class ;
+        rdfs:label       "compliance concern" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionNotAllowedReason ;
+        skos:definition  "Definition: Patient has compliance issues with medication such as differing appearance, flavor, size, shape or consistency." ;
+        skos:prefLabel   "compliance concern" .
+
+v3-ActReason:ENROLLM  a  owl:Class ;
+        rdfs:label       "enrollment" ;
+        rdfs:subClassOf  v3-ActReason:COVERAGE ;
+        skos:definition  "To perform one or more operations on information used for enrolling a covered party in a program or policy.  May entail recording of covered party's and any dependent's demographic information and benefit choices." ;
+        skos:prefLabel   "enrollment" .
+
+v3-ActReason:_ActConsentInformationAccessOverrideReason
+        a                owl:Class ;
+        rdfs:label       "ActConsentInformationAccessOverrideReason" ;
+        rdfs:subClassOf  v3-ActReason:_ActHealthInformationManagementReason ;
+        skos:definition  "To perform one or more operations on information to which the patient has not consented as deemed necessary by authorized entities for providing care in the best interest of the patient; providing immediately needed health care for an emergent condition;  or for protecting public or third party safety.\r\n\n                        \n                           Usage Notes: Used to convey the reason that a provider or other entity may or has accessed personal healthcare information.  Typically, this involves overriding the subject's consent directives." ;
+        skos:prefLabel   "ActConsentInformationAccessOverrideReason" .
+
+v3-ActReason:UPT  a      owl:Class ;
+        rdfs:label       "per definition" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchObservationReason ;
+        skos:definition  ":The observation or test occurred as defined in the research protocol, but at a point in time not specified in the study protocol." ;
+        skos:prefLabel   "per definition" .
+
+v3-ActReason:DISASTER
+        a                owl:Class ;
+        rdfs:label       "disaster" ;
+        rdfs:subClassOf  v3-ActReason:PUBHLTH ;
+        skos:definition  "To perform one or more operations on information used for provision of immediately needed health care to a population of living subjects located in a disaster zone." ;
+        skos:prefLabel   "disaster" .
+
+v3-ActReason:HQUALIMP
+        a                owl:Class ;
+        rdfs:label       "health quality improvement" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for conducting administrative activities to improve health care quality." ;
+        skos:prefLabel   "health quality improvement" .
+
+v3-ActReason:UNS  a      owl:Class ;
+        rdfs:label       "unscheduled" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchEventReason ;
+        skos:definition  "Definition:The event that occurred was initiated by a study participant (e.g. the subject or the investigator), and did not occur for protocol reasons." ;
+        skos:prefLabel   "unscheduled" .
+
+v3-ActReason:CRIME  a    owl:Class ;
+        rdfs:label       "crime victim" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for insurance or a program because of crime related health condition or injury. \r\n\n                        \n                           Example:  A person is a claimant under the U.S. Crime Victims Compensation program." ;
+        skos:prefLabel   "crime victim" .
+
+v3-ActReason:CLINTRL  a  owl:Class ;
+        rdfs:label       "clinical trial" ;
+        rdfs:subClassOf  v3-ActReason:TREAT ;
+        skos:definition  "To perform health care as part of the clinical trial protocol." ;
+        skos:prefLabel   "clinical trial" .
+
+v3-ActReason:NON-AVAIL
+        a                owl:Class ;
+        rdfs:label       "patient not-available" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:Patient not available for a period of time due to a scheduled therapy, leave of absence or other reason." ;
+        skos:prefLabel   "patient not-available" .
+
+v3-ActReason:QUALIMP  a  owl:Class ;
+        rdfs:label       "quality improvement" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities conducted for the purposes of improving the quality of an activity, product, or service" ;
+        skos:prefLabel   "quality improvement" .
+
+v3-ActReason:COVSUS  a   owl:Class ;
+        rdfs:label       "coverage suspended" ;
+        rdfs:subClassOf  v3-ActReason:_ActIneligibilityReason ;
+        skos:definition  "When a client has no contact with the health system for an extended period, coverage is suspended.  Client will be reinstated to original start date upon proof of identification, residency etc.\r\n\n                        Example: Coverage may be suspended during a strike situation, when employer benefits for employees are not covered (i.e. not in effect)." ;
+        skos:prefLabel   "coverage suspended" .
+
+v3-ActReason:FAMRQT  a   owl:Class ;
+        rdfs:label       "family requested" ;
+        rdfs:subClassOf  v3-ActReason:PATRQT ;
+        skos:definition  "To perform one or more operations on information in response to a request by a family member authorized by the patient." ;
+        skos:prefLabel   "family requested" .
+
+v3-ActReason:SALG  a     owl:Class ;
+        rdfs:label       "allergy" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The patient is believed to be allergic to a substance that is part of the therapy and the therapy is being temporarily withdrawn to confirm." ;
+        skos:prefLabel   "allergy" .
+
+v3-ActReason:PATADMIN
+        a                owl:Class ;
+        rdfs:label       "patient administration" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for operational activities conducted to administer the delivery of health care to a patient." ;
+        skos:prefLabel   "patient administration" .
+
+v3-ActReason:IND  a      owl:Class ;
+        rdfs:label       "Individual" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available to an individual." ;
+        skos:prefLabel   "Individual" .
+
+v3-ActReason:_EligibilityActReasonCode
+        a                owl:Class ;
+        rdfs:label       "EligibilityActReasonCode" ;
+        rdfs:subClassOf  v3-ActReason:_ActCoverageReason ;
+        skos:definition  "Identifies the reason or rational for why a person is eligibile for benefits under an insurance policy or progam. \r\n\n                        \n                           Examples:  A person is a claimant under an automobile insurance policy are client deceased & adopted client has been given a new policy identifier.  A new employee is eligible for health insurance as an employment benefit.  A person meets a government program eligibility criteria for financial, age or health status." ;
+        skos:prefLabel   "EligibilityActReasonCode" .
+
+v3-ActReason:PHARM  a    owl:Class ;
+        rdfs:label       "pharmacy transfer" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventStockReasonCode ;
+        skos:definition  "Definition:The bulk supply is being transferred to another dispensing facility to.\r\n\n                        \n                           Example:Alleviate a temporary shortage." ;
+        skos:prefLabel   "pharmacy transfer" .
+
+v3-ActReason:PUBHLTH  a  owl:Class ;
+        rdfs:label       "public health" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information for conducting public health activities, such as the reporting of notifiable conditions." ;
+        skos:prefLabel   "public health" .
+
+v3-ActReason:NOVERMTCH
+        a                owl:Class ;
+        rdfs:label       "no version match" ;
+        rdfs:subClassOf  v3-ActReason:NOMATCH ;
+        skos:definition  "Description: There is no match for the record and version." ;
+        skos:prefLabel   "no version match" .
+
+v3-ActReason:ACCRED  a   owl:Class ;
+        rdfs:label       "accreditation" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities conducted for the purposes of meeting of criteria defined by an accrediting entity for an activity, product, or service" ;
+        skos:prefLabel   "accreditation" .
+
+v3-ActReason:SPO  a      owl:Class ;
+        rdfs:label       "Spouse only" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available only to a subscribers spouse" ;
+        skos:prefLabel   "Spouse only" .
+
+v3-ActReason:RELIG  a    owl:Class ;
+        rdfs:label       "religious objection" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:The patient or their guardian objects to receiving the vaccine on religious grounds." ;
+        skos:prefLabel   "religious objection" .
+
+v3-ActReason:RET  a      owl:Class ;
+        rdfs:label       "retest" ;
+        rdfs:subClassOf  v3-ActReason:_ClinicalResearchEventReason ;
+        skos:definition  "Definition:The event occurred so that a test or observation performed at a prior event could be performed again due to conditions set forth in the protocol." ;
+        skos:prefLabel   "retest" .
+
+v3-ActReason:FRR06  a    owl:Class ;
+        rdfs:label       "unable to provide care" ;
+        rdfs:subClassOf  v3-ActReason:_ActSupplyFulfillmentRefusalReason ;
+        skos:definition  "Definition:Fulfiller not able to provide appropriate care associated with fulfilling the order.\r\n\n                        \n                           Example:Therapy requires ongoing monitoring by fulfiller and fulfiller will be ending practice, leaving town, unable to schedule necessary time, etc." ;
+        skos:prefLabel   "unable to provide care" .
+
+v3-ActReason:CHD  a      owl:Class ;
+        rdfs:label       "Children only" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available only to children" ;
+        skos:prefLabel   "Children only" .
+
+v3-ActReason:_RefusalReasonCode
+        a                owl:Class ;
+        rdfs:label       "RefusalReasonCode" ;
+        skos:definition  "Description: Identifies why a request to add (or activate) a record is being refused.  Examples include the receiving system not able to match the identifier and find that record in the receiving system, having no permission, or a detected issue exists which precludes the requested action." ;
+        skos:prefLabel   "RefusalReasonCode" .
+
+v3-ActReason:EMPLOY  a   owl:Class ;
+        rdfs:label       "employment benefit" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for insurance provided as an employment benefit based on employment status." ;
+        skos:prefLabel   "employment benefit" .
+
+v3-ActReason:CAREMGT  a  owl:Class ;
+        rdfs:label       "Care Management" ;
+        rdfs:subClassOf  v3-ActReason:TREAT ;
+        skos:definition  "To perform one or more operations on information for provision of health care coordination." ;
+        skos:prefLabel   "Care Management" .
+
+v3-ActReason:_SubstanceAdminSubstitutionNotAllowedReason
+        a                owl:Class ;
+        rdfs:label       "SubstanceAdminSubstitutionNotAllowedReason" ;
+        skos:definition  "Reasons why substitution of a substance administration request is not permitted." ;
+        skos:prefLabel   "SubstanceAdminSubstitutionNotAllowedReason" .
+
+v3-ActReason:_MedicationOrderReleaseReasonCode
+        a                owl:Class ;
+        rdfs:label       "medication order release reason" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Definition:A collection of concepts that indicate why the prescription should be released from suspended state." ;
+        skos:prefLabel   "medication order release reason" .
+
+v3-ActReason:IMPROV  a   owl:Class ;
+        rdfs:label       "condition improved" ;
+        rdfs:subClassOf  v3-ActReason:_SupplyOrderAbortReasonCode ;
+        skos:definition  "Definition:The patient's medical condition has nearly abated." ;
+        skos:prefLabel   "condition improved" .
+
+v3-ActReason:_CoverageEligibilityReason
+        a                owl:Class ;
+        rdfs:label       "CoverageEligibilityReason" ;
+        rdfs:subClassOf  v3-ActReason:_EligibilityActReasonCode ;
+        skos:definition  "Definition: Identifies the reason or rational for why a person is eligibile for benefits under an insurance policy or progam. \r\n\n                        \n                           Examples:  A person is a claimant under an automobile insurance policy are client deceased & adopted client has been given a new policy identifier.  A new employee is eligible for health insurance as an employment benefit.  A person meets a government program eligibility criteria for financial, age or health status." ;
+        skos:prefLabel   "CoverageEligibilityReason" .
+
+v3-ActReason:OVRPJ  a    owl:Class ;
+        rdfs:label       "professional judgment override" ;
+        rdfs:subClassOf  v3-ActReason:_ActConsentInformationAccessOverrideReason ;
+        skos:definition  "To perform one or more operations on information to which the patient declined to consent for providing health care.\r\n\n                        \n                           Usage Notes: The patient, while able to give consent, has not.  However the provider believes it is in the patient's interest to access the record without patient consent." ;
+        skos:prefLabel   "professional judgment override" .
+
+v3-ActReason:ADVSTORAGE
+        a                owl:Class ;
+        rdfs:label       "adverse storage condition" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvalidReason ;
+        skos:definition  "Description: Storage conditions caused the substance to be ineffective." ;
+        skos:prefLabel   "adverse storage condition" .
+
+v3-ActReason:CLMATTCH
+        a                owl:Class ;
+        rdfs:label       "claim attachment" ;
+        rdfs:subClassOf  v3-ActReason:HPAYMT ;
+        skos:definition  "To perform one or more operations on information for provision of additional clinical evidence in support of a request for coverage or payment for health services." ;
+        skos:prefLabel   "claim attachment" .
+
+v3-ActReason:MTG  a      owl:Class ;
+        rdfs:label       "In an outside meeting" ;
+        rdfs:subClassOf  v3-ActReason:_SchedulingActReason ;
+        skos:definition  "The Physician is in a meeting.  For example, he/she may request administrative time to talk to family after appointment" ;
+        skos:prefLabel   "In an outside meeting" .
+
+v3-ActReason:HEALTH  a   owl:Class ;
+        rdfs:label       "health status" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for a program because of a qualifying health condition or injury. \r\n\n                        \n                           Examples:  A person is determined to have a qualifying health conditions include pregnancy, HIV/AIDs, tuberculosis, end stage renal disease, breast or cervical cancer, or other condition requiring specialized health services, hospice, institutional or community based care provided under a program" ;
+        skos:prefLabel   "health status" .
+
+v3-ActReason:HPAYMT  a   owl:Class ;
+        rdfs:label       "healthcare payment" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information for conducting financial or contractual activities related to payment for provision of health care." ;
+        skos:prefLabel   "healthcare payment" .
+
+v3-ActReason:ER  a       owl:Class ;
+        rdfs:label       "Error" ;
+        rdfs:subClassOf  v3-ActReason:_TransferActReason ;
+        skos:definition  "Moved to an error in placing the patient in the original location." ;
+        skos:prefLabel   "Error" .
+
+v3-ActReason:VALIDATION
+        a                owl:Class ;
+        rdfs:label       "validation review" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Description:To validate the patient's record.\r\n\n                        \n                           Example:Merging or unmerging records." ;
+        skos:prefLabel   "validation review" .
+
+v3-ActReason:FIXDATA  a  owl:Class ;
+        rdfs:label       "error correction" ;
+        rdfs:subClassOf  v3-ActReason:_GenericUpdateReasonCode ;
+        skos:definition  "Description:Previously recorded information was erroneous and is being corrected." ;
+        skos:prefLabel   "error correction" .
+
+v3-ActReason:FLRCNV  a   owl:Class ;
+        rdfs:label       "Floor Convenience" ;
+        rdfs:subClassOf  v3-ActReason:_ActAccommodationReason ;
+        skos:definition  "Accommodation is assigned for floor convenience." ;
+        skos:prefLabel   "Floor Convenience" .
+
+v3-ActReason:VEHIC  a    owl:Class ;
+        rdfs:label       "motor vehicle accident victim" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes a claimant under a motor vehicle accident insurance because of a motor vehicle accident related health condition or injury." ;
+        skos:prefLabel   "motor vehicle accident victim" .
+
+v3-ActReason:FAMPHYS  a  owl:Class ;
+        rdfs:label       "family physician must authorize further fills" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:Request for further authorization must be done through patient's family physician." ;
+        skos:prefLabel   "family physician must authorize further fills" .
+
+v3-ActReason:REPLACEFIX
+        a                owl:Class ;
+        rdfs:label       "error in order" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:Current order was issued with incorrect data and a new order has/will be created to replace it." ;
+        skos:prefLabel   "error in order" .
+
+v3-ActReason:NORECMTCH
+        a                owl:Class ;
+        rdfs:label       "no record match" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationReasonCode ;
+        skos:definition  "Description: There is no match for the record in the database." ;
+        skos:prefLabel   "no record match" .
+
+v3-ActReason:_ActInvalidReason
+        a                owl:Class ;
+        rdfs:label       "ActInvalidReason" ;
+        skos:definition  "Description: Types of reasons why a substance is invalid for use." ;
+        skos:prefLabel   "ActInvalidReason" .
+
+v3-ActReason:ETREAT  a   owl:Class ;
+        rdfs:label       "Emergency Treatment" ;
+        rdfs:subClassOf  v3-ActReason:TREAT ;
+        skos:definition  "To perform one or more operations on information for provision of immediately needed health care for an emergent condition." ;
+        skos:prefLabel   "Emergency Treatment" .
+
+v3-ActReason:HDECD  a    owl:Class ;
+        rdfs:label       "decedent" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used for handling deceased patient matters." ;
+        skos:prefLabel   "decedent" .
+
+v3-ActReason:NOREQ  a    owl:Class ;
+        rdfs:label       "no longer required for treatment" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:The underlying condition has been resolved or has evolved such that a different treatment is no longer needed." ;
+        skos:prefLabel   "no longer required for treatment" .
+
+v3-ActReason:FRR01  a    owl:Class ;
+        rdfs:label       "order stopped" ;
+        rdfs:subClassOf  v3-ActReason:_ActSupplyFulfillmentRefusalReason ;
+        skos:definition  "Definition:The order has been stopped by the prescriber but this fact has not necessarily captured electronically.\r\n\n                        \n                           Example:A verbal stop, a fax, etc." ;
+        skos:prefLabel   "order stopped" .
+
+v3-ActReason:MEDNEC  a   owl:Class ;
+        rdfs:label       "Medical Necessity" ;
+        rdfs:subClassOf  v3-ActReason:_ActAccommodationReason ;
+        skos:definition  "Required for medical reasons(s)." ;
+        skos:prefLabel   "Medical Necessity" .
+
+v3-ActReason:FP  a       owl:Class ;
+        rdfs:label       "formulary policy" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionReason ;
+        skos:definition  "Indicates that the decision to substitute or to not substitute was driven by a policy expressed within the formulary." ;
+        skos:prefLabel   "formulary policy" .
+
+v3-ActReason:PATRQT  a   owl:Class ;
+        rdfs:label       "patient requested" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information in response to a patient's request." ;
+        skos:prefLabel   "patient requested" .
+
+v3-ActReason:REPLACE  a  owl:Class ;
+        rdfs:label       "change in order" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:Item in current order is no longer in use as requested and a new one has/will be created to replace it." ;
+        skos:prefLabel   "change in order" .
+
+v3-ActReason:OFFICE  a   owl:Class ;
+        rdfs:label       "office use" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventStockReasonCode ;
+        skos:definition  "Definition:The bulk supply is intended for general clinician office use." ;
+        skos:prefLabel   "office use" .
+
+v3-ActReason:ALREADYRX
+        a                owl:Class ;
+        rdfs:label       "new prescription exists" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:Patient has already been given a new (renewal) prescription." ;
+        skos:prefLabel   "new prescription exists" .
+
+v3-ActReason:PATCAR  a   owl:Class ;
+        rdfs:label       "patient care" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Definition:To obtain records as part of patient care." ;
+        skos:prefLabel   "patient care" .
+
+v3-ActReason:TREAT  a    owl:Class ;
+        rdfs:label       "treatment" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information for provision of health care." ;
+        skos:prefLabel   "treatment" .
+
+v3-ActReason:CHGDATA  a  owl:Class ;
+        rdfs:label       "information change" ;
+        rdfs:subClassOf  v3-ActReason:_GenericUpdateReasonCode ;
+        skos:definition  "Description:Information has changed since the record was created." ;
+        skos:prefLabel   "information change" .
+
+v3-ActReason:PATOBJ  a   owl:Class ;
+        rdfs:label       "patient objection" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:The patient or their guardian objects to receiving the vaccine." ;
+        skos:prefLabel   "patient objection" .
+
+v3-ActReason:SDUPTHER
+        a                owl:Class ;
+        rdfs:label       "duplicate therapy" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:Another short-term co-occurring therapy fulfills the same purpose as this therapy.  This therapy will be resumed when the co-occuring therapy is complete." ;
+        skos:prefLabel   "duplicate therapy" .
+
+v3-ActReason:DOSECHG  a  owl:Class ;
+        rdfs:label       "change in medication/dose" ;
+        rdfs:subClassOf  v3-ActReason:REPLACE ;
+        skos:definition  "Description:The medication is being re-prescribed at a different dosage." ;
+        skos:prefLabel   "change in medication/dose" .
+
+v3-ActReason:WASHOUT  a  owl:Class ;
+        rdfs:label       "waiting for old drug to wash out" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The patient was previously receiving a medication contraindicated with the current medication.  The current medication will remain on hold until the prior medication has been cleansed from their system." ;
+        skos:prefLabel   "waiting for old drug to wash out" .
+
+v3-ActReason:CLARIF  a   owl:Class ;
+        rdfs:label       "prescription requires clarification" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:Clarification is required before the order can be acted upon." ;
+        skos:prefLabel   "prescription requires clarification" .
+
+v3-ActReason:COMPL  a    owl:Class ;
+        rdfs:label       "compliance" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities required to meet a mandate related to an activity, product, or service" ;
+        skos:prefLabel   "compliance" .
+
+v3-ActReason:TRIAL  a    owl:Class ;
+        rdfs:label       "clinical trial drug" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionNotAllowedReason ;
+        skos:definition  "Definition: The specific manufactured drug is part of a clinical trial." ;
+        skos:prefLabel   "clinical trial drug" .
+
+v3-ActReason:STATUTORY
+        a                owl:Class ;
+        rdfs:label       "statutory eligibility" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for a program based on statutory criteria.\r\n\n                        \n                           Examples:  A person is a member of an indigenous group, a veteran of military service, or  in the U.S., a recipient of adoption assistance and foster care under Title IV-E of the Social Security." ;
+        skos:prefLabel   "statutory eligibility" .
+
+v3-ActReason:ELIGDTRM
+        a                owl:Class ;
+        rdfs:label       "eligibility determination" ;
+        rdfs:subClassOf  v3-ActReason:COVERAGE ;
+        skos:definition  "To perform one or more operations on information used for conducting eligibility determination for coverage in a program or policy.  May entail review of financial status or disability assessment." ;
+        skos:prefLabel   "eligibility determination" .
+
+v3-ActReason:_ActBillableServiceReason
+        a                owl:Class ;
+        rdfs:label       "ActBillableServiceReason" ;
+        skos:definition  "Definition: This domain is used to document reasons for providing a billable service; the billable services may include both clinical services and social services." ;
+        skos:prefLabel   "ActBillableServiceReason" .
+
+v3-ActReason:RQ  a       owl:Class ;
+        rdfs:label       "Request" ;
+        rdfs:subClassOf  v3-ActReason:_TransferActReason ;
+        skos:definition  "Moved at the request of the patient." ;
+        skos:prefLabel   "Request" .
+
+v3-ActReason:OUTSIDESCHED
+        a                owl:Class ;
+        rdfs:label       "administered outside recommended schedule or practice" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvalidReason ;
+        skos:definition  "The substance was administered outside of the recommended schedule or practice." ;
+        skos:prefLabel   "administered outside recommended schedule or practice" .
+
+v3-ActReason:DEP  a      owl:Class ;
+        rdfs:label       "Dependents only" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available only to a subscriber's dependents." ;
+        skos:prefLabel   "Dependents only" .
+
+v3-ActReason:_ControlActNullificationRefusalReasonType
+        a                owl:Class ;
+        rdfs:label       "ControlActNullificationRefusalReasonType" ;
+        skos:definition  "Description: Reasons to refuse a transaction to be undone." ;
+        skos:prefLabel   "ControlActNullificationRefusalReasonType" .
+
+v3-ActReason:INCCOVPTY
+        a                owl:Class ;
+        rdfs:label       "incorrect covered party as patient" ;
+        rdfs:subClassOf  v3-ActReason:_ActInvoiceCancelReason ;
+        skos:definition  "The covered party (patient) specified with the Invoice is not correct." ;
+        skos:prefLabel   "incorrect covered party as patient" .
+
+v3-ActReason:HRESCH  a   owl:Class ;
+        rdfs:label       "healthcare research" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information for conducting scientific investigations to obtain health care knowledge." ;
+        skos:prefLabel   "healthcare research" .
+
+v3-ActReason:_SchedulingActReason
+        a                owl:Class ;
+        rdfs:label       "SchedulingActReason" ;
+        skos:definition  "Reasons for cancelling or rescheduling an Appointment" ;
+        skos:prefLabel   "SchedulingActReason" .
+
+v3-ActReason:OVRER  a    owl:Class ;
+        rdfs:label       "emergency treatment override" ;
+        rdfs:subClassOf  v3-ActReason:_ActConsentInformationAccessOverrideReason ;
+        skos:definition  "To perform one or more operations on information to which the patient has not consented by authorized entities for treating a condition which poses an immediate threat to the patient's health and which requires immediate medical intervention.\r\n\n                        \n                           Usage Notes: The patient is unable to provide consent, but the provider determines they have an urgent healthcare related reason to access the record." ;
+        skos:prefLabel   "emergency treatment override" .
+
+v3-ActReason:_ActCoverageReason
+        a                owl:Class ;
+        rdfs:label       "ActCoverageReason" ;
+        skos:definition  "Description:Codes used to specify reasons or criteria relating to coverage provided under a policy or program.  May be used to convey reasons pertaining to coverage contractual provisions, including criteria for eligibility, coverage limitations, coverage maximums, or financial participation required of covered parties." ;
+        skos:prefLabel   "ActCoverageReason" .
+
+v3-ActReason:_PatientProfileQueryReasonCode
+        a                owl:Class ;
+        rdfs:label       "patient profile query reason" ;
+        skos:definition  "Definition:A collection of concepts identifying why the patient's profile is being queried." ;
+        skos:prefLabel   "patient profile query reason" .
+
+v3-ActReason:CT  a       owl:Class ;
+        rdfs:label       "continuing therapy" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionReason ;
+        skos:definition  "Indicates that the decision to substitute or to not substitute was driven by a desire to maintain consistency with a pre-existing therapy.  I.e. The performer provided the same item/service as had been previously provided rather than providing exactly what was ordered, or rather than substituting with a lower-cost equivalent." ;
+        skos:prefLabel   "continuing therapy" .
+
+v3-ActReason:TRAIN  a    owl:Class ;
+        rdfs:label       "training" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used in training and education." ;
+        skos:prefLabel   "training" .
+
+v3-ActReason:INRQSTATE
+        a                owl:Class ;
+        rdfs:label       "in requested state" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationRefusalReasonType ;
+        skos:definition  "The record is already in the requested state." ;
+        skos:prefLabel   "in requested state" .
+
+v3-ActReason:_PharmacySupplyEventStockReasonCode
+        a                owl:Class ;
+        rdfs:label       "pharmacy supply event stock reason" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Definition:A collection of concepts that indicates the reason for a \"bulk supply\" of medication." ;
+        skos:prefLabel   "pharmacy supply event stock reason" .
+
+v3-ActReason:NEWTHER  a  owl:Class ;
+        rdfs:label       "new therapy" ;
+        rdfs:subClassOf  v3-ActReason:_SupplyOrderAbortReasonCode ;
+        skos:definition  "Definition:A new therapy will be commenced when current supply exhausted." ;
+        skos:prefLabel   "new therapy" .
+
+v3-ActReason:OSTOCK  a   owl:Class ;
+        rdfs:label       "product out of stock" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:There was no supply of the product on hand to perform the service." ;
+        skos:prefLabel   "product out of stock" .
+
+v3-ActReason:COVAUTH  a  owl:Class ;
+        rdfs:label       "coverage authorization" ;
+        rdfs:subClassOf  v3-ActReason:HPAYMT ;
+        skos:definition  "To perform one or more operations on information for conducting prior authorization or predetermination of coverage for services." ;
+        skos:prefLabel   "coverage authorization" .
+
+v3-ActReason:FILLED  a   owl:Class ;
+        rdfs:label       "fully filled" ;
+        rdfs:subClassOf  v3-ActReason:_StatusRevisionRefusalReasonCode ;
+        skos:definition  "Ordered quantity has already been completely fulfilled." ;
+        skos:prefLabel   "fully filled" .
+
+v3-ActReason:DEC  a      owl:Class ;
+        rdfs:label       "Patient Deceased" ;
+        rdfs:subClassOf  v3-ActReason:_SchedulingActReason ;
+        skos:definition  "The Patient is deceased" ;
+        skos:prefLabel   "Patient Deceased" .
+
+v3-ActReason:SURG  a     owl:Class ;
+        rdfs:label       "patient scheduled for surgery" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The drug is contraindicated for patients receiving surgery and the patient is scheduled to be admitted for surgery in the near future.  The drug will be resumed when the patient has sufficiently recovered from the surgery." ;
+        skos:prefLabel   "patient scheduled for surgery" .
+
+v3-ActReason:EIE  a      owl:Class ;
+        rdfs:label       "entered in error" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationReasonCode ;
+        skos:definition  "Description:The information was recorded incorrectly or was recorded in the wrong record." ;
+        skos:prefLabel   "entered in error" .
+
+v3-ActReason:FRR04  a    owl:Class ;
+        rdfs:label       "product unavailable" ;
+        rdfs:subClassOf  v3-ActReason:_ActSupplyFulfillmentRefusalReason ;
+        skos:definition  "Definition:Product not available or manufactured. Cannot supply." ;
+        skos:prefLabel   "product unavailable" .
+
+v3-ActReason:WORK  a     owl:Class ;
+        rdfs:label       "work related" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for insurance or a program because of a work related health condition or injury. \r\n\n                        \n                           Example:  A person is a claimant under the U.S. Black Lung Program." ;
+        skos:prefLabel   "work related" .
+
+v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode
+        a                owl:Class ;
+        rdfs:label       "pharmacy supply request renewal refusal reason" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActReason ;
+        skos:definition  "Definition:A collection of concepts that identifies why a renewal prescription has been refused." ;
+        skos:prefLabel   "pharmacy supply request renewal refusal reason" .
+
+v3-ActReason:MULTI  a    owl:Class ;
+        rdfs:label       "multiple criteria eligibility" ;
+        rdfs:subClassOf  v3-ActReason:_CoverageEligibilityReason ;
+        skos:definition  "A person becomes eligible for a program based on more than one criterion.\r\n\n                        \n                           Examples:  In the U.S., a child whose familiy income meets Medicaid financial thresholds and whose age is less than 18 is eligible for the Early and Periodic Screening, Diagnostic, and Treatment program (EPSDT).  A person whose family income meets Medicaid financial thresholds and whose age is 65 years or older is eligible for Medicaid and Medicare, and are referred to as dual eligibles." ;
+        skos:prefLabel   "multiple criteria eligibility" .
+
+v3-ActReason:LABINT  a   owl:Class ;
+        rdfs:label       "lab interference issues" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The therapy would interfere with a planned lab test and the therapy is being withdrawn until the test is completed." ;
+        skos:prefLabel   "lab interference issues" .
+
+v3-ActReason:PATREQ  a   owl:Class ;
+        rdfs:label       "patient request query" ;
+        rdfs:subClassOf  v3-ActReason:_PatientProfileQueryReasonCode ;
+        skos:definition  "Definition:Patient requests information from their profile." ;
+        skos:prefLabel   "patient request query" .
+
+v3-ActReason:_ClinicalResearchObservationReason
+        a                owl:Class ;
+        rdfs:label       "ClinicalResearchObservationReason" ;
+        skos:definition  "Definition:SSpecifies the reason that a test was performed or observation collected in a clinical research study.\r\n\n                        \n                           Note:This set of codes are not strictly reasons, but are used in the currently Normative standard.  Future revisions of the specification will model these as ActRelationships and thes codes may subsequently be retired.  Thus, these codes should not be used for new specifications." ;
+        skos:prefLabel   "ClinicalResearchObservationReason" .
+
+v3-ActReason:HDIRECT  a  owl:Class ;
+        rdfs:label       "directory" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operation operations on information used to manage a patient directory.\r\n\n                        \n                           Examples: \n                        \r\n\n                        \n                           facility\n                           enterprise\n                           payer\n                           health information exchange patient directory" ;
+        skos:prefLabel   "directory" .
+
+v3-ActReason:PHY  a      owl:Class ;
+        rdfs:label       "Physician request" ;
+        rdfs:subClassOf  v3-ActReason:_SchedulingActReason ;
+        skos:definition  "The Physician requested the action" ;
+        skos:prefLabel   "Physician request" .
+
+v3-ActReason:MEDPREC  a  owl:Class ;
+        rdfs:label       "medical precaution" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:The patient currently has a medical condition for which the vaccine is contraindicated or for which precaution is warranted." ;
+        skos:prefLabel   "medical precaution" .
+
+v3-ActReason:_ControlActNullificationReasonCode
+        a                owl:Class ;
+        rdfs:label       "ControlActNullificationReasonCode" ;
+        skos:definition  "Description:Identifies reasons for nullifying (retracting) a particular control act." ;
+        skos:prefLabel   "ControlActNullificationReasonCode" .
+
+v3-ActReason:FOSUSP  a   owl:Class ;
+        rdfs:label       "order suspended" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventAbortReason ;
+        skos:definition  "Definition:Order to be fulfilled was suspended" ;
+        skos:prefLabel   "order suspended" .
+
+v3-ActReason:THERCHAR
+        a                owl:Class ;
+        rdfs:label       "therapeutic characteristics" ;
+        rdfs:subClassOf  v3-ActReason:_SubstanceAdminSubstitutionNotAllowedReason ;
+        skos:definition  "The prescribed product has specific clinical release or other therapeutic characteristics not shared by other substitutable medications." ;
+        skos:prefLabel   "therapeutic characteristics" .
+
+v3-ActReason:MODIFY  a   owl:Class ;
+        rdfs:label       "modified prescription exists" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:Therapy has been changed and new prescription issued" ;
+        skos:prefLabel   "modified prescription exists" .
+
+v3-ActReason:EDU  a     owl:Class ;
+        rdfs:label      "EDU" ;
+        skos:prefLabel  "EDU" .
+
+v3-ActReason:COVERAGE
+        a                owl:Class ;
+        rdfs:label       "coverage under policy or program" ;
+        rdfs:subClassOf  v3-ActReason:HPAYMT ;
+        skos:definition  "To perform one or more operations on information for conducting activities related to coverage under a program or policy." ;
+        skos:prefLabel   "coverage under policy or program" .
+
+v3-ActReason:HMARKT  a   owl:Class ;
+        rdfs:label       "healthcare marketing" ;
+        rdfs:subClassOf  v3-ActReason:PurposeOfUse ;
+        skos:definition  "To perform one or more operations on information for marketing services and products related to health care." ;
+        skos:prefLabel   "healthcare marketing" .
+
+v3-ActReason:ALTD  a     owl:Class ;
+        rdfs:label       "altered decision" ;
+        rdfs:subClassOf  v3-ActReason:_ControlActNullificationReasonCode ;
+        skos:definition  "Description:The decision on which the recorded information was based was changed before the decision had an effect.\r\n\n                        \n                           Example:Aborted prescription before patient left office, released prescription before suspend took effect." ;
+        skos:prefLabel   "altered decision" .
+
+v3-ActReason:_ActBillableClinicalServiceReason
+        a                owl:Class ;
+        rdfs:label       "ActBillableClinicalServiceReason" ;
+        rdfs:subClassOf  v3-ActReason:_ActBillableServiceReason ;
+        skos:definition  "Reason for Clinical Service being performed.\r\n\n                        This domain excludes reasons specified by diagnosed conditions.\r\n\n                        Examples of values from this domain include duplicate therapy and fraudulent prescription." ;
+        skos:prefLabel   "ActBillableClinicalServiceReason" .
+
+v3-ActReason:UNABLE  a   owl:Class ;
+        rdfs:label       "unable to use" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:<The patient is not (or is no longer) able to use the medication in a manner prescribed.\r\n\n                        \n                           Example:CanaTMt swallow." ;
+        skos:prefLabel   "unable to use" .
+
+v3-ActReason:CLINMOD  a  owl:Class ;
+        rdfs:label       "clinical modification" ;
+        rdfs:subClassOf  v3-ActReason:_ModifyPrescriptionReasonType ;
+        skos:definition  "Order is changed based on a clinical reason." ;
+        skos:prefLabel   "clinical modification" .
+
+v3-ActReason:_ActSupplyFulfillmentRefusalReason
+        a                owl:Class ;
+        rdfs:label       "ActSupplyFulfillmentRefusalReason" ;
+        skos:definition  "Indicates why a fulfiller refused to fulfill a supply order, and considered it important to notify other providers of their decision.  E.g. \"Suspect fraud\", \"Possible abuse\", \"Contraindicated\".\r\n\n                        (used when capturing 'refusal to fill' annotations)" ;
+        skos:prefLabel   "ActSupplyFulfillmentRefusalReason" .
+
+v3-ActReason:ACCREQNA
+        a                owl:Class ;
+        rdfs:label       "Accommodation Requested Not Available" ;
+        rdfs:subClassOf  v3-ActReason:_ActAccommodationReason ;
+        skos:definition  "Accommodation requested is not available." ;
+        skos:prefLabel   "Accommodation Requested Not Available" .
+
+v3-ActReason:SDDI  a     owl:Class ;
+        rdfs:label       "drug interacts with another drug" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The drug interacts with a short-term treatment that is more urgently required.  This order will be resumed when the short-term treatment is complete." ;
+        skos:prefLabel   "drug interacts with another drug" .
+
+v3-ActReason:DISCONT  a  owl:Class ;
+        rdfs:label       "product discontinued" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderAbortReasonCode ;
+        skos:definition  "Description:The medication is no longer being manufactured or is otherwise no longer available." ;
+        skos:prefLabel   "product discontinued" .
+
+v3-ActReason:SYSADMN  a  owl:Class ;
+        rdfs:label       "system administration" ;
+        rdfs:subClassOf  v3-ActReason:OPERAT ;
+        skos:definition  "Description:Operational activities conducted to administer the electronic systems used for an activity, product, or service" ;
+        skos:prefLabel   "system administration" .
+
+v3-ActReason:RECOV  a   owl:Class ;
+        rdfs:label      "RECOV" ;
+        skos:prefLabel  "RECOV" .
+
+v3-ActReason:_ActIneligibilityReason
+        a                owl:Class ;
+        rdfs:label       "ActIneligibilityReason" ;
+        rdfs:subClassOf  v3-ActReason:_EligibilityActReasonCode ;
+        skos:definition  "Identifies the reason or rational for why a person is not eligibile for benefits under an insurance policy.\r\n\n                        Examples are client deceased & adopted client has been given a new policy identifier." ;
+        skos:prefLabel   "ActIneligibilityReason" .
+
+v3-ActReason:FLRSTCK  a  owl:Class ;
+        rdfs:label       "floor stock" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyEventStockReasonCode ;
+        skos:definition  "Definition:The bulk supply is issued to replenish a ward for local dispensing.  (Includes both mobile and fixed-location ward stocks.)" ;
+        skos:prefLabel   "floor stock" .
+
+v3-ActReason:NEWSTR  a   owl:Class ;
+        rdfs:label       "new strength" ;
+        rdfs:subClassOf  v3-ActReason:_SupplyOrderAbortReasonCode ;
+        skos:definition  "Definition:The current medication will be replaced by a new strength of the same medication." ;
+        skos:prefLabel   "new strength" .
+
+v3-ActReason:_PharmacySupplyRequestFulfillerRevisionRefusalReasonCode
+        a                owl:Class ;
+        rdfs:label       "PharmacySupplyRequestFulfillerRevisionRefusalReasonCode" ;
+        skos:definition  "Definition:Indicates why the request to transfer a prescription from one dispensing facility to another has been refused." ;
+        skos:prefLabel   "PharmacySupplyRequestFulfillerRevisionRefusalReasonCode" .
+
+v3-ActReason:HOLDINAP
+        a                owl:Class ;
+        rdfs:label       "suspend reason inappropriate" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderReleaseReasonCode ;
+        skos:definition  "Definition:" ;
+        skos:prefLabel   "suspend reason inappropriate" .
+
+v3-ActReason:TOOEARLY
+        a                owl:Class ;
+        rdfs:label       "too early" ;
+        rdfs:subClassOf  v3-ActReason:_PharmacySupplyRequestRenewalRefusalReasonCode ;
+        skos:definition  "Definition:The patient should have medication remaining." ;
+        skos:prefLabel   "too early" .
+
+v3-ActReason:SINTOL  a   owl:Class ;
+        rdfs:label       "suspected intolerance" ;
+        rdfs:subClassOf  v3-ActReason:_CombinedPharmacyOrderSuspendReasonCode ;
+        skos:definition  "Description:The patient is believed to have an intolerance to a substance that is part of the therapy and the therapy is being temporarily withdrawn to confirm." ;
+        skos:prefLabel   "suspected intolerance" .
+
+v3-ActReason:_TransferActReason
+        a                owl:Class ;
+        rdfs:label       "TransferActReason" ;
+        skos:definition  "The explanation for why a patient is moved from one location to another within the organization" ;
+        skos:prefLabel   "TransferActReason" .
+
+v3-ActReason:PWATRNY  a  owl:Class ;
+        rdfs:label       "power of attorney" ;
+        rdfs:subClassOf  v3-ActReason:PATRQT ;
+        skos:definition  "To perform one or more operations on information in response to a request by a person appointed as the patient's legal representative." ;
+        skos:prefLabel   "power of attorney" .
+
+v3-ActReason:IMMUNE  a   owl:Class ;
+        rdfs:label       "immunity" ;
+        rdfs:subClassOf  v3-ActReason:_ActNoImmunizationReason ;
+        skos:definition  "Definition:Testing has shown that the patient already has immunity to the agent targeted by the immunization." ;
+        skos:prefLabel   "immunity" .
+
+v3-ActReason:SPC  a      owl:Class ;
+        rdfs:label       "Spouse and children" ;
+        skos:definition  "Description:The level of coverage under the policy or program is available to a subscriber's spouse and children" ;
+        skos:prefLabel   "Spouse and children" .
+
+v3-ActReason:MDATA  a    owl:Class ;
+        rdfs:label       "merge data" ;
+        rdfs:subClassOf  v3-ActReason:_GenericUpdateReasonCode ;
+        skos:definition  "Information is combined into the record." ;
+        skos:prefLabel   "merge data" .
+
+v3-ActReason:RECORDMGT
+        a                owl:Class ;
+        rdfs:label       "records management" ;
+        rdfs:subClassOf  v3-ActReason:HOPERAT ;
+        skos:definition  "To perform one or more operations on information used within the health records management process." ;
+        skos:prefLabel   "records management" .
+
+v3-ActReason:NOAGNTPERM
+        a                owl:Class ;
+        rdfs:label       "no agent permission" ;
+        rdfs:subClassOf  v3-ActReason:NOPERM ;
+        skos:definition  "Description: The agent does not have permission." ;
+        skos:prefLabel   "no agent permission" .
+
+v3-ActReason:HOLDDONE
+        a                owl:Class ;
+        rdfs:label       "suspend reason no longer applies" ;
+        rdfs:subClassOf  v3-ActReason:_MedicationOrderReleaseReasonCode ;
+        skos:definition  "Definition:The original reason for suspending the medication has ended." ;
+        skos:prefLabel   "suspend reason no longer applies" .
+
+v3-ActReason:NOUSERPERM
+        a                owl:Class ;
+        rdfs:label       "no user permission" ;
+        rdfs:subClassOf  v3-ActReason:NOPERM ;
+        skos:definition  "Definition:The user does not have permission" ;
+        skos:prefLabel   "no user permission" .

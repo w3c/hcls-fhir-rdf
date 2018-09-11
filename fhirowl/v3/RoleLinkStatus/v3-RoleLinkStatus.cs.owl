@@ -1,0 +1,54 @@
+@prefix v3-RoleLinkStatus: <http://hl7.org/fhir/v3/RoleLinkStatus/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-RoleLinkStatus:NULLIFIED
+        a                owl:Class ;
+        rdfs:label       "nullified" ;
+        skos:definition  "Description: The state representing the termination of a RoleLink instance that was created in error." ;
+        skos:prefLabel   "nullified" .
+
+v3-RoleLinkStatus:CANCELLED
+        a                owl:Class ;
+        rdfs:label       "cancelled" ;
+        rdfs:subClassOf  v3-RoleLinkStatus:NORMAL ;
+        skos:definition  "Description: The terminal state resulting from abandoning the RoleLink prior to or after activation." ;
+        skos:prefLabel   "cancelled" .
+
+v3-RoleLinkStatus:COMPLETED
+        a                owl:Class ;
+        rdfs:label       "completed" ;
+        rdfs:subClassOf  v3-RoleLinkStatus:NORMAL ;
+        skos:definition  "Description: The terminal state representing the successful completion of the RoleLink." ;
+        skos:prefLabel   "completed" .
+
+v3-RoleLinkStatus:NORMAL
+        a                owl:Class ;
+        rdfs:label       "normal" ;
+        skos:definition  "Description: The 'typical' state. Excludes \"nullified\" which represents the termination state of a RoleLink instance that was created in error." ;
+        skos:prefLabel   "normal" .
+
+v3-RoleLinkStatus:PENDING
+        a                owl:Class ;
+        rdfs:label       "pending" ;
+        rdfs:subClassOf  v3-RoleLinkStatus:NORMAL ;
+        skos:definition  "Description: The state indicates the RoleLink has not yet become active." ;
+        skos:prefLabel   "pending" .
+
+v3-RoleLinkStatus:  a    owl:Ontology ;
+        rdfs:comment     "  Description:\r\nCodes representing possible states of a RoleLink, as defined by the RoleLink class state machine." ;
+        rdfs:label       "v3 Code System RoleLinkStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/RoleLinkStatus/2016-11-11" ;
+        owl:versionInfo  "v3 Code System RoleLinkStatus(2016-11-11)" .
+
+v3-RoleLinkStatus:ACTIVE
+        a                owl:Class ;
+        rdfs:label       "active" ;
+        rdfs:subClassOf  v3-RoleLinkStatus:NORMAL ;
+        skos:definition  "Description: The state indicates the RoleLink is in progress." ;
+        skos:prefLabel   "active" .

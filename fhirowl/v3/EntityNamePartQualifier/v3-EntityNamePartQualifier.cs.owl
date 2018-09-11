@@ -1,0 +1,215 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix v3-EntityNamePartQualifier: <http://hl7.org/fhir/v3/EntityNamePartQualifier/> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-EntityNamePartQualifier:IN
+        a                owl:Class ;
+        rdfs:label       "initial" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "Indicates that a name part is just an initial. Initials do not imply a trailing period since this would not work with non-Latin scripts.  Initials may consist of more than one letter, e.g., \"Ph.\" could stand for \"Philippe\" or \"Th.\" for \"Thomas\"." ;
+        skos:prefLabel   "initial" .
+
+v3-EntityNamePartQualifier:_PersonNamePartQualifier
+        a                owl:Class ;
+        rdfs:label       "PersonNamePartQualifier" ;
+        skos:definition  "PersonNamePartQualifier" ;
+        skos:prefLabel   "PersonNamePartQualifier" .
+
+v3-EntityNamePartQualifier:BR
+        a                owl:Class ;
+        rdfs:label       "birth" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "A name that a person had shortly after being born. Usually for family names but may be used to mark given names at birth that may have changed later." ;
+        skos:prefLabel   "birth" .
+
+v3-EntityNamePartQualifier:_PersonNamePartChangeQualifier
+        a                owl:Class ;
+        rdfs:label       "PersonNamePartChangeQualifier" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_PersonNamePartQualifier ;
+        skos:definition  "PersonNamePartChangeQualifier" ;
+        skos:prefLabel   "PersonNamePartChangeQualifier" .
+
+v3-EntityNamePartQualifier:TIME
+        a                owl:Class ;
+        rdfs:label       "TimeOrPeriodName" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to a time or time period that may be specified in the text of the medicinal product name\r\n\n                        \n                           Example:\n                        \r\n\n                        \n                           For an influenza vaccine 'Drug-FLU season 2008/2009', the time/period part is \"2008/2009 season\"" ;
+        skos:prefLabel   "TimeOrPeriodName" .
+
+v3-EntityNamePartQualifier:_PersonNamePartMiscQualifier
+        a                owl:Class ;
+        rdfs:label       "PersonNamePartMiscQualifier" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_PersonNamePartQualifier ;
+        skos:definition  "PersonNamePartMiscQualifier" ;
+        skos:prefLabel   "PersonNamePartMiscQualifier" .
+
+v3-EntityNamePartQualifier:INV
+        a                owl:Class ;
+        rdfs:label       "invented name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the product name without the trademark or the name of the marketing authorization holder or any other descriptor reflected in the product name and, if appropriate, whether it is intended e.g. for babies, children or adults. \r\n\n                        EXAMPLES: \r\n\n                        \n                           \n                              Agenerase\r\n\n                           \n                           \n                              Optaflu\r\n\n                           \n                           \n                              Ludiomil" ;
+        skos:prefLabel   "invented name" .
+
+v3-EntityNamePartQualifier:CON
+        a                owl:Class ;
+        rdfs:label       "container name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the container if present in the medicinal product name.\r\n\n                        EXAMPLES: \r\n\n                        \n                           \n                              For Optaflu suspension for injection in pre-filled syringe Influenza vaccine (surface antigen, inactivated, prepared in cell culture) (2007/2008 season): pre-filled syringe" ;
+        skos:prefLabel   "container name" .
+
+v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers
+        a                owl:Class ;
+        rdfs:label       "PharmaceuticalEntityNamePartQualifiers" ;
+        skos:definition  "Description: Medication Name Parts are a means of specifying a range of acceptable \"official\" forms of the name of a product.  They are used as patterns against which input name strings may be matched for automatic identification of products from input text reports.   While they cover the concepts held under \"doseForm\" or \"route\" or \"strength\" the name parts are not the same and do not fit into a controlled vocabulary in the same way. By specifying up to 8 name parts a much larger range of possible names can be generated." ;
+        skos:prefLabel   "PharmaceuticalEntityNamePartQualifiers" .
+
+v3-EntityNamePartQualifier:_PersonNamePartAffixTypes
+        a                owl:Class ;
+        rdfs:label       "PersonNamePartAffixTypes" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_PersonNamePartQualifier ;
+        skos:definition  "PersonNamePartAffixTypes" ;
+        skos:prefLabel   "PersonNamePartAffixTypes" .
+
+v3-EntityNamePartQualifier:FORMUL
+        a                owl:Class ;
+        rdfs:label       "FormulationPartName" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the formulation of the medicinal product if present in the medicinal product name.\r\n\n                        \n                           Examples:\n                        \r\n\n                        \n                           For 'SpecialMed Sugar Free Cough Syrup', the formulation name part is \"Sugar Free\"\n                           For 'QuickCure Gluten-free Bulk Fibre', the formulation name part is \"gluten-free\"" ;
+        skos:prefLabel   "FormulationPartName" .
+
+v3-EntityNamePartQualifier:VV
+        a                owl:Class ;
+        rdfs:label       "voorvoegsel" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "A Dutch \"voorvoegsel\" is something like \"van\" or \"de\" that might have indicated nobility in the past but no longer so. Similar prefixes exist in other languages such as Spanish, French or Portugese." ;
+        skos:prefLabel   "voorvoegsel" .
+
+v3-EntityNamePartQualifier:AD
+        a                owl:Class ;
+        rdfs:label       "adopted" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "The name the person was given at the time of adoption." ;
+        skos:prefLabel   "adopted" .
+
+v3-EntityNamePartQualifier:NB
+        a                owl:Class ;
+        rdfs:label       "nobility" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "In Europe and Asia, there are still people with nobility titles (aristocrats).  German \"von\" is generally a nobility title, not a mere voorvoegsel.  Others are \"Earl of\" or \"His Majesty King of...\" etc.  Rarely used nowadays, but some systems do keep track of this." ;
+        skos:prefLabel   "nobility" .
+
+v3-EntityNamePartQualifier:TMK
+        a                owl:Class ;
+        rdfs:label       "trademark name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to trademark/company element if present in the medicinal product name.\r\n\n                        EXAMPLES: \r\n\n                        \n                           \n                              for Insulin Human Winthrop Comb 15: Winthrop" ;
+        skos:prefLabel   "trademark name" .
+
+v3-EntityNamePartQualifier:
+        a                owl:Ontology ;
+        rdfs:comment     "  OpenIssue:\r\nNeeds description" ;
+        rdfs:label       "v3 Code System EntityNamePartQualifier" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/EntityNamePartQualifier/2016-11-11" ;
+        owl:versionInfo  "v3 Code System EntityNamePartQualifier(2016-11-11)" .
+
+v3-EntityNamePartQualifier:FRM
+        a                owl:Class ;
+        rdfs:label       "form name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the pharmaceutical form/ if present in the medicinal product name.\r\n\n                        EXAMPLES: \r\n\n                        \n                           \n                              For Agenerase 50 mg soft capsules: Soft Capsules\r\n\n                           \n                           \n                              For Ludiomil 25mg-Filmtabletten: Filmtabletten\r\n\n                           \n                           \n                              For Optaflu suspension for injection in pre-filled syringe Influenza vaccine (surface antigen, inactivated, prepared in cell culture) (2007/2008 season): suspension for injection" ;
+        skos:prefLabel   "form name" .
+
+v3-EntityNamePartQualifier:AC
+        a                owl:Class ;
+        rdfs:label       "academic" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "Indicates that a prefix like \"Dr.\" or a suffix like \"M.D.\" or \"Ph.D.\" is an academic title." ;
+        skos:prefLabel   "academic" .
+
+v3-EntityNamePartQualifier:PR
+        a                owl:Class ;
+        rdfs:label       "professional" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "Primarily in the British Imperial culture people tend to have an abbreviation of their professional organization as part of their credential suffices." ;
+        skos:prefLabel   "professional" .
+
+v3-EntityNamePartQualifier:POPUL
+        a                owl:Class ;
+        rdfs:label       "TargetPopulationName" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the target population for the medicinal product if present in the medicinal product name\r\n\n                        \n                           Examples:\n                        \r\n\n                        \n                           For 'Broncho-Drug 3.5 mg-capsules for children', the target population part is \"children\"\n                           For 'Adult Chesty Cough Syrup', the target population part is \"adult\"" ;
+        skos:prefLabel   "TargetPopulationName" .
+
+v3-EntityNamePartQualifier:SP
+        a                owl:Class ;
+        rdfs:label       "spouse" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "The name assumed from the partner in a marital relationship (hence the \"SP\"). Usually the spouse's family name. Note that no inference about gender can be made from the existence of spouse names." ;
+        skos:prefLabel   "spouse" .
+
+v3-EntityNamePartQualifier:DEV
+        a                owl:Class ;
+        rdfs:label       "device name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the qualifiers in the name for devices and is at the moment mainly applicable to insulins and inhalation products.\r\n\n                        EXAMPLES: \r\n\n                        \n                           \n                              For the medicinal product Actrapid FlexPen 100 IU/ml Solution for injection Subcutaneous use: FlexPen." ;
+        skos:prefLabel   "device name" .
+
+v3-EntityNamePartQualifier:USE
+        a                owl:Class ;
+        rdfs:label       "intended use name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the intended use if present in the medicinal product name without the trademark or the name of the marketing authorization holder or any other descriptor reflected in the product name.\n\r\n\n                        \n                           Examples:\n                        \r\n\n                        \n                           For 'Drug-BI Caplets - Heartburn Relief', the intended use part is: \"Heartburn Relief\"\n                           For 'Medicine Honey Syrup for Soothing Coughs' the intended use part is \"Soothing Coughs\"" ;
+        skos:prefLabel   "intended use name" .
+
+v3-EntityNamePartQualifier:STR
+        a                owl:Class ;
+        rdfs:label       "strength name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the strength if present in the medicinal product name. The use of decimal points should be accommodated if required.\r\n\n                        EXAMPLES:\r\n\n                        \n                           \n                              For Agenerase 50 mg soft capsules: 50mg\r\n\n                           \n                           \n                              For Ludiomil 25mg-Filmtabletten: 25 mg\r\n\n                           \n                           \n                              For Optaflu suspension for injection in pre-filled syringe Influenza vaccine (surface antigen, inactivated, prepared in cell culture) (2007/2008 season): N/A" ;
+        skos:prefLabel   "strength name" .
+
+v3-EntityNamePartQualifier:FLAV
+        a                owl:Class ;
+        rdfs:label       "FlavorName" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to a flavor of the medicinal product if present in the medicinal product name.\r\n\n                        \n                           Examples:\n                        \r\n\n                        \n                           For 'CoughCure Linctus Orange Flavor', the flavor part is \"Orange\"\n                           For 'Wonderdrug Syrup Cherry Flavor', the flavor part is \"Cherry\"" ;
+        skos:prefLabel   "FlavorName" .
+
+v3-EntityNamePartQualifier:LS
+        a                owl:Class ;
+        rdfs:label       "Legal status" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "For organizations a suffix indicating the legal status, e.g., \"Inc.\", \"Co.\", \"AG\", \"GmbH\", \"B.V.\" \"S.A.\",  \"Ltd.\" etc." ;
+        skos:prefLabel   "Legal status" .
+
+v3-EntityNamePartQualifier:_OrganizationNamePartQualifier
+        a                owl:Class ;
+        rdfs:label       "OrganizationNamePartQualifier" ;
+        skos:definition  "OrganizationNamePartQualifier" ;
+        skos:prefLabel   "OrganizationNamePartQualifier" .
+
+v3-EntityNamePartQualifier:TITLE
+        a                owl:Class ;
+        rdfs:label       "title" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "Indicates that a prefix or a suffix is a title that applies to the whole name, not just the adjacent name part." ;
+        skos:prefLabel   "title" .
+
+v3-EntityNamePartQualifier:CL
+        a                owl:Class ;
+        rdfs:label       "callme" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:_OrganizationNamePartQualifier ;
+        skos:definition  "A callme name is (usually a given name) that is preferred when a person is directly addressed." ;
+        skos:prefLabel   "callme" .
+
+v3-EntityNamePartQualifier:SCI
+        a                owl:Class ;
+        rdfs:label       "scientific name" ;
+        rdfs:subClassOf  v3-EntityNamePartQualifier:PharmaceuticalEntityNamePartQualifiers ;
+        skos:definition  "Description: This refers to the product common or scientific name without the trademark or the name of the marketing authorization holder or any other descriptor reflected in the product name.\r\n\n                        EXAMPLES: \r\n\n                        \n                           \n                              For Agenerase: N/A\r\n\n                           \n                           \n                              For Optaflu: Influenza vaccine (surface antigen, inactivated, prepared in cell culture) (2007/2008 season)\r\n\n                           \n                           \n                              For Ludiomil: N/A" ;
+        skos:prefLabel   "scientific name" .

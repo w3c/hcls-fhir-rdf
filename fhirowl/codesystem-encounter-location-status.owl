@@ -1,0 +1,39 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix encounter-location-status: <http://hl7.org/fhir/encounter-location-status/> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+encounter-location-status:planned
+        a                owl:Class ;
+        rdfs:label       "Planned" ;
+        skos:definition  "The patient is planned to be moved to this location at some point in the future." ;
+        skos:prefLabel   "Planned" .
+
+encounter-location-status:completed
+        a                owl:Class ;
+        rdfs:label       "Completed" ;
+        skos:definition  "The patient was at this location during the period specified.\r\rNot to be used when the patient is currently at the location" ;
+        skos:prefLabel   "Completed" .
+
+encounter-location-status:reserved
+        a                owl:Class ;
+        rdfs:label       "Reserved" ;
+        skos:definition  "This location is held empty for this patient." ;
+        skos:prefLabel   "Reserved" .
+
+encounter-location-status:
+        a                owl:Ontology ;
+        rdfs:comment     "The status of the location." ;
+        rdfs:label       "EncounterLocationStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/encounter-location-status/3.1.0" ;
+        owl:versionInfo  "EncounterLocationStatus(3.1.0)" .
+
+encounter-location-status:active
+        a                owl:Class ;
+        rdfs:label       "Active" ;
+        skos:definition  "The patient is currently at this location, or was between the period specified.\r\rA system may update these records when the patient leaves the location to either reserved, or completed" ;
+        skos:prefLabel   "Active" .

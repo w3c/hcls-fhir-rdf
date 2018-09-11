@@ -1,0 +1,35 @@
+@prefix match-grade: <http://hl7.org/fhir/match-grade/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+match-grade:  a          owl:Ontology ;
+        rdfs:comment     "A Master Patient Index (MPI) assessment of whether a candidate patient record is a match or not." ;
+        rdfs:label       "MatchGrade" ;
+        owl:versionIRI   "http://hl7.org/fhir/match-grade/3.1.0" ;
+        owl:versionInfo  "MatchGrade(3.1.0)" .
+
+match-grade:certainly-not
+        a                owl:Class ;
+        rdfs:label       "Certainly Not a Match" ;
+        skos:definition  "This record is known not to be a match. Note that usually non-matching records are not returned, but in some cases records previously or likely considered as a match may specifically be negated by the matching engine" ;
+        skos:prefLabel   "Certainly Not a Match" .
+
+match-grade:possible  a  owl:Class ;
+        rdfs:label       "Possible Match" ;
+        skos:definition  "This record may be a matching one. Additional review (e.g. by a human) SHOULD be performed before using this as a match." ;
+        skos:prefLabel   "Possible Match" .
+
+match-grade:certain  a   owl:Class ;
+        rdfs:label       "Certain Match" ;
+        skos:definition  "This record meets the matching criteria to be automatically considered as a full match." ;
+        skos:prefLabel   "Certain Match" .
+
+match-grade:probable  a  owl:Class ;
+        rdfs:label       "Probable Match" ;
+        skos:definition  "This record is a close match, but not a certain match. Additional review (e.g. by a human) may be required before using this as a match." ;
+        skos:prefLabel   "Probable Match" .

@@ -1,0 +1,966 @@
+@prefix v3-ActRelationshipType: <http://hl7.org/fhir/v3/ActRelationshipType/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ActRelationshipType:MBR
+        a                owl:Class ;
+        rdfs:label       "has member" ;
+        rdfs:subClassOf  v3-ActRelationshipType:COMP ;
+        skos:definition  "The target Acts are aggregated by the source Act.  Target Acts may have independent existence, participate in multiple ActRelationships, and do not contribute to the meaning of the source.\r\n\n                        \n                           UsageNotes: This explicitly represents the conventional notion of aggregation.  The target Act is part of a collection of Acts (no implication is made of cardinality, a source of Acts may contain zero, one, or more member target Acts).\r\n\n                        It is expected that this will be primarily used with _ActClassRecordOrganizer, BATTERY, and LIST" ;
+        skos:prefLabel   "has member" .
+
+v3-ActRelationshipType:UPDT
+        a                owl:Class ;
+        rdfs:label       "updates (condition)" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "A condition thread relationship specifically links condition nodes together to form a condition thread. The source is the new condition node and the target links to the most recent node of the existing condition thread." ;
+        skos:prefLabel   "updates (condition)" .
+
+v3-ActRelationshipType:OVERLAP
+        a                owl:Class ;
+        rdfs:label       "overlaps with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBEORSCWE ;
+        skos:definition  "A relationship in which the source act's effective time overlaps the target act's effective time in any way.\r\n\n                        \n                           UsageNote: This code is reflexive.  Therefore its inverse code is itself." ;
+        skos:prefLabel   "overlaps with" .
+
+v3-ActRelationshipType:EAE
+        a                owl:Class ;
+        rdfs:label       "ends after end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EAS ;
+        skos:definition  "A relationship in which the source act ends after the target act ends.\r\n\n                        \n                           UsageNote: Inverse code is EBE" ;
+        skos:prefLabel   "ends after end of" .
+
+v3-ActRelationshipType:PASSIMM
+        a                owl:Class ;
+        rdfs:label       "passive immunization against" ;
+        rdfs:subClassOf  v3-ActRelationshipType:IMM ;
+        skos:definition  "Description: The source act is intended to provide passive immunity against the effects of the target act (the target act describes an infectious disease)." ;
+        skos:prefLabel   "passive immunization against" .
+
+v3-ActRelationshipType:_ActRelationshipAccounting
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipAccounting" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Codes that describe the relationship between an Act and a financial instrument such as a financial transaction, account or invoice element." ;
+        skos:prefLabel   "ActRelationshipAccounting" .
+
+v3-ActRelationshipType:IMM
+        a                owl:Class ;
+        rdfs:label       "immunization against" ;
+        rdfs:subClassOf  v3-ActRelationshipType:RSON ;
+        skos:definition  "Description: The source act is intented to provide immunity against the effects of the target act (the target act describes an infectious disease)" ;
+        skos:prefLabel   "immunization against" .
+
+v3-ActRelationshipType:RSON
+        a                owl:Class ;
+        rdfs:label       "has reason" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipConditional ;
+        skos:definition  "Description: The reason or rationale for a service. A reason link is weaker than a trigger, it only suggests that some service may be or might have been a reason for some action, but not that this reason requires/required the action to be taken. Also, as opposed to the trigger, there is no strong timely relation between the reason and the action.  As well as providing various types of information about the rationale for a service, the RSON act relationship is routinely used between a SBADM act and an OBS act to describe the indication for use of a medication.  Child concepts may be used to describe types of indication. \r\n\n                        \n                           Discussion: In prior releases, the code \"SUGG\" (suggests) was expressed as \"an inversion of the reason link.\" That code has been retired in favor of the inversion indicator that is an attribute of ActRelationship." ;
+        skos:prefLabel   "has reason" .
+
+v3-ActRelationshipType:MTCH
+        a                owl:Class ;
+        rdfs:label       "matches (trigger)" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "A trigger-match links an actual service (e.g., an observation or procedure that took place) with a service in criterion mood.  For example if the trigger is \"observation of pain\" and pain is actually observed, and if that pain-observation caused the trigger to fire, that pain-observation can be linked with the trigger." ;
+        skos:prefLabel   "matches (trigger)" .
+
+v3-ActRelationshipType:RACT
+        a               owl:Class ;
+        rdfs:label      "RACT" ;
+        skos:prefLabel  "RACT" .
+
+v3-ActRelationshipType:SAS
+        a                owl:Class ;
+        rdfs:label       "starts after start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EAS ;
+        skos:definition  "The source Act starts after the start of the target Act (i.e. if we say \"ActOne SAS ActTwo\", it means that ActOne starts after the start of ActTwo, therefore ActOne is the source and ActTwo is the target).\r\n\n                        \n                           UsageNote: Inverse code is SBS" ;
+        skos:prefLabel   "starts after start of" .
+
+v3-ActRelationshipType:TRIG
+        a                owl:Class ;
+        rdfs:label       "has trigger" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipConditional ;
+        skos:definition  "A pre-condition that if true should result in the source Act being executed.  The target is in typically in criterion mood.  When reported after the fact (i.e. the criterion has been met) it may be in Event mood.  A delay between the trigger and the triggered action can be specified.\r\n\n                        \n                           Discussion: This includes the concept of a  required act for a service or financial instrument such as an insurance plan or policy. In such cases, the trigger is the occurrence of a specific condition such as coverage limits being exceeded." ;
+        skos:prefLabel   "has trigger" .
+
+v3-ActRelationshipType:DOC
+        a                owl:Class ;
+        rdfs:label       "documents" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "The source act documents the target act." ;
+        skos:prefLabel   "documents" .
+
+v3-ActRelationshipType:SBE
+        a                owl:Class ;
+        rdfs:label       "starts before end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBEORSCWE ;
+        skos:definition  "The source Act starts before the end of the target Act (i.e. if we say \"ActOne SBE ActTwo\", it means that ActOne starts before the end of ActTwo, therefore ActOne is the source and ActTwo is the target).\r\n\n                        \n                           UsageNote: Inverse code is EAS" ;
+        skos:prefLabel   "starts before end of" .
+
+v3-ActRelationshipType:STEP
+        a                owl:Class ;
+        rdfs:label       "has step" ;
+        rdfs:subClassOf  v3-ActRelationshipType:MBR ;
+        skos:definition  "A collection of sub-services as steps or subtasks performed for the source service. Services may be performed sequentially or concurrently.\r\n\n                        \n                           UsageNotes: Sequence of steps may be indicated by use of _ActRelationshipTemporallyPertains, as well as via  ActRelationship.sequenceNumber, ActRelationship.pauseQuantity, Target.priorityCode.\r\n\n                        \n                           OpenIssue: Need Additional guidelines on when each approach should be used." ;
+        skos:prefLabel   "has step" .
+
+v3-ActRelationshipType:VRXCRPT
+        a                owl:Class ;
+        rdfs:label       "Excerpt verbatim" ;
+        rdfs:subClassOf  v3-ActRelationshipType:XCRPT ;
+        skos:definition  "The source is a direct quote from the target." ;
+        skos:prefLabel   "Excerpt verbatim" .
+
+v3-ActRelationshipType:PRYLX
+        a                owl:Class ;
+        rdfs:label       "prophylaxis of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:RSON ;
+        skos:definition  "Description: The source act is intended to reduce the risk of of an adverse situation to emerge as described by the target act. This is not limited to diseases but can apply to any adverse situation or condition of medical or technical nature." ;
+        skos:prefLabel   "prophylaxis of" .
+
+v3-ActRelationshipType:SCH
+        a                owl:Class ;
+        rdfs:label       "schedules request" ;
+        rdfs:subClassOf  v3-ActRelationshipType:FLFS ;
+        skos:definition  "Associates a specific time (and associated resources) with a scheduling request or other intent." ;
+        skos:prefLabel   "schedules request" .
+
+v3-ActRelationshipType:GOAL
+        a                owl:Class ;
+        rdfs:label       "has goal" ;
+        rdfs:subClassOf  v3-ActRelationshipType:OUTC ;
+        skos:definition  "A goal that one defines given a patient's health condition.  Subsequently planned actions aim to meet that goal.  Source is an observation or condition node, target must be an observation in goal mood." ;
+        skos:prefLabel   "has goal" .
+
+v3-ActRelationshipType:EBS
+        a                owl:Class ;
+        rdfs:label       "ends before start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EBSORECWS ;
+        skos:definition  "A relationship in which the source act ends before the target act starts.\r\n\n                        \n                           UsageNote: Inverse code is SAE" ;
+        skos:prefLabel   "ends before start of" .
+
+v3-ActRelationshipType:RISK
+        a                owl:Class ;
+        rdfs:label       "has risk" ;
+        rdfs:subClassOf  v3-ActRelationshipType:OUTC ;
+        skos:definition  "A noteworthy undesired outcome of a patient's condition that is either likely enough to become an issue or is less likely but dangerous enough to be addressed." ;
+        skos:prefLabel   "has risk" .
+
+v3-ActRelationshipType:META
+        a                owl:Class ;
+        rdfs:label       "has metadata" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Definition: Indicates that the attributes and associations of the target act provide metadata (for example, identifiers, authorship, etc.) for the source act.\r\n\n                        \n                           Constraint:  Source act must have either a mood code that is not \"EVN\" (event) or its \"isCriterion\" attribute must set to \"true\".  Target act must be an Act with a mood code of EVN and with isCriterionInd attribute set to \"true\"." ;
+        skos:prefLabel   "has metadata" .
+
+v3-ActRelationshipType:SBEEAE
+        a                owl:Class ;
+        rdfs:label       "contains end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SASEAE ;
+        skos:definition  "The source Act contains the end of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is EDU" ;
+        skos:prefLabel   "contains end of" .
+
+v3-ActRelationshipType:ENE
+        a                owl:Class ;
+        rdfs:label       "ends near end" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertainsApproximates ;
+        skos:definition  "A relationship in which the source act's effective time ends near the end of the target act's effective time. Near is defined separately as a time interval.\r\n\n                        \n                           Usage Note: Inverse code is ENS" ;
+        skos:prefLabel   "ends near end" .
+
+v3-ActRelationshipType:CONCURRENT
+        a                owl:Class ;
+        rdfs:label       "concurrent with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ECW ;
+        skos:definition  "A relationship in which the source act's effective time is the same as the target act's effective time.\r\n\n                        \n                           UsageNote: This code is reflexive.  Therefore its inverse code is itself." ;
+        skos:prefLabel   "concurrent with" .
+
+v3-ActRelationshipType:BSLN
+        a                owl:Class ;
+        rdfs:label       "has baseline" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Indicates that the target observation(s) provide an initial reference for the source observation or observation group.\r\n\n                        \n                           UsageConstraints: Both source and target must be Observations or specializations thereof." ;
+        skos:prefLabel   "has baseline" .
+
+v3-ActRelationshipType:ITEMSLOC
+        a                owl:Class ;
+        rdfs:label       "items located" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Items located" ;
+        skos:prefLabel   "items located" .
+
+v3-ActRelationshipType:SNS
+        a                owl:Class ;
+        rdfs:label       "starts near start" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertainsApproximates ;
+        skos:definition  "A relationship in which the source act's effective time starts near the start of the target act's effective time. Near is defined separately as a time interval.\r\n\n                        \n                           Usage Note: Inverse code is SNE" ;
+        skos:prefLabel   "starts near start" .
+
+v3-ActRelationshipType:OBJC
+        a                owl:Class ;
+        rdfs:label       "has continuing objective" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationsipObjective ;
+        skos:definition  "A desired state that a service action aims to maintain.  E.g., keep systolic blood pressure between 90 and 110 mm Hg.  Source is an intervention service.  Target must be an observation in criterion mood." ;
+        skos:prefLabel   "has continuing objective" .
+
+v3-ActRelationshipType:ARR
+        a                owl:Class ;
+        rdfs:label       "arrival" ;
+        rdfs:subClassOf  v3-ActRelationshipType:STEP ;
+        skos:definition  "The relationship that links to a Transportation Act (target) from another Act (source) indicating that the subject of the source Act entered into the source Act by means of the target Transportation act." ;
+        skos:prefLabel   "arrival" .
+
+v3-ActRelationshipType:EBSORECWS
+        a                owl:Class ;
+        rdfs:label       "ends before or concurrent with start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBSEBE ;
+        skos:definition  "A relationship in which the source act's effective time ends before or concurrent with the start of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is EASORECWS" ;
+        skos:prefLabel   "ends before or concurrent with start of" .
+
+v3-ActRelationshipType:MFST
+        a                owl:Class ;
+        rdfs:label       "is manifestation of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "An assertion that a new observation may be the manifestation of another existing observation or action.  This assumption is attributed to the same actor who asserts the manifestation.  This is stronger and more specific than an inverted support link.  For example, an agitated appearance can be asserted to be the manifestation (effect) of a known hyperthyroxia.  This expresses that one might not have realized a symptom if it would not be a common manifestation of a known condition.  The target (cause) may be any service, while the source (manifestation) must be an observation." ;
+        skos:prefLabel   "is manifestation of" .
+
+v3-ActRelationshipType:EXPL
+        a                owl:Class ;
+        rdfs:label       "has explanation" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "This is the inversion of support.  Used to indicate that a given observation is explained by another observation or condition." ;
+        skos:prefLabel   "has explanation" .
+
+v3-ActRelationshipType:DEBIT
+        a                owl:Class ;
+        rdfs:label       "has debit" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipPosting ;
+        skos:definition  "A debit relationship ties a financial transaction (target) to an account (source).  A debit, once applied (posted), may have either a positive or negative effect on the account balance, depending on the type of account.  An asset account debit will increase the account balance.  A non-asset account debit will decrease the account balance." ;
+        skos:prefLabel   "has debit" .
+
+v3-ActRelationshipType:REFV
+        a                owl:Class ;
+        rdfs:label       "has reference values" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Reference ranges are essentially descriptors of a class of result values assumed to be \"normal\", \"abnormal\", or \"critical.\"  Those can vary by sex, age, or any other criterion. Source and target are observations, the target is in criterion mood.  This link type can act as a trigger in case of alarms being triggered by critical results." ;
+        skos:prefLabel   "has reference values" .
+
+v3-ActRelationshipType:OPTN
+        a                owl:Class ;
+        rdfs:label       "has option" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "A relationship between a source Act that provides more detailed properties to the target Act.\r\n\n                        The source act thus is a specialization of the target act, but instead of mentioning all the inherited properties it only mentions new property bindings or refinements.\r\n\n                        The typical use case is to specify certain alternative variants of one kind of Act. The priorityNumber attribute is used to weigh refinements as preferred over other alternative refinements.\r\n\n                        Example: several routing options for a drug are specified as one SubstanceAdministration for the general treatment with attached refinements for the various routing options." ;
+        skos:prefLabel   "has option" .
+
+v3-ActRelationshipType:SUCC
+        a                owl:Class ;
+        rdfs:label       "succeeds" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Definition:  A new act that carries forward the intention of the original act, but does not completely replace it.  The status of the predecessor act must be 'completed'.  The original act is the target act and the successor is the source act." ;
+        skos:prefLabel   "succeeds" .
+
+v3-ActRelationshipType:APND
+        a                owl:Class ;
+        rdfs:label       "is appendage" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "An addendum (source) to an existing service object (target), containing supplemental information.  The addendum is itself an original service object linked to the supplemented service object.  The supplemented service object remains in place and its content and status are unaltered." ;
+        skos:prefLabel   "is appendage" .
+
+v3-ActRelationshipType:MITGT
+        a                owl:Class ;
+        rdfs:label       "mitigates" ;
+        rdfs:subClassOf  v3-ActRelationshipType:RSON ;
+        skos:definition  "The source act removes or lessens the occurrence or effect of the target act." ;
+        skos:prefLabel   "mitigates" .
+
+v3-ActRelationshipType:DURING
+        a                owl:Class ;
+        rdfs:label       "occurs during" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SAS ;
+        skos:definition  "A relationship in which the source act's effective time is wholly within the target act's effective time (including end points, as defined in the act's effective times)\r\n\n                        \n                           UsageNote: Inverse code is SBSEAE" ;
+        skos:prefLabel   "occurs during" .
+
+v3-ActRelationshipType:SCWSEAE
+        a                owl:Class ;
+        rdfs:label       "starts with, ends after end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SCW ;
+        skos:definition  "The source Act starts with the target Act, and ends after the end of the target Act." ;
+        skos:prefLabel   "starts with, ends after end of" .
+
+v3-ActRelationshipType:CIND
+        a                owl:Class ;
+        rdfs:label       "has contra-indication" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipConditional ;
+        skos:definition  "A contraindication is just a negation of a reason, i.e. it gives a condition under which the action is not to be done. Both, source and target can be any kind of service; target service is in criterion mood. How the strength of a contraindication is expressed (e.g., relative, absolute) is left as an open issue. The priorityNumber attribute could be used." ;
+        skos:prefLabel   "has contra-indication" .
+
+v3-ActRelationshipType:USE
+        a                owl:Class ;
+        rdfs:label       "uses" ;
+        rdfs:subClassOf  v3-ActRelationshipType:REFR ;
+        skos:definition  "Indicates that the source act makes use of (or will make use of) the information content of the target act.\r\n\n                        \n                           UsageNotes: A usage relationship only makes sense if the target act is authored and occurs independently of the source act.  Otherwise a simpler relationship such as COMP would be appropriate.\r\n\n                        \n                           Rationale: There is a need when defining a clinical trial protocol to indicate that the protocol makes use of other protocol or treatment specifications.  This is stronger than the assertion of \"references\".  References may exist without usage, and in a clinical trial protocol is common to assert both: what other specifications does this trial use and what other specifications does it merely reference." ;
+        skos:prefLabel   "uses" .
+
+v3-ActRelationshipType:DEP
+        a                owl:Class ;
+        rdfs:label       "departure" ;
+        rdfs:subClassOf  v3-ActRelationshipType:STEP ;
+        skos:definition  "The relationship that links to a Transportation Act (target) from another Act (source) indicating that the subject of the source Act departed from the source Act by means of the target Transportation act." ;
+        skos:prefLabel   "departure" .
+
+v3-ActRelationshipType:SBEORSCWE
+        a                owl:Class ;
+        rdfs:label       "starts before or concurrent with end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "A relationship in which the source act's effective time starts before or concurrent with the end of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is SAEORSCWE" ;
+        skos:prefLabel   "starts before or concurrent with end of" .
+
+v3-ActRelationshipType:RCHAL
+        a                owl:Class ;
+        rdfs:label       "re-challenge" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Description:A relationship in which the target act is carried out to determine whether an effect attributed to the source act can be recreated." ;
+        skos:prefLabel   "re-challenge" .
+
+v3-ActRelationshipType:INST
+        a                owl:Class ;
+        rdfs:label       "instantiates (master)" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Used to capture the link between a potential service (\"master\" or plan) and an actual service, where the actual service instantiates the potential service. The instantiation may override the master's defaults." ;
+        skos:prefLabel   "instantiates (master)" .
+
+v3-ActRelationshipType:OREF
+        a                owl:Class ;
+        rdfs:label       "references order" ;
+        rdfs:subClassOf  v3-ActRelationshipType:FLFS ;
+        skos:definition  "Relates either an appointment request or an appointment to the order for the service being scheduled." ;
+        skos:prefLabel   "references order" .
+
+v3-ActRelationshipType:SDU
+        a                owl:Class ;
+        rdfs:label       "starts during" ;
+        rdfs:subClassOf  v3-ActRelationshipType:OVERLAP ;
+        skos:definition  "A relationship in which the source act starts within the target act's effective time (including end points, as defined in the act's effective times)\r\n\n                        \n                           UsageNote: Inverse code is SBSEAS" ;
+        skos:prefLabel   "starts during" .
+
+v3-ActRelationshipType:PERT
+        a                owl:Class ;
+        rdfs:label       "has pertinent information" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "This is a very unspecific relationship from one item of clinical information to another.  It does not judge about the role the pertinent information plays." ;
+        skos:prefLabel   "has pertinent information" .
+
+v3-ActRelationshipType:COMPLY
+        a                owl:Class ;
+        rdfs:label       "complies with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Description:The source act complies with, adheres to, conforms to, or is permissible under (in whole or in part) the policy, contract, agreement, law, conformance criteria, certification guidelines or requirement conveyed by the target act.\r\n\n                        Examples for compliance relationships are: audits of adherence with a security policy, certificate of conformance to system certification requirements, or consent directive in compliance with or permissible under a privacy policy." ;
+        skos:prefLabel   "complies with" .
+
+v3-ActRelationshipType:BLOCK
+        a                owl:Class ;
+        rdfs:label       "blocks" ;
+        rdfs:subClassOf  v3-ActRelationshipType:RSON ;
+        skos:definition  "Definition: The source act is performed to block the effects of the target act.  This act relationship should be used when describing near miss type incidents where potential harm could have occurred, but the action described in the source act blocked the potential harmful effects of the incident actually occurring." ;
+        skos:prefLabel   "blocks" .
+
+v3-ActRelationshipType:INTF
+        a                owl:Class ;
+        rdfs:label       "interfered by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "the target act documents a set of circumstances (events, risks) which prevent successful completion, or degradation of quality of, the source Act.\r\n\n                        \n                           UsageNote: This provides the semantics to document barriers to care" ;
+        skos:prefLabel   "interfered by" .
+
+v3-ActRelationshipType:SBSEAS
+        a                owl:Class ;
+        rdfs:label       "contains start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:OVERLAP ;
+        skos:definition  "The source Act contains the start of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SDU" ;
+        skos:prefLabel   "contains start of" .
+
+v3-ActRelationshipType:SBSEBE
+        a                owl:Class ;
+        rdfs:label       "starts before start of, ends before end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EBE ;
+        skos:definition  "The source Act starts before the start of the target Act, and ends before the end of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SASEAE" ;
+        skos:prefLabel   "starts before start of, ends before end of" .
+
+v3-ActRelationshipType:ACTIMM
+        a                owl:Class ;
+        rdfs:label       "active immunization against" ;
+        rdfs:subClassOf  v3-ActRelationshipType:IMM ;
+        skos:definition  "Description: The source act is intended to provide active immunity against the effects of the target act (the target act describes an infectious disease)" ;
+        skos:prefLabel   "active immunization against" .
+
+v3-ActRelationshipType:COMP
+        a                owl:Class ;
+        rdfs:label       "has component" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "The target act is a component of the source act, with no semantics regarding composition or aggregation implied." ;
+        skos:prefLabel   "has component" .
+
+v3-ActRelationshipType:EAEORECW
+        a                owl:Class ;
+        rdfs:label       "ends after or concurrent with end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EASORECWS ;
+        skos:definition  "A relationship in which the source act's effective time ends after or concurrent with the end of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is EBEORECW" ;
+        skos:prefLabel   "ends after or concurrent with end of" .
+
+v3-ActRelationshipType:VALUE
+        a                owl:Class ;
+        rdfs:label       "has value" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Description:Indicates that the target Act represents the result of the source observation Act.\r\n\n                        \n                           FormalConstraint: Source Act must be an Observation or specialization there-of. Source Act must not have the value attribute specified\r\n\n                        \n                           UsageNote: This relationship allows the result of an observation to be fully expressed as RIM acts as opposed to being embedded in the value attribute.  For example, sending a Document act as the result of an imaging observation, sending a list of Procedures and/or other acts as the result of a medical history observation.\r\n\n                        The valueNegationInd attribute on the source Act has the same semantics of \"negated finding\" when it applies to the target of a VALUE ActRelationship as it does to the value attribute.  On the other hand, if the ActRelationship.negationInd is true for a VALUE ActRelationship, that means the specified observation does not have the indicated value but does not imply a negated finding.  Because the semantics are extremely close, it is recommended that Observation.valueNegationInd be used, not ActRelationship.negationInd.\r\n\n                        \n                           OpenIssue: The implications of negationInd on ActRelationship and the valueNegationind on Observation." ;
+        skos:prefLabel   "has value" .
+
+v3-ActRelationshipType:PREV
+        a                owl:Class ;
+        rdfs:label       "has previous instance" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "A relationship in which the target act is a predecessor instance to the source act.  Generally each of these instances is similar, but no identical.  In healthcare coverage it is used to link a claim item to a previous claim item that might have claimed for the same set of services." ;
+        skos:prefLabel   "has previous instance" .
+
+v3-ActRelationshipType:SUBJ
+        a                owl:Class ;
+        rdfs:label       "has subject" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Relates an Act to its subject Act that the first Act is primarily concerned with.\r\n\n                        Examples\r\n\n                        \n                           \n                              The first Act may be a ControlAct manipulating the subject Act \r\n\n                           \n                           \n                              The first act is a region of interest (ROI) that defines a region within the subject Act.\r\n\n                           \n                           \n                              The first act is a reporting or notification Act, that echos the subject Act for a specific new purpose.\r\n\n                           \n                        \n                        Constraints\r\n\n                        An Act may have multiple subject acts.\r\n\n                        Rationale\r\n\n                        The ActRelationshipType \"has subject\" is similar to the ParticipationType \"subject\", Acts that primarily operate on physical subjects use the Participation, those Acts that primarily operate on other Acts (other information) use the ActRelationship." ;
+        skos:prefLabel   "has subject" .
+
+v3-ActRelationshipType:RPLC
+        a                owl:Class ;
+        rdfs:label       "replaces" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "A replacement source act replaces an existing target act. The state of the target act being replaced becomes obselete, but the act is typically still retained in the system for historical reference.  The source and target must be of the same type." ;
+        skos:prefLabel   "replaces" .
+
+v3-ActRelationshipType:CTRLV
+        a                owl:Class ;
+        rdfs:label       "has control variable" ;
+        rdfs:subClassOf  v3-ActRelationshipType:COMP ;
+        skos:definition  "A relationship from an Act to a Control Variable.  For example, if a Device makes an Observation, this relates the Observation to its Control Variables documenting  the device's settings that influenced the observation." ;
+        skos:prefLabel   "has control variable" .
+
+v3-ActRelationshipType:SCW
+        a                owl:Class ;
+        rdfs:label       "starts concurrent with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SNS ;
+        skos:definition  "A relationship in which the source act's effective time starts with the start of the target act's effective time.\r\n\n                        \n                           UsageNote: This code is reflexive.  Therefore its inverse code is itself." ;
+        skos:prefLabel   "starts concurrent with" .
+
+v3-ActRelationshipType:
+        a                owl:Ontology ;
+        rdfs:comment     " The source is an excerpt from the target." ;
+        rdfs:label       "v3 Code System ActRelationshipType" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ActRelationshipType/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ActRelationshipType(2016-11-11)" .
+
+v3-ActRelationshipType:_ActRelationshipPosting
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipPosting" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipAccounting ;
+        skos:definition  "Expresses values for describing the relationship between a FinancialTransaction and an Account." ;
+        skos:prefLabel   "ActRelationshipPosting" .
+
+v3-ActRelationshipType:_ActClassTemporallyPertains
+        a                owl:Class ;
+        rdfs:label       "ActClassTemporallyPertains" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "ActClassTemporallyPertains" ;
+        skos:prefLabel   "ActClassTemporallyPertains" .
+
+v3-ActRelationshipType:SCWE
+        a                owl:Class ;
+        rdfs:label       "starts concurrent with end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SNE ;
+        skos:definition  "The source Act starts when the target act ends (i.e. if we say \"ActOne SCWE ActTwo\", it means that ActOne starts when ActTwo ends, therefore ActOne is the source and ActTwo is the target).\r\n\n                        \n                           UsageNote: Inverse code is SBSECWS" ;
+        skos:prefLabel   "starts concurrent with end of" .
+
+v3-ActRelationshipType:PART
+        a                owl:Class ;
+        rdfs:label       "has part" ;
+        rdfs:subClassOf  v3-ActRelationshipType:COMP ;
+        skos:definition  "The source Act is a composite of the target Acts. The target Acts do not have an existence independent of the source Act.\r\n\n                        \n                           UsageNote: In UML 1.1, this is a \"composition\" defined as: \n                           \"A form of aggregation with strong ownership and coincident lifetime as part of the whole. Parts with non-fixed multiplicity may be created after the composite itself, but once created they live and die with it (i.e., they share lifetimes). Such parts can also be explicitly removed before the death of the composite. Composition may be recursive.\"" ;
+        skos:prefLabel   "has part" .
+
+v3-ActRelationshipType:LIMIT
+        a                owl:Class ;
+        rdfs:label       "limited by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "A relationship that limits or restricts the source act by the elements of the target act.  For example, an authorization may be limited by a financial amount (up to $500). Target Act must be in EVN.CRIT mood." ;
+        skos:prefLabel   "limited by" .
+
+v3-ActRelationshipType:RCVY
+        a                owl:Class ;
+        rdfs:label       "recovers" ;
+        rdfs:subClassOf  v3-ActRelationshipType:MITGT ;
+        skos:definition  "Definition: The source act is performed to recover from the effects of the target act." ;
+        skos:prefLabel   "recovers" .
+
+v3-ActRelationshipType:SAE
+        a                owl:Class ;
+        rdfs:label       "starts after end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SAS ;
+        skos:definition  "A relationship in which the source act starts after the target act ends.\r\n\n                        \n                           UsageNote: Inverse code is EBS" ;
+        skos:prefLabel   "starts after end of" .
+
+v3-ActRelationshipType:DIAG
+        a                owl:Class ;
+        rdfs:label       "diagnoses" ;
+        rdfs:subClassOf  v3-ActRelationshipType:RSON ;
+        skos:definition  "Description: The source act is intended to help establish the presence of a (an adverse) situation described by the target act. This is not limited to diseases but can apply to any adverse situation or condition of medical or technical nature." ;
+        skos:prefLabel   "diagnoses" .
+
+v3-ActRelationshipType:SYMP
+        a                owl:Class ;
+        rdfs:label       "symptomatic relief" ;
+        rdfs:subClassOf  v3-ActRelationshipType:TREAT ;
+        skos:definition  "Description: The source act is intented to provide symptomatic relief for the effects of the target act." ;
+        skos:prefLabel   "symptomatic relief" .
+
+v3-ActRelationshipType:EXACBY
+        a                owl:Class ;
+        rdfs:label       "exacerbated by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Description:The source act is aggravated by the target act. (Example \"chest pain\" EXACBY \"exercise\")" ;
+        skos:prefLabel   "exacerbated by" .
+
+v3-ActRelationshipType:ECWS
+        a                owl:Class ;
+        rdfs:label       "ends concurrent with start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ENS ;
+        skos:definition  "The source Act ends when the target act starts (i.e. if we say \"ActOne ECWS ActTwo\", it means that ActOne ends when ActTwo starts, therefore ActOne is the source and ActTwo is the target).\r\n\n                        \n                           UsageNote: Inverse code is SCWE" ;
+        skos:prefLabel   "ends concurrent with start of" .
+
+v3-ActRelationshipType:TREAT
+        a                owl:Class ;
+        rdfs:label       "treats" ;
+        rdfs:subClassOf  v3-ActRelationshipType:RSON ;
+        skos:definition  "Description: The source act is intended to improve a pre-existing adverse situation described by the target act. This is not limited to diseases but can apply to any adverse situation or condition of medical or technical nature." ;
+        skos:prefLabel   "treats" .
+
+v3-ActRelationshipType:GEN
+        a                owl:Class ;
+        rdfs:label       "has generalization" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "The generalization relationship can be used to express categorical knowledge about services (e.g., amilorid, triamterene, and spironolactone have the common generalization potassium sparing diuretic)." ;
+        skos:prefLabel   "has generalization" .
+
+v3-ActRelationshipType:EAS
+        a                owl:Class ;
+        rdfs:label       "ends after start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "A relationship in which the source act ends after the target act starts.\r\n\n                        \n                           UsageNote: Inverse code is SBE" ;
+        skos:prefLabel   "ends after start of" .
+
+v3-ActRelationshipType:EBE
+        a                owl:Class ;
+        rdfs:label       "ends before end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBE ;
+        skos:definition  "The source Act ends before the end of the target Act (i.e. if we say \"ActOne EBE ActTwo\", it means that ActOne ends before the end of ActTwo, therefore ActOne is the source and ActTwo is the target).\r\n\n                        \n                           UsageNote: Inverse code is EAE" ;
+        skos:prefLabel   "ends before end of" .
+
+v3-ActRelationshipType:MOD
+        a                owl:Class ;
+        rdfs:label       "modifies" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Definition: Used to link a newer version or 'snapshot' of a business object (source) to an older version or 'snapshot' of the same business object (target).\r\n\n                        \n                           Usage:The identifier of the Act should be the same for both source and target. If the identifiers are distinct, RPLC should be used instead.\r\n\n                        Name from source to target = \"modifiesPrior\"\r\n\n                        Name from target to source = \"modifiesByNew\"" ;
+        skos:prefLabel   "modifies" .
+
+v3-ActRelationshipType:SPRTBND
+        a                owl:Class ;
+        rdfs:label       "has bounded support" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SPRT ;
+        skos:definition  "A specialization of \"has support\" (SPRT), used to relate a secondary observation to a Region of Interest on a multidimensional observation, if the ROI specifies the true boundaries of the secondary observation as opposed to only marking the approximate area.  For example, if the start and end of an ST elevation episode is visible in an EKG, this relation would indicate the ROI bounds the  \"ST elevation\" observation -- the ROI defines the true beginning and ending of the episode.  Conversely, if a ROI simply contains ST elevation, but it does not define the bounds (start and end) of the episode, the more general \"has support\" relation is used.  Likewise, if a ROI on an image defines the true bounds of a \"1st degree burn\", the relation \"has bounded support\" is used; but if the ROI only points to the approximate area of the burn, the general \"has support\" relation is used." ;
+        skos:prefLabel   "has bounded support" .
+
+v3-ActRelationshipType:SASORSCW
+        a                owl:Class ;
+        rdfs:label       "starts after or concurrent with start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "A relationship in which the source act's effective time starts after or concurrent with the start of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is SBSORSCW" ;
+        skos:prefLabel   "starts after or concurrent with start of" .
+
+v3-ActRelationshipType:SBS
+        a                owl:Class ;
+        rdfs:label       "starts before start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBSORSCW ;
+        skos:definition  "A relationship in which the source act begins before the target act begins.\r\n\n                        \n                           UsageNote: Inverse code is SAS" ;
+        skos:prefLabel   "starts before start of" .
+
+v3-ActRelationshipType:_ActRelationshipTemporallyPertainsApproximates
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipTemporallyPertainsApproximates" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "Abstract collector for ActRelationship types that relate two acts by their approximate timing." ;
+        skos:prefLabel   "ActRelationshipTemporallyPertainsApproximates" .
+
+v3-ActRelationshipType:_ActRelationshipCostTracking
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipCostTracking" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipAccounting ;
+        skos:definition  "Expresses values for describing the relationship relationship between an InvoiceElement or InvoiceElementGroup and a billable act." ;
+        skos:prefLabel   "ActRelationshipCostTracking" .
+
+v3-ActRelationshipType:NAME
+        a                owl:Class ;
+        rdfs:label       "assigns name" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Used to assign a \"name\" to a condition thread. Source is a condition node, target can be any service." ;
+        skos:prefLabel   "assigns name" .
+
+v3-ActRelationshipType:SPRT
+        a                owl:Class ;
+        rdfs:label       "has support" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Used to indicate that an existing service is suggesting evidence for a new observation. The assumption of support is attributed to the same actor who asserts the observation. Source must be an observation, target may be any service  (e.g., to indicate a status post)." ;
+        skos:prefLabel   "has support" .
+
+v3-ActRelationshipType:SNE
+        a                owl:Class ;
+        rdfs:label       "starts near end" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertainsApproximates ;
+        skos:definition  "A relationship in which the source act's effective time starts near the end of the target act's effective time. Near is defined separately as a time interval.\r\n\n                        \n                           Usage Note: Inverse code is SNS" ;
+        skos:prefLabel   "starts near end" .
+
+v3-ActRelationshipType:ADJUNCT
+        a                owl:Class ;
+        rdfs:label       "adjunctive treatment" ;
+        rdfs:subClassOf  v3-ActRelationshipType:TREAT ;
+        skos:definition  "Description: The source act is intended to offer an additional treatment for the management or cure of a pre-existing adverse situation described by the target act. This is not limited to diseases but can apply to any adverse situation or condition of medical or technical nature.  It is not a requirement that the non-adjunctive treatment is explicitly specified." ;
+        skos:prefLabel   "adjunctive treatment" .
+
+v3-ActRelationshipType:AUTH
+        a                owl:Class ;
+        rdfs:label       "authorized by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "A relationship in which the target act authorizes or certifies the source act." ;
+        skos:prefLabel   "authorized by" .
+
+v3-ActRelationshipType:CREDIT
+        a                owl:Class ;
+        rdfs:label       "has credit" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipPosting ;
+        skos:definition  "A credit relationship ties a financial transaction (target) to an account (source). A credit, once applied (posted), may have either a positive or negative effect on the account balance, depending on the type of account. An asset account credit will decrease the account balance. A non-asset account credit will decrease the account balance." ;
+        skos:prefLabel   "has credit" .
+
+v3-ActRelationshipType:_ActRelationshipTemporallyPertains
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipTemporallyPertains" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Abstract collector for ActRelationhsip types that relate two acts by their timing." ;
+        skos:prefLabel   "ActRelationshipTemporallyPertains" .
+
+v3-ActRelationshipType:OBJF
+        a                owl:Class ;
+        rdfs:label       "has final objective" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationsipObjective ;
+        skos:definition  "A desired outcome that a service action aims to meet finally.  Source is any service (typically an intervention).  Target must be an observation in criterion mood." ;
+        skos:prefLabel   "has final objective" .
+
+v3-ActRelationshipType:SBSECWE
+        a                owl:Class ;
+        rdfs:label       "starts before start of, ends with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ECW ;
+        skos:definition  "The source Act starts before the start of the target Act, and ends with the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SASECWE" ;
+        skos:prefLabel   "starts before start of, ends with" .
+
+v3-ActRelationshipType:ENS
+        a                owl:Class ;
+        rdfs:label       "ends near start" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertainsApproximates ;
+        skos:definition  "A relationship in which the source act's effective time ends near the start of the target act's effective time. Near is defined separately as a time interval.\r\n\n                        \n                           Usage Note: Inverse code is ENE" ;
+        skos:prefLabel   "ends near start" .
+
+v3-ActRelationshipType:OCCR
+        a                owl:Class ;
+        rdfs:label       "occurrence" ;
+        rdfs:subClassOf  v3-ActRelationshipType:FLFS ;
+        skos:definition  "The source act is a single occurrence of a repeatable target act. The source and target act can be in any mood on the \"completion track\" but the source act must be as far as or further along the track than the target act (i.e., the occurrence of an intent can be an event but not vice versa)." ;
+        skos:prefLabel   "occurrence" .
+
+v3-ActRelationshipType:CURE.ADJ
+        a                owl:Class ;
+        rdfs:label       "adjunct curative indication" ;
+        skos:definition  "adjunct curative indication" ;
+        skos:prefLabel   "adjunct curative indication" .
+
+v3-ActRelationshipType:SASECWE
+        a                owl:Class ;
+        rdfs:label       "starts after start of, ends with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SAS ;
+        skos:definition  "The source Act starts after start of the target Act, and ends with the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SBSECWE" ;
+        skos:prefLabel   "starts after start of, ends with" .
+
+v3-ActRelationshipType:SUGG
+        a               owl:Class ;
+        rdfs:label      "SUGG" ;
+        skos:prefLabel  "SUGG" .
+
+v3-ActRelationshipType:ELNK
+        a                owl:Class ;
+        rdfs:label       "episodeLink" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Expresses an association that links two instances of the same act over time, indicating that the instance are part of the same episode, e.g. linking two condition nodes for episode of illness; linking two encounters for episode of encounter." ;
+        skos:prefLabel   "episodeLink" .
+
+v3-ActRelationshipType:PRCN
+        a                owl:Class ;
+        rdfs:label       "has pre-condition" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipConditional ;
+        skos:definition  "A requirement to be true before a service is performed. The target can be any service in criterion mood.  For multiple pre-conditions a conjunction attribute (AND, OR, XOR) is applicable." ;
+        skos:prefLabel   "has pre-condition" .
+
+v3-ActRelationshipType:REV
+        a                owl:Class ;
+        rdfs:label       "reverses" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "A relationship between a source Act that seeks to reverse or undo the action of the prior target Act.\r\n\n                        Example: A posted financial transaction (e.g., a debit transaction) was applied in error and must be reversed (e.g., by a credit transaction) the credit transaction is identified as an undo (or reversal) of the prior target transaction.\r\n\n                        Constraints: the \"completion track\" mood of the target Act must be equally or more \"actual\" than the source act. I.e., when the target act is EVN the source act can be EVN, or any INT. If the target act is INT, the source act can be INT." ;
+        skos:prefLabel   "reverses" .
+
+v3-ActRelationshipType:CAUS
+        a                owl:Class ;
+        rdfs:label       "is etiology for" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Description: An assertion that an act was the cause of another act.This is stronger and more specific than the support link. The source (cause) is typically an observation, but may be any act, while the target may be any act.\r\n\n                        \n                           Examples:\n                        \r\n\n                        \n                           a growth of Staphylococcus aureus may be considered the cause of an abscess\n                           contamination of the infusion bag was deemed to be the cause of the infection that the patient experienced\n                           lack of staff on the shift was deemed to be a supporting factor (proximal factor) causing the patient safety incident where the patient fell out of bed because the  bed-sides had not been put up which caused the night patient to fall out of bed" ;
+        skos:prefLabel   "is etiology for" .
+
+v3-ActRelationshipType:EBEORECW
+        a                owl:Class ;
+        rdfs:label       "ends before or concurrent with end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBE ;
+        skos:definition  "A relationship in which the source act's effective time ends before or concurrent with the end of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is EAEORECW" ;
+        skos:prefLabel   "ends before or concurrent with end of" .
+
+v3-ActRelationshipType:MTREAT
+        a                owl:Class ;
+        rdfs:label       "maintenance treatment" ;
+        rdfs:subClassOf  v3-ActRelationshipType:TREAT ;
+        skos:definition  "Description: The source act is intended to provide long term maintenance improvement or management of a pre-existing adverse situation described by the target act. This is not limited to diseases but can apply to any adverse situation or condition of medical or technical nature." ;
+        skos:prefLabel   "maintenance treatment" .
+
+v3-ActRelationshipType:SASEAE
+        a                owl:Class ;
+        rdfs:label       "starts after start of, ends after end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EAE ;
+        skos:definition  "The source Act starts after start of the target Act and ends after end of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SBSEBE" ;
+        skos:prefLabel   "starts after start of, ends after end of" .
+
+v3-ActRelationshipType:XCRPT
+        a                owl:Class ;
+        rdfs:label       "Excerpts" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "The source is an excerpt from the target." ;
+        skos:prefLabel   "Excerpts" .
+
+v3-ActRelationshipType:RELVBY
+        a                owl:Class ;
+        rdfs:label       "relieved by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Description:The source act is wholly or partially alleviated by the target act. (Example \"chest pain\" RELVBY \"sublingual nitroglycerin administration\")" ;
+        skos:prefLabel   "relieved by" .
+
+v3-ActRelationshipType:FLFS
+        a                owl:Class ;
+        rdfs:label       "fulfills" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "The source act fulfills (in whole or in part) the target act. Source act must be in a mood equal or more actual than the target act." ;
+        skos:prefLabel   "fulfills" .
+
+v3-ActRelationshipType:PALLTREAT
+        a                owl:Class ;
+        rdfs:label       "palliates" ;
+        rdfs:subClassOf  v3-ActRelationshipType:TREAT ;
+        skos:definition  "Description: The source act is intended to provide palliation for the effects of the target act." ;
+        skos:prefLabel   "palliates" .
+
+v3-ActRelationshipType:SCWSEBE
+        a                owl:Class ;
+        rdfs:label       "starts with. ends before end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SCW ;
+        skos:definition  "The source Act starts with.the target Act and ends before the end of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SCWSEAE" ;
+        skos:prefLabel   "starts with. ends before end of" .
+
+v3-ActRelationshipType:ART
+        a                owl:Class ;
+        rdfs:label       "act relationship type" ;
+        skos:definition  "Description: A directed association between a source Act and a target Act.\r\n\n                        \n                           Usage Note: This code should never be transmitted in an instance as the value of ActRelationship.typeCode (attribute)" ;
+        skos:prefLabel   "act relationship type" .
+
+v3-ActRelationshipType:INDEPENDENT
+        a                owl:Class ;
+        rdfs:label       "independent of time of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "The source Act is independent of the time of the target Act.\r\n\n                        \n                           UsageNote: This code is reflexive.  Therefore its inverse code is itself." ;
+        skos:prefLabel   "independent of time of" .
+
+v3-ActRelationshipType:SBSEAE
+        a                owl:Class ;
+        rdfs:label       "contains time of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBEEAE ;
+        skos:definition  "The source Act contains the time of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is DURING" ;
+        skos:prefLabel   "contains time of" .
+
+v3-ActRelationshipType:EVID
+        a                owl:Class ;
+        rdfs:label       "provides evidence for" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Indicates that the target Act provides evidence in support of the action represented by the source Act. The target is not a 'reason' for the source act, but rather gives supporting information on why the source act is an appropriate course of action. Possible targets might be clinical trial results, journal articles, similar successful therapies, etc.\r\n\n                        \n                           Rationale: Provides a mechanism for conveying clinical justification for non-approved or otherwise non-traditional therapies." ;
+        skos:prefLabel   "provides evidence for" .
+
+v3-ActRelationshipType:COVBY
+        a                owl:Class ;
+        rdfs:label       "covered by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "A relationship in which the source act is covered by or is under the authority of a target act.  A financial instrument such as an Invoice Element is covered by one or more specific instances of an Insurance Policy." ;
+        skos:prefLabel   "covered by" .
+
+v3-ActRelationshipType:EDU
+        a                owl:Class ;
+        rdfs:label       "ends during" ;
+        rdfs:subClassOf  v3-ActRelationshipType:OVERLAP ;
+        skos:definition  "A relationship in which the source act ends within the target act's effective time (including end points, as defined in the act's effective times)\r\n\n                        \n                           UsageNote: Inverse code is SBEEAE" ;
+        skos:prefLabel   "ends during" .
+
+v3-ActRelationshipType:CURE
+        a                owl:Class ;
+        rdfs:label       "curative indication" ;
+        skos:definition  "curative indication" ;
+        skos:prefLabel   "curative indication" .
+
+v3-ActRelationshipType:SAEORSCWE
+        a                owl:Class ;
+        rdfs:label       "starts after or concurrent with end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "A relationship in which the source act's effective time starts after or concurrent with the end of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is SBEORSCWE" ;
+        skos:prefLabel   "starts after or concurrent with end of" .
+
+v3-ActRelationshipType:QUALF
+        a                owl:Class ;
+        rdfs:label       "has qualifier" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SUBJ ;
+        skos:definition  "The target observation qualifies (refines) the semantics of the source observation.\r\n\n                        \n                           UsageNote: This is not intended to replace concept refinement and qualification via vocabulary.  It is used when there are multiple components which together provide the complete understanding of the source Act." ;
+        skos:prefLabel   "has qualifier" .
+
+v3-ActRelationshipType:SEQL
+        a                owl:Class ;
+        rdfs:label       "is sequel" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "An act relationship indicating that the source act follows the target act. The source act should in principle represent the same kind of act as the target. Source and target need not have the same mood code (mood will often differ). The target of a sequel is called antecedent. Examples for sequel relationships are: revision, transformation, derivation from a prototype (as a specialization is a derivation of a generalization), followup, realization, instantiation." ;
+        skos:prefLabel   "is sequel" .
+
+v3-ActRelationshipType:REFR
+        a                owl:Class ;
+        rdfs:label       "refers to" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "A relationship in which the target act is referred to by the source act.  This permits a simple reference relationship that distinguishes between the referent and the referee." ;
+        skos:prefLabel   "refers to" .
+
+v3-ActRelationshipType:XFRM
+        a                owl:Class ;
+        rdfs:label       "transformation" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "Used when the target Act is a transformation of the source Act. (For instance, used to show that a CDA document is a transformation of a DICOM SR document.)" ;
+        skos:prefLabel   "transformation" .
+
+v3-ActRelationshipType:_ActRelationsipObjective
+        a                owl:Class ;
+        rdfs:label       "Act Relationsip Objective" ;
+        rdfs:subClassOf  v3-ActRelationshipType:OUTC ;
+        skos:definition  "The target act is a desired outcome of the source act. Source is any act (typically an intervention). Target must be an observation in criterion mood." ;
+        skos:prefLabel   "Act Relationsip Objective" .
+
+v3-ActRelationshipType:SBSORSCW
+        a                owl:Class ;
+        rdfs:label       "starts before or concurrent with start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBE ;
+        skos:definition  "A relationship in which the source act's effective time starts before or concurrent with the start of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is SASORSCW" ;
+        skos:prefLabel   "starts before or concurrent with start of" .
+
+v3-ActRelationshipType:DRIV
+        a                owl:Class ;
+        rdfs:label       "is derived from" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Associates a derived Act with its input parameters. E.G., an anion-gap observation can be associated as being derived from given sodium-, (potassium-,), chloride-, and bicarbonate-observations. The narrative content (Act.text) of a source act is wholly machine-derived from the collection of target acts." ;
+        skos:prefLabel   "is derived from" .
+
+v3-ActRelationshipType:SUMM
+        a                owl:Class ;
+        rdfs:label       "summarized by" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "An act that contains summary values for a list or set of subordinate acts.  For example, a summary of transactions for a particular accounting period." ;
+        skos:prefLabel   "summarized by" .
+
+v3-ActRelationshipType:GEVL
+        a                owl:Class ;
+        rdfs:label       "evaluates (goal)" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SEQL ;
+        skos:definition  "A goal-evaluation links an observation (intent or actual) to a goal to indicate that the observation evaluates the goal. Given the goal and the observation, a \"goal distance\" (e.g., goal to observation) can be \"calculated\" and need not be sent explicitly." ;
+        skos:prefLabel   "evaluates (goal)" .
+
+v3-ActRelationshipType:ECW
+        a                owl:Class ;
+        rdfs:label       "ends concurrent with" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ENE ;
+        skos:definition  "A relationship in which the source act's effective time ends with the end of the target act's effective time.\r\n\n                        \n                           UsageNote: This code is reflexive.  Therefore its inverse code is itself." ;
+        skos:prefLabel   "ends concurrent with" .
+
+v3-ActRelationshipType:SBSEASEBE
+        a                owl:Class ;
+        rdfs:label       "contains start of, ends before end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:EDU ;
+        skos:definition  "The source Act contains the start of the target Act,  and ends before the end of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SASSBEEAS" ;
+        skos:prefLabel   "contains start of, ends before end of" .
+
+v3-ActRelationshipType:EASORECWS
+        a                owl:Class ;
+        rdfs:label       "ends after or concurrent with start of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipTemporallyPertains ;
+        skos:definition  "A relationship in which the source act's effective time ends after or concurrent with the start of the target act's effective time.\r\n\n                        \n                           Usage Note: Inverse code is EBSORECWS" ;
+        skos:prefLabel   "ends after or concurrent with start of" .
+
+v3-ActRelationshipType:_ActRelationshipConditional
+        a                owl:Class ;
+        rdfs:label       "ActRelationshipConditional" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "Specifies under what circumstances (target Act) the source-Act may, must, must not or has occurred" ;
+        skos:prefLabel   "ActRelationshipConditional" .
+
+v3-ActRelationshipType:SASSBEEAS
+        a                owl:Class ;
+        rdfs:label       "start after start of, contains end of" ;
+        rdfs:subClassOf  v3-ActRelationshipType:SBEEAE ;
+        skos:definition  "The source Act start after the start of the target Act, and contains the end of the target Act.\r\n\n                        \n                           UsageNote: Inverse code is SBSEASEBE" ;
+        skos:prefLabel   "start after start of, contains end of" .
+
+v3-ActRelationshipType:CHRG
+        a                owl:Class ;
+        rdfs:label       "has charge" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipCostTracking ;
+        skos:definition  "A relationship that provides an ability to associate a financial transaction (target) as a charge to a clinical act (source).  A clinical act may have a charge associated with the execution or delivery of the service.\r\n\n                        The financial transaction will define the charge (bill) for delivery or performance of the service.\r\n\n                        Charges and costs are distinct terms.  A charge defines what is charged or billed to another organization or entity within an organization.  The cost defines what it costs an organization to perform or deliver a service or product." ;
+        skos:prefLabel   "has charge" .
+
+v3-ActRelationshipType:OUTC
+        a                owl:Class ;
+        rdfs:label       "has outcome" ;
+        rdfs:subClassOf  v3-ActRelationshipType:ART ;
+        skos:definition  "An observation that should follow or does actually follow as a result or consequence of a condition or action (sometimes called \"post-conditional\".) Target must be an observation as a goal, risk or any criterion. For complex outcomes a conjunction attribute (AND, OR, XOR) can be used.  An outcome link is often inverted to describe an outcome assessment." ;
+        skos:prefLabel   "has outcome" .
+
+v3-ActRelationshipType:COST
+        a                owl:Class ;
+        rdfs:label       "has cost" ;
+        rdfs:subClassOf  v3-ActRelationshipType:_ActRelationshipCostTracking ;
+        skos:definition  "A relationship that provides an ability to associate a financial transaction (target) as a cost to a clinical act (source).  A clinical act may have an inherit cost associated with the execution or delivery of the service.\r\n\n                        The financial transaction will define the cost of delivery or performance of the service.\r\n\n                        Charges and costs are distinct terms.  A charge defines what is charged or billed to another organization or entity within an organization.  The cost defines what it costs an organization to perform or deliver a service or product." ;
+        skos:prefLabel   "has cost" .
+
+v3-ActRelationshipType:MTGT.ADJ
+        a                owl:Class ;
+        rdfs:label       "adjunct mitigation" ;
+        skos:definition  "adjunct mitigation" ;
+        skos:prefLabel   "adjunct mitigation" .

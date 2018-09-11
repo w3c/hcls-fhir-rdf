@@ -1,0 +1,339 @@
+@prefix v3-ParticipationFunction: <http://hl7.org/fhir/v3/ParticipationFunction/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ParticipationFunction:FULINRD
+        a                owl:Class ;
+        rdfs:label       "fully insured" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_SponsorParticipationFunction ;
+        skos:definition  "Definition: Responsibility taken by a sponsor to contract with one or more underwriters for the assumption of full responsibility for the risk and administration of a policy or program." ;
+        skos:prefLabel   "fully insured" .
+
+v3-ParticipationFunction:UNDERWRTNG
+        a                owl:Class ;
+        rdfs:label       "underwriting" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_UnderwriterParticipationFunction ;
+        skos:definition  "Definition: Provision of underwriting analysis for another underwriter without assumption of risk." ;
+        skos:prefLabel   "underwriting" .
+
+v3-ParticipationFunction:AUTM
+        a                owl:Class ;
+        rdfs:label       "care team information receiver" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedReceiverParticipationFunction ;
+        skos:definition  "Description:Member of care team authorized to receive patient health information." ;
+        skos:prefLabel   "care team information receiver" .
+
+v3-ParticipationFunction:DISPHYS
+        a                owl:Class ;
+        rdfs:label       "discharging physician" ;
+        skos:definition  "A physician who discharged a patient from a hospital or other care unit that is the context of this service." ;
+        skos:prefLabel   "discharging physician" .
+
+v3-ParticipationFunction:PAYORCNTR
+        a                owl:Class ;
+        rdfs:label       "payor contracting" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_UnderwriterParticipationFunction ;
+        skos:definition  "Definition: Contracting for the provision and administration of health services to payors while retaining the risk for coverage.  Contracting may be for all provision and administration; or for provision of certain types of services; for provision of services by region; and by types of administration, e.g., claims adjudication, enrollment, provider management, and utilization management.  Typically done by underwriters for sponsors who need coverage provided to covered parties in multiple regions.  The underwriter may act as the payor in some, but not all of the regions in which coverage is provided." ;
+        skos:prefLabel   "payor contracting" .
+
+v3-ParticipationFunction:SUBCTRT
+        a                owl:Class ;
+        rdfs:label       "subcontracting risk" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_UnderwriterParticipationFunction ;
+        skos:definition  "Definition: Delegating risk for a policy or program to one or more subcontracting underwriters, e.g., a major health insurer may delegate risk for provision of coverage under a national health plan to other underwriters by region ." ;
+        skos:prefLabel   "subcontracting risk" .
+
+v3-ParticipationFunction:FASST
+        a                owl:Class ;
+        rdfs:label       "first assistant surgeon" ;
+        skos:definition  "In a typical surgery setting the assistant facing the primary surgeon.  The first assistant performs parts of the operation and assists in others (e.g., incision, approach, electrocoutering, ligatures, sutures)." ;
+        skos:prefLabel   "first assistant surgeon" .
+
+v3-ParticipationFunction:ASSEMBLER
+        a                owl:Class ;
+        rdfs:label       "assembly software" ;
+        skos:definition  "A device that operates independently of an author on custodian's algorithms for data extraction of existing information for purpose of generating a new artifact.\n                           UsageConstraint: ASSEMBLER ParticipationFunction should be used with DEV (device) ParticipationType." ;
+        skos:prefLabel   "assembly software" .
+
+v3-ParticipationFunction:SASST
+        a                owl:Class ;
+        rdfs:label       "second assistant surgeon" ;
+        skos:definition  "In a typical surgery setting the assistant who primarily holds the hooks." ;
+        skos:prefLabel   "second assistant surgeon" .
+
+v3-ParticipationFunction:ANRS
+        a                owl:Class ;
+        rdfs:label       "anesthesia nurse" ;
+        skos:definition  "In a typical anesthesia setting the nurse principally assisting the anesthesiologist during the critical periods." ;
+        skos:prefLabel   "anesthesia nurse" .
+
+v3-ParticipationFunction:_PayorParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "PayorParticipationFunction" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_CoverageParticipationFunction ;
+        skos:definition  "Definition: Set of codes indicating the manner in which payors participate in a policy or program.</" ;
+        skos:prefLabel   "PayorParticipationFunction" .
+
+v3-ParticipationFunction:_ConsenterParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "ConsenterParticipationFunction" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedParticipationFunction ;
+        skos:definition  "This code is used to specify the exact function an actor is authorized to have in authoring a consent directive." ;
+        skos:prefLabel   "ConsenterParticipationFunction" .
+
+v3-ParticipationFunction:TASST
+        a                owl:Class ;
+        rdfs:label       "third assistant" ;
+        skos:definition  "In a typical surgery setting there is rarely a third assistant (e.g., in some Hip operations the third assistant postures the affected leg)." ;
+        skos:prefLabel   "third assistant" .
+
+v3-ParticipationFunction:NASST
+        a                owl:Class ;
+        rdfs:label       "nurse assistant" ;
+        skos:definition  "In a typical surgery setting the non-sterile nurse handles material supply from the stock, forwards specimen to pathology, and helps with other non-sterile tasks (e.g., phone calls, etc.)." ;
+        skos:prefLabel   "nurse assistant" .
+
+v3-ParticipationFunction:_AuthorizedReceiverParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "AuthorizedReceiverParticipationFunction" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedParticipationFunction ;
+        skos:definition  "This code is used to specify the exact function an actor is authorized to have as a receiver of information that is the subject of a consent directive or consent override." ;
+        skos:prefLabel   "AuthorizedReceiverParticipationFunction" .
+
+v3-ParticipationFunction:UMGT
+        a                owl:Class ;
+        rdfs:label       "utilization management" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_PayorParticipationFunction ;
+        skos:definition  "Definition: Managing utilization of services by ensuring that providers adhere to, e.g., payeraTMs clinical protocols for medical appropriateness and standards of medical necessity.  May include management of authorizations for services and referrals." ;
+        skos:prefLabel   "utilization management" .
+
+v3-ParticipationFunction:FFSMGT
+        a                owl:Class ;
+        rdfs:label       "ffs management" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_PayorParticipationFunction ;
+        skos:definition  "Definition: Managing all operations required to administer a fee for service or indemnity health plan including enrolling covered parties and providing customer service, provider contracting, claims payment, care management and utilization review." ;
+        skos:prefLabel   "ffs management" .
+
+v3-ParticipationFunction:AUCOV
+        a                owl:Class ;
+        rdfs:label       "consent overrider" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_OverriderParticipationFunction ;
+        skos:definition  "Description:Entity authorized to override a consent directive." ;
+        skos:prefLabel   "consent overrider" .
+
+v3-ParticipationFunction:
+        a                owl:Ontology ;
+        rdfs:comment     " This code is used to specify the exact function an actor had in a service in all necessary detail. This domain may include local extensions (CWE)." ;
+        rdfs:label       "v3 Code System ParticipationFunction" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ParticipationFunction/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ParticipationFunction(2016-11-11)" .
+
+v3-ParticipationFunction:CLMADJ
+        a                owl:Class ;
+        rdfs:label       "claims adjudication" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_PayorParticipationFunction ;
+        skos:definition  "Definition: Manages all operations required to adjudicate fee for service claims or managed care encounter reports." ;
+        skos:prefLabel   "claims adjudication" .
+
+v3-ParticipationFunction:SELFINRD
+        a                owl:Class ;
+        rdfs:label       "self insured" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_SponsorParticipationFunction ;
+        skos:definition  "Definition: Responsibility taken by a sponsor to organize the underwriting of risk and administration of a policy or program." ;
+        skos:prefLabel   "self insured" .
+
+v3-ParticipationFunction:PROVMGT
+        a                owl:Class ;
+        rdfs:label       "provider management" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_PayorParticipationFunction ;
+        skos:definition  "Definition: Managing provider contracting, provider services, credentialing, profiling, performance measures, and ensuring network adequacy." ;
+        skos:prefLabel   "provider management" .
+
+v3-ParticipationFunction:ENROLL
+        a                owl:Class ;
+        rdfs:label       "enrollment broker" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_PayorParticipationFunction ;
+        skos:definition  "Definition: Managing the enrollment of covered parties." ;
+        skos:prefLabel   "enrollment broker" .
+
+v3-ParticipationFunction:SNRS
+        a                owl:Class ;
+        rdfs:label       "scrub nurse" ;
+        skos:definition  "In a typical surgery setting the nurse in charge of the instrumentation." ;
+        skos:prefLabel   "scrub nurse" .
+
+v3-ParticipationFunction:MDWF
+        a                owl:Class ;
+        rdfs:label       "midwife" ;
+        skos:definition  "A person (usually female) helping a woman deliver a baby. Responsibilities vary locally, ranging from a mere optional assistant to a full required participant, responsible for (normal) births and pre- and post-natal care for both mother and baby." ;
+        skos:prefLabel   "midwife" .
+
+v3-ParticipationFunction:REVIEWER
+        a                owl:Class ;
+        rdfs:label       "reviewer" ;
+        skos:definition  "A verifier who is accountable for reviewing and asserting that the verification of an Act complies with jurisdictional or organizational policy.\r\n\n                        \n                           UsageConstraint: UsageConstraint:  Specifies the exact function that an actor is authorized to have as a verifier of an Act.  Connotes that a specialized verifier asserts compliance for veracity of the review per jurisdictional or organizational policy.  E.g., The Provider who takes responsibility for authenticity of a record submitted to a payer.\r\n\n                        REVIEW ParticipationFunction should be used with VFR (verifier)" ;
+        skos:prefLabel   "reviewer" .
+
+v3-ParticipationFunction:RNDPHYS
+        a                owl:Class ;
+        rdfs:label       "rounding physician" ;
+        skos:definition  "A physician who made rounds on a patient in a hospital or other care center." ;
+        skos:prefLabel   "rounding physician" .
+
+v3-ParticipationFunction:PRISURG
+        a                owl:Class ;
+        rdfs:label       "primary surgeon" ;
+        skos:definition  "In a typical surgery setting the primary performing surgeon." ;
+        skos:prefLabel   "primary surgeon" .
+
+v3-ParticipationFunction:ADMPHYS
+        a                owl:Class ;
+        rdfs:label       "admitting physician" ;
+        skos:definition  "A physician who admitted a patient to a hospital or other care unit that is the context of this service." ;
+        skos:prefLabel   "admitting physician" .
+
+v3-ParticipationFunction:ANEST
+        a                owl:Class ;
+        rdfs:label       "anesthesist" ;
+        skos:definition  "In a typical anesthesia setting an anesthesiologist or anesthesia resident in charge of the anesthesia and life support, but only a witness to the surgical procedure itself.  To clarify responsibilities anesthesia should always be represented as a separate service related to the surgery." ;
+        skos:prefLabel   "anesthesist" .
+
+v3-ParticipationFunction:POACON
+        a                owl:Class ;
+        rdfs:label       "healthcare power of attorney consent author" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_ConsenterParticipationFunction ;
+        skos:definition  "Description:Person authorized with healthcare power of attorney to author a  consent directive for the subject of consent." ;
+        skos:prefLabel   "healthcare power of attorney consent author" .
+
+v3-ParticipationFunction:MCMGT
+        a                owl:Class ;
+        rdfs:label       "managed care management" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_PayorParticipationFunction ;
+        skos:definition  "Definition: Managing all operations required to administer a managed care plan including enrolling covered parties and providing customer service,, provider contracting, claims payment, care management and utilization review." ;
+        skos:prefLabel   "managed care management" .
+
+v3-ParticipationFunction:PROMSK
+        a                owl:Class ;
+        rdfs:label       "authorized provider masking author" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_ConsenterParticipationFunction ;
+        skos:definition  "Definition:Provider authorized to mask information to protect the patient, a third party, or to ensure that the provider has consulted with the patient prior to release of this information." ;
+        skos:prefLabel   "authorized provider masking author" .
+
+v3-ParticipationFunction:GRDCON
+        a                owl:Class ;
+        rdfs:label       "legal guardian consent author" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_ConsenterParticipationFunction ;
+        skos:definition  "Description:Legal guardian of the subject of consent authorized to author a consent directive for the subject of consent." ;
+        skos:prefLabel   "legal guardian consent author" .
+
+v3-ParticipationFunction:REINS
+        a                owl:Class ;
+        rdfs:label       "reinsures" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_UnderwriterParticipationFunction ;
+        skos:definition  "Definition: Underwriting reinsurance for another underwriter for the policy or program." ;
+        skos:prefLabel   "reinsures" .
+
+v3-ParticipationFunction:_OverriderParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "OverriderParticipationFunction" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedParticipationFunction ;
+        skos:definition  "This code is used to specify the exact function an actor is authorized to have in authoring a consent override." ;
+        skos:prefLabel   "OverriderParticipationFunction" .
+
+v3-ParticipationFunction:PCP
+        a                owl:Class ;
+        rdfs:label       "primary care physician" ;
+        skos:definition  "The healthcare provider that holds primary responsibility for the overall care of a patient." ;
+        skos:prefLabel   "primary care physician" .
+
+v3-ParticipationFunction:AULR
+        a                owl:Class ;
+        rdfs:label       "legitimate relationship information receiver" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedReceiverParticipationFunction ;
+        skos:definition  "Description:Provider with legitimate relationship authorized to receive patient health information." ;
+        skos:prefLabel   "legitimate relationship information receiver" .
+
+v3-ParticipationFunction:AUCG
+        a                owl:Class ;
+        rdfs:label       "caregiver information receiver" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedReceiverParticipationFunction ;
+        skos:definition  "Description:Caregiver authorized to receive patient health information." ;
+        skos:prefLabel   "caregiver information receiver" .
+
+v3-ParticipationFunction:AUWA
+        a                owl:Class ;
+        rdfs:label       "work area information receiver" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_AuthorizedReceiverParticipationFunction ;
+        skos:definition  "Description:Entities within specified work area authorized to receive patient health information." ;
+        skos:prefLabel   "work area information receiver" .
+
+v3-ParticipationFunction:SUBCON
+        a                owl:Class ;
+        rdfs:label       "subject of consent author" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_ConsenterParticipationFunction ;
+        skos:definition  "Description:Subject of consent authorized to author a consent directive." ;
+        skos:prefLabel   "subject of consent author" .
+
+v3-ParticipationFunction:AUEMROV
+        a                owl:Class ;
+        rdfs:label       "emergency overrider" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_OverriderParticipationFunction ;
+        skos:definition  "Description:Entity  authorized to override a consent directive or privacy policy in an emergency." ;
+        skos:prefLabel   "emergency overrider" .
+
+v3-ParticipationFunction:ATTPHYS
+        a                owl:Class ;
+        rdfs:label       "attending physician" ;
+        skos:definition  "A physician who is primarily responsible for a patient during the hospitalization, which is the context of the service." ;
+        skos:prefLabel   "attending physician" .
+
+v3-ParticipationFunction:_UnderwriterParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "UnderwriterParticipationFunction" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_CoverageParticipationFunction ;
+        skos:definition  "Definition: Set of codes indicating the manner in which underwriters participate in a policy or program." ;
+        skos:prefLabel   "UnderwriterParticipationFunction" .
+
+v3-ParticipationFunction:_SponsorParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "SponsorParticipationFunction" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_CoverageParticipationFunction ;
+        skos:definition  "Definition: Set of codes indicating the manner in which sponsors participate in a policy or program. NOTE: use only when the Sponsor is not further specified with a SponsorRoleType as being either a fully insured sponsor or a self insured sponsor." ;
+        skos:prefLabel   "SponsorParticipationFunction" .
+
+v3-ParticipationFunction:COMPOSER
+        a                owl:Class ;
+        rdfs:label       "composer software" ;
+        skos:definition  "A device used by an author to record new information, which may also be used by the author to select existing information for aggregation with newly recorded information for the purpose of generating a new artifact.\n                           UsageConstraint: COMPOSER ParticipationFunction should be used with DEV (device) ParticipationType.\r\n\n                        \n                           Usage Note: This code will enable implementers to more specifically represent the manner in which a Device participated in and facilitated the generation of a CDA Clinical Document or a CDA Entry by the responsible Author, which is comprised of the Author's newly entered content, and may include the pre-existing content selected by the Author, for the purpose of establishing the provenance and accountability for these acts." ;
+        skos:prefLabel   "composer software" .
+
+v3-ParticipationFunction:_AuthorizedParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "AuthorizedParticipationFunction" ;
+        skos:definition  "This code is used to specify the exact function an actor is authorized to have in a service in all necessary detail." ;
+        skos:prefLabel   "AuthorizedParticipationFunction" .
+
+v3-ParticipationFunction:_CoverageParticipationFunction
+        a                owl:Class ;
+        rdfs:label       "CoverageParticipationFunction" ;
+        skos:definition  "Definition: Set of codes indicating the manner in which sponsors, underwriters, and payers participate in a policy or program." ;
+        skos:prefLabel   "CoverageParticipationFunction" .
+
+v3-ParticipationFunction:PRCON
+        a                owl:Class ;
+        rdfs:label       "personal representative consent author" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_ConsenterParticipationFunction ;
+        skos:definition  "Description:Personal representative of the subject of consent authorized to author a consent directive for the subject of consent." ;
+        skos:prefLabel   "personal representative consent author" .
+
+v3-ParticipationFunction:RETROCES
+        a                owl:Class ;
+        rdfs:label       "retrocessionaires" ;
+        rdfs:subClassOf  v3-ParticipationFunction:_UnderwriterParticipationFunction ;
+        skos:definition  "Definition: Underwriting reinsurance for another reinsurer." ;
+        skos:prefLabel   "retrocessionaires" .

@@ -1,0 +1,51 @@
+@prefix observation-relationshiptypes: <http://hl7.org/fhir/observation-relationshiptypes/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+observation-relationshiptypes:
+        a                owl:Ontology ;
+        rdfs:comment     "Codes specifying how two observations are related." ;
+        rdfs:label       "ObservationRelationshipType" ;
+        owl:versionIRI   "http://hl7.org/fhir/observation-relationshiptypes/3.1.0" ;
+        owl:versionInfo  "ObservationRelationshipType(3.1.0)" .
+
+observation-relationshiptypes:derived-from
+        a                owl:Class ;
+        rdfs:label       "Derived From" ;
+        skos:definition  "The target resource (Observation or QuestionnaireResponse) is part of the information from which this observation value is derived. (e.g. calculated anion gap, Apgar score)  NOTE:  \"derived-from\" is the only logical choice when referencing QuestionnaireResponse." ;
+        skos:prefLabel   "Derived From" .
+
+observation-relationshiptypes:qualified-by
+        a                owl:Class ;
+        rdfs:label       "Qualified By" ;
+        skos:definition  "The value of the target observation qualifies (refines) the semantics of the source observation (e.g. a lipemia measure target from a plasma measure)." ;
+        skos:prefLabel   "Qualified By" .
+
+observation-relationshiptypes:sequel-to
+        a                owl:Class ;
+        rdfs:label       "Sequel To" ;
+        skos:definition  "This observation follows the target observation (e.g. timed tests such as Glucose Tolerance Test)." ;
+        skos:prefLabel   "Sequel To" .
+
+observation-relationshiptypes:interfered-by
+        a                owl:Class ;
+        rdfs:label       "Interfered By" ;
+        skos:definition  "The value of the target observation interferes (degrades quality, or prevents valid observation) with the semantics of the source observation (e.g. a hemolysis measure target from a plasma potassium measure, which has no value)." ;
+        skos:prefLabel   "Interfered By" .
+
+observation-relationshiptypes:replaces
+        a                owl:Class ;
+        rdfs:label       "Replaces" ;
+        skos:definition  "This observation replaces a previous observation (i.e. a revised value). The target observation is now obsolete." ;
+        skos:prefLabel   "Replaces" .
+
+observation-relationshiptypes:has-member
+        a                owl:Class ;
+        rdfs:label       "Has Member" ;
+        skos:definition  "This observation is a group observation (e.g. a battery, a panel of tests, a set of vital sign measurements) that includes the target as a member of the group." ;
+        skos:prefLabel   "Has Member" .

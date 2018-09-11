@@ -1,0 +1,64 @@
+@prefix request-intent: <http://hl7.org/fhir/request-intent/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+request-intent:option
+        a                owl:Class ;
+        rdfs:label       "Option" ;
+        skos:definition  "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.\n\nRefer to [[[RequestGroup]]] for additional information on how this status is used" ;
+        skos:prefLabel   "Option" .
+
+request-intent:plan  a   owl:Class ;
+        rdfs:label       "Plan" ;
+        skos:definition  "The request represents an intension to ensure something occurs without providing an authorization for others to act" ;
+        skos:prefLabel   "Plan" .
+
+request-intent:original-order
+        a                owl:Class ;
+        rdfs:label       "Original Order" ;
+        rdfs:subClassOf  request-intent:order ;
+        skos:definition  "The request represents an original authorization for action" ;
+        skos:prefLabel   "Original Order" .
+
+request-intent:proposal
+        a                owl:Class ;
+        rdfs:label       "Proposal" ;
+        skos:definition  "The request is a suggestion made by someone/something that doesn't have an intention to ensure it occurs and without providing an authorization to act" ;
+        skos:prefLabel   "Proposal" .
+
+request-intent:filler-order
+        a                owl:Class ;
+        rdfs:label       "Filler Order" ;
+        rdfs:subClassOf  request-intent:order ;
+        skos:definition  "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order" ;
+        skos:prefLabel   "Filler Order" .
+
+request-intent:  a       owl:Ontology ;
+        rdfs:comment     "Codes indicating the degree of authority/intentionality associated with a request" ;
+        rdfs:label       "RequestIntent" ;
+        owl:versionIRI   "http://hl7.org/fhir/request-intent/3.1.0" ;
+        owl:versionInfo  "RequestIntent(3.1.0)" .
+
+request-intent:reflex-order
+        a                owl:Class ;
+        rdfs:label       "Reflex Order" ;
+        rdfs:subClassOf  request-intent:order ;
+        skos:definition  "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization" ;
+        skos:prefLabel   "Reflex Order" .
+
+request-intent:instance-order
+        a                owl:Class ;
+        rdfs:label       "Instance Order" ;
+        rdfs:subClassOf  request-intent:filler-order ;
+        skos:definition  "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug." ;
+        skos:prefLabel   "Instance Order" .
+
+request-intent:order  a  owl:Class ;
+        rdfs:label       "Order" ;
+        skos:definition  "The request represents a request/demand and authorization for action" ;
+        skos:prefLabel   "Order" .

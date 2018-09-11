@@ -1,0 +1,396 @@
+@prefix v3-ObservationInterpretation: <http://hl7.org/fhir/v3/ObservationInterpretation/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ObservationInterpretation:NEG
+        a                owl:Class ;
+        rdfs:label       "Negative" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ObservationInterpretationDetection ;
+        skos:definition  "An absence finding of the specified component / analyte, organism or clinical sign based on the established threshold of the performed test or procedure.\r\n\n                        [Note: Negative does not necessarily imply the complete absence of the specified item.]" ;
+        skos:prefLabel   "Negative" .
+
+v3-ObservationInterpretation:RR
+        a                owl:Class ;
+        rdfs:label       "Reactive" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ReactivityObservationInterpretation ;
+        skos:definition  "A presence finding used to indicate that the specified component / analyte reacted with the reagent above the reliably measurable limit of the performed test." ;
+        skos:prefLabel   "Reactive" .
+
+v3-ObservationInterpretation:HU
+        a                owl:Class ;
+        rdfs:label       "Significantly high" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:H ;
+        skos:definition  "A test result that is significantly higher than the reference (normal) or therapeutic interval, but has not reached the critically high value and might need special attention, as defined by the laboratory or the clinician." ;
+        skos:prefLabel   "Significantly high" .
+
+v3-ObservationInterpretation:UNE
+        a                owl:Class ;
+        rdfs:label       "Unexpected" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ObservationInterpretationExpectation ;
+        skos:definition  "This result has been evaluated in light of known contraindicators.  Once those contraindicators have been taken into account the result is determined to be \"Unexpected\" (e.g., presence of non-prescribed drugs in a patient that is taking prescription medication for pain management)." ;
+        skos:prefLabel   "Unexpected" .
+
+v3-ObservationInterpretation:VS
+        a                owl:Class ;
+        rdfs:label       "very susceptible" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationSusceptibility ;
+        skos:definition  "The patient is considered as carrier based on the testing results. A carrier is an individual who carries an altered form of a gene which can lead to having a child or offspring in future generations with a genetic disorder.\r\n\n                        \n                           \n                              Deprecation Comment: \n                           This antimicrobial susceptibility test interpretation concept is recommended by OO to be deprecated as it is no longer recommended for use in susceptibility testing by CLSI (reference CLSI document M100-S22; Vol. 32 No.3; CLSI Performance Standards for Antimicrobial Susceptibility Testing; Twenty-Second Informational Supplement. Jan 2012)." ;
+        skos:prefLabel   "very susceptible" .
+
+v3-ObservationInterpretation:B
+        a                owl:Class ;
+        rdfs:label       "Better" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationChange ;
+        skos:definition  "The current result or observation value has improved compared to the previous result or observation value (the change is significant as defined in the respective test procedure).\r\n\n                        [Note: This can be applied to quantitative or qualitative observations.]" ;
+        skos:prefLabel   "Better" .
+
+v3-ObservationInterpretation:_ObservationInterpretationExceptions
+        a                owl:Class ;
+        rdfs:label       "ObservationInterpretationExceptions" ;
+        skos:definition  "Technical exceptions resulting in the inability to provide an interpretation. At most one allowed. Does not imply normality or severity." ;
+        skos:prefLabel   "ObservationInterpretationExceptions" .
+
+v3-ObservationInterpretation:S
+        a                owl:Class ;
+        rdfs:label       "Susceptible" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationSusceptibility ;
+        skos:definition  "Bacterial strain inhibited by in vitro concentration of an antimicrobial agent that is associated with a high likelihood of therapeutic success.\nReference: CLSI (http://www.clsi.org/Content/NavigationMenu/Resources/HarmonizedTerminologyDatabase/Harmonized_Terminolo.htm)\nSynonym (earlier term): Sensitive Projects: ISO 20776-1, ISO 20776-2\r\n\n                        [Note 1: Bacterial strains are categorized as susceptible by applying the appropriate breakpoints in a defined phenotypic system.]\r\n\n                        [Note 2: This breakpoint can be altered due to changes in circumstances (e.g., changes in commonly used drug dosages, emergence of new resistance mechanisms).]" ;
+        skos:prefLabel   "Susceptible" .
+
+v3-ObservationInterpretation:ReactivityObservationInterpretation
+        a                owl:Class ;
+        rdfs:label       "ReactivityObservationInterpretation" ;
+        skos:definition  "Interpretations of the presence and level of reactivity of the specified component / analyte with the reagent in the performed laboratory test." ;
+        skos:prefLabel   "ReactivityObservationInterpretation" .
+
+<http://hl7.org/fhir/v3/ObservationInterpretation/H>>
+        a                owl:Class ;
+        rdfs:label       "Significantly high" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:H ;
+        skos:definition  "A test result that is significantly higher than the reference (normal) or therapeutic interval, but has not reached the critically high value and might need special attention, as defined by the laboratory or the clinician.[Note: This level is situated between 'H' and 'HH'.]\r\n\n                        \n                           Deprecation Comment: The code 'H>' is being deprecated in order to align with the use of the code 'HU' for \"Very high\" in V2 Table 0078 \"Interpretation Codes\".\r\n\n                        [Note: The use of code 'H>' is non-preferred, as this code is deprecated and on track to be retired; use code 'HU' instead." ;
+        skos:prefLabel   "Significantly high" .
+
+v3-ObservationInterpretation:DET
+        a                owl:Class ;
+        rdfs:label       "Detected" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:POS ;
+        skos:definition  "The measurement of the specified component / analyte, organism or clinical sign above the limit of detection of the performed test or procedure." ;
+        skos:prefLabel   "Detected" .
+
+<http://hl7.org/fhir/v3/ObservationInterpretation/<>
+        a                owl:Class ;
+        rdfs:label       "Off scale low" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationExceptions ;
+        skos:definition  "The result is below the minimum detection limit (the test procedure or equipment is the limiting factor).\r\n\n                        Synonyms: Below analytical limit, low off scale." ;
+        skos:prefLabel   "Off scale low" .
+
+v3-ObservationInterpretation:MS
+        a                owl:Class ;
+        rdfs:label       "moderately susceptible" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationSusceptibility ;
+        skos:definition  "The patient is considered as carrier based on the testing results. A carrier is an individual who carries an altered form of a gene which can lead to having a child or offspring in future generations with a genetic disorder.\r\n\n                        \n                           \n                              Deprecation Comment: \n                           This antimicrobial susceptibility test interpretation concept is recommended by OO to be deprecated as it is no longer recommended for use in susceptibility testing by CLSI (reference CLSI document M100-S22; Vol. 32 No.3; CLSI Performance Standards for Antimicrobial Susceptibility Testing; Twenty-Second Informational Supplement. Jan 2012)." ;
+        skos:prefLabel   "moderately susceptible" .
+
+v3-ObservationInterpretation:EXP
+        a                owl:Class ;
+        rdfs:label       "Expected" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ObservationInterpretationExpectation ;
+        skos:definition  "This result has been evaluated in light of known contraindicators.  Once those contraindicators have been taken into account the result is determined to be \"Expected\"  (e.g., presence of drugs in a patient that is taking prescription medication for pain management)." ;
+        skos:prefLabel   "Expected" .
+
+v3-ObservationInterpretation:LU
+        a                owl:Class ;
+        rdfs:label       "Significantly low" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:L ;
+        skos:definition  "A test result that is significantly lower than the reference (normal) or therapeutic interval, but has not reached the critically low value and might need special attention, as defined by the laboratory or the clinician." ;
+        skos:prefLabel   "Significantly low" .
+
+v3-ObservationInterpretation:A
+        a                owl:Class ;
+        rdfs:label       "Abnormal" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationNormality ;
+        skos:definition  "The result or observation value is outside the reference range or expected norm (as defined for the respective test procedure).\r\n\n                        [Note: Typically applies to non-numeric results.]" ;
+        skos:prefLabel   "Abnormal" .
+
+v3-ObservationInterpretation:R
+        a                owl:Class ;
+        rdfs:label       "Resistant" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationSusceptibility ;
+        skos:definition  "Bacterial strain inhibited in vitro by a concentration of an antimicrobial agent that is associated with a high likelihood of therapeutic failure.\nReference: CLSI (http://www.clsi.org/Content/NavigationMenu/Resources/HarmonizedTerminologyDatabase/Harmonized_Terminolo.htm)  \nProjects: ISO 20776-1, ISO 20776-2\r\n\n                        [Note 1: Bacterial strains are categorized as resistant by applying the appropriate breakpoints in a defined phenotypic test system.]\r\n\n                        [Note 2: This breakpoint can be altered due to changes in circumstances (e.g., changes in commonly used drug dosages, emergence of new resistance mechanisms).]" ;
+        skos:prefLabel   "Resistant" .
+
+v3-ObservationInterpretation:TOX
+        a                owl:Class ;
+        rdfs:label       "Cytotoxic substance present" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationExceptions ;
+        skos:definition  "A valid result cannot be obtained for the specified organism or cell line due to the presence of cytotoxic substances in the sample or culture.\r\n\n                        \n                           \n                              Deprecation Comment: \n                           This code is being deprecated to match the status in V2 Table 0078 \"Interpretation Codes." ;
+        skos:prefLabel   "Cytotoxic substance present" .
+
+v3-ObservationInterpretation:L
+        a                owl:Class ;
+        rdfs:label       "Low" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:A ;
+        skos:definition  "The result for a quantitative observation is below the lower limit of the reference range (as defined for the respective test procedure).\r\n\n                        Synonym: Below low normal" ;
+        skos:prefLabel   "Low" .
+
+v3-ObservationInterpretation:CAR
+        a                owl:Class ;
+        rdfs:label       "Carrier" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_GeneticObservationInterpretation ;
+        skos:definition  "The patient is considered as carrier based on the testing results. A carrier is an individual who carries an altered form of a gene which can lead to having a child or offspring in future generations with a genetic disorder." ;
+        skos:prefLabel   "Carrier" .
+
+v3-ObservationInterpretation:ND
+        a                owl:Class ;
+        rdfs:label       "Not detected" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:NEG ;
+        skos:definition  "The presence of the specified component / analyte, organism or clinical sign could not be determined within the limit of detection of the performed test or procedure." ;
+        skos:prefLabel   "Not detected" .
+
+v3-ObservationInterpretation:POS
+        a                owl:Class ;
+        rdfs:label       "Positive" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ObservationInterpretationDetection ;
+        skos:definition  "A presence finding of the specified component / analyte, organism or clinical sign based on the established threshold of the performed test or procedure." ;
+        skos:prefLabel   "Positive" .
+
+v3-ObservationInterpretation:HH
+        a                owl:Class ;
+        rdfs:label       "Critical high" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:AA ;
+        skos:definition  "The result for a quantitative observation is above a reference level at which immediate action should be considered for patient safety (as defined for the respective test procedure).\r\n\n                        Synonym: Above upper panic limits." ;
+        skos:prefLabel   "Critical high" .
+
+v3-ObservationInterpretation:OBX
+        a                owl:Class ;
+        rdfs:label       "Interpretation qualifiers in separate OBX segments" ;
+        skos:definition  "Interpretation qualifiers in separate OBX segments\r\n\n                        \n                           Usage Note: This code is not intended for use in V3 artifacts.  It is included in the code system to maintain alignment with the V2 Table 0078 \"Interpretation Codes.\"" ;
+        skos:prefLabel   "Interpretation qualifiers in separate OBX segments" .
+
+v3-ObservationInterpretation:W
+        a                owl:Class ;
+        rdfs:label       "Worse" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationChange ;
+        skos:definition  "The current result or observation value has degraded compared to the previous result or observation value (the change is significant as defined in the respective test procedure).\r\n\n                        [Note: This can be applied to quantitative or qualitative observations.]" ;
+        skos:prefLabel   "Worse" .
+
+v3-ObservationInterpretation:AC
+        a                owl:Class ;
+        rdfs:label       "Anti-complementary substances present" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationExceptions ;
+        skos:definition  "A valid result cannot be obtained for the specified component / analyte due to the presence of anti-complementary substances in the sample.\r\n\n                        \n                           \n                              Deprecation Comment: \n                           This code is being deprecated to match the status in V2 Table 0078 \"Interpretation Codes." ;
+        skos:prefLabel   "Anti-complementary substances present" .
+
+v3-ObservationInterpretation:Carrier
+        a                owl:Class ;
+        rdfs:label       "Carrier" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_GeneticObservationInterpretation ;
+        skos:definition  "The patient is considered as carrier based on the testing results. A carrier is an individual who carries an altered form of a gene which can lead to having a child or offspring in future generations with a genetic disorder.\r\n\n                        \n                           \n                              Deprecation Comment: \n                           This code is currently the same string as the print name for this concept and is inconsistent with the conventions being used for the other codes in the coding system, as it is a full word with initial capitalization, rather than an all upper case mnemonic.  The recommendation from OO is to deprecate the code \"Carrier\" and to add \"CAR\" as the new active code representation for this concept." ;
+        skos:prefLabel   "Carrier" .
+
+v3-ObservationInterpretation:ObservationInterpretationDetection
+        a                owl:Class ;
+        rdfs:label       "ObservationInterpretationDetection" ;
+        skos:definition  "Interpretations of the presence or absence of a component / analyte or organism in a test or of a sign in a clinical observation. In keeping with laboratory data processing practice, these concepts provide a categorical interpretation of the \"meaning\" of the quantitative value for the same observation." ;
+        skos:prefLabel   "ObservationInterpretationDetection" .
+
+v3-ObservationInterpretation:IE
+        a                owl:Class ;
+        rdfs:label       "Insufficient evidence" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationExceptions ;
+        skos:definition  "There is insufficient evidence that the species in question is a good target for therapy with the drug.  A categorical interpretation is not possible.\r\n\n                        [Note: A MIC with \"IE\" and/or a comment may be reported (without an accompanying S, I or R-categorization).]" ;
+        skos:prefLabel   "Insufficient evidence" .
+
+v3-ObservationInterpretation:_GeneticObservationInterpretation
+        a                owl:Class ;
+        rdfs:label       "GeneticObservationInterpretation" ;
+        skos:definition  "Codes that specify interpretation of genetic analysis, such as \"positive\", \"negative\", \"carrier\", \"responsive\", etc." ;
+        skos:prefLabel   "GeneticObservationInterpretation" .
+
+v3-ObservationInterpretation:HM
+        a                owl:Class ;
+        rdfs:label       "Hold for Medical Review" ;
+        skos:definition  "Hold for Medical Review\r\n\n                        \n                           Usage Note: This code is not intended for use in V3 artifacts.  It is included in the code system to maintain alignment with the V2 Table 0078 \"Interpretation Codes.\"" ;
+        skos:prefLabel   "Hold for Medical Review" .
+
+v3-ObservationInterpretation:_ObservationInterpretationSusceptibility
+        a                owl:Class ;
+        rdfs:label       "ObservationInterpretationSusceptibility" ;
+        skos:definition  "Interpretations of anti-microbial susceptibility testing results (microbiology). At most one allowed." ;
+        skos:prefLabel   "ObservationInterpretationSusceptibility" .
+
+v3-ObservationInterpretation:_ObservationInterpretationChange
+        a                owl:Class ;
+        rdfs:label       "ObservationInterpretationChange" ;
+        skos:definition  "Interpretations of change of quantity and/or severity. At most one of B or W and one of U or D allowed." ;
+        skos:prefLabel   "ObservationInterpretationChange" .
+
+v3-ObservationInterpretation:HX
+        a                owl:Class ;
+        rdfs:label       "above high threshold" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:EX ;
+        skos:definition  "The observation/test result is interpreted as being outside the inclusion range for a particular protocol within which the result is being reported.\n\r\n\n                        Example: A positive result on a Hepatitis screening test.\n                           Open Issue: EX, HX, LX: These three concepts do not seem to meet a clear need in the vocabulary, and their use in observation interpretation appears likely to be covered by other existing concepts (e.g., A, H, L).  The only apparent significant difference is their reference to use in protocols for exclusion of study subjects.  These concepts/codes were proposed by RCRIM for use in the CTLaboratory message.  They were submitted and approved in the November 2005 Harmonization cycle in proposal \"030103C_VOCAB_RCRIM_l_quade_RCRIM Obs Interp_20051028154455\". However, this proposal was not fully implemented in the vocabulary.  The proposal recommended creation of the x_ClinicalResearchExclusion domain in ObservationInterpretation with a value set including those three concepts/codes, but there is no subdomain of that name or equivalent with a binding to either of the value sets that contain these concepts/codes.  Members of the OO WG have recently attempted to contact members of RCRIM regarding these concepts, both by email and at the recent WGM in Atlanta, without response.  It is felt by OO that the best course of action to take at this time is to add this comprehensive Open Issue rather than deprecate these three concepts at this time, until further discussion is held." ;
+        skos:prefLabel   "above high threshold" .
+
+v3-ObservationInterpretation:E
+        a                owl:Class ;
+        rdfs:label       "Equivocal" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:IND ;
+        skos:definition  "The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria." ;
+        skos:prefLabel   "Equivocal" .
+
+v3-ObservationInterpretation:_ObservationInterpretationNormality
+        a                owl:Class ;
+        rdfs:label       "ObservationInterpretationNormality" ;
+        skos:definition  "Interpretation of normality or degree of abnormality (including critical or \"alert\" level). Concepts in this category are mutually exclusive, i.e., at most one is allowed." ;
+        skos:prefLabel   "ObservationInterpretationNormality" .
+
+v3-ObservationInterpretation:
+        a                owl:Ontology ;
+        rdfs:comment     " One or more codes specifying a rough qualitative interpretation of the observation, such as \"normal\", \"abnormal\", \"below normal\", \"change up\", \"resistant\", \"susceptible\", etc.  OpenIssue:\r\nDescription copied from Concept Domain of same name.  Must be verified.  Note also that this might be identical to the V2 code system of interpretation codes (formerly Abnormal Flags in older versions)." ;
+        rdfs:label       "v3 Code System ObservationInterpretation" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ObservationInterpretation/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ObservationInterpretation(2016-11-11)" .
+
+<http://hl7.org/fhir/v3/ObservationInterpretation/L<>
+        a                owl:Class ;
+        rdfs:label       "Significantly low" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:L ;
+        skos:definition  "A test result that is significantly lower than the reference (normal) or therapeutic interval, but has not reached the critically low value and might need special attention, as defined by the laboratory or the clinician.[Note: This level is situated between 'L' and 'LL'.]\r\n\n                        \n                           Deprecation Comment: The code 'L<' is being deprecated in order to align with the use of the code 'LU' for \"Very low\" in V2 Table 0078 \"Interpretation Codes\".\r\n\n                        [Note: The use of code 'L<' is non-preferred, as this code is deprecated and on track to be retired; use code 'LU' instead." ;
+        skos:prefLabel   "Significantly low" .
+
+v3-ObservationInterpretation:IND
+        a                owl:Class ;
+        rdfs:label       "Indeterminate" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ObservationInterpretationDetection ;
+        skos:definition  "The specified component / analyte, organism or clinical sign could neither be declared positive / negative nor detected / not detected by the performed test or procedure.\r\n\n                        \n                           Usage Note: For example, if the specimen was degraded, poorly processed, or was missing the required anatomic structures, then \"indeterminate\" (i.e. \"cannot be determined\") is the appropriate response, not \"equivocal\"." ;
+        skos:prefLabel   "Indeterminate" .
+
+v3-ObservationInterpretation:NS
+        a                owl:Class ;
+        rdfs:label       "Non-susceptible" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationSusceptibility ;
+        skos:definition  "A category used for isolates for which only a susceptible interpretive criterion has been designated because of the absence or rare occurrence of resistant strains. Isolates that have MICs above or zone diameters below the value indicated for the susceptible breakpoint should be reported as non-susceptible.\r\n\n                        NOTE 1: An isolate that is interpreted as non-susceptible does not necessarily mean that the isolate has a resistance mechanism. It is possible that isolates with MICs above the susceptible breakpoint that lack resistance mechanisms may be encountered within the wild-type distribution subsequent to the time the susceptible-only breakpoint is set. \r\n\n                        NOTE 2: For strains yielding results in the \"nonsusceptible\" category, organism identification and antimicrobial susceptibility test results should be confirmed.\r\n\n                        Synonym: decreased susceptibility." ;
+        skos:prefLabel   "Non-susceptible" .
+
+v3-ObservationInterpretation:LX
+        a                owl:Class ;
+        rdfs:label       "below low threshold" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:EX ;
+        skos:definition  "The numeric observation/test result is interpreted as being below the low threshold value for a particular protocol within which the result is being reported.\r\n\n                        Example: A Total White Blood Cell Count falling below a protocol-defined threshold value of 3000/mm^3\n                           Open Issue: EX, HX, LX: These three concepts do not seem to meet a clear need in the vocabulary, and their use in observation interpretation appears likely to be covered by other existing concepts (e.g., A, H, L).  The only apparent significant difference is their reference to use in protocols for exclusion of study subjects.  These concepts/codes were proposed by RCRIM for use in the CTLaboratory message.  They were submitted and approved in the November 2005 Harmonization cycle in proposal \"030103C_VOCAB_RCRIM_l_quade_RCRIM Obs Interp_20051028154455\".  However, this proposal was not fully implemented in the vocabulary.  The proposal recommended creation of the x_ClinicalResearchExclusion domain in ObservationInterpretation with a value set including those three concepts/codes, but there is no subdomain of that name or equivalent with a binding to either of the value sets that contain these concepts/codes.  Members of the OO WG have recently attempted to contact members of RCRIM regarding these concepts, both by email and at the recent WGM in Atlanta, without response.  It is felt by OO that the best course of action to take at this time is to add this comprehensive Open Issue rather than deprecate these three concepts at this time, until further discussion is held." ;
+        skos:prefLabel   "below low threshold" .
+
+v3-ObservationInterpretation:D
+        a                owl:Class ;
+        rdfs:label       "Significant change down" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationChange ;
+        skos:definition  "The current result has decreased from the previous result for a quantitative observation (the change is significant as defined in the respective test procedure)." ;
+        skos:prefLabel   "Significant change down" .
+
+v3-ObservationInterpretation:U
+        a                owl:Class ;
+        rdfs:label       "Significant change up" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationChange ;
+        skos:definition  "The current result has increased from the previous result for a quantitative observation (the change is significant as defined in the respective test procedure)." ;
+        skos:prefLabel   "Significant change up" .
+
+v3-ObservationInterpretation:AA
+        a                owl:Class ;
+        rdfs:label       "Critical abnormal" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:A ;
+        skos:definition  "The result or observation value is outside a reference range or expected norm at a level at which immediate action should be considered for patient safety (as defined for the respective test procedure).\r\n\n                        [Note: Typically applies to non-numeric results.  Analogous to critical/panic limits for numeric results.]" ;
+        skos:prefLabel   "Critical abnormal" .
+
+<http://hl7.org/fhir/v3/ObservationInterpretation/>>
+        a                owl:Class ;
+        rdfs:label       "Off scale high" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationExceptions ;
+        skos:definition  "The result is above the maximum quantifiable limit (the test procedure or equipment is the limiting factor).\r\n\n                        Synonyms: Above analytical limit, high off scale." ;
+        skos:prefLabel   "Off scale high" .
+
+v3-ObservationInterpretation:WR
+        a                owl:Class ;
+        rdfs:label       "Weakly reactive" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:RR ;
+        skos:definition  "A weighted presence finding used to indicate that the specified component / analyte reacted with the reagent, but below the reliably measurable limit of the performed test." ;
+        skos:prefLabel   "Weakly reactive" .
+
+v3-ObservationInterpretation:SYN-S
+        a                owl:Class ;
+        rdfs:label       "Synergy - susceptible" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:S ;
+        skos:definition  "A category for isolates where the bacteria (e.g. enterococci) are susceptible in vitro to a combination therapy (e.g., high-level aminoglycoside and cell wall active agent).  This is predictive that this combination therapy will be effective. \r\n\n                        \n                           Usage Note: Since the use of penicillin or ampicillin alone often results in treatment failure of serious enterococcal or other bacterial infections, combination therapy is usually indicated to enhance bactericidal activity. The synergy between a cell wall active agent (such as penicillin, ampicillin, or vancomycin) and an aminoglycoside (such as gentamicin, kanamycin or streptomycin) is best predicted by screening for high-level bacterial resistance to the aminoglycoside.\r\n\n                        \n                           Open Issue: The print name of the code is very general and the description is very specific to a pair of classes of agents, which may lead to confusion of these concepts in the future should other synergies be found." ;
+        skos:prefLabel   "Synergy - susceptible" .
+
+v3-ObservationInterpretation:ObservationInterpretationExpectation
+        a                owl:Class ;
+        rdfs:label       "ObservationInterpretationExpectation" ;
+        skos:definition  "Interpretation of the observed result taking into account additional information (contraindicators) about the patient's situation. Concepts in this category are mutually exclusive, i.e., at most one is allowed." ;
+        skos:prefLabel   "ObservationInterpretationExpectation" .
+
+v3-ObservationInterpretation:LL
+        a                owl:Class ;
+        rdfs:label       "Critical low" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:AA ;
+        skos:definition  "The result for a quantitative observation is below a reference level at which immediate action should be considered for patient safety (as defined for the respective test procedure).\r\n\n                        Synonym: Below lower panic limits." ;
+        skos:prefLabel   "Critical low" .
+
+v3-ObservationInterpretation:I
+        a                owl:Class ;
+        rdfs:label       "Intermediate" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationSusceptibility ;
+        skos:definition  "Bacterial strain inhibited in vitro by a concentration of an antimicrobial agent that is associated with uncertain therapeutic effect. Reference: CLSI (http://www.clsi.org/Content/NavigationMenu/Resources/HarmonizedTerminologyDatabase/Harmonized_Terminolo.htm)\nProjects: ISO 20776-1, ISO 20776-2\r\n\n                        [Note 1: Bacterial strains are categorized as intermediate by applying the appropriate breakpoints in a defined phenotypic test system.]\r\n\n                        [Note 2: This class of susceptibility implies that an infection due to the isolate can be appropriately treated in body sites where the drugs are physiologically concentrated or when a high dosage of drug can be used.]\r\n\n                        [Note 3: This class also indicates a \"buffer zone,\" to prevent small, uncontrolled, technical factors from causing major discrepancies in interpretations.]\r\n\n                        [Note 4: These breakpoints can be altered due to changes in circumstances (e.g., changes in commonly used drug dosages, emergence of new resistance mechanisms).]" ;
+        skos:prefLabel   "Intermediate" .
+
+v3-ObservationInterpretation:SDD
+        a                owl:Class ;
+        rdfs:label       "Susceptible-dose dependent" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:S ;
+        skos:definition  "A category that includes isolates with antimicrobial agent minimum inhibitory concentrations (MICs) that approach usually attainable blood and tissue levels and for which response rates may be lower than for susceptible isolates.\r\n\n                        Reference: CLSI document M44-A2 2009 \"Method for antifungal disk diffusion susceptibility testing of yeasts; approved guideline - second edition\" - page 2." ;
+        skos:prefLabel   "Susceptible-dose dependent" .
+
+v3-ObservationInterpretation:NR
+        a                owl:Class ;
+        rdfs:label       "Non-reactive" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:ReactivityObservationInterpretation ;
+        skos:definition  "An absence finding used to indicate that the specified component / analyte did not react measurably with the reagent." ;
+        skos:prefLabel   "Non-reactive" .
+
+v3-ObservationInterpretation:EX
+        a                owl:Class ;
+        rdfs:label       "outside threshold" ;
+        skos:definition  "The observation/test result is interpreted as being outside the inclusion range for a particular protocol within which the result is being reported.\n\r\n\n                        Example: A positive result on a Hepatitis screening test.\n                           Open Issue: EX, HX, LX: These three concepts do not seem to meet a clear need in the vocabulary, and their use in observation interpretation appears likely to be covered by other existing concepts (e.g., A, H, L).  The only apparent significant difference is their reference to use in protocols for exclusion of study subjects.\nThese concepts/codes were proposed by RCRIM for use in the CTLaboratory message.  They were submitted and approved in the November 2005 Harmonization cycle in proposal \"030103C_VOCAB_RCRIM_l_quade_RCRIM Obs Interp_20051028154455\".  However, this proposal was not fully implemented in the vocabulary.  The proposal recommended creation of the x_ClinicalResearchExclusion domain in ObservationInterpretation with a value set including those three concepts/codes, but there is no subdomain of that name or equivalent with a binding to either of the value sets that contain these concepts/codes.\nMembers of the OO WG have recently attempted to contact members of RCRIM regarding these concepts, both by email and at the recent WGM in Atlanta, without response.  It is felt by OO that the best course of action to take at this time is to add this comprehensive Open Issue rather than deprecate these three concepts at this time, until further discussion is held." ;
+        skos:prefLabel   "outside threshold" .
+
+v3-ObservationInterpretation:N
+        a                owl:Class ;
+        rdfs:label       "Normal" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationNormality ;
+        skos:definition  "The result or observation value is within the reference range or expected norm (as defined for the respective test procedure).\r\n\n                        [Note: Applies to numeric or non-numeric results.]" ;
+        skos:prefLabel   "Normal" .
+
+v3-ObservationInterpretation:SYN-R
+        a                owl:Class ;
+        rdfs:label       "Synergy - resistant" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:R ;
+        skos:definition  "A category for isolates where the bacteria (e.g. enterococci) are not susceptible in vitro to a combination therapy (e.g., high-level aminoglycoside and cell wall active agent).  This is predictive that this combination therapy will not be effective. \r\n\n                        \n                           Usage Note: Since the use of penicillin or ampicillin alone often results in treatment failure of serious enterococcal or other bacterial infections, combination therapy is usually indicated to enhance bactericidal activity. The synergy between a cell wall active agent (such as penicillin, ampicillin, or vancomycin) and an aminoglycoside (such as gentamicin, kanamycin or streptomycin) is best predicted by screening for high-level bacterial resistance to the aminoglycoside.\r\n\n                        \n                           Open Issue: The print name of the code is very general and the description is very specific to a pair of classes of agents, which may lead to confusion of these concepts in the future should other synergies be found." ;
+        skos:prefLabel   "Synergy - resistant" .
+
+v3-ObservationInterpretation:H
+        a                owl:Class ;
+        rdfs:label       "High" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:A ;
+        skos:definition  "The result for a quantitative observation is above the upper limit of the reference range (as defined for the respective test procedure).\r\n\n                        Synonym: Above high normal" ;
+        skos:prefLabel   "High" .
+
+v3-ObservationInterpretation:QCF
+        a                owl:Class ;
+        rdfs:label       "Quality control failure" ;
+        rdfs:subClassOf  v3-ObservationInterpretation:_ObservationInterpretationExceptions ;
+        skos:definition  "A result cannot be considered valid for the specified component / analyte or organism due to failure in the quality control testing component.\r\n\n                        \n                           \n                              Deprecation Comment: \n                           This code is being deprecated to match the status in V2 Table 0078 \"Interpretation Codes." ;
+        skos:prefLabel   "Quality control failure" .

@@ -1,0 +1,441 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix v3-ParticipationType: <http://hl7.org/fhir/v3/ParticipationType/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ParticipationType:INF
+        a                owl:Class ;
+        rdfs:label       "informant" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationInformationGenerator ;
+        skos:definition  "A source of reported information (e.g., a next of kin who answers questions about the patient's history).  For history questions, the patient is logically an informant, yet the informant of history questions is implicitly the subject." ;
+        skos:prefLabel   "informant" .
+
+v3-ParticipationType:EXPART
+        a                owl:Class ;
+        rdfs:label       "ExposureParticipation" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "Description:Direct participation in an exposure act where it is unknown that the participant is the source or subject of the exposure.  If the participant is known to be the contact of an exposure then the SBJ participation type should be used.  If the participant is known to be the source then the EXSRC participation type should be used." ;
+        skos:prefLabel   "ExposureParticipation" .
+
+v3-ParticipationType:RML
+        a                owl:Class ;
+        rdfs:label       "remote" ;
+        rdfs:subClassOf  v3-ParticipationType:LOC ;
+        skos:definition  "Some services take place at multiple concurrent locations (e.g., telemedicine, telephone consultation).  The location where the principal performing actor is located is taken as the primary location (LOC) while the other location(s) are considered \"remote.\"" ;
+        skos:prefLabel   "remote" .
+
+v3-ParticipationType:RESP
+        a                owl:Class ;
+        rdfs:label       "responsible party" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "The person or organization that has primary responsibility for the act.  The responsible party is not necessarily present in an action, but is accountable for the action through the power to delegate, and the duty to review actions with the performing actor after the fact.  This responsibility may be ethical, legal, contractual, fiscal, or fiduciary in nature.\r\n\n                        \n                           Example: A person who is the head of a biochemical laboratory; a sponsor for a policy or government program." ;
+        skos:prefLabel   "responsible party" .
+
+v3-ParticipationType:PRCP
+        a                owl:Class ;
+        rdfs:label       "primary information recipient" ;
+        rdfs:subClassOf  v3-ParticipationType:IRCP ;
+        skos:definition  "Information recipient to whom an act statement is primarily directed. E.g., a primary care provider receiving a discharge letter from a hospitalist, a health department receiving information on a suspected case of infectious disease. Multiple of these participations may exist on the same act without requiring that recipients be ranked as primary vs. secondary." ;
+        skos:prefLabel   "primary information recipient" .
+
+v3-ParticipationType:ELOC
+        a                owl:Class ;
+        rdfs:label       "entry location" ;
+        rdfs:subClassOf  v3-ParticipationType:LOC ;
+        skos:definition  "A location where data about an Act was entered." ;
+        skos:prefLabel   "entry location" .
+
+v3-ParticipationType:_ParticipationAncillary
+        a                owl:Class ;
+        rdfs:label       "ParticipationAncillary" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "Participations related, but not primary to an act. The Referring, Admitting, and Discharging practitioners must be the same person as those authoring the ControlAct event for their respective trigger events." ;
+        skos:prefLabel   "ParticipationAncillary" .
+
+v3-ParticipationType:PPRF
+        a                owl:Class ;
+        rdfs:label       "primary performer" ;
+        rdfs:subClassOf  v3-ParticipationType:PRF ;
+        skos:definition  "The principal or primary performer of the act." ;
+        skos:prefLabel   "primary performer" .
+
+v3-ParticipationType:DIS
+        a                owl:Class ;
+        rdfs:label       "discharger" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "The practitioner who is responsible for the discharge of a patient from a patient encounter." ;
+        skos:prefLabel   "discharger" .
+
+v3-ParticipationType:RCT
+        a                owl:Class ;
+        rdfs:label       "record target" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "The record target indicates whose medical record holds the documentation of this act.  This is especially important when the subject of a service is not the patient himself." ;
+        skos:prefLabel   "record target" .
+
+v3-ParticipationType:PART
+        a                owl:Class ;
+        rdfs:label       "Participation" ;
+        skos:definition  "Indicates that the target of the participation is involved in some manner in the act, but does not qualify how." ;
+        skos:prefLabel   "Participation" .
+
+v3-ParticipationType:SPC
+        a                owl:Class ;
+        rdfs:label       "specimen" ;
+        rdfs:subClassOf  v3-ParticipationType:SBJ ;
+        skos:definition  "The subject of non-clinical (e.g. laboratory) observation services is a specimen." ;
+        skos:prefLabel   "specimen" .
+
+v3-ParticipationType:CALLBCK
+        a                owl:Class ;
+        rdfs:label       "callback contact" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "A person or organization who should be contacted for follow-up questions about the act in place of the author." ;
+        skos:prefLabel   "callback contact" .
+
+v3-ParticipationType:REFT
+        a                owl:Class ;
+        rdfs:label       "Referred to" ;
+        rdfs:subClassOf  v3-ParticipationType:IRCP ;
+        skos:definition  "The person who receives the patient" ;
+        skos:prefLabel   "Referred to" .
+
+v3-ParticipationType:GUAR
+        a                owl:Class ;
+        rdfs:label       "guarantor party" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "The target person or organization contractually recognized by the issuer as a participant who has assumed fiscal responsibility for another personaTMs financial obligations by guaranteeing to pay for amounts owed to a particular account\r\n\n                        \n                           Example:The subscriber of the patientaTMs health insurance policy signs a contract with the provider to be fiscally responsible for the patient billing account balance amount owed." ;
+        skos:prefLabel   "guarantor party" .
+
+v3-ParticipationType:PRD
+        a                owl:Class ;
+        rdfs:label       "product" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "Participant material that is brought forth (produced) in the act (e.g., specimen in a specimen collection, access or drainage in a placement service, medication package in a dispense service). It does not matter whether the material produced had existence prior to the service, or whether it is created in the service (e.g., in supply services the product is taken from a stock)." ;
+        skos:prefLabel   "product" .
+
+v3-ParticipationType:HLD
+        a                owl:Class ;
+        rdfs:label       "holder" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "Participant who posses an instrument such as a financial contract (insurance policy) usually based on some agreement with the author." ;
+        skos:prefLabel   "holder" .
+
+v3-ParticipationType:WIT
+        a                owl:Class ;
+        rdfs:label       "witness" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationInformationGenerator ;
+        skos:definition  "Only with service events.  A person witnessing the action happening without doing anything.  A witness is not necessarily aware, much less approves of anything stated in the service event.  Example for a witness is students watching an operation or an advanced directive witness." ;
+        skos:prefLabel   "witness" .
+
+v3-ParticipationType:DON
+        a                owl:Class ;
+        rdfs:label       "donor" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "In some organ transplantation services and rarely in transfusion services a donor will be a target participant in the service.  However, in most cases transplantation is decomposed in three services: explantation, transport, and implantation.  The identity of the donor (recipient) is often irrelevant for the explantation (implantation) service." ;
+        skos:prefLabel   "donor" .
+
+v3-ParticipationType:TRC
+        a                owl:Class ;
+        rdfs:label       "tracker" ;
+        rdfs:subClassOf  v3-ParticipationType:IRCP ;
+        skos:definition  "A secondary information recipient, who receives copies (e.g., a primary care provider receiving copies of results as ordered by specialist)." ;
+        skos:prefLabel   "tracker" .
+
+v3-ParticipationType:DIR
+        a                owl:Class ;
+        rdfs:label       "direct target" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "Target participant  that is substantially present in the act  and which is directly involved in the action (includes consumed material, devices, etc.)." ;
+        skos:prefLabel   "direct target" .
+
+v3-ParticipationType:BBY
+        a                owl:Class ;
+        rdfs:label       "baby" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "In an obstetric service, the baby." ;
+        skos:prefLabel   "baby" .
+
+v3-ParticipationType:IND
+        a                owl:Class ;
+        rdfs:label       "indirect target" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "Target that is not substantially present in the act and which is not directly affected by the act, but which will be a focus of the record or documentation of the act." ;
+        skos:prefLabel   "indirect target" .
+
+v3-ParticipationType:CON
+        a                owl:Class ;
+        rdfs:label       "consultant" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "An advisor participating in the service by performing evaluations and making recommendations." ;
+        skos:prefLabel   "consultant" .
+
+v3-ParticipationType:NRD
+        a                owl:Class ;
+        rdfs:label       "non-reuseable device" ;
+        rdfs:subClassOf  v3-ParticipationType:DEV ;
+        skos:definition  "A device that changes ownership due to the service, e.g., a pacemaker, a prosthesis, an insulin injection equipment (pen), etc.  Such material may need to be restocked after he service." ;
+        skos:prefLabel   "non-reuseable device" .
+
+v3-ParticipationType:_ParticipationInformationGenerator
+        a                owl:Class ;
+        rdfs:label       "ParticipationInformationGenerator" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "Parties that may or should contribute or have contributed information to the Act. Such information includes information leading to the decision to perform the Act and how to perform the Act (e.g., consultant), information that the Act itself seeks to reveal (e.g., informant of clinical history), or information about what Act was performed (e.g., informant witness)." ;
+        skos:prefLabel   "ParticipationInformationGenerator" .
+
+v3-ParticipationType:SBJ
+        a                owl:Class ;
+        rdfs:label       "subject" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "The principle target on which the action happens.\r\n\n                        \n                           Examples: The patient in physical examination, a specimen in a lab observation. May also be a patient's family member (teaching) or a device or room (cleaning, disinfecting, housekeeping). \r\n\n                        \n                           UsageNotes: Not all direct targets are subjects. Consumables and devices used as tools for an act are not subjects. However, a device may be a subject of a maintenance action." ;
+        skos:prefLabel   "subject" .
+
+v3-ParticipationType:RDV
+        a                owl:Class ;
+        rdfs:label       "reusable device" ;
+        rdfs:subClassOf  v3-ParticipationType:DEV ;
+        skos:definition  "A device that does not change ownership due to the service, i.e., a surgical instrument or tool or an endoscope.  The distinction between reuseable and non-reuseable must be made in order to know whether material must be re-stocked." ;
+        skos:prefLabel   "reusable device" .
+
+v3-ParticipationType:ESC
+        a                owl:Class ;
+        rdfs:label       "escort" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "Only with Transportation services.  A person who escorts the patient." ;
+        skos:prefLabel   "escort" .
+
+v3-ParticipationType:EXSRC
+        a                owl:Class ;
+        rdfs:label       "ExposureSource" ;
+        rdfs:subClassOf  v3-ParticipationType:EXPART ;
+        skos:definition  "Description:The entity playing the associated role is the source of exposure." ;
+        skos:prefLabel   "ExposureSource" .
+
+v3-ParticipationType:DEV
+        a                owl:Class ;
+        rdfs:label       "device" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "Participant used in performing the act without being substantially affected by the act (i.e. durable or inert with respect to that particular service).\r\n\n                        \n                           Examples: monitoring equipment, tools, but also access/drainage lines, prostheses, pace maker, etc." ;
+        skos:prefLabel   "device" .
+
+v3-ParticipationType:REFB
+        a                owl:Class ;
+        rdfs:label       "Referred By" ;
+        rdfs:subClassOf  v3-ParticipationType:IRCP ;
+        skos:definition  "A participant (e.g. provider) who has referred the subject of an act (e.g. patient).\r\n\n                        Typically, a referred by participant will provide a report (e.g. referral)." ;
+        skos:prefLabel   "Referred By" .
+
+v3-ParticipationType:DST
+        a                owl:Class ;
+        rdfs:label       "destination" ;
+        rdfs:subClassOf  v3-ParticipationType:LOC ;
+        skos:definition  "The destination for services.  May be a static building (or room therein) or a movable facility (e.g., ship)." ;
+        skos:prefLabel   "destination" .
+
+v3-ParticipationType:LA
+        a                owl:Class ;
+        rdfs:label       "legal authenticator" ;
+        rdfs:subClassOf  v3-ParticipationType:VRF ;
+        skos:definition  "A verifier who legally authenticates the accuracy of an act. An example would be a staff physician who sees a patient and dictates a note, then later signs it. Their signature constitutes a legal authentication." ;
+        skos:prefLabel   "legal authenticator" .
+
+v3-ParticipationType:CST
+        a                owl:Class ;
+        rdfs:label       "custodian" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "An entity (person, organization or device) that is in charge of maintaining the information of this act (e.g., who maintains the report or the master service catalog item, etc.)." ;
+        skos:prefLabel   "custodian" .
+
+v3-ParticipationType:DIST
+        a                owl:Class ;
+        rdfs:label       "distributor" ;
+        rdfs:subClassOf  v3-ParticipationType:PRF ;
+        skos:definition  "Distributes material used in or generated during the act." ;
+        skos:prefLabel   "distributor" .
+
+v3-ParticipationType:ATND
+        a                owl:Class ;
+        rdfs:label       "attender" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "The practitioner that has responsibility for overseeing a patient's care during a patient encounter." ;
+        skos:prefLabel   "attender" .
+
+v3-ParticipationType:TPA
+        a                owl:Class ;
+        rdfs:label       "therapeutic agent" ;
+        rdfs:subClassOf  v3-ParticipationType:CSM ;
+        skos:definition  "Something incorporated in the subject of a therapy service to achieve a physiologic effect (e.g., heal, relieve, provoke a condition, etc.) on the subject.  In an administration service the therapeutic agent is a consumable, in a preparation or dispense service, it is a product.  Thus, consumable or product must be specified in accordance with the kind of service." ;
+        skos:prefLabel   "therapeutic agent" .
+
+v3-ParticipationType:ADM
+        a                owl:Class ;
+        rdfs:label       "admitter" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "The practitioner who is responsible for admitting a patient to a patient encounter." ;
+        skos:prefLabel   "admitter" .
+
+v3-ParticipationType:IRCP
+        a                owl:Class ;
+        rdfs:label       "information recipient" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "A party, who may or should receive or who has recieved the Act or subsequent or derivative information of that Act. Information recipient is inert, i.e., independent of mood.\" Rationale: this is a generalization of a too diverse family that the definition can't be any more specific, and the concept is abstract so one of the specializations should be used." ;
+        skos:prefLabel   "information recipient" .
+
+v3-ParticipationType:CAT
+        a                owl:Class ;
+        rdfs:label       "catalyst" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "The catalyst of a chemical reaction, such as an enzyme or a platinum surface. In biochemical reactions, connects the enzyme with the molecular interaction" ;
+        skos:prefLabel   "catalyst" .
+
+v3-ParticipationType:AUT
+        a                owl:Class ;
+        rdfs:label       "author (originator)" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationInformationGenerator ;
+        skos:definition  "Definition: A party that originates the Act and therefore has responsibility for the information given in the Act and ownership of this Act.\r\n\n                        \n                           Example: the report writer, the person writing the act definition, the guideline author, the placer of an order, the EKG cart (device) creating a report etc. Every Act should have an author. Authorship is regardless of mood always actual authorship. \r\n\n                        Examples of such policies might include:\r\n\n                        \n                           \n                              The author and anyone they explicitly delegate may update the report;\r\n\n                           \n                           \n                              All administrators within the same clinic may cancel and reschedule appointments created by other administrators within that clinic;\r\n\n                           \n                        \n                        A party that is neither an author nor a party who is extended authorship maintenance rights by policy, may only amend, reverse, override, replace, or follow up in other ways on this Act, whereby the Act remains intact and is linked to another Act authored by that other party." ;
+        skos:prefLabel   "author (originator)" .
+
+v3-ParticipationType:VIA
+        a                owl:Class ;
+        rdfs:label       "via" ;
+        rdfs:subClassOf  v3-ParticipationType:LOC ;
+        skos:definition  "For services, an intermediate location that specifies a path between origin an destination." ;
+        skos:prefLabel   "via" .
+
+v3-ParticipationType:TRANS
+        a                owl:Class ;
+        rdfs:label       "Transcriber" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationInformationGenerator ;
+        skos:definition  "An entity entering the data into the originating system. The data entry entity is collected optionally for internal quality control purposes. This includes the transcriptionist for dictated text transcribed into electronic form." ;
+        skos:prefLabel   "Transcriber" .
+
+v3-ParticipationType:ENT
+        a                owl:Class ;
+        rdfs:label       "data entry person" ;
+        rdfs:subClassOf  v3-ParticipationType:TRANS ;
+        skos:definition  "A person entering the data into the originating system.  The data entry person is collected optionally for internal quality control purposes.  This includes the transcriptionist for dictated text." ;
+        skos:prefLabel   "data entry person" .
+
+v3-ParticipationType:CSM
+        a                owl:Class ;
+        rdfs:label       "consumable" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "Participant material that is taken up, diminished, altered, or disappears in the act." ;
+        skos:prefLabel   "consumable" .
+
+v3-ParticipationType:VRF
+        a                owl:Class ;
+        rdfs:label       "verifier" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "A person who verifies the correctness and appropriateness of the service (plan, order, event, etc.) and hence takes on accountability." ;
+        skos:prefLabel   "verifier" .
+
+v3-ParticipationType:REF
+        a                owl:Class ;
+        rdfs:label       "referrer" ;
+        rdfs:subClassOf  v3-ParticipationType:_ParticipationAncillary ;
+        skos:definition  "A person having referred the subject of the service to the performer (referring physician).  Typically, a referring physician will receive a report." ;
+        skos:prefLabel   "referrer" .
+
+v3-ParticipationType:
+        a                owl:Ontology ;
+        rdfs:comment     "**** MISSING DEFINITIONS ****" ;
+        rdfs:label       "v3 Code System ParticipationType" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ParticipationType/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ParticipationType(2016-11-11)" .
+
+v3-ParticipationType:ORG
+        a                owl:Class ;
+        rdfs:label       "origin" ;
+        rdfs:subClassOf  v3-ParticipationType:LOC ;
+        skos:definition  "The location of origin for services.  May be a static building (or room therein) or a movable facility (e.g., ship)." ;
+        skos:prefLabel   "origin" .
+
+v3-ParticipationType:SPRF
+        a                owl:Class ;
+        rdfs:label       "secondary performer" ;
+        rdfs:subClassOf  v3-ParticipationType:PRF ;
+        skos:definition  "A person assisting in an act through his substantial presence and involvement   This includes: assistants, technicians, associates, or whatever the job titles may be." ;
+        skos:prefLabel   "secondary performer" .
+
+v3-ParticipationType:CAGNT
+        a                owl:Class ;
+        rdfs:label       "causative agent" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "Definition: A factor, such as a microorganism, chemical substance, or form of radiation, whose presence, excessive presence, or (in deficiency diseases) relative absence is essential, in whole or in part, for the occurrence of a condition.\r\n\n                        Constraint:  The use of this participation is limited to observations." ;
+        skos:prefLabel   "causative agent" .
+
+v3-ParticipationType:RCV
+        a                owl:Class ;
+        rdfs:label       "receiver" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "The person (or organization) who receives the product of an Act." ;
+        skos:prefLabel   "receiver" .
+
+v3-ParticipationType:ALY
+        a                owl:Class ;
+        rdfs:label       "analyte" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "The target of an Observation action. Links an observation to a Role whose player is the substance or most specific component entity (material, micro-organism, etc.) being measured within the subject.\r\n\n                        \n                           Examples: A \"plasma porcelain substance concentration\" has analyte a Role with player substance Entity \"porcelain\".\r\n\n                        \n                           UsageNotes: The Role that this participation connects to may be any Role whose player is that substance measured. Very often, the scoper may indicate the system in which the component is being measured. E.g., for \"plasma porcelain\" the scoper could be \"Plasma\"." ;
+        skos:prefLabel   "analyte" .
+
+v3-ParticipationType:EXPTRGT
+        a                owl:Class ;
+        rdfs:label       "ExposureTarget" ;
+        rdfs:subClassOf  v3-ParticipationType:EXPART ;
+        skos:definition  "Description: The entity playing the associated role is the target (contact) of exposure." ;
+        skos:prefLabel   "ExposureTarget" .
+
+v3-ParticipationType:NOT
+        a                owl:Class ;
+        rdfs:label       "ugent notification contact" ;
+        rdfs:subClassOf  v3-ParticipationType:IRCP ;
+        skos:definition  "An information recipient to notify for urgent matters about this Act. (e.g., in a laboratory order, critical results are being called by phone right away, this is the contact to call; or for an inpatient encounter, a next of kin to notify when the patient becomes critically ill)." ;
+        skos:prefLabel   "ugent notification contact" .
+
+v3-ParticipationType:BEN
+        a                owl:Class ;
+        rdfs:label       "beneficiary" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "Target on behalf of whom the service happens, but that is not necessarily present in the service.  Can occur together with direct target to indicate that a target is both, as in the case where the patient is the indirect beneficiary of a service rendered to a family member, e.g. counseling or given home care instructions.  This concept includes a participant, such as a covered party, who derives benefits from a service act covered by a coverage act.\r\n\n                        Note that the semantic role of the intended recipient who benefits from the happening denoted by the verb in the clause.  Thus, a patient who has no coverage under a policy or program may be a beneficiary of a health service while not being the beneficiary of coverage for that service." ;
+        skos:prefLabel   "beneficiary" .
+
+v3-ParticipationType:PRF
+        a                owl:Class ;
+        rdfs:label       "performer" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "Definition: A person, non-person living subject, organization or device that who actually and principally carries out the action. Device should only be assigned as a performer in circumstances where the device is performing independent of human intervention.  Need not be the principal responsible actor.\r\n\n                        \n                           Exampe: A surgery resident operating under supervision of attending surgeon, a search and rescue dog locating survivors, an electronic laboratory analyzer or the laboratory discipline requested to perform a laboratory test. The performer may also be the patient in self-care, e.g. fingerstick blood sugar. The traditional order filler is a performer. This information should accompany every service event.\r\n\n                        \n                           Note: that existing HL7 designs assign an organization as the playing entity of the Role that is the performer.  These designs should be revised in subsequent releases to make this the scooping entity for the role involved." ;
+        skos:prefLabel   "performer" .
+
+v3-ParticipationType:AUTHEN
+        a                owl:Class ;
+        rdfs:label       "authenticator" ;
+        rdfs:subClassOf  v3-ParticipationType:VRF ;
+        skos:definition  "A verifier who attests to the accuracy of an act, but who does not have privileges to legally authenticate the act. An example would be a resident physician who sees a patient and dictates a note, then later signs it. Their signature constitutes an authentication." ;
+        skos:prefLabel   "authenticator" .
+
+v3-ParticipationType:COV
+        a                owl:Class ;
+        rdfs:label       "coverage target" ;
+        rdfs:subClassOf  v3-ParticipationType:IND ;
+        skos:definition  "The target participation for an individual in a health care coverage act in which the target role is either the policy holder of the coverage, or a covered party under the coverage." ;
+        skos:prefLabel   "coverage target" .
+
+v3-ParticipationType:EXPAGNT
+        a                owl:Class ;
+        rdfs:label       "ExposureAgent" ;
+        rdfs:subClassOf  v3-ParticipationType:DIR ;
+        skos:definition  "Description: The entity playing the associated role is the physical (including energy), chemical or biological substance that is participating in the exposure.  For example in communicable diseases, the associated playing entity is the disease causing pathogen." ;
+        skos:prefLabel   "ExposureAgent" .
+
+v3-ParticipationType:LOC
+        a                owl:Class ;
+        rdfs:label       "location" ;
+        rdfs:subClassOf  v3-ParticipationType:PART ;
+        skos:definition  "The facility where the service is done.  May be a static building (or room therein) or a moving location (e.g., ambulance, helicopter, aircraft, train, truck, ship, etc.)" ;
+        skos:prefLabel   "location" .

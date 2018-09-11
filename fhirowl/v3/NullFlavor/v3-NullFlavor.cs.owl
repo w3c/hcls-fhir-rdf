@@ -1,0 +1,114 @@
+@prefix v3-NullFlavor: <http://hl7.org/fhir/v3/NullFlavor/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-NullFlavor:NAV  a     owl:Class ;
+        rdfs:label       "temporarily unavailable" ;
+        rdfs:subClassOf  v3-NullFlavor:ASKU ;
+        skos:definition  "Information is not available at this time but it is expected that it will be available later." ;
+        skos:prefLabel   "temporarily unavailable" .
+
+v3-NullFlavor:MSK  a     owl:Class ;
+        rdfs:label       "masked" ;
+        rdfs:subClassOf  v3-NullFlavor:NI ;
+        skos:definition  "There is information on this item available but it has not been provided by the sender due to security, privacy or other reasons. There may be an alternate mechanism for gaining access to this information.\r\n\n                        Note: using this null flavor does provide information that may be a breach of confidentiality, even though no detail data is provided.  Its primary purpose is for those circumstances where it is necessary to inform the receiver that the information does exist without providing any detail." ;
+        skos:prefLabel   "masked" .
+
+v3-NullFlavor:OTH  a     owl:Class ;
+        rdfs:label       "other" ;
+        rdfs:subClassOf  v3-NullFlavor:INV ;
+        skos:definition  "Description:The actual value is not a member of the set of permitted data values in the constrained value domain of a variable. (e.g., concept not provided by required code system).\r\n\n                        \n                           Usage Notes: This flavor and its specializations are most commonly used with the CD datatype and its flavors.  However, it may apply to *any* datatype where the constraints of the type are tighter than can be conveyed.  For example, a PQ that is for a true measured amount whose units are not supported in UCUM, a need to convey a REAL when the type has been constrained to INT, etc.\r\n\n                        With coded datatypes, this null flavor may only be used if the vocabulary binding has a coding strength of CNE.  By definition, all local codes and original text are part of the value set if the coding strength is CWE." ;
+        skos:prefLabel   "other" .
+
+v3-NullFlavor:NASK  a    owl:Class ;
+        rdfs:label       "not asked" ;
+        rdfs:subClassOf  v3-NullFlavor:UNK ;
+        skos:definition  "This information has not been sought (e.g., patient was not asked)" ;
+        skos:prefLabel   "not asked" .
+
+v3-NullFlavor:NAVU  a    owl:Class ;
+        rdfs:label       "Not available" ;
+        rdfs:subClassOf  v3-NullFlavor:UNK ;
+        skos:definition  "Information is not available at this time (with no expectation regarding whether it will or will not be available in the future)." ;
+        skos:prefLabel   "Not available" .
+
+v3-NullFlavor:ASKU  a    owl:Class ;
+        rdfs:label       "asked but unknown" ;
+        rdfs:subClassOf  v3-NullFlavor:UNK ;
+        skos:definition  "Information was sought but not found (e.g., patient was asked but didn't know)" ;
+        skos:prefLabel   "asked but unknown" .
+
+v3-NullFlavor:INV  a     owl:Class ;
+        rdfs:label       "invalid" ;
+        rdfs:subClassOf  v3-NullFlavor:NI ;
+        skos:definition  "Description:The value as represented in the instance is not a member of the set of permitted data values in the constrained value domain of a variable." ;
+        skos:prefLabel   "invalid" .
+
+v3-NullFlavor:NP  a      owl:Class ;
+        rdfs:label       "not present" ;
+        skos:definition  "Value is not present in a message.  This is only defined in messages, never in application data!  All values not present in the message must be replaced by the applicable default, or no-information (NI) as the default of all defaults." ;
+        skos:prefLabel   "not present" .
+
+v3-NullFlavor:  a        owl:Ontology ;
+        rdfs:comment     " A collection of codes specifying why a valid value is not present." ;
+        rdfs:label       "v3 Code System NullFlavor" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/NullFlavor/2016-11-11" ;
+        owl:versionInfo  "v3 Code System NullFlavor(2016-11-11)" .
+
+v3-NullFlavor:NINF  a    owl:Class ;
+        rdfs:label       "negative infinity" ;
+        rdfs:subClassOf  v3-NullFlavor:OTH ;
+        skos:definition  "Negative infinity of numbers." ;
+        skos:prefLabel   "negative infinity" .
+
+v3-NullFlavor:UNK  a     owl:Class ;
+        rdfs:label       "unknown" ;
+        rdfs:subClassOf  v3-NullFlavor:NI ;
+        skos:definition  "Description:A proper value is applicable, but not known.\r\n\n                        \n                           Usage Notes: This means the actual value is not known.  If the only thing that is unknown is how to properly express the value in the necessary constraints (value set, datatype, etc.), then the OTH or UNC flavor should be used.  No properties should be included for a datatype with this property unless:\r\n\n                        \n                           Those properties themselves directly translate to a semantic of \"unknown\".  (E.g. a local code sent as a translation that conveys 'unknown')\n                           Those properties further qualify the nature of what is unknown.  (E.g. specifying a use code of \"H\" and a URL prefix of \"tel:\" to convey that it is the home phone number that is unknown.)" ;
+        skos:prefLabel   "unknown" .
+
+v3-NullFlavor:TRC  a     owl:Class ;
+        rdfs:label       "trace" ;
+        rdfs:subClassOf  v3-NullFlavor:UNK ;
+        skos:definition  "The content is greater than zero, but too small to be quantified." ;
+        skos:prefLabel   "trace" .
+
+v3-NullFlavor:NI  a      owl:Class ;
+        rdfs:label       "NoInformation" ;
+        skos:definition  "Description:The value is exceptional (missing, omitted, incomplete, improper). No information as to the reason for being an exceptional value is provided. This is the most general exceptional value. It is also the default exceptional value." ;
+        skos:prefLabel   "NoInformation" .
+
+v3-NullFlavor:QS  a      owl:Class ;
+        rdfs:label       "Sufficient Quantity" ;
+        rdfs:subClassOf  v3-NullFlavor:UNK ;
+        skos:definition  "Description:The specific quantity is not known, but is known to be non-zero and is not specified because it makes up the bulk of the material. e.g. 'Add 10mg of ingredient X, 50mg of ingredient Y, and sufficient quantity of water to 100mL.' The null flavor would be used to express the quantity of water." ;
+        skos:prefLabel   "Sufficient Quantity" .
+
+v3-NullFlavor:DER  a     owl:Class ;
+        rdfs:label       "derived" ;
+        rdfs:subClassOf  v3-NullFlavor:INV ;
+        skos:definition  "Description:An actual value may exist, but it must be derived from the provided information (usually an EXPR generic data type extension will be used to convey the derivation expressionexpression ." ;
+        skos:prefLabel   "derived" .
+
+v3-NullFlavor:UNC  a     owl:Class ;
+        rdfs:label       "un-encoded" ;
+        rdfs:subClassOf  v3-NullFlavor:INV ;
+        skos:definition  "Description: The actual value has not yet been encoded within the approved value domain.\r\n\n                        \n                           Example: Original text or a local code has been specified but translation or encoding to the approved value set has not yet occurred due to limitations of the sending system.  Original text has been captured for a PQ, but not attempt has been made to split the value and unit or to encode the unit in UCUM.\r\n\n                        \n                           Usage Notes: If it is known that it is not possible to encode the concept, OTH should be used instead.  However, use of UNC does not necessarily guarantee the concept will be encodable, only that encoding has not been attempted.\r\n\n                        Data type properties such as original text and translations may be present when this null flavor is included." ;
+        skos:prefLabel   "un-encoded" .
+
+v3-NullFlavor:PINF  a    owl:Class ;
+        rdfs:label       "positive infinity" ;
+        rdfs:subClassOf  v3-NullFlavor:OTH ;
+        skos:definition  "Positive infinity of numbers." ;
+        skos:prefLabel   "positive infinity" .
+
+v3-NullFlavor:NA  a      owl:Class ;
+        rdfs:label       "not applicable" ;
+        rdfs:subClassOf  v3-NullFlavor:NI ;
+        skos:definition  "Known to have no proper value (e.g., last menstrual period for a male)." ;
+        skos:prefLabel   "not applicable" .

@@ -1,0 +1,54 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix event-status: <http://hl7.org/fhir/event-status/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+event-status:entered-in-error
+        a                owl:Class ;
+        rdfs:label       "Entered in Error" ;
+        skos:definition  "This electronic record should never have existed, though it is possible that real-world decisions were based on it.  (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".)" ;
+        skos:prefLabel   "Entered in Error" .
+
+event-status:  a         owl:Ontology ;
+        rdfs:comment     "Codes identifying the stage lifecycle stage of a event" ;
+        rdfs:label       "EventStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/event-status/3.1.0" ;
+        owl:versionInfo  "EventStatus(3.1.0)" .
+
+event-status:aborted  a  owl:Class ;
+        rdfs:label       "Aborted" ;
+        skos:definition  "The event was  prior to the full completion of the intended actions" ;
+        skos:prefLabel   "Aborted" .
+
+event-status:preparation
+        a                owl:Class ;
+        rdfs:label       "Preparation" ;
+        skos:definition  "The core event has not started yet, but some staging activities have begun (e.g. surgical suite preparation).  Preparation stages may be tracked for billing purposes." ;
+        skos:prefLabel   "Preparation" .
+
+event-status:in-progress
+        a                owl:Class ;
+        rdfs:label       "In Progress" ;
+        skos:definition  "The event is currently occurring" ;
+        skos:prefLabel   "In Progress" .
+
+event-status:completed
+        a                owl:Class ;
+        rdfs:label       "Completed" ;
+        skos:definition  "The event has now concluded" ;
+        skos:prefLabel   "Completed" .
+
+event-status:suspended
+        a                owl:Class ;
+        rdfs:label       "Suspended" ;
+        skos:definition  "The event has been temporarily stopped but is expected to resume in the future" ;
+        skos:prefLabel   "Suspended" .
+
+event-status:unknown  a  owl:Class ;
+        rdfs:label       "Unknown" ;
+        skos:definition  "The authoring system does not know which of the status values currently applies for this request.  Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one." ;
+        skos:prefLabel   "Unknown" .

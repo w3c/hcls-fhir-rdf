@@ -1,0 +1,104 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix map-transform: <http://hl7.org/fhir/map-transform/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+map-transform:cast  a    owl:Class ;
+        rdfs:label       "cast" ;
+        skos:definition  "cast(source, type?) - case source from one type to another. target type can be left as implicit if there is one and only one target type known" ;
+        skos:prefLabel   "cast" .
+
+map-transform:create  a  owl:Class ;
+        rdfs:label       "create" ;
+        skos:definition  "create(type : string) - type is passed through to the application on the standard API, and must be known by it" ;
+        skos:prefLabel   "create" .
+
+map-transform:  a        owl:Ontology ;
+        rdfs:comment     "How data is copied/created" ;
+        rdfs:label       "StructureMapTransform" ;
+        owl:versionIRI   "http://hl7.org/fhir/map-transform/3.1.0" ;
+        owl:versionInfo  "StructureMapTransform(3.1.0)" .
+
+map-transform:cp  a      owl:Class ;
+        rdfs:label       "cp" ;
+        skos:definition  "Create a contact details. Parameters = (value) or (system, value). If no system is provided, the system should be inferred from the content of the value" ;
+        skos:prefLabel   "cp" .
+
+map-transform:pointer
+        a                owl:Class ;
+        rdfs:label       "pointer" ;
+        skos:definition  "Return the appropriate string to put in a reference that refers to the resource provided as a parameter" ;
+        skos:prefLabel   "pointer" .
+
+map-transform:cc  a      owl:Class ;
+        rdfs:label       "cc" ;
+        skos:definition  "Create a CodeableConcept. Parameters = (text) or (system. Code[, display])" ;
+        skos:prefLabel   "cc" .
+
+map-transform:reference
+        a                owl:Class ;
+        rdfs:label       "reference" ;
+        skos:definition  "reference(source : object) - return a string that references the provided tree properly" ;
+        skos:prefLabel   "reference" .
+
+map-transform:escape  a  owl:Class ;
+        rdfs:label       "escape" ;
+        skos:definition  "escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java, xml, json). note that this is for when the string itself is escaped" ;
+        skos:prefLabel   "escape" .
+
+map-transform:copy  a    owl:Class ;
+        rdfs:label       "copy" ;
+        skos:definition  "copy(source)" ;
+        skos:prefLabel   "copy" .
+
+map-transform:c  a       owl:Class ;
+        rdfs:label       "c" ;
+        skos:definition  "Create a Coding. Parameters = (system. Code[, display])" ;
+        skos:prefLabel   "c" .
+
+map-transform:id  a      owl:Class ;
+        rdfs:label       "id" ;
+        skos:definition  "Create an identifier. Parameters = (system, value[, type]) where type is a code from the identifier type value set" ;
+        skos:prefLabel   "id" .
+
+map-transform:evaluate
+        a                owl:Class ;
+        rdfs:label       "evaluate" ;
+        skos:definition  "Execute the supplied fluentpath expression and use the value returned by that" ;
+        skos:prefLabel   "evaluate" .
+
+map-transform:qty  a     owl:Class ;
+        rdfs:label       "qty" ;
+        skos:definition  "Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the natural representation e.g. [comparator]value[space]unit" ;
+        skos:prefLabel   "qty" .
+
+map-transform:truncate
+        a                owl:Class ;
+        rdfs:label       "truncate" ;
+        skos:definition  "truncate(source, length) - source must be stringy type" ;
+        skos:prefLabel   "truncate" .
+
+map-transform:translate
+        a                owl:Class ;
+        rdfs:label       "translate" ;
+        skos:definition  "translate(source, uri_of_map) - use the translate operation" ;
+        skos:prefLabel   "translate" .
+
+map-transform:dateOp  a  owl:Class ;
+        rdfs:label       "dateOp" ;
+        skos:definition  "Perform a date operation. *Parameters to be documented*" ;
+        skos:prefLabel   "dateOp" .
+
+map-transform:append  a  owl:Class ;
+        rdfs:label       "append" ;
+        skos:definition  "append(source...) - source is element or string" ;
+        skos:prefLabel   "append" .
+
+map-transform:uuid  a    owl:Class ;
+        rdfs:label       "uuid" ;
+        skos:definition  "Generate a random UUID (in lowercase). No Parameters" ;
+        skos:prefLabel   "uuid" .

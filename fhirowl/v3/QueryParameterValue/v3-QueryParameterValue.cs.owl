@@ -1,0 +1,123 @@
+@prefix v3-QueryParameterValue: <http://hl7.org/fhir/v3/QueryParameterValue/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-QueryParameterValue:_DispenseQueryFilterCode
+        a                owl:Class ;
+        rdfs:label       "dispense query filter code" ;
+        skos:definition  "Description:Filter codes used to manage volume of dispenses returned by  a parameter-based queries." ;
+        skos:prefLabel   "dispense query filter code" .
+
+v3-QueryParameterValue:_PrescriptionDispenseFilterCode
+        a                owl:Class ;
+        rdfs:label       "Prescription Dispense Filter Code" ;
+        skos:definition  "A \"helper\" vocabulary used to construct complex query filters based on how and whether a prescription has been dispensed." ;
+        skos:prefLabel   "Prescription Dispense Filter Code" .
+
+v3-QueryParameterValue:NODISP
+        a                owl:Class ;
+        rdfs:label       "no dispense" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_DispenseQueryFilterCode ;
+        skos:definition  "Description:Returns no dispense for a prescription." ;
+        skos:prefLabel   "no dispense" .
+
+v3-QueryParameterValue:_QueryParameterValue
+        a                owl:Class ;
+        rdfs:label       "QueryParameterValue" ;
+        skos:definition  "Description:Indicates how result sets should be filtered based on whether they have associated issues." ;
+        skos:prefLabel   "QueryParameterValue" .
+
+v3-QueryParameterValue:ISSFA
+        a                owl:Class ;
+        rdfs:label       "all" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_QueryParameterValue ;
+        skos:definition  "Description:Result set should not be filtered based on the presence of issues." ;
+        skos:prefLabel   "all" .
+
+v3-QueryParameterValue:ISSFU
+        a                owl:Class ;
+        rdfs:label       "with unmanaged issues" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_QueryParameterValue ;
+        skos:definition  "Description:Result set should be filtered to only include records with associated unmanaged issues." ;
+        skos:prefLabel   "with unmanaged issues" .
+
+v3-QueryParameterValue:ISSFI
+        a                owl:Class ;
+        rdfs:label       "with issues" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_QueryParameterValue ;
+        skos:definition  "Description:Result set should be filtered to only include records with associated issues." ;
+        skos:prefLabel   "with issues" .
+
+v3-QueryParameterValue:C
+        a                owl:Class ;
+        rdfs:label       "Completely dispensed" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_PrescriptionDispenseFilterCode ;
+        skos:definition  "Filter to only include SubstanceAdministration orders which have no remaining quantity authorized to be dispensed." ;
+        skos:prefLabel   "Completely dispensed" .
+
+v3-QueryParameterValue:LASTDISP
+        a                owl:Class ;
+        rdfs:label       "last dispense" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_DispenseQueryFilterCode ;
+        skos:definition  "Description:Returns the most recent dispense for a prescription." ;
+        skos:prefLabel   "last dispense" .
+
+v3-QueryParameterValue:R
+        a                owl:Class ;
+        rdfs:label       "Dispensed with remaining fills" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_PrescriptionDispenseFilterCode ;
+        skos:definition  "Filter to only include SubstanceAdministration orders which have had at least one fulfilling supply event, but which still have outstanding quantity remaining to be authorized." ;
+        skos:prefLabel   "Dispensed with remaining fills" .
+
+v3-QueryParameterValue:ONR
+        a                owl:Class ;
+        rdfs:label       "orders without results" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_OrderFilterCode ;
+        skos:definition  "Return only those orders that do not have results." ;
+        skos:prefLabel   "orders without results" .
+
+v3-QueryParameterValue:OWR
+        a                owl:Class ;
+        rdfs:label       "orders with results" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_OrderFilterCode ;
+        skos:definition  "Return only those orders that have results." ;
+        skos:prefLabel   "orders with results" .
+
+v3-QueryParameterValue:AO
+        a                owl:Class ;
+        rdfs:label       "all orders" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_OrderFilterCode ;
+        skos:definition  "Return all orders." ;
+        skos:prefLabel   "all orders" .
+
+v3-QueryParameterValue:_OrderFilterCode
+        a                owl:Class ;
+        rdfs:label       "_OrderFilterCode" ;
+        skos:definition  "Filter codes used to manage types of orders being returned by a parameter-based query." ;
+        skos:prefLabel   "_OrderFilterCode" .
+
+v3-QueryParameterValue:ALLDISP
+        a                owl:Class ;
+        rdfs:label       "all dispenses" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_DispenseQueryFilterCode ;
+        skos:definition  "Description:Returns all dispenses to date for a prescription." ;
+        skos:prefLabel   "all dispenses" .
+
+v3-QueryParameterValue:
+        a                owl:Ontology ;
+        rdfs:comment     " The domain of coded values used as parameters within QueryByParameter queries." ;
+        rdfs:label       "v3 Code System QueryParameterValue" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/QueryParameterValue/2016-11-11" ;
+        owl:versionInfo  "v3 Code System QueryParameterValue(2016-11-11)" .
+
+v3-QueryParameterValue:N
+        a                owl:Class ;
+        rdfs:label       "Never Dispensed" ;
+        rdfs:subClassOf  v3-QueryParameterValue:_PrescriptionDispenseFilterCode ;
+        skos:definition  "Filter to only include SubstanceAdministration orders which have no fulfilling supply events performed." ;
+        skos:prefLabel   "Never Dispensed" .

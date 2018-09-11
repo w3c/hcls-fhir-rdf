@@ -1,0 +1,192 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix issue-type: <http://hl7.org/fhir/issue-type/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+issue-type:suppressed
+        a                owl:Class ;
+        rdfs:label       "Information  Suppressed" ;
+        rdfs:subClassOf  issue-type:security ;
+        skos:definition  "Some information was not or may not have been returned due to business rules, consent or privacy rules, or access permission constraints.  This information may be accessible through alternate processes." ;
+        skos:prefLabel   "Information  Suppressed" .
+
+issue-type:security  a   owl:Class ;
+        rdfs:label       "Security Problem" ;
+        skos:definition  "An authentication/authorization/permissions issue of some kind." ;
+        skos:prefLabel   "Security Problem" .
+
+issue-type:timeout  a    owl:Class ;
+        rdfs:label       "Timeout" ;
+        rdfs:subClassOf  issue-type:transient ;
+        skos:definition  "An internal timeout has occurred." ;
+        skos:prefLabel   "Timeout" .
+
+issue-type:processing
+        a                owl:Class ;
+        rdfs:label       "Processing Failure" ;
+        skos:definition  "Processing issues. These are expected to be final e.g. there is no point resubmitting the same content unchanged." ;
+        skos:prefLabel   "Processing Failure" .
+
+issue-type:business-rule
+        a                owl:Class ;
+        rdfs:label       "Business Rule Violation" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "The content/operation failed to pass some business rule, and so could not proceed." ;
+        skos:prefLabel   "Business Rule Violation" .
+
+issue-type:too-costly
+        a                owl:Class ;
+        rdfs:label       "Operation Too Costly" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "The operation was stopped to protect server resources; e.g. a request for a value set expansion on all of SNOMED CT." ;
+        skos:prefLabel   "Operation Too Costly" .
+
+issue-type:login  a      owl:Class ;
+        rdfs:label       "Login Required" ;
+        rdfs:subClassOf  issue-type:security ;
+        skos:definition  "The client needs to initiate an authentication process." ;
+        skos:prefLabel   "Login Required" .
+
+issue-type:lock-error
+        a                owl:Class ;
+        rdfs:label       "Lock Error" ;
+        rdfs:subClassOf  issue-type:transient ;
+        skos:definition  "A resource/record locking failure (usually in an underlying database)." ;
+        skos:prefLabel   "Lock Error" .
+
+issue-type:expired  a    owl:Class ;
+        rdfs:label       "Session Expired" ;
+        rdfs:subClassOf  issue-type:security ;
+        skos:definition  "User session expired; a login may be required." ;
+        skos:prefLabel   "Session Expired" .
+
+issue-type:not-found  a  owl:Class ;
+        rdfs:label       "Not Found" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "The reference provided was not found. In a pure RESTful environment, this would be an HTTP 404 error, but this code may be used where the content is not found further into the application architecture." ;
+        skos:prefLabel   "Not Found" .
+
+issue-type:too-long  a   owl:Class ;
+        rdfs:label       "Content Too Long" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "Provided content is too long (typically, this is a denial of service protection type of error)." ;
+        skos:prefLabel   "Content Too Long" .
+
+issue-type:not-supported
+        a                owl:Class ;
+        rdfs:label       "Content not supported" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "The resource or profile is not supported." ;
+        skos:prefLabel   "Content not supported" .
+
+issue-type:exception  a  owl:Class ;
+        rdfs:label       "Exception" ;
+        rdfs:subClassOf  issue-type:transient ;
+        skos:definition  "An unexpected internal error has occurred." ;
+        skos:prefLabel   "Exception" .
+
+issue-type:duplicate  a  owl:Class ;
+        rdfs:label       "Duplicate" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "An attempt was made to create a duplicate record." ;
+        skos:prefLabel   "Duplicate" .
+
+issue-type:no-store  a   owl:Class ;
+        rdfs:label       "No Store Available" ;
+        rdfs:subClassOf  issue-type:transient ;
+        skos:definition  "The persistent store is unavailable; e.g. the database is down for maintenance or similar action." ;
+        skos:prefLabel   "No Store Available" .
+
+issue-type:invalid  a    owl:Class ;
+        rdfs:label       "Invalid Content" ;
+        skos:definition  "Content invalid against the specification or a profile." ;
+        skos:prefLabel   "Invalid Content" .
+
+issue-type:invariant  a  owl:Class ;
+        rdfs:label       "Validation rule failed" ;
+        rdfs:subClassOf  issue-type:invalid ;
+        skos:definition  "A content validation rule failed - e.g. a schematron rule." ;
+        skos:prefLabel   "Validation rule failed" .
+
+issue-type:informational
+        a                owl:Class ;
+        rdfs:label       "Informational Note" ;
+        skos:definition  "A message unrelated to the processing success of the completed operation (examples of the latter include things like reminders of password expiry, system maintenance times, etc.)." ;
+        skos:prefLabel   "Informational Note" .
+
+issue-type:unknown  a    owl:Class ;
+        rdfs:label       "Unknown User" ;
+        rdfs:subClassOf  issue-type:security ;
+        skos:definition  "The user or system was not able to be authenticated (either there is no process, or the proferred token is unacceptable)." ;
+        skos:prefLabel   "Unknown User" .
+
+issue-type:incomplete
+        a                owl:Class ;
+        rdfs:label       "Incomplete Results" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "Not all data sources typically accessed could be reached, or responded in time, so the returned information may not be complete." ;
+        skos:prefLabel   "Incomplete Results" .
+
+issue-type:value  a      owl:Class ;
+        rdfs:label       "Element value invalid" ;
+        rdfs:subClassOf  issue-type:invalid ;
+        skos:definition  "An element value is invalid." ;
+        skos:prefLabel   "Element value invalid" .
+
+issue-type:throttled  a  owl:Class ;
+        rdfs:label       "Throttled" ;
+        rdfs:subClassOf  issue-type:transient ;
+        skos:definition  "The system is not prepared to handle this request due to load management." ;
+        skos:prefLabel   "Throttled" .
+
+issue-type:forbidden  a  owl:Class ;
+        rdfs:label       "Forbidden" ;
+        rdfs:subClassOf  issue-type:security ;
+        skos:definition  "The user does not have the rights to perform this action." ;
+        skos:prefLabel   "Forbidden" .
+
+issue-type:structure  a  owl:Class ;
+        rdfs:label       "Structural Issue" ;
+        rdfs:subClassOf  issue-type:invalid ;
+        skos:definition  "A structural issue in the content such as wrong namespace, or unable to parse the content completely, or invalid json syntax." ;
+        skos:prefLabel   "Structural Issue" .
+
+issue-type:  a           owl:Ontology ;
+        rdfs:comment     "A code that describes the type of issue." ;
+        rdfs:label       "IssueType" ;
+        owl:versionIRI   "http://hl7.org/fhir/issue-type/3.1.0" ;
+        owl:versionInfo  "IssueType(3.1.0)" .
+
+issue-type:required  a   owl:Class ;
+        rdfs:label       "Required element missing" ;
+        rdfs:subClassOf  issue-type:invalid ;
+        skos:definition  "A required element is missing." ;
+        skos:prefLabel   "Required element missing" .
+
+issue-type:transient  a  owl:Class ;
+        rdfs:label       "Transient Issue" ;
+        skos:definition  "Transient processing issues. The system receiving the error may be able to resubmit the same content once an underlying issue is resolved." ;
+        skos:prefLabel   "Transient Issue" .
+
+issue-type:code-invalid
+        a                owl:Class ;
+        rdfs:label       "Invalid Code" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "The code or system could not be understood, or it was not valid in the context of a particular ValueSet.code." ;
+        skos:prefLabel   "Invalid Code" .
+
+issue-type:conflict  a   owl:Class ;
+        rdfs:label       "Edit Version Conflict" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "Content could not be accepted because of an edit conflict (i.e. version aware updates) (In a pure RESTful environment, this would be an HTTP 404 error, but this code may be used where the conflict is discovered further into the application architecture.)" ;
+        skos:prefLabel   "Edit Version Conflict" .
+
+issue-type:extension  a  owl:Class ;
+        rdfs:label       "Unacceptable Extension" ;
+        rdfs:subClassOf  issue-type:processing ;
+        skos:definition  "An extension was found that was not acceptable, could not be resolved, or a modifierExtension was not recognized." ;
+        skos:prefLabel   "Unacceptable Extension" .

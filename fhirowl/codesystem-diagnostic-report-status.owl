@@ -1,0 +1,78 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix diagnostic-report-status: <http://hl7.org/fhir/diagnostic-report-status/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+diagnostic-report-status:partial
+        a                owl:Class ;
+        rdfs:label       "Partial" ;
+        skos:definition  "This is a partial (e.g. initial, interim or preliminary) report: data in the report may be incomplete or unverified." ;
+        skos:prefLabel   "Partial" .
+
+diagnostic-report-status:cancelled
+        a                owl:Class ;
+        rdfs:label       "Cancelled" ;
+        skos:definition  "The report is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\")." ;
+        skos:prefLabel   "Cancelled" .
+
+diagnostic-report-status:
+        a                owl:Ontology ;
+        rdfs:comment     "The status of the diagnostic report as a whole." ;
+        rdfs:label       "DiagnosticReportStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/diagnostic-report-status/3.1.0" ;
+        owl:versionInfo  "DiagnosticReportStatus(3.1.0)" .
+
+diagnostic-report-status:registered
+        a                owl:Class ;
+        rdfs:label       "Registered" ;
+        skos:definition  "The existence of the report is registered, but there is nothing yet available." ;
+        skos:prefLabel   "Registered" .
+
+diagnostic-report-status:appended
+        a                owl:Class ;
+        rdfs:label       "Appended" ;
+        rdfs:subClassOf  diagnostic-report-status:amended ;
+        skos:definition  "Subsequent to being final, the report has been modified by adding new content. The existing content is unchanged." ;
+        skos:prefLabel   "Appended" .
+
+diagnostic-report-status:amended
+        a                owl:Class ;
+        rdfs:label       "Amended" ;
+        skos:definition  "Subsequent to being final, the report has been modified.  This includes any change in the results, diagnosis, narrative text, or other content of a report that has been issued." ;
+        skos:prefLabel   "Amended" .
+
+diagnostic-report-status:preliminary
+        a                owl:Class ;
+        rdfs:label       "Preliminary" ;
+        rdfs:subClassOf  diagnostic-report-status:partial ;
+        skos:definition  "Verified early results are available, but not all  results are final." ;
+        skos:prefLabel   "Preliminary" .
+
+diagnostic-report-status:corrected
+        a                owl:Class ;
+        rdfs:label       "Corrected" ;
+        rdfs:subClassOf  diagnostic-report-status:amended ;
+        skos:definition  "Subsequent to being final, the report has been modified  to correct an error in the report or referenced results." ;
+        skos:prefLabel   "Corrected" .
+
+diagnostic-report-status:final
+        a                owl:Class ;
+        rdfs:label       "Final" ;
+        skos:definition  "The report is complete and verified by an authorized person." ;
+        skos:prefLabel   "Final" .
+
+diagnostic-report-status:unknown
+        a                owl:Class ;
+        rdfs:label       "Unknown" ;
+        skos:definition  "The authoring system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, it's just not known which one." ;
+        skos:prefLabel   "Unknown" .
+
+diagnostic-report-status:entered-in-error
+        a                owl:Class ;
+        rdfs:label       "Entered in Error" ;
+        skos:definition  "The report has been withdrawn following a previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".)" ;
+        skos:prefLabel   "Entered in Error" .

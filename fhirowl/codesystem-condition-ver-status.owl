@@ -1,0 +1,59 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix condition-ver-status: <http://hl7.org/fhir/condition-ver-status/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+condition-ver-status:refuted
+        a                owl:Class ;
+        rdfs:label       "Refuted" ;
+        skos:definition  "This condition has been ruled out by diagnostic and clinical evidence." ;
+        skos:prefLabel   "Refuted" .
+
+condition-ver-status:unconfirmed
+        a                owl:Class ;
+        rdfs:label       "Unconfirmed" ;
+        skos:definition  "There is not sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition." ;
+        skos:prefLabel   "Unconfirmed" .
+
+condition-ver-status:differential
+        a                owl:Class ;
+        rdfs:label       "Differential" ;
+        rdfs:subClassOf  condition-ver-status:unconfirmed ;
+        skos:definition  "One of a set of potential (and typically mutually exclusive) diagnoses asserted to further guide the diagnostic process and preliminary treatment." ;
+        skos:prefLabel   "Differential" .
+
+condition-ver-status:confirmed
+        a                owl:Class ;
+        rdfs:label       "Confirmed" ;
+        skos:definition  "There is sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition." ;
+        skos:prefLabel   "Confirmed" .
+
+condition-ver-status:provisional
+        a                owl:Class ;
+        rdfs:label       "Provisional" ;
+        rdfs:subClassOf  condition-ver-status:unconfirmed ;
+        skos:definition  "This is a tentative diagnosis - still a candidate that is under consideration." ;
+        skos:prefLabel   "Provisional" .
+
+condition-ver-status:unknown
+        a                owl:Class ;
+        rdfs:label       "Unknown" ;
+        skos:definition  "The condition status is unknown.  Note that \"unknown\" is a value of last resort and every attempt should be made to provide a meaningful value other than \"unknown\"." ;
+        skos:prefLabel   "Unknown" .
+
+condition-ver-status:entered-in-error
+        a                owl:Class ;
+        rdfs:label       "Entered In Error" ;
+        skos:definition  "The statement was entered in error and is not valid." ;
+        skos:prefLabel   "Entered In Error" .
+
+condition-ver-status:
+        a                owl:Ontology ;
+        rdfs:comment     "The verification status to support or decline the clinical status of the condition or diagnosis." ;
+        rdfs:label       "ConditionVerificationStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/condition-ver-status/3.1.0" ;
+        owl:versionInfo  "ConditionVerificationStatus(3.1.0)" .

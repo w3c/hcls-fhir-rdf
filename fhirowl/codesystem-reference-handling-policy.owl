@@ -1,0 +1,45 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix reference-handling-policy: <http://hl7.org/fhir/reference-handling-policy/> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+reference-handling-policy:logical
+        a                owl:Class ;
+        rdfs:label       "Logical References" ;
+        skos:definition  "The server allows logical references" ;
+        skos:prefLabel   "Logical References" .
+
+reference-handling-policy:resolves
+        a                owl:Class ;
+        rdfs:label       "Resolves References" ;
+        skos:definition  "The server will attempt to resolve logical references to literal references (if resolution fails, the server may still accept resources; see logical)" ;
+        skos:prefLabel   "Resolves References" .
+
+reference-handling-policy:literal
+        a                owl:Class ;
+        rdfs:label       "Literal References" ;
+        skos:definition  "The server supports and populates Literal references where they are known (this code does not guarantee that all references are literal; see 'enforced')" ;
+        skos:prefLabel   "Literal References" .
+
+reference-handling-policy:
+        a                owl:Ontology ;
+        rdfs:comment     "A set of flags that defines how references are supported." ;
+        rdfs:label       "ReferenceHandlingPolicy" ;
+        owl:versionIRI   "http://hl7.org/fhir/reference-handling-policy/3.1.0" ;
+        owl:versionInfo  "ReferenceHandlingPolicy(3.1.0)" .
+
+reference-handling-policy:local
+        a                owl:Class ;
+        rdfs:label       "Local References Only" ;
+        skos:definition  "The server does not support references that point to other servers" ;
+        skos:prefLabel   "Local References Only" .
+
+reference-handling-policy:enforced
+        a                owl:Class ;
+        rdfs:label       "Reference Integrity Enforced" ;
+        skos:definition  "The server enforces that references have integrity - e.g. it ensures that references can always be resolved. This is typically the case for clinical record systems, but often not the case for middleware/proxy systems" ;
+        skos:prefLabel   "Reference Integrity Enforced" .

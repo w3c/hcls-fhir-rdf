@@ -1,0 +1,66 @@
+@prefix filter-operator: <http://hl7.org/fhir/filter-operator/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+filter-operator:is-not-a
+        a                owl:Class ;
+        rdfs:label       "Not (Is A) (by subsumption)" ;
+        skos:definition  "The specified property of the code does not have an is-a relationship with the provided value." ;
+        skos:prefLabel   "Not (Is A) (by subsumption)" .
+
+filter-operator:is-a  a  owl:Class ;
+        rdfs:label       "Is A (by subsumption)" ;
+        skos:definition  "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, including the provided concept itself (i.e. include child codes)" ;
+        skos:prefLabel   "Is A (by subsumption)" .
+
+filter-operator:in  a    owl:Class ;
+        rdfs:label       "In Set" ;
+        skos:definition  "The specified property of the code is in the set of codes or concepts specified in the provided value (comma separated list)." ;
+        skos:prefLabel   "In Set" .
+
+<http://hl7.org/fhir/filter-operator/=>
+        a                owl:Class ;
+        rdfs:label       "Equals" ;
+        skos:definition  "The specified property of the code equals the provided value." ;
+        skos:prefLabel   "Equals" .
+
+filter-operator:exists
+        a                owl:Class ;
+        rdfs:label       "Exists" ;
+        skos:definition  "The specified property of the code has at least one value (if the specified value is true; if the specified value is false, then matches when the specified property of the code has no values)" ;
+        skos:prefLabel   "Exists" .
+
+filter-operator:not-in
+        a                owl:Class ;
+        rdfs:label       "Not in Set" ;
+        skos:definition  "The specified property of the code is not in the set of codes or concepts specified in the provided value (comma separated list)." ;
+        skos:prefLabel   "Not in Set" .
+
+filter-operator:generalizes
+        a                owl:Class ;
+        rdfs:label       "Generalizes (by Subsumption)" ;
+        skos:definition  "Includes all concept ids that have a transitive is-a relationship from the concept Id provided as the value, including the provided concept itself (e.g. include parent codes)" ;
+        skos:prefLabel   "Generalizes (by Subsumption)" .
+
+filter-operator:  a      owl:Ontology ;
+        rdfs:comment     "The kind of operation to perform as a part of a property based filter." ;
+        rdfs:label       "FilterOperator" ;
+        owl:versionIRI   "http://hl7.org/fhir/filter-operator/3.1.0" ;
+        owl:versionInfo  "FilterOperator(3.1.0)" .
+
+filter-operator:descendent-of
+        a                owl:Class ;
+        rdfs:label       "Descendent Of (by subsumption)" ;
+        skos:definition  "Includes all concept ids that have a transitive is-a relationship with the concept Id provided as the value, excluding the provided concept itself (i.e. include child codes)" ;
+        skos:prefLabel   "Descendent Of (by subsumption)" .
+
+filter-operator:regex
+        a                owl:Class ;
+        rdfs:label       "Regular Expression" ;
+        skos:definition  "The specified property of the code  matches the regex specified in the provided value." ;
+        skos:prefLabel   "Regular Expression" .

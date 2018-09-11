@@ -1,0 +1,63 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+@prefix observation-status: <http://hl7.org/fhir/observation-status/> .
+
+observation-status:unknown
+        a                owl:Class ;
+        rdfs:label       "Unknown" ;
+        skos:definition  "The authoring system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring system does not know which." ;
+        skos:prefLabel   "Unknown" .
+
+observation-status:entered-in-error
+        a                owl:Class ;
+        rdfs:label       "Entered in Error" ;
+        skos:definition  "The observation has been withdrawn following previous final release.  This electronic record should never have existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred, the status should be \"cancelled\" rather than \"entered-in-error\".)" ;
+        skos:prefLabel   "Entered in Error" .
+
+observation-status:cancelled
+        a                owl:Class ;
+        rdfs:label       "Cancelled" ;
+        skos:definition  "The observation is unavailable because the measurement was not started or not completed (also sometimes called \"aborted\")." ;
+        skos:prefLabel   "Cancelled" .
+
+observation-status:corrected
+        a                owl:Class ;
+        rdfs:label       "Corrected" ;
+        rdfs:subClassOf  observation-status:amended ;
+        skos:definition  "Subsequent to being Final, the observation has been modified to correct an error in the test result." ;
+        skos:prefLabel   "Corrected" .
+
+observation-status:preliminary
+        a                owl:Class ;
+        rdfs:label       "Preliminary" ;
+        skos:definition  "This is an initial or interim observation: data may be incomplete or unverified." ;
+        skos:prefLabel   "Preliminary" .
+
+observation-status:registered
+        a                owl:Class ;
+        rdfs:label       "Registered" ;
+        skos:definition  "The existence of the observation is registered, but there is no result yet available." ;
+        skos:prefLabel   "Registered" .
+
+observation-status:amended
+        a                owl:Class ;
+        rdfs:label       "Amended" ;
+        skos:definition  "Subsequent to being Final, the observation has been modified subsequent.  This includes updates/new information and corrections." ;
+        skos:prefLabel   "Amended" .
+
+observation-status:  a   owl:Ontology ;
+        rdfs:comment     "Codes providing the status of an observation." ;
+        rdfs:label       "ObservationStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/observation-status/3.1.0" ;
+        owl:versionInfo  "ObservationStatus(3.1.0)" .
+
+observation-status:final
+        a                owl:Class ;
+        rdfs:label       "Final" ;
+        skos:definition  "The observation is complete." ;
+        skos:prefLabel   "Final" .

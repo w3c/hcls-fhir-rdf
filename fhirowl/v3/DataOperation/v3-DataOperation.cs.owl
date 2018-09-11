@@ -1,0 +1,153 @@
+@prefix v3-DataOperation: <http://hl7.org/fhir/v3/DataOperation/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-DataOperation:CREATE
+        a                owl:Class ;
+        rdfs:label       "create" ;
+        rdfs:subClassOf  v3-DataOperation:OPERATE ;
+        skos:definition  "Description:Fundamental operation in an Information System (IS) that results only in the act of bringing an object into existence. Note: The preceding definition is taken from the HL7 RBAC specification.  There is no restriction on how the operation is invoked, e.g., via a user interface. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "create" .
+
+v3-DataOperation:ABORT
+        a                owl:Class ;
+        rdfs:label       "abort" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"aborted\", i.e., terminated prior to the originally intended completion. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "abort" .
+
+v3-DataOperation:HOLD
+        a                owl:Class ;
+        rdfs:label       "hold" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"held\", i.e., put aside an Act that is still in preparatory stages.  No action can occur until the Act is released. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "hold" .
+
+v3-DataOperation:UPDATE
+        a                owl:Class ;
+        rdfs:label       "revise" ;
+        rdfs:subClassOf  v3-DataOperation:OPERATE ;
+        skos:definition  "Definition:Fundamental operation in an Information System (IS) that results only in the revision or alteration of an object. Note: The preceding definition is taken from the HL7 RBAC specification. There is no restriction on how the operation is invoked, e.g., via a user interface." ;
+        skos:prefLabel   "revise" .
+
+v3-DataOperation:MODIFYSTATUS
+        a                owl:Class ;
+        rdfs:label       "modify status" ;
+        rdfs:subClassOf  v3-DataOperation:UPDATE ;
+        skos:definition  "Description:Change the status of an object representing an Act." ;
+        skos:prefLabel   "modify status" .
+
+v3-DataOperation:RELEASE
+        a                owl:Class ;
+        rdfs:label       "release" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act so it is no longer \"held\", i.e., allow action to occur. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "release" .
+
+v3-DataOperation:CANCEL
+        a                owl:Class ;
+        rdfs:label       "cancel" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"cancelled\", i.e., abandoned before activation. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "cancel" .
+
+v3-DataOperation:SUSPEND
+        a                owl:Class ;
+        rdfs:label       "suspend" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Definition:Change the status of an object representing an Act to suspended, i.e., so it is temporarily not in service." ;
+        skos:prefLabel   "suspend" .
+
+v3-DataOperation:EXECUTE
+        a                owl:Class ;
+        rdfs:label       "execute" ;
+        rdfs:subClassOf  v3-DataOperation:OPERATE ;
+        skos:definition  "Description:Fundamental operation in an IS that results only in initiating performance of a single or set of programs (i.e., software objects). Note: The preceding definition is taken from the HL7 RBAC specification.  There is no restriction on how the operation is invoked, e.g., via a user interface." ;
+        skos:prefLabel   "execute" .
+
+v3-DataOperation:READ
+        a                owl:Class ;
+        rdfs:label       "read" ;
+        rdfs:subClassOf  v3-DataOperation:OPERATE ;
+        skos:definition  "Description:Fundamental operation in an Information System (IS) that results only in the flow of information about an object to a subject. Note: The preceding definition is taken from the HL7 RBAC specification.  There is no restriction on how the operation is invoked, e.g., via a user interface." ;
+        skos:prefLabel   "read" .
+
+v3-DataOperation:REACTIVATE
+        a                owl:Class ;
+        rdfs:label       "reactivate" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of a formerly active object representing an Act to \"active\", i.e., so it can again be performed or is being performed. (Contrast with ACTIVATE.) For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "reactivate" .
+
+v3-DataOperation:OPERATE
+        a                owl:Class ;
+        rdfs:label       "operate" ;
+        skos:definition  "Description:Act on an object or objects." ;
+        skos:prefLabel   "operate" .
+
+v3-DataOperation:JUMP
+        a                owl:Class ;
+        rdfs:label       "jump" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to a normal state. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "jump" .
+
+v3-DataOperation:COMPLETE
+        a                owl:Class ;
+        rdfs:label       "complete" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"completed\", i.e., terminated normally after all of its constituents have been performed. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "complete" .
+
+v3-DataOperation:OBSOLETE
+        a                owl:Class ;
+        rdfs:label       "obsolete" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"obsolete\" when it has been replaced by a new instance. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "obsolete" .
+
+v3-DataOperation:ACTIVATE
+        a                owl:Class ;
+        rdfs:label       "activate" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"active\", i.e., so it can be performed or is being performed, for the first time. (Contrast with REACTIVATE.) For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "activate" .
+
+v3-DataOperation:APPEND
+        a                owl:Class ;
+        rdfs:label       "append" ;
+        rdfs:subClassOf  v3-DataOperation:UPDATE ;
+        skos:definition  "Description:Fundamental operation in an Information System (IS) that results only in the addition of information to an object already in existence. Note: The preceding definition is taken from the HL7 RBAC specification.  There is no restriction on how the operation is invoked, e.g., via a user interface." ;
+        skos:prefLabel   "append" .
+
+v3-DataOperation:NULLIFY
+        a                owl:Class ;
+        rdfs:label       "nullify" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of an object representing an Act to \"nullified\", i.e., treat as though it never existed. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "nullify" .
+
+v3-DataOperation:DELETE
+        a                owl:Class ;
+        rdfs:label       "delete" ;
+        rdfs:subClassOf  v3-DataOperation:OPERATE ;
+        skos:definition  "Description:Fundamental operation in an Information System (IS) that results only in the removal of information about an object from memory or storage. Note: The preceding definition is taken from the HL7 RBAC specification.  There is no restriction on how the operation is invoked, e.g., via a user interface." ;
+        skos:prefLabel   "delete" .
+
+v3-DataOperation:  a     owl:Ontology ;
+        rdfs:comment     "**** MISSING DEFINITIONS ****" ;
+        rdfs:label       "v3 Code System DataOperation" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/DataOperation/2016-11-11" ;
+        owl:versionInfo  "v3 Code System DataOperation(2016-11-11)" .
+
+v3-DataOperation:RESUME
+        a                owl:Class ;
+        rdfs:label       "resume" ;
+        rdfs:subClassOf  v3-DataOperation:MODIFYSTATUS ;
+        skos:definition  "Description:Change the status of a suspended object representing an Act to \"active\", i.e., so it can be performed or is being performed. For an HL7 Act, the state transitions per the HL7 Reference Information Model." ;
+        skos:prefLabel   "resume" .

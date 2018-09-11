@@ -1,0 +1,62 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix v3-ContextControl: <http://hl7.org/fhir/v3/ContextControl/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ContextControl:_ContextControlOverriding
+        a                owl:Class ;
+        rdfs:label       "ContextControlOverriding" ;
+        skos:definition  "The association adds to the existing context associated with the Act, but replaces associations propagated from ancestor Acts whose typeCodes are the same or more specific." ;
+        skos:prefLabel   "ContextControlOverriding" .
+
+v3-ContextControl:_ContextControlAdditive
+        a                owl:Class ;
+        rdfs:label       "ContextControlAdditive" ;
+        skos:definition  "The association adds to the existing context associated with the Act.  Both this association and any associations propagated from ancestor Acts are interpreted as being related to this Act." ;
+        skos:prefLabel   "ContextControlAdditive" .
+
+v3-ContextControl:_ContextControlPropagating
+        a                owl:Class ;
+        rdfs:label       "ContextControlPropagating" ;
+        skos:definition  "The association propagates to any child Acts that are related via a conducting ActRelationship (refer to contextConductionInd)." ;
+        skos:prefLabel   "ContextControlPropagating" .
+
+v3-ContextControl:OP  a  owl:Class ;
+        rdfs:label       "overriding, propagating" ;
+        rdfs:subClassOf  v3-ContextControl:_ContextControlOverriding ;
+        skos:definition  "The association is added to the existing context associated with the Act, but overrides an association with the same typeCode. This overriding association will propagate to any descendant Acts reached by conducting ActRelationships (see contextControlCode). Examples: If an 'Author' Participation were marked as \"Overriding, Propagating\" it means that the author will replace the set of author participations that have propagated from ancestor Acts, and will itself be the only author to propagate to any child Acts that allow context to be propagated." ;
+        skos:prefLabel   "overriding, propagating" .
+
+v3-ContextControl:  a    owl:Ontology ;
+        rdfs:comment     " A code that specifies how an ActRelationship or Participation contributes to the context of an Act, and whether it may be propagated to descendent Acts whose association allows such propagation (see also attributes Participation.contextControlCode, ActRelationship.contextControlCode, ActRelationship.contextConductionInd)." ;
+        rdfs:label       "v3 Code System ContextControl" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ContextControl/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ContextControl(2016-11-11)" .
+
+v3-ContextControl:AP  a  owl:Class ;
+        rdfs:label       "additive, propagating" ;
+        rdfs:subClassOf  v3-ContextControl:_ContextControlAdditive ;
+        skos:definition  "The association adds to the existing context associated with the Act, and will propagate to any descendant Acts reached by conducting ActRelationships (see contextControlCode). Examples: If an 'Author' Participation were marked as \"Additive, Propagating\" it means that the author will be added to the set of author participations that have propagated from ancestor Acts, and will itself propagate with the other authors to any child Acts that allow context to be propagated." ;
+        skos:prefLabel   "additive, propagating" .
+
+v3-ContextControl:ON  a  owl:Class ;
+        rdfs:label       "overriding, non-propagating" ;
+        rdfs:subClassOf  v3-ContextControl:_ContextControlNonPropagating ;
+        skos:definition  "The association is added to the existing context associated with the Act, but overrides an association with the same typeCode. However, this overriding association will not propagate to any descendant Acts reached by conducting ActRelationships (see contextControlCode). Examples: If an 'Author' Participation were marked as \"Overriding, Non-Propagating\" it means that the author will replace the set of author participations that have propagated from ancestor Acts. Furthermore, no author participations whatsoever will propagate to any child Acts that allow context to be propagated." ;
+        skos:prefLabel   "overriding, non-propagating" .
+
+v3-ContextControl:AN  a  owl:Class ;
+        rdfs:label       "additive, non-propagating" ;
+        rdfs:subClassOf  v3-ContextControl:_ContextControlAdditive ;
+        skos:definition  "The association adds to the existing context associated with the Act, but will not propagate to any descendant Acts reached by conducting ActRelationships (see contextControlCode). Examples: If an 'Author' Participation were marked as \"Additive, Non-Propagating\" it means that the author will be added to the set of author participations that have propagated from ancestor Acts for the purpose of this Act. However only the previously propagated authors will propagate to any child Acts that allow context to be propagated." ;
+        skos:prefLabel   "additive, non-propagating" .
+
+v3-ContextControl:_ContextControlNonPropagating
+        a                owl:Class ;
+        rdfs:label       "ContextControlNonPropagating" ;
+        skos:definition  "The association applies only to the current Act and will not propagate to any child Acts that are related via a conducting ActRelationship (refer to contextConductionInd)." ;
+        skos:prefLabel   "ContextControlNonPropagating" .

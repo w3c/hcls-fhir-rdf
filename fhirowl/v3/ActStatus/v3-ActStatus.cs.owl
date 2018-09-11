@@ -1,0 +1,76 @@
+@prefix v3-ActStatus: <http://hl7.org/fhir/v3/ActStatus/> .
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+
+v3-ActStatus:held  a     owl:Class ;
+        rdfs:label       "held" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "An Act that is still in the preparatory stages has been put aside.  No action can occur until the Act is released." ;
+        skos:prefLabel   "held" .
+
+v3-ActStatus:aborted  a  owl:Class ;
+        rdfs:label       "aborted" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "The Act has been terminated prior to the originally intended completion." ;
+        skos:prefLabel   "aborted" .
+
+v3-ActStatus:active  a   owl:Class ;
+        rdfs:label       "active" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "The Act can be performed or is being performed" ;
+        skos:prefLabel   "active" .
+
+v3-ActStatus:suspended
+        a                owl:Class ;
+        rdfs:label       "suspended" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "An Act that has been activated (actions could or have been performed against it), but has been temporarily disabled.  No further action should be taken against it until it is released" ;
+        skos:prefLabel   "suspended" .
+
+v3-ActStatus:obsolete
+        a                owl:Class ;
+        rdfs:label       "obsolete" ;
+        skos:definition  "This Act instance has been replaced by a new instance." ;
+        skos:prefLabel   "obsolete" .
+
+v3-ActStatus:nullified
+        a                owl:Class ;
+        rdfs:label       "nullified" ;
+        skos:definition  "This Act instance was created in error and has been 'removed' and is treated as though it never existed.  A record is retained for audit purposes only." ;
+        skos:prefLabel   "nullified" .
+
+v3-ActStatus:normal  a   owl:Class ;
+        rdfs:label       "normal" ;
+        skos:definition  "Encompasses the expected states of an Act, but excludes \"nullified\" and \"obsolete\" which represent unusual terminal states for the life-cycle." ;
+        skos:prefLabel   "normal" .
+
+v3-ActStatus:completed
+        a                owl:Class ;
+        rdfs:label       "completed" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "An Act that has terminated normally after all of its constituents have been performed." ;
+        skos:prefLabel   "completed" .
+
+v3-ActStatus:cancelled
+        a                owl:Class ;
+        rdfs:label       "cancelled" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "The Act has been abandoned before activation." ;
+        skos:prefLabel   "cancelled" .
+
+v3-ActStatus:  a         owl:Ontology ;
+        rdfs:comment     " Codes representing the defined possible states of an Act, as defined by the Act class state machine." ;
+        rdfs:label       "v3 Code System ActStatus" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/ActStatus/2016-11-11" ;
+        owl:versionInfo  "v3 Code System ActStatus(2016-11-11)" .
+
+v3-ActStatus:new  a      owl:Class ;
+        rdfs:label       "new" ;
+        rdfs:subClassOf  v3-ActStatus:normal ;
+        skos:definition  "An Act that is in the preparatory stages and may not yet be acted upon" ;
+        skos:prefLabel   "new" .

@@ -1,0 +1,128 @@
+@prefix fhir:  <http://hl7.org/fhir/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix w5:    <http://hl7.org/fhir/w5#> .
+@prefix v3-AddressUse: <http://hl7.org/fhir/v3/AddressUse/> .
+
+v3-AddressUse:BAD  a     owl:Class ;
+        rdfs:label       "bad address" ;
+        rdfs:subClassOf  v3-AddressUse:_GeneralAddressUse ;
+        skos:definition  "Description: A flag indicating that the address is bad, in fact, useless." ;
+        skos:prefLabel   "bad address" .
+
+v3-AddressUse:_GeneralAddressUse
+        a                owl:Class ;
+        rdfs:label       "_GeneralAddressUse" ;
+        skos:definition  "Description: Address uses that can apply to both postal and telecommunication addresses." ;
+        skos:prefLabel   "_GeneralAddressUse" .
+
+v3-AddressUse:_PostalAddressUse
+        a                owl:Class ;
+        rdfs:label       "_PostalAddressUse" ;
+        skos:definition  "Description: Address uses that only apply to postal addresses, not telecommunication addresses." ;
+        skos:prefLabel   "_PostalAddressUse" .
+
+v3-AddressUse:OLD  a     owl:Class ;
+        rdfs:label       "no longer in use" ;
+        rdfs:subClassOf  v3-AddressUse:_GeneralAddressUse ;
+        skos:definition  "This address is no longer in use.\r\n\n                        \n                           Usage Note: Address may also carry valid time ranges. This code is used to cover the situations where it is known that the address is no longer valid, but no particular time range for its use is known." ;
+        skos:prefLabel   "no longer in use" .
+
+v3-AddressUse:HP  a      owl:Class ;
+        rdfs:label       "primary home" ;
+        rdfs:subClassOf  v3-AddressUse:H ;
+        skos:definition  "Description: The primary home, to reach a person after business hours." ;
+        skos:prefLabel   "primary home" .
+
+v3-AddressUse:PHYS  a    owl:Class ;
+        rdfs:label       "physical visit address" ;
+        rdfs:subClassOf  v3-AddressUse:_PostalAddressUse ;
+        skos:definition  "Description: Used primarily to visit an address." ;
+        skos:prefLabel   "physical visit address" .
+
+v3-AddressUse:HV  a      owl:Class ;
+        rdfs:label       "vacation home" ;
+        rdfs:subClassOf  v3-AddressUse:H ;
+        skos:definition  "Description: A vacation home, to reach a person while on vacation." ;
+        skos:prefLabel   "vacation home" .
+
+v3-AddressUse:TMP  a     owl:Class ;
+        rdfs:label       "temporary address" ;
+        rdfs:subClassOf  v3-AddressUse:_GeneralAddressUse ;
+        skos:definition  "Description: A temporary address, may be good for visit or mailing. Note that an address history can provide more detailed information." ;
+        skos:prefLabel   "temporary address" .
+
+v3-AddressUse:PUB  a     owl:Class ;
+        rdfs:label       "public" ;
+        rdfs:subClassOf  v3-AddressUse:WP ;
+        skos:definition  "Description: Indicates a work place address or telecommunication address that is a 'standard' address which may reach a reception service, mail-room, or other intermediary prior to the target entity." ;
+        skos:prefLabel   "public" .
+
+v3-AddressUse:AS  a      owl:Class ;
+        rdfs:label       "answering service" ;
+        rdfs:subClassOf  v3-AddressUse:_TelecommunicationAddressUse ;
+        skos:definition  "Description: An automated answering machine used for less urgent cases and if the main purpose of contact is to leave a message or access an automated announcement." ;
+        skos:prefLabel   "answering service" .
+
+v3-AddressUse:PST  a     owl:Class ;
+        rdfs:label       "postal address" ;
+        rdfs:subClassOf  v3-AddressUse:_PostalAddressUse ;
+        skos:definition  "Description: Used to send mail." ;
+        skos:prefLabel   "postal address" .
+
+v3-AddressUse:DIR  a     owl:Class ;
+        rdfs:label       "direct" ;
+        rdfs:subClassOf  v3-AddressUse:WP ;
+        skos:definition  "Description: Indicates a work place address or telecommunication address that reaches the individual or organization directly without intermediaries. For phones, often referred to as a 'private line'." ;
+        skos:prefLabel   "direct" .
+
+v3-AddressUse:  a        owl:Ontology ;
+        rdfs:comment     " Codes that provide guidance around the circumstances in which a given address should be used." ;
+        rdfs:label       "v3 Code System AddressUse" ;
+        owl:versionIRI   "http://hl7.org/fhir/v3/AddressUse/2016-11-11" ;
+        owl:versionInfo  "v3 Code System AddressUse(2016-11-11)" .
+
+v3-AddressUse:_TelecommunicationAddressUse
+        a                owl:Class ;
+        rdfs:label       "_TelecommunicationAddressUse" ;
+        skos:definition  "Description: Address uses that only apply to telecommunication addresses, not postal addresses." ;
+        skos:prefLabel   "_TelecommunicationAddressUse" .
+
+v3-AddressUse:EC  a      owl:Class ;
+        rdfs:label       "emergency contact" ;
+        rdfs:subClassOf  v3-AddressUse:_TelecommunicationAddressUse ;
+        skos:definition  "Description: A contact specifically designated to be used for emergencies. This is the first choice in emergencies, independent of any other use codes." ;
+        skos:prefLabel   "emergency contact" .
+
+v3-AddressUse:WP  a      owl:Class ;
+        rdfs:label       "work place" ;
+        rdfs:subClassOf  v3-AddressUse:_GeneralAddressUse ;
+        skos:definition  "Description: An office address. First choice for business related contacts during business hours." ;
+        skos:prefLabel   "work place" .
+
+v3-AddressUse:H  a       owl:Class ;
+        rdfs:label       "home address" ;
+        rdfs:subClassOf  v3-AddressUse:_GeneralAddressUse ;
+        skos:definition  "Description: A communication address at a home, attempted contacts for business purposes might intrude privacy and chances are one will contact family or other household members instead of the person one wishes to call. Typically used with urgent cases, or if no other contacts are available." ;
+        skos:prefLabel   "home address" .
+
+v3-AddressUse:MC  a      owl:Class ;
+        rdfs:label       "mobile contact)" ;
+        rdfs:subClassOf  v3-AddressUse:_TelecommunicationAddressUse ;
+        skos:definition  "Description: A telecommunication device that moves and stays with its owner. May have characteristics of all other use codes, suitable for urgent matters, not the first choice for routine business." ;
+        skos:prefLabel   "mobile contact)" .
+
+v3-AddressUse:PG  a      owl:Class ;
+        rdfs:label       "pager" ;
+        rdfs:subClassOf  v3-AddressUse:_TelecommunicationAddressUse ;
+        skos:definition  "Description: A paging device suitable to solicit a callback or to leave a very short message." ;
+        skos:prefLabel   "pager" .
+
+v3-AddressUse:CONF  a    owl:Class ;
+        rdfs:label       "confidential address" ;
+        rdfs:subClassOf  v3-AddressUse:_GeneralAddressUse ;
+        skos:definition  "Description: Indicates that the address is considered sensitive and should only be shared or published in accordance with organizational controls governing patient demographic information with increased sensitivity. Uses of Addresses.   Lloyd to supply more complete description." ;
+        skos:prefLabel   "confidential address" .
