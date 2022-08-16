@@ -92,6 +92,8 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       }
       .rdf { background: #fdedff; }
       .spec { background: #FFFFE0; }
+      ul { line-height: 2ex }
+      ul.tight { line-height: 1.1ex }
     </style>
   </head>
   <body>    
@@ -312,14 +314,15 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
         <section id="primitive">
           <h4>Representing Primitive Elements</h4>
           <p>
-            Primitive elements - elements with a primitive type - are represented as regular nodes so that the elements extensions can be represented.
-            The actual value of the primitive type is represented as an RDF Literal using the fhir:value predicate:
+            Primitive elements - elements with a primitive type - are represented as regular (anonymous) nodes so that the elements extensions can be represented.
+            The actual value of the primitive type is represented as an RDF Literal using the <span class="rdf">fhir:v</span> predicate.
+            The object of <span class="rdf">fhir:v</span> is always an RDF literal (as distinct from the <code class="rdf">fhir:value</code> in e.g. the <a href="http://build.fhir.org/datatypes.html#Quantity">Quantity</a> datatype):
           </p>
-          <pre class="rdf nohighlight">  fhir:value "[value]"^^xs:type</pre>
+          <pre class="rdf nohighlight">  fhir:v "[value]"^^xs:type</pre>
           <p>
             The value has two parts: a literal string that contains the value, and, if applicable, one of the following schema types:
           </p>
-          <ul>
+          <ul class="tight">
             <li>boolean</li>
             <li>integer</li>
             <li>decimal</li>
@@ -338,7 +341,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
         
         <section id="reference">
           <p>
-            The fhir:value property can never be empty.
+            The fhir:v property can never be empty.
             Either the relationship is absent, or it is present with at least one character of content.
             XHTML is represented as an escaped xs:string.
           </p>        
@@ -348,8 +351,8 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
             rules as above:
           </p>
           <pre class="rdf nohighlight"> fhir:Observation.subjectReference [
-     fhir:Reference.reference [ fhir:value "Patient/example" ];
-     fhir:Reference.display [ fhir:value "Example Patient" ];
+     fhir:Reference.reference [ fhir:v "Patient/example" ];
+     fhir:Reference.display [ fhir:v "Example Patient" ];
   ];</pre>
           <p>
             This allows faithful round tripping of the resource between the Turtle format and the JSON and XML formats.
@@ -359,7 +362,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
           </p>
           <pre class="rdf nohighlight"> fhir:Observation.subjectReference [
      fhir:link &lt;http://hl7.org/fhir/Patient/example&gt;
-     fhir:Reference.reference [ fhir:value "Patient/example" ]
+     fhir:Reference.reference [ fhir:v "Patient/example" ]
   ];</pre>
           <p>
             The correct value for the fhir:link relationship must be determined by resolving the <a href="references.html">rules for resolving references</a> for the various reference types to a literal URL that refers to the correct content in the local RDF context.
@@ -401,14 +404,14 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
           <pre class="rdf nohighlight">fhir:Observation.code [
     fhir:CodeableConcept.coding (
         [
-            fhir:Coding.system [ fhir:value "http://loinc.org" ];
-            fhir:Coding.code [ fhir:value "29463-7" ];
-            fhir:Coding.display [ fhir:value "Body Weight" ]
+            fhir:Coding.system [ fhir:v "http://loinc.org" ];
+            fhir:Coding.code [ fhir:v "29463-7" ];
+            fhir:Coding.display [ fhir:v "Body Weight" ]
         ]
         [
-            fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
-            fhir:Coding.code [ fhir:value "27113001" ];
-            fhir:Coding.display [ fhir:value "Body weight" ]
+            fhir:Coding.system [ fhir:v "http://snomed.info/sct" ];
+            fhir:Coding.code [ fhir:v "27113001" ];
+            fhir:Coding.display [ fhir:v "Body weight" ]
         ]
     )
 ];</pre>
@@ -420,15 +423,15 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
     fhir:CodeableConcept.coding (
         [
             <span style="font-weight: bold">a loinc:29463-7</span>;
-            fhir:Coding.system [ fhir:value "http://loinc.org" ];
-            fhir:Coding.code [ fhir:value "29463-7" ];
-            fhir:Coding.display [ fhir:value "Body Weight" ]
+            fhir:Coding.system [ fhir:v "http://loinc.org" ];
+            fhir:Coding.code [ fhir:v "29463-7" ];
+            fhir:Coding.display [ fhir:v "Body Weight" ]
         ]
         [
             <span style="font-weight: bold">a sct:27113001</span>;
-            fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
-            fhir:Coding.code [ fhir:value "27113001" ];
-            fhir:Coding.display [ fhir:value "Body weight" ]
+            fhir:Coding.system [ fhir:v "http://snomed.info/sct" ];
+            fhir:Coding.code [ fhir:v "27113001" ];
+            fhir:Coding.display [ fhir:v "Body weight" ]
         ]
     )
 ];</pre>
@@ -467,7 +470,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
           The RDF format is based on the same abstract information model as the <a href="xml.html">XML</a> and <a href="json.html">JSON</a> formats and carries the same information content.
           Resources are losslessly round-trippable between XML, JSON and RDF formats and data expressed in the RDF format corresponds closely to the XML and JSON formats in its look and feel.
           However, there are a few additional terms that may appear in the RDF format, which are explained below:
-          <code>fhir:nodeRole</code>, <code>fhir:treeRoot</code>, <code>fhir:value</code> and <code>fhir:concept</code>.
+          <code>fhir:nodeRole</code>, <code>fhir:treeRoot</code>, <code>fhir:v</code> and <code>fhir:concept</code>.
           <a href="downloads.html">ShEx</a> schemas are available that describe the RDF format.
         </p>
         <p>
@@ -507,12 +510,12 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
   # from Resource: id; meta; implicitRules; and language
   # from DomainResource: text; contained; extension; and modifierExtension
   fhir:Obervation.identifier [ <a href="#">Identifier</a> ]; # 0..* Unique Id for this particular observation
-  fhir:Obervation.status [ fhir:value "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
+  fhir:Obervation.status [ fhir:v "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
   fhir:Obervation.code [ <a href="#">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
   fhir:Obervation.subject [ fhir:reference [ <a href="#">Patient</a>|<a href="#">Group</a>|<a href="#">Device</a>|<a href="#">Location</a> ] ]; # 0..1 Who and/or what this is about
   fhir:Obervation.encounter [ fhir:reference [ <a href="#">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
   # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
-    fhir:Obervation.effectiveDateTime [ fhir:value "&lt;dateTime&gt;" ];
+    fhir:Obervation.effectiveDateTime [ fhir:v "&lt;dateTime&gt;" ];
     fhir:Obervation.effectivePeriod [ <a href="#">Period</a> ];
 ]</pre>
         <p>
