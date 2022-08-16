@@ -383,36 +383,40 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
             The same logic applies to the <a href="datatypes.html#Coding">Coding</a> data type.
             These are represented directly in Turtle by serializing their properties as specified above:
           </p>
-          <pre class="rdf">  fhir:Observation.code [
-     fhir:CodeableConcept.coding ([
-       fhir:Coding.system [ fhir:value "http://loinc.org" ];
-       fhir:Coding.code [ fhir:value "29463-7" ];
-       fhir:Coding.display [ fhir:value "Body Weight" ]
-    ]);
-    fhir:CodeableConcept.coding ([
-       fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
-       fhir:Coding.code [ fhir:value "27113001" ];
-       fhir:Coding.display [ fhir:value "Body weight" ]
-    ])
+          <pre class="rdf">fhir:Observation.code [
+    fhir:CodeableConcept.coding (
+        [
+          fhir:Coding.system [ fhir:value "http://loinc.org" ];
+          fhir:Coding.code [ fhir:value "29463-7" ];
+          fhir:Coding.display [ fhir:value "Body Weight" ]
+        ]
+        [
+           fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
+           fhir:Coding.code [ fhir:value "27113001" ];
+           fhir:Coding.display [ fhir:value "Body weight" ]
+        ]
+    )
   ];</pre>
           <p>
             For reasoners using the RDF graph, it's very useful to make the implicit
             concept references in these Codings explicit using a rdf:type assertion ("a" in Turtle):
           </p>
-          <pre class="rdf">  fhir:Observation.code [
-     fhir:CodeableConcept.coding ([
-       a loinc:29463-7;
-       fhir:Coding.system [ fhir:value "http://loinc.org" ];
-       fhir:Coding.code [ fhir:value "29463-7" ];
-       fhir:Coding.display [ fhir:value "Body Weight" ]
-     ]
-     [
-       a sct:27113001;
-       fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
-       fhir:Coding.code [ fhir:value "27113001" ];
-       fhir:Coding.display [ fhir:value "Body weight" ]
-    ]
-  );</pre>
+          <pre class="rdf">fhir:Observation.code [
+    fhir:CodeableConcept.coding (
+        [
+          <span style="font-weight: bold">a loinc:29463-7</span>;
+          fhir:Coding.system [ fhir:value "http://loinc.org" ];
+          fhir:Coding.code [ fhir:value "29463-7" ];
+          fhir:Coding.display [ fhir:value "Body Weight" ]
+        ]
+        [
+           <span style="font-weight: bold">a sct:27113001</span>;
+           fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
+           fhir:Coding.code [ fhir:value "27113001" ];
+           fhir:Coding.display [ fhir:value "Body weight" ]
+        ]
+    )
+  ];</pre>
           <p>
             These rdf:type assertions can be made by any agent that knows how to convert from the code system to the correct ontological representation on the RDF context.
             Note that a few code systems have standard ontological representations, but many don't.
