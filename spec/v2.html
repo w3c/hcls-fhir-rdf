@@ -175,7 +175,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
           The RDF format is based on the same abstract information model as the <a href="xml.html">XML</a> and <a href="json.html">JSON</a> formats and carries the same information content.
           Resources are losslessly round-trippable between XML, JSON and RDF formats and data expressed in the RDF format corresponds closely to the XML and JSON formats in its look and feel.
           However, there are a few additional terms that may appear in the RDF format, which are explained below:
-          <code>fhir:nodeRole</code>, <code>fhir:treeRoot</code>, <code>fhir:value</code>, <code>fhir:index</code> and <code>fhir:concept</code>.
+          <code>fhir:nodeRole</code>, <code>fhir:treeRoot</code>, <code>fhir:value</code> and <code>fhir:concept</code>.
           <a href="downloads.html">ShEx</a> schemas are available that describe the RDF format.
         </p>
         <p>
@@ -279,14 +279,14 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
           </p>
         </section>
         
-        <section id="index999">
+        <section id="rdflist">
           <h4>Representing Repeating Elements</h4>
           <p>
-            Elements that can repeat are represented with a relationship
+            Elements that can repeat are represented with RDF lists (technically RDF collection)
           </p>
-          <pre class="rdf">  fhir:index [n]</pre>
+          <pre class="rdf">(elt1 elt2 …)</pre>
           <p>
-            where [n] is a zero-based integer offset (i.e. the first element has an index of 0).
+            which produces an RDF list structure.
             Lists are never sparse; it is an error if there are missing items in the repeat sequence.
           </p>
           <p>
@@ -368,13 +368,12 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
             Inline resources are represented directly as anonymous nodes.
             This is an example for a contained Medication resource:
           </p>
-          <pre class="ttl">  fhir:DomainResource.contained [
+          <pre class="ttl">  fhir:DomainResource.contained ([
      a fhir:Medication;
-     fhir:index 0;
      # triples for the Medication
-  ]</pre>
+  ])</pre>
           <p>
-            Note that DomainResource.contained has a cardinality of 0..*, so <a href="#index999">fhir:index</a> is used to order the array.
+            Note that DomainResource.contained has a cardinality of 0..*, so an <a href="#rdflist">RDF List</a> is used to order the array.
           </p>
         </section>
         
@@ -385,39 +384,35 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
             These are represented directly in Turtle by serializing their properties as specified above:
           </p>
           <pre class="rdf">  fhir:Observation.code [
-     fhir:CodeableConcept.coding [
-       fhir:index 0;
+     fhir:CodeableConcept.coding ([
        fhir:Coding.system [ fhir:value "http://loinc.org" ];
        fhir:Coding.code [ fhir:value "29463-7" ];
        fhir:Coding.display [ fhir:value "Body Weight" ]
-    ];
-    fhir:CodeableConcept.coding [
-       fhir:index 1;
+    ]);
+    fhir:CodeableConcept.coding ([
        fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
        fhir:Coding.code [ fhir:value "27113001" ];
        fhir:Coding.display [ fhir:value "Body weight" ]
-    ]
+    ])
   ];</pre>
           <p>
             For reasoners using the RDF graph, it's very useful to make the implicit
             concept references in these Codings explicit using a rdf:type assertion ("a" in Turtle):
           </p>
           <pre class="rdf">  fhir:Observation.code [
-     fhir:CodeableConcept.coding [
-       fhir:index 0;
+     fhir:CodeableConcept.coding ([
        a loinc:29463-7;
        fhir:Coding.system [ fhir:value "http://loinc.org" ];
        fhir:Coding.code [ fhir:value "29463-7" ];
        fhir:Coding.display [ fhir:value "Body Weight" ]
-     ];
-     fhir:CodeableConcept.coding [
-       fhir:index 2;
+     ]
+     [
        a sct:27113001;
        fhir:Coding.system [ fhir:value "http://snomed.info/sct" ];
        fhir:Coding.code [ fhir:value "27113001" ];
        fhir:Coding.display [ fhir:value "Body weight" ]
     ]
-  ];</pre>
+  );</pre>
           <p>
             These rdf:type assertions can be made by any agent that knows how to convert from the code system to the correct ontological representation on the RDF context.
             Note that a few code systems have standard ontological representations, but many don't.
