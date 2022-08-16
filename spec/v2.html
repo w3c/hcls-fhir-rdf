@@ -211,7 +211,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
   ];
   <span id="value_x">fhir:value_x [                    <span class="comment"># the value is an anonymous node</span>
     a fhir:Quantity;              <span class="comment">#   which has a type (Quantity), and 21090 parts.</span>
-    fhir:value [ fhir:v "185"^^xsd:decimal ];
+    <span id="v-decimal">fhir:value [ fhir:v "185"^^xsd:decimal ]</span>;
     fhir:unit [ fhir:v "lbs" ];
     fhir:system [
       fhir:v "http://unitsofmeasure.org"^^xsd:anyURI
@@ -261,7 +261,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
         <section id="caseSensitivity">
           <h4>Case-sensitivity</h4>
           <p>
-            While RDF predicate names are case-sensitive, FHIR avoids confuseion by assuring that there are no predicates which differ only in case.
+            While RDF predicate names are case-sensitive, FHIR avoids confusion by assuring that there are no predicates which differ only in case.
             For example, there will be no <span class="rdf">fhir:Code</span> predicate.
           </p>
         </section>
@@ -269,7 +269,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
         <section id="nestedNodes">
           <h4>Nested anonymous nodes</h4>
           <p>
-            Content within a resource is always represented with anonymous nodes - only FHIR Resources nodes can be IRIs.
+            Content within a resource is always represented with anonymous nodes - only FHIR Resource nodes can be IRIs.
             For example, <span class="rdf">&lt;…/Obs123&gt; fhir:status [ fhir:v "final" ]</span> asserts that:
           </p>
           <ul>
@@ -334,8 +334,13 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
             <li>time</li>
           </ul>
           <p>
-            The choice is made based on the types as specified for the <a href="datatypes.html#primitive">primitive type</a>.
-            Note that the correct schema type for a date/dateTime must be determined by inspecting the value of the date for precision.
+            In the <a href="#v-decimal">working example</a>, the Quantity has a fhir:value which is an anonymous node with a <code class="rdf">fhir:v</code> in it:
+          </p>
+          <pre class="rdf nohighlight">[ fhir:v "185"^^xsd:decimal ]</pre>
+          <p>
+            Note that the correct XSD type for a FHIR <a href="https://build.fhir.org/datatypes.html#decimal">decimal</a>, <a href="https://build.fhir.org/datatypes.html#date">date</a>, or <a href="https://build.fhir.org/datatypes.html#dateTime">dateTime</a> must be determined by inspecting the value of the date for conformance with one of the union types for that type.
+            In the case of FHIR <a href="https://build.fhir.org/datatypes.html#decimal">decimal</a>, which is a union of <a href="https://www.w3.org/TR/xmlschema-2/#decimal">decimal</a> and <a href="https://www.w3.org/TR/xmlschema-2/#double">double</a>, the any value with an 'e' or 'E' in it is a double, otherwise it is a decimal.
+            For example, the lexical value <span class="rdf">"185"</span> is given the datatype <code>xsd:decimal</code>.
           </p>
         </section>
         
