@@ -207,7 +207,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
       ]
     )</span>
   ];
-  fhir:value [                    <span class="comment"># the value is an anonymous node</span>
+  <span id="value_x">fhir:value_x [                    <span class="comment"># the value is an anonymous node</span>
     a fhir:Quantity;              <span class="comment">#   which has a type (Quantity), and 21090 parts.</span>
     fhir:value [ fhir:v "185"^^xsd:decimal ];
     fhir:unit [ fhir:v "lbs" ];
@@ -215,7 +215,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
       fhir:v "http://unitsofmeasure.org"^^xsd:anyURI
     ];
     fhir:code [ fhir:v "[lb_av]" ]
-  ].
+  ]</span>.
 
                                   <span class="comment"># Metadata about OWL interpretation</span>
 &lt;http://hl7.org/fhir/Observation/Obs123.ttl&gt; a owl:Ontology;
@@ -274,6 +274,20 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
             <li><span class="rdf">&lt;…/Obs123&gt;</span> has a <span class="rdf">status</span> of some anonymous node.</li>
             <li>That anonymous node has a <span class="rdf">fhir:v</span> of <span class="rdf">"final"</span> (the literal "final").</li>
           </ul>
+        </section>
+
+        <section id="propertyNames">
+          <h4>Property names</h4>
+          <p>
+            A great deal of effort has gone into unifying FHIR property names across resources and datatypes.
+            These defined properties effectively declare the FHIR/RDF namespace with a set of polymorphic, reuseable predicates.
+            For example, <span class="rdf">fhir:status</span> is spelled the same way regardless of whether it appears in an Observation, Diagnosis, or any other FHIR Resource.
+          </p>
+          <p>
+            In other formats (XML, JSON), FHIR properties with choice datatypes, like <span class="spec">value[x]</span>, are appended with the datatype, e.g. <span class="json">valueQuantity</span>.
+            In RDF, this is written <span class="rdf">fhir:value_x</span> and the object asserts its type, as in the <a href="#value_x">working example</a>:
+          </p>
+          <pre class="rdf nohighlight">  fhir:value [ a fhir:Quantity; … ]</pre>
         </section>
 
         <section id="rdflist">
