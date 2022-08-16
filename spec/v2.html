@@ -134,16 +134,19 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       <section id="instance">
         <h4>RDF Graph Languages</h4>
         <p>
-          RDF is a <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-rdf-graph">graph data model</a> composed of zero or more assertions, each expression a relationship between one node and another.
+          RDF is a <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-rdf-graph">graph data model</a> composed of a set of zero or more (unordered) assertions, each expression a relationship between one node and another.
           The two nodes are called a the <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-subject">subject</a> and <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-object">object</a>, and the relationship is called the <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-predicate">predicate</a>.
           Subject nodes may be <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">IRI</a>s (basically URLs) or <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-blank-node">anonymous nodes</a> (nodes with no label).
           Object nodes include those, plus <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">literals</a> with express scalar values.
+          RDF encourages the use of <a href="https://www.w3.org/TR/xmlschema-2/">XML Schema Datatypes (XSD)</a> to specify the format of literal values.
         </p>
         <p>
           RDF graphs are commonly expressed in <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a> and <a href="https://www.w3.org/TR/turtle/">Turtle</a>.
           It may be practical for implementations to support multiple RDF formats or query (e.g. <a href="https://www.w3.org/TR/sparql11-query/">SPARQL</a>) interfaces, but FHIR/RDF mandates support for Turtle.
           All FHIR/RDF documentation is expressed in Turtle.
+          In turtle, IRIs can be wrapped with '&lt;…&gt;' or as prefixed names, blank nodes can declared with '[…]' and literals with a quoted value and an optional datatype preceded by '^^'.
         </p>
+        <pre class="rdf">&lt;SomeIri&gt; fhir:property "some value"^^xs:type .</pre>
         <p>
           While the standard media type for Turtle is <code>text/turtle</code>, the use of Turtle for FHIR/RDF uses the specialized media type <code>application/fhir+turtle</code>.
         </p>
@@ -201,10 +204,10 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       </section>
 
       <section id="instance">
-        <h4>Turtle Format for Resources</h4>
+        <h4>Turtle Template for Resources</h4>
         <p>
-          A FHIR resource is represented by a series of RDF triples. The Turtle
-          representation for a resource is described using this format:
+          Each resource page has a set of langauge templates describing the expression FHIR in that language.
+          The Turtle representation for a resource is described using this convention:
         </p>
         <pre class="spec">Turtle Template
 
@@ -225,7 +228,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
         </p>
         <ul>
           <li>
-            To build a valid Turtle instance of a resource, replace the contents of the property values with valid content as described by the type rules and content description found in the property value for each element
+            To build a valid Turtle instance of a resource, replace the contents of the property values with valid content as described by the type rules and content description found in the property value for each element.
           </li>
           <!-- <li>In this example:
                <ol>
@@ -238,21 +241,28 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
              </ol>
         </li> -->
           <li>
-            Relationship names are case-sensitive (though duplicates that differ only in case are never defined)
-          </li>
-          <li>
-            Relationships can appear in any order
-          </li>
-          <li>
-            Content within a resource is always represented with anonymous nodes - only resources can be identified
-          </li>
-          <li>
             Nodes are never empty.
             If an element is present in the resource, it SHALL have properties as defined for its type, or 1 or more <a href="extensibility.html">extensions</a>
           </li>
-          <li>The <span style="color: brown"><b>R!</b></span> denotes that a relationship is mandatory - it must be present (or in an array, at least one item must be present)</li>
-          <li>Note that this specification produces Turtle that is nicely formatted and well laid out, but this is not required or expected</li>
+          <li>The <span style="color: brown"><b>R!</b></span> denotes that a relationship is mandatory - it must be present (or in an array, at least one item must be present).</li>
+          <li>Note that this specification produces Turtle that is nicely formatted and well laid out, but this is not required or expected.</li>
         </ul>
+      </section>
+
+      <section>
+        <h3>RDF/RDF Conventions</h3>
+        <p>
+          FHIR/RDF imposes additional conventions to simplify recognition and manipulation of FHIR/RDF graphs:
+        </p>
+        <ul>
+          <li>
+            While RDF predicate names are case-sensitive, FHIR avoids confuseion by assuring that there are no predicates which differ only in case.
+          </li>
+          <li>
+            Content within a resource is always represented with anonymous nodes - only FHIR Resources nodes can be IRIs.
+          </li>
+        </ul>
+        The following sections specify the expression of the FHIR model in RDF:
 
         <section id="resources">
           <h4>Representing resources</h4>
@@ -288,7 +298,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
           <h4>Representing Primitive Elements</h4>
           <p>
             Primitive elements - elements with a primitive type - are represented as regular nodes so that the elements extensions can be represented.
-            The actual value of the primitive type is represented using the fhir:value predicate:
+            The actual value of the primitive type is represented as an RDF Literal using the fhir:value predicate:
           </p>
           <pre class="rdf">  fhir:value "[value]"^^xs:type</pre>
           <p>
