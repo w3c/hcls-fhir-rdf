@@ -94,6 +94,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       .spec { background: #FFFFE0; }
       ul { line-height: 2ex }
       ul.tight { line-height: 1.1ex }
+      .lookit { font-weight: bold }
     </style>
   </head>
   <body>    
@@ -222,8 +223,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
                                   <span class="comment"># Metadata about OWL interpretation</span>
 &lt;http://hl7.org/fhir/Observation/Obs123.ttl&gt; a owl:Ontology;
   owl:imports fhir:fhir.ttl;
-  owl:versionIRI &lt;http://hl7.org/fhir/Observation/Obs123.ttl&gt;.
-</pre>
+  owl:versionIRI &lt;http://hl7.org/fhir/Observation/Obs123.ttl&gt;.</pre>
         <p>
           In this example,
         </p>
@@ -399,6 +399,69 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
             Note that DomainResource.contained has a cardinality of 0..*, so an <a href="#rdflist">RDF List</a> is used to order the array.
           </p>
         </section>
+
+        <section id="modifierExtension">
+          <h4>Modifier extensions</h4>
+          <p>
+            A Resource may have any number of non-modifier extensions:
+          </p>
+          <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:Observation;
+  fhir:nodeRole fhir:treeRoot;
+  fhir:extension (
+    <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xsd:anyURI;
+      fhir:value [
+        fhir:coding (
+          a sct:33586001;
+          fhir:system [ fhir:value "http://snomed.info/sct" ];
+          fhir:code [ fhir:value "33586001" ];
+          fhir:display [ fhir:value "Sitting position (finding)" ]
+        ) ] ]</span>
+    <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xsd:anyURI;
+      fhir:value [
+        fhir:coding (
+          a sct:1250004;
+          fhir:system [ fhir:value "http://snomed.info/sct" ];
+          fhir:code [ fhir:value "1250004" ];
+          fhir:display [ fhir:value "Decreased (qualifier value)" ]
+        ) ] ]</span>
+  )
+  …
+</pre>
+          <p>
+            FHIR allows <code class="rdf">modifierExtension</code>s on <a href="https://build.fhir.org/domainresource.html#DomainResource">DomainResources</a>, <a href="https://build.fhir.org/types.html#BackboneElement">BackboneElements</a> and <a href="https://build.fhir.org/types.html#BackboneType">BackboneTypes</a>.
+            The type of any DomainResource with any <code class="rdf">modifierExtension</code> is prefixed with '_':
+          </p>
+          <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:_MedicationRequest;
+  fhir:nodeRole fhir:treeRoot;
+  fhir:extension ( … );           <span class="comment"># above bodyPosition and delta extensions</span>
+  <span class="lookit">fhir:modifierExtension (
+    [
+      fhir:url "http://example.org/fhir/StructureDefinition/anti-prescription"^^xsd:anyURI;
+      fhir:value true
+    ]
+  )</span>
+  …
+</pre>
+          <p>
+            BackboneElements and BackboneTypes are object types.
+            Any RDF predicate which references a modified BackboneElement or BackboneType is prefixed with a '_'.
+          </p>
+          <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/Observation/Obs123&gt; a fhir:Observation;
+  …
+  fhir:<span class="lookit">_value</span> [
+    a fhir:Quantity;
+    <span id="v-decimal">fhir:value [ fhir:v "185"^^xsd:decimal ]</span>;
+    fhir:unit [ fhir:v "lbs" ];
+    fhir:system [
+      fhir:v "http://unitsofmeasure.org"^^xsd:anyURI
+    ];
+    fhir:code [ fhir:v "[lb_av]" ];
+    fhir:modifierExtension ([
+      fhir:url <http://hl7.org/fhir/StructureDefinition/artifact-status>;
+      fhir:valueCode "draft" ;
+    ]);
+  ]</pre>
+</section>
         
         <section id="concept">
           <h4>Representing Concepts</h4>
@@ -421,19 +484,18 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
     )
 ];</pre>
           <p>
-            For reasoners using the RDF graph, it's very useful to make the implicit
-            concept references in these Codings explicit using a rdf:type assertion ("a" in Turtle):
+            For reasoners using the RDF graph, it's very useful to make the implicit concept references in these Codings explicit using a rdf:type assertion ("a" in Turtle):
           </p>
           <pre class="rdf nohighlight">fhir:Observation.code [
     fhir:CodeableConcept.coding (
         [
-            <span style="font-weight: bold">a loinc:29463-7</span>;
+            <span class="lookit">a loinc:29463-7</span>;
             fhir:Coding.system [ fhir:v "http://loinc.org" ];
             fhir:Coding.code [ fhir:v "29463-7" ];
             fhir:Coding.display [ fhir:v "Body Weight" ]
         ]
         [
-            <span style="font-weight: bold">a sct:27113001</span>;
+            <span class="lookit">a sct:27113001</span>;
             fhir:Coding.system [ fhir:v "http://snomed.info/sct" ];
             fhir:Coding.code [ fhir:v "27113001" ];
             fhir:Coding.display [ fhir:v "Body weight" ]
