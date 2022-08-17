@@ -14,6 +14,12 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove' defer></script>
     <script class="remove">
+      function fhirify (config, doc) {
+        document.getElementsByClassName('head')[0].remove();
+        ([...document.getElementsByClassName('secno')]).forEach(elt => {
+          elt.textContent = elt.textContent.replace(/^1/, "2.4.6");
+        })
+      }
       var respecConfig = {
         edDraftURI: "http://w3c.github.io/hcls-fhir-rdf/spec/v2/",
         issueBase: "https://github.com/w3c/hcls-fhir-rdf/issues",
@@ -41,44 +47,44 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
               value: "Issues list",
               href: "https://github.com/w3c/hcls-fhir-rdf/issues"
           }]
-          }],
-           localBiblio:  {
-             "FHIR": {
-               title:    "Fast Healthcare Interoperability Resources",
-               href:     "http://hl7-fhir.github.io/",
-               "authors": [
-                 "Grahame Grieve",
-                "Lloyd Mckenzie"
-               ],
-               publisher: "HL7"
-             },
-             "FHIRStructureDefintion": {
-               title:    "FHIR StructureDefintion",
-               href:     "http://hl7-fhir.github.io/structuredefinition",
-               "authors": [
-                 "Grahame Grieve",
-                "Lloyd Mckenzie"
-               ],
-               publisher: "HL7"
-             },
-             "FHIRObservation": {
-               title:    "FHIR Observation",
-               href:     "http://hl7-fhir.github.io/structuredefinition",
-               "authors": [
-                 "Grahame Grieve",
-                "Lloyd Mckenzie"
-               ],
-               publisher: "HL7"
-             },
-             "ShExSpec": {
-               title:    "Shape Expressions Language Specification",
-               href:     "http://shexspec.github.io/semantics/",
-               "authors": [
-                 "Iovka Boneva"
-               ],
-               publisher: "independent"
-             },
-          }
+        }],
+        localBiblio:  {
+          "FHIR": {
+            title:    "Fast Healthcare Interoperability Resources",
+            href:     "http://hl7-fhir.github.io/",
+            "authors": [
+              "Grahame Grieve",
+             "Lloyd Mckenzie"
+            ],
+            publisher: "HL7"
+          },
+          "FHIRStructureDefintion": {
+            title:    "FHIR StructureDefintion",
+            href:     "http://hl7-fhir.github.io/structuredefinition",
+            "authors": [
+              "Grahame Grieve",
+             "Lloyd Mckenzie"
+            ],
+            publisher: "HL7"
+          },
+          "FHIRObservation": {
+            title:    "FHIR Observation",
+            href:     "http://hl7-fhir.github.io/structuredefinition",
+            "authors": [
+              "Grahame Grieve",
+             "Lloyd Mckenzie"
+            ],
+            publisher: "HL7"
+          },
+          "ShExSpec": {
+            title:    "Shape Expressions Language Specification",
+            href:     "http://shexspec.github.io/semantics/",
+            "authors": [
+              "Iovka Boneva"
+            ],
+            publisher: "independent"
+        } },
+        postProcess: [fhirify]
       };
     </script>
     <!-- script src="https://www.w3.org/scripts/jquery/2.1/jquery.min.js"></script--> 
@@ -115,7 +121,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       </div>
     </section>
 
-    <section id="2.6.4">
+    <section>
       <h2>Resource Description Framework (RDF) Representation</h2>
       <p>
         FHIR resources can be represented as an <a href="http://www.w3.org/RDF/">RDF graph <img src="http://build.fhir.org/external.png" style="vertical-align: baseline"/></a> serialized in the <a href="https://www.w3.org/TR/turtle/">Turtle format <img src="http://build.fhir.org/external.png" style="vertical-align: baseline"/></a>.
