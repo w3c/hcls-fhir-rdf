@@ -225,12 +225,12 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
         Systems focused on operational exchange of data would not
         generally choose to use RDF.<br>
       </p>
-      <p> This page describes: @@ TODO: Update the order of these
-        bullets @@</p>
+      <p> This page describes:</p>
       <ul>
+        <li><a
+href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#turtle-template">Turtle
+            Template for Resources</a></li>
         <li><a href="#anchor">FHIR RDF Example</a></li>
-        <li><a href="#turtle-template">Turtle Template for Resources</a><br>
-        </li>
         <li><a href="serialization-conventions">FHIR RDF Serialization
             Conventions</a></li>
         <li><a href="fhir-definitions">RDF Representation of FHIR
@@ -248,6 +248,47 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
             style="vertical-align: baseline"></a> document as obsolete
         and point it to to generated FHIR RDF vocabulary/ontology @@<br>
       </p>
+      <section id="instance">
+        <h3><a name="turtle-template"></a>Turtle Template for Resources</h3>
+        <p> Each resource page has a set of language templates
+          describing the expression FHIR in that language. The Turtle
+          representation for a resource is described using this
+          convention: @@ TODO: Why is this background yellow and the
+          others pink? @@<br>
+        </p>
+        <pre class="spec nohighlight">Turtle Template
+
+[ a fhir:Observation; fhir:nodeRole fhir:treeRoot;
+  # from Resource: id; meta; implicitRules; and language
+  # from DomainResource: text; contained; extension; and modifierExtension
+  fhir:Obervation.identifier [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Identifier</a> ]; # 0..* Unique Id for this particular observation
+  fhir:Obervation.status [ fhir:v "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
+  fhir:Obervation.code [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
+  fhir:Obervation.subject [ fhir:reference [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Patient</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Group</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Device</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Location</a> ] ]; # 0..1 Who and/or what this is about
+  fhir:Obervation.encounter [ fhir:reference [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
+  # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
+    fhir:Obervation.effectiveDateTime [ fhir:v "&lt;dateTime&gt;" ];
+    fhir:Obervation.effectivePeriod [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Period</a> ];
+]</pre>
+        <p> Using this format: </p>
+        <ul>
+          <li> To build a valid Turtle instance of a resource, replace
+            the contents of the property values with valid content as
+            described by the type rules and content description found in
+            the property value for each element. </li>
+          <li> Nodes are never empty. If an element is present in the
+            resource, it SHALL have properties as defined for its type,
+            or 1 or more <a
+href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/extensibility.html">extensions</a>
+          </li>
+          <li>The <span style="color: brown"><b>R!</b></span> denotes
+            that a relationship is mandatory - it must be present (or in
+            an array, at least one item must be present).</li>
+          <li>Note that this specification produces Turtle that is
+            nicely formatted and well laid out, but this is not required
+            or expected.</li>
+        </ul>
+      </section>
       <section>
         <h3><a name="example"></a>FHIR RDF Example<br>
         </h3>
@@ -305,48 +346,6 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
           <li>and literals with a quoted value and an optional datatype
             preceded by '^^' (e.g. <code class="rdf">"final"</code>).</li>
         </ul>
-        <section id="instance">
-          <h3><a name="turtle-template"></a>Turtle Template for
-            Resources</h3>
-          <p> Each resource page has a set of language templates
-            describing the expression FHIR in that language. The Turtle
-            representation for a resource is described using this
-            convention: @@ TODO: Why is this background yellow and the
-            others pink? @@<br>
-          </p>
-          <pre class="spec nohighlight">Turtle Template
-
-[ a fhir:Observation; fhir:nodeRole fhir:treeRoot;
-  # from Resource: id; meta; implicitRules; and language
-  # from DomainResource: text; contained; extension; and modifierExtension
-  fhir:Obervation.identifier [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Identifier</a> ]; # 0..* Unique Id for this particular observation
-  fhir:Obervation.status [ fhir:v "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
-  fhir:Obervation.code [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
-  fhir:Obervation.subject [ fhir:reference [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Patient</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Group</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Device</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Location</a> ] ]; # 0..1 Who and/or what this is about
-  fhir:Obervation.encounter [ fhir:reference [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
-  # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
-    fhir:Obervation.effectiveDateTime [ fhir:v "&lt;dateTime&gt;" ];
-    fhir:Obervation.effectivePeriod [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Period</a> ];
-]</pre>
-          <p> Using this format: </p>
-          <ul>
-            <li> To build a valid Turtle instance of a resource, replace
-              the contents of the property values with valid content as
-              described by the type rules and content description found
-              in the property value for each element. </li>
-            <li> Nodes are never empty. If an element is present in the
-              resource, it SHALL have properties as defined for its
-              type, or 1 or more <a
-href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/extensibility.html">extensions</a>
-            </li>
-            <li>The <span style="color: brown"><b>R!</b></span> denotes
-              that a relationship is mandatory - it must be present (or
-              in an array, at least one item must be present).</li>
-            <li>Note that this specification produces Turtle that is
-              nicely formatted and well laid out, but this is not
-              required or expected.</li>
-          </ul>
-        </section>
         <ul>
         </ul>
       </section>
@@ -502,7 +501,8 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             relationship is absent, or it is present with at least one
             character of content. XHTML is represented as an escaped
             xs:string.&nbsp; @@ TODO: Which XSD prefix should we
-            use?&nbsp; xs: or xsd: ? We should be consistent.&nbsp; @@<br>
+            use?&nbsp; xs: or xsd: ? We should be consistent.&nbsp; The
+            rest of the FHIR spec seems to use an xs: prefix. @@<br>
           </p>
           <h4>Representing References</h4>
           <p> A <a href="references.html#Reference">Reference</a>
@@ -560,21 +560,21 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:Observation;
   fhir:nodeRole fhir:treeRoot;
   fhir:extension (
-    <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xsd:anyURI;
+    <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xsd:anyURI;  @@ TODO: Should this use a bnode and fhir:v?  <br>If not, how will readers know which FHIR properties have direct scalar values and which use a bnode with fhir:v?   And how would it be extended?<br>https://build.fhir.org/datatypes.html says "All data types (including primitives) may have extensions".  @@
       fhir:value [
         fhir:coding (
           a sct:33586001;
-          fhir:system [ fhir:value "http://snomed.info/sct" ];
-          fhir:code [ fhir:value "33586001" ];
-          fhir:display [ fhir:value "Sitting position (finding)" ]
+          fhir:system [ fhir:v "http://snomed.info/sct" ];
+          fhir:code [ fhir:v "33586001" ];
+          fhir:display [ fhir:v "Sitting position (finding)" ]
         ) ] ]</span>
     <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xsd:anyURI;
       fhir:value [
         fhir:coding (
           a sct:1250004;
-          fhir:system [ fhir:value "http://snomed.info/sct" ];
-          fhir:code [ fhir:value "1250004" ];
-          fhir:display [ fhir:value "Decreased (qualifier value)" ]
+          fhir:system [ fhir:v "http://snomed.info/sct" ];
+          fhir:code [ fhir:v "1250004" ];
+          fhir:display [ fhir:v "Decreased (qualifier value)" ]
         ) ] ]</span>
   )
   …
@@ -593,7 +593,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
   <span class="lookit">fhir:modifierExtension (
     [
       fhir:url "http://example.org/fhir/StructureDefinition/anti-prescription"^^xsd:anyURI;
-      fhir:value true
+      fhir:value [ a fhir:boolean ; fhir:v true  @@ TODO: Verify this example.  fhir:Boolean?  xsd:boolean?  @@
     ]
   )</span>
   …
@@ -612,8 +612,8 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
     ];
     fhir:code [ fhir:v "[lb_av]" ];
     fhir:modifierExtension ([
-      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">;
-      fhir:valueCode "draft" ;
+      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">; @@ TODO: Fix this example @@
+      fhir:value [ a fhir:Code ; fhir:v "draft" ] ;  @@ TODO: Verify this example. @@
     ]);
   ]</http:></pre>
         </section>
