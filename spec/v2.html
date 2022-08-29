@@ -194,8 +194,10 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
                 <p> This page and the RDF forms are jointly maintained
                   by the HL7 FHIR project -- especially the <a
                     href="https://confluence.hl7.org/pages/viewpage.action?pageId=66922543">RDF
+
                     subgroup</a> of the <a
                     href="http://www.hl7.org/Special/committees/xml/index.cfm">ITS
+
                     work group</a> -- and the <a
                     href="https://www.w3.org/blog/hcls/">W3C Semantic
                     Web Health Care and Life Sciences Interest Group <img
@@ -208,6 +210,8 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       </div>
     </section>
     <section>
+      <h2>@@ TODO: Add Maturity: FMM 2 Standards Status: Trial Use @@<br>
+      </h2>
       <h2>Resource Description Framework (RDF) Representation</h2>
       <p> FHIR resources can be represented as an <a
           href="http://www.w3.org/RDF/">RDF graph <img
@@ -229,6 +233,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       <ul>
         <li><a
 href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#turtle-template">Turtle
+
             Template for Resources</a></li>
         <li><a href="#anchor">FHIR RDF Example</a></li>
         <li><a href="serialization-conventions">FHIR RDF Serialization
@@ -243,6 +248,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.htm
       </ul>
       <p id="todo">@@ TODO 1: Mark the <a
           href="http://w3c.github.io/hcls-fhir-rdf/spec/ontology.html">FHIR
+
           Ontology draft on W3C github <img
             src="http://build.fhir.org/external.png"
             style="vertical-align: baseline"></a> document as obsolete
@@ -253,8 +259,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.htm
         <p> Each resource page has a set of language templates
           describing the expression FHIR in that language. The Turtle
           representation for a resource is described using this
-          convention: @@ TODO 2: Why is this background yellow and the
-          others pink? @@<br>
+          convention: <br>
         </p>
         <pre class="spec nohighlight">Turtle Template
 
@@ -402,7 +407,8 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
           <h4>Nested Anonymous Nodes</h4>
           <p> Content within a resource is always represented with
             anonymous nodes (a/k/a "blank nodes").&nbsp; Only FHIR
-            Resource nodes will be IRIs. For example, <span class="rdf">&lt;…/Obs123&gt;
+            Resource nodes can be IRIs. For example, <span class="rdf">&lt;…/Obs123&gt;
+
               fhir:status [ fhir:v "final" ]</span> asserts that: </p>
           <ul>
             <li><span class="rdf">&lt;…/Obs123&gt;</span> has a <span
@@ -425,19 +431,20 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
             datatypes, like <span class="spec">value[x]</span>, are
             appended with the datatype, e.g. <span class="json">valueQuantity</span>.
             In RDF, this is written <span class="rdf">fhir:value</span>
-            and the object asserts its type, as in the <a href="#value">working
-              example</a>:@@ TODO 3: What are these "working examples"?
-            @@<br>
+            and the object asserts its type, as in the <a href="#value">above
+
+              example</a>:<br>
           </p>
           <pre class="rdf nohighlight">  fhir:value [ a fhir:Quantity; … ]</pre>
         </section>
         <section id="rdflist">
           <h4>Representing Repeating Elements</h4>
           <p> Elements that can repeat are represented with RDF lists
-            (officially called "RDF collections") in order to retain . </p>
+            (officially called "RDF collections") in order to retain the
+            order of their elements. </p>
           <pre class="rdf nohighlight">(elt1 elt2 …)</pre>
           <p> which produces an RDF list structure the the elements <code>elt1</code>
-            and <code>elt2</code>. In the <a href="#ex-list">working
+            and <code>elt2</code>. In the <a href="#ex-list">above
               example</a>, the <code>fhir:code</code> has a <code>fhir:coding</code>
             with two members: </p>
           <pre class="rdf nohighlight">    fhir:coding (
@@ -447,20 +454,18 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
           <p class="todo"> A script (TODO: write said script) can
             convert lists to <a
 href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example">OLO-style
+
               lists</a>. </p>
         </section>
         <section id="primitive">
           <h4>Representing Primitive Elements</h4>
           <p> Primitive elements - elements with a primitive type - are
-            represented as regular (anonymous) nodes so that the
-            elements extensions can be represented. The actual value of
-            the primitive type is represented as an RDF Literal using
-            the <span class="rdf">fhir:v</span> predicate. The object
-            of <span class="rdf">fhir:v</span> is always an RDF literal
-            (as distinct from the <code class="rdf">fhir:value</code>
-            in e.g. the <a
-              href="http://build.fhir.org/datatypes.html#Quantity">Quantity</a>
-            datatype): </p>
+            represented as regular (anonymous) nodes so that the element
+            extensions can be represented.&nbsp; The actual value of the
+            primitive type is represented as an RDF Literal using the <span
+              class="rdf">fhir:v</span> predicate.&nbsp; fhir:v is the
+            only FHIR property that directly holds an RDF literal, and
+            it always holds an RDF Literal: </p>
           <pre class="rdf nohighlight">  fhir:v "[value]"^^xs:type</pre>
           <p> The value has two parts: a literal string that contains
             the value, and, if applicable, one of the following schema
@@ -477,7 +482,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             <li>gYearMonth</li>
             <li>time</li>
           </ul>
-          <p> In the <a href="#v-decimal">working example</a>, the
+          <p> In the <a href="#v-decimal">above example</a>, the
             Quantity has a fhir:value which is an anonymous node with a
             <code class="rdf">fhir:v</code> in it: </p>
           <pre class="rdf nohighlight">[ fhir:v "185"^^xsd:decimal ]</pre>
@@ -503,7 +508,8 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             character of content. XHTML is represented as an escaped
             xs:string.&nbsp; @@ TODO 4: Which XSD prefix should we
             use?&nbsp; xs: or xsd: ? We should be consistent.&nbsp; The
-            rest of the FHIR spec seems to use an xs: prefix. @@<br>
+            rest of the FHIR spec seems to use an xs: prefix.&nbsp; --
+            YES, CHANGE TO xs: @@<br>
           </p>
           <h4>Representing References</h4>
           <p> A <a href="references.html#Reference">Reference</a>
@@ -593,8 +599,8 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
   fhir:extension ( … );           <span class="comment"># above bodyPosition and delta extensions</span>
   <span class="lookit">fhir:modifierExtension (
     [
-      fhir:url "http://example.org/fhir/StructureDefinition/anti-prescription"^^xsd:anyURI;
-      fhir:value [ a fhir:boolean ; fhir:v true  @@ TODO 6: Verify this example.  fhir:Boolean?  xsd:boolean?  @@
+      fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-prescription"^^xsd:anyURI ] ;
+      fhir:value [ a fhir:boolean ; fhir:v true
     ]
   )</span>
   …
@@ -613,7 +619,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
     ];
     fhir:code [ fhir:v "[lb_av]" ];
     fhir:modifierExtension ([
-      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">; @@ TODO 7: Fix this example @@
+      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">[ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xsd:anyURI ] ;
       fhir:value [ a fhir:Code ; fhir:v "draft" ] ;  @@ TODO 8: Verify this example. @@
     ]);
   ]</http:></pre>
@@ -645,7 +651,9 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p> For reasoners using the RDF graph, it's very useful to
             make the implicit concept references in these Codings
             explicit, by specifying a <i>concept IRI</i> in an
-            (optional) rdf:type assertion, written as "a" in Turtle: </p>
+            (optional) rdf:type assertion, written as <b><font
+                face="Courier New, Courier, monospace">a</font></b> in
+            Turtle: </p>
           <pre class="rdf nohighlight">fhir:Observation.code [
     fhir:CodeableConcept.coding (
         [
@@ -682,7 +690,8 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p>@@ TODO 9: Should we include the Concept IRI algorithm
             here?&nbsp; Or reference the <a
 href="https://docs.google.com/document/d/1sW3Tgj2J_wBzlUWih07e0Vf_M9Ue8YyPqjK0arhajS8/edit#">google
-              doc proposal?</a> @@<br>
+
+              doc proposal?</a> AGREED: Make it an appendix.&nbsp; @@<br>
           </p>
           <h3><a name="fhir-definitions"></a>RDF Representation of FHIR
             Definitions</h3>
@@ -796,13 +805,16 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
                     style="vertical-align: baseline"></a> (Same code as
                 used in the build)</li>
               <li><a href="http://fhir3.healthintersections.com.au/open">Reference
+
                   Server <img src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a> (based on <a
                   href="http://github.com/grahamegrieve/fhirserver">Delphi
+
                   reference implementation <img
                     src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a>)</li>
               <li><a href="https://github.com/mvdzel/fhir-net-api">fhir-net-api
+
                   <img src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a>, a .NET
                 implementation. (should work on <a
@@ -811,6 +823,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
                     style="vertical-align: baseline"></a>)</li>
               <li>Check the <a
 href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
+
                   Open Source FHIR Implementations page, <img
                     src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a> in case new
@@ -824,6 +837,7 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
             license restrictions, the process of obtaining the SNOMED-CT
             ontology is more complex than a simple download. Some <a
               href="http://owl.cs.manchester.ac.uk/research/snomed/">guidance
+
               is provided here <img
                 src="http://build.fhir.org/external.png"
                 style="vertical-align: baseline"></a>. ) </li>
@@ -841,11 +855,14 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
         </ol>
         A <a
 href="https://yosemiteproject.org/fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">webinar
+
           by Harold Solbrig</a> shows how FHIR RDF data can be used with
         the <a
           href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
+
           ontology</a> to recognize a cancer diagnosis.&nbsp; An <a
 href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">associated
+
           tutorial</a> details the steps used.&nbsp; <i>Caveat: this
           webinar and tutorial used a previous version of FHIR RDF.<br>
         </i>
@@ -853,12 +870,14 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
         </ol>
         <p> <a
             href="https://www.w3.org/2016/Talks/1205-swat4ls-egp/reasoning">Slides
+
             by Eric Prud'hommeaux <img
               src="http://build.fhir.org/external.png"
               style="vertical-align: baseline"></a> illustrate how
           inference can be used on FHIR RDF data to perform a query for
           FHIR Observations of rheumatoid arthritis, using the <a
             href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
+
             ontology <img src="http://build.fhir.org/external.png"
               style="vertical-align: baseline"></a>. <i> Caveat: those
             slides are based on an earlier version of FHIR RDF and also
