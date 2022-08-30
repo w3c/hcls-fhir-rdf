@@ -25,13 +25,13 @@ in order to support consistent definitions for schema and UML derived code.
 <div style="background-color: #E6FFFF; border:1px solid black; padding: 5px;">
 <table>
 <tr>
- <td><img src="http://w3c-domains.com/img/w3c-96.png"/></td>
+ <td><img src="http://w3c-domains.com/img/w3c-96.png" alt="W3C"/></td>
  <td>
 <p>
 This page and the RDF forms are jointly maintained
-by the HL7 FHIR project -- especially the 
-<a href="https://confluence.hl7.org/pages/viewpage.action?pageId=66922543">RDF subgroup</a> of the 
-<a href="http://www.hl7.org/Special/committees/xml/index.cfm">ITS work group</a> -- and the 
+by the HL7 FHIR project -- especially the
+<a href="https://confluence.hl7.org/pages/viewpage.action?pageId=66922543">RDF subgroup</a> of the
+<a href="http://www.hl7.org/Special/committees/xml/index.cfm">ITS work group</a> -- and the
 <a href="https://www.w3.org/blog/hcls/">W3C Semantic
 Web Health Care and Life Sciences Interest Group</a>.
 </p>
@@ -171,8 +171,6 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
           <li>anonymous nodes are declared with '<code class="rdf">[ ... ]</code>'s,</li>
           <li>and literals with a quoted value and an optional datatype
             preceded by '^^' (e.g. <code class="rdf">"final"</code>).</li>
-        </ul>
-        <ul>
         </ul>
       </section>
       <section>
@@ -321,13 +319,13 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             <code class="rdf">fhir:v</code> in it: </p>
           <pre class="rdf">[ fhir:v "185"^^xs:decimal ]</pre>
           <p> Note that the correct XSD type for a FHIR <a
-              href="https://build.fhir.org/datatypes.html#decimal">decimal</a>,
-            <a href="https://build.fhir.org/datatypes.html#date">date</a>,
-            or <a href="https://build.fhir.org/datatypes.html#dateTime">dateTime</a>
+              href="datatypes.html#decimal">decimal</a>,
+            <a href="datatypes.html#date">date</a>,
+            or <a href="datatypes.html#dateTime">dateTime</a>
             must be determined by inspecting the value of the date for
             conformance with one of the union types for that type. In
             the case of FHIR <a
-              href="https://build.fhir.org/datatypes.html#decimal">decimal</a>,
+              href="datatypes.html#decimal">decimal</a>,
             which is a union of XSD <a
               href="https://www.w3.org/TR/xmlschema-2/#decimal">decimal</a>
             and <a href="https://www.w3.org/TR/xmlschema-2/#double">double</a>,
@@ -415,14 +413,14 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           fhir:display [ fhir:v "Decreased (qualifier value)" ]
         ) ] ]</b>
   )
-  ... 
+  ...
 </pre>
           <p> FHIR allows <code class="rdf">modifierExtension</code>s
             on <a
-              href="https://build.fhir.org/domainresource.html#DomainResource">DomainResources</a>,
-            <a href="https://build.fhir.org/types.html#BackboneElement">BackboneElements</a>
+              href="domainresource.html#DomainResource">DomainResources</a>,
+            <a href="types.html#BackboneElement">BackboneElements</a>
             and <a
-              href="https://build.fhir.org/types.html#BackboneType">BackboneTypes</a>.
+              href="types.html#BackboneType">BackboneTypes</a>.
             The type of any DomainResource with any <code class="rdf">modifierExtension</code>
             is prefixed with '_' in RDF: </p>
           <pre class="rdf">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:_MedicationRequest;
@@ -434,16 +432,16 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
       fhir:value [ a fhir:boolean ; fhir:v true ]
     ]
   )</b>
-  ... 
+  ...
 </pre>
           <p> BackboneElements and BackboneTypes are object types. Any
             RDF predicate which references a modified BackboneElement or
             BackboneType is prefixed with a '_'. </p>
           <pre class="rdf">&lt;http://hl7.org/fhir/Observation/Obs123&gt; a fhir:Observation;
-  ... 
+  ...
   fhir:<b>_value</b> [
     a fhir:Quantity;
-    <span id="v-decimal">fhir:value [ fhir:v "185"^^xs:decimal ]</span>;
+    fhir:value [ fhir:v "185"^^xs:decimal ];
     fhir:unit [ fhir:v "lbs" ];
     fhir:system [
       fhir:v "http://unitsofmeasure.org"^^xs:anyURI
@@ -451,7 +449,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
     fhir:code [ fhir:v "[lb_av]" ];
     fhir:modifierExtension ([
       fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xs:anyURI ] ;
-      fhir:value [ a fhir:code ; fhir:v "draft" ] ; 
+      fhir:value [ a fhir:code ; fhir:v "draft" ] ;
     ]);
   ]</pre>
         </section>
@@ -482,8 +480,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p> For reasoners using the RDF graph, it's very useful to
             make the implicit concept references in these Codings
             explicit, by specifying a <i>concept IRI</i> in an
-            (optional) rdf:type assertion, written as <b><font
-                face="Courier New, Courier, monospace">a</font></b> in
+            (optional) rdf:type assertion, written as <b><code class="rdf" style="font-size=larger">a</code></b> in
             Turtle: </p>
           <pre class="rdf">fhir:Observation.code [
     fhir:CodeableConcept.coding (
@@ -637,47 +634,15 @@ href="downloads.html">ShEx</a>
                   library</a> (Same code as
                 used in the build)</li>
               <li><a href="http://fhir3.healthintersections.com.au/open">Reference
-
-
-
-
-
-
-
-
                   Server</a> (based on <a
                   href="http://github.com/grahamegrieve/fhirserver">Delphi
-
-
-
-
-
-
-
-
                   reference implementation</a>)</li>
               <li><a href="https://github.com/mvdzel/fhir-net-api">fhir-net-api
-
-
-
-
-
-
-
-
                  </a>, a .NET
                 implementation. (should work on <a
                   href="http://www.mono-project.com/">Mono</a>)</li>
               <li>Check the <a
 href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
-
-
-
-
-
-
-
-
                   Open Source FHIR Implementations page,</a> in case new
                 implementations have become available</li>
             </ul>
@@ -689,14 +654,6 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
             license restrictions, the process of obtaining the SNOMED-CT
             ontology is more complex than a simple download. Some <a
               href="http://owl.cs.manchester.ac.uk/research/snomed/">guidance
-
-
-
-
-
-
-
-
               is provided here</a>. ) </li>
           <li> Create or obtain a bridge ontology that relates terms in
             the FHIR ontology to terms in your other ontologies. </li>
@@ -710,62 +667,20 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
         </ol>
         A <a
 href="https://yosemiteproject.org/fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">webinar
-
-
-
-
-
-
-
-
           by Harold Solbrig</a> shows how FHIR RDF data can be used with
         the <a
           href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
-
-
-
-
-
-
-
-
           ontology</a> to recognize a cancer diagnosis.&nbsp; An <a
 href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">associated
-
-
-
-
-
-
-
-
           tutorial</a> details the steps used.&nbsp; <i>Caveat: this
           webinar and tutorial used a previous version of FHIR RDF.<br>
         </i>
-        <ol>
-        </ol>
         <p> <a
             href="https://www.w3.org/2016/Talks/1205-swat4ls-egp/reasoning">Slides
-
-
-
-
-
-
-
-
             by Eric Prud'hommeaux</a> illustrate how
           inference can be used on FHIR RDF data to perform a query for
           FHIR Observations of rheumatoid arthritis, using the <a
             href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
-
-
-
-
-
-
-
-
             ontology</a>. <i> Caveat: those
             slides are based on an earlier version of FHIR RDF and also
             show some terms in the fhir: namespace that do not actually
@@ -778,12 +693,6 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
           Creating a Concept IRI</h3>
         <p>This section defines a standard algorithm for generating a
           Concept IRI from a &lt;<code>Coding.system</code>, <code>Coding.code</code>&gt;
-
-
-
-
-
-
           pair.&nbsp; In many cases it involves merely concatenating the
           associated IRI Stem with the <code>Coding.code</code>.&nbsp;
           But because a <code>Coding.code</code> could contain reserved
@@ -821,12 +730,6 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
           <li>Let <i>cSafe</i> be the IRI-safe version of <i>c</i>, as
             defined by the algorithm in <a
               href="https://www.w3.org/TR/2012/REC-r2rml-20120927/#from-template">section
-
-
-
-
-
-
               7.3 of R2RML: RDB to RDF Mapping Language (W3C
               Recommendation 27 September 2012)</a>, non-normatively
             quoted here for convenience:<br>
@@ -834,10 +737,6 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
                 obtained by applying the following transformation to any
                 character that is not in the <a
                   href="http://tools.ietf.org/html/rfc3987#section-2.2">iunreserved
-
-
-
-
                   production</a> in [RFC3987]:</i><i><br>
               </i>
               <blockquote><i> 1. Convert the character to a sequence of
@@ -849,9 +748,6 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
             </blockquote>
             The iunreserved production defined in <a
               href="https://datatracker.ietf.org/doc/html/rfc3987#section-2.2">RFC
-
-
-
               3987, section 2.2</a> using <a
               href="https://datatracker.ietf.org/doc/html/rfc2234">ABNF</a>
             is also non-normatively quoted here for convenience:<br>
@@ -932,10 +828,10 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
           <tbody>
             <tr>
               <td colspan="1" rowspan="1">
-                <p><font size="+1"><code><b><span>Coding.system</span></b></code></font></p>
+                <p><code class="rdf" style="font-size=larger"><b><span>Coding.system</span></b></code></p>
               </td>
               <td colspan="1" rowspan="1">
-                <p><font size="+1"><code><b><span>Coding.code</span></b></code></font></p>
+                <p><code class="rdf" style="font-size=larger"><b><span>Coding.code</span></b></code></p>
               </td>
               <td colspan="1" rowspan="1">
                 <p><b><span>IRI Stem</span></b></p>
@@ -1025,13 +921,13 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
                     </span></code><code><span>http://example.org/</span></code></p>
               </td>
               <td colspan="1" rowspan="1">
-                <p><font size="+1"><code><span>☺</span></code></font></p>
+                <p><code class="rdf" style="font-size=larger"><span>☺</span></code></p>
               </td>
               <td colspan="1" rowspan="1">
                 <p><code><span>http://example.org/ </span></code></p>
               </td>
               <td colspan="1" rowspan="1">
-                <p><code><span>http://example.org/<font size="+1">☺</font></span></code></p>
+                <p><code class="rdf" style="font-size=larger"><span>http://example.org/☺</span></code></p>
               </td>
             </tr>
             <tr>
@@ -1046,13 +942,13 @@ href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Miscellaneous_S
                     </span></code><code><span>http://example.org/</span></code></p>
               </td>
               <td colspan="1" rowspan="1">
-                <p><font size="+1"><code><span>👋🏾</span></code></font></p>
+                <p><code class="rdf" style="font-size=larger"><span>👋🏾</span></code></p>
               </td>
               <td colspan="1" rowspan="1">
                 <p><code><span>http://example.org/ </span></code></p>
               </td>
               <td colspan="1" rowspan="1">
-                <p><code><span>http://example.org/id/<font size="+1">👋🏾</font></span></code><code><span>&nbsp;</span></code></p>
+                <p><code class="rdf" style="font-size=larger"><span>http://example.org/id/👋🏾</span></code><code><span>&nbsp;</span></code></p>
               </td>
             </tr>
           </tbody>
