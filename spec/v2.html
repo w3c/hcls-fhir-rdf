@@ -195,8 +195,20 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
                   by the HL7 FHIR project -- especially the <a
                     href="https://confluence.hl7.org/pages/viewpage.action?pageId=66922543">RDF
 
+
+
+
+
+
+
                     subgroup</a> of the <a
                     href="http://www.hl7.org/Special/committees/xml/index.cfm">ITS
+
+
+
+
+
+
 
                     work group</a> -- and the <a
                     href="https://www.w3.org/blog/hcls/">W3C Semantic
@@ -234,6 +246,12 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
         <li><a
 href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#turtle-template">Turtle
 
+
+
+
+
+
+
             Template for Resources</a></li>
         <li><a href="#anchor">FHIR RDF Example</a></li>
         <li><a href="serialization-conventions">FHIR RDF Serialization
@@ -243,17 +261,11 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.htm
         <li><a href="#relationship">Relationship between RDF, FHIR, and
             ontologies</a></li>
         <li><a href="#rest-api">Using RDF with the REST API</a></li>
-        <li><a href="#guidance">Usage Guidance</a><br>
+        <li><a href="#guidance">Usage Guidance</a></li>
+        <li><a href="#concept-iri-algorithm">Appendix: Algorithm for
+            creating a Concept IRI</a><br>
         </li>
       </ul>
-      <p id="todo">@@ TODO 1: Mark the <a
-          href="http://w3c.github.io/hcls-fhir-rdf/spec/ontology.html">FHIR
-
-          Ontology draft on W3C github <img
-            src="http://build.fhir.org/external.png"
-            style="vertical-align: baseline"></a> document as obsolete
-        and point it to to generated FHIR RDF vocabulary/ontology @@<br>
-      </p>
       <section id="instance">
         <h3><a name="turtle-template"></a>Turtle Template for Resources</h3>
         <p> Each resource page has a set of language templates
@@ -300,7 +312,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/extens
         <p> An example FHIR RDF Observation illustrates the Turtle
           language and the additional conventions used by FHIR RDF: </p>
         <pre class="rdf nohighlight">PREFIX fhir: &lt;http://hl7.org/fhir/&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX xs: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
 
 <span class="comment">                                  # Obs123 (subject) hasType (predicate) fhir:Observation</span>
@@ -312,14 +324,14 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
       [                           <span class="comment">#   with a system, code and concept identifier</span>
         a &lt;http://loinc.org/rdf#29463-7&gt;
         fhir:system [
-          fhir:v "http://loinc.org"^^xsd:anyURI
+          fhir:v "http://loinc.org"^^xs:anyURI
         ];
         fhir:code [ fhir:v "29463-7" ]
       ]
       [                           <span class="comment">#  and another with a display</span>
         a &lt;http://loinc.org/rdf#3141-9&gt;
         fhir:system [
-          fhir:v "http://loinc.org"^^xsd:anyURI
+          fhir:v "http://loinc.org"^^xs:anyURI
         ];
         fhir:code [ fhir:v "3141-9" ];
         fhir:display [ fhir:v "Body weight Measured" ]
@@ -328,10 +340,10 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
   ];
   <span id="value">fhir:value [                    <span class="comment"># the value is an anonymous node</span>
     a fhir:Quantity;              <span class="comment">#   which has a type (Quantity), and 21090 parts.</span>
-    <span id="v-decimal">fhir:value [ fhir:v "185"^^xsd:decimal ]</span>;
+    <span id="v-decimal">fhir:value [ fhir:v "185"^^xs:decimal ]</span>;
     fhir:unit [ fhir:v "lbs" ];
     fhir:system [
-      fhir:v "http://unitsofmeasure.org"^^xsd:anyURI
+      fhir:v "http://unitsofmeasure.org"^^xs:anyURI
     ];
     fhir:code [ fhir:v "[lb_av]" ]
   ]</span>.
@@ -409,6 +421,12 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
             anonymous nodes (a/k/a "blank nodes").&nbsp; Only FHIR
             Resource nodes can be IRIs. For example, <span class="rdf">&lt;…/Obs123&gt;
 
+
+
+
+
+
+
               fhir:status [ fhir:v "final" ]</span> asserts that: </p>
           <ul>
             <li><span class="rdf">&lt;…/Obs123&gt;</span> has a <span
@@ -433,6 +451,12 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
             In RDF, this is written <span class="rdf">fhir:value</span>
             and the object asserts its type, as in the <a href="#value">above
 
+
+
+
+
+
+
               example</a>:<br>
           </p>
           <pre class="rdf nohighlight">  fhir:value [ a fhir:Quantity; … ]</pre>
@@ -454,6 +478,12 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
           <p class="todo"> A script (TODO: write said script) can
             convert lists to <a
 href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example">OLO-style
+
+
+
+
+
+
 
               lists</a>. </p>
         </section>
@@ -485,7 +515,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p> In the <a href="#v-decimal">above example</a>, the
             Quantity has a fhir:value which is an anonymous node with a
             <code class="rdf">fhir:v</code> in it: </p>
-          <pre class="rdf nohighlight">[ fhir:v "185"^^xsd:decimal ]</pre>
+          <pre class="rdf nohighlight">[ fhir:v "185"^^xs:decimal ]</pre>
           <p> Note that the correct XSD type for a FHIR <a
               href="https://build.fhir.org/datatypes.html#decimal">decimal</a>,
             <a href="https://build.fhir.org/datatypes.html#date">date</a>,
@@ -499,17 +529,14 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             and <a href="https://www.w3.org/TR/xmlschema-2/#double">double</a>,
             any value with an 'e' or 'E' in it is a double, otherwise it
             is a decimal. For example, the lexical value <span
-              class="rdf">"185"</span> is given the datatype <code>xsd:decimal</code>.
+              class="rdf">"185"</span> is given the datatype <code>xs:decimal</code>.
           </p>
         </section>
         <section id="reference">
           <p> The fhir:v property can never be empty. Either the
             relationship is absent, or it is present with at least one
             character of content. XHTML is represented as an escaped
-            xs:string.&nbsp; @@ TODO 4: Which XSD prefix should we
-            use?&nbsp; xs: or xsd: ? We should be consistent.&nbsp; The
-            rest of the FHIR spec seems to use an xs: prefix.&nbsp; --
-            YES, CHANGE TO xs: @@<br>
+            xs:string.&nbsp; <br>
           </p>
           <h4>Representing References</h4>
           <p> A <a href="references.html#Reference">Reference</a>
@@ -567,7 +594,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:Observation;
   fhir:nodeRole fhir:treeRoot;
   fhir:extension (
-    <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xsd:anyURI;  @@ TODO 5: Should this use a bnode and fhir:v?  <br>If not, how will readers know which FHIR properties have direct scalar values and which use a bnode with fhir:v?   And how would it be extended?<br>https://build.fhir.org/datatypes.html says "All data types (including primitives) may have extensions".  @@
+    <span class="lookit">[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xs:anyURI ] ;
       fhir:value [
         fhir:coding (
           a sct:33586001;
@@ -575,7 +602,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           fhir:code [ fhir:v "33586001" ];
           fhir:display [ fhir:v "Sitting position (finding)" ]
         ) ] ]</span>
-    <span class="lookit">[ fhir:url "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xsd:anyURI;
+    <span class="lookit">[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xs:anyURI ] ;
       fhir:value [
         fhir:coding (
           a sct:1250004;
@@ -599,8 +626,8 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
   fhir:extension ( … );           <span class="comment"># above bodyPosition and delta extensions</span>
   <span class="lookit">fhir:modifierExtension (
     [
-      fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-prescription"^^xsd:anyURI ] ;
-      fhir:value [ a fhir:boolean ; fhir:v true
+      fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-prescription"^^xs:anyURI ] ;
+      fhir:value [ a fhir:boolean ; fhir:v true ]
     ]
   )</span>
   …
@@ -612,15 +639,15 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
   …
   fhir:<span class="lookit">_value</span> [
     a fhir:Quantity;
-    <span id="v-decimal">fhir:value [ fhir:v "185"^^xsd:decimal ]</span>;
+    <span id="v-decimal">fhir:value [ fhir:v "185"^^xs:decimal ]</span>;
     fhir:unit [ fhir:v "lbs" ];
     fhir:system [
-      fhir:v "http://unitsofmeasure.org"^^xsd:anyURI
+      fhir:v "http://unitsofmeasure.org"^^xs:anyURI
     ];
     fhir:code [ fhir:v "[lb_av]" ];
     fhir:modifierExtension ([
-      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">[ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xsd:anyURI ] ;
-      fhir:value [ a fhir:Code ; fhir:v "draft" ] ;  @@ TODO 8: Verify this example. @@
+      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">[ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xs:anyURI ] ;
+      fhir:value [ a fhir:code ; fhir:v "draft" ] ; 
     ]);
   ]</http:></pre>
         </section>
@@ -674,24 +701,24 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             code.&nbsp; An <i>IRI stem</i> is the initial substring, of
             an IRI, that is used to create concept IRIs for codes in a
             particular vocabulary.&nbsp; The IRI stem normally
-            corresponds directly to an IRI prefix in Turtle, such as <font
-              face="Courier New, Courier, monospace">loinc:</font> or <font
-              face="Courier New, Courier, monospace">sct:</font> in the
-            above example.&nbsp; The concept IRI for a given
-            &lt;Coding.system, Coding.code&gt; pair is typically formed
-            by: 1. looking up the appropriate IRI stem corresponding to
-            the Coding.system; 2. concatenating the IRI stem with the
-            percent encoded Coding.code .&nbsp; If an IRI stem for the
-            Coding.system is published at https://terminology.hl7.org/
-            it SHOULD be used.&nbsp; <a
-              href="https://simplifier.net/packages/hl7.terminology/">An
-              NPM package is available</a> for automated lookup.<br>
+            corresponds directly to an IRI prefix in Turtle, such as <code>loinc:</code>
+            or <code>sct:</code> in the above example.&nbsp; The
+            concept IRI for a given &lt;<code>Coding.system</code>, <code>Coding.code</code>&gt;
+            pair is typically formed by: 1. looking up the appropriate
+            IRI stem corresponding to the <code>Coding.system</code>;
+            2. concatenating the IRI stem with the percent encoded <code>Coding.code</code>
+            .&nbsp; Some vocabularies may also define <code>Coding.code</code>s
+            that are already concept IRIs, bypassing the need for the
+            IRI stem.&nbsp; For details see <a
+              href="#concept-iri-algorithm">Appendix: Algorithm for
+              creating a Concept IRI</a>.<br>
           </p>
-          <p>@@ TODO 9: Should we include the Concept IRI algorithm
-            here?&nbsp; Or reference the <a
-href="https://docs.google.com/document/d/1sW3Tgj2J_wBzlUWih07e0Vf_M9Ue8YyPqjK0arhajS8/edit#">google
-
-              doc proposal?</a> AGREED: Make it an appendix.&nbsp; @@<br>
+          <p>If an IRI stem for the Coding.system is published at <a
+              href="https://terminology.hl7.org/">https://terminology.hl7.org/</a>
+            it SHOULD be used. &nbsp; <a
+              href="https://simplifier.net/packages/hl7.terminology/">An
+              NPM package is available</a> to efficiently automate
+            lookup of IRI stems from Coding.systems.<br>
           </p>
           <h3><a name="fhir-definitions"></a>RDF Representation of FHIR
             Definitions</h3>
@@ -806,14 +833,32 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
                 used in the build)</li>
               <li><a href="http://fhir3.healthintersections.com.au/open">Reference
 
+
+
+
+
+
+
                   Server <img src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a> (based on <a
                   href="http://github.com/grahamegrieve/fhirserver">Delphi
+
+
+
+
+
+
 
                   reference implementation <img
                     src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a>)</li>
               <li><a href="https://github.com/mvdzel/fhir-net-api">fhir-net-api
+
+
+
+
+
+
 
                   <img src="http://build.fhir.org/external.png"
                     style="vertical-align: baseline"></a>, a .NET
@@ -823,6 +868,12 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
                     style="vertical-align: baseline"></a>)</li>
               <li>Check the <a
 href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
+
+
+
+
+
+
 
                   Open Source FHIR Implementations page, <img
                     src="http://build.fhir.org/external.png"
@@ -837,6 +888,12 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
             license restrictions, the process of obtaining the SNOMED-CT
             ontology is more complex than a simple download. Some <a
               href="http://owl.cs.manchester.ac.uk/research/snomed/">guidance
+
+
+
+
+
+
 
               is provided here <img
                 src="http://build.fhir.org/external.png"
@@ -856,12 +913,30 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
         A <a
 href="https://yosemiteproject.org/fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">webinar
 
+
+
+
+
+
+
           by Harold Solbrig</a> shows how FHIR RDF data can be used with
         the <a
           href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
 
+
+
+
+
+
+
           ontology</a> to recognize a cancer diagnosis.&nbsp; An <a
 href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">associated
+
+
+
+
+
+
 
           tutorial</a> details the steps used.&nbsp; <i>Caveat: this
           webinar and tutorial used a previous version of FHIR RDF.<br>
@@ -871,12 +946,24 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
         <p> <a
             href="https://www.w3.org/2016/Talks/1205-swat4ls-egp/reasoning">Slides
 
+
+
+
+
+
+
             by Eric Prud'hommeaux <img
               src="http://build.fhir.org/external.png"
               style="vertical-align: baseline"></a> illustrate how
           inference can be used on FHIR RDF data to perform a query for
           FHIR Observations of rheumatoid arthritis, using the <a
             href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
+
+
+
+
+
+
 
             ontology <img src="http://build.fhir.org/external.png"
               style="vertical-align: baseline"></a>. <i> Caveat: those
@@ -887,6 +974,279 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
             fhir:Coding-of-Rheumatoid_arthritis-disorder. A different
             namespace should have been used in the example.</i><br>
         </p>
+        <h3><a name="concept-iri-algorithm"></a>Appendix: Algorithm for
+          Creating a Concept IRI</h3>
+        <p>This section defines a standard algorithm for generating a
+          Concept IRI from a &lt;<code>Coding.system</code>, <code>Coding.code</code>&gt;
+
+
+
+
+
+          pair.&nbsp; In many cases it involves merely concatenating the
+          associated IRI Stem with the <code>Coding.code</code>.&nbsp;
+          But because a <code>Coding.code</code> could contain reserved
+          characters that are used to delineate different parts of the
+          IRI, percent-encoding of reserved characters is required, as
+          defined below.<br>
+          <br>
+          Given:<br>
+        </p>
+        <ul>
+          <li>a FHIR <code>Coding.system</code>, <i>s</i>, that
+            identifies a terminology <i>t</i>; and </li>
+          <li>a <code>Coding.code</code>, <i>c</i>, that is defined
+            within <i>t</i>;</li>
+        </ul>
+        <p>a Concept IRI, <i>conceptIRI</i>, corresponding to <i>s</i>
+          and <i>c</i> is computed as follows:<br>
+        </p>
+        <ol>
+          <li>If no IRI Stem is defined for <i>s</i> in the <a
+              href="https://terminology.hl7.org/">HL7 Terminology
+              website</a>, then <i>conceptIRI</i> is undefined. Halt.</li>
+          <li>Let <i>iStem</i> be an IRI Stem that is defined for <i>s</i>
+            in the HL7 Terminology website.&nbsp; </li>
+          <li>As a special case, if <i>iStem</i> equals<code>
+              urn:ietf:rfc:3987</code>, then <i>conceptIRI</i> is <i>c</i>,
+            and <i>c</i> MUST be a syntactically valid absolute-IRI as
+            defined by <a
+              href="https://datatracker.ietf.org/doc/html/rfc3987">RFC
+              3987</a>.&nbsp; Halt.&nbsp; (Non-normative comments: The
+            purpose of this special case is to permit <code>System.code</code>s
+            that are already IRIs to be used directly as Concept IRIs,
+            without any transformation. Note that an absolute-IRI may
+            also be a URL or a URN.)</li>
+          <li>Let <i>cSafe</i> be the IRI-safe version of <i>c</i>, as
+            defined by the algorithm in <a
+              href="https://www.w3.org/TR/2012/REC-r2rml-20120927/#from-template">section
+
+
+
+
+
+              7.3 of R2RML: RDB to RDF Mapping Language (W3C
+              Recommendation 27 September 2012)</a>, non-normatively
+            quoted here for convenience:<br>
+            <blockquote> <i>The <b>IRI-safe version</b> of a string is
+                obtained by applying the following transformation to any
+                character that is not in the <a
+                  href="http://tools.ietf.org/html/rfc3987#section-2.2">iunreserved
+
+
+
+                  production</a> in [RFC3987]:</i><i><br>
+              </i>
+              <blockquote><i> 1. Convert the character to a sequence of
+                  one or more octets using UTF-8 [RFC3629]</i><i><br>
+                </i><i> 2. <a
+                    href="http://tools.ietf.org/html/rfc3986#section-2.1">Percent-encode</a>
+                  each octet [RFC3986]</i><br>
+              </blockquote>
+            </blockquote>
+            The iunreserved production defined in <a
+              href="https://datatracker.ietf.org/doc/html/rfc3987#section-2.2">RFC
+
+
+              3987, section 2.2</a> using <a
+              href="https://datatracker.ietf.org/doc/html/rfc2234">ABNF</a>
+            is also non-normatively quoted here for convenience:<br>
+            <blockquote> <code>iunreserved&nbsp;&nbsp;&nbsp; = ALPHA /
+                DIGIT / "-" / "." / "_" / "~" / ucschar</code><br>
+            </blockquote>
+            The ucschar production defined in <a
+              href="https://datatracker.ietf.org/doc/html/rfc3987#section-2.2">RFC
+
+              3987, section 2.2</a> is also non-normatively quoted here
+            for convenience.&nbsp; (Non-normative comment: The ucschar
+            production defines international character ranges that are
+            valid unicode characters within the intersection of path
+            components (ipath), query strings (iquery) and fragment
+            identifiers (ifragment).&nbsp; They do not include any
+            reserved characters involved in parsing apart the various
+            components of an IRI.)<br>
+            <blockquote> <code>ucschar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF</code><code><br>
+              </code><code>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+                / %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD</code><code><br>
+              </code><code>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+                / %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD</code><code><br>
+              </code><code>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+                / %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD</code><code><br>
+              </code><code>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+                / %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD</code><code><br>
+              </code><code>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+                / %xD0000-DFFFD / %xE1000-EFFFD</code><br>
+            </blockquote>
+          </li>
+          <li> <i>conceptIRI</i> is the result of concatenating <i>iStem</i>
+            and <i> cSafe.</i></li>
+        </ol>
+        <br>
+        Some real and hypothetical examples are shown in the following
+        table.<br>
+        <br>
+        <table>
+          <tbody>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p><font size="+1"><code><b><span>Coding.system</span></b></code></font></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><font size="+1"><code><b><span>Coding.code</span></b></code></font></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><b><span>IRI Stem</span></b></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><b><span>Concept IRI</span></b></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>ICD 10:<code><span><br>
+                    </span></code><code><span>http://hl7.org/fhir/sid/icd-10</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>G44.1</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://purl.bioontology.org/ontology/ICD10/</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://purl.bioontology.org/ontology/ICD10/G44.1</span></code><code><span>&nbsp;</span></code></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>SNOMED CT:<code><span><br>
+                    </span></code><code><span>http://snomed.info/sct</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>128045006</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://snomed.info/id/</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://snomed.info/id/128045006</span></code></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>SNOMED CT:<code><span><br>
+                    </span></code><code><span>http://snomed.info/sct</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>128045006:{363698007=</span></code><code><span>56459004</span></code><code><span>}</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://snomed.info/id/</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://snomed.info/id/128045006:{363698007=56459004}</span></code></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>MeSH: <code><span>https://www.nlm.nih.gov/mesh</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>D000305</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>https://id.nlm.nih.gov/mesh/ </span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>https://id.nlm.nih.gov/mesh/D000305 </span></code></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>LOINC: <code><span>http://loinc.org </span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>35217-9</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>https://loinc.org/rdf</span></code><code><span>/
+                    </span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>https://loinc.org/rdf/35217-9 </span></code></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>Example coding system that uses a Unicode smiling
+                  face character (U+263A) as a code:<code><span><br>
+                    </span></code><code><span>http://example.org/</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><font size="+1"><code><span>☺</span></code></font></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://example.org/ </span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://example.org/<font size="+1">☺</font></span></code></p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1" rowspan="1">
+                <p>Example coding system that uses a Unicode waving hand
+                  character (U+1F44B) from the <a
+href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Miscellaneous_Symbols_and_Pictographs&amp;sa=D&amp;source=editors&amp;ust=1661857750967890&amp;usg=AOvVaw3NF72CBQp0L6mXw4Z2Uolw">Miscellaneous
+                    Symbols and Pictographs</a><a
+href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Miscellaneous_Symbols_and_Pictographs&amp;sa=D&amp;source=editors&amp;ust=1661857750968211&amp;usg=AOvVaw0jUA8uygpG7xOCF5gdRbUq">&nbsp;block</a>,
+                  combined with the medium-dark skin tone (U+1F3FE):<code><span><br>
+                    </span></code><code><span>http://example.org/</span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><font size="+1"><code><span>👋🏾</span></code></font></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://example.org/ </span></code></p>
+              </td>
+              <td colspan="1" rowspan="1">
+                <p><code><span>http://example.org/id/<font size="+1">👋🏾</font></span></code><code><span>&nbsp;</span></code></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <br>
       </section>
     </section>
   </body>
