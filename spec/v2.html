@@ -1,239 +1,46 @@
-<!--?xml version="1.0" encoding="utf-8"?-->
-<!DOCTYPE html>
-<!-- 
-###############################################################
-TO RENDER THIS DOCUMENT IN YOUR BROWSER, USE THIS URL:
-http://w3c.github.io/hcls-fhir-rdf/spec/
-###############################################################
+<!DOCTYPE HTML>
+
+
+<!--
+These elements SHALL always appear in this order. These basic elements shared by all resources come first
+in order to support consistent definitions for schema and UML derived code.
 -->
-<html>
-  <head>
-    <!-- <base href="http://build.fhir.org/rdf.html"/> -->
-    <title>Resource Description Framework (RDF) Representation - v2</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer="defer"></script>
-    <script class="remove">
-      function fhirify (config, doc) {
-        document.getElementsByClassName('head')[0].remove();
-        document.getElementById('abstract').children[0].remove();
-        ([...document.getElementsByClassName('secno')]).forEach(elt => {
-          elt.textContent = elt.textContent.replace(/^1/, "2.4.6");
-        })
-      }
-      var respecConfig = {
-        edDraftURI: "http://w3c.github.io/hcls-fhir-rdf/spec/v2/",
-        issueBase: "https://github.com/w3c/hcls-fhir-rdf/issues",
-        specStatus: "unofficial",
-        publishDate: "2022-08-16",
-        shortName:  "fhir-rdf",
-        editors: [
-          {
-            name:       "Eric Prud'hommeaux",
-            url:        "http://www.w3.org/People/Eric/",
-            company:    "W3C/MIT",
-            companyURL: "http://www.w3.org/",
-            w3cid:      "2112"
-          }
-        ],
-        wg:           "Semantic Web in Health Care and Life Sciences Interest Group",
-        wgPublicList: "public-semweb-lifesci",
-        wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/73865/status",
-        otherLinks: [{
-          key: "Source code for this document",
-          data: [{
-              value: "GitHub repository -- see spec/index.html",
-              href: "https://github.com/w3c/hcls-fhir-rdf"
-          }, {
-              value: "Issues list",
-              href: "https://github.com/w3c/hcls-fhir-rdf/issues"
-          }]
-        }],
-        localBiblio:  {
-          "FHIR": {
-            title:    "Fast Healthcare Interoperability Resources",
-            href:     "http://hl7-fhir.github.io/",
-            "authors": [
-              "Grahame Grieve",
-             "Lloyd Mckenzie"
-            ],
-            publisher: "HL7"
-          },
-          "FHIRStructureDefintion": {
-            title:    "FHIR StructureDefintion",
-            href:     "http://hl7-fhir.github.io/structuredefinition",
-            "authors": [
-              "Grahame Grieve",
-             "Lloyd Mckenzie"
-            ],
-            publisher: "HL7"
-          },
-          "FHIRObservation": {
-            title:    "FHIR Observation",
-            href:     "http://hl7-fhir.github.io/structuredefinition",
-            "authors": [
-              "Grahame Grieve",
-             "Lloyd Mckenzie"
-            ],
-            publisher: "HL7"
-          },
-          "ShExSpec": {
-            title:    "Shape Expressions Language Specification",
-            href:     "http://shexspec.github.io/semantics/",
-            "authors": [
-              "Iovka Boneva"
-            ],
-            publisher: "independent"
-        } },
-        postProcess: [fhirify]
-      };
-    </script>
-    <!-- script src="https://www.w3.org/scripts/jquery/2.1/jquery.min.js"></script-->
-    <style type="text/css">
-      .comment { color: #b77; }
-      section pre {
-        border: 1px solid #dcdcdc;
-        font-size: 11px;
-        padding: 5px;
-        width: 650px;
-      }
-      .rdf { background: #fdedff; }
-      .spec { background: #FFFFE0; }
-      ul { line-height: 2ex }
-      ul.tight { line-height: 1.1ex }
-      .lookit { font-weight: bold }
 
-#segment-header {
-    background-color: #f5f5f5;
-}
-.segment {
-    position: relative;
-}
-#segment-header > .container {
-    background-color: #e6e6e6;
-}
-
-.segment > .container {
-    background-color: #ffffff;
-    position: relative;
-}
-.segment > .container {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-<style>
-.container {
-    max-width: 940px;
-}
-<style>
-.container {
-    max-width: 728px;
-}
-#logo {
-    float: left;
-    margin-top: 6px;
-    margin-left: 20px;
-    margin-bottom: 4px;
-    display: block;
-}
-#hl7-status {
-    line-height: 50px;
-    float: left;
-    margin-top: 16px;
-    color: maroon;
-}
-#hl7-nav {
-    line-height: 50px;
-    float: right;
-    margin-top: 16px;
-    color: #808080;
-}
-
-    </style>
-  </head>
-  <body>
-    <div id="segment-header" class="segment">
-      <!-- segment-header -->
-      <div class="container">
-        <!-- container --> <a no-external="true" id="logo"
-          href="http://hl7.org/fhir"><img
-            src="http://build.fhir.org/assets/images/fhir-logo-www.png"
-            alt="logo fhir" width="249" height="60"> </a>
-        <div id="hl7-status"> <b>Release 5 Draft Ballot</b> </div>
-        <div id="hl7-nav"> <a no-external="true" id="hl7-logo"
-            href="http://www.hl7.org"> <img
-              src="http://build.fhir.org/assets/images/hl7-logo.png"
-              alt="visit the hl7 website" width="42" height="50"> </a>
-        </div>
-        <div id="hl7-nav"><a no-external="true" id="hl7-logo"
-            href="http://build.fhir.org/search-build.html"><img
-              src="http://build.fhir.org/assets/images/search.png"
-              alt="Search CI-Build FHIR"></a></div>
-      </div>
-      <div class="container">
-        <!-- container --> </div>
-    </div>
-    <div>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-    </div>
-    <section id="abstract">
-      <p style="border: thick solid red;"> This document is stages
-        contents for the <a
-          href="http://build.fhir.org/rdf.html#instance">FHIR Resource
-          Description Framework (RDF) Representation page</a>.
-        Formatting issues related to headers and style will be resolved
-        when the content is transfered. </p>
-      <div style="background-color: #E6FFFF; border:1px solid black;
-        padding: 5px;">
-        <table>
-          <tbody>
-            <tr>
-              <td><img src="http://w3c-domains.com/img/w3c-96.png"></td>
-              <td>
-                <p> This page and the RDF forms are jointly maintained
-                  by the HL7 FHIR project -- especially the <a
-                    href="https://confluence.hl7.org/pages/viewpage.action?pageId=66922543">RDF
+[%settitle RDF Representation%]
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+[%file newheader%]
+</head>
+<body>
+[%file newnavbar%]
 
 
 
+<%fmtheader rdf%>
 
+<a name="root"></a>
+<h2>Resource Description Framework (RDF) Representation </h2>
+<table class="colstu"><tr><td id="wg"><a _target="blank" href="[%wg fhir%]">[%wgt fhir%]</a> Work Group</td><td id="fmm"><a href="versions.html#maturity">Maturity Level</a>: 3</td><td id="ballot"><a href="versions.html#std-process">Standards Status</a>:<!--!ns!--><a href="versions.html#std-process">Trial Use</a></td></tr></table>
 
+<div style="background-color: #E6FFFF; border:1px solid black; padding: 5px;">
+<table>
+<tr>
+ <td><img src="http://w3c-domains.com/img/w3c-96.png"/></td>
+ <td>
+<p>
+This page and the RDF forms are jointly maintained
+by the HL7 FHIR project -- especially the 
+<a href="https://confluence.hl7.org/pages/viewpage.action?pageId=66922543">RDF subgroup</a> of the 
+<a href="http://www.hl7.org/Special/committees/xml/index.cfm">ITS work group</a> -- and the 
+<a href="https://www.w3.org/blog/hcls/">W3C Semantic
+Web Health Care and Life Sciences Interest Group</a>.
+</p>
+</td></tr></table>
+</div>
 
-
-
-                    subgroup</a> of the <a
-                    href="http://www.hl7.org/Special/committees/xml/index.cfm">ITS
-
-
-
-
-
-
-
-
-                    work group</a> -- and the <a
-                    href="https://www.w3.org/blog/hcls/">W3C Semantic
-                    Web Health Care and Life Sciences Interest Group <img
-                      src="http://build.fhir.org/external.png"
-                      style="vertical-align: baseline"></a>. </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section>
-      <h2>@@ TODO: Add Maturity: FMM 2 Standards Status: Trial Use @@<br>
-      </h2>
-      <h2>Resource Description Framework (RDF) Representation</h2>
       <p> FHIR resources can be represented as an <a
-          href="http://www.w3.org/RDF/">RDF graph <img
-            src="http://build.fhir.org/external.png"
-            style="vertical-align: baseline"></a> serialized in the <a
-          href="https://www.w3.org/TR/turtle/">Turtle format <img
-            src="http://build.fhir.org/external.png"
-            style="vertical-align: baseline"></a>. The RDF format is
+          href="http://www.w3.org/RDF/">RDF graph</a> serialized in the <a
+          href="https://www.w3.org/TR/turtle/">Turtle format</a>. The RDF format is
         defined to assist the process of bridging between operational
         data exchange and formal knowledge processing systems. While the
         RDF form offers a fully functional representation of FHIR
@@ -246,7 +53,7 @@ http://w3c.github.io/hcls-fhir-rdf/spec/
       <p> This page describes:</p>
       <ul>
         <li><a
-href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#turtle-template">Turtle
+href="#turtle-template">Turtle
 
 
 
@@ -272,23 +79,22 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.htm
       <section id="instance">
         <h3><a name="turtle-template"></a>Turtle Template for Resources</h3>
         <p> Each resource page has a set of language templates
-          describing the expression FHIR in that language. The Turtle
+          describing the FHIR expression in that language. The Turtle
           representation for a resource is described using this
-          convention: <br>
+          format: <br>
         </p>
-        <pre class="spec nohighlight">Turtle Template
-
+        <pre class="spec">
 [ a fhir:Observation; fhir:nodeRole fhir:treeRoot;
   # from Resource: id; meta; implicitRules; and language
   # from DomainResource: text; contained; extension; and modifierExtension
-  fhir:Obervation.identifier [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Identifier</a> ]; # 0..* Unique Id for this particular observation
+  fhir:Obervation.identifier [ <a href="#">Identifier</a> ]; # 0..* Unique Id for this particular observation
   fhir:Obervation.status [ fhir:v "&lt;code&gt;" ]; # R!  registered | preliminary | final | amended +
-  fhir:Obervation.code [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
-  fhir:Obervation.subject [ fhir:reference [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Patient</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Group</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Device</a>|<a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Location</a> ] ]; # 0..1 Who and/or what this is about
-  fhir:Obervation.encounter [ fhir:reference [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
+  fhir:Obervation.code [ <a href="#">CodeableConcept</a> ]; # 1..1 R!  Type of observation (code / type)
+  fhir:Obervation.subject [ fhir:reference [ <a href="#">Patient</a>|<a href="#">Group</a>|<a href="#">Device</a>|<a href="#">Location</a> ] ]; # 0..1 Who and/or what this is about
+  fhir:Obervation.encounter [ fhir:reference [ <a href="#">Encounter</a> ] ]; # 0..1 Healthcare event during which this observation is made
   # effective[x]: 0..1 Clinically relevant time/time-period for observation. One of these 2:
     fhir:Obervation.effectiveDateTime [ fhir:v "&lt;dateTime&gt;" ];
-    fhir:Obervation.effectivePeriod [ <a href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.html#">Period</a> ];
+    fhir:Obervation.effectivePeriod [ <a href="#">Period</a> ];
 ]</pre>
         <p> Using this format: </p>
         <ul>
@@ -299,7 +105,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/v2.htm
           <li> Nodes are never empty. If an element is present in the
             resource, it SHALL have properties as defined for its type,
             or 1 or more <a
-href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/extensibility.html">extensions</a>
+href="extensibility.html">extensions</a>
           </li>
           <li>The <span style="color: brown"><b>R!</b></span> denotes
             that a relationship is mandatory - it must be present (or in
@@ -314,24 +120,24 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/extens
         </h3>
         <p> An example FHIR RDF Observation illustrates the Turtle
           language and the additional conventions used by FHIR RDF: </p>
-        <pre class="rdf nohighlight">PREFIX fhir: &lt;http://hl7.org/fhir/&gt;
+        <pre class="rdf">PREFIX fhir: &lt;http://hl7.org/fhir/&gt;
 PREFIX xs: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
 
-<span class="comment">                                  # Obs123 (subject) hasType (predicate) fhir:Observation</span>
+<span class="xmlcomment">                                  # Obs123 (subject) hasType (predicate) fhir:Observation</span>
 &lt;http://hl7.org/fhir/Observation/Obs123&gt; a fhir:Observation;
-  fhir:nodeRole fhir:treeRoot;    <span class="comment"># (subject) is the serialization root of this document</span>
-  fhir:status [ fhir:v "final" ]; <span class="comment"># (subject) has an (extensible) status of "final"</span>
-  fhir:code [                     <span class="comment"># (subject) as a code</span>
-    <span id="ex-list">fhir:coding (                 <span class="comment">#  which has codings</span>
-      [                           <span class="comment">#   with a system, code and concept identifier</span>
+  fhir:nodeRole fhir:treeRoot;    <span class="xmlcomment"># (subject) is the serialization root of this document</span>
+  fhir:status [ fhir:v "final" ]; <span class="xmlcomment"># (subject) has an (extensible) status of "final"</span>
+  fhir:code [                     <span class="xmlcomment"># (subject) as a code</span>
+    <span id="ex-list">fhir:coding (                 <span class="xmlcomment">#  which has codings</span>
+      [                           <span class="xmlcomment">#   with a system, code and concept identifier</span>
         a &lt;http://loinc.org/rdf#29463-7&gt;
         fhir:system [
           fhir:v "http://loinc.org"^^xs:anyURI
         ];
         fhir:code [ fhir:v "29463-7" ]
       ]
-      [                           <span class="comment">#  and another with a display</span>
+      [                           <span class="xmlcomment">#  and another with a display</span>
         a &lt;http://loinc.org/rdf#3141-9&gt;
         fhir:system [
           fhir:v "http://loinc.org"^^xs:anyURI
@@ -341,8 +147,8 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
       ]
     )</span>
   ];
-  <span id="value">fhir:value [                    <span class="comment"># the value is an anonymous node</span>
-    a fhir:Quantity;              <span class="comment">#   which has a type (Quantity), and 21090 parts.</span>
+  <span id="value">fhir:value [                    <span class="xmlcomment"># the value is an anonymous node</span>
+    a fhir:Quantity;              <span class="xmlcomment">#   which has a type (Quantity), and 21090 parts.</span>
     <span id="v-decimal">fhir:value [ fhir:v "185"^^xs:decimal ]</span>;
     fhir:unit [ fhir:v "lbs" ];
     fhir:system [
@@ -351,18 +157,18 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
     fhir:code [ fhir:v "[lb_av]" ]
   ]</span>.
 
-                                  <span class="comment"># Metadata about OWL interpretation</span>
+                                  <span class="xmlcomment"># Metadata about OWL interpretation</span>
 &lt;http://hl7.org/fhir/Observation/Obs123.ttl&gt; a owl:Ontology;
   owl:imports fhir:fhir.ttl;
   owl:versionIRI &lt;http://hl7.org/fhir/Observation/Obs123.ttl&gt;.</pre>
         <p> In this example, </p>
         <ul>
-          <li>the subject IRI is wrapped with '<code class="rdf">&lt;…&gt;</code>'.</li>
+          <li>the subject IRI is wrapped with '<code class="rdf">&lt; ... &gt;</code>'.</li>
           <li>the type (<code class="rdf">fhir:Observation</code>) and
             following predicates (e.g. <code class="rdf">fhir:status</code>)
             are prefixed names (like XML namespaced names),</li>
           <li>assertions following a ';' re-use the same subject,</li>
-          <li>anonymous nodes are declared with '<code class="rdf">[…]</code>'s,</li>
+          <li>anonymous nodes are declared with '<code class="rdf">[ ... ]</code>'s,</li>
           <li>and literals with a quoted value and an optional datatype
             preceded by '^^' (e.g. <code class="rdf">"final"</code>).</li>
         </ul>
@@ -383,7 +189,7 @@ PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
         <p> FHIR uses <a href="https://shex.io/shex-semantics/">Shape
             Expressions (ShEx)</a> to define and validate FHIR RDF. See
           <a
-href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.shex">fhir.shex</a>
+href="fhir.shex">fhir.shex</a>
           for the complete FHIR RDF schema. Each Resource page includes
           a link for the subset of fhir.shex needed to describe that
           Resource. The media type for ShEx is <code>text/shex.</code></p>
@@ -422,7 +228,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
           <h4>Nested Anonymous Nodes</h4>
           <p> Content within a resource is always represented with
             anonymous nodes (a/k/a "blank nodes").&nbsp; Only FHIR
-            Resource nodes can be IRIs. For example, <span class="rdf">&lt;…/Obs123&gt;
+            Resource nodes can be IRIs. For example, <span class="rdf">&lt; ... /Obs123&gt;
 
 
 
@@ -433,7 +239,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
 
               fhir:status [ fhir:v "final" ]</span> asserts that: </p>
           <ul>
-            <li><span class="rdf">&lt;…/Obs123&gt;</span> has a <span
+            <li><span class="rdf">&lt; ... /Obs123&gt;</span> has a <span
                 class="rdf">status</span> of some anonymous node.</li>
             <li>That anonymous node has a <span class="rdf">fhir:v</span>
               of <span class="rdf">"final"</span> (the literal
@@ -454,33 +260,25 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/fhir.s
             appended with the datatype, e.g. <span class="json">valueQuantity</span>.
             In RDF, this is written <span class="rdf">fhir:value</span>
             and the object asserts its type, as in the <a href="#value">above
-
-
-
-
-
-
-
-
               example</a>:<br>
           </p>
-          <pre class="rdf nohighlight">  fhir:value [ a fhir:Quantity; … ]</pre>
+          <pre class="rdf">  fhir:value [ a fhir:Quantity; ... ]</pre>
         </section>
         <section id="rdflist">
           <h4>Representing Repeating Elements</h4>
           <p> Elements that can repeat are represented with RDF lists
             (officially called "RDF collections") in order to retain the
             order of their elements. </p>
-          <pre class="rdf nohighlight">(elt1 elt2 …)</pre>
+          <pre class="rdf">(elt1 elt2 ... )</pre>
           <p> which produces an RDF list structure the the elements <code>elt1</code>
             and <code>elt2</code>. In the <a href="#ex-list">above
               example</a>, the <code>fhir:code</code> has a <code>fhir:coding</code>
             with two members: </p>
-          <pre class="rdf nohighlight">    fhir:coding (
-      [ a &lt;http://loinc.org/rdf#29463-7&gt; … ]
-      [ a &lt;http://loinc.org/rdf#3141-9&gt; … ]
+          <pre class="rdf">    fhir:coding (
+      [ a &lt;http://loinc.org/rdf#29463-7&gt; ... ]
+      [ a &lt;http://loinc.org/rdf#3141-9&gt; ... ]
     )</pre>
-          <p class="todo"> A script (TODO: write said script) can
+          <p> A script (TODO: write said script) can
             convert lists to <a
 href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example">OLO-style
 
@@ -502,7 +300,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
               class="rdf">fhir:v</span> predicate.&nbsp; fhir:v is the
             only FHIR property that directly holds an RDF literal, and
             it always holds an RDF Literal: </p>
-          <pre class="rdf nohighlight">  fhir:v "[value]"^^xs:type</pre>
+          <pre class="rdf">  fhir:v "[value]"^^xs:type</pre>
           <p> The value has two parts: a literal string that contains
             the value, and, if applicable, one of the following schema
             types:<br>
@@ -521,7 +319,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p> In the <a href="#v-decimal">above example</a>, the
             Quantity has a fhir:value which is an anonymous node with a
             <code class="rdf">fhir:v</code> in it: </p>
-          <pre class="rdf nohighlight">[ fhir:v "185"^^xs:decimal ]</pre>
+          <pre class="rdf">[ fhir:v "185"^^xs:decimal ]</pre>
           <p> Note that the correct XSD type for a FHIR <a
               href="https://build.fhir.org/datatypes.html#decimal">decimal</a>,
             <a href="https://build.fhir.org/datatypes.html#date">date</a>,
@@ -547,7 +345,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <h4>Representing References</h4>
           <p> A <a href="references.html#Reference">Reference</a>
             element is represented using the same rules as above: </p>
-          <pre class="rdf nohighlight"> fhir:Observation.subjectReference [
+          <pre class="rdf"> fhir:Observation.subjectReference [
      fhir:Reference.reference [ fhir:v "Patient/example" ];
      fhir:Reference.display [ fhir:v "Example Patient" ];
   ];</pre>
@@ -557,7 +355,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             graph links to the target of the reference directly. This
             can be represented using the (optional) fhir:link property:
           </p>
-          <pre class="rdf nohighlight"> fhir:Observation.subjectReference [
+          <pre class="rdf"> fhir:Observation.subjectReference [
      fhir:link &lt;http://hl7.org/fhir/Patient/example&gt;
      fhir:Reference.reference [ fhir:v "Patient/example" ]
   ];</pre>
@@ -585,7 +383,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p> Inline resources are represented directly as anonymous
             nodes. This is an example for a contained Medication
             resource: </p>
-          <pre class="rdf nohighlight">  fhir:DomainResource.contained ([
+          <pre class="rdf">  fhir:DomainResource.contained ([
      a fhir:Medication;
      # triples for the Medication
   ])</pre>
@@ -597,27 +395,27 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <h4>Modifier Extensions</h4>
           <p> A Resource may have any number of non-modifier extensions:
           </p>
-          <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:Observation;
+          <pre class="rdf">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:Observation;
   fhir:nodeRole fhir:treeRoot;
   fhir:extension (
-    <span class="lookit">[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xs:anyURI ] ;
+    <b>[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xs:anyURI ] ;
       fhir:value [
         fhir:coding (
           a sct:33586001;
           fhir:system [ fhir:v "http://snomed.info/sct" ];
           fhir:code [ fhir:v "33586001" ];
           fhir:display [ fhir:v "Sitting position (finding)" ]
-        ) ] ]</span>
-    <span class="lookit">[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xs:anyURI ] ;
+        ) ] ]</b>
+    <b>[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xs:anyURI ] ;
       fhir:value [
         fhir:coding (
           a sct:1250004;
           fhir:system [ fhir:v "http://snomed.info/sct" ];
           fhir:code [ fhir:v "1250004" ];
           fhir:display [ fhir:v "Decreased (qualifier value)" ]
-        ) ] ]</span>
+        ) ] ]</b>
   )
-  …
+  ... 
 </pre>
           <p> FHIR allows <code class="rdf">modifierExtension</code>s
             on <a
@@ -627,23 +425,23 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
               href="https://build.fhir.org/types.html#BackboneType">BackboneTypes</a>.
             The type of any DomainResource with any <code class="rdf">modifierExtension</code>
             is prefixed with '_' in RDF: </p>
-          <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:_MedicationRequest;
+          <pre class="rdf">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:_MedicationRequest;
   fhir:nodeRole fhir:treeRoot;
-  fhir:extension ( … );           <span class="comment"># above bodyPosition and delta extensions</span>
-  <span class="lookit">fhir:modifierExtension (
+  fhir:extension ( ... );           <span class="xmlcomment"># above bodyPosition and delta extensions</span>
+  <b>fhir:modifierExtension (
     [
       fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-prescription"^^xs:anyURI ] ;
       fhir:value [ a fhir:boolean ; fhir:v true ]
     ]
-  )</span>
-  …
+  )</b>
+  ... 
 </pre>
           <p> BackboneElements and BackboneTypes are object types. Any
             RDF predicate which references a modified BackboneElement or
             BackboneType is prefixed with a '_'. </p>
-          <pre class="rdf nohighlight">&lt;http://hl7.org/fhir/Observation/Obs123&gt; a fhir:Observation;
-  …
-  fhir:<span class="lookit">_value</span> [
+          <pre class="rdf">&lt;http://hl7.org/fhir/Observation/Obs123&gt; a fhir:Observation;
+  ... 
+  fhir:<b>_value</b> [
     a fhir:Quantity;
     <span id="v-decimal">fhir:value [ fhir:v "185"^^xs:decimal ]</span>;
     fhir:unit [ fhir:v "lbs" ];
@@ -652,10 +450,10 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
     ];
     fhir:code [ fhir:v "[lb_av]" ];
     fhir:modifierExtension ([
-      fhir:url <http: hl7.org="" fhir="" structuredefinition="" artifact-status="">[ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xs:anyURI ] ;
+      fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xs:anyURI ] ;
       fhir:value [ a fhir:code ; fhir:v "draft" ] ; 
     ]);
-  ]</http:></pre>
+  ]</pre>
         </section>
         <section id="concept"> The '_' prefix helps prevent FHIR RDF
           processors that do not understand a particular modifier
@@ -667,7 +465,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
               href="datatypes.html#Coding">Coding</a> data type. These
             are represented directly in Turtle by serializing their
             properties as specified above: </p>
-          <pre class="rdf nohighlight">fhir:Observation.code [
+          <pre class="rdf">fhir:Observation.code [
     fhir:CodeableConcept.coding (
         [
             fhir:Coding.system [ fhir:v "http://loinc.org" ];
@@ -687,16 +485,16 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             (optional) rdf:type assertion, written as <b><font
                 face="Courier New, Courier, monospace">a</font></b> in
             Turtle: </p>
-          <pre class="rdf nohighlight">fhir:Observation.code [
+          <pre class="rdf">fhir:Observation.code [
     fhir:CodeableConcept.coding (
         [
-            <span class="lookit">a loinc:29463-7</span>;
+            <b>a loinc:29463-7</b>;
             fhir:Coding.system [ fhir:v "http://loinc.org" ];
             fhir:Coding.code [ fhir:v "29463-7" ];
             fhir:Coding.display [ fhir:v "Body Weight" ]
         ]
         [
-            <span class="lookit">a sct:27113001</span>;
+            <b>a sct:27113001</b>;
             fhir:Coding.system [ fhir:v "http://snomed.info/sct" ];
             fhir:Coding.code [ fhir:v "27113001" ];
             fhir:Coding.display [ fhir:v "Body weight" ]
@@ -749,7 +547,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
         <p> The RDF definitions are published as a series of Turtle
           files: <a href="rim.ttl">HL7 v3 RIM</a> (Reference
           Information Model) and <a href="fhir.ttl">FHIR</a>.&nbsp; <a
-href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downloads.html">ShEx</a>
+href="downloads.html">ShEx</a>
           schemas that describe FHIR's RDF format are also available.<br>
         </p>
       </section>
@@ -821,7 +619,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
         </p>
         <section id="api">
           <h3><a name="rest-api"></a>Using RDF with the REST API</h3>
-          <p class="todo">TODO</p>
+          <p>TODO</p>
         </section>
       </section>
       <section id="using">
@@ -836,8 +634,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
             include:
             <ul>
               <li><a href="https://hapifhir.io/">HAPI java Reference
-                  library <img src="http://build.fhir.org/external.png"
-                    style="vertical-align: baseline"></a> (Same code as
+                  library</a> (Same code as
                 used in the build)</li>
               <li><a href="http://fhir3.healthintersections.com.au/open">Reference
 
@@ -848,8 +645,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
 
 
 
-                  Server <img src="http://build.fhir.org/external.png"
-                    style="vertical-align: baseline"></a> (based on <a
+                  Server</a> (based on <a
                   href="http://github.com/grahamegrieve/fhirserver">Delphi
 
 
@@ -859,9 +655,7 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
 
 
 
-                  reference implementation <img
-                    src="http://build.fhir.org/external.png"
-                    style="vertical-align: baseline"></a>)</li>
+                  reference implementation</a>)</li>
               <li><a href="https://github.com/mvdzel/fhir-net-api">fhir-net-api
 
 
@@ -871,12 +665,9 @@ href="file:///home/dbooth/hl7/fhir/fhir-rdf/r5-changes/hcls-fhir-rdf/spec/downlo
 
 
 
-                  <img src="http://build.fhir.org/external.png"
-                    style="vertical-align: baseline"></a>, a .NET
+                 </a>, a .NET
                 implementation. (should work on <a
-                  href="http://www.mono-project.com/">Mono <img
-                    src="http://build.fhir.org/external.png"
-                    style="vertical-align: baseline"></a>)</li>
+                  href="http://www.mono-project.com/">Mono</a>)</li>
               <li>Check the <a
 href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
 
@@ -887,9 +678,7 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
 
 
 
-                  Open Source FHIR Implementations page, <img
-                    src="http://build.fhir.org/external.png"
-                    style="vertical-align: baseline"></a> in case new
+                  Open Source FHIR Implementations page,</a> in case new
                 implementations have become available</li>
             </ul>
           </li>
@@ -908,18 +697,14 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
 
 
 
-              is provided here <img
-                src="http://build.fhir.org/external.png"
-                style="vertical-align: baseline"></a>. ) </li>
+              is provided here</a>. ) </li>
           <li> Create or obtain a bridge ontology that relates terms in
             the FHIR ontology to terms in your other ontologies. </li>
           <li> Load your FHIR RDF instance data and your ontologies into
             a reasoner and/or a triplestore, and perform SPARQL queries
             and/or reasoning. </li>
           <li> If you are creating FHIR RDF then you might also wish to
-            validate it, using <a href="http://shex.io/">ShEx <img
-                src="http://build.fhir.org/external.png"
-                style="vertical-align: baseline"></a>. If so, you can <a
+            validate it, using <a href="http://shex.io/">ShEx</a>. If so, you can <a
               href="fhir.shex">download the ShEx schema</a> for FHIR RDF
           </li>
         </ol>
@@ -969,9 +754,7 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
 
 
 
-            by Eric Prud'hommeaux <img
-              src="http://build.fhir.org/external.png"
-              style="vertical-align: baseline"></a> illustrate how
+            by Eric Prud'hommeaux</a> illustrate how
           inference can be used on FHIR RDF data to perform a query for
           FHIR Observations of rheumatoid arthritis, using the <a
             href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
@@ -983,8 +766,7 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
 
 
 
-            ontology <img src="http://build.fhir.org/external.png"
-              style="vertical-align: baseline"></a>. <i> Caveat: those
+            ontology</a>. <i> Caveat: those
             slides are based on an earlier version of FHIR RDF and also
             show some terms in the fhir: namespace that do not actually
             exist in the fhir: namespace, such as
@@ -1279,5 +1061,8 @@ href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Miscellaneous_S
         <br>
       </section>
     </section>
-  </body>
+
+[%file newfooter%]
+</body>
 </html>
+
