@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 
-
 <!--
 These elements SHALL always appear in this order. These basic elements shared by all resources come first
 in order to support consistent definitions for schema and UML derived code.
@@ -13,8 +12,6 @@ in order to support consistent definitions for schema and UML derived code.
 </head>
 <body>
 [%file newnavbar%]
-
-
 
 <%fmtheader rdf%>
 
@@ -55,13 +52,6 @@ Web Health Care and Life Sciences Interest Group</a>.
         <li><a
 href="#turtle-template">Turtle
 
-
-
-
-
-
-
-
             Template for Resources</a></li>
         <li><a href="#anchor">FHIR RDF Example</a></li>
         <li><a href="serialization-conventions">FHIR RDF Serialization
@@ -70,7 +60,6 @@ href="#turtle-template">Turtle
             Definitions</a></li>
         <li><a href="#relationship">Relationship between RDF, FHIR, and
             ontologies</a></li>
-        <li><a href="#rest-api">Using RDF with the REST API</a></li>
         <li><a href="#guidance">Usage Guidance</a></li>
         <li><a href="#concept-iri-algorithm">Appendix: Algorithm for
             creating a Concept IRI</a><br>
@@ -81,7 +70,7 @@ href="#turtle-template">Turtle
         <p> Each resource page has a set of language templates
           describing the FHIR expression in that language. The Turtle
           representation for a resource is described using this
-          format: <br>
+          format: 
         </p>
         <pre class="spec">
 [ a fhir:Observation; 
@@ -229,13 +218,6 @@ href="fhir.shex">fhir.shex</a>
             anonymous nodes (a/k/a "blank nodes").&nbsp; Only FHIR
             Resource nodes can be IRIs. For example, <span class="rdf">&lt; ... /Obs123&gt;
 
-
-
-
-
-
-
-
               fhir:status [ fhir:v "final" ]</span> asserts that: </p>
           <ul>
             <li><span class="rdf">&lt; ... /Obs123&gt;</span> has a <span
@@ -268,27 +250,20 @@ href="fhir.shex">fhir.shex</a>
           <p> Elements that can repeat are represented with RDF lists
             (officially called "RDF collections") in order to retain the
             order of their elements. </p>
-          <pre class="rdf">    (elt1 elt2 ... )</pre>
+          <pre class="rdf">    ( elt1 elt2 ... )</pre>
           <p> which produces an RDF list structure the the elements <code>elt1</code>
             and <code>elt2</code>. In the <a href="#ex-list">above
               example</a>, the <code>fhir:code</code> has a <code>fhir:coding</code>
             with two members: </p>
-          <pre class="rdf">    fhir:coding (
+          <pre class="rdf">    fhir:coding <b>(</b>
       [ a &lt;http://loinc.org/rdf#29463-7&gt; ... ]
       [ a &lt;http://loinc.org/rdf#3141-9&gt; ... ]
-    )</pre>
-          <p> A script (TODO: write said script) can
-            convert lists to <a
+    <b>)</b></pre>
+          <p> A <a href="https://github.com/w3c/hcls-fhir-rdf/tree/gh-pages/scripts/flattenFhirLists">script</a> can
+            convert RDF lists to <a
 href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example">OLO-style
 
-
-
-
-
-
-
-
-              lists</a>. </p>
+              lists</a>, which may be helpful for OWL users. </p>
 
         <a name="primitive"></a>
           <h4>Representing Primitive Elements</h4>
@@ -355,8 +330,9 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             can be represented using the (optional) fhir:link property:
           </p>
           <pre class="rdf">  fhir:Observation.subjectReference [
-     fhir:link &lt;http://hl7.org/fhir/Patient/example&gt;
-     fhir:Reference.reference [ fhir:v "Patient/example" ]
+     <b>fhir:link &lt;http://hl7.org/fhir/Patient/example&gt; ;</b>
+     fhir:Reference.reference [ fhir:v "Patient/example" ];
+     fhir:Reference.display [ fhir:v "Example Patient" ];
   ];</pre>
           <p> The correct value for the fhir:link relationship must be
             determined by resolving the <a href="references.html">rules
@@ -390,7 +366,6 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
             0..*, so an <a href="#rdflist">RDF List</a> is used to
             order the array. </p>
 
-
           <a name="representing-concepts"></a>
           <h4>Representing Concepts</h4>
           <p> The same logic applies to the <a
@@ -414,7 +389,7 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <p> For reasoners using the RDF graph, it's very useful to
             make the implicit concept references in these Codings
             explicit, by specifying a <i>concept IRI</i> in an
-            (optional) rdf:type assertion, written as <b><code class="rdf" style="font-size=larger">a</code></b> in
+            (optional) rdf:type assertion, written as <b><code class="rdf" style="font-size: larger">a</code></b> in
             Turtle: </p>
           <pre class="rdf">fhir:Observation.code [
     fhir:CodeableConcept.coding (
@@ -464,23 +439,23 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           </p>
           <pre class="rdf">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a fhir:Observation;
   fhir:nodeRole fhir:treeRoot;
-  fhir:extension (
-    <b>[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xs:anyURI ] ;
+  <b>fhir:extension</b> (
+    [ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-bodyPosition"^^xs:anyURI ] ;
       fhir:value [
         fhir:coding (
           a sct:33586001;
           fhir:system [ fhir:v "http://snomed.info/sct" ];
           fhir:code [ fhir:v "33586001" ];
           fhir:display [ fhir:v "Sitting position (finding)" ]
-        ) ] ]</b>
-    <b>[ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xs:anyURI ] ;
+        ) ] ]
+    [ fhir:url [ fhir:v "http://hl7.org/fhir/StructureDefinition/observation-delta"^^xs:anyURI ] ;
       fhir:value [
         fhir:coding (
           a sct:1250004;
           fhir:system [ fhir:v "http://snomed.info/sct" ];
           fhir:code [ fhir:v "1250004" ];
           fhir:display [ fhir:v "Decreased (qualifier value)" ]
-        ) ] ]</b>
+        ) ] ]
   )
   ...
 </pre>
@@ -500,12 +475,12 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
           <pre class="rdf">&lt;http://hl7.org/fhir/MedicationRequest/MR321&gt; a <b>fhir:_MedicationRequest;</b>
   fhir:nodeRole fhir:treeRoot;
   fhir:extension ( ... );           <span class="xmlcomment"># above bodyPosition and delta extensions</span>
-  <b>fhir:modifierExtension (
+  <b>fhir:modifierExtension</b> (
     [
       fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-prescription"^^xs:anyURI ] ;
       fhir:value [ a fhir:boolean ; fhir:v true ]
     ]
-  )</b>
+  )
   ...
 </pre>
           <p> BackboneElements and BackboneTypes are object types. Any
@@ -521,12 +496,13 @@ href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example"
       fhir:v "http://unitsofmeasure.org"^^xs:anyURI
     ];
     fhir:code [ fhir:v "[lb_av]" ];
-    fhir:modifierExtension ([
-      fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xs:anyURI ] ;
-      fhir:value [ a fhir:code ; fhir:v "draft" ] ;
-    ]);
+    <b>fhir:modifierExtension</b> (
+      [
+        fhir:url [ fhir:v "http://example.org/fhir/StructureDefinition/anti-observation"^^xs:anyURI ] ;
+        fhir:value [ a fhir:boolean ; fhir:v true ]
+      ]
+    ) ;
   ]</pre>
-
 
           
           <h3><a name="fhir-definitions"></a>RDF Representation of FHIR
@@ -619,10 +595,6 @@ href="downloads.html">ShEx</a>
           status of 'entered-in-error' means that the resource was
           created accidentally and should be ignored for most purposes.<br>
         </p>
-        <a name="api"></a>
-          <h3><a name="rest-api"></a>Using RDF with the REST API</h3>
-          <p>TODO</p>
-
 
       <a name="using"></a>
         <h3><a name="guidance"></a>Usage Guidance (Non-normative)<br>
@@ -670,6 +642,28 @@ href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">HL7
               href="fhir.shex">download the ShEx schema</a> for FHIR RDF
           </li>
         </ol>
+
+        <h4>Using FHIR RDF with OWL</h4>
+        <p>RDF lists use a ladder of rdf:first and rdf:rest properties. 
+           This can cause problems in OWL DL, which disallows properties
+           in the rdf: namespace.  To work around this problem, OWL users
+           can convert RDF lists in their FHIR data to use 
+           <a href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html#sec-example">OLO-style</a> lists.  
+           A <a href="https://github.com/w3c/hcls-fhir-rdf/tree/gh-pages/scripts/flattenFhirLists">script</a> is available for doing the conversion.
+           </p>
+
+        <h4>Tutorials</h4>
+        <p> <a
+            href="https://www.w3.org/2016/Talks/1205-swat4ls-egp/reasoning">Slides
+            by Eric Prud'hommeaux</a> illustrate how
+          inference can be used on FHIR RDF data to perform a query for
+          FHIR Observations of rheumatoid arthritis, using the <a
+            href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
+            ontology</a>. 
+        <br>
+        </p>
+
+        <p>
         A <a
 href="https://yosemiteproject.org/fhir-rdf-as-a-bridge-to-the-semantic-web-in-healthcare/">webinar
           by Harold Solbrig</a> shows how FHIR RDF data can be used with
@@ -680,20 +674,8 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
           tutorial</a> details the steps used.&nbsp; <i>Caveat: this
           webinar and tutorial used a previous version of FHIR RDF.<br>
         </i>
-        <p> <a
-            href="https://www.w3.org/2016/Talks/1205-swat4ls-egp/reasoning">Slides
-            by Eric Prud'hommeaux</a> illustrate how
-          inference can be used on FHIR RDF data to perform a query for
-          FHIR Observations of rheumatoid arthritis, using the <a
-            href="https://www.nlm.nih.gov/healthit/snomedct/international.html">SNOMED-CT
-            ontology</a>. <i> Caveat: those
-            slides are based on an earlier version of FHIR RDF and also
-            show some terms in the fhir: namespace that do not actually
-            exist in the fhir: namespace, such as
-            fhir:Observation-of-Rheumatoid_arthritis-disorder and
-            fhir:Coding-of-Rheumatoid_arthritis-disorder. A different
-            namespace should have been used in the example.</i><br>
         </p>
+
         <h3><a name="concept-iri-algorithm"></a>Appendix: Algorithm for
           Creating a Concept IRI</h3>
         <p>This section defines a standard algorithm for generating a
@@ -762,7 +744,6 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
             The ucschar production defined in <a
               href="https://datatracker.ietf.org/doc/html/rfc3987#section-2.2">RFC
 
-
               3987, section 2.2</a> is also non-normatively quoted here
             for convenience.&nbsp; (Non-normative comment: The ucschar
             production defines international character ranges that are
@@ -773,170 +754,143 @@ href="https://yosemiteproject.org/tutorial-fhir-rdf-as-a-bridge-to-the-semantic-
             components of an IRI.)<br>
             <blockquote> <code>ucschar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
                 = %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF</code><code><br>
               </code><code>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-
-
-
 
                 / %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD</code><code><br>
               </code><code>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
-
-
-
-
                 / %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD</code><code><br>
               </code><code>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-
-
-
 
                 / %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD</code><code><br>
               </code><code>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
-
-
-
-
                 / %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD</code><code><br>
               </code><code>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-
-
-
 
                 / %xD0000-DFFFD / %xE1000-EFFFD</code><br>
             </blockquote>
           </li>
           <li> <i>conceptIRI</i> is the result of concatenating <i>iStem</i>
-            and <i> cSafe.</i></li>
+            and <i> cSafe.</i>  Halt.</li>
         </ol>
         <br>
         Some real and hypothetical examples are shown in the following
         table.<br>
         <br>
-        <table style="border: 1px solid gray; border-collapse: collapse">
+        <table style="border: 1px solid gray; border-collapse: collapse; ">
           <tbody>
             <tr>
-              <td colspan="1" rowspan="1">
-                <p><code class="rdf" style="font-size=larger"><b><span>Coding.system</span></b></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code class="rdf" style="font-size: larger"><b><span>Coding.system</span></b></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code class="rdf" style="font-size=larger"><b><span>Coding.code</span></b></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code class="rdf" style="font-size: larger"><b><span>Coding.code</span></b></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><b><span>IRI Stem</span></b></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><b><span>Concept IRI</span></b></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p>ICD 10:<code><span><br>
                     </span></code><code><span>http://hl7.org/fhir/sid/icd-10</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>G44.1</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://purl.bioontology.org/ontology/ICD10/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://purl.bioontology.org/ontology/ICD10/G44.1</span></code><code><span>&nbsp;</span></code></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p>SNOMED CT:<code><span><br>
                     </span></code><code><span>http://snomed.info/sct</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>128045006</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://snomed.info/id/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://snomed.info/id/128045006</span></code></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p>SNOMED CT:<code><span><br>
                     </span></code><code><span>http://snomed.info/sct</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>128045006:{363698007=</span></code><code><span>56459004</span></code><code><span>}</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://snomed.info/id/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://snomed.info/id/128045006:{363698007=56459004}</span></code></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p>MeSH: <code><span>https://www.nlm.nih.gov/mesh</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>D000305</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>https://id.nlm.nih.gov/mesh/ </span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>https://id.nlm.nih.gov/mesh/D000305 </span></code></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
-                <p>LOINC: <code><span>http://loinc.org </span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p>LOINC: <code><span>http://loinc.org</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>35217-9</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code><span>https://loinc.org/rdf</span></code><code><span>/
-                    </span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code><span>https://loinc.org/rdf/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code><span>https://loinc.org/rdf/35217-9 </span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code><span>https://loinc.org/rdf/35217-9</span></code></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p>Example coding system that uses a Unicode smiling
                   face character (U+263A) as a code:<code><span><br>
                     </span></code><code><span>http://example.org/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code class="rdf" style="font-size=larger"><span>☺</span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code class="rdf"><span style="font-size: larger"><span style="font-size: larger">☺</span></span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code><span>http://example.org/ </span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code><span>http://example.org/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code class="rdf" style="font-size=larger"><span>http://example.org/☺</span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code class="rdf">http://example.org/<span style="font-size: larger"><span style="font-size: larger">☺</span></span></code></p>
               </td>
             </tr>
             <tr>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p>Example coding system that uses a Unicode waving hand
                   character (U+1F44B) from the <a
 href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Miscellaneous_Symbols_and_Pictographs&amp;sa=D&amp;source=editors&amp;ust=1661857750967890&amp;usg=AOvVaw3NF72CBQp0L6mXw4Z2Uolw">Miscellaneous
@@ -946,22 +900,20 @@ href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Miscellaneous_S
                   combined with the medium-dark skin tone (U+1F3FE):<code><span><br>
                     </span></code><code><span>http://example.org/</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code class="rdf" style="font-size=larger"><span>👋🏾</span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code class="rdf"><span style="font-size: larger">👋🏾</span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
                 <p><code><span>http://example.org/ </span></code></p>
               </td>
-              <td colspan="1" rowspan="1">
-                <p><code class="rdf" style="font-size=larger"><span>http://example.org/id/👋🏾</span></code><code><span>&nbsp;</span></code></p>
+              <td colspan="1" rowspan="1" style="border: 1px solid gray; padding: 2px; ">
+                <p><code class="rdf">http://example.org/<span style="font-size: larger">👋🏾</span></code><code><span>&nbsp;</span></code></p>
               </td>
             </tr>
           </tbody>
         </table>
         <br>
         <br>
-
-
 
 [%file newfooter%]
 </body>
