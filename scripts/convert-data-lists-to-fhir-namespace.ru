@@ -7,6 +7,14 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX fhir: <http://hl7.org/fhir/>
+
+INSERT DATA {
+  fhir:rdfFirst rdf:type owl:ObjectProperty .
+  fhir:rdfFirstLiteral rdf:type owl:DatatypeProperty .
+  fhir:rdfRest rdf:type owl:ObjectProperty .
+  fhir:rdfNil rdf:type owl:NamedIndividual .
+}
+;
 DELETE {
   ?list rdf:first ?item .
   ?list rdf:rest ?rest .
@@ -14,11 +22,6 @@ DELETE {
 INSERT {
   ?list ?first_pred ?item .
   ?list fhir:rdfRest ?rest_obj .
-  
-  fhir:rdfFirst rdf:type owl:ObjectProperty .
-  fhir:rdfFirstLiteral rdf:type owl:DatatypeProperty .
-  fhir:rdfRest rdf:type owl:ObjectProperty .
-  fhir:rdfNil rdf:type owl:NamedIndividual .
 }
 WHERE {
   ?list rdf:first ?item .
