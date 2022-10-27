@@ -1,7 +1,7 @@
 # This SPARQL Update can be used to transform RDF lists created by the FHIR data model
 # into structures using the FHIR namespace. This allows compatibility with OWL, which
 # reserves RDF lists for use in internal OWL constructs.
-# Only lists that are not the objects of predicates from the OWL RDF serialization are transformed.
+# Only lists that are the objects of predicates in the fhir: namespace are transformed.
 # It can be applied to data in a triplestore, or via command line using the Jena `update` tool:
 # `update --data=my-fhir-data.ttl --update=convert-data-lists-to-fhir-namespace.ru --dump >my-fhir-data-converted.ttl`
 
@@ -25,11 +25,12 @@ INSERT {
   ?list fhir:rdfRest ?rest_obj .
 }
 WHERE {
+  BIND(STR(fhir:) AS ?namespace)
+  ?node ?p ?top_list .
+  FILTER(STRSTARTS(STR(?p), ?namespace))
+  ?top_list rdf:rest* ?list .
   ?list rdf:first ?item .
   ?list rdf:rest ?rest .
-  FILTER NOT EXISTS {
-    ?owl (owl:intersectionOf|owl:unionOf|owl:oneOf|owl:withRestrictions|owl:onProperties|owl:members|owl:disjointUnionOf|owl:propertyChainAxiom|owl:hasKey)/rdf:rest* ?list .
-  }
   BIND(IF(isLiteral(?item), fhir:rdfFirstLiteral, fhir:rdfFirst) AS ?first_pred)
   BIND(IF(?rest = rdf:nil, fhir:rdfNil, ?rest) AS ?rest_obj)
 }
