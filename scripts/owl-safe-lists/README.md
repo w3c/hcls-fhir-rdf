@@ -1,4 +1,4 @@
-# scripts to flatten FHIR lists
+# scripts to hide RDF Collections in FHIR from OWL
 
 * python - TODO
 * javascript - TODO
