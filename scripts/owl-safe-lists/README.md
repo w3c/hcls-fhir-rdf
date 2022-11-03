@@ -10,7 +10,7 @@ To work around this problem and allow OWL reasoners to properly process your dat
 * rdf:rest --> fhir:rdfRest (an owl:ObjectProperty)
 * rdf:nil --> fhir:rdfNil
 
-The scripts below perform such conversions, and are provided as a convenience.  Additional contributions are welcomed if you have other means of working around this issue.
+The scripts below perform such conversions, and are provided as a convenience.  Additional contributions are welcomed if you have other means of working around this problem.
 
 ## Scripts
 * SPARQL
