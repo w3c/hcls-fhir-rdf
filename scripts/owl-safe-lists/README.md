@@ -1,4 +1,4 @@
-# Scripts to hide RDF Collections in FHIR from OWL
+# Scripts to hide RDF lists / RDF Collections in FHIR from OWL
 
 ## Background: the problem
 FHIR RDF R5 uses RDF lists (a/k/a RDF Collections) to capture the order of items, when multiple items can be specified.  For example, a patient can have multiple phone numbers, and the order of those numbers may be significant: the first one may be the preferred number, for example.  To retain order, these lists use the standard rdf:first, rdf:rest and rdf:nil vocabulary.   However, OWL uses RDF lists for its own expressive purposes and prohibits the use of vocabulary in the RDF namespace for non-OWL purposes.  This means that some OWL processors may not properly process FHIR RDF R5 data that contains RDF lists for non-OWL purposes.  
