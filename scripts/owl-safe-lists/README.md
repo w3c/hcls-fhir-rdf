@@ -16,6 +16,6 @@ The scripts below perform such conversions, and are provided as a convenience.  
 * SPARQL
   * [convert-data-lists-to-fhir-namespace-fhir-only.ru](https://github.com/w3c/hcls-fhir-rdf/blob/gh-pages/scripts/owl-safe-lists/convert-data-lists-to-fhir-namespace-fhir-only.ru) -- This version only transforms lists that are objects of predicates that are in the fhir: namespace.  Other lists are not touched, even if they are not OWL lists.
   * [owl-safe-lists/convert-data-lists-to-fhir-namespace.ru](https://github.com/w3c/hcls-fhir-rdf/blob/gh-pages/scripts/owl-safe-lists/convert-data-lists-to-fhir-namespace.ru) -- This version transforms all non-OWL lists, regardless of whether they are FHIR lists. 
-* python - TODO
-* javascript - TODO
-* java - TODO
+* python - TODO -- Contributions would be welcomed!
+* javascript - TODO -- Contributions would be welcomed!
+* java - TODO -- Contributions would be welcomed!
