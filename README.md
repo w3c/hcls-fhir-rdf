@@ -1,5 +1,5 @@
 # hcls-fhir-rdf
-Issue repo for RDF representation for FHIR. See [HL7 Jira ticket](https://confluence.hl7.org/pages/viewpage.action?pageId=66922543)
+This repo is maintained by the [RDF subgroup of the HL7 ITS group](https://confluence.hl7.org/pages/viewpage.action?pageId=66922543), and is mostly used for tracking FHIR RDF [issues](https://github.com/w3c/hcls-fhir-rdf/issues).
 
 ## State of affairs
 The ShEx and RDF generation functions have been implemented directly within the [FHIR publishing process](http://gforge.hl7.org/gf/project/fhir).   
