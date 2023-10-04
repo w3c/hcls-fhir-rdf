@@ -2,13 +2,14 @@
 This repo is maintained by the [RDF subgroup of the HL7 ITS group](https://confluence.hl7.org/pages/viewpage.action?pageId=66922543), and is mostly used for tracking FHIR RDF [issues](https://github.com/w3c/hcls-fhir-rdf/issues).
 
 ## State of affairs
-The ShEx and RDF generation functions have been implemented directly within the [FHIR publishing process](http://gforge.hl7.org/gf/project/fhir).   
+The ShEx and RDF generation functions have been implemented directly within the [FHIR publishing process](https://github.com/HL7/fhir).   
 
-Code for the RDF generator can be found in [TurtleParser.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Felementmodel%2FTurtleParser.java&) and [RdfBaseParser.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Fformats%2FRdfParserBase.java)
+<span color="red">**The RDF and ShEx generation code in this repository is no longer maintained. See documentation below for an overview of the current generation process.**</span>
 
-Code for the ShEx generation can be found in [ShExGenerator.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Fconformance%2FShExGenerator.java)
-
-<span color="red">**The RDF and ShEx generation code in this repository is no longer maintained.**</span>
+## Resources
+* [FHIR RDF Overview](https://www.hl7.org/fhir/rdf.html)
+* [Ontology](https://www.hl7.org/fhir/fhir.ttl)
+* [RDF Downloads](https://www.hl7.org/fhir/downloads.html)
 
 ---------
 
@@ -25,3 +26,18 @@ Code for the ShEx generation can be found in [ShExGenerator.java](http://gforge.
 * <del>tests -- python unit tests (not a lot at the moment)</del>
 * <del>xsl -- XSLT 2.0 transform for converting FHIR instances from XML to RDF</del>
 
+## RDF & ShEx Generation
+* [HL7/fhir: Official source for the HL7 FHIR Specification](https://github.com/HL7/fhir)
+  * Publishes the FHIR specification and its artifacts
+  * Uses Kindling for generating all artifact serializations
+
+* [HL7/kindling: FHIR Publisher](https://github.com/HL7/kindling)
+  * Uses org.hl7.fhir.core for parsing and serialization
+  * [Publisher.java](https://github.com/HL7/kindling/blob/main/src/main/java/org/hl7/fhir/tools/publisher/Publisher.java) - CLI entry point, builds artifacts for publishing
+  * [FhirTurtleGenerator.java](https://github.com/HL7/kindling/blob/main/src/main/java/org/hl7/fhir/definitions/generators/specification/FhirTurtleGenerator.java) - builds the ontology
+  * [TurtleSpecGenerator.java](https://github.com/HL7/kindling/blob/main/src/main/java/org/hl7/fhir/definitions/generators/specification/TurtleSpecGenerator.java) - builds pseudo-turtle templates for each resource, e.g [Patient - FHIR v5.0.0](https://www.hl7.org/fhir/patient.html#tabs-ttl)
+
+* [org.hl7.fhir.core](https://github.com/hapifhir/org.hl7.fhir.core)
+  * [TurtleParser.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r5/src/main/java/org/hl7/fhir/r5/elementmodel/TurtleParser.java) - serializes R5+ resources
+  * [RdfParser.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r4/src/main/java/org/hl7/fhir/r4/formats/RdfParser.java) - serializes resource versions prior to R5
+  * [ShExGenerator.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r5/src/main/java/org/hl7/fhir/r5/conformance/ShExGenerator.java) - serializes ShEx schemas
