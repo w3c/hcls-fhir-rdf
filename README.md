@@ -2,11 +2,11 @@
 This repo is maintained by the [RDF subgroup of the HL7 ITS group](https://confluence.hl7.org/pages/viewpage.action?pageId=66922543), and is mostly used for tracking FHIR RDF [issues](https://github.com/w3c/hcls-fhir-rdf/issues).
 
 ## State of affairs
-The ShEx and RDF generation functions have been implemented directly within the [FHIR publishing process](http://gforge.hl7.org/gf/project/fhir).   
+The ShEx and RDF generation functions have been implemented directly within the [FHIR publishing process on github](https://github.com/HL7/fhir)   
 
-Code for the RDF generator can be found in [TurtleParser.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Felementmodel%2FTurtleParser.java&) and [RdfBaseParser.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Fformats%2FRdfParserBase.java)
+HAPI is now used for parsing and generating FHIR RDF in the FHIR publication process.  See [RDFParser](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-base/src/main/java/ca/uhn/fhir/parser/RDFParser.java)
 
-Code for the ShEx generation can be found in [ShExGenerator.java](http://gforge.hl7.org/gf/project/fhir/scmsvn/?action=browse&path=%2Ftrunk%2Fbuild%2Ftools%2Fjava%2Forg.hl7.fhir.dstu3%2Fsrc%2Forg%2Fhl7%2Ffhir%2Fdstu3%2Fconformance%2FShExGenerator.java)
+Code for the ShEx generation can be found in [ShExGenerator.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r5/src/main/java/org/hl7/fhir/r5/conformance/ShExGenerator.java)
 
 <span color="red">**The RDF and ShEx generation code in this repository is no longer maintained.**</span>
 
