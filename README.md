@@ -41,3 +41,4 @@ The ShEx and RDF generation functions have been implemented directly within the 
   * [TurtleParser.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r5/src/main/java/org/hl7/fhir/r5/elementmodel/TurtleParser.java) - serializes R5+ resources
   * [RdfParser.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r4/src/main/java/org/hl7/fhir/r4/formats/RdfParser.java) - serializes resource versions prior to R5
   * [ShExGenerator.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r5/src/main/java/org/hl7/fhir/r5/conformance/ShExGenerator.java) - serializes ShEx schemas
+  * [TurtleGeneratorTests.java](https://github.com/hapifhir/org.hl7.fhir.core/blob/master/org.hl7.fhir.r5/src/test/java/org/hl7/fhir/r5/test/TurtleGeneratorTests.java) - Unit tests and convenience methods for serializing R5+ resources
