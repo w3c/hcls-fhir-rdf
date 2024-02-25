@@ -33,3 +33,14 @@ WHERE {
   BIND(IF(isLiteral(?item), fhir:rdfFirstLiteral, fhir:rdfFirst) AS ?first_pred)
   BIND(IF(?rest = rdf:nil, fhir:rdfNil, ?rest) AS ?rest_obj)
 }
+;
+INSERT {
+  ?ont a owl:Ontology .
+  ?ont owl:imports <http://hl7.org/fhir/fhir.ttl> .
+}
+WHERE {
+  OPTIONAL {
+    ?existing_ont a owl:Ontology .
+  }
+  BIND(COALESCE(?existing_ont, BNODE()) AS ?ont)
+}
